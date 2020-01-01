@@ -32,10 +32,6 @@ for i in cabextract jack2 libxkbcommon mlt musescore openjdk qt5 qt5-speech ;do
     xgetpac "$i-" "$SLACKALIEN/$i/pkg64/current" 10
     xpurgepac "$i-"
 done
-for i in jack ;do
-    xgetpac "$i-" "$SLACKALIEN/$i/pkg64/14.2" 10
-    xpurgepac "$i-"
-done
 for i in mlt ;do
     xgetpac "$i-" "$SLACKALIEN2" 10
     xpurgepac "$i-"
