@@ -6,8 +6,7 @@
 # Met a jour dans git.
 # Met a jour dans git.
 # git remote -v
-# git remote set-url origin  https://github.com/WhiteWolf1776/Bumblebee-SlackBuilds.git
-# git remote set-url origin  https://github.com/BrunoLafleur/Bumblebee-SlackBuilds.git
+# git remote set-url origin  https://github.com/BrunoLafleur/pbslacks.git
 # git push
 # git pull
 
