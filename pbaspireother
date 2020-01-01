@@ -7,10 +7,27 @@ fi
 
 HOMEDENEMO="http://git.savannah.gnu.org/cgit/denemo.git/snapshot/denemo-master.tar.gz"
 SLACKCF="http://slack.conraid.net/repository/slackware64-current"
-SLACKDJ="https://slackware.pkgs.org/current/slackel-x86_64"
-SLACKDJ32="https://slackware.pkgs.org/current/slackel-i486"
+SLACKDJ="http://www.slackel.gr/repo/x86_64/current/slackel/extra"
+SLACKDJ32="http://www.slackel.gr/repo/i486/current/slackel/extra"
 SREPO1=cf
 SREPO2=dj
+
+xpurgepac () {
+    pac="$1"
+    LAST=`ls -1t "$pac"*.t?z|head -1`
+    for j in "$pac"*.t?z ;do
+	if [ "$j" != "$LAST" ] ;then
+	    rm -f "$j"
+	fi
+    done
+}
+
+xgetpac () {
+    pac="$1"
+    dir="$2"
+    prof="$3"
+    wget -N -A "$pac"'*.t?z' -r -np -nH --cut-dir=$prof "$dir/"
+}
 
 cd packages2
 if [ ! -d denemo ] ;then
@@ -18,56 +35,46 @@ if [ ! -d denemo ] ;then
     cp ../pbslacks/denemo.tar.gz denemo
 fi
 cd denemo
-wget -N "$HOMEDENEMO"
+#wget -N "$HOMEDENEMO"
 cd ../..
 
-#rm -f packages/*${SREPO1}.t?z packages/*${SREPO2].t?z
 cd packages
 for i in gimp-script-fu x265 ;do
-	wget -N -A "$i-"'*.t?z' -r -np -nH --cut-dir=10 "$SLACKCF/$i/"
+    xgetpac "$i-" "$SLACKCF/$i" 3
+    xpurgepac "$i-"
 done
 for i in frei0r-plugins libvdpau-va-gl openshot ;do
-	wget -N -A "$i-"'*.t?z' -r -np -nH --cut-dir=10 "$SLACKDJ/$i/1/"
-	wget -N -A "$i-"'*.t?z' -r -np -nH --cut-dir=10 "$SLACKDJ/$i/2/"
-	wget -N -A "$i-"'*.t?z' -r -np -nH --cut-dir=10 "$SLACKDJ/$i/3/"
-	wget -N -A "$i-"'*.t?z' -r -np -nH --cut-dir=10 "$SLACKDJ/$i/4/"
+    xgetpac "$i-" "$SLACKDJ" 5
+    xpurgepac "$i-"
 done
-cd ..
+cd 32
+for i in wxPython ;do
+    xgetpac "$i-" "$SLACKDJ32" 5
+    xpurgepac "$i-"
+done
+cd ../..
 find packages -name 'index.html*' -exec rm -f {} \;
 
-#rm -f packages2/*${SREPO1}.t?z packages2/*${SREPO2].t?z
 cd packages2
 for i in jq lua oniguruma valgrind ;do
-	wget -N -A "$i-"'*.t?z' -r -np -nH --cut-dir=10 "$SLACKCF/$i/"
+    xgetpac "$i-" "$SLACKCF/$i" 3
+    xpurgepac "$i-"
 done
 for i in guile1.8 ;do
-	wget -N -A "$i-"'*.t?z' -r -np -nH --cut-dir=10 "$SLACKDJ/$i/1/"
-	wget -N -A "$i-"'*.t?z' -r -np -nH --cut-dir=10 "$SLACKDJ/$i/2/"
-	wget -N -A "$i-"'*.t?z' -r -np -nH --cut-dir=10 "$SLACKDJ/$i/3/"
-	wget -N -A "$i-"'*.t?z' -r -np -nH --cut-dir=10 "$SLACKDJ/$i/4/"
+    xgetpac "$i-" "$SLACKDJ" 5
+    xpurgepac "$i-"
 done
 cd ..
 find packages2 -name 'index.html*' -exec rm -f {} \;
 
-#rm -f packages4/*${SREPO1}.t?z packages4/*${SREPO2].t?z
 cd packages4
 for i in exiftools ;do
-	PROJ=`echo $i|cut -d '/' -f2`
-	wget -N -A "$i-"'*.t?z' -r -np -nH --cut-dir=10 "$SLACKCF/$i/"
+    xgetpac "$i-" "$SLACKCF/$i" 3
+    xpurgepac "$i-"
 done
 for i in xcftools ;do
-	wget -N -A "$i-"'*.t?z' -r -np -nH --cut-dir=10 "$SLACKDJ/$i/1/"
-	wget -N -A "$i-"'*.t?z' -r -np -nH --cut-dir=10 "$SLACKDJ/$i/2/"
-	wget -N -A "$i-"'*.t?z' -r -np -nH --cut-dir=10 "$SLACKDJ/$i/3/"
-	wget -N -A "$i-"'*.t?z' -r -np -nH --cut-dir=10 "$SLACKDJ/$i/4/"
+    xgetpac "$i-" "$SLACKDJ" 5
+    xpurgepac "$i-"
 done
-#rm -f 32/*${SREPO1}.t?z 32/*${SREPO2].t?z
-cd 32
-for i in wxPython ;do
-	wget -N -A "$i-"'*.t?z' -r -np -nH --cut-dir=10 "$SLACKDJ32/$i/1/"
-	wget -N -A "$i-"'*.t?z' -r -np -nH --cut-dir=10 "$SLACKDJ32/$i/2/"
-	wget -N -A "$i-"'*.t?z' -r -np -nH --cut-dir=10 "$SLACKDJ32/$i/3/"
-	wget -N -A "$i-"'*.t?z' -r -np -nH --cut-dir=10 "$SLACKDJ32/$i/4/"
-done
-cd ../..
+cd ..
 find packages4 -name 'index.html*' -exec rm -f {} \;

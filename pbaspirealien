@@ -10,57 +10,82 @@ SLACKALIEN="$SLACKMIR/people/alien/slackbuilds"
 SLACKALIEN2="$SLACKMIR/people/alien-kde/current/latest/x86_64/deps"
 SREPO=alien
 
-# ALIEN
+xpurgepac () {
+    pac="$1"
+    LAST=`ls -1t "$pac"*.t?z|head -1`
+    for j in "$pac"*.t?z ;do
+	if [ "$j" != "$LAST" ] ;then
+	    rm -f "$j"
+	fi
+    done
+}
 
-rm -f packages/*${SREPO}.t?z
+xgetpac () {
+    pac="$1"
+    dir="$2"
+    prof="$3"
+    wget -N -A "$pac"'*.t?z' -r -np -nH --cut-dir=$prof "$dir/"
+}
+
 cd packages
-for i in cabextract jack libxkbcommon mlt musescore openjdk qt5 qt5-speech ;do
-	wget -A "$i-"'*.t?z' -r -np -nH --cut-dir=10 "$SLACKALIEN/$i/pkg64/current/"
+for i in cabextract jack2 libxkbcommon mlt musescore openjdk qt5 qt5-speech ;do
+    xgetpac "$i-" "$SLACKALIEN/$i/pkg64/current" 10
+    xpurgepac "$i-"
+done
+for i in jack ;do
+    xgetpac "$i-" "$SLACKALIEN/$i/pkg64/14.2" 10
+    xpurgepac "$i-"
+done
+for i in mlt ;do
+    xgetpac "$i-" "$SLACKALIEN2" 10
+    xpurgepac "$i-"
 done
 for i in steamclient ;do
-	wget -A "$i-"'*.t?z' -r -np -nH --cut-dir=10 "$SLACKALIEN/$i/pkg/current/"
+    xgetpac "$i-" "$SLACKALIEN/$i/pkg/current" 10
+    xpurgepac "$i-"
 done
 for i in libreoffice libreoffice-dict-fr libreoffice-l10n-fr libreoffice-sdkdoc ;do
-	wget -A "$i-"'[0-9]*.t?z' -r -np -nH --cut-dir=10 "$SLACKALIEN/libreoffice/pkg64/current/"
+    xgetpac "$i-"'[0-9]' "$SLACKALIEN/libreoffice/pkg64/current" 10
+    xpurgepac "$i-"'[0-9]'
 done
 rm -f 32/*${SREPO}.t?z
 cd 32
 for i in cabextract ;do
-	wget -A "$i-"'*.t?z' -r -np -nH --cut-dir=10 "$SLACKALIEN/$i/pkg/current/"
+    xgetpac "$i-" "$SLACKALIEN/$i/pkg/current" 10
+    xpurgepac "$i-"
 done
 cd ../..
 find packages -name 'index.html*' -exec rm -f {} \;
 
-rm -f packages2/*${SREPO}.t?z
 cd packages2
 for i in SDL_sound aubio rubberband vlc ;do
-	wget -A "$i-"'*.t?z' -r -np -nH --cut-dir=10 "$SLACKALIEN/$i/pkg64/current/"
+    xgetpac "$i-" "$SLACKALIEN/$i/pkg64/current" 10
+    xpurgepac "$i-"
 done
 cd ..
 find packages2 -name 'index.html*' -exec rm -f {} \;
 
-rm -f packages3/*${SREPO}.t?z
 cd packages3
 for i in calibre ;do
-	wget -A "$i-"'*.t?z' -r -np -nH --cut-dir=10 "$SLACKALIEN/$i/pkg64/current/"
+    xgetpac "$i-" "$SLACKALIEN/$i/pkg64/current" 10
+    xpurgepac "$i-"
 done
 cd ..
 find packages3 -name 'index.html*' -exec rm -f {} \;
 
-rm -f packages4/*${SREPO}.t?z
 cd packages4
 for i in chromium ;do
-	wget -A "$i-"'*.t?z' -r -np -nH --cut-dir=10 "$SLACKALIEN/$i/pkg64/current/"
+    xgetpac "$i-" "$SLACKALIEN/$i/pkg64/current" 10
+    xpurgepac "$i-"
 done
 for i in PyQt5 wayland-protocols ;do
-	wget -A "$i-"'*.t?z' -r -np -nH --cut-dir=10 "$SLACKALIEN2/"
+    xgetpac "$i-" "$SLACKALIEN2" 10
+    xpurgepac "$i-"
 done
-cd ..
-
-rm -f packages4/audacity/*${SREPO}.t?z
-cd packages4/audacity
+cd audacity
 for i in audacity lilv lv2 serd sord sratom suil vamp-plugin-sdk ;do
-	wget -A "$i-"'*.t?z' -r -np -nH --cut-dir=10 "$SLACKALIEN/$i/pkg64/current/"
+    xgetpac "$i-" "$SLACKALIEN/$i/pkg64/current" 10
+    xpurgepac "$i-"
 done
 cd ../..
 find packages4 -name 'index.html*' -exec rm -f {} \;
