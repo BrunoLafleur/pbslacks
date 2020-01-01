@@ -1,0 +1,57 @@
+#! /bin/sh
+
+if [ ! $UID = 0 ]; then
+  cat << EOF
+This script must be run as root.
+EOF
+  exit 1
+fi
+
+if [ ! -d slackware64-current ] ;then
+    echo "Script a lancer dans le repertoire contenant slackware64-current fraichement aspire."
+    exit 1
+fi
+
+MYPWD=`pwd`
+HOMESLACK="$MYPWD"
+
+cp pbslacks/Slackpkg/blacklist /etc/slackpkg
+cp pbslacks/Slackpkg/slackpkg.conf /etc/slackpkg
+cat pbslacks/Slackpkg/mirrors | sed "s@HOMESLACK@${HOMESLACK}@" > /etc/slackpkg/mirrors
+slackpkg update gpg
+slackpkg update
+slackpkg install-new
+slackpkg upgrade-all
+slackpkg clean-system
+
+if [ $? -ne 0 ] ;then
+	echo 'Abort : voir erreurs precedentes.'
+fi
+echo "Upgrade fait."
+
+cd $HOMESLACK
+upgradepkg --install-new current/*.t?z
+upgradepkg --install-new current/slackware64-compat32/*/*.t?z
+echo "Upgrade multilib fait."
+
+cd $HOMESLACK
+upgradepkg --install-new packages*/*.t?z
+upgradepkg --install-new packages4/frameworks/*.t?z
+echo "Upgrade packages* fait."
+
+$HOMESLACK/pbslacks/pbupgrademoz
+
+if [ -d /boot/efi/EFI/Slackware ] ;then
+  cp /boot/vmlinuz /boot/initrd.gz /boot/efi/EFI/Slackware
+  echo "Fichiers vmlinuz et initrd.gz recopiés dans /boot/efi/EFI/Slackware"
+elif [ -f /boot/grub/grub.cfg ] ;then
+  grub-mkconfig -o /boot/grub/grub.cfg
+fi
+
+echo "Redémarrer la machine puis si necessaire remettez Crazybee"
+echo "Si lilo est installe, lancez /sbin/lilo"
+
+echo "Ensuite lancez si pas deja fait sur une machine mise a jour :"
+echo "  pbslacks/pbinstallpost"
+echo "Si votre machine est un portable avec 2 cartes graphiques dont 1 NVIDIA, relancez :"
+echo "  pbslacks/pbinstallcrazybee"

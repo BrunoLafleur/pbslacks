@@ -1,0 +1,9 @@
+Hibernate (garde les points de montage et pose problème si on a repartitionné):
+===========
+Sous Linux si on a oublié :
+--------------------------
+ntfsfix /dev/sdc5
+mount -t ntfs-3g /dev/sdc5 /mnt -o remove_hiberfile
+Sous Windows dans une fenetre administrateur tapez :
+-------------------------------------------------
+powercfg /h off

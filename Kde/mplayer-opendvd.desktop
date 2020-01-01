@@ -1,0 +1,10 @@
+[Desktop Entry]
+X-KDE-Solid-Predicate=[ StorageVolume.ignored == false AND OpticalDisc.availableContent & 'VideoDvd' ]
+Type=Service
+Actions=open;
+
+[Desktop Action open]
+Name=Open with MPlayer
+Exec=/usr/bin/gmplayer -vo gl dvdnav:// -mouse-movements -nocache -dvd-device %d
+Icon=mplayer
+

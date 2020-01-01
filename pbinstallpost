@@ -1,0 +1,88 @@
+#! /bin/sh
+
+# Recompilations a faire apres reboot.
+
+if [ ! $UID = 0 ]; then
+  cat << EOF
+This script must be run as root.
+EOF
+  exit 1
+fi
+
+if [ ! -d packages -o ! -d packages2 -o ! -d packages3 -o ! -d packages4 ] ;then
+	echo "Script a lancer dans le repertoire contenant (au dessus de) packages*."
+    exit 1
+fi
+
+RECOMP=1
+
+if [ "$1" = '-norecomp'  ] ;then
+    RECOMP=0
+fi
+
+echo "A lancer seulement apres la mise a jour du systeme."
+echo "Si deja fait sur une machine a jour, il n'est pas utile de relancer ce script."
+echo "Appuyer sur une touche pour continuer sinon CTRLc pour arreter."
+read c
+
+xmakepac () {
+    XDIR=$1
+    XPAC=$2
+    XSUB=$3
+
+    if [ $RECOMP -eq 1 ] ;then
+      cd ${XDIR}/$XPAC
+      tar xvfz ${XPAC}.t*gz
+      cd $XPAC
+      ./${XPAC}.SlackBuild
+      cp /tmp/${XPAC}-*.t?z ../..
+      if [ $? -ne 0 ] ;then
+	echo 'erreur'
+        exit 1
+      fi
+      cd ..;rm -rf $XPAC
+      cd ../..
+      chown produits.users $XDIR/${XPAC}-*.t?z
+      rm -f /tmp/${XPAC}-*.t?z
+      if [ "$XSUB" != '' ] ;then
+        mv $XDIR/${XPAC}-*i486*.t?z $XDIR/$XSUB
+      fi
+    fi
+    if [ "$XSUB" = '' ] ;then
+      upgradepkg --reinstall $XDIR/${XPAC}-*.t?z
+      rm -f /usr/lib64/lib*.la
+    fi
+}
+
+rm -f /usr/lib64/lib*.la
+for i in OpenAL libtxc_dxtn libgaminggear ;do
+    xmakepac packages $i
+done
+for i in roccat-tools kmplayer ;do
+    xmakepac packages2 $i
+done
+for i in bsddb3 db53 pyicu gramps ;do
+    xmakepac packages3 $i
+done
+for i in xrdp xorgxrdp SFML wxGTK3 vbam fbida kaffeine opencv ;do
+    xmakepac packages4 $i
+done
+
+export ARCH=i486
+for i in OpenAL libtxc_dxtn ;do
+    xmakepac packages $i 32
+done
+unset ARCH
+
+cd packages/32
+for i in cabextract libdvdcss icoutils wxPython OpenAL libtxc_dxtn ;do
+    if [ $RECOMP -eq 1 ] ;then
+      convertpkg-compat32 -i "$i-"'*.t?z' -d ../compat32
+      chown produits.users ../compat32/$i-compat32-*.t?z
+    fi
+    upgradepkg --reinstall ../compat32/$i-compat32-*.t?z
+    rm -f /usr/lib/lib*.la
+done
+cd ../..
+
+echo "Upgrade packages* fait."

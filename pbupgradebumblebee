@@ -1,0 +1,26 @@
+#! /bin/sh
+
+if [ ! $UID = 0 ]; then
+  cat << EOF
+This script must be run as root.
+EOF
+  exit 1
+fi
+
+if [ ! -d slackware64-current ] ;then
+    echo "Script a lancer dans le repertoire contenant slackware64-current fraichement aspire."
+    exit 1
+fi
+
+MYPWD=`pwd`
+HOMESLACK="$MYPWD"
+
+echo "Only for NVDIA second card on laptop."
+echo "Seulement pour portable équipés d'une deuxième carte NVIDIA."
+echo "Mettez eventuellement Bumblebee a jour avec pbinstallbumblebee."
+echo "Appuyez sur une touche pour continuer - press a touch for continue or abort."
+read c
+
+cd $HOMESLACK
+upgradepkg --install-new bumblebee/*.t?z
+echo "Upgrade bumblebee fait."

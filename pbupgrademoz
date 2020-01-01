@@ -1,0 +1,30 @@
+#! /bin/sh
+
+if [ ! $UID = 0 ]; then
+  cat << EOF
+This script must be run as root.
+EOF
+  exit 1
+fi
+
+if [ ! -d slackware64-current ] ;then
+    echo "Script a lancer dans le repertoire contenant slackware64-current fraichement aspire."
+    exit 1
+fi
+
+MYPWD=`pwd`
+HOMESLACK="$MYPWD"
+HOMEMOZ=/usr/lib64
+
+rm -rf $HOMEMOZ/firefox.en
+mv $HOMEMOZ/firefox $HOMEMOZ/firefox.en
+cd $HOMEMOZ
+tar xfj $HOMESLACK/packages/Mozilla/firefox-68.3.0esr.tar.bz2
+
+rm -rf $HOMEMOZ/thunderbird.en
+mv $HOMEMOZ/thunderbird $HOMEMOZ/thunderbird.en
+cd $HOMEMOZ
+tar xfj $HOMESLACK/packages/Mozilla/thunderbird-68.3.1.tar.bz2
+echo "Firefox et Thunderbird en français ajoutés"
+
+cd $MYPWD

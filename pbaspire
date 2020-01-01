@@ -1,0 +1,58 @@
+#! /bin/sh
+
+OLDSLACK=../Slackware-20190812
+SLACKMIR='http://nephtys.lip6.fr/pub/linux/distributions/slackware'
+SLACKMULTI="$SLACKMIR/people/alien/multilib/current"
+SLACKKDEFW="$SLACKMIR/people/alien-kde/current/latest/x86_64/kde/frameworks"
+
+if [ ! -d packages ] ;then
+    cp -a $OLDSLACK/packages* .
+    if [ -d $OLDSLACK/divers ] ;then
+        cp -a $OLDSLACK/divers .
+	mv divers bumblebee
+    else	
+ 	cp -a $OLDSLACK/bumblebee .
+    fi
+    ln -s ../pbslacks .
+    ln -s ../perso .
+    ln -s ../divers .
+fi
+
+if [ ! -d packages ] ;then
+    mkdir packages
+    mkdir packages/32
+    mkdir packages/compat32
+fi
+if [ ! -d packages2 ] ;then
+    mkdir packages2
+fi
+if [ ! -d packages3 ] ;then
+    mkdir packages3
+fi
+if [ ! -d packages4 ] ;then
+    mkdir packages4
+fi
+if [ ! -d bumblebee ] ;then
+    mkdir bumblebee
+fi
+
+wget -np -nH --cut-dirs=4 -r "$SLACKMIR/slackware64-current/"
+find slackware64-current -name 'index.html*' -exec rm -f {} \;
+
+wget -np -nH --cut-dirs=7 -r "$SLACKMULTI/"
+find current -name 'index.html*' -exec rm -f {} \;
+
+cd slackware64-current
+ln -sf ../current .
+ln -sf ../perso .
+ln -sf ../pbslacks .
+ln -sf ../bumblebee .
+ln -sf ../divers .
+ln -sf ../packages* .
+cd ..
+
+cd packages4
+rm -rf packages4/frameworks
+wget -np -nH --cut-dirs=10 -r "$SLACKKDEFW/"
+find frameworks -name 'index.html*' -exec rm -f {} \;
+cd ..

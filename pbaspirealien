@@ -1,0 +1,69 @@
+#! /bin/sh
+
+if [ ! -d packages ] ;then
+    echo "Script a lancer dans le repertoire contenant slackware64-current fraichement aspire."
+    exit 1
+fi
+
+OLDSLACK=../Slackware-20190812
+if [ ! -d "$OLDSLACK" ] ;then
+	OLDSLACK=..
+fi
+SLACKMIR='http://nephtys.lip6.fr/pub/linux/distributions/slackware'
+SLACKALIEN="$SLACKMIR/people/alien/slackbuilds"
+SLACKALIEN2="$SLACKMIR/people/alien-kde/current/latest/x86_64/deps"
+
+# ALIEN
+
+rm -f packages/*alien*
+cd packages
+for i in cabextract jack libxkbcommon mlt musescore openjdk qt5 qt5-speech ;do
+	wget -A "$i-"'*.t?z' -r -np -nH --cut-dir=10 "$SLACKALIEN/$i/pkg64/current/"
+done
+for i in steamclient ;do
+	wget -A "$i-"'*.t?z' -r -np -nH --cut-dir=10 "$SLACKALIEN/$i/pkg/current/"
+done
+for i in libreoffice libreoffice-dict-fr libreoffice-l10n-fr libreoffice-sdkdoc ;do
+	wget -A "$i-"'[0-9]*.t?z' -r -np -nH --cut-dir=10 "$SLACKALIEN/libreoffice/pkg64/current/"
+done
+rm -f 32/*alien*
+cd 32
+for i in cabextract ;do
+	wget -A "$i-"'*.t?z' -r -np -nH --cut-dir=10 "$SLACKALIEN/$i/pkg/current/"
+done
+cd ../..
+find packages -name 'index.html*' -exec rm -f {} \;
+
+rm -f packages2/*alien*
+cd packages2
+for i in SDL_sound aubio rubberband vlc ;do
+	wget -A "$i-"'*.t?z' -r -np -nH --cut-dir=10 "$SLACKALIEN/$i/pkg64/current/"
+done
+cd ..
+find packages2 -name 'index.html*' -exec rm -f {} \;
+
+rm -f packages3/*alien*
+cd packages3
+for i in calibre ;do
+	wget -A "$i-"'*.t?z' -r -np -nH --cut-dir=10 "$SLACKALIEN/$i/pkg64/current/"
+done
+cd ..
+find packages3 -name 'index.html*' -exec rm -f {} \;
+
+rm -f packages4/*alien*
+cd packages4
+for i in chromium ;do
+	wget -A "$i-"'*.t?z' -r -np -nH --cut-dir=10 "$SLACKALIEN/$i/pkg64/current/"
+done
+for i in PyQt5 wayland-protocols ;do
+	wget -A "$i-"'*.t?z' -r -np -nH --cut-dir=10 "$SLACKALIEN2/"
+done
+cd ..
+
+rm -f packages4/audacity/*alien*
+cd packages4/audacity
+for i in audacity lilv lv2 serd sord sratom suil vamp-plugin-sdk ;do
+	wget -A "$i-"'*.t?z' -r -np -nH --cut-dir=10 "$SLACKALIEN/$i/pkg64/current/"
+done
+cd ../..
+find packages4 -name 'index.html*' -exec rm -f {} \;

@@ -1,0 +1,58 @@
+#! /bin/sh
+
+if [ ! -d packages ] ;then
+    echo "Script a lancer dans le repertoire contenant slackware64-current fraichement aspire."
+    exit 1
+fi
+
+OLDSLACK=../Slackware-20190812
+if [ ! -d "$OLDSLACK" ] ;then
+	OLDSLACK=..
+fi
+SLACKPONCE="http://ponce.cc/slackware/slackware64-current/packages"
+SLACKPONCE32="http://ponce.cc/slackware/slackware-current/packages"
+
+# ALIEN
+
+rm -f packages/*ponce*
+cd packages
+for i in ladspa_sdk swfdec x264 libdvdcss vid.stab ;do
+	wget -A "$i-"'*.t?z' -r -np -nH --cut-dir=3 "$SLACKPONCE/"
+done
+rm -f 32/*ponce*
+cd 32
+for i in libdvdcss ;do
+	wget -A "$i-"'*.t?z' -r -np -nH --cut-dir=3 "$SLACKPONCE32/"
+done
+cd ../..
+
+rm -f packages2/*ponce*
+cd packages2
+for i in gtksourceview3 ;do
+	wget -A "$i-"'*.t?z' -r -np -nH --cut-dir=3 "$SLACKPONCE/"
+done
+cd ..
+
+rm -f packages3/*ponce*
+cd packages3
+for i in graphviz ;do
+	wget -A "$i-"'*.t?z' -r -np -nH --cut-dir=3 "$SLACKPONCE/"
+done
+cd ..
+
+rm -f packages4/*ponce*
+cd packages4
+for i in hdf5 numpy ;do
+	wget -A "$i-"'*.t?z' -r -np -nH --cut-dir=3 "$SLACKPONCE/"
+done
+cd ..
+
+rm -f packages4/audacity/*ponce*
+cd packages4/audacity
+for i in celt051 ;do
+	wget -A "$i-"'*.t?z' -r -np -nH --cut-dir=4 "$SLACKPONCE/"
+done
+cd ../..
+
+rm -f packages*/robots.txt*
+rm -f packages*/*/robots.txt*
