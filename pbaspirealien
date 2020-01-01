@@ -8,7 +8,6 @@ fi
 SLACKMIR='http://nephtys.lip6.fr/pub/linux/distributions/slackware'
 SLACKALIEN="$SLACKMIR/people/alien/slackbuilds"
 SLACKALIEN2="$SLACKMIR/people/alien-kde/current/latest/x86_64/deps"
-SREPO=alien
 
 xpurgepac () {
     pac="$1"
@@ -44,7 +43,6 @@ for i in libreoffice libreoffice-dict-fr libreoffice-l10n-fr libreoffice-sdkdoc 
     xgetpac "$i-"'[0-9]' "$SLACKALIEN/libreoffice/pkg64/current" 10
     xpurgepac "$i-"'[0-9]'
 done
-rm -f 32/*${SREPO}.t?z
 cd 32
 for i in cabextract ;do
     xgetpac "$i-" "$SLACKALIEN/$i/pkg/current" 10
