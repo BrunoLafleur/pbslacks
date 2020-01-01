@@ -58,7 +58,7 @@ rm -f /usr/lib64/lib*.la
 for i in OpenAL libtxc_dxtn libgaminggear ;do
     xmakepac packages $i
 done
-for i in roccat-tools kmplayer ;do
+for i in roccat-tools kmplayer denemo ;do
     xmakepac packages2 $i
 done
 for i in bsddb3 db53 pyicu gramps ;do
