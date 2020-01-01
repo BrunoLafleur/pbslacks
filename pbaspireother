@@ -12,7 +12,12 @@ SLACKDJ32="https://slackware.pkgs.org/current/slackel-i486"
 SREPO1=cf
 SREPO2=dj
 
-cd packages2/denemo
+cd packages2
+if [ ! -d denemo ] ;then
+    mkdir denemo
+    cp ../pbslacks/denemo.tar.gz denemo
+fi
+cd denemo
 wget -N "$HOMEDENEMO"
 cd ../..
 
