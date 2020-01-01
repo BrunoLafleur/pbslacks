@@ -1,0 +1,65 @@
+#! /bin/sh
+
+if [ ! -d packages ] ;then
+    echo "Script a lancer dans le repertoire contenant packages, packages2 et al."
+    exit 1
+fi
+
+HOMEDENEMO="http://git.savannah.gnu.org/cgit/denemo.git/snapshot/denemo-master.tar.gz"
+SLACKCF="http://slack.conraid.net/repository/slackware64-current"
+SLACKDJ="https://slackware.pkgs.org/current/slackel-x86_64"
+SLACKDJ32="https://slackware.pkgs.org/current/slackel-i486"
+
+cd packages2/denemo
+wget -N "$HOMEDENEMO"
+cd ../..
+
+#rm -f packages/*cf.t?z packages/*dj.t?z
+cd packages
+for i in gimp-script-fu x265 ;do
+	wget -N -A "$i-"'*.t?z' -r -np -nH --cut-dir=10 "$SLACKCF/$i/"
+done
+for i in frei0r-plugins libvdpau-va-gl openshot ;do
+	wget -N -A "$i-"'*.t?z' -r -np -nH --cut-dir=10 "$SLACKDJ/$i/1/"
+	wget -N -A "$i-"'*.t?z' -r -np -nH --cut-dir=10 "$SLACKDJ/$i/2/"
+	wget -N -A "$i-"'*.t?z' -r -np -nH --cut-dir=10 "$SLACKDJ/$i/3/"
+	wget -N -A "$i-"'*.t?z' -r -np -nH --cut-dir=10 "$SLACKDJ/$i/4/"
+done
+cd ..
+find packages -name 'index.html*' -exec rm -f {} \;
+
+#rm -f packages2/*cf.t?z packages2/*dj.t?z
+cd packages2
+for i in jq lua oniguruma valgrind ;do
+	wget -N -A "$i-"'*.t?z' -r -np -nH --cut-dir=10 "$SLACKCF/$i/"
+done
+for i in guile1.8 ;do
+	wget -N -A "$i-"'*.t?z' -r -np -nH --cut-dir=10 "$SLACKDJ/$i/1/"
+	wget -N -A "$i-"'*.t?z' -r -np -nH --cut-dir=10 "$SLACKDJ/$i/2/"
+	wget -N -A "$i-"'*.t?z' -r -np -nH --cut-dir=10 "$SLACKDJ/$i/3/"
+	wget -N -A "$i-"'*.t?z' -r -np -nH --cut-dir=10 "$SLACKDJ/$i/4/"
+done
+cd ..
+find packages2 -name 'index.html*' -exec rm -f {} \;
+
+#rm -f packages4/*cf.t?z packages4/*dj.t?z
+cd packages4
+for i in exiftools ;do
+	PROJ=`echo $i|cut -d '/' -f2`
+	wget -N -A "$i-"'*.t?z' -r -np -nH --cut-dir=10 "$SLACKCF/$i/"
+done
+for i in xcftools ;do
+	wget -N -A "$i-"'*.t?z' -r -np -nH --cut-dir=10 "$SLACKDJ/$i/1/"
+	wget -N -A "$i-"'*.t?z' -r -np -nH --cut-dir=10 "$SLACKDJ/$i/2/"
+	wget -N -A "$i-"'*.t?z' -r -np -nH --cut-dir=10 "$SLACKDJ/$i/3/"
+	wget -N -A "$i-"'*.t?z' -r -np -nH --cut-dir=10 "$SLACKDJ/$i/4/"
+done
+cd 32
+for i in wxPython ;do
+	wget -N -A "$i-"'*.t?z' -r -np -nH --cut-dir=10 "$SLACKDJ32/$i/1/"
+	wget -N -A "$i-"'*.t?z' -r -np -nH --cut-dir=10 "$SLACKDJ32/$i/2/"
+	wget -N -A "$i-"'*.t?z' -r -np -nH --cut-dir=10 "$SLACKDJ32/$i/3/"
+	wget -N -A "$i-"'*.t?z' -r -np -nH --cut-dir=10 "$SLACKDJ32/$i/4/"
+done
+cd ../..
+find packages4 -name 'index.html*' -exec rm -f {} \;

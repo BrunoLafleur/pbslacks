@@ -8,8 +8,6 @@ fi
 SLACKPONCE="http://ponce.cc/slackware/slackware64-current/packages"
 SLACKPONCE32="http://ponce.cc/slackware/slackware-current/packages"
 
-# ALIEN
-
 rm -f packages/*ponce*
 cd packages
 for i in ladspa_sdk swfdec x264 libdvdcss vid.stab ;do
