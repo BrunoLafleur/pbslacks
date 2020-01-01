@@ -1,0 +1,23 @@
+Author and copyright : Pierre Brochard (pierre.brochard.1982@m4x.org)
+
+Those are somme scripts which download the latest Linux Slackware current
+distribution and some add-ons packages.
+
+> pbaspire*
+
+There are also scripts for updating one installed Slackware current to the
+latest downloaded with the script above.
+
+> pbupdate*
+
+and eventually
+
+> pbinstall*
+
+Those script are not standalone for now. Some packages were preloaded in my
+local repository. I will have better scripts in some future.
+
+Those scripts uses slackpkg and wget.
+
+I have tested with Slackware current of july 2019, aout 2019 and december
+2019.
