@@ -35,7 +35,7 @@ if [ ! -d denemo ] ;then
     cp ../pbslacks/denemo.tar.gz denemo
 fi
 cd denemo
-#wget -N "$HOMEDENEMO"
+wget -N "$HOMEDENEMO"
 cd ../..
 
 cd packages

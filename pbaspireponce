@@ -7,45 +7,61 @@ fi
 
 SLACKPONCE="http://ponce.cc/slackware/slackware64-current/packages"
 SLACKPONCE32="http://ponce.cc/slackware/slackware-current/packages"
-SREPO=ponce
 
-rm -f packages/*${SREPO}.t?z
+xpurgepac () {
+    pac="$1"
+    LAST=`ls -1t "$pac"*.t?z|head -1`
+    for j in "$pac"*.t?z ;do
+	if [ "$j" != "$LAST" ] ;then
+	    rm -f "$j"
+	fi
+    done
+}
+
+xgetpac () {
+    pac="$1"
+    dir="$2"
+    prof="$3"
+    wget -N -A "$pac"'*.t?z' -r -np -nH --cut-dir=$prof "$dir/"
+}
+
 cd packages
 for i in ladspa_sdk swfdec x264 libdvdcss vid.stab ;do
-	wget -A "$i-"'*.t?z' -r -np -nH --cut-dir=3 "$SLACKPONCE/"
+    xgetpac "$i-" "$SLACKPONCE" 3
+    xpurgepac "$i-"
 done
-rm -f 32/*${SREPO}.t?z
 cd 32
 for i in libdvdcss ;do
-	wget -A "$i-"'*.t?z' -r -np -nH --cut-dir=3 "$SLACKPONCE32/"
+    xgetpac "$i-" "$SLACKPONCE32" 3
+    xpurgepac "$i-"
 done
 cd ../..
 
-rm -f packages2/*${SREPO}.t?z
 cd packages2
 for i in gtksourceview3 ;do
-	wget -A "$i-"'*.t?z' -r -np -nH --cut-dir=3 "$SLACKPONCE/"
+    xgetpac "$i-" "$SLACKPONCE" 3
+    xpurgepac "$i-"
 done
 cd ..
 
-rm -f packages3/*${SREPO}.t?z
 cd packages3
 for i in graphviz ;do
-	wget -A "$i-"'*.t?z' -r -np -nH --cut-dir=3 "$SLACKPONCE/"
+    xgetpac "$i-" "$SLACKPONCE" 3
+    xpurgepac "$i-"
 done
 cd ..
 
-rm -f packages4/*${SREPO}.t?z
 cd packages4
 for i in hdf5 numpy ;do
-	wget -A "$i-"'*.t?z' -r -np -nH --cut-dir=3 "$SLACKPONCE/"
+    xgetpac "$i-" "$SLACKPONCE" 3
+    xpurgepac "$i-"
 done
 cd ..
 
-rm -f packages4/audacity/*${SREPO}.t?z
 cd packages4/audacity
 for i in celt051 ;do
-	wget -A "$i-"'*.t?z' -r -np -nH --cut-dir=4 "$SLACKPONCE/"
+    xgetpac "$i-" "$SLACKPONCE" 3
+    xpurgepac "$i-"
 done
 cd ../..
 

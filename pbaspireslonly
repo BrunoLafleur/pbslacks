@@ -7,28 +7,44 @@ fi
 
 SLACKSLONLY="https://slackonly.com/pub/packages/current-x86_64"
 SLACKSLONLY32="https://slackonly.com/pub/packages/current-x86"
-SREPO=slonly
 
-rm -f packages/*${SREPO}.t?z
+xpurgepac () {
+    pac="$1"
+    LAST=`ls -1t "$pac"*.t?z|head -1`
+    for j in "$pac"*.t?z ;do
+	if [ "$j" != "$LAST" ] ;then
+	    rm -f "$j"
+	fi
+    done
+}
+
+xgetpac () {
+    pac="$1"
+    dir="$2"
+    prof="$3"
+    wget -N -A "$pac"'*.t?z' -r -np -nH --cut-dir=$prof "$dir/"
+}
+
 cd packages
 for i in graphics/goocanvas development/portaudio system/refind development/icoutils audio/portmidi libraries/wxPython libraries/libpng-legacy12 python/pygoocanvas ;do
-	PROJ=`echo $i|cut -d '/' -f2`
-	wget -A "$PROJ-"'*.t?z' -r -np -nH --cut-dir=10 "$SLACKSLONLY/$i/"
+    PROJ=`echo $i|cut -d '/' -f2`
+    xgetpac "$PROJ-" "$SLACKSLONLY/$i" 5
+    xpurgepac "$PROJ-"
 done
-rm -f 32/*${SREPO}.t?z
 cd 32
 for i in development/icoutils ;do
-	PROJ=`echo $i|cut -d '/' -f2`
-	wget -A "$PROJ-"'*.t?z' -r -np -nH --cut-dir=10 "$SLACKSLONLY32/$i/"
+    PROJ=`echo $i|cut -d '/' -f2`
+    xgetpac "$PROJ-" "$SLACKSLONLY32/$i" 5
+    xpurgepac "$PROJ-"
 done
 cd ../..
 find packages -name 'index.html*' -exec rm -f {} \;
 
-rm -f packages2/*${SREPO}.t?z
 cd packages2
 for i in office/evince libraries/libsmf multimedia/lsdvd graphics/fontforge graphics/lilypond system/t1utils ;do
-	PROJ=`echo $i|cut -d '/' -f2`
-	wget -A "$PROJ-"'*.t?z' -r -np -nH --cut-dir=10 "$SLACKSLONLY/$i/"
+    PROJ=`echo $i|cut -d '/' -f2`
+    xgetpac "$PROJ-" "$SLACKSLONLY/$i" 5
+    xpurgepac "$PROJ-"
 done
 cd ..
 find packages2 -name 'index.html*' -exec rm -f {} \;
