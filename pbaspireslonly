@@ -1,0 +1,35 @@
+#! /bin/sh
+
+if [ ! -d packages ] ;then
+    echo "Script a lancer dans le repertoire contenant packages, packages2 et al."
+    exit 1
+fi
+
+SLACKSLONLY="https://slackonly.com/pub/packages/current-x86_64"
+SLACKSLONLY32="https://slackonly.com/pub/packages/current-x86"
+
+# ALIEN
+
+rm -f packages/*slonly*
+cd packages
+for i in graphics/goocanvas development/portaudio system/refind development/icoutils audio/portmidi libraries/wxPython libraries/libpng-legacy12 python/pygoocanvas ;do
+	PROJ=`echo $i|cut -d '/' -f2`
+	wget -A "$PROJ-"'*.t?z' -r -np -nH --cut-dir=10 "$SLACKSLONLY/$i/"
+done
+rm -f 32/*slonly*
+cd 32
+for i in development/icoutils ;do
+	PROJ=`echo $i|cut -d '/' -f2`
+	wget -A "$PROJ-"'*.t?z' -r -np -nH --cut-dir=10 "$SLACKSLONLY32/$i/"
+done
+cd ../..
+find packages -name 'index.html*' -exec rm -f {} \;
+
+rm -f packages2/*slonly*
+cd packages2
+for i in office/evince libraries/libsmf multimedia/lsdvd graphics/fontforge graphics/lilypond system/t1utils ;do
+	PROJ=`echo $i|cut -d '/' -f2`
+	wget -A "$PROJ-"'*.t?z' -r -np -nH --cut-dir=10 "$SLACKSLONLY/$i/"
+done
+cd ..
+find packages2 -name 'index.html*' -exec rm -f {} \;

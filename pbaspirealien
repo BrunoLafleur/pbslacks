@@ -1,14 +1,10 @@
 #! /bin/sh
 
 if [ ! -d packages ] ;then
-    echo "Script a lancer dans le repertoire contenant slackware64-current fraichement aspire."
+    echo "Script a lancer dans le repertoire contenant packages, packages2 et al."
     exit 1
 fi
 
-OLDSLACK=../Slackware-20190812
-if [ ! -d "$OLDSLACK" ] ;then
-	OLDSLACK=..
-fi
 SLACKMIR='http://nephtys.lip6.fr/pub/linux/distributions/slackware'
 SLACKALIEN="$SLACKMIR/people/alien/slackbuilds"
 SLACKALIEN2="$SLACKMIR/people/alien-kde/current/latest/x86_64/deps"

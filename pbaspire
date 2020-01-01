@@ -36,10 +36,10 @@ if [ ! -d bumblebee ] ;then
     mkdir bumblebee
 fi
 
-wget -np -nH --cut-dirs=4 -r "$SLACKMIR/slackware64-current/"
+wget -N -np -nH --cut-dirs=4 -r "$SLACKMIR/slackware64-current/"
 find slackware64-current -name 'index.html*' -exec rm -f {} \;
 
-wget -np -nH --cut-dirs=7 -r "$SLACKMULTI/"
+wget -N -np -nH --cut-dirs=7 -r "$SLACKMULTI/"
 find current -name 'index.html*' -exec rm -f {} \;
 
 cd slackware64-current
