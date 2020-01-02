@@ -38,13 +38,10 @@ If you have a dual graphic card on a Laptop with NVIDIA as root :
 > pbslacksinstallbumblebee
 
 =================================================================
-For updating one installed Slackware current to the latest downloaded with :
+For updating one installed Slackware current to the latest
+Download again (only the differences with wget -N) on a fresh or existant USB or central/local repository :
 > ../pbslacks/pbaspireinit
 > pbslacks/pbaspire
-
-Or an old local USB or central disk repository can be updated with (have to be tested) :
-> pbslacks/pbaspire -sync
-
 > pbslacks/pbaspirealien
 > pbslacks/pbaspireponce
 > pbslacks/pbaspireslonly
