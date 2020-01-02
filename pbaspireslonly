@@ -1,5 +1,8 @@
 #! /bin/sh
 
+# Auteur : Pierre Brochard (pierre.brochard.1982@m4x.org)
+# Date : 2019
+
 if [ ! -d packages ] ;then
     echo "Script a lancer dans le repertoire contenant packages, packages2 et al."
     exit 1

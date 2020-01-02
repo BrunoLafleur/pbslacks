@@ -1,5 +1,8 @@
 #! /bin/sh
 
+# Auteur : Pierre Brochard (pierre.brochard.1982@m4x.org)
+# Date : 2019
+
 if [ ! $UID = 0 ]; then
   cat << EOF
 This script must be run as root.
