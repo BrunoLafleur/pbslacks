@@ -20,52 +20,57 @@ Then in sequence or in parallel if the network is good enough.
 > pbslacks/pbaspireslonly
 > pbslacks/pbaspireother
 
-Then do a USB stick :
+Then do a USB stick as root (admin user) :
 > cd slackware64-current/usb-and-pxe-installers
 > /usbimg2disk.sh -f -i `pwd`/usbboot.img -o /dev/sdXXX (device de la clé à trouver avec dmesg) -s `pwd`/..
 > cd ../..
 
+-----------------------------------------------------------------
 Then install the Slackware current with this new USB stick and reboot on it (see SLACKWARE.txt)
 
-Then do on the USB stick or a copy on a central/local repository :
+Then do on the USB stick or a copy on a central/local repository as root :
 > pbslacks/pbupgrade -new
 
-and recompile some packages :
+and recompile some packages as root :
 > pbslacks/pbinstallpost
 
-If you have a dual graphic card on a Laptop with NVIDIA :
+If you have a dual graphic card on a Laptop with NVIDIA as root :
 > pbslacksinstallbumblebee
 
 =================================================================
 For updating one installed Slackware current to the latest downloaded with :
 > ../pbslacks/pbaspireinit
 > pbslacks/pbaspire
-An old local USB or central disk repository could be updated (todo)
+
+Or an old local USB or central disk repository can be updated with :
+> pbslacks/pbaspire -sync
 
 > pbslacks/pbaspirealien
 > pbslacks/pbaspireponce
 > pbslacks/pbaspireslonly
 > pbslacks/pbaspireother
 
-Lauch the following scripts on the USB key or a disk copy of it on a central repository
-on the new machine.
+-----------------------------------------------------------------
+On the installed Slackware current to update,
+lauch the following scripts on the USB key or a disk copy of it on a central repository
+on the new machine as root.
 > pbsclacks/upgrade
 
-And if you have the dual graphic cards
+And if you have the dual graphic cards as root.
 > pbslacks/pbupgradebumblebee
 
-After upgrade, you can recreate and install some packages.
+After upgrade, you can recreate and install some packages as root.
 > pbslacks/pbinstallpost
 
-And if you have the dual graphic cards
+And if you have the dual graphic cards as root.
 > pbslacks/pbinstallbumblebee
 
 If you install that Slackware on other computers, the pbinstall* needs to be done only for the first one.
+=================================================================
 
 Those script are not standalone for now. Some packages were preloaded in my
 local repository. I will have better scripts in some future.
 
 Those scripts uses slackpkg and wget.
 
-I have tested with Slackware current of july 2019, aout 2019 and december
-2019.
+I have tested with Slackware current of july 2019, aout 2019 and december 2019.
