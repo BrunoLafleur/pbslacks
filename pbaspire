@@ -1,28 +1,40 @@
 #! /bin/sh
 
 MYPWD=`pwd`
-HOMESLACK="$MYPWD"
+export HOMESLACK="$MYPWD"
 SLACKMIR='http://nephtys.lip6.fr/pub/linux/distributions/slackware'
 SLACKMULTI="$SLACKMIR/people/alien/multilib/current"
 SLACKKDEFW="$SLACKMIR/people/alien-kde/current/latest/x86_64/kde/frameworks"
 XSYNC="$1"
 
-if [ "$XSYNC" = '-sync' -a -d slackware64-current ] ;then
-    cp pbslacks/Slackpkg/blacklist /etc/slackpkg
-    cat pbslacks/Slackpkg/slackpkg.conf | sed "s@TEMP=/var/cache/packages@TEMP=${HOMESLACK}@" > /etc/slackpkg/slackpkg.conf
-    slackpkg download
+if [ "$XSYNC" = '-bof' -a -d slackware64-current ] ;then
+    export MYUID=`id -u`
+    export MYGID=`id -g`
+    # root for slackpkg
+    su - root -c "(
+        cd $HOMESLACK
+	cp pbslacks/Slackpkg/blacklist /etc/slackpkg
+	cat pbslacks/Slackpkg/slackpkg.conf |\
+	    sed "s@TEMP=/var/cache/packages@TEMP=${HOMESLACK}/slackware64-current@" |\
+	    sed "s@WORKDIR=/var/lib/slackpkg@WORKDIR=${HOMESLACK}/wdirslackpkg@" > /etc/slackpkg/slackpkg.conf
+        cat pbslacks/Slackpkg/mirrors | sed "s@file:/HOMESLACK@${SLACKMIR}@" > /etc/slackpkg/mirrors
+	slackpkg update
 
-    if [ $? -ne 0 ] ;then
-	echo 'Abort : voir erreurs precedentes.'
-    fi
+	if [ $? -ne 0 ] ;then
+	    echo 'Abort : voir erreurs precedentes.'
+	fi
+	chown -R ${MYUID}.$MYGID .
+    )"
     echo "Sync Slackware current fait."
 else
+    # can be done non root.
     wget -N -np -nH --cut-dirs=4 -r "$SLACKMIR/slackware64-current/"
     find slackware64-current -name 'index.html*' -exec rm -f {} \;
     echo "Copie Slackware current faite."
 fi
 
 # Multilib Alien Bob.
+# can be done non root.
 wget -N -np -nH --cut-dirs=7 -r "$SLACKMULTI/"
 find current -name 'index.html*' -exec rm -f {} \;
 
