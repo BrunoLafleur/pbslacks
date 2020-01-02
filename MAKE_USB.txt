@@ -1,7 +1,7 @@
 Brancher une clé USB (qui sera remise à 0).
 Aller dans slackware-current/usb-and-pxe-installers et lancez :
 
-    cd slackware-current/usb-and-pxe-installers
+    cd slackware64-current/usb-and-pxe-installers
     ./usbimg2disk.sh -f -i `pwd`/usbboot.img -o /dev/sdXXX (device de la clé à trouver avec dmesg) -s `pwd`/..
 
 Vérifiez que tout s'est bien passé.
