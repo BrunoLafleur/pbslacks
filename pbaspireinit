@@ -1,0 +1,43 @@
+#! /bin/sh
+
+OLDSLACK=../Slackware-20190812
+
+if [ ! -d packages ] ;then
+    if [ -d "$OLDSLACK" ] ;then
+        cp -a "$OLDSLACK/packages"* .
+        if [ -d "$OLDSLACK/divers" ] ;then
+            cp -a "$OLDSLACK/divers" .
+	    mv divers bumblebee
+        else	
+ 	    cp -a "$OLDSLACK/bumblebee" .
+        fi
+    fi
+fi
+
+if [ ! -h pbslacks ] ; then
+    ln -s ../pbslacks .
+fi
+if [ ! -h perso ] ; then
+    ln -s ../perso .
+fi
+if [ ! -h divers ] ; then
+    ln -s ../divers .
+fi
+
+if [ ! -d packages ] ;then
+    mkdir packages
+    mkdir packages/32
+    mkdir packages/compat32
+fi
+if [ ! -d packages2 ] ;then
+    mkdir packages2
+fi
+if [ ! -d packages3 ] ;then
+    mkdir packages3
+fi
+if [ ! -d packages4 ] ;then
+    mkdir packages4
+fi
+if [ ! -d bumblebee ] ;then
+    mkdir bumblebee
+fi

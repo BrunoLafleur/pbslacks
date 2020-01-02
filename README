@@ -1,18 +1,66 @@
 Author and copyright : Pierre Brochard (pierre.brochard.1982@m4x.org)
 
 Those are somme scripts which download the latest Linux Slackware current
-distribution and some add-ons packages.
+distribution and my preferred add-ons packages.
 
-> pbaspire*
+=================================================================
+For a fresh install from a USB stick do :
+-on a working computer with a working system with a Bourne shell terminal
+like bash (on Linux or MS Windows or ...)
+-with internet acces
+-in a newly created repository like Slackware_date in the same directory as pbslacks
 
-There are also scripts for updating one installed Slackware current to the
-latest downloaded with the script above.
+> cd Slackware_date
+> ../pbslacks/paspireinit
 
-> pbupdate*
+Then in sequence or in parallel if the network is good enough.
+> pbslacks/pbaspire
+> pbslacks/pbaspirealien
+> pbslacks/pbaspireponce
+> pbslacks/pbaspireslonly
+> pbslacks/pbaspireother
 
-and eventually
+Then do a USB stick :
+> cd slackware64-current/usb-and-pxe-installers
+> /usbimg2disk.sh -f -i `pwd`/usbboot.img -o /dev/sdXXX (device de la clé à trouver avec dmesg) -s `pwd`/..
+> cd ../..
 
-> pbinstall*
+Then install the Slackware current with this new USB stick and reboot on it (see SLACKWARE.txt)
+
+Then do on the USB stick or a copy on a central/local repository :
+> pbslacks/pbupgrade -new
+
+and recompile some packages :
+> pbslacks/pbinstallpost
+
+If you have a dual graphic card on a Laptop with NVIDIA :
+> pbslacksinstallbumblebee
+
+=================================================================
+For updating one installed Slackware current to the latest downloaded with :
+> ../pbslacks/pbaspireinit
+> pbslacks/pbaspire
+An old local USB or central disk repository could be updated (todo)
+
+> pbslacks/pbaspirealien
+> pbslacks/pbaspireponce
+> pbslacks/pbaspireslonly
+> pbslacks/pbaspireother
+
+Lauch the following scripts on the USB key or a disk copy of it on a central repository
+on the new machine.
+> pbsclacks/upgrade
+
+And if you have the dual graphic cards
+> pbslacks/pbupgradebumblebee
+
+After upgrade, you can recreate and install some packages.
+> pbslacks/pbinstallpost
+
+And if you have the dual graphic cards
+> pbslacks/pbinstallbumblebee
+
+If you install that Slackware on other computers, the pbinstall* needs to be done only for the first one.
 
 Those script are not standalone for now. Some packages were preloaded in my
 local repository. I will have better scripts in some future.

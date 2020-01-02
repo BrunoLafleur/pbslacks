@@ -14,20 +14,23 @@ fi
 
 MYPWD=`pwd`
 HOMESLACK="$MYPWD"
+XNEW="$1"
 
-cp pbslacks/Slackpkg/blacklist /etc/slackpkg
-cp pbslacks/Slackpkg/slackpkg.conf /etc/slackpkg
-cat pbslacks/Slackpkg/mirrors | sed "s@HOMESLACK@${HOMESLACK}@" > /etc/slackpkg/mirrors
-slackpkg update gpg
-slackpkg update
-slackpkg install-new
-slackpkg upgrade-all
-slackpkg clean-system
+if [ "$XNEW" = '' ] ;then
+    cp pbslacks/Slackpkg/blacklist /etc/slackpkg
+    cp pbslacks/Slackpkg/slackpkg.conf /etc/slackpkg
+    cat pbslacks/Slackpkg/mirrors | sed "s@HOMESLACK@${HOMESLACK}@" > /etc/slackpkg/mirrors
+    slackpkg update gpg
+    slackpkg update
+    slackpkg install-new
+    slackpkg upgrade-all
+    slackpkg clean-system
 
-if [ $? -ne 0 ] ;then
+    if [ $? -ne 0 ] ;then
 	echo 'Abort : voir erreurs precedentes.'
+    fi
+    echo "Upgrade fait."
 fi
-echo "Upgrade fait."
 
 cd $HOMESLACK
 upgradepkg --install-new current/*.t?z
