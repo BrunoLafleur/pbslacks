@@ -10,6 +10,7 @@ fi
 
 PATHDENEMO="http://git.savannah.gnu.org/cgit/denemo.git/snapshot/denemo-master.tar.gz"
 PATHGRAMPS="https://github.com/gramps-project/gramps/archive/v5.1.1.zip"
+
 SLACKCF="http://slack.conraid.net/repository/slackware64-current"
 SLACKDJ="http://www.slackel.gr/repo/x86_64/current/slackel/extra"
 SLACKDJ32="http://www.slackel.gr/repo/i486/current/slackel/extra"
@@ -43,15 +44,37 @@ xgetsrcpac () {
 }
 
 # Download new sources.
+cd packages
+xgetsrcpac OpenAL "toto"
+xgetsrcpac libtxc_dxtn "toto"
+xgetsrcpac libgaminggear "toto"
+cd ../..
+
 cd packages2
+xgetsrcpac roccat-tools "toto"
+xgetsrcpac kmplayer "toto"
 xgetsrcpac denemo "$PATHDENEMO"
 cd ../..
 
 cd packages3
+xgetsrcpac bsddb3 "toto"
+xgetsrcpac db53 "toto"
+xgetsrcpac pyicu "toto"
 xgetsrcpac gramps "$PATHGRAMPS"
 cd ../..
 
-# Download new versions of packages.
+cd packages4
+xgetsrcpac xrdp "toto"
+xgetsrcpac xorgxrdp "toto"
+xgetsrcpac SFML "toto"
+xgetsrcpac wxGTK3 "toto"
+xgetsrcpac vbam "toto"
+xgetsrcpac fbida "toto"
+xgetsrcpac kaffeine "toto"
+xgetsrcpac opencv "toto"
+cd ../..
+
+# Download new versions of binary packages.
 cd packages
 for i in gimp-script-fu x265 ;do
     xgetpac "$i-" "$SLACKCF/$i" 3
