@@ -37,7 +37,7 @@ xgetsrcpac () {
     path="$2"
     if [ ! -d "$name" ] ;then
         mkdir "$name"
-        cp "../pbslacks/${name}.tar.gz" $name
+        cp "../pbslacks/builds/${name}.tar.gz" $name
     fi
     cd "$name"
     wget -N "$path"
