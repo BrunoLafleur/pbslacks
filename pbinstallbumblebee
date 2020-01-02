@@ -24,11 +24,22 @@ export UPDATE=no
 rm -rf ~/Bumblebee-SlackBuilds
 
 cd
-tar xvf $HOMESLACK/bumblebee/Crazybee/Bumblebee-SlackBuilds.tar
+tar xvfz $HOMESLACK/bumblebee/Crazybee/Bumblebee-SlackBuilds.tgz
 export UPDATE=no
 cd Bumblebee-SlackBuilds
 sh ./crazybee.sh
 
+xpurgepac () {
+    pac="$1"
+    LAST=`ls -1t "$pac"*.t?z|head -1`
+    for j in "$pac"*.t?z ;do
+	if [ "$j" != "$LAST" ] ;then
+	    rm -f "$j"
+	fi
+    done
+}
+
 for i in libbsd primus bbswitch nvidia-bumblebee bumblebee nvidia-kernel ;do
-    cp /tmp/${i}-* $HOMESLACK/bumblebee
+    cp "/tmp/${i}-"* $HOMESLACK/bumblebee
+    xpurgepac "${i}-"
 done
