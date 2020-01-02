@@ -5,12 +5,11 @@ if [ ! -d packages ] ;then
     exit 1
 fi
 
-HOMEDENEMO="http://git.savannah.gnu.org/cgit/denemo.git/snapshot/denemo-master.tar.gz"
+PATHDENEMO="http://git.savannah.gnu.org/cgit/denemo.git/snapshot/denemo-master.tar.gz"
+PATHGRAMPS="https://github.com/gramps-project/gramps/archive/v5.1.1.zip"
 SLACKCF="http://slack.conraid.net/repository/slackware64-current"
 SLACKDJ="http://www.slackel.gr/repo/x86_64/current/slackel/extra"
 SLACKDJ32="http://www.slackel.gr/repo/i486/current/slackel/extra"
-SREPO1=cf
-SREPO2=dj
 
 xpurgepac () {
     pac="$1"
@@ -29,15 +28,27 @@ xgetpac () {
     wget -N -A "$pac"'*.t?z' -r -np -nH --cut-dir=$prof "$dir/"
 }
 
+xgetsrcpac () {
+    name="$1"
+    path="$2"
+    if [ ! -d "$name" ] ;then
+        mkdir "$name"
+        cp "../pbslacks/${name}.tar.gz" $name
+    fi
+    cd "$name"
+    wget -N "$path"
+}
+
+# Download new sources.
 cd packages2
-if [ ! -d denemo ] ;then
-    mkdir denemo
-    cp ../pbslacks/denemo.tar.gz denemo
-fi
-cd denemo
-wget -N "$HOMEDENEMO"
+xgetsrcpac denemo "$PATHDENEMO"
 cd ../..
 
+cd packages3
+xgetsrcpac gramps "$PATHGRAMPS"
+cd ../..
+
+# Download new versions of packages.
 cd packages
 for i in gimp-script-fu x265 ;do
     xgetpac "$i-" "$SLACKCF/$i" 3
