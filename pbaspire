@@ -1,12 +1,28 @@
 #! /bin/sh
 
+MYPWD=`pwd`
+HOMESLACK="$MYPWD"
 SLACKMIR='http://nephtys.lip6.fr/pub/linux/distributions/slackware'
 SLACKMULTI="$SLACKMIR/people/alien/multilib/current"
 SLACKKDEFW="$SLACKMIR/people/alien-kde/current/latest/x86_64/kde/frameworks"
+XSYNC="$1"
 
-wget -N -np -nH --cut-dirs=4 -r "$SLACKMIR/slackware64-current/"
-find slackware64-current -name 'index.html*' -exec rm -f {} \;
+if [ "$XSYNC" = '-sync' -a -d slackware64-current ] ;then
+    cp pbslacks/Slackpkg/blacklist /etc/slackpkg
+    cat pbslacks/Slackpkg/slackpkg.conf | sed "s@TEMP=/var/cache/packages@TEMP=${HOMESLACK}@" > /etc/slackpkg/slackpkg.conf
+    slackpkg download
 
+    if [ $? -ne 0 ] ;then
+	echo 'Abort : voir erreurs precedentes.'
+    fi
+    echo "Sync Slackware current fait."
+else
+    wget -N -np -nH --cut-dirs=4 -r "$SLACKMIR/slackware64-current/"
+    find slackware64-current -name 'index.html*' -exec rm -f {} \;
+    echo "Copie Slackware current faite."
+fi
+
+# Multilib Alien Bob.
 wget -N -np -nH --cut-dirs=7 -r "$SLACKMULTI/"
 find current -name 'index.html*' -exec rm -f {} \;
 
@@ -19,6 +35,7 @@ ln -sf ../divers .
 ln -sf ../packages* .
 cd ..
 
+# Frameworks KDE5
 cd packages4
 rm -rf packages4/frameworks
 wget -np -nH --cut-dirs=10 -r "$SLACKKDEFW/"
