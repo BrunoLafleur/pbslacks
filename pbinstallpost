@@ -1,5 +1,8 @@
 #! /bin/sh
 
+# Auteur : Pierre Brochard (pierre.brochard.1982@m4x.org)
+# Date : 2019
+
 # Recompilations a faire apres reboot.
 
 if [ ! $UID = 0 ]; then
