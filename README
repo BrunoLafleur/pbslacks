@@ -24,7 +24,10 @@ Then in sequence or in parallel if the network is good enough.
 > pbslacks/pbaspireslonly
 > pbslacks/pbaspireother
 
-Then do a USB stick (a 16 Go or above one) as root (admin user) :
+Then do a USB stick (a 16 Go or above one) as root (admin user) or a normal user in plugdev group :
+> pbslacks/pbmakeusb
+
+or manually :
 > cd slackware64-current/usb-and-pxe-installers
 > /usbimg2disk.sh -f -i `pwd`/usbboot.img -o /dev/sdXXX (device de la clé à trouver avec dmesg) -s `pwd`/..
 > cd ../..

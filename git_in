@@ -38,6 +38,7 @@ XTAG="`cat $FVERSION|fgrep $VERSION|sed 's/^.* //'`"
 echo "Mise a jour git et creation archive git."
 echo "----------------------------------------"
 
+rm *~ .??*~
 git add .
 git add -u
 git commit -F $FVERSION
