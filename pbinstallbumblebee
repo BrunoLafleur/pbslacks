@@ -26,11 +26,15 @@ echo "A installer avec pbupgradenumblebee."
 export UPDATE=no
 rm -rf ~/Bumblebee-SlackBuilds
 
-cd
-tar xvfz $HOMESLACK/bumblebee/Crazybee/Bumblebee-SlackBuilds.tgz
-export UPDATE=no
-cd Bumblebee-SlackBuilds
-sh ./crazybee.sh
+if [ -f "$HOMESLACK/bumblebee/Crazybee/Bumblebee-SlackBuilds.tgz" ] ;then
+    cd 
+    tar xvfz "$HOMESLACK/bumblebee/Crazybee/Bumblebee-SlackBuilds.tgz"
+    export UPDATE=no
+    cd Bumblebee-SlackBuilds
+    sh ./crazybee.sh
+else
+    sh $HOMESLACK/bumblebee/crazybee.sh
+fi
 
 xpurgepac () {
     pac="$1"
