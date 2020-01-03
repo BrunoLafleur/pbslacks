@@ -53,7 +53,6 @@ find . -name '*.t?z'|grep -v '^./source/'|while read i;test "$i" != "" ;do
     xpurgepac "$pack-[0-9]" md5
 done
 cd ..
-exit 0
 
 cd slackware64-current
 ln -sf ../current .
@@ -66,7 +65,18 @@ cd ..
 
 # Frameworks KDE5
 cd packages4
-rm -rf packages4/frameworks
-wget -np -nH --cut-dirs=10 -r "$SLACKKDEFW/"
+wget -N -np -nH --cut-dirs=10 -r "$SLACKKDEFW/"
 find frameworks -name 'index.html*' -exec rm -f {} \;
+
+# Nettoyage des doublons
+cd frameworks
+find . -name '*.t?z'|grep -v '^./source/'|while read i;test "$i" != "" ;do
+    pack=`echo $i|sed 's@-[0-9].*$@@'`
+    xpurgepac "$pack-[0-9]" lst
+    xpurgepac "$pack-[0-9]" meta
+    xpurgepac "$pack-[0-9]" txt
+    xpurgepac "$pack-[0-9]" t?z
+    xpurgepac "$pack-[0-9]" asc
+    xpurgepac "$pack-[0-9]" md5
+done
 cd ..
