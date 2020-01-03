@@ -99,7 +99,7 @@ xgetsrcpac wxGTK3 "$PATHWXTK3"
 xgetsrcpac vbam "$PATHVBAM"
 xgetsrcpac fbida "$PATHFBIDA"
 xgetsrcpac kaffeine "$PATHKAFFEINE"
-ln -s kaffeine/master.zip kaffeine/kaffeine-master.zip
+ln -sf kaffeine/master.zip kaffeine/kaffeine-master.zip
 xgetsrcpac opencv "$PATHOPENCV"
 xgetsrcpac opencv "$PATHOPENCVBIS"
 cd ..

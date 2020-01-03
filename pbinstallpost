@@ -4,6 +4,8 @@
 # Date : 2019
 
 # Recompilations a faire apres reboot.
+MYUSER=produits
+MYGROUP=users
 
 if [ ! $UID = 0 ]; then
   cat << EOF
@@ -45,7 +47,7 @@ xmakepac () {
       fi
       cd ..;rm -rf $XPAC
       cd ../..
-      chown produits.users $XDIR/${XPAC}-*.t?z
+      chown ${MYUSER}.$MYGROUP $XDIR/${XPAC}-*.t?z
       rm -f /tmp/${XPAC}-*.t?z
       if [ "$XSUB" != '' ] ;then
         mv $XDIR/${XPAC}-*i486*.t?z $XDIR/$XSUB
@@ -81,7 +83,7 @@ cd packages/32
 for i in cabextract libdvdcss icoutils wxPython OpenAL libtxc_dxtn ;do
     if [ $RECOMP -eq 1 ] ;then
       convertpkg-compat32 -i "$i-"'*.t?z' -d ../compat32
-      chown produits.users ../compat32/$i-compat32-*.t?z
+      chown ${MYUSER}.$MYGROUP ../compat32/$i-compat32-*.t?z
     fi
     upgradepkg --reinstall ../compat32/$i-compat32-*.t?z
     rm -f /usr/lib/lib*.la
