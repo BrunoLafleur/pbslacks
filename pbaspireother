@@ -67,7 +67,6 @@ xgetsrcpac () {
 	echo "Copie locale de ../pbslacks/builds/$path vers $name"
 	cp "../pbslacks/builds/$path" "$name"
     fi
-    xpurgepac "$name-"
 }
 
 # Download new sources.
