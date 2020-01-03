@@ -64,6 +64,7 @@ xgetsrcpac () {
         wget -N "$path"
 	cd ..
     else
+	echo "Copie locale de ../pbslacks/builds/$path vers $name"
 	cp "../pbslacks/builds/$path" "$name"
     fi
     xpurgepac "$name-"
@@ -74,13 +75,13 @@ cd packages
 xgetsrcpac OpenAL "$PATHOPENAL"
 xgetsrcpac libtxc_dxtn "$PATHLIBTXC_DXTN"
 xgetsrcpac libgaminggear "$PATHLIBGAMINGGEAR"
-cd ../..
+cd ..
 
 cd packages2
 xgetsrcpac roccat-tools "$PATHROCCATTOOLS"
 xgetsrcpac kmplayer "kmplayer_0.11.3d.tar.bz2"
 xgetsrcpac denemo "$PATHDENEMO"
-cd ../..
+cd ..
 
 cd packages3
 xgetsrcpac bsddb3 "$PATHBSDDB3"
@@ -88,7 +89,8 @@ xgetsrcpac db53 "$PATHDB53"
 xgetsrcpac db53 "$PATHDB53BIS"
 xgetsrcpac pyicu "$PATHPYICU"
 xgetsrcpac gramps "$PATHGRAMPS"
-cd ../..
+mv gramps/v5.1.1.zip gramps/gramps-5.1.1.zip
+cd ..
 
 cd packages4
 xgetsrcpac xrdp "$PATHXRDP"
@@ -98,9 +100,10 @@ xgetsrcpac wxGTK3 "$PATHWXTK3"
 xgetsrcpac vbam "$PATHVBAM"
 xgetsrcpac fbida "$PATHFBIDA"
 xgetsrcpac kaffeine "$PATHKAFFEINE"
+mv kaffeine/master.zip kaffeine/kaffeine-master.zip
 xgetsrcpac opencv "$PATHOPENCV"
 xgetsrcpac opencv "$PATHOPENCVBIS"
-cd ../..
+cd ..
 
 # Download new versions of binary packages.
 cd packages
