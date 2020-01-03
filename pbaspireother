@@ -15,6 +15,19 @@ PATHLIBTXC_DXTN="https://people.freedesktop.org/~cbrill/libtxc_dxtn/libtxc_dxtn-
 PATHLIBGAMINGGEAR="https://downloads.sourceforge.net/libgaminggear/libgaminggear-0.15.1.tar.bz2"
 PATHROCCATTOOLS="https://downloads.sourceforge.net/roccat/roccat-tools-5.9.0.tar.bz2"
 PATHKMPLAYER="https://anongit.kde.org/kmplayer.git"
+PATHBSDDB3="https://files.pythonhosted.org/packages/e9/fc/ebfbd4de236b493f9ece156f816c21df0ae87ccc22604c5f9b664efef1b9/bsddb3-6.2.6.tar.gz"
+PATHDB53="http://deb.debian.org/debian/pool/main/d/db5.3/db5.3_5.3.28+dfsg1.orig.tar.xz"
+PATHDB53BIS="http://deb.debian.org/debian/pool/main/d/db5.3/db5.3_5.3.28+dfsg1-0.6.debian.tar.xz"
+PATHPYICU="https://pypi.python.org/packages/a2/9f/1947f288143191b903e58633ee597cb98bc284de28dafb1231b6f8b67b99/PyICU-1.9.5.tar.gz"
+PATHXRDP="https://github.com/neutrinolabs/xrdp/releases/download/v0.9.12/xrdp-0.9.12.tar.gz"
+PATHXORGXRDP="https://github.com/neutrinolabs/xorgxrdp/releases/download/v0.2.12/xorgxrdp-0.2.12.tar.gz"
+PATHSFML="https://www.sfml-dev.org/files/SFML-2.5.1-sources.zip"
+PATHWXGTK3="https://github.com/wxWidgets/wxWidgets/archive/v3.0.4/wxWidgets-3.0.4.tar.gz"
+PATHVBAM="https://github.com/visualboyadvance-m/visualboyadvance-m/archive/v2.1.4/visualboyadvance-m-2.1.4.tar.gz"
+PATHFBIDA="https://www.kraxel.org/releases/fbida/fbida-2.14.tar.gz"
+PATHKAFFEINE="https://github.com/KDE/kaffeine/archive/master.zip"
+PATHOPENCV="https://github.com/opencv/opencv/archive/4.1.1/opencv-4.1.1.tar.gz"
+PATHOPENCVBIS="https://github.com/opencv/opencv_contrib/archive/4.1.1/opencv_contrib-4.1.1.tar.gz"
 
 SLACKCF="http://slack.conraid.net/repository/slackware64-current"
 SLACKDJ="http://www.slackel.gr/repo/x86_64/current/slackel/extra"
@@ -64,27 +77,29 @@ xgetsrcpac libgaminggear "$PATHLIBGAMINGGEAR"
 cd ../..
 
 cd packages2
-xgetsrcpac roccat-tools "$ROCCATTOOLS"
+xgetsrcpac roccat-tools "$PATHROCCATTOOLS"
 xgetsrcpac kmplayer "kmplayer_0.11.3d.tar.bz2"
 xgetsrcpac denemo "$PATHDENEMO"
 cd ../..
 
 cd packages3
-xgetsrcpac bsddb3 "toto"
-xgetsrcpac db53 "toto"
-xgetsrcpac pyicu "toto"
+xgetsrcpac bsddb3 "$PATHBSDDB3"
+xgetsrcpac db53 "$PATHDB53"
+xgetsrcpac db53 "$PATHDB53BIS"
+xgetsrcpac pyicu "$PATHPYICU"
 xgetsrcpac gramps "$PATHGRAMPS"
 cd ../..
 
 cd packages4
-xgetsrcpac xrdp "toto"
-xgetsrcpac xorgxrdp "toto"
-xgetsrcpac SFML "toto"
-xgetsrcpac wxGTK3 "toto"
-xgetsrcpac vbam "toto"
-xgetsrcpac fbida "toto"
-xgetsrcpac kaffeine "toto"
-xgetsrcpac opencv "toto"
+xgetsrcpac xrdp "$PATHXRDP"
+xgetsrcpac xorgxrdp "$PATHXORGXRDP"
+xgetsrcpac SFML "$PATHSFML"
+xgetsrcpac wxGTK3 "$PATHWXTK3"
+xgetsrcpac vbam "$PATHVBAM"
+xgetsrcpac fbida "$PATHFBIDA"
+xgetsrcpac kaffeine "$PATHKAFFEINE"
+xgetsrcpac opencv "$PATHOPENCV"
+xgetsrcpac opencv "$PATHOPENCVBIS"
 cd ../..
 
 # Download new versions of binary packages.

@@ -1,9 +1,17 @@
 #! /bin/sh
 
-OLDSLACK=../Slackware-20190812
+test_oldslack () {
+    pac="$1"
+    ls -1td "$pac"[0-9]* 2> /dev/null |head -1
+}
+
+OLDSLACK=`test_oldslack ../Slackware-`
 
 if [ ! -d packages ] ;then
     if [ -d "$OLDSLACK" ] ;then
+        echo "OLDSLACK = $OLDSLACK"
+        echo "Copies of $OLDSLACK/packages* will be done."
+
         cp -a "$OLDSLACK/packages"* .
         if [ -d "$OLDSLACK/divers" ] ;then
             cp -a "$OLDSLACK/divers" .
@@ -28,7 +36,7 @@ if [ ! -h perso ] ; then
     fi
 fi
 
-# MPlayer Skins.
+# MPlayer Skins (to download).
 if [ ! -h divers ] ; then
     if [ -d ../divers ] ;then
         ln -s ../divers .

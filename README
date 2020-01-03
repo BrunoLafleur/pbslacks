@@ -10,7 +10,9 @@ like bash (on Linux or MS Windows or ...)
 -with internet acces
 -in a newly created repository like Slackware_date in the same directory as pbslacks
 
-> cd Slackware_date
+> XDATE=`date '+%Y%m%d'`
+> mkdir Slackware_$XDATE
+> cd Slackware_$XDATE
 > ../pbslacks/paspireinit
 
 Then in sequence or in parallel if the network is good enough.
@@ -39,7 +41,7 @@ If you have a dual graphic card on a Laptop with NVIDIA as root :
 
 =================================================================
 For updating one installed Slackware current to the latest
-Download again (only the differences with wget -N) on a fresh or existant USB or central/local repository :
+Download again (only the differences as we do with wget -N) on a fresh or existant USB or central/local repository :
 > ../pbslacks/pbaspireinit
 > pbslacks/pbaspire
 > pbslacks/pbaspirealien
@@ -64,9 +66,6 @@ And if you have the dual graphic cards as root.
 
 If you install that Slackware on other computers, the pbinstall* needs to be done only for the first one.
 =================================================================
-
-Those script are not standalone for now. Some packages were preloaded in my
-local repository. I will have better scripts in some future.
 
 Those scripts uses slackpkg and wget.
 
