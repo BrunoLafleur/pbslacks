@@ -14,14 +14,27 @@ if [ ! -d packages ] ;then
     fi
 fi
 
+# This project.
 if [ ! -h pbslacks ] ; then
     ln -s ../pbslacks .
 fi
+
+# Some specifics tunings.
 if [ ! -h perso ] ; then
-    ln -s ../perso .
+    if [ -d ../perso ] ;then
+        ln -s ../perso .
+    else
+	mkdir perso
+    fi
 fi
+
+# MPlayer Skins.
 if [ ! -h divers ] ; then
-    ln -s ../divers .
+    if [ -d ../divers ] ;then
+        ln -s ../divers .
+    else
+	mkdir divers
+    fi
 fi
 
 if [ ! -d packages ] ;then
@@ -40,4 +53,6 @@ if [ ! -d packages4 ] ;then
 fi
 if [ ! -d bumblebee ] ;then
     mkdir bumblebee
+    mkdir bumblebee/Crazybee
+    cp pbslacks/crazybee.sh bumblebee/Crazybee
 fi

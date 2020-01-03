@@ -10,6 +10,11 @@ fi
 
 PATHDENEMO="http://git.savannah.gnu.org/cgit/denemo.git/snapshot/denemo-master.tar.gz"
 PATHGRAMPS="https://github.com/gramps-project/gramps/archive/v5.1.1.zip"
+PATHOPENAL="https://www.openal-soft.org/openal-releases/openal-soft-1.20.0.tar.bz2"
+PATHLIBTXC_DXTN="https://people.freedesktop.org/~cbrill/libtxc_dxtn/libtxc_dxtn-1.0.1.tar.bz2"
+PATHLIBGAMINGGEAR="https://downloads.sourceforge.net/libgaminggear/libgaminggear-0.15.1.tar.bz2"
+PATHROCCATTOOLS="https://downloads.sourceforge.net/roccat/roccat-tools-5.9.0.tar.bz2"
+PATHKMPLAYER="https://anongit.kde.org/kmplayer.git"
 
 SLACKCF="http://slack.conraid.net/repository/slackware64-current"
 SLACKDJ="http://www.slackel.gr/repo/x86_64/current/slackel/extra"
@@ -30,29 +35,37 @@ xgetpac () {
     dir="$2"
     prof="$3"
     wget -N -A "$pac"'*.t?z' -r -np -nH --cut-dir=$prof "$dir/"
+    xpurgepac "$pac"
 }
 
 xgetsrcpac () {
     name="$1"
     path="$2"
+    localcopie=`echo "$path"|cut -d ':' -f1`
     if [ ! -d "$name" ] ;then
         mkdir "$name"
-        cp "../pbslacks/builds/${name}.tar.gz" $name
+        cp "../pbslacks/builds/${name}.tar.gz" "$name"
     fi
-    cd "$name"
-    wget -N "$path"
+    if [ "$localcopie" = http -o "$localcopie" = https ] ;then
+        cd "$name"
+        wget -N "$path"
+	cd ..
+    else
+	cp "../pbslacks/builds/$path" "$name"
+    fi
+    xpurgepac "$name-"
 }
 
 # Download new sources.
 cd packages
-xgetsrcpac OpenAL "toto"
-xgetsrcpac libtxc_dxtn "toto"
-xgetsrcpac libgaminggear "toto"
+xgetsrcpac OpenAL "$PATHOPENAL"
+xgetsrcpac libtxc_dxtn "$PATHLIBTXC_DXTN"
+xgetsrcpac libgaminggear "$PATHLIBGAMINGGEAR"
 cd ../..
 
 cd packages2
-xgetsrcpac roccat-tools "toto"
-xgetsrcpac kmplayer "toto"
+xgetsrcpac roccat-tools "$ROCCATTOOLS"
+xgetsrcpac kmplayer "kmplayer_0.11.3d.tar.bz2"
 xgetsrcpac denemo "$PATHDENEMO"
 cd ../..
 
@@ -78,16 +91,13 @@ cd ../..
 cd packages
 for i in gimp-script-fu x265 ;do
     xgetpac "$i-" "$SLACKCF/$i" 3
-    xpurgepac "$i-"
 done
 for i in frei0r-plugins libvdpau-va-gl openshot ;do
     xgetpac "$i-" "$SLACKDJ" 5
-    xpurgepac "$i-"
 done
 cd 32
 for i in wxPython ;do
     xgetpac "$i-" "$SLACKDJ32" 5
-    xpurgepac "$i-"
 done
 cd ../..
 find packages -name 'index.html*' -exec rm -f {} \;
@@ -95,11 +105,9 @@ find packages -name 'index.html*' -exec rm -f {} \;
 cd packages2
 for i in jq lua oniguruma valgrind ;do
     xgetpac "$i-" "$SLACKCF/$i" 3
-    xpurgepac "$i-"
 done
 for i in guile1.8 ;do
     xgetpac "$i-" "$SLACKDJ" 5
-    xpurgepac "$i-"
 done
 cd ..
 find packages2 -name 'index.html*' -exec rm -f {} \;
@@ -107,11 +115,9 @@ find packages2 -name 'index.html*' -exec rm -f {} \;
 cd packages4
 for i in exiftools ;do
     xgetpac "$i-" "$SLACKCF/$i" 3
-    xpurgepac "$i-"
 done
 for i in xcftools ;do
     xgetpac "$i-" "$SLACKDJ" 5
-    xpurgepac "$i-"
 done
 cd ..
 find packages4 -name 'index.html*' -exec rm -f {} \;
