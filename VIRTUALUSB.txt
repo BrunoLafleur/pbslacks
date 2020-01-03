@@ -1,0 +1,14 @@
+Notes diverses.
+
+Faire plutot une iso et un script iso2img
+
+# As root
+# Faire une taille optimale
+
+fallocate -l 6000M Virtual_usb.img
+=> Do a virtual USB stick.
+=> Change the usbimg2script.sh script from the Slackware to accept non block device.
+
+mkfs -t vfat Virtual_usb.img
+mkdir usb_mount_point
+mount -t auto -o loop Virtual_usb.img usb_mount_point
