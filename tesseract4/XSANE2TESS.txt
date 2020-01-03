@@ -1,0 +1,17 @@
+Lancer l'application Xsane
+Puis dans le menu: Préférences → Configuration → Onglet "OCR" entrez les informations suivantes en respectant bien la casse :
+        Commande OCR : xsane2tess.pl -l fra
+        Option de fichier d'entrée : -i
+        Option de fichier de sortie : -o
+
+On peut regler la taille de la page scannee dans xsane en allant dans Fenetre->Options Avancees
+
+Sortie type TEXT
+Fenetre -> Apercu
+(Charger l'apercu, Selectionner une zone)
+Enregistrer
+Nom de fichier SANS extension => il rajoute un txt
+=> Si termine par un nombre, il est incremente automatiquement.
+Gris ou Couleur, 300 ppm
+
+text/x-script.perl

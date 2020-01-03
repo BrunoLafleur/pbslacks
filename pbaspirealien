@@ -79,6 +79,9 @@ for i in PyQt5 wayland-protocols ;do
     xgetpac "$i-" "$SLACKALIEN2" 10
     xpurgepac "$i-"
 done
+if [ ! -d audacity ] ;then
+    mkdir audacity
+fi
 cd audacity
 for i in audacity lilv lv2 serd sord sratom suil vamp-plugin-sdk ;do
     xgetpac "$i-" "$SLACKALIEN/$i/pkg64/current" 10

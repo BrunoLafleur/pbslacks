@@ -88,7 +88,7 @@ xgetsrcpac db53 "$PATHDB53"
 xgetsrcpac db53 "$PATHDB53BIS"
 xgetsrcpac pyicu "$PATHPYICU"
 xgetsrcpac gramps "$PATHGRAMPS"
-mv gramps/v5.1.1.zip gramps/gramps-5.1.1.zip
+ln -sf gramps/v5.1.1.zip gramps/gramps-5.1.1.zip
 cd ..
 
 cd packages4
@@ -99,7 +99,7 @@ xgetsrcpac wxGTK3 "$PATHWXTK3"
 xgetsrcpac vbam "$PATHVBAM"
 xgetsrcpac fbida "$PATHFBIDA"
 xgetsrcpac kaffeine "$PATHKAFFEINE"
-mv kaffeine/master.zip kaffeine/kaffeine-master.zip
+ln -s kaffeine/master.zip kaffeine/kaffeine-master.zip
 xgetsrcpac opencv "$PATHOPENCV"
 xgetsrcpac opencv "$PATHOPENCVBIS"
 cd ..
@@ -136,5 +136,13 @@ done
 for i in xcftools ;do
     xgetpac "$i-" "$SLACKDJ" 5
 done
-cd ..
+if [ ! -d tesseract4 ] ;then
+    mkdir tesseract4
+fi
+cd tesseract4
+for i in leptonica tesseract ;do
+    xgetpac "$i-" "$SLACKCF/$i" 3
+done
+cd ../..
+cp pbslacks/tesseract4/* packages4/tesseract4
 find packages4 -name 'index.html*' -exec rm -f {} \;

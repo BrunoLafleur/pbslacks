@@ -43,6 +43,9 @@ echo "Upgrade multilib fait."
 cd $HOMESLACK
 upgradepkg --install-new packages*/*.t?z
 upgradepkg --install-new packages4/frameworks/*.t?z
+upgradepkg --install-new packages4/audacity/*.t?z
+upgradepkg --install-new packages4/tesseract4/*.t?z
+cp packages4/xsane2tess* /usr/bin
 echo "Upgrade packages* fait."
 
 $HOMESLACK/pbslacks/pbupgrademoz
