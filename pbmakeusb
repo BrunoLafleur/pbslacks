@@ -1,0 +1,36 @@
+#! /bin/sh
+
+# Auteur : Pierre Brochard (pierre.brochard.1982@m4x.org)
+# Date : 2019
+
+# Use at your own risk. The autodetected partition is the last VFAT one.
+# Be sure it is not your hard drive.
+# If you are in the plugdev group, you can execute thos script as a normal user.
+
+# Plug an USB stick
+# And lauch this script without plug another one in the meantime.
+# This script will :
+#   -guess the device name of the USB stick.
+#   -reformat the partition given for the USB stick (or answer ynof below).
+#   -put the current slackware local tree on it (without the source packages).
+
+echo "Put your USB stick on an USB port and press a key."
+read c
+
+sleep 3
+MYDEVNAME=`/sbin/fdisk -l 2> /dev/null| tail -1 | grep 'FAT32$'|cut -d ' ' -f1`
+
+echo "Your device name is $MYDEVNAME. Is this correct ? y(es) or n(o) or ynof(ormat) :"
+read c
+
+if [ "$c"= 'ynof' ] ;then
+    c=y
+    FORMAT=
+else
+    FORMAT=-f
+fi
+
+if [ "$c" = 'y' -a "$MYDEVNAME" != '' ] ;then
+    cd slackware64-current/usb-and-pxe-installers
+    ./usbimg2disk.sh $FORMAT -i `pwd`/usbboot.img -o "$MYDEVNAME" -s `pwd`/..
+fi
