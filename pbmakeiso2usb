@@ -31,7 +31,7 @@ read c
 sleep 3
 MYDEVNAME=`/sbin/fdisk -l 2> /dev/null| tail -1 | grep 'FAT32$'|cut -d ' ' -f1|cut -d '1' -f1`
 
-echo "Your device name is $MYDEVNAME. Is this correct ? y(es) or n(o) or ynof(ormat) :"
+echo "Your device name is $MYDEVNAME. Is this correct ? y(es) or n(o) :"
 read c
 
 if [ "$c" = 'y' -a "$MYDEVNAME" != '' ] ;then
