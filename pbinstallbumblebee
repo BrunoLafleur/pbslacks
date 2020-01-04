@@ -39,9 +39,9 @@ fi
 
 xpurgepac () {
     pac="$1"
-    LAST=`ls -1t "$pac"*.t?z|head -1`
+    last=`ls -1t "$pac"*.t?z|head -1`
     for j in "$pac"*.t?z ;do
-	if [ "$j" != "$LAST" ] ;then
+	if [ "$j" != "$last" ] ;then
 	    rm -f "$j"
 	fi
     done

@@ -2,7 +2,7 @@ Author and copyright : Pierre Brochard
 Mail of the author : pierre.brochard.1982@m4x.org
 Web site of the author : https://dir.logicielnarcisse.fr or https://dir.logiciel.cc
 
-Those are somme scripts which download the latest Linux Slackware current
+Those are somme scripts which download the latest Linux Slackware current Intel 64 bits
 distribution and my preferred add-ons packages.
 
 =================================================================
@@ -10,11 +10,13 @@ For a fresh install from a USB stick do :
 -on a working computer with a working system with a Bourne shell terminal
 like bash (on Linux or MS Windows or ...)
 -with internet acces
--in a newly created repository like Slackware_date in the same directory as pbslacks
+-in a newly created repository like Slackware_x64_date in the same directory as pbslacks
+-if there is an old Slackware-x86-date in the same parent directory, the
+add-on packages are copied and not fetched again if there were not upgraded.
 
 > XDATE=`date '+%Y%m%d'`
-> mkdir Slackware_$XDATE
-> cd Slackware_$XDATE
+> mkdir Slackware-x64-$XDATE
+> cd Slackware-x64-$XDATE
 > ../pbslacks/paspireinit
 
 Then in sequence or in parallel if the network is good enough.

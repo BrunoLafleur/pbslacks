@@ -3,27 +3,37 @@
 # Auteur : Pierre Brochard (pierre.brochard.1982@m4x.org)
 # Date : 2019
 
+# can be done non root.
+
 MYPWD=`pwd`
 export HOMESLACK="$MYPWD"
 SLACKMIR='http://nephtys.lip6.fr/pub/linux/distributions/slackware'
 SLACKMULTI="$SLACKMIR/people/alien/multilib/current"
 SLACKKDEFW="$SLACKMIR/people/alien-kde/current/latest/x86_64/kde/frameworks"
 
-# can be done non root.
-wget -N -np -nH --cut-dirs=4 -r "$SLACKMIR/slackware64-current/"
-find slackware64-current -name 'index.html*' -exec rm -f {} \;
+# Function for getting packages.
+myrget () {
+    prof=$1
+    gpath="$2"
+    pack="$3"
+    wget -N -nv -np -nH --cut-dirs=$prof -r "$gpath/"
+    find "$pack" -name 'index.html*' -exec rm -f {} \;
+}
 
+# Function for purge old packages.
 xpurgepac () {
     pac="$1"
     suf="$2"
-    LAST=`ls -1t ${pac}*.$suf|head -1`
+    last=`ls -1t ${pac}*.$suf|head -1`
     for j in ${pac}*.$suf ;do
-	if [ "$j" != "$LAST" ] ;then
+	if [ "$j" != "$last" ] ;then
 	    echo "Delete : $j"
 	    rm -f "$j"
 	fi
     done
 }
+
+myrget 4 "$SLACKMIR/slackware64-current" slackware64-current
 
 # Nettoyage des doublons
 cd slackware64-current
@@ -38,8 +48,7 @@ echo "Copie Slackware current faite."
 
 # Multilib Alien Bob.
 # can be done non root.
-wget -N -np -nH --cut-dirs=7 -r "$SLACKMULTI/"
-find current -name 'index.html*' -exec rm -f {} \;
+myrget 7 "$SLACKMULTI" current
 
 # Nettoyage des doublons
 cd current
@@ -65,8 +74,7 @@ cd ..
 
 # Frameworks KDE5
 cd packages4
-wget -N -np -nH --cut-dirs=10 -r "$SLACKKDEFW/"
-find frameworks -name 'index.html*' -exec rm -f {} \;
+myrget 10 "$SLACKKDEFW" frameworks
 
 # Nettoyage des doublons
 cd frameworks
