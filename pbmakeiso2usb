@@ -27,10 +27,15 @@ fi
 
 echo "Put your USB stick on an USB port and press Enter."
 read c
-
 sleep 3
 MYDEVNAME=`/sbin/fdisk -l 2> /dev/null| tail -1 | grep 'FAT32$'|cut -d ' ' -f1|cut -d '1' -f1`
 
+if [ "$MYDEVNAME" = '' ] ;then
+# If it is an already created Slackware USB stick."
+    MYDEVNAME=`/sbin/fdisk -l 2> /dev/null| tail -2 | grep 'EFI '|cut -d ' ' -f1|cut -d '2' -f1`
+fi
+
+/sbin/fdisk -l 2> /dev/null
 echo "Your device name is $MYDEVNAME. Is this correct ? y(es) or n(o) :"
 read c
 
