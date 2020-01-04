@@ -10,6 +10,7 @@
 # git remote set-url origin  https://github.com/BrunoLafleur/pbslacks.git
 # git push -f origin master
 # git push
+# git push --tags
 # git pull
 
 # Autres exemples :
