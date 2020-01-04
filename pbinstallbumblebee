@@ -12,6 +12,7 @@ fi
 
 if [ ! -d bumblebee ] ;then
     echo "Script a lancer dans le repertoire contenant bumblebee."
+    echo "Launch this script in the directory including bumblebee."
     exit 1
 fi
 
