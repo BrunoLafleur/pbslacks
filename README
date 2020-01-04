@@ -29,8 +29,16 @@ Then do a USB stick (a 16 Go or above one) as root (admin user) or a normal user
 
 or manually :
 > cd slackware64-current/usb-and-pxe-installers
-> /usbimg2disk.sh -f -i `pwd`/usbboot.img -o /dev/sdXXX (device de la clé à trouver avec dmesg) -s `pwd`/..
+> ./usbimg2disk.sh -f -i `pwd`/usbboot.img -o /dev/sdXXX (device de la clé à trouver avec dmesg) -s `pwd`/..
 > cd ../..
+
+You can also do an iso image :
+> pbslacks/pbmakeiso
+
+You can also put this iso on a USB stick :
+> pbslacks/pbmakeiso2usb
+
+Those generated isos are too big for a usual DVD.
 
 -----------------------------------------------------------------
 Then install the Slackware current with this new USB stick and reboot on it (see SLACKWARE.txt)
