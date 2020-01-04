@@ -2,8 +2,11 @@ Author and copyright : Pierre Brochard
 Mail of the author : pierre.brochard.1982@m4x.org
 Web site of the author : https://dir.logicielnarcisse.fr or https://dir.logiciel.cc
 
-Those are somme scripts which download the latest Linux Slackware current Intel 64 bits
+Those are some scripts which download the latest Linux Slackware current Intel 64 bits
 distribution and my preferred add-ons packages.
+
+An iso image can also be done which include the resulting downloaded Slackware and her add-ons.
+It can be put on a USB stick.
 
 =================================================================
 For a fresh install from a USB stick do :
