@@ -33,6 +33,9 @@ if [ "$XNEW" = '' ] ;then
 	echo 'Abort : voir erreurs precedentes.'
     fi
     echo "Upgrade fait."
+elif [ ! -d /boot ] ;then
+    echo "Do the install before : see the SLACKWARE.txt file."
+    exit 1
 fi
 
 cd $HOMESLACK
@@ -45,7 +48,7 @@ upgradepkg --install-new packages*/*.t?z
 upgradepkg --install-new packages4/frameworks/*.t?z
 upgradepkg --install-new packages4/audacity/*.t?z
 upgradepkg --install-new packages4/tesseract4/*.t?z
-cp packages4/tesseract/xsane2tess* /usr/bin
+cp packages4/tesseract4/xsane2tess* /usr/bin
 echo "Upgrade packages* fait."
 
 $HOMESLACK/pbslacks/pbupgrademoz
