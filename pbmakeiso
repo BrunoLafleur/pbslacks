@@ -38,10 +38,12 @@ xorriso -as mkisofs \
 
 cd ../..
 
-echo "The iso created can be put on a DVD with (if not too big for your recorder) :"
+echo "If not too big for your recorder which should use double layer media,"
+echo "the iso created can be put on a DVD with :"
 echo "> growisofs -speed=2 -dvd-compat -Z /dev/dvd `pwd`/$NAMEISO"
 
 echo "Or on an USB stick (sdX below is the name of the USB device) :"
 echo "> dd if=`pwd`/$NAMEISO of=/dev/sdX bs=1M ;sync"
+
 echo "Or launch :"
 echo "> pbmakeiso2usb `pwd`/$NAMEISO"

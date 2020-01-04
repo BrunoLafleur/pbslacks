@@ -40,10 +40,10 @@ or manually :
 You can also do an iso image :
 > pbslacks/pbmakeiso
 
-You can also put this iso on a USB stick :
+You can put this iso on a USB stick :
 > pbslacks/pbmakeiso2usb
 
-Those generated isos are too big for a usual DVD.
+Those generated iso need a double layer media for being put on a DVD with your favorite record software.
 
 -----------------------------------------------------------------
 Then install the Slackware current with this new USB stick and reboot on it (see SLACKWARE.txt)
