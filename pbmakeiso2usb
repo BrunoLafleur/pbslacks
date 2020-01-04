@@ -13,12 +13,6 @@
 #   -guess the device name of the USB stick.
 #   -copy the iso file givent in argument.
 
-if [ ! -d slackware64-current ] ;then
-    echo "Script a lancer dans le repertoire contenant slackware64-current fraichement aspire."
-    echo "Launch this script in the directory including slackware64-current."
-    exit 1
-fi
-
 if [ "$1" = '' ] ;then
     echo "Give the name of the iso file to copy on the key."
     exit 1

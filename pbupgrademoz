@@ -12,6 +12,7 @@ fi
 
 if [ ! -d slackware64-current ] ;then
     echo "Script a lancer dans le repertoire contenant slackware64-current fraichement aspire."
+    echo "Launch this script in the directory including slackware64-current."
     exit 1
 fi
 

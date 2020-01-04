@@ -5,6 +5,7 @@
 
 if [ ! -d packages ] ;then
     echo "Script a lancer dans le repertoire contenant packages, packages2 et al."
+    echo "Launch this script in the directory including packages, packages2 et al."
     exit 1
 fi
 

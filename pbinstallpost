@@ -15,7 +15,8 @@ EOF
 fi
 
 if [ ! -d packages -o ! -d packages2 -o ! -d packages3 -o ! -d packages4 ] ;then
-	echo "Script a lancer dans le repertoire contenant (au dessus de) packages*."
+    echo "Script a lancer dans le repertoire contenant packages, packages2 et al."
+    echo "Launch this script in the directory including packages, packages2 et al."
     exit 1
 fi
 
