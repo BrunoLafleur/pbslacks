@@ -32,7 +32,7 @@ MYDEVNAME=`/sbin/fdisk -l 2> /dev/null| tail -1 | grep 'FAT32$'|cut -d ' ' -f1|c
 
 if [ "$MYDEVNAME" = '' ] ;then
 # If it is an already created Slackware USB stick."
-    MYDEVNAME=`/sbin/fdisk -l 2> /dev/null| tail -2 | grep 'EFI '|cut -d ' ' -f1|cut -d '2' -f1`
+    MYDEVNAME=`/sbin/fdisk -l 2> /dev/null| tail -3 | grep 'EFI '|cut -d ' ' -f1|cut -d '2' -f1`
 fi
 
 /sbin/fdisk -l 2> /dev/null
