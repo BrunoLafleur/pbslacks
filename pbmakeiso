@@ -34,7 +34,10 @@ xorriso -as mkisofs \
   -m 'source' \
   -volid "SlackDVD" \
   -output "../../$NAMEISO" \
-  . ../current ../packages* ../bumblebee ../../divers ../../pbslacks ../../perso
+  -graft-points \
+  . current/=../current packages/=../packages packages2/=../packages2 \
+	 packages3/=../packages3 packages4/=../packages4 bumblebee/=../bumblebee \
+	 divers/=../../divers pbslacks/=../../pbslacks perso/=../../perso
 
 cd ../..
 

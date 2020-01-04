@@ -1,0 +1,24 @@
+#! /bin/sh
+
+# Auteur : Pierre Brochard (pierre.brochard.1982@m4x.org)
+# Date : 2019
+
+if [ "$1" = '' ] ;then
+    echo "Give the name of the iso file to mount."
+    exit 1
+fi
+
+NAMEISO="$1"
+
+if [ ! -f "$NAMEISO" ] ;then
+    echo "Give the name of an existant iso file to mount."
+    exit 1
+fi
+
+XLOOP=`udisksctl loop-setup -f $NAMEISO|sed 's@^.*\([0-9][0-9]*\)\.$@/dev/loop\1@'`
+echo "Loop device is : $XLOOP"
+udisksctl mount -b "${XLOOP}p1"
+
+echo "Look at /run/media/$USER/SlackDVD"
+echo "unmount with :"
+echo "> pbunmountiso"

@@ -1,0 +1,4 @@
+udisksctl loop-setup -f $PATH_TO_IMAGE
+udisksctl mount -b /dev/loop0p1
+udisksctl unmount -b /dev/loop0p1
+udisksctl loop-delete -b /dev/loop0
