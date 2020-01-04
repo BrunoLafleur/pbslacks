@@ -11,12 +11,23 @@
 # And lauch this script without plug another one in the meantime.
 # This script will :
 #   -guess the device name of the USB stick.
-#   -reformat the partition given for the USB stick (or answer ynof below).
-#   -put the current slackware local tree on it (without the source packages).
+#   -copy the iso file givent in argument.
 
 if [ ! -d slackware64-current ] ;then
     echo "Script a lancer dans le repertoire contenant slackware64-current fraichement aspire."
     echo "Launch this script in the directory including slackware64-current."
+    exit 1
+fi
+
+if [ "$1" = '' ] ;then
+    echo "Give the name of the iso file to copy on the key."
+    exit 1
+fi
+
+NAMEISO="$1"
+
+if [ ! -f "$NAMEISO" ] ;then
+    echo "Give the name of an existant iso file to copy on the key."
     exit 1
 fi
 
@@ -29,14 +40,7 @@ MYDEVNAME=`/sbin/fdisk -l 2> /dev/null| tail -1 | grep 'FAT32$'|cut -d ' ' -f1|c
 echo "Your device name is $MYDEVNAME. Is this correct ? y(es) or n(o) or ynof(ormat) :"
 read c
 
-if [ "$c"= 'ynof' ] ;then
-    c=y
-    FORMAT=
-else
-    FORMAT=-f
-fi
-
 if [ "$c" = 'y' -a "$MYDEVNAME" != '' ] ;then
-    cd slackware64-current/usb-and-pxe-installers
-    ./usbimg2disk.sh $FORMAT -i `pwd`/usbboot.img -o "$MYDEVNAME" -s `pwd`/..
+    dd if=$NAMEISO of=$MYDEVNAME bs=1M
+    sync
 fi

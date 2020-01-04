@@ -1,7 +1,9 @@
-Notes diverses.
+-> isolinux in the slackware repository to make the iso
+-> N'est plus utile depuis la 14.1 : isohybrid -h 255 -s 63 /path/to/the/ISO
+-> dd sur la cle usb.
 
-Faire plutot une iso et un script iso2img
-
+NOTES diverses en vrac
+______________________
 # As root
 # Faire une taille optimale
 
