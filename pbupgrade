@@ -36,7 +36,7 @@ if [ "$XNEW" = '' ] ;then
 fi
 
 cd $HOMESLACK
-upgradepkg --install-new current/*.t?z
+upgradepkg --reinstall --install-new current/*.t?z
 upgradepkg --install-new current/slackware64-compat32/*/*.t?z
 echo "Upgrade multilib fait."
 
@@ -45,20 +45,41 @@ upgradepkg --install-new packages*/*.t?z
 upgradepkg --install-new packages4/frameworks/*.t?z
 upgradepkg --install-new packages4/audacity/*.t?z
 upgradepkg --install-new packages4/tesseract4/*.t?z
-cp packages4/xsane2tess* /usr/bin
+cp packages4/tesseract/xsane2tess* /usr/bin
 echo "Upgrade packages* fait."
 
 $HOMESLACK/pbslacks/pbupgrademoz
 
 if [ -d /boot/efi/EFI/Slackware ] ;then
-  cp /boot/vmlinuz /boot/initrd.gz /boot/efi/EFI/Slackware
-  echo "Fichiers vmlinuz et initrd.gz recopiés dans /boot/efi/EFI/Slackware"
+  echo "Boot UEFI detected, y or n ?"
+  read c
+  if [ "$c" = 'y' ] ;then
+    cp /boot/vmlinuz /boot/initrd.gz /boot/efi/EFI/Slackware
+    echo "Files vmlinuz et initrd.gz copied in /boot/efi/EFI/Slackware"
+  fi
 elif [ -f /boot/grub/grub.cfg ] ;then
-  grub-mkconfig -o /boot/grub/grub.cfg
+  echo "Boot Grub detected, y or n ?"
+  read c
+  if [ "$c" = 'y' ] ;then
+    grub-mkconfig -o /boot/grub/grub.cfg
+    echo "Grub updated"
+  fi
+elif [ -f /etc/lilo.conf ] ;then
+  echo "Boot Lilo detected, y or n ?"
+  read c
+  if [ "$c" = 'y' ] ;then
+    /sbin/lilo
+    echo "Lilo updated"
+  fi
 fi
 
 echo "Redémarrer la machine puis si necessaire remettez Crazybee"
-echo "Si lilo est installe, lancez /sbin/lilo"
+if [ "$c" != 'y' ] ;then
+  echo "If lilo is installed, launch : /sbin/lilo"
+  echo "If Grub is installed, launch : grub-mkconfig -o /boot/grub/grub.cfg"
+  echo "If Boot UEFI ELILO is installed, do :"
+  echo "  cp /boot/vmlinuz /boot/initrd.gz /boot/efi/EFI/Slackware"
+fi
 
 echo "Ensuite lancez si pas deja fait sur une machine mise a jour :"
 echo "  pbslacks/pbinstallpost"
