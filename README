@@ -69,7 +69,7 @@ Download again (only the differences as we do with wget -N) on a fresh or exista
 
 -----------------------------------------------------------------
 On the installed Slackware current to update,
-lauch the following scripts on the USB key or a disk copy of it on a central repository
+lauch the following scripts on the USB stick or a disk copy of it on a central repository
 on the new machine as root.
 > pbsclacks/upgrade
 

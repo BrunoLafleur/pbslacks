@@ -14,18 +14,18 @@
 #   -copy the iso file givent in argument.
 
 if [ "$1" = '' ] ;then
-    echo "Give the name of the iso file to copy on the key."
+    echo "Give the name of the iso file to copy on the USB stick."
     exit 1
 fi
 
 NAMEISO="$1"
 
 if [ ! -f "$NAMEISO" ] ;then
-    echo "Give the name of an existant iso file to copy on the key."
+    echo "Give the name of an existant iso file to copy on the USB stick."
     exit 1
 fi
 
-echo "Put your USB stick on an USB port and press a key."
+echo "Put your USB stick on an USB port and press Enter."
 read c
 
 sleep 3

@@ -20,7 +20,7 @@ if [ ! -d slackware64-current ] ;then
     exit 1
 fi
 
-echo "Put your USB stick on an USB port and press a key."
+echo "Put your USB stick on an USB port and press Enter."
 read c
 
 sleep 3
