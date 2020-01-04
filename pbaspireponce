@@ -14,9 +14,9 @@ SLACKPONCE32="http://ponce.cc/slackware/slackware-current/packages"
 
 xpurgepac () {
     pac="$1"
-    LAST=`ls -1t "$pac"*.t?z|head -1`
+    last=`ls -1t "$pac"*.t?z|head -1`
     for j in "$pac"*.t?z ;do
-	if [ "$j" != "$LAST" ] ;then
+	if [ "$j" != "$last" ] ;then
 	    rm -f "$j"
 	fi
     done
@@ -26,7 +26,7 @@ xgetpac () {
     pac="$1"
     dir="$2"
     prof="$3"
-    wget -N -A "$pac"'*.t?z' -r -np -nH --cut-dir=$prof "$dir/"
+    wget -N -A "$pac"'*.t?z' -r -nv -np -nH --cut-dir=$prof "$dir/"
 }
 
 cd packages

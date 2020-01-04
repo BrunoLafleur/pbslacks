@@ -36,9 +36,9 @@ SLACKDJ32="http://www.slackel.gr/repo/i486/current/slackel/extra"
 
 xpurgepac () {
     pac="$1"
-    LAST=`ls -1t "$pac"*.t?z|head -1`
+    last=`ls -1t "$pac"*.t?z|head -1`
     for j in "$pac"*.t?z ;do
-	if [ "$j" != "$LAST" ] ;then
+	if [ "$j" != "$last" ] ;then
 	    rm -f "$j"
 	fi
     done
@@ -48,7 +48,7 @@ xgetpac () {
     pac="$1"
     dir="$2"
     prof="$3"
-    wget -N -A "$pac"'*.t?z' -r -np -nH --cut-dir=$prof "$dir/"
+    wget -N -A "$pac"'*.t?z' -r -nv -np -nH --cut-dir=$prof "$dir/"
     xpurgepac "$pac"
 }
 
@@ -62,7 +62,7 @@ xgetsrcpac () {
     fi
     if [ "$localcopie" = http -o "$localcopie" = https ] ;then
         cd "$name"
-        wget -N "$path"
+        wget -N -nv "$path"
 	cd ..
     else
 	echo "Copie locale de ../pbslacks/builds/$path vers $name"
