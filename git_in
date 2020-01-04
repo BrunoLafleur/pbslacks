@@ -12,6 +12,12 @@
 # git push
 # git pull
 
+# Autres exemples :
+# git checkout master
+# git checkout 0.11.5b
+# git checkout master
+# git archive -o ../kmplayer-0.11.5b.tar 0.11.5b --prefix=kmplayer-0.11.5b/
+
 SAVEPROD=..
 REMPNAME=`basename $0`
 

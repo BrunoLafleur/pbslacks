@@ -79,7 +79,7 @@ cd ..
 
 cd packages2
 xgetsrcpac roccat-tools "$PATHROCCATTOOLS"
-xgetsrcpac kmplayer "kmplayer_0.11.3d.tar.bz2"
+xgetsrcpac kmplayer "kmplayer_0.11.5b.tar.bz2"
 xgetsrcpac denemo "$PATHDENEMO"
 cd ..
 
