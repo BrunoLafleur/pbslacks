@@ -90,7 +90,8 @@ Télécharger aussi le mode de compatibilité 32 bits de Alien Bob (ici ou sur u
 
 Ramener aussi firefox et thunderbird en français sur le site de Mozilla.
 
-Ramener downloadcrazybee.sh
+Ramener download crazybee.sh
+
 Sixième étape2019-07-05T14:42:54Zadmin
 
 Pour avoir les logiciels suivants :
