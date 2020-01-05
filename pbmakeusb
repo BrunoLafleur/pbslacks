@@ -16,6 +16,9 @@
 # Or put an ISO Slackware image on the USB stick (better than uses pbmakeiso2usb
 # because the resulting USB stick is writable and keep her original size).
 
+# TODO : modify the usbimg2disk.sh script to use udisksctl to be
+# able to launch this script as a normal user with plugdev rights.
+
 if [ ! $UID = 0 ]; then
   cat << EOF
 This script must be run as root.
