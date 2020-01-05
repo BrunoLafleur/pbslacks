@@ -29,8 +29,11 @@ Then in sequence or in parallel if the network is good enough.
 > pbslacks/pbaspireslonly
 > pbslacks/pbaspireother
 
-Then do a USB stick (a 16 Go or above one) as root (admin user) or a normal user in plugdev group :
+Then do a USB stick (a 16 Go or above one) as root (admin user) with the
+current repository just downloaded / updated or with a slackware iso downloaded or made
+with the pbmakeiso below :
 > pbslacks/pbmakeusb
+> pbslacks/pbmakeusb image_slackware.iso
 
 Or manually XXX with sdXXX is the device of the USB stick to find with the command dmesg as root or fdisk -l as a user or root :
 > cd slackware64-current/usb-and-pxe-installers
@@ -40,8 +43,9 @@ Or manually XXX with sdXXX is the device of the USB stick to find with the comma
 You can also do an iso image :
 > pbslacks/pbmakeiso
 
-You can put this iso on a USB stick :
+You can put this iso on a USB stick (as root or a plugdev user) :
 > pbslacks/pbmakeiso2usb
+Or with the pbmakeusb command above.
 
 Those generated iso need a double layer media for being put on a DVD with your favorite record software.
 
@@ -82,7 +86,7 @@ After upgrade, you can recreate and install some packages as root.
 And if you have the dual graphic cards as root.
 > pbslacks/pbinstallbumblebee
 
-If you install that Slackware on other computers, the pbinstall* needs to be done only for the first one.
+If you install that Slackware on many computers, the pbinstall* needs to be done only for the first one.
 =================================================================
 
 Those scripts uses slackpkg and wget.
