@@ -62,5 +62,5 @@ fi
 if [ ! -d bumblebee ] ;then
     mkdir bumblebee
     mkdir bumblebee/Crazybee
-    cp pbslacks/crazybee.sh bumblebee/Crazybee
+    cp pbslacks/builds/crazybee.sh bumblebee/Crazybee
 fi
