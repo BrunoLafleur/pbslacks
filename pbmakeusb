@@ -5,7 +5,6 @@
 
 # Use at your own risk. The autodetected partition is the last VFAT one.
 # Be sure it is not your hard drive.
-# If you are in the plugdev group, you can execute thos script as a normal user.
 
 # Plug an USB stick
 # And lauch this script without plug another one in the meantime.
@@ -14,9 +13,48 @@
 #   -reformat the partition given for the USB stick (or answer ynof below).
 #   -put the current slackware local tree on it (without the source packages).
 
+# Or put an ISO Slackware image on the USB stick (better than uses pbmakeiso2usb
+# because the resulting USB stick is writable and keep her original size).
+
+if [ ! $UID = 0 ]; then
+  cat << EOF
+This script must be run as root.
+EOF
+  exit 1
+fi
+
+ISO=0
+MYPWD=`pwd`
+REPO="$MYPWD/slackware64-current"
+
 if [ ! -d slackware64-current ] ;then
-    echo "Script a lancer dans le repertoire contenant slackware64-current fraichement aspire."
-    echo "Launch this script in the directory including slackware64-current."
+    IMGISO="$1"
+
+    if [ "$IMGISO" != '' ] ;then
+	BIMG=`basename "$IMGISO"`
+	BIMGISO=`basename "$IMGISO" .iso`
+	if [ "$BIMG" != "$BIMGISO" ] ;then
+	    ISO=1
+	fi
+    fi
+    if [ $ISO -eq 0 ] ;then
+        echo "Script a lancer dans le repertoire contenant slackware64-current fraichement aspire."
+        echo "Launch this script in the directory including slackware64-current."
+        exit 1
+    fi
+fi
+
+if [ $ISO -eq 1 ] ;then
+    XLOOP=`udisksctl loop-setup -f $IMGISO|sed 's@^.*\([0-9][0-9]*\)\.$@/dev/loop\1@'`
+    echo "Loop device is : $XLOOP"
+    udisksctl mount -b "${XLOOP}p1"
+    REPO="/run/media/$USER/SlackDVD"
+fi
+
+cd "$REPO"
+if [ $? -ne 0 ] ;then
+    echo "Repertoire non existant."
+    echo "Is your ISO file a Slackware image ?"
     exit 1
 fi
 
@@ -26,10 +64,16 @@ read c
 sleep 3
 MYDEVNAME=`/sbin/fdisk -l 2> /dev/null| tail -1 | grep 'FAT32$'|cut -d ' ' -f1|cut -d '1' -f1`
 
+if [ "$MYDEVNAME" = '' ] ;then
+# If it is an already created Slackware USB stick."
+    MYDEVNAME=`/sbin/fdisk -l 2> /dev/null| tail -3 | grep 'EFI '|cut -d ' ' -f1|cut -d '2' -f1`
+fi
+
+/sbin/fdisk -l 2> /dev/null
 echo "Your device name is $MYDEVNAME. Is this correct ? y(es) or n(o) or ynof(ormat) :"
 read c
 
-if [ "$c"= 'ynof' ] ;then
+if [ "$c" = 'ynof' ] ;then
     c=y
     FORMAT=
 else
@@ -37,6 +81,12 @@ else
 fi
 
 if [ "$c" = 'y' -a "$MYDEVNAME" != '' ] ;then
-    cd slackware64-current/usb-and-pxe-installers
-    ./usbimg2disk.sh $FORMAT -i `pwd`/usbboot.img -o "$MYDEVNAME" -s `pwd`/..
+    cd usb-and-pxe-installers
+    sh ./usbimg2disk.sh $FORMAT -i `pwd`/usbboot.img -o "$MYDEVNAME" -s "$REPO"
+fi
+
+if [ $ISO -eq 1 ] ;then
+    cd "$MYPWD"
+    udisksctl unmount -b "${XLOOP}p1"
+    udisksctl loop-delete -b "$XLOOP"
 fi
