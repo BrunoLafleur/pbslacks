@@ -5,7 +5,12 @@
 
 # Use at your own risk. The autodetected partition is the last VFAT one.
 # Be sure it is not your hard drive.
-# If you are in the plugdev group, you can execute thos script as a normal user.
+
+# If you are in the plugdev group, you can execute this script as a normal user.
+
+# You may prefer the pbmakeusb script for the same task.
+# This script produce an USB stick not writable and not extensible
+# but good enough to install a Slackware distribution on your computer.
 
 # Plug an USB stick
 # And lauch this script without plug another one in the meantime.
