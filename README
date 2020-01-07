@@ -29,25 +29,27 @@ Then in sequence or in parallel if the network is good enough.
 > pbslacks/pbaspireslonly
 > pbslacks/pbaspireother
 
-Then do a USB stick (a 16 Go or above one) as root (admin user) with the
-current repository just downloaded / updated or with a slackware iso downloaded or made
-with the pbmakeiso below :
+Then do a USB stick (a 16 Go or above one) as root (admin user) or a normal user
+in the plugdev group, with the current repository just downloaded / updated or
+with a slackware iso downloaded or made with the pbmakeiso below :
 > pbslacks/pbmakeusb
 > pbslacks/pbmakeusb image_slackware.iso
 
-Or manually XXX with sdXXX is the device of the USB stick to find with the command dmesg as root or fdisk -l as a user or root :
+Or manually as root with sdXXX the device of the USB stick to find with the command
+dmesg as root or fdisk -l as a user or root :
 > cd slackware64-current/usb-and-pxe-installers
 > ./usbimg2disk.sh -f -i `pwd`/usbboot.img -o /dev/sdXXX -s `pwd`/..
 > cd ../..
 
-You can also do an iso image :
+You can also do an iso image as a normal user :
 > pbslacks/pbmakeiso
 
-You can put this iso on a USB stick (as root or a plugdev user) :
+You can put this iso on a USB stick (as root or a user in the plugdev group) :
 > pbslacks/pbmakeiso2usb
 Or with the pbmakeusb command above.
 
-Those generated iso need a double layer media for being put on a DVD with your favorite record software.
+Those generated iso need a double layer media for being put on a DVD
+with your favorite record software.
 
 -----------------------------------------------------------------
 Then install the Slackware current with this new USB stick and reboot on it (see SLACKWARE.txt)
