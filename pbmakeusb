@@ -16,15 +16,8 @@
 # Or put an ISO Slackware image on the USB stick (better than uses pbmakeiso2usb
 # because the resulting USB stick is writable and keep her original size).
 
-# TODO : modify the usbimg2disk.sh script to use udisksctl to be
-# able to launch this script as a normal user with plugdev rights.
-
-#if [ ! $UID = 0 ]; then
-#  cat << EOF
-#This script must be run as root.
-#EOF
-#  exit 1
-#fi
+# You can launch this script as a normal user in the plugdev group.
+# Use fdisk and udisksctl.
 
 ISO=0
 MYPWD=`pwd`
@@ -85,8 +78,11 @@ fi
 
 if [ "$c" = 'y' -a "$MYDEVNAME" != '' ] ;then
     cd usb-and-pxe-installers
-    # sh ./usbimg2disk.sh $FORMAT -i `pwd`/usbboot.img -o "$MYDEVNAME" -s "$REPO"
-    $MYPWD/pbslacks/pbimg2disk $FORMAT -i `pwd`/usbboot.img -o "$MYDEVNAME" -s "$REPO"
+    if [ $UID = 0 ]; then
+        sh ./usbimg2disk.sh $FORMAT -i `pwd`/usbboot.img -o "$MYDEVNAME" -s "$REPO"
+    else
+        $MYPWD/pbslacks/pbimg2disk $FORMAT -i `pwd`/usbboot.img -o "$MYDEVNAME" -s "$REPO"
+    fi
 fi
 
 if [ $ISO -eq 1 ] ;then
