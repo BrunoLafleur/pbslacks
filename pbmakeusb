@@ -19,12 +19,12 @@
 # TODO : modify the usbimg2disk.sh script to use udisksctl to be
 # able to launch this script as a normal user with plugdev rights.
 
-if [ ! $UID = 0 ]; then
-  cat << EOF
-This script must be run as root.
-EOF
-  exit 1
-fi
+#if [ ! $UID = 0 ]; then
+#  cat << EOF
+#This script must be run as root.
+#EOF
+#  exit 1
+#fi
 
 ISO=0
 MYPWD=`pwd`
@@ -85,7 +85,8 @@ fi
 
 if [ "$c" = 'y' -a "$MYDEVNAME" != '' ] ;then
     cd usb-and-pxe-installers
-    sh ./usbimg2disk.sh $FORMAT -i `pwd`/usbboot.img -o "$MYDEVNAME" -s "$REPO"
+    # sh ./usbimg2disk.sh $FORMAT -i `pwd`/usbboot.img -o "$MYDEVNAME" -s "$REPO"
+    $MYPWD/pbslacks/pbimg2disk $FORMAT -i `pwd`/usbboot.img -o "$MYDEVNAME" -s "$REPO"
 fi
 
 if [ $ISO -eq 1 ] ;then
