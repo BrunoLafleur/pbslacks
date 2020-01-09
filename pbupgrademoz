@@ -2,6 +2,7 @@
 
 # Auteur : Pierre Brochard (pierre.brochard.1982@m4x.org)
 # Date : 2019
+# License : See the LICENSE file in this repository.
 
 if [ ! $UID = 0 ]; then
   cat << EOF
@@ -10,9 +11,20 @@ EOF
   exit 1
 fi
 
-if [ ! -d slackware64-current ] ;then
-    echo "Script a lancer dans le repertoire contenant slackware64-current fraichement aspire."
-    echo "Launch this script in the directory including slackware64-current."
+xhelp () {
+    echo "Script a lancer dans le repertoire contenant slackware64 fraichement aspire."
+    echo "pbslacks doit aussi etre accessible du repertoire courant."
+    echo
+    echo "Launch this script in the directory including slackware64."
+    echo "pbslacks should also be there."
+    echo
+    echo "  > cd .../slackware-current"
+    echo "or> cd /run/media/$USER/USBSLACKINS/SlackDVD"
+    echo "  > pbslacks/pbupgrademoz"
+}
+
+if [ ! -d slackware64 -o '(' ! -h pbslacks -a ! -d pbslacks ')' ] ;then
+    xhelp
     exit 1
 fi
 
@@ -20,15 +32,23 @@ MYPWD=`pwd`
 HOMESLACK="$MYPWD"
 HOMEMOZ=/usr/lib64
 
-rm -rf $HOMEMOZ/firefox.en
-mv $HOMEMOZ/firefox $HOMEMOZ/firefox.en
-cd $HOMEMOZ
-tar xfj $HOMESLACK/packages/Mozilla/firefox-68.3.0esr.tar.bz2
+FFVERSION="$HOMESLACK/packages/Mozilla/firefox-68.3.0esr.tar.bz2"
+THVERSION="$HOMESLACK/packages/Mozilla/thunderbird-68.3.1.tar.bz2"
 
-rm -rf $HOMEMOZ/thunderbird.en
-mv $HOMEMOZ/thunderbird $HOMEMOZ/thunderbird.en
-cd $HOMEMOZ
-tar xfj $HOMESLACK/packages/Mozilla/thunderbird-68.3.1.tar.bz2
+if [ -f "$FFVERSION" ] ;then
+    rm -rf $HOMEMOZ/firefox.en
+    mv $HOMEMOZ/firefox $HOMEMOZ/firefox.en
+    cd $HOMEMOZ
+    tar xfj "$FFVERSION"
+fi
+
+if [ -f "$THVERSION" ] ;then
+    rm -rf $HOMEMOZ/thunderbird.en
+    mv $HOMEMOZ/thunderbird $HOMEMOZ/thunderbird.en
+    cd $HOMEMOZ
+    tar xfj "$THVERSION"
+fi
+
 echo "Firefox et Thunderbird en français ajoutés"
 
-cd $MYPWD
+cd "$MYPWD"

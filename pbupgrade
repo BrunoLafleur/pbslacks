@@ -2,90 +2,340 @@
 
 # Auteur : Pierre Brochard (pierre.brochard.1982@m4x.org)
 # Date : 2019
+# License : See the LICENSE file in this repository.
 
-if [ ! $UID = 0 ]; then
-  cat << EOF
-This script must be run as root.
-EOF
-  exit 1
+XTEST=
+XNEW=
+XPOST=
+
+xhelp () {
+    echo "Script a lancer dans le repertoire contenant slackware64 fraichement aspire."
+    echo "pbslacks doit aussi etre accessible du repertoire courant."
+    echo
+    echo "Launch this script in the directory including slackware64."
+    echo "pbslacks should also be there."
+    echo
+    echo "  > cd .../slackware-current"
+    echo "or> cd /run/media/$USER/USBSLACKINS/SlackDVD"
+    echo "  > pbslacks/pbupgrade [-new (no system update)]"
+    echo "               [-test (test only, no actions)]"
+    echo "               [-help]"
+    echo "               [-post (actions to do preferably after a postinstall reboot)]"
+}
+
+while [ $# -ge 1 ] ;do
+    MYARG="$1"
+    if [ "$MYARG" = "-new" ] ;then
+	XNEW=yes
+    elif [ "$MYARG" = "-test" ] ;then
+	XTEST=yes
+    elif [ "$MYARG" = "-post" ] ;then
+	XPOST=yes
+    elif [ "$MYARG" = "-help" ] ;then
+	xhelp
+	exit 0
+    fi
+    shift
+done
+
+if [ ! -d /boot ] ;then
+    echo "Do the install of the Slackware Linux distribution before :"
+    echo "-see the SLACKWARE.txt file."
+    exit 1
 fi
 
-if [ ! -d slackware64-current ] ;then
-    echo "Script a lancer dans le repertoire contenant slackware64-current fraichement aspire."
-    echo "Launch this script in the directory including slackware64-current."
-    exit 1
+if [ "$XTEST" != 'yes' ] ;then
+    if [ ! $UID = 0 ]; then
+	cat << EOF
+This script must be run as root.
+EOF
+	exit 1
+    fi
+
+    if [ ! -d slackware64 -o '(' ! -h pbslacks -a ! -d pbslacks ')' ] ;then
+	xhelp
+	exit 1
+    fi
 fi
 
 MYPWD=`pwd`
 HOMESLACK="$MYPWD"
-XNEW="$1"
 
-if [ "$XNEW" = '' ] ;then
-    cp pbslacks/Slackpkg/blacklist /etc/slackpkg
-    cp pbslacks/Slackpkg/slackpkg.conf /etc/slackpkg
-    cat pbslacks/Slackpkg/mirrors | sed "s@HOMESLACK@${HOMESLACK}@" > /etc/slackpkg/mirrors
-    slackpkg update gpg
-    slackpkg update
-    slackpkg install-new
-    slackpkg upgrade-all
-    slackpkg clean-system
+XTEMPOUT=/tmp/pbupgradeout$$
+XTEMPMES=/tmp/pbupgrademes$$
 
-    if [ $? -ne 0 ] ;then
-	echo 'Abort : voir erreurs precedentes.'
+if [ "$XNEW" = 'yes' ] ;then
+    XUPSYSTEM=off
+else
+    XUPSYSTEM=on
+fi
+
+if [ "$XPOST" = 'yes' ] ;then
+    XUPNOPOST=off
+    XUPPOST=on
+    XUPSYSTEM=off
+else
+    XUPPOST=off
+    XUPNOPOST=on
+fi
+
+xmaster () {
+    defitem=$1;shift
+    xsel1=$1;shift;xsel2=$1;shift;xsel3=$1;shift;xsel4=$1;shift;xsel5=$1;shift
+    xsel6=$1;shift;xsel7=$1;shift;xsel8=$1;shift;xsel9=$1;shift;xsel10=$1;shift
+    xsel11=$1;shift;xsel12=$1;shift;xsel13=$1;shift
+    dialog --colors --title 'Main menu' --default-item $defitem --defaultno \
+	--separate-output --item-help --help-button --help-status --checklist \
+	'Choose your actions below after you have launch the \Zbpbaspire*\ZB script' 0 100 13 \
+	system 'Sync/Update system to the last fetched current Slackware' $xsel1 system \
+	compat32 'Install/Update the 32 bits compatible mode' $xsel2 compat32 \
+	mozilla 'Install/Update the Firefox and Thunderbird softwares' $xsel3 mozilla \
+	packages 'Install/Update the packages set of software' $xsel4 packages \
+	packages2 'Install/Update the packages2 set of software' $xsel5 packages2 \
+	packages3 'Install/Update the packages3 set of software' $xsel6 packages3 \
+	packages4 'Install/Update the packages4 set of software' $xsel7 packages4 \
+	frameworks 'Install/Update the KDE5 frameworks libraries' $xsel8 frameworks \
+	audacity 'Install/Update the Audacity software' $xsel9 audacity \
+	tesseract4 'Install/Update the Tesseract version 4 software' $xsel10 tesseract4 \
+	bumblebee 'Install/Update the Bumblebee support of your second NVIDIA graphic card' $xsel11 bumblebee \
+	recreate 'Compile again some packages.' $xsel12 recreate \
+	recreatebumblebee 'Compile again Bumblebee packages.' $xsel13 recreatebumblebee
+}
+
+xpacaide () {
+    packages="$1"
+    pacaide="Update the $packages set of tools :"
+    ls "$packages/"*.t?z | while read j;test "$j" != "" ;do
+	pacaide="$pacaide\n$j"
+    done
+}
+
+xsel="$XUPSYSTEM $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST \
+$XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPPOST $XUPPOST $XUPPOST"
+ditem=system
+bclaide=1
+while [ $bclaide -eq 1 ] ;do
+    xmaster $ditem $xsel 2> $XTEMPOUT
+    bclaide=0
+    while read i;test "$i" != "" ;do
+	if [ "`echo $i|cut -c1-4`" = 'HELP' ] ;then
+	    xitem="`echo $i|cut -d ' ' -f2`"
+	    xsel=
+	    for i in system compat32 mozilla packages packages2 packages3 packages4 \
+		frameworks audacity tesseract4 bumblebee recreate recreatebumblebee ;do
+		if [ `grep "^$i$" "$XTEMPOUT"|wc -l` -eq 1 ] ;then
+		    xsel="$xsel on"
+		else
+		    xsel="$xsel off"
+		fi
+	    done
+	    ditem=$xitem;bclaide=1;pacaide=
+	    if [ "$xitem" = system ] ;then
+		pacaide='Update your Slackware system with the last current fetched before.'
+		pacaide="$pacaide\nUses Slackpkg."
+	    elif [ "$xitem" = compat32 ] ;then
+		pacaide='Update the Alien Bob 32 bits compatible mode.'
+	    elif [ "$xitem" = mozilla ] ;then
+		pacaide='Update the Firefox and Thunderbird products.'
+		pacaide="$pacaide\nThey should be downloaded and put in the packages/Mozilla directory before."
+	    elif [ `echo "$xitem"|cut -c1-8` = packages ] ;then
+		xpacaide "$xitem"
+	    elif [ "$xitem" = frameworks ] ;then
+		xpacaide packages4/frameworks
+	    elif [ "$xitem" = audacity ] ;then
+		xpacaide packages4/audacity
+	    elif [ "$xitem" = tesseract4 ] ;then
+		xpacaide packages4/tesseract4
+	    elif [ "$xitem" = bumblebee ] ;then
+		pacaide='Update your Bumblebee packages if they are in sync with the upgraded Slackware.'
+		pacaide="$pacaide\nDone on another machine for exemple."
+	    elif [ "$xitem" = recreate ] ;then
+		pacaide='Redo the packages which are here in sources form.'
+		pacaide="$pacaide\nIf not already done on this machine or another."
+	    elif [ "$xitem" = recreatebumblebee ] ;then
+		pacaide='Redo the Bumblebee packages.'
+		pacaide="$pacaide\nIf not already done on this machine or another."
+	    fi
+	    dialog --colors --title "$xitem" --msgbox "$pacaide" 20 80
+	    break
+	elif [ "$XNEW" != 'yes' -a "$i" = system ] ;then
+	    if [ "$XTEST" != 'yes' ] ;then
+		cp pbslacks/Slackpkg/blacklist /etc/slackpkg
+		cp pbslacks/Slackpkg/slackpkg.conf /etc/slackpkg
+		cat pbslacks/Slackpkg/mirrors | sed "s@HOMESLACK@${HOMESLACK}@" \
+		    > /etc/slackpkg/mirrors
+		slackpkg update gpg
+		slackpkg update
+		slackpkg install-new
+		slackpkg upgrade-all
+		slackpkg clean-system
+
+		if [ $? -ne 0 ] ;then
+		    echo 'Abort : voir erreurs precedentes.'
+		    exit 1
+		fi
+	    fi
+	    echo "Upgrade system fait." >> $XTEMPMES
+	elif [ "$i" = compat32 ] ;then
+	    if [ "$XTEST" != 'yes' ] ;then
+		upgradepkg --reinstall --install-new current/*.t?z
+		upgradepkg --install-new current/slackware64-compat32/*/*.t?z
+	    fi
+	    echo "Upgrade Alien Bob multilib fait." >> $XTEMPMES
+	elif [ "$i" = mozilla ] ;then
+	    if [ "$XTEST" != 'yes' ] ;then
+		$HOMESLACK/pbslacks/pbupgrademoz
+	    fi
+	    echo "Upgrade Mozilla fait." >> $XTEMPMES
+	elif [ "$i" = packages ] ;then
+	    if [ "$XTEST" != 'yes' ] ;then
+		upgradepkg --install-new packages/*.t?z
+	    fi
+	    echo "Upgrade packages fait." >> $XTEMPMES
+	elif [ "$i" = packages2 ] ;then
+	    if [ "$XTEST" != 'yes' ] ;then
+		upgradepkg --install-new packages2/*.t?z
+	    fi
+	    echo "Upgrade packages2 fait." >> $XTEMPMES
+	elif [ "$i" = packages3 ] ;then
+	    if [ "$XTEST" != 'yes' ] ;then
+		upgradepkg --install-new packages3/*.t?z
+	    fi
+	    echo "Upgrade packages3 fait." >> $XTEMPMES
+	elif [ "$i" = packages4 ] ;then
+	    if [ "$XTEST" != 'yes' ] ;then
+		upgradepkg --install-new packages4/*.t?z
+	    fi
+	    echo "Upgrade packages4 fait." >> $XTEMPMES
+	elif [ "$i" = frameworks ] ;then
+	    if [ "$XTEST" != 'yes' ] ;then
+		upgradepkg --install-new packages4/frameworks/*.t?z
+	    fi
+	    echo "Upgrade frameworks fait." >> $XTEMPMES
+	elif [ "$i" = audacity ] ;then
+	    if [ "$XTEST" != 'yes' ] ;then
+		upgradepkg --install-new packages4/audacity/*.t?z
+	    fi
+	    echo "Upgrade audacity fait." >> $XTEMPMES
+	elif [ "$i" = tesseract4 ] ;then
+	    if [ "$XTEST" != 'yes' ] ;then
+		upgradepkg --install-new packages4/tesseract4/*.t?z
+		cp packages4/tesseract4/xsane2tess* /usr/bin
+	    fi
+	    echo "Upgrade tesseract4 fait." >> $XTEMPMES
+	elif [ "$i" = bumblebee ] ;then
+	    if [ "$XTEST" != 'yes' ] ;then
+		$HOMESLACK/pbslacks/pbupgradebumblebee
+	    fi
+	    echo "Upgrade Bumblebee fait." >> $XTEMPMES
+	elif [ "$i" = recreate ] ;then
+	    if [ "$XTEST" != 'yes' ] ;then
+		$HOMESLACK/pbslacks/pbcompilepost
+	    fi
+	    echo "Recreate source packages fait." >> $XTEMPMES
+	elif [ "$i" = recreatebumblebee ] ;then
+	    if [ "$XTEST" != 'yes' ] ;then
+		$HOMESLACK/pbslacks/pbcompilebumblebee
+	    fi
+	    echo "Recreate source Bumblebee fait." >> $XTEMPMES
+	fi
+    done < $XTEMPOUT
+done
+
+if [ -f "$XTEMPMES" ] ;then
+    dialog --colors --title 'Actions which were done' --msgbox "`cat $XTEMPMES`" 20 80
+else
+    echo "No action was demanded. Exit."
+    exit 0
+fi
+
+XBOOTLOAD=`cat $XTEMPOUT|grep system|wc -l`
+rm -f $XTEMPOUT
+rm -f $XTEMPMES
+
+if [ $XBOOTLOAD -ge 1 ] ;then
+# Only if system was modified
+    if [ -d /boot/efi/EFI/Slackware ] ;then
+	xitem=elilo
+    elif [ -f /boot/grub/grub.cfg ] ;then
+	xitem=grub
+    elif [ -f /etc/lilo.conf ] ;then
+	xitem=lilo
+    else
+	xitem=none
     fi
-    echo "Upgrade fait."
-elif [ ! -d /boot ] ;then
-    echo "Do the install before : see the SLACKWARE.txt file."
-    exit 1
+    dialog --colors --title 'Bootloader menu' --defaultno --default-item $xitem \
+	--menu 'We have detected the bootloader below. Cancel if it is not true.\nIn this last case, you should recreate the config of your bootloader before reboot. Else you will have to boot from another media as a DVD or an USB stick and rerun the install of your bootloader.' 15 80 5 \
+	elilo 'Boot Elilo : /boot/efi/EFI/Slackware' \
+	grub 'Boot Grub : /boot/grub/grub.cfg' \
+	lilo 'Boot Lilo : /etc/lilo.conf' \
+	none 'No bootloader detected. Reconfigure your bootloader before reboot.' \
+	2> $XTEMPOUT
+    xitem=`cat $XTEMPOUT`
+
+    xmes1 () {
+	echo "\ZbThe boot loader was not updated.\ZB"
+	echo "If lilo is installed, launch : \Zu/sbin/lilo\ZU"
+	echo "If Grub is installed, launch : \Zugrub-mkconfig -o /boot/grub/grub.cfg\ZU"
+	echo "If Boot UEFI ELILO is installed, do :"
+	echo "  \Zucp /boot/vmlinuz /boot/initrd.gz /boot/efi/EFI/Slackware\ZU"
+	echo
+	echo "\ZbOr rerun your other favorite bootloader install procedure before rebooting.\ZB"
+    }
+
+    if [ "$xitem" = elilo -a -d /boot/efi/EFI/Slackware ] ;then
+	echo "Elilo updated : Files vmlinuz et initrd.gz copied in /boot/efi/EFI/Slackware" >> $XTEMPMES
+	if [ "$XTEST" != 'yes' ] ;then
+	    cp /boot/vmlinuz /boot/initrd.gz /boot/efi/EFI/Slackware
+	fi
+    elif [ "$xitem" = grub -a -f /boot/grub/grub.cfg ] ;then
+	echo "Grub updated : grub-mkconfig relaunched.\n\Z1Look if there are error messages below\Zn." >> $XTEMPMES
+	if [ "$XTEST" != 'yes' ] ;then
+	    grub-mkconfig -o /boot/grub/grub.cfg 2>> $XTEMPMES
+	fi
+    elif [ "$xitem" = lilo -a -f /etc/lilo.conf ] ;then
+	echo "Lilo updated with /sbin/lilo.\n\Z1Look if there are error messages below\Zn." >> $XTEMPMES
+	if [ "$XTEST" != 'yes' ] ;then
+	    /sbin/lilo 2>> $XTEMPMES
+	fi
+    else
+	xmes1 >> $XTEMPMES
+    fi
+
+    if [ -f "$XTEMPMES" ] ;then
+	dialog --colors --title 'Bootloader upgraded' --msgbox "`cat $XTEMPMES`" 20 80
+    fi
+
+    rm -f $XTEMPOUT
+    rm -f $XTEMPMES
 fi
 
-cd $HOMESLACK
-upgradepkg --reinstall --install-new current/*.t?z
-upgradepkg --install-new current/slackware64-compat32/*/*.t?z
-echo "Upgrade multilib fait."
-
-cd $HOMESLACK
-upgradepkg --install-new packages*/*.t?z
-upgradepkg --install-new packages4/frameworks/*.t?z
-upgradepkg --install-new packages4/audacity/*.t?z
-upgradepkg --install-new packages4/tesseract4/*.t?z
-cp packages4/tesseract4/xsane2tess* /usr/bin
-echo "Upgrade packages* fait."
-
-$HOMESLACK/pbslacks/pbupgrademoz
-
-if [ -d /boot/efi/EFI/Slackware ] ;then
-  echo "Boot UEFI detected, y or n ?"
-  read c
-  if [ "$c" = 'y' ] ;then
-    cp /boot/vmlinuz /boot/initrd.gz /boot/efi/EFI/Slackware
-    echo "Files vmlinuz et initrd.gz copied in /boot/efi/EFI/Slackware"
-  fi
-elif [ -f /boot/grub/grub.cfg ] ;then
-  echo "Boot Grub detected, y or n ?"
-  read c
-  if [ "$c" = 'y' ] ;then
-    grub-mkconfig -o /boot/grub/grub.cfg
-    echo "Grub updated"
-  fi
-elif [ -f /etc/lilo.conf ] ;then
-  echo "Boot Lilo detected, y or n ?"
-  read c
-  if [ "$c" = 'y' ] ;then
-    /sbin/lilo
-    echo "Lilo updated"
-  fi
+if [ "$XNEW" != 'yes' ] ;then
+    XBOOTMES=' (\Z1be sure to have updated the bootloader before\Zn)'
+else
+    XBOOTMES=
 fi
 
-echo "Redémarrer la machine puis si necessaire remettez Crazybee"
-if [ "$c" != 'y' ] ;then
-  echo "If lilo is installed, launch : /sbin/lilo"
-  echo "If Grub is installed, launch : grub-mkconfig -o /boot/grub/grub.cfg"
-  echo "If Boot UEFI ELILO is installed, do :"
-  echo "  cp /boot/vmlinuz /boot/initrd.gz /boot/efi/EFI/Slackware"
+xend () {
+    echo "Reboot the host${XBOOTMES}."
+    echo
+    echo "\ZbThen do if not already done on an already upgraded target :\ZB"
+    echo " Select '\Zurecreate\ZU' in the above menu after launching this script again."
+    echo " or do> \Zupbslacks/pbcompilepost\ZU"
+    echo
+    echo "\ZbIf your host is a dual graphic card laptop with a NVIDIA card :\ZB"
+    echo "  \Z4Do either :\Zn"
+    echo "    Select '\Zurecreatebumblebee\ZU' in the above menu after launching this script again."
+    echo "    or do> \Zupbslacks/pbcompilecrazybee\ZU"
+    echo "  \Z4Or do only if already done on an upgraded target :\Zn"
+    echo "    Select '\Zubumblebee\ZU' in the above menu after launching this script again."
+    echo "    or do> \Zupbslacks/pbupgradebumblebee\ZU"
+}
+
+xend >> $XTEMPMES
+
+if [ -f "$XTEMPMES" ] ;then
+    dialog --colors --title 'End messages' --msgbox "`cat $XTEMPMES`" 20 80
 fi
 
-echo "Ensuite lancez si pas deja fait sur une machine mise a jour :"
-echo "  pbslacks/pbinstallpost"
-echo "Si votre machine est un portable avec 2 cartes graphiques dont 1 NVIDIA, relancez :"
-echo "  pbslacks/pbinstallcrazybee"
+rm -f $XTEMPMES

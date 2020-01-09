@@ -1,11 +1,13 @@
 Author and copyright : Pierre Brochard
 Mail of the author : pierre.brochard.1982@m4x.org
 Web site of the author : https://dir.logicielnarcisse.fr or https://dir.logiciel.cc
+License : See the LICENSE file in this repository.
 
-Those are some scripts which download the latest Linux Slackware current Intel 64 bits
-distribution and my preferred add-ons packages.
+Those are some scripts which download the latest Linux Slackware current
+Intel 64 bits distribution and my preferred add-ons packages.
 
-An iso image can also be done which include the resulting downloaded Slackware and her add-ons.
+An iso image can also be done which include the resulting downloaded
+Slackware and her add-ons.
 It can be put on a USB stick or a double layer DVD Rom.
 
 =================================================================
@@ -13,7 +15,8 @@ For a fresh install from a USB stick do :
 -on a working computer with a working system with a Bourne shell terminal
 like bash (on Linux or MS Windows or ...)
 -with internet acces
--in a newly created repository like Slackware_x64_date in the same directory as pbslacks
+-in a newly created repository like Slackware_x64_date in the same directory
+as pbslacks
 -if there is an old Slackware-x86-date in the same parent directory, the
 add-on packages are copied and not fetched again if there were not upgraded.
 
@@ -35,8 +38,8 @@ with a slackware iso downloaded or made with the pbmakeiso below :
 > pbslacks/pbmakeusb
 > pbslacks/pbmakeusb image_slackware.iso
 
-Or manually as root with sdXXX the device of the USB stick to find with the command
-dmesg as root or fdisk -l as a user or root :
+Or manually as root with sdXXX the device of the USB stick to find with the
+command dmesg as root or fdisk -l as a user or root :
 > cd slackware64-current/usb-and-pxe-installers
 > ./usbimg2disk.sh -f -i `pwd`/usbboot.img -o /dev/sdXXX -s `pwd`/..
 > cd ../..
@@ -52,20 +55,19 @@ Those generated iso need a double layer media for being put on a DVD
 with your favorite record software.
 
 -----------------------------------------------------------------
-Then install the Slackware current with this new USB stick and reboot on it (see SLACKWARE.txt)
+Then install the Slackware current with this new USB stick
+and reboot on it (see SLACKWARE.txt)
 
 Then do on the USB stick or a copy on a central/local repository as root :
 > pbslacks/pbupgrade -new
 
-and recompile some packages as root :
-> pbslacks/pbinstallpost
-
-If you have a dual graphic card on a Laptop with NVIDIA as root :
-> pbslacksinstallbumblebee
+This script has a dialog menu which permits to choose packages to add.
+It can also launch some other scripts from this project.
 
 =================================================================
 For updating one installed Slackware current to the latest
-Download again (only the differences as we do with wget -N) on a fresh or existant USB or central/local repository :
+Download again (only the differences as we do with wget -N)
+on a fresh or existant USB or central/local repository :
 > ../pbslacks/pbaspireinit
 > pbslacks/pbaspire
 > pbslacks/pbaspirealien
@@ -75,22 +77,15 @@ Download again (only the differences as we do with wget -N) on a fresh or exista
 
 -----------------------------------------------------------------
 On the installed Slackware current to update,
-lauch the following scripts on the USB stick or a disk copy of it on a central repository
-on the new machine as root.
+lauch the following scripts on the USB stick or a disk copy of it on a central
+repository on the new machine as root.
 > pbsclacks/upgrade
 
-And if you have the dual graphic cards as root.
-> pbslacks/pbupgradebumblebee
+This script has a dialog menu which permits to choose packages to add.
+It can also launch some other scripts from this project.
 
-After upgrade, you can recreate and install some packages as root.
-> pbslacks/pbinstallpost
-
-And if you have the dual graphic cards as root.
-> pbslacks/pbinstallbumblebee
-
-If you install that Slackware on many computers, the pbinstall* needs to be done only for the first one.
 =================================================================
 
-Those scripts uses slackpkg and wget.
+Those scripts uses slackpkg, wget and udisks2.
 
 I have tested with Slackware current of july 2019, aout 2019 and december 2019.

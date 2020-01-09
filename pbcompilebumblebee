@@ -1,0 +1,54 @@
+#! /bin/sh
+
+# Auteur : Pierre Brochard (pierre.brochard.1982@m4x.org)
+# Date : 2019
+# License : See the LICENSE file in this repository.
+
+if [ ! $UID = 0 ]; then
+  cat << EOF
+This script must be run as root.
+EOF
+  exit 1
+fi
+
+if [ ! -d bumblebee ] ;then
+    echo "Script a lancer dans le repertoire contenant bumblebee."
+    echo "Launch this script in the directory including bumblebee."
+    exit 1
+fi
+
+MYPWD=`pwd`
+HOMESLACK="$MYPWD"
+
+echo "Recreation des packages Slackware de Bummblebee."
+echo "Si deja fait sur une machine a jour, ne pas refaire et"
+echo "  utilisez les paquets generes dans bumblebee (avec pbupgradebumblebee)."
+echo "A installer avec pbupgradenumblebee."
+
+export UPDATE=no
+rm -rf ~/Bumblebee-SlackBuilds
+
+if [ -f "$HOMESLACK/bumblebee/Crazybee/Bumblebee-SlackBuilds.tgz" ] ;then
+    cd 
+    tar xvfz "$HOMESLACK/bumblebee/Crazybee/Bumblebee-SlackBuilds.tgz"
+    export UPDATE=no
+    cd Bumblebee-SlackBuilds
+    sh ./crazybee.sh
+else
+    sh $HOMESLACK/bumblebee/crazybee.sh
+fi
+
+xpurgepac () {
+    pac="$1"
+    last=`ls -1t "$pac"*.t?z|head -1`
+    for j in "$pac"*.t?z ;do
+	if [ "$j" != "$last" ] ;then
+	    rm -f "$j"
+	fi
+    done
+}
+
+for i in libbsd primus bbswitch nvidia-bumblebee bumblebee nvidia-kernel ;do
+    cp "/tmp/${i}-"* $HOMESLACK/bumblebee
+    xpurgepac "${i}-"
+done
