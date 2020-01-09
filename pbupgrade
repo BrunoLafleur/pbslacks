@@ -105,9 +105,11 @@ xmaster () {
 xpacaide () {
     packages="$1"
     pacaide="Update the $packages set of tools :"
-    ls "$packages/"*.t?z | while read j;test "$j" != "" ;do
+    ls -1 "$packages/"*.t?z > $XTEMPMES
+    while read j;test "$j" != "" ;do
 	pacaide="$pacaide\n$j"
-    done
+    done < $XTEMPMES
+    rm -f $XTEMPMES
 }
 
 xsel="$XUPSYSTEM $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST \
