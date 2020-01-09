@@ -2,6 +2,7 @@
 
 # Auteur : Pierre Brochard (pierre.brochard.1982@m4x.org)
 # Date : 2019
+# License : See the LICENSE file in this repository.
 
 if [ ! -d packages ] ;then
     echo "Script a lancer dans le repertoire contenant packages, packages2 et al."
@@ -9,6 +10,7 @@ if [ ! -d packages ] ;then
     exit 1
 fi
 
+# Sources packages.
 PATHDENEMO="http://git.savannah.gnu.org/cgit/denemo.git/snapshot/denemo-master.tar.gz"
 PATHGRAMPS="https://github.com/gramps-project/gramps/archive/v5.1.1.zip"
 PATHOPENAL="https://www.openal-soft.org/openal-releases/openal-soft-1.20.0.tar.bz2"
@@ -30,6 +32,7 @@ PATHKAFFEINE="https://github.com/KDE/kaffeine/archive/master.zip"
 PATHOPENCV="https://github.com/opencv/opencv/archive/4.1.1/opencv-4.1.1.tar.gz"
 PATHOPENCVBIS="https://github.com/opencv/opencv_contrib/archive/4.1.1/opencv_contrib-4.1.1.tar.gz"
 
+# Binary packages.
 SLACKCF="http://slack.conraid.net/repository/slackware64-current"
 SLACKDJ="http://www.slackel.gr/repo/x86_64/current/slackel/extra"
 SLACKDJ32="http://www.slackel.gr/repo/i486/current/slackel/extra"

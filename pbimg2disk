@@ -28,8 +28,8 @@
 #########################################################################
 
 # Define some variables ahead of time, so that cleanup knows about them:
-MNTDIR1=""
-MNTDIR2=""
+MNTDIR1=''
+MNTDIR2=''
 
 # Clean up in case of failure:
 cleanup() {
@@ -204,13 +204,6 @@ if [ "$ABORT_ON_ERROR" = "1" ]; then
   trap 'echo "*** $0 FAILED at line $LINENO ***"; cleanup; exit 1' ERR INT TERM # trap and abort on any error
 else
   trap 'echo "*** Ctrl-C caught -- aborting operations ***"; cleanup; exit 1' 2 14 15 # trap Ctrl-C and kill
-fi
-
-# Before we start:
-[ -x /bin/id ] && CMD_ID="/bin/id" || CMD_ID="/usr/bin/id"
-if [ "$($CMD_ID -u)" != "0" ]; then
-  echo "*** You need to be root to run $(basename $0)."
-  exit 1
 fi
 
 # Check existence of the package repository if that was passed as a parameter:
@@ -388,7 +381,7 @@ else
 fi
 
 # Mount the image file:
-XLOOP=`udisksctl loop-setup -f $USBIMG|sed 's@^.*\([0-9][0-9]*\)\.$@/dev/loop\1@'`
+XLOOP=$(udisksctl loop-setup -f $USBIMG|sed 's@^.*\([0-9][0-9]*\)\.$@/dev/loop\1@')
 echo "Loop device is : $XLOOP"
 udisksctl mount -b "$XLOOP"
 MNTDIR1=/run/media/$USER/USBSLACK

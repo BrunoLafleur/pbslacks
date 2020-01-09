@@ -1,5 +1,9 @@
 #! /bin/sh
 
+# Auteur : Pierre Brochard (pierre.brochard.1982@m4x.org)
+# Date : 2019
+# License : See the LICENSE file in this repository.
+
 test_oldslack () {
     pac="$1"
     ls -1td "$pac"[0-9]* 2> /dev/null |head -1

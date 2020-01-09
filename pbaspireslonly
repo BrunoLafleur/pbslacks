@@ -2,6 +2,7 @@
 
 # Auteur : Pierre Brochard (pierre.brochard.1982@m4x.org)
 # Date : 2019
+# License : See the LICENSE file in this repository.
 
 if [ ! -d packages ] ;then
     echo "Script a lancer dans le repertoire contenant packages, packages2 et al."
