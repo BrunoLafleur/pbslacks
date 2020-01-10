@@ -1,0 +1,91 @@
+#! /bin/sh
+
+# Auteur : Pierre Brochard (pierre.brochard.1982@m4x.org)
+# Date : 2019
+# License : See the LICENSE file in this repository.
+
+# can be done non root.
+
+MYPWD=$(pwd)
+export HOMESLACK="$MYPWD"
+SLACKMIR='http://nephtys.lip6.fr/pub/linux/distributions/slackware'
+SLACKMULTI="$SLACKMIR/people/alien/multilib/current"
+SLACKKDEFW="$SLACKMIR/people/alien-kde/current/latest/x86_64/kde/frameworks"
+
+# Function for getting packages.
+myrget () {
+    prof=$1
+    gpath="$2"
+    pack="$3"
+    wget -N -nv -np -nH --cut-dirs=$prof -r "$gpath/"
+    find "$pack" -name 'index.html*' -exec rm -f {} \;
+}
+
+# Function for purge old packages.
+xpurgepac () {
+    pac="$1"
+    suf="$2"
+    last=$(ls -1t ${pac}*.$suf|head -1)
+    for j in ${pac}*.$suf ;do
+	if [ "$j" != "$last" ] ;then
+	    echo "Delete : $j"
+	    rm -f "$j"
+	fi
+    done
+}
+
+myrget 4 "$SLACKMIR/slackware64-current" slackware64-current
+
+# Nettoyage des doublons
+cd slackware64-current
+find . -name '*.t?z'|grep -v '^./source/'|while read i;test "$i" != "" ;do
+    pack=$(echo $i|sed 's@-[0-9].*$@@')
+    xpurgepac "$pack-[0-9]" txt
+    xpurgepac "$pack-[0-9]" t?z
+    xpurgepac "$pack-[0-9]" asc
+done
+cd ..
+echo "Copie Slackware current faite."
+
+# Multilib Alien Bob.
+# can be done non root.
+myrget 7 "$SLACKMULTI" current
+
+# Nettoyage des doublons
+cd current
+find . -name '*.t?z'|grep -v '^./source/'|while read i;test "$i" != "" ;do
+    pack=$(echo $i|sed 's@-[0-9].*$@@')
+    xpurgepac "$pack-[0-9]" lst
+    xpurgepac "$pack-[0-9]" meta
+    xpurgepac "$pack-[0-9]" txt
+    xpurgepac "$pack-[0-9]" t?z
+    xpurgepac "$pack-[0-9]" asc
+    xpurgepac "$pack-[0-9]" md5
+done
+cd ..
+
+cd slackware64-current
+ln -sf ../current .
+ln -sf ../perso .
+ln -sf ../pbslacks .
+ln -sf ../bumblebee .
+ln -sf ../divers .
+ln -sf ../packages* .
+cd ..
+
+# Frameworks KDE5 Alien Bob
+cd packages4
+myrget 10 "$SLACKKDEFW" frameworks
+
+# Nettoyage des doublons
+cd frameworks
+find . -name '*.t?z'|grep -v '^./source/'|while read i;test "$i" != "" ;do
+    pack=$(echo $i|sed 's@-[0-9].*$@@')
+    xpurgepac "$pack-[0-9]" lst
+    xpurgepac "$pack-[0-9]" meta
+    xpurgepac "$pack-[0-9]" txt
+    xpurgepac "$pack-[0-9]" t?z
+    xpurgepac "$pack-[0-9]" asc
+    xpurgepac "$pack-[0-9]" md5
+done
+cd ..

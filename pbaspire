@@ -4,88 +4,132 @@
 # Date : 2019
 # License : See the LICENSE file in this repository.
 
-# can be done non root.
+XTEST=
 
-MYPWD=`pwd`
-export HOMESLACK="$MYPWD"
-SLACKMIR='http://nephtys.lip6.fr/pub/linux/distributions/slackware'
-SLACKMULTI="$SLACKMIR/people/alien/multilib/current"
-SLACKKDEFW="$SLACKMIR/people/alien-kde/current/latest/x86_64/kde/frameworks"
-
-# Function for getting packages.
-myrget () {
-    prof=$1
-    gpath="$2"
-    pack="$3"
-    wget -N -nv -np -nH --cut-dirs=$prof -r "$gpath/"
-    find "$pack" -name 'index.html*' -exec rm -f {} \;
+xhelp () {
+    echo "Script a lancer dans un repertoire nouvelle cree"
+    echo "  ou existant contenant slackware64-current."
+    echo
+    echo "Launch this script in a new directory."
+    echo "  or in a directory which contains slackware64-current."
+    echo
+    echo "pbslacks should be side by side of this current directory."
+    echo "> ../pbslacks/pbaspire"
 }
 
-# Function for purge old packages.
-xpurgepac () {
-    pac="$1"
-    suf="$2"
-    last=`ls -1t ${pac}*.$suf|head -1`
-    for j in ${pac}*.$suf ;do
-	if [ "$j" != "$last" ] ;then
-	    echo "Delete : $j"
-	    rm -f "$j"
+while [ $# -ge 1 ] ;do
+    MYARG="$1"
+    if [ "$MYARG" = "-test" ] ;then
+	XTEST=yes
+    elif [ "$MYARG" = "-help" ] ;then
+	xhelp
+	exit 0
+    fi
+    shift
+done
+
+if [ "$XTEST" != 'yes' -a "$0" != '../pbslacks/pbaspire' -a "$0" != 'pbslacks/pbaspire' ] ;then
+    xhelp
+    exit 1
+fi
+
+MYPWD=$(pwd)
+XTEMPOUT=$(mktemp -p /tmp -t pbaspireout.XXXXXX)
+XTEMPMES=$(mktemp -p /tmp -t pbaspiremes.XXXXXX)
+
+xmaster () {
+    defitem=$1;shift
+    xsel1=$1;shift;xsel2=$1;shift;xsel3=$1;shift;xsel4=$1;shift;xsel5=$1;shift
+    xsel6=$1
+    dialog --colors --title 'Main menu' --default-item $defitem --defaultno \
+	--separate-output --item-help --help-button --help-status --checklist \
+	'Choose your actions below' 0 100 6 \
+	init 'Init/Verify the repository.' $xsel1 init \
+	core 'Get/Update versus officiel Slackware, multilib and frameworks KDE5' $xsel2 core \
+	alien 'Get/Update some Alien Bob binary packages' $xsel3 alien \
+	ponce 'Get/Update some Ponce binary packages' $xsel4 ponce \
+	slonly 'Get/Update some Slackonly binary packages' $xsel5 slonly \
+	other 'Get/Update some other source or binary packages' $xsel6 other
+}
+
+xsel="on on on on on on on"
+ditem=init
+bclaide=1
+
+while [ $bclaide -eq 1 ] ;do
+    xmaster $ditem $xsel 2> $XTEMPOUT
+    bclaide=$(cat $XTEMPOUT|grep '^HELP'|wc -l)
+    if [ $bclaide -eq 1 ] ;then
+	xitem="$(cat $XTEMPOUT|grep '^HELP'|cut -d ' ' -f2)"
+	xsel=
+	for i in init core alien ponce slonly other ;do
+	  if [ $(grep "^$i$" "$XTEMPOUT"|wc -l) -eq 1 ] ;then
+	      xsel="$xsel on"
+	  else
+	      xsel="$xsel off"
+	  fi
+	done
+	ditem=$xitem;bclaide=1;pacaide=
+	if [ "$xitem" = init ] ;then
+	    pacaide='Initialize or verify the current repository.'
+	elif [ "$xitem" = core ] ;then
+	    pacaide='Get or update the officiel lastest current Slackware.'
+	    pacaide="$pacaide\nAnd the multilib of Alien Bob which is a 32 bits compatibility set of packages."
+	    pacaide="$pacaide\nAnd the frameworks libraries of Kde5 offered by Alien Bob."
+	elif [ "$xitem" = alien ] ;then
+	    pacaide='Get or update some Alien Bob binary packages.'
+	elif [ "$xitem" = ponce ] ;then
+	    pacaide='Get or update some Ponce binary packages.'
+	elif [ "$xitem" = slonly ] ;then
+	    pacaide='Get or update some Slackonly binary packages.'
+	elif [ "$xitem" = other ] ;then
+	    pacaide='Get or update some other source or binary packages.'
 	fi
-    done
-}
-
-myrget 4 "$SLACKMIR/slackware64-current" slackware64-current
-
-# Nettoyage des doublons
-cd slackware64-current
-find . -name '*.t?z'|grep -v '^./source/'|while read i;test "$i" != "" ;do
-    pack=`echo $i|sed 's@-[0-9].*$@@'`
-    xpurgepac "$pack-[0-9]" txt
-    xpurgepac "$pack-[0-9]" t?z
-    xpurgepac "$pack-[0-9]" asc
+	dialog --colors --title "$xitem" --msgbox "$pacaide" 20 80
+    fi
 done
-cd ..
-echo "Copie Slackware current faite."
 
-# Multilib Alien Bob.
-# can be done non root.
-myrget 7 "$SLACKMULTI" current
+while read i;test "$i" != "" ;do
+    if [ "$(echo $i|cut -c1-4)" = 'HELP' ] ;then
+	continue
+    elif [ "$i" = init ] ;then
+	if [ "$XTEST" != 'yes' ] ;then
+	    "$0"init
+	fi
+	echo "Initialisation done : \Z3"$0"init\Zn." >> $XTEMPMES
+    elif [ "$i" = core ] ;then
+	if [ "$XTEST" != 'yes' ] ;then
+	    "$0"core
+	fi
+	echo "Get/Upgrade core system done : \Z3"$0"core\Zn." >> $XTEMPMES
+    elif [ "$i" = alien ] ;then
+	if [ "$XTEST" != 'yes' ] ;then
+	    "$0"alien
+	fi
+	echo "Get/Upgrade Alien Bob packages done : \Z3"$0"alien\Zn." >> $XTEMPMES
+    elif [ "$i" = ponce ] ;then
+	if [ "$XTEST" != 'yes' ] ;then
+	    "$0"ponce
+	fi
+	echo "Get/Upgrade Ponce packages done : \Z3"$0"ponce\Zn." >> $XTEMPMES
+    elif [ "$i" = slonly ] ;then
+	if [ "$XTEST" != 'yes' ] ;then
+	    "$0"slonly
+	fi
+	echo "Get/Upgrade Slackonly packages done : \Z3"$0"slonly\Zn." >> $XTEMPMES
+    elif [ "$i" = other ] ;then
+	if [ "$XTEST" != 'yes' ] ;then
+	    "$0"other
+	fi
+	echo "Get/Upgrade other source or binary packages done : \Z3"$0"other\Zn." >> $XTEMPMES
+    fi
+done < $XTEMPOUT
 
-# Nettoyage des doublons
-cd current
-find . -name '*.t?z'|grep -v '^./source/'|while read i;test "$i" != "" ;do
-    pack=`echo $i|sed 's@-[0-9].*$@@'`
-    xpurgepac "$pack-[0-9]" lst
-    xpurgepac "$pack-[0-9]" meta
-    xpurgepac "$pack-[0-9]" txt
-    xpurgepac "$pack-[0-9]" t?z
-    xpurgepac "$pack-[0-9]" asc
-    xpurgepac "$pack-[0-9]" md5
-done
-cd ..
+rm -f $XTEMPOUT
 
-cd slackware64-current
-ln -sf ../current .
-ln -sf ../perso .
-ln -sf ../pbslacks .
-ln -sf ../bumblebee .
-ln -sf ../divers .
-ln -sf ../packages* .
-cd ..
+if [ ! -f "$XTEMPMES" -o $(cat "$XTEMPMES"|wc -c) -eq 0 ] ;then
+    echo "No action was demanded. Exit." > $XTEMPMES
+fi
 
-# Frameworks KDE5
-cd packages4
-myrget 10 "$SLACKKDEFW" frameworks
-
-# Nettoyage des doublons
-cd frameworks
-find . -name '*.t?z'|grep -v '^./source/'|while read i;test "$i" != "" ;do
-    pack=`echo $i|sed 's@-[0-9].*$@@'`
-    xpurgepac "$pack-[0-9]" lst
-    xpurgepac "$pack-[0-9]" meta
-    xpurgepac "$pack-[0-9]" txt
-    xpurgepac "$pack-[0-9]" t?z
-    xpurgepac "$pack-[0-9]" asc
-    xpurgepac "$pack-[0-9]" md5
-done
-cd ..
+dialog --colors --title 'Actions which were done' --msgbox "$(cat $XTEMPMES)" 20 80
+rm -f $XTEMPMES

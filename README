@@ -15,9 +15,9 @@ For a fresh install from a USB stick do :
 -on a working computer with a working system with a Bourne shell terminal
 like bash (on Linux or MS Windows or ...)
 -with internet acces
--in a newly created repository like Slackware_x64_date in the same directory
+-in a newly created repository like Slackware-x64-date in the same directory
 as pbslacks
--if there is an old Slackware-x86-date in the same parent directory, the
+-if there is an old Slackware-x64-date in the same parent directory, the
 add-on packages are copied and not fetched again if there were not upgraded.
 
 > XDATE=`date '+%Y%m%d'`

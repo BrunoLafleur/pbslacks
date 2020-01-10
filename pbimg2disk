@@ -1,5 +1,4 @@
 #!/bin/bash
-# $Id: usbimg2disk.sh,v 1.23 2012/09/03 20:52:31 eha Exp eha $
 #
 # Copyright 2009, 2010, 2011, 2012  Eric Hameleers, Eindhoven, NL
 # All rights reserved.
@@ -23,7 +22,7 @@
 
 #########################################################################
 # Modified by Pierre Brochard (pierre.brochard.1982@m4x.org)
-# to use udisksctl to permit a user in the plugdev group to
+# to use udisksctl (from udisks2) to permit a user in the plugdev group to
 # use this script without being the superuser root.
 #########################################################################
 
@@ -37,7 +36,7 @@ cleanup() {
   echo "--- Syncing I/O..."
   sync
   echo "--- Unmounting volumes and deleting temporary files..."
-  udisksctl unmount -b $XLOOP;udisksctl loop-delete -b $XLOOP
+  udisksctl unmount -b $XLOOP1;udisksctl loop-delete -b $XLOOP1
   udisksctl unmount -b $TARGETPART
 }
 
@@ -381,14 +380,14 @@ else
 fi
 
 # Mount the image file:
-XLOOP=$(udisksctl loop-setup -f $USBIMG|sed 's@^.*\([0-9][0-9]*\)\.$@/dev/loop\1@')
-echo "Loop device is : $XLOOP"
-udisksctl mount -b "$XLOOP"
-MNTDIR1=/run/media/$USER/USBSLACK
+XLOOP1=$(udisksctl loop-setup -f "$USBIMG"|sed 's@^.* \(.*\)\.$@\1@')
+echo "Loop device for USBIMG is : $XLOOP1"
+MNTDIR1=$(udisksctl mount -b "$XLOOP1"|cut -d ' ' -f4-|sed 's@^\(.*\)\.$@\1@')
+echo "USBIMG mount directory is : $MNTDIR1"
 
 # Mount the vfat partition:
-udisksctl mount -b "$TARGETPART"
-MNTDIR2=/run/media/$USER/USBSLACKINS
+MNTDIR2=$(udisksctl mount -b "$TARGETPART"|cut -d ' ' -f4-|sed 's@^\(.*\)\.$@\1@')
+echo "VFAT USB mount directory is : $MNTDIR2"
 
 # Do we have space to create a full Slackware USB install medium?
 if [ "$FULLINSTALLER" = "yes" ]; then

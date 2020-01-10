@@ -28,7 +28,7 @@ if [ ! -d slackware64 -o '(' ! -h pbslacks -a ! -d pbslacks ')' ] ;then
     exit 1
 fi
 
-MYPWD=`pwd`
+MYPWD=$(pwd)
 HOMESLACK="$MYPWD"
 HOMEMOZ=/usr/lib64
 
