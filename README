@@ -23,14 +23,10 @@ add-on packages are copied and not fetched again if there were not upgraded.
 > XDATE=`date '+%Y%m%d'`
 > mkdir Slackware-x64-$XDATE
 > cd Slackware-x64-$XDATE
-> ../pbslacks/paspireinit
+> ../pbslacks/pbaspire
 
-Then in sequence or in parallel if the network is good enough.
-> pbslacks/pbaspire
-> pbslacks/pbaspirealien
-> pbslacks/pbaspireponce
-> pbslacks/pbaspireslonly
-> pbslacks/pbaspireother
+This script has a dialog menu which permits to choose packages to get.
+It can also launch some other scripts from this project.
 
 Then do a USB stick (a 16 Go or above one) as root (admin user) or a normal user
 in the plugdev group, with the current repository just downloaded / updated or
@@ -68,12 +64,10 @@ It can also launch some other scripts from this project.
 For updating one installed Slackware current to the latest
 Download again (only the differences as we do with wget -N)
 on a fresh or existant USB or central/local repository :
-> ../pbslacks/pbaspireinit
-> pbslacks/pbaspire
-> pbslacks/pbaspirealien
-> pbslacks/pbaspireponce
-> pbslacks/pbaspireslonly
-> pbslacks/pbaspireother
+> ../pbslacks/pbaspire
+
+This script has a dialog menu which permits to choose packages to get.
+It can also launch some other scripts from this project.
 
 -----------------------------------------------------------------
 On the installed Slackware current to update,
