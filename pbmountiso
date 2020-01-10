@@ -16,10 +16,10 @@ if [ ! -f "$NAMEISO" ] ;then
     exit 1
 fi
 
-XLOOP=`udisksctl loop-setup -f $NAMEISO|sed 's@^.*\([0-9][0-9]*\)\.$@/dev/loop\1@'`
+XLOOP=$(udisksctl loop-setup -f "$NAMEISO"|sed 's@^.* \(.*\)\.$@\1@')
 echo "Loop device is : $XLOOP"
-udisksctl mount -b "${XLOOP}p1"
+MNTDIR=$(udisksctl mount -b "${XLOOP}p1"|cut -d ' ' -f4-|sed 's@^\(.*\)\.$@\1@')
 
-echo "Look at /run/media/$USER/SlackDVD"
+echo "Look at $MNTDIR"
 echo "unmount with :"
-echo "> pbunmountiso"
+echo "> pbunmountiso $XLOOP"

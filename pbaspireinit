@@ -9,20 +9,18 @@ test_oldslack () {
     ls -1td "$pac"[0-9]* 2> /dev/null |head -1
 }
 
-OLDSLACK=`test_oldslack ../Slackware-`
+OLDSLACK=`test_oldslack ../Slackware-x64-`
 
-if [ ! -d packages ] ;then
-    if [ -d "$OLDSLACK" ] ;then
-        echo "OLDSLACK = $OLDSLACK"
-        echo "Copies of $OLDSLACK/packages* will be done."
+if [ ! -d packages -a -d "$OLDSLACK" ] ;then
+    echo "OLDSLACK = $OLDSLACK"
+    echo "Copies of $OLDSLACK/packages* will be done."
 
-        cp -a "$OLDSLACK/packages"* .
-        if [ -d "$OLDSLACK/divers" ] ;then
-            cp -a "$OLDSLACK/divers" .
-	    mv divers bumblebee
-        else	
- 	    cp -a "$OLDSLACK/bumblebee" .
-        fi
+    cp -a "$OLDSLACK/packages"* .
+    if [ -d "$OLDSLACK/divers" ] ;then
+	cp -a "$OLDSLACK/divers" .
+	mv divers bumblebee
+    else	
+	cp -a "$OLDSLACK/bumblebee" .
     fi
 fi
 
@@ -53,6 +51,7 @@ if [ ! -d packages ] ;then
     mkdir packages
     mkdir packages/32
     mkdir packages/compat32
+    mkdir packages/Mozilla
 fi
 if [ ! -d packages2 ] ;then
     mkdir packages2

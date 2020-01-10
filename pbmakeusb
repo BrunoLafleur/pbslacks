@@ -21,15 +21,15 @@
 # Use fdisk and udisksctl.
 
 ISO=0
-MYPWD=`pwd`
+MYPWD=$(pwd)
 REPO="$MYPWD/slackware64-current"
 
 if [ ! -d slackware64-current ] ;then
     IMGISO="$1"
 
     if [ "$IMGISO" != '' ] ;then
-	BIMG=`basename "$IMGISO"`
-	BIMGISO=`basename "$IMGISO" .iso`
+	BIMG=$(basename "$IMGISO")
+	BIMGISO=$(basename "$IMGISO" .iso)
 	if [ "$BIMG" != "$BIMGISO" ] ;then
 	    ISO=1
 	fi
@@ -42,10 +42,9 @@ if [ ! -d slackware64-current ] ;then
 fi
 
 if [ $ISO -eq 1 ] ;then
-    XLOOP=`udisksctl loop-setup -f $IMGISO|sed 's@^.*\([0-9][0-9]*\)\.$@/dev/loop\1@'`
+    XLOOP=$(udisksctl loop-setup -f "$IMGISO"|sed 's@^.* \(.*\)\.$@\1@')
     echo "Loop device is : $XLOOP"
-    udisksctl mount -b "${XLOOP}p1"
-    REPO="/run/media/$USER/SlackDVD"
+    REPO=$(udisksctl mount -b "${XLOOP}p1"|cut -d ' ' -f4-|sed 's@^\(.*\)\.$@\1@')
 fi
 
 cd "$REPO"
@@ -59,11 +58,11 @@ echo "Put your USB stick on an USB port and press Enter."
 read c
 
 sleep 3
-MYDEVNAME=`/sbin/fdisk -l 2> /dev/null| tail -1 | grep 'FAT32$'|cut -d ' ' -f1|cut -d '1' -f1`
+MYDEVNAME=$(/sbin/fdisk -l 2> /dev/null| tail -1 | grep 'FAT32$'|cut -d ' ' -f1|cut -d '1' -f1)
 
 if [ "$MYDEVNAME" = '' ] ;then
 # If it is an already created Slackware USB stick."
-    MYDEVNAME=`/sbin/fdisk -l 2> /dev/null| tail -3 | grep 'EFI '|cut -d ' ' -f1|cut -d '2' -f1`
+    MYDEVNAME=$(/sbin/fdisk -l 2> /dev/null| tail -3 | grep 'EFI '|cut -d ' ' -f1|cut -d '2' -f1)
 fi
 
 /sbin/fdisk -l 2> /dev/null
@@ -80,9 +79,9 @@ fi
 if [ "$c" = 'y' -a "$MYDEVNAME" != '' ] ;then
     cd usb-and-pxe-installers
     if [ $UID = 0 ]; then
-        sh ./usbimg2disk.sh $FORMAT -i `pwd`/usbboot.img -o "$MYDEVNAME" -s "$REPO"
+        sh ./usbimg2disk.sh $FORMAT -i $(pwd)/usbboot.img -o "$MYDEVNAME" -s "$REPO"
     else
-        $MYPWD/pbslacks/pbimg2disk $FORMAT -i `pwd`/usbboot.img -o "$MYDEVNAME" -s "$REPO"
+        $MYPWD/pbslacks/pbimg2disk $FORMAT -i $(pwd)/usbboot.img -o "$MYDEVNAME" -s "$REPO"
     fi
 fi
 

@@ -58,11 +58,11 @@ EOF
     fi
 fi
 
-MYPWD=`pwd`
+MYPWD=$(pwd)
 HOMESLACK="$MYPWD"
 
-XTEMPOUT=/tmp/pbupgradeout$$
-XTEMPMES=/tmp/pbupgrademes$$
+XTEMPOUT=$(mktemp -p /tmp -t pbupgradeout.XXXXXX)
+XTEMPMES=$(mktemp -p /tmp -t pbupgrademes.XXXXXX)
 
 if [ "$XNEW" = 'yes' ] ;then
     XUPSYSTEM=off
@@ -116,142 +116,156 @@ xsel="$XUPSYSTEM $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST \
 $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPPOST $XUPPOST $XUPPOST"
 ditem=system
 bclaide=1
+
 while [ $bclaide -eq 1 ] ;do
     xmaster $ditem $xsel 2> $XTEMPOUT
-    bclaide=0
-    while read i;test "$i" != "" ;do
-	if [ "`echo $i|cut -c1-4`" = 'HELP' ] ;then
-	    xitem="`echo $i|cut -d ' ' -f2`"
-	    xsel=
-	    for i in system compat32 mozilla packages packages2 packages3 packages4 \
-		frameworks audacity tesseract4 bumblebee recreate recreatebumblebee ;do
-		if [ `grep "^$i$" "$XTEMPOUT"|wc -l` -eq 1 ] ;then
-		    xsel="$xsel on"
-		else
-		    xsel="$xsel off"
-		fi
-	    done
-	    ditem=$xitem;bclaide=1;pacaide=
-	    if [ "$xitem" = system ] ;then
-		pacaide='Update your Slackware system with the last current fetched before.'
-		pacaide="$pacaide\nUses Slackpkg."
-	    elif [ "$xitem" = compat32 ] ;then
-		pacaide='Update the Alien Bob 32 bits compatible mode.'
-	    elif [ "$xitem" = mozilla ] ;then
-		pacaide='Update the Firefox and Thunderbird products.'
-		pacaide="$pacaide\nThey should be downloaded and put in the packages/Mozilla directory before."
-	    elif [ `echo "$xitem"|cut -c1-8` = packages ] ;then
-		xpacaide "$xitem"
-	    elif [ "$xitem" = frameworks ] ;then
-		xpacaide packages4/frameworks
-	    elif [ "$xitem" = audacity ] ;then
-		xpacaide packages4/audacity
-	    elif [ "$xitem" = tesseract4 ] ;then
-		xpacaide packages4/tesseract4
-	    elif [ "$xitem" = bumblebee ] ;then
-		pacaide='Update your Bumblebee packages if they are in sync with the upgraded Slackware.'
-		pacaide="$pacaide\nDone on another machine for exemple."
-	    elif [ "$xitem" = recreate ] ;then
-		pacaide='Redo the packages which are here in sources form.'
-		pacaide="$pacaide\nIf not already done on this machine or another."
-	    elif [ "$xitem" = recreatebumblebee ] ;then
-		pacaide='Redo the Bumblebee packages.'
-		pacaide="$pacaide\nIf not already done on this machine or another."
-	    fi
-	    dialog --colors --title "$xitem" --msgbox "$pacaide" 20 80
-	    break
-	elif [ "$XNEW" != 'yes' -a "$i" = system ] ;then
-	    if [ "$XTEST" != 'yes' ] ;then
-		cp pbslacks/Slackpkg/blacklist /etc/slackpkg
-		cp pbslacks/Slackpkg/slackpkg.conf /etc/slackpkg
-		cat pbslacks/Slackpkg/mirrors | sed "s@HOMESLACK@${HOMESLACK}@" \
-		    > /etc/slackpkg/mirrors
-		slackpkg update gpg
-		slackpkg update
-		slackpkg install-new
-		slackpkg upgrade-all
-		slackpkg clean-system
-
-		if [ $? -ne 0 ] ;then
-		    echo 'Abort : voir erreurs precedentes.'
-		    exit 1
-		fi
-	    fi
-	    echo "Upgrade system fait." >> $XTEMPMES
-	elif [ "$i" = compat32 ] ;then
-	    if [ "$XTEST" != 'yes' ] ;then
-		upgradepkg --reinstall --install-new current/*.t?z
-		upgradepkg --install-new current/slackware64-compat32/*/*.t?z
-	    fi
-	    echo "Upgrade Alien Bob multilib fait." >> $XTEMPMES
-	elif [ "$i" = mozilla ] ;then
-	    if [ "$XTEST" != 'yes' ] ;then
-		$HOMESLACK/pbslacks/pbupgrademoz
-	    fi
-	    echo "Upgrade Mozilla fait." >> $XTEMPMES
-	elif [ "$i" = packages ] ;then
-	    if [ "$XTEST" != 'yes' ] ;then
-		upgradepkg --install-new packages/*.t?z
-	    fi
-	    echo "Upgrade packages fait." >> $XTEMPMES
-	elif [ "$i" = packages2 ] ;then
-	    if [ "$XTEST" != 'yes' ] ;then
-		upgradepkg --install-new packages2/*.t?z
-	    fi
-	    echo "Upgrade packages2 fait." >> $XTEMPMES
-	elif [ "$i" = packages3 ] ;then
-	    if [ "$XTEST" != 'yes' ] ;then
-		upgradepkg --install-new packages3/*.t?z
-	    fi
-	    echo "Upgrade packages3 fait." >> $XTEMPMES
-	elif [ "$i" = packages4 ] ;then
-	    if [ "$XTEST" != 'yes' ] ;then
-		upgradepkg --install-new packages4/*.t?z
-	    fi
-	    echo "Upgrade packages4 fait." >> $XTEMPMES
-	elif [ "$i" = frameworks ] ;then
-	    if [ "$XTEST" != 'yes' ] ;then
-		upgradepkg --install-new packages4/frameworks/*.t?z
-	    fi
-	    echo "Upgrade frameworks fait." >> $XTEMPMES
-	elif [ "$i" = audacity ] ;then
-	    if [ "$XTEST" != 'yes' ] ;then
-		upgradepkg --install-new packages4/audacity/*.t?z
-	    fi
-	    echo "Upgrade audacity fait." >> $XTEMPMES
-	elif [ "$i" = tesseract4 ] ;then
-	    if [ "$XTEST" != 'yes' ] ;then
-		upgradepkg --install-new packages4/tesseract4/*.t?z
-		cp packages4/tesseract4/xsane2tess* /usr/bin
-	    fi
-	    echo "Upgrade tesseract4 fait." >> $XTEMPMES
-	elif [ "$i" = bumblebee ] ;then
-	    if [ "$XTEST" != 'yes' ] ;then
-		$HOMESLACK/pbslacks/pbupgradebumblebee
-	    fi
-	    echo "Upgrade Bumblebee fait." >> $XTEMPMES
-	elif [ "$i" = recreate ] ;then
-	    if [ "$XTEST" != 'yes' ] ;then
-		$HOMESLACK/pbslacks/pbcompilepost
-	    fi
-	    echo "Recreate source packages fait." >> $XTEMPMES
-	elif [ "$i" = recreatebumblebee ] ;then
-	    if [ "$XTEST" != 'yes' ] ;then
-		$HOMESLACK/pbslacks/pbcompilebumblebee
-	    fi
-	    echo "Recreate source Bumblebee fait." >> $XTEMPMES
+    bclaide=$(cat $XTEMPOUT|grep '^HELP'|wc -l)
+    if [ $bclaide -eq 1 ] ;then
+	xitem="$(cat $XTEMPOUT|grep '^HELP'|cut -d ' ' -f2)"
+	xsel=
+	for i in system compat32 mozilla packages packages2 packages3 packages4 \
+	    frameworks audacity tesseract4 bumblebee recreate recreatebumblebee ;do
+	  if [ $(grep "^$i$" "$XTEMPOUT"|wc -l) -eq 1 ] ;then
+	      xsel="$xsel on"
+	  else
+	      xsel="$xsel off"
+	  fi
+	done
+	ditem=$xitem;bclaide=1;pacaide=
+	if [ "$xitem" = system ] ;then
+	    pacaide='Update your Slackware system with the last current fetched before.'
+	    pacaide="$pacaide\nUses Slackpkg."
+	elif [ "$xitem" = compat32 ] ;then
+	    pacaide='Update the Alien Bob 32 bits compatible mode.'
+	elif [ "$xitem" = mozilla ] ;then
+	    pacaide='Update the Firefox and Thunderbird products.'
+	    pacaide="$pacaide\nThey should be downloaded and put in the packages/Mozilla directory before."
+	elif [ "$(echo "$xitem"|cut -c1-8)" = packages ] ;then
+	    xpacaide "$xitem"
+	elif [ "$xitem" = frameworks ] ;then
+	    xpacaide packages4/frameworks
+	elif [ "$xitem" = audacity ] ;then
+	    xpacaide packages4/audacity
+	elif [ "$xitem" = tesseract4 ] ;then
+	    xpacaide packages4/tesseract4
+	elif [ "$xitem" = bumblebee ] ;then
+	    pacaide='Update your Bumblebee packages if they are in sync with the upgraded Slackware.'
+	    pacaide="$pacaide\nDone on another machine for exemple."
+	elif [ "$xitem" = recreate ] ;then
+	    pacaide='Redo the packages which are here in sources form.'
+	    pacaide="$pacaide\nIf not already done on this machine or another."
+	elif [ "$xitem" = recreatebumblebee ] ;then
+	    pacaide='Redo the Bumblebee packages.'
+	    pacaide="$pacaide\nIf not already done on this machine or another."
 	fi
-    done < $XTEMPOUT
+	dialog --colors --title "$xitem" --msgbox "$pacaide" 20 80
+    fi
 done
 
-if [ -f "$XTEMPMES" ] ;then
-    dialog --colors --title 'Actions which were done' --msgbox "`cat $XTEMPMES`" 20 80
-else
-    echo "No action was demanded. Exit."
+while read i;test "$i" != "" ;do
+    if [ "$(echo $i|cut -c1-4)" = 'HELP' ] ;then
+	continue
+    elif [ "$XNEW" != 'yes' -a "$i" = system ] ;then
+	if [ "$XTEST" != 'yes' ] ;then
+	    cp pbslacks/Slackpkg/blacklist /etc/slackpkg
+	    cp pbslacks/Slackpkg/slackpkg.conf /etc/slackpkg
+	    cat pbslacks/Slackpkg/mirrors | sed "s@HOMESLACK@${HOMESLACK}@" \
+		> /etc/slackpkg/mirrors
+	    slackpkg update gpg
+	    slackpkg update
+	    slackpkg install-new
+	    slackpkg upgrade-all
+	    slackpkg clean-system
+
+	    if [ $? -ne 0 ] ;then
+		rm -f $XTEMPOUT
+		rm -f $XTEMPMES
+		echo 'Abort : voir erreurs precedentes.'
+		exit 1
+	    fi
+	fi
+	echo "Upgrade system fait." >> $XTEMPMES
+    elif [ "$i" = compat32 ] ;then
+	if [ "$XTEST" != 'yes' ] ;then
+	    upgradepkg --reinstall --install-new current/*.t?z
+	    upgradepkg --install-new current/slackware64-compat32/*/*.t?z
+	fi
+	echo "Upgrade Alien Bob multilib fait." >> $XTEMPMES
+    elif [ "$i" = mozilla ] ;then
+	if [ "$XTEST" != 'yes' ] ;then
+	    $HOMESLACK/pbslacks/pbupgrademoz
+	fi
+	echo "Upgrade Mozilla fait." >> $XTEMPMES
+    elif [ "$i" = packages ] ;then
+	if [ "$XTEST" != 'yes' ] ;then
+	    upgradepkg --install-new packages/*.t?z
+	fi
+	echo "Upgrade packages fait." >> $XTEMPMES
+    elif [ "$i" = packages2 ] ;then
+	if [ "$XTEST" != 'yes' ] ;then
+	    upgradepkg --install-new packages2/*.t?z
+	fi
+	echo "Upgrade packages2 fait." >> $XTEMPMES
+    elif [ "$i" = packages3 ] ;then
+	if [ "$XTEST" != 'yes' ] ;then
+	    upgradepkg --install-new packages3/*.t?z
+	fi
+	echo "Upgrade packages3 fait." >> $XTEMPMES
+    elif [ "$i" = packages4 ] ;then
+	if [ "$XTEST" != 'yes' ] ;then
+	    upgradepkg --install-new packages4/*.t?z
+	fi
+	echo "Upgrade packages4 fait." >> $XTEMPMES
+    elif [ "$i" = frameworks ] ;then
+	if [ "$XTEST" != 'yes' ] ;then
+	    upgradepkg --install-new packages4/frameworks/*.t?z
+	fi
+	echo "Upgrade frameworks fait." >> $XTEMPMES
+    elif [ "$i" = audacity ] ;then
+	if [ "$XTEST" != 'yes' ] ;then
+	    upgradepkg --install-new packages4/audacity/*.t?z
+	fi
+	echo "Upgrade audacity fait." >> $XTEMPMES
+    elif [ "$i" = tesseract4 ] ;then
+	if [ "$XTEST" != 'yes' ] ;then
+	    upgradepkg --install-new packages4/tesseract4/*.t?z
+	    cp packages4/tesseract4/xsane2tess* /usr/bin
+	fi
+	echo "Upgrade tesseract4 fait." >> $XTEMPMES
+    elif [ "$i" = bumblebee ] ;then
+	if [ "$XTEST" != 'yes' ] ;then
+	    $HOMESLACK/pbslacks/pbupgradebumblebee
+	fi
+	echo "Upgrade Bumblebee fait." >> $XTEMPMES
+    elif [ "$i" = recreate ] ;then
+	if [ "$XTEST" != 'yes' ] ;then
+	    $HOMESLACK/pbslacks/pbcompilepost
+	fi
+	echo "Recreate source packages fait." >> $XTEMPMES
+    elif [ "$i" = recreatebumblebee ] ;then
+	if [ "$XTEST" != 'yes' ] ;then
+	    $HOMESLACK/pbslacks/pbcompilebumblebee
+	fi
+	echo "Recreate source Bumblebee fait." >> $XTEMPMES
+    fi
+done < $XTEMPOUT
+
+XEND=0
+
+if [ ! -f "$XTEMPMES" -o $(cat "$XTEMPMES"|wc -c) -eq 0 ] ;then
+    echo "No action was demanded. Exit." > $XTEMPMES
+    XEND=1
+fi
+
+dialog --colors --title 'Actions which were done' --msgbox "$(cat $XTEMPMES)" 20 80
+
+if [ $XEND -eq 1 ] ;then
+    rm -f $XTEMPOUT
+    rm -f $XTEMPMES
     exit 0
 fi
 
-XBOOTLOAD=`cat $XTEMPOUT|grep system|wc -l`
+XBOOTLOAD=$(cat $XTEMPOUT|grep system|wc -l)
 rm -f $XTEMPOUT
 rm -f $XTEMPMES
 
@@ -273,30 +287,30 @@ if [ $XBOOTLOAD -ge 1 ] ;then
 	lilo 'Boot Lilo : /etc/lilo.conf' \
 	none 'No bootloader detected. Reconfigure your bootloader before reboot.' \
 	2> $XTEMPOUT
-    xitem=`cat $XTEMPOUT`
+    xitem=$(cat $XTEMPOUT)
 
     xmes1 () {
 	echo "\ZbThe boot loader was not updated.\ZB"
-	echo "If lilo is installed, launch : \Zu/sbin/lilo\ZU"
-	echo "If Grub is installed, launch : \Zugrub-mkconfig -o /boot/grub/grub.cfg\ZU"
+	echo "If lilo is installed, launch : \Z3/sbin/lilo\Zn"
+	echo "If Grub is installed, launch : \Z3grub-mkconfig -o /boot/grub/grub.cfg\Zn"
 	echo "If Boot UEFI ELILO is installed, do :"
-	echo "  \Zucp /boot/vmlinuz /boot/initrd.gz /boot/efi/EFI/Slackware\ZU"
+	echo "  \Z3cp /boot/vmlinuz /boot/initrd.gz /boot/efi/EFI/Slackware\Zn"
 	echo
 	echo "\ZbOr rerun your other favorite bootloader install procedure before rebooting.\ZB"
     }
 
     if [ "$xitem" = elilo -a -d /boot/efi/EFI/Slackware ] ;then
-	echo "Elilo updated : Files vmlinuz et initrd.gz copied in /boot/efi/EFI/Slackware" >> $XTEMPMES
+	echo "Elilo updated : Files vmlinuz et initrd.gz copied in \Z3/boot/efi/EFI/Slackware\Zn" >> $XTEMPMES
 	if [ "$XTEST" != 'yes' ] ;then
 	    cp /boot/vmlinuz /boot/initrd.gz /boot/efi/EFI/Slackware
 	fi
     elif [ "$xitem" = grub -a -f /boot/grub/grub.cfg ] ;then
-	echo "Grub updated : grub-mkconfig relaunched.\n\Z1Look if there are error messages below\Zn." >> $XTEMPMES
+	echo "Grub updated : \Z3grub-mkconfig\Zn relaunched.\n\Z1Look if there are error messages below\Zn." >> $XTEMPMES
 	if [ "$XTEST" != 'yes' ] ;then
 	    grub-mkconfig -o /boot/grub/grub.cfg 2>> $XTEMPMES
 	fi
     elif [ "$xitem" = lilo -a -f /etc/lilo.conf ] ;then
-	echo "Lilo updated with /sbin/lilo.\n\Z1Look if there are error messages below\Zn." >> $XTEMPMES
+	echo "Lilo updated with \Z3/sbin/lilo\Zn.\n\Z1Look if there are error messages below\Zn." >> $XTEMPMES
 	if [ "$XTEST" != 'yes' ] ;then
 	    /sbin/lilo 2>> $XTEMPMES
 	fi
@@ -305,7 +319,7 @@ if [ $XBOOTLOAD -ge 1 ] ;then
     fi
 
     if [ -f "$XTEMPMES" ] ;then
-	dialog --colors --title 'Bootloader upgraded' --msgbox "`cat $XTEMPMES`" 20 80
+	dialog --colors --title 'Bootloader upgraded' --msgbox "$(cat $XTEMPMES)" 20 80
     fi
 
     rm -f $XTEMPOUT
@@ -322,22 +336,22 @@ xend () {
     echo "Reboot the host${XBOOTMES}."
     echo
     echo "\ZbThen do if not already done on an already upgraded target :\ZB"
-    echo " Select '\Zurecreate\ZU' in the above menu after launching this script again."
-    echo " or do> \Zupbslacks/pbcompilepost\ZU"
+    echo " Select '\Z3recreate\Zn' in the above menu after launching this script again."
+    echo " or do> \Z3pbslacks/pbcompilepost\Zn"
     echo
     echo "\ZbIf your host is a dual graphic card laptop with a NVIDIA card :\ZB"
     echo "  \Z4Do either :\Zn"
-    echo "    Select '\Zurecreatebumblebee\ZU' in the above menu after launching this script again."
-    echo "    or do> \Zupbslacks/pbcompilecrazybee\ZU"
+    echo "    Select '\Z3recreatebumblebee\Zn' in the above menu after launching this script again."
+    echo "    or do> \Z3pbslacks/pbcompilecrazybee\Zn"
     echo "  \Z4Or do only if already done on an upgraded target :\Zn"
-    echo "    Select '\Zubumblebee\ZU' in the above menu after launching this script again."
-    echo "    or do> \Zupbslacks/pbupgradebumblebee\ZU"
+    echo "    Select '\Z3bumblebee\Zn' in the above menu after launching this script again."
+    echo "    or do> \Z3pbslacks/pbupgradebumblebee\Zn"
 }
 
 xend >> $XTEMPMES
 
 if [ -f "$XTEMPMES" ] ;then
-    dialog --colors --title 'End messages' --msgbox "`cat $XTEMPMES`" 20 80
+    dialog --colors --title 'End messages' --msgbox "$(cat $XTEMPMES)" 20 80
 fi
 
 rm -f $XTEMPMES
