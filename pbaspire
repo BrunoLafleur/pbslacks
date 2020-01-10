@@ -40,19 +40,20 @@ XTEMPMES=$(mktemp -p /tmp -t pbaspiremes.XXXXXX)
 xmaster () {
     defitem=$1;shift
     xsel1=$1;shift;xsel2=$1;shift;xsel3=$1;shift;xsel4=$1;shift;xsel5=$1;shift
-    xsel6=$1
+    xsel6=$1;shift;xsel7=$1
     dialog --colors --title 'Main menu' --default-item $defitem --defaultno \
 	--separate-output --item-help --help-button --help-status --checklist \
-	'Choose your actions below' 0 100 6 \
+	'Choose your actions below' 0 100 7 \
 	init 'Init/Verify the repository.' $xsel1 init \
 	core 'Get/Update versus officiel Slackware, multilib and frameworks KDE5' $xsel2 core \
 	alien 'Get/Update some Alien Bob binary packages' $xsel3 alien \
 	ponce 'Get/Update some Ponce binary packages' $xsel4 ponce \
 	slonly 'Get/Update some Slackonly binary packages' $xsel5 slonly \
-	other 'Get/Update some other source or binary packages' $xsel6 other
+	other 'Get/Update some other source or binary packages' $xsel6 other \
+	mozilla 'Get/Update latest Firefox and Thunderbird' $xsel7 mozilla
 }
 
-xsel="on on on on on on on"
+xsel="on on on on on on on on"
 ditem=init
 bclaide=1
 
@@ -62,7 +63,7 @@ while [ $bclaide -eq 1 ] ;do
     if [ $bclaide -eq 1 ] ;then
 	xitem="$(cat $XTEMPOUT|grep '^HELP'|cut -d ' ' -f2)"
 	xsel=
-	for i in init core alien ponce slonly other ;do
+	for i in init core alien ponce slonly other mozilla ;do
 	  if [ $(grep "^$i$" "$XTEMPOUT"|wc -l) -eq 1 ] ;then
 	      xsel="$xsel on"
 	  else
@@ -84,6 +85,8 @@ while [ $bclaide -eq 1 ] ;do
 	    pacaide='Get or update some Slackonly binary packages.'
 	elif [ "$xitem" = other ] ;then
 	    pacaide='Get or update some other source or binary packages.'
+	elif [ "$xitem" = mozilla ] ;then
+	    pacaide='Get or update Firefox and Thunderbird.'
 	fi
 	dialog --colors --title "$xitem" --msgbox "$pacaide" 20 80
     fi
@@ -122,6 +125,11 @@ while read i;test "$i" != "" ;do
 	    "$0"other
 	fi
 	echo "Get/Upgrade other source or binary packages done : \Z3"$0"other\Zn." >> $XTEMPMES
+    elif [ "$i" = mozilla ] ;then
+	if [ "$XTEST" != 'yes' ] ;then
+	    "$0"moz -lang fr
+	fi
+	echo "Get/Upgrade Firefox and Thunderbird done : \Z3"$0"mozilla\Zn." >> $XTEMPMES
     fi
 done < $XTEMPOUT
 
