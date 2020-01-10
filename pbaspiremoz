@@ -1,0 +1,49 @@
+#! /bin/sh
+
+# Auteur : Pierre Brochard (pierre.brochard.1982@m4x.org)
+# Date : 2019
+# License : See the LICENSE file in this repository.
+
+xhelp () {
+    echo "Script a lancer dans le repertoire contenant packages, packages2 et al."
+    echo "Launch this script in the directory including packages, packages2 et al."
+}
+
+if [ ! -d packages/Mozilla ] ;then
+    xhelp
+    exit 1
+fi
+
+XLANG=fr
+
+while [ $# -ge 1 ] ;do
+    MYARG="$1"
+    if [ "$MYARG" = "-lang" ] ;then
+	shift
+	XLANG="$1"
+    elif [ "$MYARG" = "-help" ] ;then
+	xhelp
+	exit 0
+    fi
+    shift
+done
+
+XFIREFOX="https://download.mozilla.org/?product=firefox-esr-latest-ssl&os=linux64&lang="
+XTHUNDERBIRD="https://download.mozilla.org/?product=thunderbird-latest-SSL&os=linux64&lang="
+
+xpurgepac () {
+    pac="$1"
+    last=`ls -1t "$pac"*.tar.bz2|head -1`
+    for j in "$pac"*.tar.bz2 ;do
+	if [ "$j" != "$last" ] ;then
+	    rm -f "$j"
+	fi
+    done
+}
+
+cd packages/Mozilla
+wget -N -nv --content-disposition "${XFIREFOX}$XLANG"
+xpurgepac 'firefox-'
+
+wget -N -nv --content-disposition "${XTHUNDERBIRD}$XLANG"
+xpurgepac 'thunderbird-'

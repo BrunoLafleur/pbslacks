@@ -32,8 +32,8 @@ MYPWD=$(pwd)
 HOMESLACK="$MYPWD"
 HOMEMOZ=/usr/lib64
 
-FFVERSION="$HOMESLACK/packages/Mozilla/firefox-68.3.0esr.tar.bz2"
-THVERSION="$HOMESLACK/packages/Mozilla/thunderbird-68.3.1.tar.bz2"
+FFVERSION=$(ls "$HOMESLACK/packages/Mozilla/firefox-"*"esr.tar.bz2")
+THVERSION=$(ls "$HOMESLACK/packages/Mozilla/thunderbird-"*".tar.bz2")
 
 if [ -f "$FFVERSION" ] ;then
     rm -rf $HOMEMOZ/firefox.en
@@ -50,5 +50,4 @@ if [ -f "$THVERSION" ] ;then
 fi
 
 echo "Firefox et Thunderbird en français ajoutés"
-
 cd "$MYPWD"
