@@ -65,7 +65,7 @@ xgetsrcpac () {
     fi
     if [ "$localcopie" = http -o "$localcopie" = https ] ;then
         cd "$name"
-        wget -N -nv "$path"
+        wget -N -nv --content-disposition "$path"
 	cd ..
     else
 	echo "Copie locale de ../pbslacks/builds/$path vers $name"
@@ -92,7 +92,6 @@ xgetsrcpac db53 "$PATHDB53"
 xgetsrcpac db53 "$PATHDB53BIS"
 xgetsrcpac pyicu "$PATHPYICU"
 xgetsrcpac gramps "$PATHGRAMPS"
-ln -sf gramps/v5.1.1.zip gramps/gramps-5.1.1.zip
 cd ..
 
 cd packages4
@@ -103,7 +102,6 @@ xgetsrcpac wxGTK3 "$PATHWXTK3"
 xgetsrcpac vbam "$PATHVBAM"
 xgetsrcpac fbida "$PATHFBIDA"
 xgetsrcpac kaffeine "$PATHKAFFEINE"
-ln -sf kaffeine/master.zip kaffeine/kaffeine-master.zip
 xgetsrcpac opencv "$PATHOPENCV"
 xgetsrcpac opencv "$PATHOPENCVBIS"
 cd ..
