@@ -48,7 +48,10 @@ xpurgepac () {
     done
 }
 
+cd "$HOMESLACK/bumblebee"
+cp ~/Bumblebee-SlackBuilds/nouveau-blacklist/xf86-video-nouveau-blacklist-noarch-1.txz .
+
 for i in libbsd primus bbswitch nvidia-bumblebee bumblebee nvidia-kernel ;do
-    cp "/tmp/${i}-"* $HOMESLACK/bumblebee
+    cp "/tmp/${i}-"* .
     xpurgepac "${i}-"
 done
