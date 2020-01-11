@@ -40,7 +40,7 @@ done
 
 if [ ! -d /boot ] ;then
     echo "Do the install of the Slackware Linux distribution before :"
-    echo "-see the SLACKWARE.txt file."
+    echo "-see the doc/SLACKWARE.txt file."
     exit 1
 fi
 

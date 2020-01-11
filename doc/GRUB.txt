@@ -1,0 +1,3 @@
+# Voir /etc/default/grub
+grub-install --modules=part_gpt /dev/sda
+grub-mkconfig -o /boot/grub/grub.cfg
