@@ -13,6 +13,7 @@ fi
 SLACKMIR='http://nephtys.lip6.fr/pub/linux/distributions/slackware'
 SLACKALIEN="$SLACKMIR/people/alien/slackbuilds"
 SLACKALIEN2="$SLACKMIR/people/alien-kde/current/latest/x86_64/deps"
+SLACKALIENSRC2="$SLACKMIR/people/alien-kde/source/latest/deps"
 
 xpurgepac () {
     pac="$1"
@@ -31,15 +32,32 @@ xgetpac () {
     wget -N -A "$pac"'*.t?z' -r -nv -np -nH --cut-dir=$prof "$dir/"
 }
 
+xgetsrcpac () {
+    dir="$1"
+    prof="$2"
+    wget -N -r -nv -np -nH --cut-dir=$prof "$dir/"
+    cd "$dir"
+    sh "./${dir}.SlackBuild"
+    cp "/tmp/${dir}-"*.t?z ..
+    cd ..
+}
+
 cd packages
 for i in cabextract jack2 libxkbcommon mlt musescore openjdk qt5 qt5-speech ;do
     xgetpac "$i-" "$SLACKALIEN/$i/pkg64/current" 10
     xpurgepac "$i-"
 done
-for i in mlt ;do
-    xgetpac "$i-" "$SLACKALIEN2" 10
-    xpurgepac "$i-"
-done
+
+# MLT pour openshot.
+i=mlt
+xgetpac "$i-" "$SLACKALIEN2" 10
+xpurgepac "$i-"
+# Binding python et pas python3 pour openshot.
+# Et le mlt.SlackBuild importe dans python et pas python3 (PYTHONSITEPKG).
+export PYTHON=python
+export BUILD=3alien
+xgetsrcpac "$SLACKALIENSRC2/$i/" 9
+
 for i in steamclient ;do
     xgetpac "$i-" "$SLACKALIEN/$i/pkg/current" 10
     xpurgepac "$i-"
