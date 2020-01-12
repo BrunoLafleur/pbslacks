@@ -12,6 +12,11 @@ fi
 XDEV="$1"
 
 udisksctl unmount -b "${XDEV}p1"
+
+if [ $? -ne 0 ] ;then
+    udisksctl unmount -b "${XDEV}"
+fi
+
 udisksctl loop-delete -b "$XDEV"
 
 echo "ISO unmounted."

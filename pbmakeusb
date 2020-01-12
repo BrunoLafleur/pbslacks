@@ -20,6 +20,13 @@
 # You can launch this script as a normal user in the plugdev group.
 # Use fdisk and udisksctl.
 
+if [ ! $UID = 0 ]; then
+  cat << EOF
+This script must be run as root.
+EOF
+  exit 1
+fi
+
 ISO=0
 MYPWD=$(pwd)
 REPO="$MYPWD/slackware64-current"
