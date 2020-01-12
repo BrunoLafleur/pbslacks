@@ -76,10 +76,10 @@ xgetsrcpac () {
 
 xmodpac () {
     name="$1"
-    if [ -d "$name" ] ;then
-        rm -rf "$name"
+    cat="$2"
+    if [ ! -d "$name" ] ;then
+        cp -a "../slackware64-current/source/$cat/$name" .
     fi
-    cp -a "../slackware64-current/source/l/$name" .
     cp "../pbslacks/builds/${name}.SlackBuild" "$name"
     cd "$name"
     sh "./${name}.SlackBuild"
@@ -126,7 +126,7 @@ cd ..
 cd packages
 # python-pillow : re-add python2.7 support for openshot.
 # Pillow 7 drop support. Don't use it.
-xmodpac python-pillow
+xmodpac python-pillow l
 cd ..
 
 # Download new versions of binary packages.
