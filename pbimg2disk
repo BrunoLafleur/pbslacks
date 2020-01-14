@@ -171,7 +171,7 @@ if [ -z "$1" ]; then
 fi
 
 FULLINSTALLER=0
-NOUDISK2=0
+NOUDISKS2=0
 
 while [ ! -z "$1" ]; do
   case $1 in
@@ -218,7 +218,8 @@ while [ ! -z "$1" ]; do
       shift 2
       ;;
     -noudisks2)
-      NOUDISK2=1
+      NOUDISKS2=1
+      ;;
     *)
       echo "*** Unknown parameter '$1'!"
       exit 1
@@ -498,10 +499,10 @@ label gparted
     initrd $GPARTISO
 EOF
     cp "$SYSLINHOME/memdisk" $MNTDIR2
-    cp "$SYSLINHOME/syslinux/menu.c32" $MNTDIR2
+    cp "$SYSLINHOME/menu.c32" $MNTDIR2
     cp "$GPARTISO" $MNTDIR2
     XLOOP2=$(losetup -f)
-    losetup $XLOOP2 $MNTDIR2
+    losetup $XLOOP2 $TARGETPART
     REFINDHOME="$(ls /usr/share/refind*)"
     $REFINDHOME/refind-install --usedefault $XLOOP2
     losetup -d $XLOOP2
