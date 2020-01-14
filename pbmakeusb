@@ -27,31 +27,62 @@ EOF
   exit 1
 fi
 
-ISO=0
+xhelp () {
+    cat <<EOF
+Script a lancer dans le repertoire contenant slackware64-current fraichement aspire.
+Launch this script in the directory including slackware64-current.
+
+> pbslacks/pbmakeusb [-iso slack.iso] [-gpart gparted.iso] [-noudisks2]
+EOF
+}
+
 MYPWD=$(pwd)
+ISO=0
 REPO="$MYPWD/slackware64-current"
+GPARTISO=
+NOUDISKS2=
 
-if [ ! -d slackware64-current ] ;then
-    IMGISO="$1"
-
-    if [ "$IMGISO" != '' ] ;then
-	BIMG=$(basename "$IMGISO")
-	BIMGISO=$(basename "$IMGISO" .iso)
-	if [ "$BIMG" != "$BIMGISO" ] ;then
-	    ISO=1
+while [ $# -ge 1 ] ;do
+    MYARG="$1"
+    shift
+    if [ "$MYARG" = "-noudisks2" ] ;then
+	NOUDISKS2='-noudisks2'
+    elif [ "$MYARG" = "-help" ] ;then
+	xhelp
+	exit 0
+    elif [ "$MYARG" = "-iso" ] ;then
+	IMGISO="$1"
+	if [ "$IMGISO" != '' ] ;then
+	    BIMG=$(basename "$IMGISO")
+	    BIMGISO=$(basename "$IMGISO" .iso)
+	    if [ "$BIMG" != "$BIMGISO" ] ;then
+		ISO=1
+	    fi
 	fi
+	shift
+    elif [ "$MYARG" = "-gpart" ] ;then
+	GPARTISO="-gpart $1"
+	shift
     fi
-    if [ $ISO -eq 0 ] ;then
-        echo "Script a lancer dans le repertoire contenant slackware64-current fraichement aspire."
-        echo "Launch this script in the directory including slackware64-current."
-        exit 1
-    fi
+done
+
+if [ ! -d slackware64-current -a $ISO -eq 0 ] ;then
+    xhelp
+    exit 1
 fi
 
 if [ $ISO -eq 1 ] ;then
-    XLOOP=$(udisksctl loop-setup -f "$IMGISO"|sed 's@^.* \(.*\)\.$@\1@')
+    if [ "$NOUDISKS2" != '' ] ;then
+	XLOOP=$(losetup -f);losetup $XLOOP "$IMGISO"
+	REPO=$(mktemp -p /tmp -t pbmakeusb.XXXXXX)
+	mount -t vfat "${XLOOP}p1" $REPO
+    else
+	XLOOP=$(udisksctl loop-setup -f "$IMGISO"|sed 's@^.* \(.*\)\.$@\1@')
+	REPO=$(udisksctl mount -b "${XLOOP}p1"|cut -d ' ' -f4-|\
+	    sed 's@^\(.*\)\.$@\1@')
+    fi
     echo "Loop device is : $XLOOP"
-    REPO=$(udisksctl mount -b "${XLOOP}p1"|cut -d ' ' -f4-|sed 's@^\(.*\)\.$@\1@')
+    echo "Mount dir is : $REPO"
 fi
 
 cd "$REPO"
@@ -65,15 +96,18 @@ echo "Put your USB stick on an USB port and press Enter."
 read c
 
 sleep 3
-MYDEVNAME=$(/sbin/fdisk -l 2> /dev/null| tail -1 | grep 'FAT32$'|cut -d ' ' -f1|cut -d '1' -f1)
+MYDEVNAME=$(/sbin/fdisk -l 2> /dev/null| tail -1 | grep 'FAT32$'|\
+    cut -d ' ' -f1|cut -d '1' -f1)
 
 if [ "$MYDEVNAME" = '' ] ;then
 # If it is an already created Slackware USB stick."
-    MYDEVNAME=$(/sbin/fdisk -l 2> /dev/null| tail -3 | grep 'EFI '|cut -d ' ' -f1|cut -d '2' -f1)
+    MYDEVNAME=$(/sbin/fdisk -l 2> /dev/null| tail -3 | grep 'EFI '|\
+	cut -d ' ' -f1|cut -d '2' -f1)
 fi
 
 /sbin/fdisk -l 2> /dev/null
-echo "Your device name is $MYDEVNAME. Is this correct ? y(es) or n(o) or ynof(ormat) :"
+echo "Your device name is $MYDEVNAME."
+echo "Is this correct ? y(es) or n(o) or ynof(ormat) :"
 read c
 
 if [ "$c" = 'ynof' ] ;then
@@ -85,15 +119,16 @@ fi
 
 if [ "$c" = 'y' -a "$MYDEVNAME" != '' ] ;then
     cd usb-and-pxe-installers
-    if [ $UID = 0 ]; then
-        sh ./usbimg2disk.sh $FORMAT -i $(pwd)/usbboot.img -o "$MYDEVNAME" -s "$REPO"
-    else
-        $MYPWD/pbslacks/pbimg2disk $FORMAT -i $(pwd)/usbboot.img -o "$MYDEVNAME" -s "$REPO"
-    fi
+    "$MYPWD/pbslacks/pbimg2disk" $FORMAT -i $(pwd)/usbboot.img \
+	-o "$MYDEVNAME" -s "$REPO" $NOUDISKS2 $GPARTISO
 fi
 
 if [ $ISO -eq 1 ] ;then
     cd "$MYPWD"
-    udisksctl unmount -b "${XLOOP}p1"
-    udisksctl loop-delete -b "$XLOOP"
+    if [ "$NOUDISKS2" != '' ] ;then
+	[ ! -z "$REPO" ] && (umount "${XLOOP}p1";losetup -d $XLOOP;rmdir $REPO)
+    else
+	udisksctl unmount -b "${XLOOP}p1"
+	udisksctl loop-delete -b "$XLOOP"
+    fi
 fi

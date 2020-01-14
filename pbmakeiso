@@ -4,9 +4,17 @@
 # Date : 2019
 # License : See the LICENSE file in this repository.
 
+xhelp () {
+    cat <<EOF
+Script a lancer dans le repertoire contenant slackware64-current fraichement aspire.
+Launch this script in the directory including slackware64-current.
+
+> pbslacks/pbmakeiso
+EOF
+}
+
 if [ ! -d slackware64-current ] ;then
-    echo "Script a lancer dans le repertoire contenant slackware64-current fraichement aspire."
-    echo "Launch this script in the directory including slackware64-current."
+    xhelp
     exit 1
 fi
 
@@ -39,15 +47,16 @@ xorriso -as mkisofs \
   . current/=../current packages/=../packages packages2/=../packages2 \
 	 packages3/=../packages3 packages4/=../packages4 bumblebee/=../bumblebee \
 	 divers/=../../divers pbslacks/=../../pbslacks perso/=../../perso
-
 cd ../..
 
-echo "If not too big for your recorder which should use double layer media,"
-echo "the iso created can be put on a DVD with :"
-echo "> growisofs -speed=2 -dvd-compat -Z /dev/dvd `pwd`/$NAMEISO"
+cat <<EOF
+If not too big for your recorder which should use double layer media,
+the iso created can be put on a DVD with :
+> growisofs -speed=2 -dvd-compat -Z /dev/dvd `pwd`/$NAMEISO
 
-echo "Or on an USB stick (sdX below is the name of the USB device) :"
-echo "> dd if=`pwd`/$NAMEISO of=/dev/sdX bs=1M ;sync"
-
+Or on an USB stick (sdX below is the name of the USB device) :
+EOF
+echo "> dd if=$(pwd)/$NAMEISO of=/dev/sdX bs=1M ;sync"
+echo
 echo "Or launch :"
-echo "> pbmakeiso2usb `pwd`/$NAMEISO"
+echo "> pbmakeiso2usb $(pwd)/$NAMEISO"

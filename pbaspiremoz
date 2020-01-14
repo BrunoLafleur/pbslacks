@@ -5,8 +5,10 @@
 # License : See the LICENSE file in this repository.
 
 xhelp () {
-    echo "Script a lancer dans le repertoire contenant packages, packages2 et al."
-    echo "Launch this script in the directory including packages, packages2 et al."
+    cat <<EOF
+Script a lancer dans le repertoire contenant packages, packages2 et al.
+Launch this script in the directory including packages, packages2 et al.
+EOF
 }
 
 if [ ! -d packages/Mozilla ] ;then

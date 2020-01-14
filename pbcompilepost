@@ -15,9 +15,15 @@ EOF
   exit 1
 fi
 
+xhelp () {
+cat <<EOF
+Script a lancer dans le repertoire contenant packages, packages2 et al.
+Launch this script in the directory including packages, packages2 et al.
+EOF
+}
+
 if [ ! -d packages -o ! -d packages2 -o ! -d packages3 -o ! -d packages4 ] ;then
-    echo "Script a lancer dans le repertoire contenant packages, packages2 et al."
-    echo "Launch this script in the directory including packages, packages2 et al."
+    xhelp
     exit 1
 fi
 
@@ -27,9 +33,12 @@ if [ "$1" = '-norecomp'  ] ;then
     RECOMP=0
 fi
 
-echo "A lancer seulement apres la mise a jour du systeme."
-echo "Si deja fait sur une machine a jour, il n'est pas utile de relancer ce script."
-echo "Appuyer sur une touche pour continuer sinon CTRLc pour arreter."
+cat <<EOF
+A lancer seulement apres la mise a jour du systeme et son redemarrage.
+Si deja fait sur une machine a jour, il n'est pas utile de relancer ce script.
+Appuyer sur une touche pour continuer sinon CTRLc pour arreter
+Press a touch for continue or abort.
+EOF
 read c
 
 xmakepac () {
@@ -44,7 +53,8 @@ xmakepac () {
       ./${XPAC}.SlackBuild
       cp /tmp/${XPAC}-*.t?z ../..
       if [ $? -ne 0 ] ;then
-	echo 'erreur'
+	echo 'Erreur a corriger puis relancer ce script.'
+	echo 'Correct this error and relaunch this script.'
         exit 1
       fi
       cd ..;rm -rf $XPAC

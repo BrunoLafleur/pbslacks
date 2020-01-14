@@ -11,19 +11,29 @@ EOF
   exit 1
 fi
 
+xhelp () {
+    cat <<EOF
+Script a lancer dans un repertoire contenant bumblebee.
+Launch this script in a directory which contains bumblebee.
+
+pbslacks should be side by side of this current directory.
+> pbslacks/pbinstallbumblebee
+EOF
+}
+
 if [ ! -d bumblebee ] ;then
-    echo "Script a lancer dans le repertoire contenant bumblebee."
-    echo "Launch this script in the directory including bumblebee."
+    xhelp
     exit 1
 fi
 
 MYPWD=`pwd`
 HOMESLACK="$MYPWD"
 
-echo "Recreation des packages Slackware de Bummblebee."
-echo "Si deja fait sur une machine a jour, ne pas refaire et"
-echo "  utilisez les paquets generes dans bumblebee (avec pbupgradebumblebee)."
-echo "A installer avec pbupgradenumblebee."
+cat <<EOF
+Recreation des packages Slackware de Bummblebee.
+Si deja fait sur une machine a jour, ne pas refaire et utilisez
+  directement les paquets generes dans bumblebee (avec pbupgradebumblebee).
+EOF
 
 export UPDATE=no
 rm -rf ~/Bumblebee-SlackBuilds
@@ -35,7 +45,7 @@ if [ -f "$HOMESLACK/bumblebee/Crazybee/Bumblebee-SlackBuilds.tgz" ] ;then
     cd Bumblebee-SlackBuilds
     sh ./crazybee.sh
 else
-    sh $HOMESLACK/bumblebee/crazybee.sh
+    sh "$HOMESLACK/bumblebee/crazybee.sh"
 fi
 
 xpurgepac () {

@@ -9,18 +9,21 @@ XNEW=
 XPOST=
 
 xhelp () {
-    echo "Script a lancer dans le repertoire contenant slackware64 fraichement aspire."
-    echo "pbslacks doit aussi etre accessible du repertoire courant."
-    echo
-    echo "Launch this script in the directory including slackware64."
-    echo "pbslacks should also be there."
-    echo
-    echo "  > cd .../slackware-current"
-    echo "or> cd /run/media/$USER/USBSLACKINS/SlackDVD"
-    echo "  > pbslacks/pbupgrade [-new (no system update)]"
-    echo "               [-test (test only, no actions)]"
-    echo "               [-help]"
-    echo "               [-post (actions to do preferably after a postinstall reboot)]"
+    cat <<EOF
+Script a lancer dans le repertoire contenant slackware64 fraichement aspire.
+pbslacks doit aussi etre accessible du repertoire courant.
+
+Launch this script in the directory including slackware64.
+It can be on a USB stick.
+pbslacks should also be there.
+
+  > cd .../slackware-current"
+or> cd /run/media/$USER/USBSLACKINS/SlackDVD
+  > pbslacks/pbupgrade [-new (no system update)]
+               [-test (test only, no actions)]
+               [-help]
+               [-post (actions to do preferably after a postinstall reboot)]
+EOF
 }
 
 while [ $# -ge 1 ] ;do
@@ -290,13 +293,15 @@ if [ $XBOOTLOAD -ge 1 ] ;then
     xitem=$(cat $XTEMPOUT)
 
     xmes1 () {
-	echo "\ZbThe boot loader was not updated.\ZB"
-	echo "If lilo is installed, launch : \Z3/sbin/lilo\Zn"
-	echo "If Grub is installed, launch : \Z3grub-mkconfig -o /boot/grub/grub.cfg\Zn"
-	echo "If Boot UEFI ELILO is installed, do :"
-	echo "  \Z3cp /boot/vmlinuz /boot/initrd.gz /boot/efi/EFI/Slackware\Zn"
-	echo
-	echo "\ZbOr rerun your other favorite bootloader install procedure before rebooting.\ZB"
+cat <<EOF
+\ZbThe boot loader was not updated.\ZB
+If lilo is installed, launch : \Z3/sbin/lilo\Zn
+If Grub is installed, launch : \Z3grub-mkconfig -o /boot/grub/grub.cfg\Zn
+If Boot UEFI ELILO is installed, do :
+  \Z3cp /boot/vmlinuz /boot/initrd.gz /boot/efi/EFI/Slackware\Zn
+
+\ZbOr rerun your other favorite bootloader install procedure before rebooting.\ZB
+EOF
     }
 
     if [ "$xitem" = elilo -a -d /boot/efi/EFI/Slackware ] ;then
@@ -333,19 +338,21 @@ else
 fi
 
 xend () {
-    echo "Reboot the host${XBOOTMES}."
-    echo
-    echo "\ZbThen do if not already done on an already upgraded target :\ZB"
-    echo " Select '\Z3recreate\Zn' in the above menu after launching this script again."
-    echo " or do> \Z3pbslacks/pbcompilepost\Zn"
-    echo
-    echo "\ZbIf your host is a dual graphic card laptop with a NVIDIA card :\ZB"
-    echo "  \Z4Do either :\Zn"
-    echo "    Select '\Z3recreatebumblebee\Zn' in the above menu after launching this script again."
-    echo "    or do> \Z3pbslacks/pbcompilecrazybee\Zn"
-    echo "  \Z4Or do only if already done on an upgraded target :\Zn"
-    echo "    Select '\Z3bumblebee\Zn' in the above menu after launching this script again."
-    echo "    or do> \Z3pbslacks/pbupgradebumblebee\Zn"
+cat <<EOF
+Reboot the host${XBOOTMES}.
+
+\ZbThen do if not already done on an already upgraded target :\ZB
+ Select '\Z3recreate\Zn' in the above menu after launching this script again.
+ or do> \Z3pbslacks/pbcompilepost\Zn
+
+\ZbIf your host is a dual graphic card laptop with a NVIDIA card :\ZB
+  \Z4Do either :\Zn
+    Select '\Z3recreatebumblebee\Zn' in the above menu after launching this script again.
+    or do> \Z3pbslacks/pbcompilecrazybee\Zn
+  \Z4Or do only if already done on an upgraded target :\Zn
+    Select '\Z3bumblebee\Zn' in the above menu after launching this script again.
+    or do> \Z3pbslacks/pbupgradebumblebee\Zn
+EOF
 }
 
 xend >> $XTEMPMES

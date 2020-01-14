@@ -11,19 +11,30 @@ EOF
   exit 1
 fi
 
+xhelp () {
+    cat <<EOF
+Script a lancer dans un repertoire contenant slackware64-current.
+Launch this script in a directory which contains slackware64-current.
+
+pbslacks should be side by side of this current directory.
+> pbslacks/pbupgradebumblebee
+EOF
+}
+
 if [ ! -d slackware64-current ] ;then
-    echo "Script a lancer dans le repertoire contenant slackware64-current fraichement aspire."
-    echo "Launch this script in the directory including slackware64-current."
+    xhelp
     exit 1
 fi
 
 MYPWD=`pwd`
 HOMESLACK="$MYPWD"
 
-echo "Only for NVDIA second card on laptop."
-echo "Seulement pour portable équipés d'une deuxième carte NVIDIA."
-echo "Mettez eventuellement Bumblebee a jour avec pbinstallbumblebee."
-echo "Appuyez sur une touche pour continuer - press a touch for continue or abort."
+cat <<EOF
+Only for NVDIA second card on laptop.
+Seulement pour portable équipés d'une deuxième carte NVIDIA.
+Mettez eventuellement Bumblebee a jour avec pbinstallbumblebee.
+Appuyez sur une touche pour continuer - press a touch for continue or abort.
+EOF
 read c
 
 cd $HOMESLACK
