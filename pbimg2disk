@@ -504,7 +504,7 @@ EOF
     XLOOP2=$(losetup -f)
     losetup $XLOOP2 $TARGETPART
     REFINDHOME="$(ls /usr/share/refind*)"
-    $REFINDHOME/refind-install --usedefault $XLOOP2
+    (cd $REFINDHOME;./refind-install --usedefault $XLOOP2)
     losetup -d $XLOOP2
 fi
 
