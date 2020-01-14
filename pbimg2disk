@@ -328,8 +328,12 @@ fi
 
 # Check for prerequisites which may not always be installed:
 MISSBIN=0
-MBRBIN="/usr/lib/syslinux/mbr.bin"
-if [ ! -r $MBRBIN ]; then MBRBIN="/usr/share/syslinux/mbr.bin"; fi
+SYSLINHOME="/usr/lib/syslinux"
+MBRBIN="$SYSLINHOME/mbr.bin"
+if [ ! -r $MBRBIN ] ;then
+    SYSLINHOME="/usr/share/syslinux"
+    MBRBIN="$SYSLINHOME/mbr.bin"
+fi
 if [ ! -r $MBRBIN -o ! -x /usr/bin/syslinux ]; then
   echo "*** This script requires that the 'syslinux' package is installed!"
   MISSBIN=1
@@ -494,8 +498,8 @@ label gparted
     linux memdisk
     initrd $GPARTISO
 EOF
-    cp /usr/lib/syslinux/memdisk $MNTDIR2
-    cp /usr/lib/syslinux/menu.c32 $MNTDIR2
+    cp "$SYSLINHOME/memdisk" $MNTDIR2
+    cp "$SYSLINHOME/syslinux/menu.c32" $MNTDIR2
     cp "$GPARTISO" $MNTDIR2
     XLOOP2=$(losetup -f)
     losetup $XLOOP2 $MNTDIR2
