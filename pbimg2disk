@@ -486,8 +486,7 @@ if [ "$GPARTISO" != '' ] ;then
 # prompt 0
 # menu label ...
     cat $MNTDIR2/syslinux.cfg|\
-	sed 's@^default .*$@default menu.c32@'|\
-	sed 's@^prompt .*$@prompt 0@'|\
+	sed 's@^\(default .*\)$@ui menu.c32\n\1@'|\
 	sed 's@^label \(.*\)$@label \1\n    menu label \1@' >\
 	$MNTDIR2/syslinux.cfg.new
     mv $MNTDIR2/syslinux.cfg.new $MNTDIR2/syslinux.cfg
@@ -503,7 +502,8 @@ EOF
     cp "$GPARTISO" $MNTDIR2
     XLOOP2=$(losetup -f)
     losetup $XLOOP2 $MNTDIR2
-    refind-install --usedefault $XLOOP2
+    REFINDHOME="$(ls /usr/share/refind*)"
+    $REFINDHOME/refind-install --usedefault $XLOOP2
     losetup -d $XLOOP2
 fi
 
