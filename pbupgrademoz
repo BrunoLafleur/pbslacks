@@ -12,15 +12,17 @@ EOF
 fi
 
 xhelp () {
-    echo "Script a lancer dans le repertoire contenant slackware64 fraichement aspire."
-    echo "pbslacks doit aussi etre accessible du repertoire courant."
-    echo
-    echo "Launch this script in the directory including slackware64."
-    echo "pbslacks should also be there."
-    echo
-    echo "  > cd .../slackware-current"
-    echo "or> cd /run/media/$USER/USBSLACKINS/SlackDVD"
-    echo "  > pbslacks/pbupgrademoz"
+    cat <<EOF
+Script a lancer dans le repertoire contenant slackware64 fraichement aspire.
+pbslacks doit aussi etre accessible du repertoire courant.
+
+Launch this script in the directory including slackware64.
+pbslacks should also be there.
+
+  > cd .../slackware-current
+or> cd /run/media/$USER/USBSLACKINS/SlackDVD
+  > pbslacks/pbupgrademoz
+EOF
 }
 
 if [ ! -d slackware64 -o '(' ! -h pbslacks -a ! -d pbslacks ')' ] ;then
@@ -35,19 +37,19 @@ HOMEMOZ=/usr/lib64
 FFVERSION=$(ls "$HOMESLACK/packages/Mozilla/firefox-"*"esr.tar.bz2")
 THVERSION=$(ls "$HOMESLACK/packages/Mozilla/thunderbird-"*".tar.bz2")
 
-if [ -f "$FFVERSION" ] ;then
-    rm -rf $HOMEMOZ/firefox.en
-    mv $HOMEMOZ/firefox $HOMEMOZ/firefox.en
-    cd $HOMEMOZ
-    tar xfj "$FFVERSION"
-fi
+installmoz () {
+    PROD="$1"
+    VERSION="$2"
+    if [ -f "$VERSION" ] ;then
+	rm -rf $HOMEMOZ/${PROD}.en
+	mv $HOMEMOZ/$PROD $HOMEMOZ/${PROD}.en
+	cd $HOMEMOZ
+	tar xfj "$VERSION"
+    fi
+}
 
-if [ -f "$THVERSION" ] ;then
-    rm -rf $HOMEMOZ/thunderbird.en
-    mv $HOMEMOZ/thunderbird $HOMEMOZ/thunderbird.en
-    cd $HOMEMOZ
-    tar xfj "$THVERSION"
-fi
+installmoz firefox "$FFVERSION"
+installmoz thunderbird "$THVERSION"
 
 echo "Firefox et Thunderbird en français ajoutés"
 cd "$MYPWD"

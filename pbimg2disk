@@ -22,8 +22,13 @@
 
 #########################################################################
 # Modified by Pierre Brochard (pierre.brochard.1982@m4x.org)
-# to use udisksctl (from udisks2) to permit a user in the plugdev group to
-# use this script without being the superuser root.
+# to use udisksctl or not (not sufficent to use as a normal plugdev user -
+# we should speak directly to udisksd).
+#   -noudisks2
+#
+# and to add -gpart option to have a dual boot on the USB stick with :
+#   -install slackware
+#   -gparted
 #########################################################################
 
 # Define some variables ahead of time, so that cleanup knows about them:
@@ -36,46 +41,55 @@ cleanup() {
   echo "--- Syncing I/O..."
   sync
   echo "--- Unmounting volumes and deleting temporary files..."
-  udisksctl unmount -b $XLOOP1;udisksctl loop-delete -b $XLOOP1
-  udisksctl unmount -b $TARGETPART
+  if [ $NOUDISKS2 -eq 1 ] ;then
+      [ ! -z "$MNTDIR1" ] && (umount -f $XLOOP1;losetup -d $XLOOP1;rmdir $MNTDIR1)
+      [ ! -z "$MNTDIR2" ] && (umount -f $TARGETPART;rmdir $MNTDIR2)
+  else
+      udisksctl unmount -b $XLOOP1;udisksctl loop-delete -b $XLOOP1
+      udisksctl unmount -b $TARGETPART
+  fi
 }
 
 showhelp() {
-  echo "# "
-  echo "# Purpose #1: to use the content of Slackware's usbboot.img and"
-  echo "#   transform a standard USB thumb drive with a single vfat partition"
-  echo "#   into a bootable medium containing the Slackware Linux installer."
-  echo "# "
-  echo "# Purpose #2: to use the contents of a Slackware directory tree"
-  echo "#   and transform a standard USB thumb drive with"
-  echo "#   a single vfat partition and 2GB of free space into"
-  echo "#   a self-contained USB installation medium for Slackware Linux."
-  echo "# "
-  echo "# "
-  echo "# Your USB thumb drive may contain data!"
-  echo "# This data will *not* be overwritten, unless you have"
-  echo "#   explicitly chosen to format the drive by using the '-f' parameter."
-  echo "# "
-  echo "# $(basename $0) accepts the following parameters:"
-  echo "#   -h|--help                  This help"
-  echo "#   -e|--errors                Abort operations in case of any errors"
-  echo "#   -f|--format                Format the USB drive before use"
-  echo "#   -i|--infile <filename>     Full path to the usbboot.img file"
-  echo "#   -l|--logfile <filename>    Optional logfile to catch fdisk output"
-  echo "#   -o|--outdev <filename>     The device name of your USB drive"
-  echo "#   -s|--slackdir <dir>        Use 'dir' as the root of Slackware tree"
-  echo "#   -u|--unattended            Do not ask any questions"
-  echo "#   -L|--label <labelname>     FAT label when formatting the USB drive"
+cat <<EOF
+# 
+# Purpose #1: to use the content of Slackware's usbboot.img and
+#   transform a standard USB thumb drive with a single vfat partition
+#   into a bootable medium containing the Slackware Linux installer.
+# 
+# Purpose #2: to use the contents of a Slackware directory tree
+#   and transform a standard USB thumb drive with
+#   a single vfat partition and 2GB of free space into
+#   a self-contained USB installation medium for Slackware Linux.
+# 
+# 
+# Your USB thumb drive may contain data!
+# This data will *not* be overwritten, unless you have
+#   explicitly chosen to format the drive by using the '-f' parameter.
+# 
+# $(basename $0) accepts the following parameters:
+#   -h|--help                  This help
+#   -e|--errors                Abort operations in case of any errors
+#   -f|--format                Format the USB drive before use
+#   -i|--infile <filename>     Full path to the usbboot.img file
+#   -l|--logfile <filename>    Optional logfile to catch fdisk output
+#   -o|--outdev <filename>     The device name of your USB drive
+#   -s|--slackdir <dir>        Use 'dir' as the root of Slackware tree
+#   -u|--unattended            Do not ask any questions
+#   -L|--label <labelname>     FAT label when formatting the USB drive
+#   -gpart gparted_iso         iso gparted live to add to the USB drive
+#   -noudisks2                 don't use udisks2
 
-  echo "# "
-  echo "# Examples:"
-  echo "# "
-  echo "# $(basename $0) -i ~/download/usbboot.img -o /dev/sdX"
-  echo "# $(basename $0) -f -s /home/ftp/pub/slackware-13.0 -o /dev/sdX"
-  echo "# "
-  echo "# The second example shows how to create a fully functional Slackware"
-  echo "# installer on a USB stick (it needs a Slackware tree as the source)."
-  echo "# "
+# 
+# Examples:
+# 
+# $(basename $0) -i ~/download/usbboot.img -o /dev/sdX
+# $(basename $0) -f -s /home/ftp/pub/slackware-13.0 -o /dev/sdX
+# 
+# The second example shows how to create a fully functional Slackware
+# installer on a USB stick (it needs a Slackware tree as the source).
+# 
+EOF
 }
 
 reformat() {
@@ -122,7 +136,11 @@ EOF
 
   if mount | grep -q ${TOWIPE}1 ; then
     echo "--- Un-mounting ${TOWIPE}1 because your desktop auto-mounted it..."
-    udisksctl unmount -b ${TOWIPE}1
+    if [ $NOUDISKS2 -eq 1 ] ;then
+	umount -f ${TOWIPE}1
+    else
+	udisksctl unmount -b ${TOWIPE}1
+    fi
   fi
 
   # We set the fat label to '$THELABEL' when formatting.
@@ -151,6 +169,10 @@ if [ -z "$1" ]; then
   showhelp
   exit 1
 fi
+
+FULLINSTALLER=0
+NOUDISK2=0
+
 while [ ! -z "$1" ]; do
   case $1 in
     -e|--errors)
@@ -180,7 +202,7 @@ while [ ! -z "$1" ]; do
       ;;
     -s|--slackdir)
       REPODIR="$2"
-      FULLINSTALLER="yes"
+      FULLINSTALLER=1
       shift 2
       ;;
     -u|--unattended)
@@ -191,6 +213,12 @@ while [ ! -z "$1" ]; do
       CUSTOMLABEL="$2"
       shift 2
       ;;
+    -gpart)
+      GPARTISO="$2"
+      shift 2
+      ;;
+    -noudisks2)
+      NOUDISK2=1
     *)
       echo "*** Unknown parameter '$1'!"
       exit 1
@@ -233,7 +261,7 @@ else
 fi
 
 # Prepare the environment:
-MININSFREE=2200               # minimum in MB required for a Slackware tree
+MININSFREE=6000               # minimum in MB required for a Slackware tree
 UNATTENDED=${UNATTENDED:-0}   # unattended means: never ask questions.
 REFORMAT=${REFORMAT:-0}       # do not try to reformat by default
 LOGFILE=${LOGFILE:-/dev/null} # silence by default
@@ -324,20 +352,22 @@ if [ $MISSBIN -eq 1 ]; then exit 1 ; fi
 if [ $UNATTENDED -eq 0 ]; then
   [ $REFORMAT -eq 1 ] && DOFRMT="format and " || DOFRMT="" 
 
-  echo ""
-  echo "# We are going to ${DOFRMT}use this device - '$TARGET':"
-  echo "# Vendor : $(cat /sys/block/$(basename $TARGET)/device/vendor)"
-  echo "# Model  : $(cat /sys/block/$(basename $TARGET)/device/model)"
-  echo "# Size   : $(( $(cat /sys/block/$(basename $TARGET)/size) / 2048)) MB"
-  echo "# "
-  echo "# FDISK OUTPUT:"
+  cat <<EOF
+
+# We are going to ${DOFRMT}use this device - '$TARGET':
+# Vendor : $(cat /sys/block/$(basename $TARGET)/device/vendor)
+# Model  : $(cat /sys/block/$(basename $TARGET)/device/model)
+# Size   : $(( $(cat /sys/block/$(basename $TARGET)/size) / 2048)) MB
+#
+# FDISK OUTPUT:
+EOF
   /sbin/fdisk -l $TARGET | while read LINE ; do echo "# $LINE" ; done
-  echo ""
+  cat <<EOF
 
-  echo "***                                                       ***"
-  echo "*** If this is the wrong drive, then press CONTROL-C now! ***"
-  echo "***                                                       ***"
-
+***                                                       ***
+*** If this is the wrong drive, then press CONTROL-C now! ***
+***                                                       ***
+EOF
   read -p "Or press ENTER to continue: " JUNK
   # OK... the user was sure about the drive...
 fi
@@ -380,23 +410,35 @@ else
 fi
 
 # Mount the image file:
-XLOOP1=$(udisksctl loop-setup -f "$USBIMG"|sed 's@^.* \(.*\)\.$@\1@')
+if [ $NOUDISKS2 -eq 1 ] ;then
+    XLOOP1=$(losetup -f);losetup $XLOOP1 "$USBIMG"
+    MNTDIR1=$(mktemp -p /tmp -t pbimg2disk1.XXXXXX)
+    mount -t auto $XLOOP1 $MNTDIR1
+else
+    XLOOP1=$(udisksctl loop-setup -f "$USBIMG"|sed 's@^.* \(.*\)\.$@\1@')
+    MNTDIR1=$(udisksctl mount -b "$XLOOP1"|cut -d ' ' -f4-|sed 's@^\(.*\)\.$@\1@')
+fi
 echo "Loop device for USBIMG is : $XLOOP1"
-MNTDIR1=$(udisksctl mount -b "$XLOOP1"|cut -d ' ' -f4-|sed 's@^\(.*\)\.$@\1@')
 echo "USBIMG mount directory is : $MNTDIR1"
 
 # Mount the vfat partition:
-MNTDIR2=$(udisksctl mount -b "$TARGETPART"|cut -d ' ' -f4-|sed 's@^\(.*\)\.$@\1@')
+if [ $NOUDISKS2 -eq 1 ] ;then
+    MNTDIR2=$(mktemp -p /tmp -t pbimg2disk2.XXXXXX)
+    mount -t vfat -o shortname=mixed $TARGETPART $MNTDIR2
+else
+    MNTDIR2=$(udisksctl mount -b "$TARGETPART"|cut -d ' ' -f4-|sed 's@^\(.*\)\.$@\1@')
+fi
 echo "VFAT USB mount directory is : $MNTDIR2"
 
 # Do we have space to create a full Slackware USB install medium?
-if [ "$FULLINSTALLER" = "yes" ]; then
-  if [ $(df --block=1MB $TARGETPART |grep "^$TARGETPART" |tr -s ' ' |cut -f4 -d' ') -le $MININSFREE ]; then
-    echo "*** The partition '$TARGETPART' does not have enough"
-    echo "*** free space (${MININSFREE} MB) to create a Slackware installation medium!"
-    cleanup
-    exit 1
-  fi
+if [ $FULLINSTALLER -eq 1 ]; then
+    if [ $(df --block=1MB $TARGETPART |grep "^$TARGETPART" |tr -s ' ' |\
+	cut -f4 -d' ') -le $MININSFREE ]; then
+	echo "*** The partition '$TARGETPART' does not have enough"
+	echo "*** free space (${MININSFREE} MB) to create a Slackware installation medium!"
+	cleanup
+	exit 1
+    fi
 fi
 
 # Check available space for a Slackware USB setup bootdisk:
@@ -421,12 +463,10 @@ if [ $UNATTENDED -eq 0 ]; then
       echo "--- These will be overwritten.  Press CTRL-C to abort now!"
       read -p "Or press ENTER to continue: " JUNK
     fi
-  else
-    if [ -d $MNTDIR2/syslinux ]; then
+  elif [ -d $MNTDIR2/syslinux ]; then
       echo "--- Your USB drive contains directory 'syslinux'"
       echo "--- This will be overwritten.  Press CTRL-C to abort now!"
       read -p "Or press ENTER to continue: " JUNK
-    fi
   fi
 fi
 
@@ -434,12 +474,41 @@ fi
 echo "--- Copying boot files to the USB drive..."
 cp -R $MNTDIR1/* $MNTDIR2
 
+if [ "$GPARTISO" != '' ] ;then
+# Ajout d'un boot gparted (syslinux + refind).
+    echo "--- Add gparted boot option..."
+# Exemple de menu (menu.c32) :
+# default menu.c32
+# prompt 0
+# menu label ...
+    cat $MNTDIR2/syslinux.cfg|\
+	sed 's@^default .*$@default menu.c32@'|\
+	sed 's@^prompt .*$@prompt 0@'|\
+	sed 's@^label \(.*\)$@label \1\n    menu label \1@' >\
+	$MNTDIR2/syslinux.cfg.new
+    mv $MNTDIR2/syslinux.cfg.new $MNTDIR2/syslinux.cfg
+    cat <<EOF >> $MNTDIR2/syslinux.cfg
+menu separator
+label gparted
+    menu label GParted disk manager
+    linux memdisk
+    initrd $GPARTISO
+EOF
+    cp /usr/lib/syslinux/memdisk $MNTDIR2
+    cp /usr/lib/syslinux/menu.c32 $MNTDIR2
+    cp "$GPARTISO" $MNTDIR2
+    XLOOP2=$(losetup -f)
+    losetup $XLOOP2 $MNTDIR2
+    refind-install --usedefault $XLOOP2
+    losetup -d $XLOOP2
+fi
+
 # If we are creating a full Slackware installer, copy the package tree:
-if [ "$FULLINSTALLER" = "yes" ]; then
+if [ $FULLINSTALLER -eq 1 ]; then
   # Copy Slackware package tree (no sources) to the USB disk -
   # we already made sure that ${REPOSROOT} does not end with a '/'
-  echo "--- Copying Slackware package tree to the USB drive..."
-  rsync -rpthDL --delete $EXCLUDES $REPOSROOT $MNTDIR2/
+    echo "--- Copying Slackware package tree to the USB drive..."
+    rsync -rpthDL --delete $EXCLUDES $REPOSROOT $MNTDIR2/
 fi
 
 # Unmount/remove stuff:

@@ -7,14 +7,16 @@
 XTEST=
 
 xhelp () {
-    echo "Script a lancer dans un repertoire nouvelle cree"
-    echo "  ou existant contenant slackware64-current."
-    echo
-    echo "Launch this script in a new directory."
-    echo "  or in a directory which contains slackware64-current."
-    echo
-    echo "pbslacks should be side by side of this current directory."
-    echo "> ../pbslacks/pbaspire"
+    cat <<EOF
+Script a lancer dans un repertoire nouvelle cree
+  ou existant contenant slackware64-current.
+
+Launch this script in a new directory.
+  or in a directory which contains slackware64-current.
+
+pbslacks should be side by side of this current directory.
+> ../pbslacks/pbaspire
+EOF
 }
 
 while [ $# -ge 1 ] ;do
