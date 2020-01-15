@@ -276,7 +276,8 @@ EXCLUDES=${EXCLUDES:-"--exclude=source \
 if [ -n "$REPOSROOT" ]; then
   if [ -d "$REPOSROOT" -a -f "$REPOSROOT/PACKAGES.TXT" ]; then
     USBIMG=${USBIMG:-"$REPOSROOT/usb-and-pxe-installers/usbboot.img"}
-    PKGDIR=$(head -40 $REPOSROOT/PACKAGES.TXT | grep 'PACKAGE LOCATION: ' |head -1 |cut -f2 -d/)
+    PKGDIR=$(head -40 "$REPOSROOT/PACKAGES.TXT" | grep 'PACKAGE LOCATION: ' |\
+	head -1 |cut -f2 -d/)
     if [ -z "$PKGDIR" ]; then
       echo "*** Could not find the package subdirectory in '$REPOSROOT'!"
       exit 1
@@ -318,7 +319,7 @@ fi
 # rsync refusing to delete files.  Such links may be present in a partial
 # Slackware tree with the sources removed.
 if [ -d "$REPOSROOT" ] ; then
-  pushd $REPOSROOT
+    pushd "$REPOSROOT"
     for link in $(find * -type l ) ; do
       if [ ! $(readlink -f $link ) ]; then
         EXCLUDES="${EXCLUDES} --exclude=$link"
@@ -431,7 +432,8 @@ if [ $NOUDISKS2 -eq 1 ] ;then
     MNTDIR2=$(mktemp -p /tmp -t pbimg2disk2.XXXXXX)
     mount -t vfat -o shortname=mixed $TARGETPART $MNTDIR2
 else
-    MNTDIR2=$(udisksctl mount -b "$TARGETPART"|cut -d ' ' -f4-|sed 's@^\(.*\)\.$@\1@')
+    MNTDIR2=$(udisksctl mount -b "$TARGETPART"|cut -d ' ' -f4-|\
+	sed 's@^\(.*\)\.$@\1@')
 fi
 echo "VFAT USB mount directory is : $MNTDIR2"
 
@@ -463,8 +465,9 @@ fi
 if [ $UNATTENDED -eq 0 ]; then
   # if we are running interactively, warn about overwriting files:
   if [ -n "$REPOSROOT" ]; then
-    if [ -d $MNTDIR2/syslinux -o -d $MNTDIR2/$(basename $REPOSROOT) ]; then
-      echo "--- Your USB drive contains directories 'syslinux' and/or '$(basename $REPOSROOT)'"
+      LREPOSROOT=$(basename "$REPOSROOT")
+      if [ -d $MNTDIR2/syslinux -o -d $MNTDIR2/$LREPOSROOT ]; then
+      echo "--- Your USB drive contains directories 'syslinux' and/or '$LREPOSROOT'"
       echo "--- These will be overwritten.  Press CTRL-C to abort now!"
       read -p "Or press ENTER to continue: " JUNK
     fi
@@ -482,6 +485,7 @@ cp -R $MNTDIR1/* $MNTDIR2
 # Add a gparted boot (syslinux + grub).
 if [ "$GPARTISO" != '' ] ;then
     echo "--- Add gparted boot option..."
+    LPARTISO=$(basename "$GPARTISO")
 ###################################
 # syslinux for legacy boot.
 ###################################
@@ -499,7 +503,7 @@ menu separator
 label gparted
     menu label GParted disk manager
     linux memdisk
-    initrd $GPARTISO
+    initrd $LPARTISO
 EOF
     cp "$SYSLINHOME/memdisk" $MNTDIR2
     cp "$SYSLINHOME/menu.c32" $MNTDIR2
@@ -509,6 +513,7 @@ EOF
 #	(cd "$REFINDHOME";./refind-install --usedefault $TARGETPART)
 ###################################
 # grub for uefi boot.
+#    loopback loop (hd0,1)$isofile
 ###################################
     grub-install --removable --boot-directory=$MNTDIR2 --efi-directory=$MNTDIR2 \
 	--target=x86_64-efi $TARGETPART
@@ -528,8 +533,8 @@ menuentry "Kms kernel" {
 }
 
 menuentry "GParted disk manager" {
-    set isofile="$GPARTISO"
-    loopback loop (hd0,1)$isofile
+    set isofile="$LPARTISO"
+    loopback loop $isofile
     linux (loop)/live/efi/boot/vmlinuz.efi
     initrd (loop)/live/efi/boot/initrd.lz
 }
@@ -541,7 +546,7 @@ if [ $FULLINSTALLER -eq 1 ]; then
   # Copy Slackware package tree (no sources) to the USB disk -
   # we already made sure that ${REPOSROOT} does not end with a '/'
     echo "--- Copying Slackware package tree to the USB drive..."
-    rsync -rpthDL --delete $EXCLUDES $REPOSROOT $MNTDIR2/
+    rsync -rpthDL --delete $EXCLUDES "$REPOSROOT" $MNTDIR2/
 fi
 
 # Unmount/remove stuff:
