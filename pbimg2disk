@@ -549,7 +549,7 @@ EOF
 fi
 
 # If we are creating a full Slackware installer, copy the package tree:
-FULLINSTALLER=0
+#FULLINSTALLER=0
 if [ $FULLINSTALLER -eq 1 ]; then
   # Copy Slackware package tree (no sources) to the USB disk -
   # we already made sure that ${REPOSROOT} does not end with a '/'
