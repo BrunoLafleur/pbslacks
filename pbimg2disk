@@ -439,8 +439,8 @@ echo "VFAT USB mount directory is : $MNTDIR2"
 if [ $FULLINSTALLER -eq 1 ]; then
     if [ $(df --block=1MB $TARGETPART |grep "^$TARGETPART" |tr -s ' ' |\
 	cut -f4 -d' ') -le $MININSFREE ]; then
-	echo "*** The partition '$TARGETPART' does not have enough"
-	echo "*** free space (${MININSFREE} MB) to create a Slackware installation medium!"
+	echo "*** The partition '$TARGETPART' does not have enough free space"
+	echo "*** (${MININSFREE} MB) to create a Slackware installation medium!"
 	cleanup
 	exit 1
     fi
@@ -480,7 +480,7 @@ echo "--- Copying boot files to the USB drive..."
 cp -R $MNTDIR1/* $MNTDIR2
 
 if [ "$GPARTISO" != '' ] ;then
-# Ajout d'un boot gparted (syslinux + refind).
+# Add a gparted boot (syslinux + refind).
     echo "--- Add gparted boot option..."
 # Exemple de menu (menu.c32) :
 # default menu.c32
@@ -501,11 +501,8 @@ EOF
     cp "$SYSLINHOME/memdisk" $MNTDIR2
     cp "$SYSLINHOME/menu.c32" $MNTDIR2
     cp "$GPARTISO" $MNTDIR2
-    XLOOP2=$(losetup -f)
-    losetup $XLOOP2 $TARGETPART
-    REFINDHOME="$(ls /usr/share/refind*)"
-    (cd $REFINDHOME;./refind-install --usedefault $XLOOP2)
-    losetup -d $XLOOP2
+    REFINDHOME="$(ls /usr/share/refind-*)"
+    (cd $REFINDHOME;./refind-install --usedefault $TARGETPART)
 fi
 
 # If we are creating a full Slackware installer, copy the package tree:
