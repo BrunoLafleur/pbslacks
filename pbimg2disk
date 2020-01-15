@@ -480,8 +480,11 @@ echo "--- Copying boot files to the USB drive..."
 cp -R $MNTDIR1/* $MNTDIR2
 
 if [ "$GPARTISO" != '' ] ;then
-# Add a gparted boot (syslinux + refind).
+# Add a gparted boot (syslinux + grub).
     echo "--- Add gparted boot option..."
+###################################
+# syslinux for legacy boot.
+###################################
 # Exemple de menu (menu.c32) :
 # default menu.c32
 # prompt 0
@@ -504,8 +507,12 @@ EOF
 #    REFINDHOME="$(ls /usr/share/refind-* 2> /dev/null)"
 #    [ -d "$REFINDHOME" ] && \
 #	(cd "$REFINDHOME";./refind-install --usedefault $TARGETPART)
+###################################
+# grub for uefi boot.
+###################################
     grub-install --removable --boot-directory=$MNTDIR2 --efi-directory=$MNTDIR2 \
 	--target=x86_64-efi $TARGETPART
+    cp $MNTDIR2/efi/grub/grubx64.efi $MNTDIR2/efi/boot/bootx64.efi
     cat <<EOF > $MNTDIR2/grub/grub.cfg
 set default=0
 set timeout=120
@@ -523,8 +530,8 @@ menuentry "Kms kernel" {
 menuentry "GParted disk manager" {
     set isofile="$GPARTISO"
     loopback loop (hd0,1)$isofile
-    linux (loop) vmlinuz.efi
-    initrd (loop) initrd.lz
+    linux (loop)/live/efi/boot/vmlinuz.efi
+    initrd (loop)/live/efi/boot/initrd.lz
 }
 EOF
 fi
