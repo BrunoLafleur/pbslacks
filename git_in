@@ -20,7 +20,7 @@
 # git archive -o ../kmplayer-0.11.5b.tar 0.11.5b --prefix=kmplayer-0.11.5b/
 
 SAVEPROD=..
-REMPNAME=`basename $0`
+REMPNAME=$(basename "$0")
 
 if [ "$0" != "./$REMPNAME" ] ;then
 	echo "Commande a lancer dans le repertoire contenant ce script"
@@ -28,19 +28,19 @@ if [ "$0" != "./$REMPNAME" ] ;then
 	exit 1
 fi
 
-MYPWD=`pwd -P`
+MYPWD=$(pwd -P)
 
 if [ $? -eq 1 ] ;then
-    MYPWD=`pwd`
+    MYPWD=$(pwd)
     CDPAR=
 else
     CDPAR='-P'
 fi
 
 FVERSION=version
-VERSION=`basename $MYPWD`
+VERSION=$(basename "$MYPWD")
 XARCHIVE=$SAVEPROD/${VERSION}.git
-XTAG="`cat $FVERSION|fgrep $VERSION|sed 's/^.* //'`"
+XTAG="$(cat $FVERSION|fgrep "$VERSION"|sed 's/^.* //')"
 
 echo "Mise a jour git et creation archive git."
 echo "----------------------------------------"

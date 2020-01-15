@@ -11,10 +11,11 @@ XPOST=
 xhelp () {
     cat <<EOF
 Script a lancer dans le repertoire contenant slackware64 fraichement aspire.
+Ce repertoire peut etre la cle USB bootable d'installation.
 pbslacks doit aussi etre accessible du repertoire courant.
 
 Launch this script in the directory including slackware64.
-It can be on a USB stick.
+It can be on the bootable slackware install USB stick.
 pbslacks should also be there.
 
   > cd .../slackware-current"
