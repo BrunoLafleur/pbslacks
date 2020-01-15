@@ -514,6 +514,9 @@ EOF
 ###################################
 # grub for uefi boot.
 #    loopback loop (hd0,1)$isofile
+# memtest86+ mettre le package.
+# huge.s load_ramdisk=1 prompt_ramdisk=0rw printk.time=0 nomodeset
+# huge.s load_ramdisk=1 prompt_ramdisk=0rw printk.time=0
 ###################################
     grub-install --removable --boot-directory=$MNTDIR2 --efi-directory=$MNTDIR2 \
 	--target=x86_64-efi $TARGETPART
@@ -523,13 +526,17 @@ set default=0
 set timeout=120
 
 menuentry "Huge kernel" {
-    linux huge.s
+    linux huge.s huge.s load_ramdisk=1 prompt_ramdisk=0rw printk.time=0 nomodeset
     initrd initrd.img
 }
 
 menuentry "Kms kernel" {
-    linux kms.s
+    linux huge.s load_ramdisk=1 prompt_ramdisk=0rw printk.time=0
     initrd initrd.img
+}
+
+menuentry "memtest" {
+    linux memtest
 }
 
 menuentry "GParted disk manager" {
