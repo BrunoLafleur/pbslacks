@@ -21,6 +21,13 @@ SLACKALIEN="$SLACKMIR/people/alien/slackbuilds"
 SLACKALIEN2="$SLACKMIR/people/alien-kde/current/latest/x86_64/deps"
 SLACKALIENSRC2="$SLACKMIR/people/alien-kde/source/latest/deps"
 
+xpurgeindex () {
+    dir="$1"
+    find "$dir" -name 'index.html*' -exec rm -f {} \;
+    rm -f "$dir/robots.txt"*
+    rm -f "$dir/"*"/robots.txt"*
+}
+
 xpurgepac () {
     pac="$1"
     last=$(ls -1t "$pac"*.t?z|head -1)
@@ -78,7 +85,7 @@ for i in cabextract ;do
     xpurgepac "$i-"
 done
 cd ../..
-find packages -name 'index.html*' -exec rm -f {} \;
+xpurgeindex packages
 
 cd packages2
 for i in SDL_sound aubio rubberband vlc ;do
@@ -86,7 +93,7 @@ for i in SDL_sound aubio rubberband vlc ;do
     xpurgepac "$i-"
 done
 cd ..
-find packages2 -name 'index.html*' -exec rm -f {} \;
+xpurgeindex packages2
 
 cd packages3
 for i in calibre ;do
@@ -94,7 +101,7 @@ for i in calibre ;do
     xpurgepac "$i-"
 done
 cd ..
-find packages3 -name 'index.html*' -exec rm -f {} \;
+xpurgeindex packages3
 
 cd packages4
 for i in chromium ;do
@@ -114,4 +121,4 @@ for i in audacity lilv lv2 serd sord sratom suil vamp-plugin-sdk ;do
     xpurgepac "$i-"
 done
 cd ../..
-find packages4 -name 'index.html*' -exec rm -f {} \;
+xpurgeindex packages4

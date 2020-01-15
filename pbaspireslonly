@@ -19,6 +19,13 @@ fi
 SLACKSLONLY="https://slackonly.com/pub/packages/current-x86_64"
 SLACKSLONLY32="https://slackonly.com/pub/packages/current-x86"
 
+xpurgeindex () {
+    dir="$1"
+    find "$dir" -name 'index.html*' -exec rm -f {} \;
+    rm -f "$dir/robots.txt"*
+    rm -f "$dir/"*"/robots.txt"*
+}
+
 xpurgepac () {
     pac="$1"
     last=$(ls -1t "$pac"*.t?z|head -1)
@@ -49,7 +56,7 @@ for i in development/icoutils ;do
     xpurgepac "$PROJ-"
 done
 cd ../..
-find packages -name 'index.html*' -exec rm -f {} \;
+xpurgeindex packages
 
 cd packages2
 for i in office/evince libraries/libsmf multimedia/lsdvd graphics/fontforge graphics/lilypond system/t1utils ;do
@@ -58,4 +65,4 @@ for i in office/evince libraries/libsmf multimedia/lsdvd graphics/fontforge grap
     xpurgepac "$PROJ-"
 done
 cd ..
-find packages2 -name 'index.html*' -exec rm -f {} \;
+xpurgeindex packages2
