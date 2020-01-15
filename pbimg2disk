@@ -501,8 +501,9 @@ EOF
     cp "$SYSLINHOME/memdisk" $MNTDIR2
     cp "$SYSLINHOME/menu.c32" $MNTDIR2
     cp "$GPARTISO" $MNTDIR2
-    REFINDHOME="$(ls /usr/share/refind-*)"
-    (cd $REFINDHOME;./refind-install --usedefault $TARGETPART)
+    REFINDHOME="$(ls /usr/share/refind-* 2> /dev/null)"
+    [ -d "$REFINDHOME" ] && \
+	(cd "$REFINDHOME";./refind-install --usedefault $TARGETPART)
 fi
 
 # If we are creating a full Slackware installer, copy the package tree:
