@@ -75,14 +75,17 @@ if [ $ISO -eq 1 ] ;then
     if [ "$NOUDISKS2" != '' ] ;then
 	XLOOP=$(losetup -f);losetup $XLOOP "$IMGISO"
 	REPO=$(mktemp -p /tmp -t pbmakeusb.XXXXXX)
-	mount -t vfat "${XLOOP}p1" $REPO
+	mount -t vfat "${XLOOP}p1" "$REPO"
     else
 	XLOOP=$(udisksctl loop-setup -f "$IMGISO"|sed 's@^.* \(.*\)\.$@\1@')
 	REPO=$(udisksctl mount -b "${XLOOP}p1"|cut -d ' ' -f4-|\
 	    sed 's@^\(.*\)\.$@\1@')
     fi
-    echo "Loop device is : $XLOOP"
-    echo "Mount dir is : $REPO"
+    cat <<EOF
+For the iso $IMGISO :
+  The loop device is : $XLOOP
+  The mount dir is : $REPO
+EOF
 fi
 
 cd "$REPO"
@@ -92,7 +95,8 @@ if [ $? -ne 0 ] ;then
     exit 1
 fi
 
-echo "Put your USB stick on an USB port and press Enter."
+echo "Put your writable USB stick on an USB port and press Enter."
+echo "It will be erased and replaced by a bootable Slackware installation media."
 read c
 
 sleep 3
@@ -106,7 +110,7 @@ if [ "$MYDEVNAME" = '' ] ;then
 fi
 
 /sbin/fdisk -l 2> /dev/null
-echo "Your device name is $MYDEVNAME."
+echo "The device name for your writable erasable USB stick is $MYDEVNAME."
 echo "Is this correct ? y(es) or n(o) or ynof(ormat) :"
 read c
 
