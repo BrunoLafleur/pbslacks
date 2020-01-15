@@ -479,8 +479,8 @@ fi
 echo "--- Copying boot files to the USB drive..."
 cp -R $MNTDIR1/* $MNTDIR2
 
-if [ "$GPARTISO" != '' ] ;then
 # Add a gparted boot (syslinux + grub).
+if [ "$GPARTISO" != '' ] ;then
     echo "--- Add gparted boot option..."
 ###################################
 # syslinux for legacy boot.
@@ -519,12 +519,12 @@ set timeout=120
 
 menuentry "Huge kernel" {
     linux huge.s
-    initrd initrd
+    initrd initrd.img
 }
 
 menuentry "Kms kernel" {
     linux kms.s
-    initrd initrd
+    initrd initrd.img
 }
 
 menuentry "GParted disk manager" {
