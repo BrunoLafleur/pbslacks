@@ -19,6 +19,13 @@ fi
 SLACKPONCE="http://ponce.cc/slackware/slackware64-current/packages"
 SLACKPONCE32="http://ponce.cc/slackware/slackware-current/packages"
 
+xpurgeindex () {
+    dir="$1"
+    find "$dir" -name 'index.html*' -exec rm -f {} \;
+    rm -f "$dir/robots.txt"*
+    rm -f "$dir/"*"/robots.txt"*
+}
+
 xpurgepac () {
     pac="$1"
     last=$(ls -1t "$pac"*.t?z|head -1)
@@ -47,6 +54,7 @@ for i in libdvdcss ;do
     xpurgepac "$i-"
 done
 cd ../..
+xpurgeindex packages
 
 cd packages2
 for i in gtksourceview3 ;do
@@ -54,6 +62,7 @@ for i in gtksourceview3 ;do
     xpurgepac "$i-"
 done
 cd ..
+xpurgeindex packages2
 
 cd packages3
 for i in graphviz ;do
@@ -61,6 +70,7 @@ for i in graphviz ;do
     xpurgepac "$i-"
 done
 cd ..
+xpurgeindex packages3
 
 cd packages4
 for i in hdf5 numpy ;do
@@ -76,6 +86,4 @@ for i in celt051 ;do
     xpurgepac "$i-"
 done
 cd ../..
-
-rm -f packages*/robots.txt*
-rm -f packages*/*/robots.txt*
+xpurgeindex packages4

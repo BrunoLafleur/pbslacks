@@ -44,6 +44,13 @@ SLACKCF="http://slack.conraid.net/repository/slackware64-current"
 SLACKDJ="http://www.slackel.gr/repo/x86_64/current/slackel/extra"
 SLACKDJ32="http://www.slackel.gr/repo/i486/current/slackel/extra"
 
+xpurgeindex () {
+    dir="$1"
+    find "$dir" -name 'index.html*' -exec rm -f {} \;
+    rm -f "$dir/robots.txt"*
+    rm -f "$dir/"*"/robots.txt"*
+}
+
 xpurgepac () {
     pac="$1"
     last=$(ls -1t "$pac"*.t?z|head -1)
@@ -89,7 +96,7 @@ xmodpac () {
     cp "../pbslacks/builds/${name}.SlackBuild" "$name"
     cd "$name"
     sh "./${name}.SlackBuild"
-    cp "/tmp/${name}-*.t?z ..
+    cp "/tmp/${name}-"*.t?z ..
     cd ..
 }
 
@@ -149,7 +156,7 @@ for i in wxPython ;do
     xgetpac "$i-" "$SLACKDJ32" 5
 done
 cd ../..
-find packages -name 'index.html*' -exec rm -f {} \;
+xpurgeindex packages
 
 cd packages2
 for i in jq lua oniguruma valgrind ;do
@@ -159,7 +166,7 @@ for i in guile1.8 ;do
     xgetpac "$i-" "$SLACKDJ" 5
 done
 cd ..
-find packages2 -name 'index.html*' -exec rm -f {} \;
+xpurgeindex packages2
 
 cd packages4
 for i in exiftools ;do
@@ -177,4 +184,4 @@ for i in leptonica tesseract ;do
 done
 cd ../..
 cp pbslacks/tesseract4/* packages4/tesseract4
-find packages4 -name 'index.html*' -exec rm -f {} \;
+xpurgeindex packages4
