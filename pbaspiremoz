@@ -35,7 +35,7 @@ XTHUNDERBIRD="https://download.mozilla.org/?product=thunderbird-latest-SSL&os=li
 
 xpurgepac () {
     pac="$1"
-    last=`ls -1t "$pac"*.tar.bz2|head -1`
+    last=$(ls -1t "$pac"*.tar.bz2|head -1)
     for j in "$pac"*.tar.bz2 ;do
 	if [ "$j" != "$last" ] ;then
 	    rm -f "$j"

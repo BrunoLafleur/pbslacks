@@ -4,9 +4,15 @@
 # Date : 2019
 # License : See the LICENSE file in this repository.
 
+xhelp () {
+    cat <<EOF
+Script a lancer dans le repertoire contenant packages, packages2 et al.
+Launch this script in the directory including packages, packages2 et al.
+EOF
+}
+
 if [ ! -d packages ] ;then
-    echo "Script a lancer dans le repertoire contenant packages, packages2 et al."
-    echo "Launch this script in the directory including packages, packages2 et al."
+    xhelp
     exit 1
 fi
 
@@ -40,7 +46,7 @@ SLACKDJ32="http://www.slackel.gr/repo/i486/current/slackel/extra"
 
 xpurgepac () {
     pac="$1"
-    last=`ls -1t "$pac"*.t?z|head -1`
+    last=$(ls -1t "$pac"*.t?z|head -1)
     for j in "$pac"*.t?z ;do
 	if [ "$j" != "$last" ] ;then
 	    rm -f "$j"
@@ -59,7 +65,7 @@ xgetpac () {
 xgetsrcpac () {
     name="$1"
     path="$2"
-    localcopie=`echo "$path"|cut -d ':' -f1`
+    localcopie=$(echo "$path"|cut -d ':' -f1)
     if [ ! -d "$name" ] ;then
         mkdir "$name"
         cp "../pbslacks/builds/${name}.tar.gz" "$name"

@@ -18,8 +18,8 @@ if [ ! -d slackware64-current ] ;then
     exit 1
 fi
 
-MYPWD=`pwd`
-NAMEISO=`basename "$MYPWD"`.iso
+MYPWD=$(pwd)
+NAMEISO=$(basename "$MYPWD").iso
 
 echo "The ISO image will be created with $NAMEISO name."
 
@@ -52,11 +52,11 @@ cd ../..
 cat <<EOF
 If not too big for your recorder which should use double layer media,
 the iso created can be put on a DVD with :
-> growisofs -speed=2 -dvd-compat -Z /dev/dvd `pwd`/$NAMEISO
+> growisofs -speed=2 -dvd-compat -Z /dev/dvd $(pwd)/$NAMEISO
 
 Or on an USB stick (sdX below is the name of the USB device) :
+> dd if=$(pwd)/$NAMEISO of=/dev/sdX bs=1M ;sync
+
+Or launch :
+> pbmakeiso2usb $(pwd)/$NAMEISO
 EOF
-echo "> dd if=$(pwd)/$NAMEISO of=/dev/sdX bs=1M ;sync"
-echo
-echo "Or launch :"
-echo "> pbmakeiso2usb $(pwd)/$NAMEISO"
