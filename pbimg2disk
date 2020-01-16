@@ -536,21 +536,21 @@ EOF
 set default=0
 set timeout=120
 
-menuentry "Huge kernel" {
+menuentry "Huge kernel" --class=Slackware {
     linux /huge.s load_ramdisk=1 prompt_ramdisk=0 rw printk.time=0 nomodeset
-    initrd initrd.img
+    initrd /initrd.img
 }
 
-menuentry "Kms kernel" {
+menuentry "Kms kernel" --class=Slackware {
     linux /huge.s load_ramdisk=1 prompt_ramdisk=0 rw printk.time=0
-    initrd initrd.img
+    initrd /initrd.img
 }
 
-menuentry "memtest" {
+menuentry "memtest" --class=Slackware {
     linux /memtest
 }
 
-menuentry "GParted disk manager" {
+menuentry "GParted disk manager" --class=GParted {
     set isofile="$LPARTISO"
     loopback loop /\$isofile
     linux (loop)/live/efi/boot/vmlinuz.efi
