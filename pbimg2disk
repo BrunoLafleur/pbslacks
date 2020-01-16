@@ -499,6 +499,17 @@ if [ "$GPARTISO" != '' ] ;then
 menu separator
 label gparted
     menu label GParted disk manager
+    test help
+  Demarre le gestionnaire de disques GParted qui permet le partionnement de vos
+disques durs pour y mettre votre systeme Linux.
+  Si un systeme preexiste comme MS Windows, GPparted permet de redimensionner les
+partitions existantes pour faire de la place et inserer de nouvelles partitions.
+
+  Boot the GParted disk manager for partionning your hard disks for putting a
+linux system.
+  If there is another system like MS Windows, GPparted can shrink and move the
+already existant partitions to obtain room for new partitions.
+    endtext
     linux memdisk
     initrd $LPARTISO
 EOF
@@ -515,7 +526,8 @@ EOF
 # huge.s load_ramdisk=1 prompt_ramdisk=0rw printk.time=0 nomodeset
 # huge.s load_ramdisk=1 prompt_ramdisk=0rw printk.time=0
 ###################################
-    grub-install --removable --boot-directory="$MNTDIR2" --efi-directory="$MNTDIR2" \
+    grub-install --removable --boot-directory="$MNTDIR2" \
+	--efi-directory="$MNTDIR2" \
 	--target=x86_64-efi $TARGETPART
     cp "$MNTDIR2/efi/grub/grubx64.efi" "$MNTDIR2/efi/boot/bootx64.efi"
     cat <<EOF > "$MNTDIR2/grub/grub.cfg"
