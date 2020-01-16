@@ -513,15 +513,16 @@ menu separator
 label gparted
     menu label GParted disk manager
     text help
-  Demarre le gestionnaire de disques GParted qui permet le partionnement de vos
-disques durs pour y mettre votre systeme Linux.
-  Si un systeme preexiste comme MS Windows, GPparted permet de redimensionner les
-partitions existantes pour faire de la place et inserer de nouvelles partitions.
+  Demarre le gestionnaire de disques GParted qui permet le partionnement de
+vos disques durs pour y mettre votre systeme Linux.
+  Si un systeme preexiste comme MS Windows, GPparted permet de redimensionner
+les partitions existantes pour faire de la place et inserer de nouvelles
+partitions.
 
-  Boot the GParted disk manager for partionning your hard disks for putting a
-linux system.
-  If there is another system like MS Windows, GPparted can shrink and move the
-already existant partitions to obtain room for new partitions.
+  Boot the GParted disk manager for partionning your hard disks and
+putting a linux system.
+  If there is another system like MS Windows, GPparted can shrink and move
+the already existant partitions to obtain room for new partitions.
     endtext
     linux memdisk
     initrd $LPARTISO
@@ -549,8 +550,13 @@ EOF
 desktop-image: /bootimg.jpg
 EOF
     cat <<EOF > "$MNTDIR2/grub/grub.cfg"
+insmod all_video
+insmod loopback
+insmod gfxterm
+insmod jpg
 set default=0
 set timeout=120
+set gfxmode=640x480
 set theme=/grub/grubtheme.cfg
 
 menuentry "Huge kernel" --class=Slackware {
@@ -563,17 +569,14 @@ menuentry "Kms kernel" --class=Slackware {
     initrd /initrd.img
 }
 
-menuentry "memtest" --class=Slackware {
-    linux /memtest
-}
-
 menuentry "GParted disk manager" --class=GParted {
     set isofile="$LPARTISO"
     loopback loop /\$isofile
-    linux (loop)/live/efi/boot/vmlinuz.efi
-    initrd (loop)/live/efi/boot/initrd.lz
+    linux (loop)/live/vmlinuz 
+    initrd (loop)/live/initrd.img
 }
 EOF
+#    linux (loop)/live/vmlinuz boot=live union=overlay username=user config components quiet noswap  ip= net.ifnames=0  nosplash 
 ###################################
 fi
 
