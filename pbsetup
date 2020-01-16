@@ -4,8 +4,6 @@
 # Date : 2019
 # License : See the LICENSE file in this repository.
 
-XTEST=
-
 xhelp () {
     cat <<EOF
 Script a lancer dans un repertoire contenant slackware64-current ou slackware64
@@ -16,10 +14,12 @@ Launch this script in a directory which contains slackware64-current or slackwar
 EOF
 }
 
+XTEST=0
+
 while [ $# -ge 1 ] ;do
     MYARG="$1"
     if [ "$MYARG" = "-test" ] ;then
-	XTEST=yes
+	XTEST=1
     elif [ "$MYARG" = "-help" -o "$MYARG" = "-h" ] ;then
 	xhelp
 	exit 0
@@ -29,7 +29,7 @@ done
 
 MYPROG=$(basename "$0")
 
-if [ "$XTEST" != 'yes' -a "$0" != "../pbslacks/$MYPROG" \
+if [ $XTEST -ne 1 -a "$0" != "../pbslacks/$MYPROG" \
     -a "$0" != "pbslacks/$MYPROG" ] ;then
     xhelp
     exit 1

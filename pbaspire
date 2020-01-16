@@ -4,8 +4,6 @@
 # Date : 2019
 # License : See the LICENSE file in this repository.
 
-XTEST=
-
 xhelp () {
     cat <<EOF
 Script a lancer dans un repertoire nouvellement cree
@@ -19,10 +17,12 @@ pbslacks should be side by side of this current directory.
 EOF
 }
 
+XTEST=0
+
 while [ $# -ge 1 ] ;do
     MYARG="$1"
     if [ "$MYARG" = "-test" ] ;then
-	XTEST=yes
+	XTEST=1
     elif [ "$MYARG" = "-help" -o "$MYARG" = "-h" ] ;then
 	xhelp
 	exit 0
@@ -32,7 +32,7 @@ done
 
 MYPROG=$(basename "$0")
 
-if [ "$XTEST" != 'yes' -a "$0" != "../pbslacks/$MYPROG" \
+if [ $XTEST -ne 1 -a "$0" != "../pbslacks/$MYPROG" \
     -a "$0" != "pbslacks/$MYPROG" ] ;then
     xhelp
     exit 1
@@ -101,37 +101,37 @@ while read i;test "$i" != "" ;do
     if [ "$(echo $i|cut -c1-4)" = 'HELP' ] ;then
 	continue
     elif [ "$i" = init ] ;then
-	if [ "$XTEST" != 'yes' ] ;then
+	if [ $XTEST -ne 1 ] ;then
 	    "$0"init
 	fi
 	echo "Initialisation done : \Z3"$0"init\Zn." >> $XTEMPMES
     elif [ "$i" = core ] ;then
-	if [ "$XTEST" != 'yes' ] ;then
+	if [ $XTEST -ne 1 ] ;then
 	    "$0"core
 	fi
 	echo "Get/Upgrade core system done : \Z3"$0"core\Zn." >> $XTEMPMES
     elif [ "$i" = alien ] ;then
-	if [ "$XTEST" != 'yes' ] ;then
+	if [ $XTEST -ne 1 ] ;then
 	    "$0"alien
 	fi
 	echo "Get/Upgrade Alien Bob packages done : \Z3"$0"alien\Zn." >> $XTEMPMES
     elif [ "$i" = ponce ] ;then
-	if [ "$XTEST" != 'yes' ] ;then
+	if [ $XTEST -ne 1 ] ;then
 	    "$0"ponce
 	fi
 	echo "Get/Upgrade Ponce packages done : \Z3"$0"ponce\Zn." >> $XTEMPMES
     elif [ "$i" = slonly ] ;then
-	if [ "$XTEST" != 'yes' ] ;then
+	if [ $XTEST -ne 1 ] ;then
 	    "$0"slonly
 	fi
 	echo "Get/Upgrade Slackonly packages done : \Z3"$0"slonly\Zn." >> $XTEMPMES
     elif [ "$i" = other ] ;then
-	if [ "$XTEST" != 'yes' ] ;then
+	if [ $XTEST -ne 1 ] ;then
 	    "$0"other
 	fi
 	echo "Get/Upgrade other source or binary packages done : \Z3"$0"other\Zn." >> $XTEMPMES
     elif [ "$i" = mozilla ] ;then
-	if [ "$XTEST" != 'yes' ] ;then
+	if [ $XTEST -ne 1 ] ;then
 	    "$0"moz -lang fr
 	fi
 	echo "Get/Upgrade Firefox and Thunderbird done : \Z3"$0"mozilla\Zn." >> $XTEMPMES

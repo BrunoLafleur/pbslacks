@@ -29,7 +29,7 @@ fi
 
 xhelp () {
     cat <<EOF
-Script a lancer dans le repertoire contenant slackware64-current fraichement aspire.
+Script a lancer dans le repertoire contenant slackware64-current deja aspire.
 Launch this script in the directory including slackware64-current.
 
 > pbslacks/pbmakeusb [-iso slack.iso] [-gpart gparted.iso] [-noudisks2]
@@ -38,6 +38,7 @@ EOF
 }
 
 MYPWD=$(pwd)
+XTEST=0
 ISO=0
 REPO="$MYPWD/slackware64-current"
 GPARTISO=
@@ -47,7 +48,9 @@ FULLINSTALLER=1
 while [ $# -ge 1 ] ;do
     MYARG="$1"
     shift
-    if [ "$MYARG" = "-noudisks2" ] ;then
+    if [ "$MYARG" = "-test" ] ;then
+	XTEST=1
+    elif [ "$MYARG" = "-noudisks2" ] ;then
 	NOUDISKS2='-noudisks2'
     elif [ "$MYARG" = "-noslack" ] ;then
 	FULLINSTALLER=0
@@ -59,9 +62,7 @@ while [ $# -ge 1 ] ;do
 	if [ "$IMGISO" != '' ] ;then
 	    BIMG=$(basename "$IMGISO")
 	    BIMGISO=$(basename "$IMGISO" .iso)
-	    if [ "$BIMG" != "$BIMGISO" ] ;then
-		ISO=1
-	    fi
+	    [ "$BIMG" != "$BIMGISO" ] && ISO=1
 	fi
 	shift
     elif [ "$MYARG" = "-gpart" ] ;then
