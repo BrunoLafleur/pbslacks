@@ -284,6 +284,8 @@ if [ $XBOOTLOAD -ge 1 ] ;then
 	xitem=grub
     elif [ -f /etc/lilo.conf ] ;then
 	xitem=lilo
+    elif [ -f /syslinux.cfg ] ;then
+	xitem=syslinux
     else
 	xitem=none
     fi
@@ -292,6 +294,7 @@ if [ $XBOOTLOAD -ge 1 ] ;then
 	elilo 'Boot Elilo : /boot/efi/EFI/Slackware' \
 	grub 'Boot Grub : /boot/grub/grub.cfg' \
 	lilo 'Boot Lilo : /etc/lilo.conf' \
+	syslinux 'Boot Syslinux : /syslinux.cfg' \
 	none 'No bootloader detected. Reconfigure your bootloader before reboot.' \
 	2> $XTEMPOUT
     xitem=$(cat $XTEMPOUT)
@@ -301,6 +304,7 @@ cat <<EOF
 \ZbThe boot loader was not updated.\ZB
 If lilo is installed, launch : \Z3/sbin/lilo\Zn
 If Grub is installed, launch : \Z3grub-mkconfig -o /boot/grub/grub.cfg\Zn
+If Syslinux is installed, launch : \Z3syslinux BOOTDEVICE\Zn
 If Boot UEFI ELILO is installed, do :
   \Z3cp /boot/vmlinuz /boot/initrd.gz /boot/efi/EFI/Slackware\Zn
 
@@ -323,6 +327,8 @@ EOF
 	if [ $XTEST -ne 1 ] ;then
 	    /sbin/lilo 2>> $XTEMPMES
 	fi
+    elif [ "$xitem" = syslinux -a -f /syslinux.cfg ] ;then
+	echo "Look at \Z3/syslinux.cfg\Zn and rerun \Z3syslinux\Zn on your boot partition if some path have changed." >> $XTEMPMES
     else
 	xmes1 >> $XTEMPMES
     fi
