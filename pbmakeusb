@@ -20,17 +20,12 @@
 # You can launch this script as a normal user in the plugdev group.
 # Use fdisk and udisksctl.
 
-if [ ! $UID = 0 ]; then
-  cat << EOF
-This script must be run as root.
-EOF
-  exit 1
-fi
-
 xhelp () {
     cat <<EOF
-Script a lancer dans le repertoire contenant slackware64-current deja aspire.
-Launch this script in the directory including slackware64-current.
+  Script a lancer dans le repertoire contenant slackware64-current deja aspire
+ou qui contient pbslacks.
+  Launch this script in the directory including slackware64-current or
+which contains pbslacks.
 
 > pbslacks/pbmakeusb [-iso slack.iso] [-gpart gparted.iso] [-noudisks2]
                      [-noslack (no packages copy on the stick)]
@@ -59,6 +54,7 @@ while [ $# -ge 1 ] ;do
 	exit 0
     elif [ "$MYARG" = "-iso" ] ;then
 	IMGISO="$(cd $(dirname $1); pwd)/$(basename $1)"
+	cd "$MYPWD"
 	if [ "$IMGISO" != '' ] ;then
 	    BIMG=$(basename "$IMGISO")
 	    BIMGISO=$(basename "$IMGISO" .iso)
@@ -68,11 +64,22 @@ while [ $# -ge 1 ] ;do
     elif [ "$MYARG" = "-gpart" ] ;then
 	GPARTISO="$(cd $(dirname $1); pwd)/$(basename $1)"
 	GPARTISO="-gpart $GPARTISO"
+	cd "$MYPWD"
 	shift
     fi
 done
 
+if [ ! $UID = 0 -a $XTEST -ne 1 ]; then
+  cat << EOF
+This script must be run as root.
+EOF
+  exit 1
+fi
+
 if [ ! -d slackware64-current -a $ISO -eq 0 ] ;then
+    xhelp
+    exit 1
+elif [ '(' ! -h pbslacks -a ! -d pbslacks ')' -a $ISO -eq 1 ] ;then
     xhelp
     exit 1
 fi
@@ -80,7 +87,7 @@ fi
 if [ $ISO -eq 1 ] ;then
     if [ "$NOUDISKS2" != '' ] ;then
 	XLOOP=$(losetup -f);losetup $XLOOP "$IMGISO"
-	REPO=$(mktemp -p /tmp -t pbmakeusb.XXXXXX)
+	REPO=$(mktemp -d -p /tmp -t pbmakeusb.XXXXXX)
 	mount -t vfat "${XLOOP}p1" "$REPO"
     else
 	XLOOP=$(udisksctl loop-setup -f "$IMGISO"|sed 's@^.* \(.*\)\.$@\1@')
@@ -127,7 +134,7 @@ else
     FORMAT=-f
 fi
 
-if [ $FULLINSTALLER -eq 1 ]; then
+if [ $FULLINSTALLER -eq 1 -a "$REPO" != '' ]; then
     OPTREPO='-s '"$REPO"
 else
     OPTREPO=
@@ -135,16 +142,17 @@ fi
 
 if [ "$c" = 'y' -a "$MYDEVNAME" != '' ] ;then
     cd usb-and-pxe-installers
-    "$MYPWD/pbslacks/pbimg2disk" $FORMAT -i $(pwd)/usbboot.img \
+    [ $XTEST -ne 1 ] && "$MYPWD/pbslacks/pbimg2disk" $FORMAT -i $(pwd)/usbboot.img \
 	-o "$MYDEVNAME" $OPTREPO $NOUDISKS2 $GPARTISO
 fi
 
 if [ $ISO -eq 1 ] ;then
     cd "$MYPWD"
     if [ "$NOUDISKS2" != '' ] ;then
-	[ ! -z "$REPO" ] && (umount "${XLOOP}p1";losetup -d $XLOOP;rmdir "$REPO")
+	[ ! -z "$REPO" ] && ( [ ! -z "$XLOOP" ] &&
+	    (umount "${XLOOP}p1";losetup -d $XLOOP);rmdir "$REPO")
     else
-	udisksctl unmount -b "${XLOOP}p1"
-	udisksctl loop-delete -b "$XLOOP"
+	[ ! -z "$XLOOP" ] && (udisksctl unmount -b "${XLOOP}p1";
+	    udisksctl loop-delete -b "$XLOOP")
     fi
 fi

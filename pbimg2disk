@@ -174,57 +174,55 @@ FULLINSTALLER=0
 NOUDISKS2=0
 
 while [ ! -z "$1" ]; do
-  case $1 in
-    -e|--errors)
-      ABORT_ON_ERROR=1
-      shift
-      ;;
-    -f|--format)
-      REFORMAT=1
-      shift
-      ;;
-    -h|--help)
-      showhelp
-      exit
-      ;;
-    -i|--infile)
-      USBIMG="$(cd $(dirname $2); pwd)/$(basename $2)"
-      shift 2
-      ;;
-    -l|--logfile)
-      LOGFILE="$(cd $(dirname $2); pwd)/$(basename $2)"
-      shift 2
-      ;;
-    -o|--outdev)
-      TARGET="$2"
-      TARGETPART="${TARGET}1"
-      shift 2
-      ;;
-    -s|--slackdir)
-      REPODIR="$2"
-      FULLINSTALLER=1
-      shift 2
-      ;;
-    -u|--unattended)
-      UNATTENDED=1
-      shift
-      ;;
-    -L|--label)
-      CUSTOMLABEL="$2"
-      shift 2
-      ;;
-    -gpart)
-      GPARTISO="$2"
-      shift 2
-      ;;
-    -noudisks2)
-      NOUDISKS2=1
-      ;;
-    *)
-      echo "*** Unknown parameter '$1'!"
-      exit 1
-      ;;
-  esac
+    case $1 in
+	-e|--errors)
+	    ABORT_ON_ERROR=1
+	    ;;
+	-f|--format)
+	    REFORMAT=1
+	    ;;
+	-h|--help)
+	    showhelp
+	    exit
+	    ;;
+	-i|--infile)
+	    shift
+	    USBIMG="$(cd $(dirname $1); pwd)/$(basename $1)"
+	    ;;
+	-l|--logfile)
+	    shift
+	    LOGFILE="$(cd $(dirname $1); pwd)/$(basename $1)"
+	    ;;
+	-o|--outdev)
+	    shift
+	    TARGET="$1"
+	    TARGETPART="${TARGET}1"
+	    ;;
+	-s|--slackdir)
+	    shift
+	    REPODIR="$1"
+	    FULLINSTALLER=1
+	    ;;
+	-u|--unattended)
+	    UNATTENDED=1
+	    ;;
+	-L|--label)
+	    shift
+	    CUSTOMLABEL="$1"
+	    ;;
+	-gpart)
+	    shift
+	    GPARTISO="$1"
+	    ;;
+	-noudisks2)
+	    NOUDISKS2=1
+	    ;;
+	*)
+	    echo "*** Unknown parameter '$1'!"
+	    exit 1
+	    ;;
+    esac
+    shift
 done
 
 if [ "$ABORT_ON_ERROR" = "1" ]; then
@@ -391,7 +389,6 @@ if [ $REFORMAT -eq 1 ]; then
   ( reformat $TARGET "${FATLABEL}" ) 1>>$LOGFILE 2>&1
 else
   # We do not format the drive, but apply a FAT label if required.
-
   # Prepare for using mlabel to change the FAT label:
   MTOOLSRCFILE=$(mktemp -p /tmp -t mtoolsrc.XXXXXX)
   echo "drive s: file=\"$TARGETPART\"" > $MTOOLSRCFILE
@@ -418,7 +415,7 @@ fi
 # Mount the image file:
 if [ $NOUDISKS2 -eq 1 ] ;then
     XLOOP1=$(losetup -f);losetup $XLOOP1 "$USBIMG"
-    MNTDIR1=$(mktemp -p /tmp -t pbimg2disk1.XXXXXX)
+    MNTDIR1=$(mktemp -d -p /tmp -t pbimg2disk1.XXXXXX)
     mount -t auto $XLOOP1 $MNTDIR1
 else
     XLOOP1=$(udisksctl loop-setup -f "$USBIMG"|sed 's@^.* \(.*\)\.$@\1@')
@@ -429,7 +426,7 @@ echo "USBIMG mount directory is : $MNTDIR1"
 
 # Mount the vfat partition:
 if [ $NOUDISKS2 -eq 1 ] ;then
-    MNTDIR2=$(mktemp -p /tmp -t pbimg2disk2.XXXXXX)
+    MNTDIR2=$(mktemp -d -p /tmp -t pbimg2disk2.XXXXXX)
     mount -t vfat -o shortname=mixed $TARGETPART $MNTDIR2
 else
     MNTDIR2=$(udisksctl mount -b "$TARGETPART"|cut -d ' ' -f4-|\
