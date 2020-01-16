@@ -58,7 +58,7 @@ while [ $# -ge 1 ] ;do
 	xhelp
 	exit 0
     elif [ "$MYARG" = "-iso" ] ;then
-	IMGISO="$1"
+	IMGISO="$(cd $(dirname $1); pwd)/$(basename $1)"
 	if [ "$IMGISO" != '' ] ;then
 	    BIMG=$(basename "$IMGISO")
 	    BIMGISO=$(basename "$IMGISO" .iso)
@@ -66,9 +66,7 @@ while [ $# -ge 1 ] ;do
 	fi
 	shift
     elif [ "$MYARG" = "-gpart" ] ;then
-	GPARTISO="$1"
-	RELP=$(echo "$GPARTISO"|cut -c1)
-	[ "$RELP" = '.' ] && GPARTISO="$MYPWD/$GPARTISO"
+	GPARTISO="$(cd $(dirname $1); pwd)/$(basename $1)"
 	GPARTISO="-gpart $GPARTISO"
 	shift
     fi

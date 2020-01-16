@@ -490,9 +490,9 @@ if [ "$GPARTISO" != '' ] ;then
 # syslinux for legacy boot.
 ###################################
 # Exemple de menu (menu.c32) :
-# default menu.c32
-# prompt 0
+# ui menu.c32
 # menu label ...
+# A faire bouton aide comme f2.txt mais avec infos sur cas dual boot...
     cat $MNTDIR2/syslinux.cfg|\
 	sed 's@^\(default .*\)$@ui menu.c32\n\1@'|\
 	sed 's@^label \(.*\)$@label \1\n    menu label \1@' >\
