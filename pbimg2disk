@@ -572,10 +572,12 @@ menuentry "Kms kernel" --class=Slackware {
 menuentry "GParted disk manager" --class=GParted {
     set isofile="$LPARTISO"
     loopback loop /\$isofile
-    linux (loop)/live/vmlinuz 
+    linux (loop)/live/vmlinuz boot=live components config findiso=\$isofile ip=frommedia toram=filesystem.squashfs union=overlay username=user
     initrd (loop)/live/initrd.img
 }
 EOF
+#    linux (loop)/live/vmlinuz 
+#    initrd (loop)/live/initrd.img
 #    linux (loop)/live/vmlinuz boot=live union=overlay username=user config components quiet noswap  ip= net.ifnames=0  nosplash 
 ###################################
 fi
