@@ -53,8 +53,7 @@ while [ $# -ge 1 ] ;do
 	xhelp
 	exit 0
     elif [ "$MYARG" = "-iso" ] ;then
-	IMGISO="$(cd $(dirname $1); pwd)/$(basename $1)"
-	cd "$MYPWD"
+	IMGISO="$(cd $(dirname $1); pwd)/$(basename $1)";cd "$MYPWD"
 	if [ "$IMGISO" != '' ] ;then
 	    BIMG=$(basename "$IMGISO")
 	    BIMGISO=$(basename "$IMGISO" .iso)
@@ -62,9 +61,8 @@ while [ $# -ge 1 ] ;do
 	fi
 	shift
     elif [ "$MYARG" = "-gpart" ] ;then
-	GPARTISO="$(cd $(dirname $1); pwd)/$(basename $1)"
+	GPARTISO="$(cd $(dirname $1); pwd)/$(basename $1)";cd "$MYPWD"
 	GPARTISO="-gpart $GPARTISO"
-	cd "$MYPWD"
 	shift
     fi
 done
@@ -142,7 +140,8 @@ fi
 
 if [ "$c" = 'y' -a "$MYDEVNAME" != '' ] ;then
     cd usb-and-pxe-installers
-    [ $XTEST -ne 1 ] && "$MYPWD/pbslacks/pbimg2disk" $FORMAT -i "$(pwd)/usbboot.img" \
+    [ $XTEST -ne 1 ] && "$MYPWD/pbslacks/pbimg2disk" $FORMAT \
+	-i "$(pwd)/usbboot.img" \
 	-o "$MYDEVNAME" $OPTREPO $NOUDISKS2 $GPARTISO
 fi
 

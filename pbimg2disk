@@ -32,6 +32,8 @@
 #########################################################################
 
 # Define some variables ahead of time, so that cleanup knows about them:
+MYPWD=$(pwd)
+PBSLACKSPWD="$(cd $(dirname $0); pwd)";cd "$MYPWD"
 MNTDIR1=''
 MNTDIR2=''
 
@@ -187,11 +189,11 @@ while [ ! -z "$1" ]; do
 	    ;;
 	-i|--infile)
 	    shift
-	    USBIMG="$(cd $(dirname $1); pwd)/$(basename $1)"
+	    USBIMG="$(cd $(dirname $1); pwd)/$(basename $1)";cd "$MYPWD"
 	    ;;
 	-l|--logfile)
 	    shift
-	    LOGFILE="$(cd $(dirname $1); pwd)/$(basename $1)"
+	    LOGFILE="$(cd $(dirname $1); pwd)/$(basename $1)";cd "$MYPWD"
 	    ;;
 	-o|--outdev)
 	    shift
@@ -240,7 +242,7 @@ if [ -n "$REPODIR" ]; then
   else
     # This also takes care of stripping a trailing '/', which is required
     # for the rsync command to work as intended:
-    REPOSROOT="$(cd $(dirname $REPODIR); pwd)/$(basename $REPODIR)"
+    REPOSROOT="$(cd $(dirname $REPODIR); pwd)/$(basename $REPODIR)";cd "$MYPWD"
   fi
 fi
 
@@ -491,10 +493,14 @@ if [ "$GPARTISO" != '' ] ;then
 # menu label ...
 # A faire bouton aide comme f2.txt mais avec infos sur cas dual boot...
     cat "$MNTDIR2/syslinux.cfg"|\
-	sed 's@^\(default .*\)$@ui menu.c32\n\1@'|\
 	sed 's@^label \(.*\)$@label \1\n    menu label \1@' >\
 	"$MNTDIR2/syslinux.cfg.new"
-    mv "$MNTDIR2/syslinux.cfg.new" "$MNTDIR2/syslinux.cfg"
+    cat <<EOF > "$MNTDIR2/syslinux.cfg"
+ui vesamenu.c32
+menu backgroup bootimg.jpg
+EOF
+    cat "$MNTDIR2/syslinux.cfg.new" >> "$MNTDIR2/syslinux.cfg"
+    rm -f "$MNTDIR2/syslinux.cfg.new"
     cat <<EOF >> "$MNTDIR2/syslinux.cfg"
 menu separator
 label gparted
@@ -514,7 +520,8 @@ already existant partitions to obtain room for new partitions.
     initrd $LPARTISO
 EOF
     cp "$SYSLINHOME/memdisk" "$MNTDIR2"
-    cp "$SYSLINHOME/menu.c32" "$MNTDIR2"
+    cp "$SYSLINHOME/vesamenu.c32" "$MNTDIR2"
+    cp "$PBSLACKSPWD/bootimg.jpg" "$MNTDIR2"
     cp "$GPARTISO" "$MNTDIR2"
 ###################################
 # refind can't boot on an isofile.
@@ -529,12 +536,15 @@ EOF
 # huge.s load_ramdisk=1 prompt_ramdisk=0rw printk.time=0
 ###################################
     grub-install --removable --boot-directory="$MNTDIR2" \
-	--efi-directory="$MNTDIR2" \
-	--target=x86_64-efi $TARGETPART
+	--efi-directory="$MNTDIR2" --target=x86_64-efi $TARGETPART
     cp "$MNTDIR2/efi/grub/grubx64.efi" "$MNTDIR2/efi/boot/bootx64.efi"
+    cat <<EOF > "$MNTDIR2/grub/grubtheme.cfg"
+desktop-image: /bootimg.jpg
+EOF
     cat <<EOF > "$MNTDIR2/grub/grub.cfg"
 set default=0
 set timeout=120
+set theme=grubtheme.cfg
 
 menuentry "Huge kernel" --class=Slackware {
     linux /huge.s load_ramdisk=1 prompt_ramdisk=0 rw printk.time=0 nomodeset
