@@ -33,6 +33,7 @@ Script a lancer dans le repertoire contenant slackware64-current fraichement asp
 Launch this script in the directory including slackware64-current.
 
 > pbslacks/pbmakeusb [-iso slack.iso] [-gpart gparted.iso] [-noudisks2]
+                     [-noslack (no packages copy on the stick)]
 EOF
 }
 
@@ -41,13 +42,16 @@ ISO=0
 REPO="$MYPWD/slackware64-current"
 GPARTISO=
 NOUDISKS2=
+FULLINSTALLER=1
 
 while [ $# -ge 1 ] ;do
     MYARG="$1"
     shift
     if [ "$MYARG" = "-noudisks2" ] ;then
 	NOUDISKS2='-noudisks2'
-    elif [ "$MYARG" = "-help" ] ;then
+    elif [ "$MYARG" = "-noslack" ] ;then
+	FULLINSTALLER=0
+    elif [ "$MYARG" = "-help" -o "$MYARG" = "-h" ] ;then
 	xhelp
 	exit 0
     elif [ "$MYARG" = "-iso" ] ;then
@@ -61,7 +65,10 @@ while [ $# -ge 1 ] ;do
 	fi
 	shift
     elif [ "$MYARG" = "-gpart" ] ;then
-	GPARTISO="-gpart $1"
+	GPARTISO="$1"
+	RELP=$(echo "$GPARTISO"|cut -c1)
+	[ "$RELP" = '.' ] && GPARTISO="$MYPWD/$GPARTISO"
+	GPARTISO="-gpart $GPARTISO"
 	shift
     fi
 done
@@ -121,16 +128,22 @@ else
     FORMAT=-f
 fi
 
+if [ $FULLINSTALLER -eq 1 ]; then
+    OPTREPO='-s '"$REPO"
+else
+    OPTREPO=
+fi
+
 if [ "$c" = 'y' -a "$MYDEVNAME" != '' ] ;then
     cd usb-and-pxe-installers
     "$MYPWD/pbslacks/pbimg2disk" $FORMAT -i $(pwd)/usbboot.img \
-	-o "$MYDEVNAME" -s "$REPO" $NOUDISKS2 $GPARTISO
+	-o "$MYDEVNAME" $OPTREPO $NOUDISKS2 $GPARTISO
 fi
 
 if [ $ISO -eq 1 ] ;then
     cd "$MYPWD"
     if [ "$NOUDISKS2" != '' ] ;then
-	[ ! -z "$REPO" ] && (umount "${XLOOP}p1";losetup -d $XLOOP;rmdir $REPO)
+	[ ! -z "$REPO" ] && (umount "${XLOOP}p1";losetup -d $XLOOP;rmdir "$REPO")
     else
 	udisksctl unmount -b "${XLOOP}p1"
 	udisksctl loop-delete -b "$XLOOP"

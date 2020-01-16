@@ -15,7 +15,7 @@ Launch this script in a new directory.
   or in a directory which contains slackware64-current.
 
 pbslacks should be side by side of this current directory.
-> ../pbslacks/pbaspire
+> ../pbslacks/pbaspire [-test (test only, no actions)] [-help|-h]
 EOF
 }
 
@@ -23,14 +23,17 @@ while [ $# -ge 1 ] ;do
     MYARG="$1"
     if [ "$MYARG" = "-test" ] ;then
 	XTEST=yes
-    elif [ "$MYARG" = "-help" ] ;then
+    elif [ "$MYARG" = "-help" -o "$MYARG" = "-h" ] ;then
 	xhelp
 	exit 0
     fi
     shift
 done
 
-if [ "$XTEST" != 'yes' -a "$0" != '../pbslacks/pbaspire' -a "$0" != 'pbslacks/pbaspire' ] ;then
+MYPROG=$(basename "$0")
+
+if [ "$XTEST" != 'yes' -a "$0" != "../pbslacks/$MYPROG" \
+    -a "$0" != "pbslacks/$MYPROG" ] ;then
     xhelp
     exit 1
 fi

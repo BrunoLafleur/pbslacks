@@ -10,19 +10,20 @@ XPOST=
 
 xhelp () {
     cat <<EOF
-Script a lancer dans le repertoire contenant slackware64 fraichement aspire.
-Ce repertoire peut etre la cle USB bootable d'installation.
-pbslacks doit aussi etre accessible du repertoire courant.
+  Script a lancer dans le repertoire contenant slackware64 or slackware64-current
+deja aspire.
+  Ce repertoire peut etre la cle USB bootable d'installation.
+  pbslacks doit aussi etre accessible du repertoire courant.
 
-Launch this script in the directory including slackware64.
-It can be on the bootable slackware install USB stick.
-pbslacks should also be there.
+  Launch this script in the directory including slackware64 or slackware64-current.
+  It can be on the bootable slackware install USB stick.
+  pbslacks should also be there.
 
   > cd .../slackware-current"
 or> cd /run/media/$USER/USBSLACKINS/SlackDVD
   > pbslacks/pbupgrade [-new (no system update)]
                [-test (test only, no actions)]
-               [-help]
+               [-help|-h]
                [-post (actions to do preferably after a postinstall reboot)]
 EOF
 }
@@ -35,7 +36,7 @@ while [ $# -ge 1 ] ;do
 	XTEST=yes
     elif [ "$MYARG" = "-post" ] ;then
 	XPOST=yes
-    elif [ "$MYARG" = "-help" ] ;then
+    elif [ "$MYARG" = "-help" -o "$MYARG" = "-h" ] ;then
 	xhelp
 	exit 0
     fi
@@ -55,7 +56,9 @@ This script must be run as root.
 EOF
 	exit 1
     fi
-
+    if [ -d slackware64-current ] ;then
+	cd slackware64-current
+    fi
     if [ ! -d slackware64 -o '(' ! -h pbslacks -a ! -d pbslacks ')' ] ;then
 	xhelp
 	exit 1
