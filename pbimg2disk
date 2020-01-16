@@ -516,6 +516,8 @@ EOF
     cp "$SYSLINHOME/memdisk" "$MNTDIR2"
     cp "$SYSLINHOME/menu.c32" "$MNTDIR2"
     cp "$GPARTISO" "$MNTDIR2"
+###################################
+# refind can't boot on an isofile.
 #    REFINDHOME="$(ls /usr/share/refind-* 2> /dev/null)"
 #    [ -d "$REFINDHOME" ] && \
 #	(cd "$REFINDHOME";./refind-install --usedefault $TARGETPART)
@@ -535,26 +537,27 @@ set default=0
 set timeout=120
 
 menuentry "Huge kernel" {
-    linux huge.s load_ramdisk=1 prompt_ramdisk=0 rw printk.time=0 nomodeset
+    linux /huge.s load_ramdisk=1 prompt_ramdisk=0 rw printk.time=0 nomodeset
     initrd initrd.img
 }
 
 menuentry "Kms kernel" {
-    linux huge.s load_ramdisk=1 prompt_ramdisk=0 rw printk.time=0
+    linux /huge.s load_ramdisk=1 prompt_ramdisk=0 rw printk.time=0
     initrd initrd.img
 }
 
 menuentry "memtest" {
-    linux memtest
+    linux /memtest
 }
 
 menuentry "GParted disk manager" {
     set isofile="$LPARTISO"
-    loopback loop \$isofile
+    loopback loop /\$isofile
     linux (loop)/live/efi/boot/vmlinuz.efi
     initrd (loop)/live/efi/boot/initrd.lz
 }
 EOF
+###################################
 fi
 
 # If we are creating a full Slackware installer, copy the package tree:
