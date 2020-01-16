@@ -42,8 +42,8 @@ cleanup() {
   sync
   echo "--- Unmounting volumes and deleting temporary files..."
   if [ $NOUDISKS2 -eq 1 ] ;then
-      [ ! -z "$MNTDIR1" ] && (umount -f $XLOOP1;losetup -d $XLOOP1;rmdir $MNTDIR1)
-      [ ! -z "$MNTDIR2" ] && (umount -f $TARGETPART;rmdir $MNTDIR2)
+      [ ! -z "$MNTDIR1" ] && (umount -f $XLOOP1;losetup -d $XLOOP1;rmdir "$MNTDIR1")
+      [ ! -z "$MNTDIR2" ] && (umount -f $TARGETPART;rmdir "$MNTDIR2")
   else
       udisksctl unmount -b $XLOOP1;udisksctl loop-delete -b $XLOOP1
       udisksctl unmount -b $TARGETPART
@@ -416,7 +416,7 @@ fi
 if [ $NOUDISKS2 -eq 1 ] ;then
     XLOOP1=$(losetup -f);losetup $XLOOP1 "$USBIMG"
     MNTDIR1=$(mktemp -d -p /tmp -t pbimg2disk1.XXXXXX)
-    mount -t auto $XLOOP1 $MNTDIR1
+    mount -t auto $XLOOP1 "$MNTDIR1"
 else
     XLOOP1=$(udisksctl loop-setup -f "$USBIMG"|sed 's@^.* \(.*\)\.$@\1@')
     MNTDIR1=$(udisksctl mount -b "$XLOOP1"|cut -d ' ' -f4-|sed 's@^\(.*\)\.$@\1@')
@@ -427,7 +427,7 @@ echo "USBIMG mount directory is : $MNTDIR1"
 # Mount the vfat partition:
 if [ $NOUDISKS2 -eq 1 ] ;then
     MNTDIR2=$(mktemp -d -p /tmp -t pbimg2disk2.XXXXXX)
-    mount -t vfat -o shortname=mixed $TARGETPART $MNTDIR2
+    mount -t vfat -o shortname=mixed $TARGETPART "$MNTDIR2"
 else
     MNTDIR2=$(udisksctl mount -b "$TARGETPART"|cut -d ' ' -f4-|\
 	sed 's@^\(.*\)\.$@\1@')
@@ -468,7 +468,7 @@ if [ $UNATTENDED -eq 0 ]; then
       echo "--- These will be overwritten.  Press CTRL-C to abort now!"
       read -p "Or press ENTER to continue: " JUNK
     fi
-  elif [ -d $MNTDIR2/syslinux ]; then
+  elif [ -d "$MNTDIR2/syslinux" ]; then
       echo "--- Your USB drive contains directory 'syslinux'"
       echo "--- This will be overwritten.  Press CTRL-C to abort now!"
       read -p "Or press ENTER to continue: " JUNK
@@ -477,7 +477,7 @@ fi
 
 # Copy boot image files to the USB disk:
 echo "--- Copying boot files to the USB drive..."
-cp -R $MNTDIR1/* $MNTDIR2
+cp -R "$MNTDIR1/"* "$MNTDIR2"
 
 # Add a gparted boot (syslinux + grub).
 if [ "$GPARTISO" != '' ] ;then
@@ -490,21 +490,21 @@ if [ "$GPARTISO" != '' ] ;then
 # ui menu.c32
 # menu label ...
 # A faire bouton aide comme f2.txt mais avec infos sur cas dual boot...
-    cat $MNTDIR2/syslinux.cfg|\
+    cat "$MNTDIR2/syslinux.cfg"|\
 	sed 's@^\(default .*\)$@ui menu.c32\n\1@'|\
 	sed 's@^label \(.*\)$@label \1\n    menu label \1@' >\
-	$MNTDIR2/syslinux.cfg.new
-    mv $MNTDIR2/syslinux.cfg.new $MNTDIR2/syslinux.cfg
-    cat <<EOF >> $MNTDIR2/syslinux.cfg
+	"$MNTDIR2/syslinux.cfg.new"
+    mv "$MNTDIR2/syslinux.cfg.new" "$MNTDIR2/syslinux.cfg"
+    cat <<EOF >> "$MNTDIR2/syslinux.cfg"
 menu separator
 label gparted
     menu label GParted disk manager
     linux memdisk
     initrd $LPARTISO
 EOF
-    cp "$SYSLINHOME/memdisk" $MNTDIR2
-    cp "$SYSLINHOME/menu.c32" $MNTDIR2
-    cp "$GPARTISO" $MNTDIR2
+    cp "$SYSLINHOME/memdisk" "$MNTDIR2"
+    cp "$SYSLINHOME/menu.c32" "$MNTDIR2"
+    cp "$GPARTISO" "$MNTDIR2"
 #    REFINDHOME="$(ls /usr/share/refind-* 2> /dev/null)"
 #    [ -d "$REFINDHOME" ] && \
 #	(cd "$REFINDHOME";./refind-install --usedefault $TARGETPART)
@@ -515,10 +515,10 @@ EOF
 # huge.s load_ramdisk=1 prompt_ramdisk=0rw printk.time=0 nomodeset
 # huge.s load_ramdisk=1 prompt_ramdisk=0rw printk.time=0
 ###################################
-    grub-install --removable --boot-directory=$MNTDIR2 --efi-directory=$MNTDIR2 \
+    grub-install --removable --boot-directory="$MNTDIR2" --efi-directory="$MNTDIR2" \
 	--target=x86_64-efi $TARGETPART
-    cp $MNTDIR2/efi/grub/grubx64.efi $MNTDIR2/efi/boot/bootx64.efi
-    cat <<EOF > $MNTDIR2/grub/grub.cfg
+    cp "$MNTDIR2/efi/grub/grubx64.efi" "$MNTDIR2/efi/boot/bootx64.efi"
+    cat <<EOF > "$MNTDIR2/grub/grub.cfg"
 set default=0
 set timeout=120
 
@@ -550,7 +550,7 @@ if [ $FULLINSTALLER -eq 1 ]; then
   # Copy Slackware package tree (no sources) to the USB disk -
   # we already made sure that ${REPOSROOT} does not end with a '/'
     echo "--- Copying Slackware package tree to the USB drive..."
-    rsync -rpthDL --delete $EXCLUDES "$REPOSROOT" $MNTDIR2/
+    rsync -rpthDL --delete $EXCLUDES "$REPOSROOT" "$MNTDIR2/"
 fi
 
 # Unmount/remove stuff:

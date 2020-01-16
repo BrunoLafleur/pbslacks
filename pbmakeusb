@@ -142,7 +142,7 @@ fi
 
 if [ "$c" = 'y' -a "$MYDEVNAME" != '' ] ;then
     cd usb-and-pxe-installers
-    [ $XTEST -ne 1 ] && "$MYPWD/pbslacks/pbimg2disk" $FORMAT -i $(pwd)/usbboot.img \
+    [ $XTEST -ne 1 ] && "$MYPWD/pbslacks/pbimg2disk" $FORMAT -i "$(pwd)/usbboot.img" \
 	-o "$MYDEVNAME" $OPTREPO $NOUDISKS2 $GPARTISO
 fi
 
