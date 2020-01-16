@@ -493,11 +493,18 @@ if [ "$GPARTISO" != '' ] ;then
 # menu label ...
 # A faire bouton aide comme f2.txt mais avec infos sur cas dual boot...
     cat "$MNTDIR2/syslinux.cfg"|\
-	sed 's@^label \(.*\)$@label \1\n    menu label \1@' >\
-	"$MNTDIR2/syslinux.cfg.new"
+	sed 's@^label \(.*\)$@label \1\n    menu label \1@' |\
+	sed "/^    menu label .*$/ {a\\
+    text help\\
+  Demarre la procedure d'installation de Slackware 64 bits.\\
+\\
+  Launch the 64 bits Slackware install.\\
+    endtext\\
+
+}" > "$MNTDIR2/syslinux.cfg.new"
     cat <<EOF > "$MNTDIR2/syslinux.cfg"
 ui vesamenu.c32
-menu backgroup bootimg.jpg
+menu background bootimg.jpg
 EOF
     cat "$MNTDIR2/syslinux.cfg.new" >> "$MNTDIR2/syslinux.cfg"
     rm -f "$MNTDIR2/syslinux.cfg.new"
@@ -505,7 +512,7 @@ EOF
 menu separator
 label gparted
     menu label GParted disk manager
-    test help
+    text help
   Demarre le gestionnaire de disques GParted qui permet le partionnement de vos
 disques durs pour y mettre votre systeme Linux.
   Si un systeme preexiste comme MS Windows, GPparted permet de redimensionner les
