@@ -11,15 +11,20 @@ Script a lancer dans un repertoire contenant slackware64-current ou slackware64
 
 Launch this script in a directory which contains slackware64-current or
   slackware64 or from the current directory for a new clone.
+
+> [../]pbslack/pbseup [-test] [-h|-help] [-nodial]
 EOF
 }
 
 XTEST=0
+ISDIAL=1
 
 while [ $# -ge 1 ] ;do
     MYARG="$1"
     if [ "$MYARG" = "-test" ] ;then
 	XTEST=1
+    elif [ "$MYARG" = "-nodial" ] ;then
+	ISDIAL=0
     elif [ "$MYARG" = "-help" -o "$MYARG" = "-h" ] ;then
 	xhelp
 	exit 0
@@ -27,6 +32,7 @@ while [ $# -ge 1 ] ;do
     shift
 done
 
+[ $(which dialog 2> /dev/null) = '' ] && ISDIAL=0
 MYPROG=$(basename "$0")
 PBMYPROG="pbslacks/$MYPROG"
 
@@ -48,6 +54,7 @@ if [ $XTEST -ne 1 -a "$0" = "$PBMYPROG" -a "$SLREPO" != 'Slackware-x64-' ] ;then
 
     LASTSLACK=$(test_slack Slackware-x64-)
     if [ "$LASTSLACK" != '' ] ;then
+	echo '------------------------------------'
 	echo "Local repository $LASTSLACK found."
 	echo "Do you wan't to work with it (y or n) ?"
 	read c
@@ -74,16 +81,37 @@ XTEMPMES=$(mktemp -p /tmp -t pbsetupmes.XXXXXX)
 XUPASPIRE=on
 XUPUPGRADE=off
 XUPMAKEUSB=off
+ASPIRE='Get/Update local repository versus officiel remote Slackware and add-on packages'
+UPGRADE='Sync/Update system to the last fetched current Slackware and add-on packages'
+MAKEUSB='Make a bootable USB stick for Slackware install.'
 
 xmaster () {
     defitem=$1;shift
     xsel1=$1;shift;xsel2=$1;shift;xsel3=$1
-    dialog --colors --title 'Main menu' --default-item $defitem --defaultno \
-	--separate-output --item-help --help-button --help-status --checklist \
-	'Choose your actions below' 0 100 3 \
-	aspire 'Get/Update local repository versus officiel remote Slackware and add-on packages' $xsel1 aspire \
-	upgrade 'Sync/Update system to the last fetched current Slackware and add-on packages' $xsel2 upgrade \
-	makeusb 'Make a bootable USB stick for Slackware install.' $xsel3 makeusb
+    if [ $ISDIAL -eq 1 ] ;then
+	dialog --colors --title 'Main menu' --default-item $defitem --defaultno \
+	    --separate-output --item-help --help-button --help-status \
+	    --checklist 'Choose your actions below' 0 100 3 \
+	    aspire "$ASPIRE" $xsel1 aspire \
+	    upgrade "$UPGRADE" $xsel2 upgrade \
+	    makeusb "$MAKEUSB" $xsel3 makeusb
+    else
+	echo '------------------------------------'
+	echo "          Main menu"
+	echo '------------------------------------'
+	echo "HELP aspire (y or n) :";read c
+	if [ "$c" = "y" ] ;then echo "HELP aspire" 1>&2;return;fi
+	echo "HELP upgrade (y or n) :";read c
+	if [ "$c" = "y" ] ;then echo "HELP upgrade" 1>&2;return;fi
+	echo "HELP makeusb (y or n) :";read c
+	if [ "$c" = "y" ] ;then echo "HELP makeusb" 1>&2;return;fi
+	echo "$ASPIRE (y or n) :";read c
+	[ "$c" = "y" ] && echo "aspire" 1>&2
+	echo "$UPGRADE (y or n) :";read c
+	[ "$c" = "y" ] && echo "upgrade" 1>&2
+	echo $"$MAKEUSB (y or n) :";read c
+	[ "$c" = "y" ] && echo "makeusb" 1>&2
+    fi
 }
 
 xsel="$XUPASPIRE $XUPUPGRADE $XUPMAKEUSB"
@@ -110,9 +138,19 @@ while [ $bclaide -eq 1 ] ;do
 	elif [ "$xitem" = upgrade ] ;then
 	    pacaide='Update the local system with the local clone.'
 	elif [ "$xitem" = makeusb ] ;then
-	    pacaide='Make a dual boot install USB stick with Slackware install and GParted Live which can boot on old bios or new UEFI bios computers.'
+	    pacaide='Make a dual boot install USB stick with Slackware install and GParted Live'
+	    pacaide="$pacaide\nwhich can boot on old bios or new UEFI bios computers."
 	fi
-	dialog --colors --title "$xitem" --msgbox "$pacaide" 20 80
+	if [ $ISDIAL -eq 1 ] ;then
+	    dialog --colors --title "$xitem" --msgbox "$pacaide" 20 80
+	else
+	    echo '------------------------------------'
+	    echo "          $xitem"
+	    echo '------------------------------------'
+	    echo "$pacaide"|sed 's@\\n@\n@'
+	    echo "Press a key to continue."
+	    read c
+	fi
     fi
 done
 
@@ -149,8 +187,16 @@ if [ ! -f "$XTEMPMES" -o $(cat "$XTEMPMES"|wc -c) -eq 0 ] ;then
     XEND=1
 fi
 
-dialog --colors --title 'Actions which were done' --msgbox "$(cat $XTEMPMES)" \
-    20 80
+DACTION='Actions which were done'
+
+if [ $ISDIAL -eq 1 ] ;then
+    dialog --colors --title "$DACTION" --msgbox "$(cat $XTEMPMES)" 20 80
+else
+    echo '------------------------------------'
+    echo "  $DACTION"
+    echo '------------------------------------'
+    cat $XTEMPMES
+fi
 
 rm -f $XTEMPOUT
 rm -f $XTEMPMES

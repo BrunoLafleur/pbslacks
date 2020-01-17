@@ -20,7 +20,7 @@ slackware64-current.
 or> cd /run/media/$USER/USBSLACKINS/SlackDVD
   > pbslacks/pbupgrade [-new (no system update)]
                [-test (test only, no actions)]
-               [-help|-h]
+               [-help|-h] [-nodial]
                [-post (actions to do preferably after a postinstall reboot)]
 EOF
 }
@@ -28,11 +28,14 @@ EOF
 XTEST=0
 XNEW=
 XPOST=
+ISDIAL=1
 
 while [ $# -ge 1 ] ;do
     MYARG="$1"
     if [ "$MYARG" = "-new" ] ;then
 	XNEW=yes
+    elif [ "$MYARG" = "-nodial" ] ;then
+	ISDIAL=0
     elif [ "$MYARG" = "-test" ] ;then
 	XTEST=1
     elif [ "$MYARG" = "-post" ] ;then
@@ -43,6 +46,8 @@ while [ $# -ge 1 ] ;do
     fi
     shift
 done
+
+[ $(which dialog 2> /dev/null) = '' ] && ISDIAL=0
 
 if [ ! -d /boot ] ;then
     echo "Do the install of the Slackware Linux distribution before :"
