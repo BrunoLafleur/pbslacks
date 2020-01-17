@@ -42,7 +42,7 @@ if [ $XTEST -ne 1 -a "$0" != "../$PBMYPROG" -a "$0" != "$PBMYPROG" ] ;then
 fi
 
 MYPWD=$(pwd)
-PBSLACKSPWD="$(cd $(dirname $0); pwd)";cd "$MYPWD"
+PBSLACKSPWD="$(dirname $0)"
 SLREPO=$(basename "$MYPWD"|cut -c1-14)
 
 if [ $XTEST -ne 1 -a "$0" = "$PBMYPROG" -a "$SLREPO" != 'Slackware-x64-' ] ;then
@@ -105,6 +105,7 @@ xmaster () {
 	if [ "$c" = "y" ] ;then echo "HELP upgrade" 1>&2;return;fi
 	echo "HELP makeusb (y or n) :";read c
 	if [ "$c" = "y" ] ;then echo "HELP makeusb" 1>&2;return;fi
+
 	echo "$ASPIRE (y or n) :";read c
 	[ "$c" = "y" ] && echo "aspire" 1>&2
 	echo "$UPGRADE (y or n) :";read c
@@ -155,6 +156,7 @@ while [ $bclaide -eq 1 ] ;do
 done
 
 PBTEST=;[ $XTEST -eq 1 ] && PBTEST='-test'
+PBDIAL=;[ $ISDIAL -eq 0 ] && PBDIAL='-nodial'
 ISUSB=0
 ISASPIRE=0
 ISUPGRADE=0
@@ -167,12 +169,12 @@ while read i;test "$i" != "" ;do
 done < $XTEMPOUT
 
 if [ $ISASPIRE -eq 1 ] ;then
-    "$PBSLACKSPWD/pbaspire" $PBTEST
+    "$PBSLACKSPWD/pbaspire" $PBTEST $PBDIAL
     echo "Clone done (full or partial depending on selected options)." \
 	>> $XTEMPMES
 fi
 if [ $ISUPGRADE -eq 1 ] ;then
-    "$PBSLACKSPWD/pbupgrade" $PBTEST
+    "$PBSLACKSPWD/pbupgrade" $PBTEST $PBDIAL
     echo "Upgrade done for selected set of packages." >> $XTEMPMES
 fi
 if [ $ISUSB -eq 1 ] ;then

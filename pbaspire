@@ -46,21 +46,63 @@ fi
 MYPWD=$(pwd)
 XTEMPOUT=$(mktemp -p /tmp -t pbaspireout.XXXXXX)
 XTEMPMES=$(mktemp -p /tmp -t pbaspiremes.XXXXXX)
+INIT='Init/Verify the repository.'
+CORE='Get/Update versus officiel Slackware, multilib and frameworks KDE5'
+ALIEN='Get/Update some Alien Bob binary packages'
+PONCE='Get/Update some Ponce binary packages'
+SLONLY='Get/Update some Slackonly binary packages'
+OTHER='Get/Update some other source or binary packages'
+MOZILLA='Get/Update latest Firefox and Thunderbird'
 
 xmaster () {
     defitem=$1;shift
     xsel1=$1;shift;xsel2=$1;shift;xsel3=$1;shift;xsel4=$1;shift;xsel5=$1;shift
     xsel6=$1;shift;xsel7=$1
-    dialog --colors --title 'Main menu' --default-item $defitem --defaultno \
-	--separate-output --item-help --help-button --help-status --checklist \
-	'Choose your actions below' 0 100 7 \
-	init 'Init/Verify the repository.' $xsel1 init \
-	core 'Get/Update versus officiel Slackware, multilib and frameworks KDE5' $xsel2 core \
-	alien 'Get/Update some Alien Bob binary packages' $xsel3 alien \
-	ponce 'Get/Update some Ponce binary packages' $xsel4 ponce \
-	slonly 'Get/Update some Slackonly binary packages' $xsel5 slonly \
-	other 'Get/Update some other source or binary packages' $xsel6 other \
-	mozilla 'Get/Update latest Firefox and Thunderbird' $xsel7 mozilla
+    if [ $ISDIAL -eq 1 ] ;then
+	dialog --colors --title 'Main menu' --default-item $defitem --defaultno \
+	    --separate-output --item-help --help-button --help-status \
+	    --checklist 'Choose your actions below' 0 100 7 \
+	    init "$INIT" $xsel1 init \
+	    core "$CORE" $xsel2 core \
+	    alien "$ALIEN" $xsel3 alien \
+	    ponce "$PONCE" $xsel4 ponce \
+	    slonly "$SLONLY" $xsel5 slonly \
+	    other "$OTHER" $xsel6 other \
+	    mozilla "$MOZILLA" $xsel7 mozilla
+    else
+	echo '------------------------------------'
+	echo "          Main menu"
+	echo '------------------------------------'
+	echo "HELP init (y or n) :";read c
+	if [ "$c" = "y" ] ;then echo "HELP init" 1>&2;return;fi
+	echo "HELP core (y or n) :";read c
+	if [ "$c" = "y" ] ;then echo "HELP core" 1>&2;return;fi
+	echo "HELP alien (y or n) :";read c
+	if [ "$c" = "y" ] ;then echo "HELP alien" 1>&2;return;fi
+	echo "HELP ponce (y or n) :";read c
+	if [ "$c" = "y" ] ;then echo "HELP ponce" 1>&2;return;fi
+	echo "HELP slonly (y or n) :";read c
+	if [ "$c" = "y" ] ;then echo "HELP slonly" 1>&2;return;fi
+	echo "HELP other (y or n) :";read c
+	if [ "$c" = "y" ] ;then echo "HELP other" 1>&2;return;fi
+	echo "HELP mozilla (y or n) :";read c
+	if [ "$c" = "y" ] ;then echo "HELP mozilla" 1>&2;return;fi
+
+	echo "$INIT (y or n) :";read c
+	[ "$c" = "y" ] && echo "init" 1>&2
+	echo "$CORE (y or n) :";read c
+	[ "$c" = "y" ] && echo "core" 1>&2
+	echo $"$ALIEN (y or n) :";read c
+	[ "$c" = "y" ] && echo "alien" 1>&2
+	echo "$PONCE (y or n) :";read c
+	[ "$c" = "y" ] && echo "ponce" 1>&2
+	echo "$SLONLY (y or n) :";read c
+	[ "$c" = "y" ] && echo "slonly" 1>&2
+	echo $"$OTHER (y or n) :";read c
+	[ "$c" = "y" ] && echo "other" 1>&2
+	echo $"$MOZILLA (y or n) :";read c
+	[ "$c" = "y" ] && echo "mozilla" 1>&2
+    fi
 }
 
 xsel="on on on on on on on on"
@@ -98,7 +140,16 @@ while [ $bclaide -eq 1 ] ;do
 	elif [ "$xitem" = mozilla ] ;then
 	    pacaide='Get or update Firefox and Thunderbird.'
 	fi
-	dialog --colors --title "$xitem" --msgbox "$pacaide" 20 80
+	if [ $ISDIAL -eq 1 ] ;then
+	    dialog --colors --title "$xitem" --msgbox "$pacaide" 20 80
+	else
+	    echo '------------------------------------'
+	    echo "          $xitem"
+	    echo '------------------------------------'
+	    echo "$pacaide"|sed 's@\\n@\n@'
+	    echo "Press a key to continue."
+	    read c
+	fi
     fi
 done
 
@@ -109,37 +160,40 @@ while read i;test "$i" != "" ;do
 	if [ $XTEST -ne 1 ] ;then
 	    "$0"init
 	fi
-	echo "Initialisation done : \Z3"$0"init\Zn." >> $XTEMPMES
+	echo "Initialisation done : \Z3${0}init\Zn." >> $XTEMPMES
     elif [ "$i" = core ] ;then
 	if [ $XTEST -ne 1 ] ;then
 	    "$0"core
 	fi
-	echo "Get/Upgrade core system done : \Z3"$0"core\Zn." >> $XTEMPMES
+	echo "Get/Upgrade core system done : \Z3${0}core\Zn." >> $XTEMPMES
     elif [ "$i" = alien ] ;then
 	if [ $XTEST -ne 1 ] ;then
 	    "$0"alien
 	fi
-	echo "Get/Upgrade Alien Bob packages done : \Z3"$0"alien\Zn." >> $XTEMPMES
+	echo "Get/Upgrade Alien Bob packages done : \Z3${0}alien\Zn." \
+	    >> $XTEMPMES
     elif [ "$i" = ponce ] ;then
 	if [ $XTEST -ne 1 ] ;then
 	    "$0"ponce
 	fi
-	echo "Get/Upgrade Ponce packages done : \Z3"$0"ponce\Zn." >> $XTEMPMES
+	echo "Get/Upgrade Ponce packages done : \Z3${0}ponce\Zn." >> $XTEMPMES
     elif [ "$i" = slonly ] ;then
 	if [ $XTEST -ne 1 ] ;then
 	    "$0"slonly
 	fi
-	echo "Get/Upgrade Slackonly packages done : \Z3"$0"slonly\Zn." >> $XTEMPMES
+	echo "Get/Upgrade Slackonly packages done : \Z3${0}slonly\Zn." \
+	    >> $XTEMPMES
     elif [ "$i" = other ] ;then
 	if [ $XTEST -ne 1 ] ;then
 	    "$0"other
 	fi
-	echo "Get/Upgrade other source or binary packages done : \Z3"$0"other\Zn." >> $XTEMPMES
+	echo "Get/Upgrade other source or binary packages done : \Z3${0}other\Zn." >> $XTEMPMES
     elif [ "$i" = mozilla ] ;then
 	if [ $XTEST -ne 1 ] ;then
 	    "$0"moz -lang fr
 	fi
-	echo "Get/Upgrade Firefox and Thunderbird done : \Z3"$0"mozilla\Zn." >> $XTEMPMES
+	echo "Get/Upgrade Firefox and Thunderbird done : \Z3${0}mozilla\Zn." \
+	    >> $XTEMPMES
     fi
 done < $XTEMPOUT
 
@@ -149,5 +203,15 @@ if [ ! -f "$XTEMPMES" -o $(cat "$XTEMPMES"|wc -c) -eq 0 ] ;then
     echo "No action was demanded. Exit." > $XTEMPMES
 fi
 
-dialog --colors --title 'Actions which were done' --msgbox "$(cat $XTEMPMES)" 20 80
+DACTION='Actions which were done'
+
+if [ $ISDIAL -eq 1 ] ;then
+    dialog --colors --title "$DACTION" --msgbox "$(cat $XTEMPMES)" 20 80
+else
+    echo '------------------------------------'
+    echo "  $DACTION"
+    echo '------------------------------------'
+    cat $XTEMPMES
+fi
+
 rm -f $XTEMPMES
