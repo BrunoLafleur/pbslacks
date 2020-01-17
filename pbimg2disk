@@ -22,6 +22,8 @@
 
 #########################################################################
 # Modified by Pierre Brochard (pierre.brochard.1982@m4x.org)
+# > pbimg2disk
+#
 # to use udisksctl or not (not sufficent to use as a normal plugdev user -
 # we should speak directly to udisksd).
 #   -noudisks2
@@ -545,7 +547,7 @@ EOF
 ###################################
     grub-install --removable --boot-directory="$MNTDIR2" \
 	--efi-directory="$MNTDIR2" --target=x86_64-efi $TARGETPART
-    cp "$MNTDIR2/efi/grub/grubx64.efi" "$MNTDIR2/efi/boot/bootx64.efi"
+#   cp "$MNTDIR2/efi/grub/grubx64.efi" "$MNTDIR2/efi/boot/bootx64.efi"
     cat <<EOF > "$MNTDIR2/grub/grubtheme.cfg"
 desktop-image: /bootimg.jpg
 EOF
@@ -576,9 +578,6 @@ menuentry "GParted disk manager" --class=GParted {
     initrd (loop)/live/initrd.img
 }
 EOF
-#    linux (loop)/live/vmlinuz 
-#    initrd (loop)/live/initrd.img
-#    linux (loop)/live/vmlinuz boot=live union=overlay username=user config components quiet noswap  ip= net.ifnames=0  nosplash 
 ###################################
 fi
 
