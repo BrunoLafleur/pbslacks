@@ -4,7 +4,6 @@
 # Date : 2019
 # License : See the LICENSE file in this repository.
 
-<<<<<<< HEAD
 xhelp () {
     cat <<EOF
 Script a lancer dans un repertoire contenant slackware64-current ou slackware64
@@ -27,49 +26,22 @@ while [ $# -ge 1 ] ;do
     elif [ "$MYARG" = "-nodial" ] ;then
 	ISDIAL=0
     elif [ "$MYARG" = "-help" -o "$MYARG" = "-h" ] ;then
-=======
-XTEST=
-
-xhelp () {
-    cat <<EOF
-Script a lancer dans un repertoire nouvellement cree
-  ou existant contenant slackware64-current.
-
-Launch this script in a new directory.
-  or in a directory which contains slackware64-current.
-
-pbslacks should be side by side of this current directory.
-> ../pbslacks/pbaspire
-EOF
-}
-
-while [ $# -ge 1 ] ;do
-    MYARG="$1"
-    if [ "$MYARG" = "-test" ] ;then
-	XTEST=yes
-    elif [ "$MYARG" = "-help" ] ;then
->>>>>>> 3b31eff1dbd5a37fd0acfdb89ed5fbc194ff00db
 	xhelp
 	exit 0
     fi
     shift
 done
 
-<<<<<<< HEAD
 [ $(which dialog 2> /dev/null) = '' ] && ISDIAL=0
 MYPROG=$(basename "$0")
 PBMYPROG="pbslacks/$MYPROG"
 
 if [ $XTEST -ne 1 -a "$0" != "../$PBMYPROG" -a "$0" != "$PBMYPROG" ] ;then
-=======
-if [ "$XTEST" != 'yes' -a "$0" != '../pbslacks/pbaspire' -a "$0" != 'pbslacks/pbaspire' ] ;then
->>>>>>> 3b31eff1dbd5a37fd0acfdb89ed5fbc194ff00db
     xhelp
     exit 1
 fi
 
 MYPWD=$(pwd)
-<<<<<<< HEAD
 PBSLACKSPWD="$(dirname $0)"
 SLREPO=$(basename "$MYPWD"|cut -c1-14)
 
@@ -145,29 +117,6 @@ xmaster () {
 
 xsel="$XUPASPIRE $XUPUPGRADE $XUPMAKEUSB"
 ditem=aspire
-=======
-XTEMPOUT=$(mktemp -p /tmp -t pbaspireout.XXXXXX)
-XTEMPMES=$(mktemp -p /tmp -t pbaspiremes.XXXXXX)
-
-xmaster () {
-    defitem=$1;shift
-    xsel1=$1;shift;xsel2=$1;shift;xsel3=$1;shift;xsel4=$1;shift;xsel5=$1;shift
-    xsel6=$1;shift;xsel7=$1
-    dialog --colors --title 'Main menu' --default-item $defitem --defaultno \
-	--separate-output --item-help --help-button --help-status --checklist \
-	'Choose your actions below' 0 100 7 \
-	init 'Init/Verify the repository.' $xsel1 init \
-	core 'Get/Update versus officiel Slackware, multilib and frameworks KDE5' $xsel2 core \
-	alien 'Get/Update some Alien Bob binary packages' $xsel3 alien \
-	ponce 'Get/Update some Ponce binary packages' $xsel4 ponce \
-	slonly 'Get/Update some Slackonly binary packages' $xsel5 slonly \
-	other 'Get/Update some other source or binary packages' $xsel6 other \
-	mozilla 'Get/Update latest Firefox and Thunderbird' $xsel7 mozilla
-}
-
-xsel="on on on on on on on on"
-ditem=init
->>>>>>> 3b31eff1dbd5a37fd0acfdb89ed5fbc194ff00db
 bclaide=1
 
 while [ $bclaide -eq 1 ] ;do
@@ -176,11 +125,7 @@ while [ $bclaide -eq 1 ] ;do
     if [ $bclaide -eq 1 ] ;then
 	xitem="$(cat $XTEMPOUT|grep '^HELP'|cut -d ' ' -f2)"
 	xsel=
-<<<<<<< HEAD
 	for i in aspire upgrade makeusb ;do
-=======
-	for i in init core alien ponce slonly other mozilla ;do
->>>>>>> 3b31eff1dbd5a37fd0acfdb89ed5fbc194ff00db
 	  if [ $(grep "^$i$" "$XTEMPOUT"|wc -l) -eq 1 ] ;then
 	      xsel="$xsel on"
 	  else
@@ -188,7 +133,6 @@ while [ $bclaide -eq 1 ] ;do
 	  fi
 	done
 	ditem=$xitem;bclaide=1;pacaide=
-<<<<<<< HEAD
 	if [ "$xitem" = aspire ] ;then
 	    pacaide='Do a local clone of the officiel Slackware and add-on'
 	    pacaide="${pacaide} packages.\nUses pbslacks/pbaspire."
@@ -257,75 +201,4 @@ else
 fi
 
 rm -f $XTEMPOUT
-=======
-	if [ "$xitem" = init ] ;then
-	    pacaide='Initialize or verify the current repository.'
-	elif [ "$xitem" = core ] ;then
-	    pacaide='Get or update the officiel lastest current Slackware.'
-	    pacaide="$pacaide\nAnd the multilib of Alien Bob which is a 32 bits compatibility set of packages."
-	    pacaide="$pacaide\nAnd the frameworks libraries of Kde5 offered by Alien Bob."
-	elif [ "$xitem" = alien ] ;then
-	    pacaide='Get or update some Alien Bob binary packages.'
-	elif [ "$xitem" = ponce ] ;then
-	    pacaide='Get or update some Ponce binary packages.'
-	elif [ "$xitem" = slonly ] ;then
-	    pacaide='Get or update some Slackonly binary packages.'
-	elif [ "$xitem" = other ] ;then
-	    pacaide='Get or update some other source or binary packages.'
-	elif [ "$xitem" = mozilla ] ;then
-	    pacaide='Get or update Firefox and Thunderbird.'
-	fi
-	dialog --colors --title "$xitem" --msgbox "$pacaide" 20 80
-    fi
-done
-
-while read i;test "$i" != "" ;do
-    if [ "$(echo $i|cut -c1-4)" = 'HELP' ] ;then
-	continue
-    elif [ "$i" = init ] ;then
-	if [ "$XTEST" != 'yes' ] ;then
-	    "$0"init
-	fi
-	echo "Initialisation done : \Z3"$0"init\Zn." >> $XTEMPMES
-    elif [ "$i" = core ] ;then
-	if [ "$XTEST" != 'yes' ] ;then
-	    "$0"core
-	fi
-	echo "Get/Upgrade core system done : \Z3"$0"core\Zn." >> $XTEMPMES
-    elif [ "$i" = alien ] ;then
-	if [ "$XTEST" != 'yes' ] ;then
-	    "$0"alien
-	fi
-	echo "Get/Upgrade Alien Bob packages done : \Z3"$0"alien\Zn." >> $XTEMPMES
-    elif [ "$i" = ponce ] ;then
-	if [ "$XTEST" != 'yes' ] ;then
-	    "$0"ponce
-	fi
-	echo "Get/Upgrade Ponce packages done : \Z3"$0"ponce\Zn." >> $XTEMPMES
-    elif [ "$i" = slonly ] ;then
-	if [ "$XTEST" != 'yes' ] ;then
-	    "$0"slonly
-	fi
-	echo "Get/Upgrade Slackonly packages done : \Z3"$0"slonly\Zn." >> $XTEMPMES
-    elif [ "$i" = other ] ;then
-	if [ "$XTEST" != 'yes' ] ;then
-	    "$0"other
-	fi
-	echo "Get/Upgrade other source or binary packages done : \Z3"$0"other\Zn." >> $XTEMPMES
-    elif [ "$i" = mozilla ] ;then
-	if [ "$XTEST" != 'yes' ] ;then
-	    "$0"moz -lang fr
-	fi
-	echo "Get/Upgrade Firefox and Thunderbird done : \Z3"$0"mozilla\Zn." >> $XTEMPMES
-    fi
-done < $XTEMPOUT
-
-rm -f $XTEMPOUT
-
-if [ ! -f "$XTEMPMES" -o $(cat "$XTEMPMES"|wc -c) -eq 0 ] ;then
-    echo "No action was demanded. Exit." > $XTEMPMES
-fi
-
-dialog --colors --title 'Actions which were done' --msgbox "$(cat $XTEMPMES)" 20 80
->>>>>>> 3b31eff1dbd5a37fd0acfdb89ed5fbc194ff00db
 rm -f $XTEMPMES

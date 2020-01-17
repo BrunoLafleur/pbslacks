@@ -22,11 +22,8 @@
 
 #########################################################################
 # Modified by Pierre Brochard (pierre.brochard.1982@m4x.org)
-<<<<<<< HEAD
 # > pbimg2disk
 #
-=======
->>>>>>> 3b31eff1dbd5a37fd0acfdb89ed5fbc194ff00db
 # to use udisksctl or not (not sufficent to use as a normal plugdev user -
 # we should speak directly to udisksd).
 #   -noudisks2
@@ -37,11 +34,8 @@
 #########################################################################
 
 # Define some variables ahead of time, so that cleanup knows about them:
-<<<<<<< HEAD
 MYPWD=$(pwd)
 PBSLACKSPWD="$(cd $(dirname $0); pwd)";cd "$MYPWD"
-=======
->>>>>>> 3b31eff1dbd5a37fd0acfdb89ed5fbc194ff00db
 MNTDIR1=''
 MNTDIR2=''
 
@@ -52,13 +46,8 @@ cleanup() {
   sync
   echo "--- Unmounting volumes and deleting temporary files..."
   if [ $NOUDISKS2 -eq 1 ] ;then
-<<<<<<< HEAD
       [ ! -z "$MNTDIR1" ] && (umount -f $XLOOP1;losetup -d $XLOOP1;rmdir "$MNTDIR1")
       [ ! -z "$MNTDIR2" ] && (umount -f $TARGETPART;rmdir "$MNTDIR2")
-=======
-      [ ! -z "$MNTDIR1" ] && (umount -f $XLOOP1;losetup -d $XLOOP1;rmdir $MNTDIR1)
-      [ ! -z "$MNTDIR2" ] && (umount -f $TARGETPART;rmdir $MNTDIR2)
->>>>>>> 3b31eff1dbd5a37fd0acfdb89ed5fbc194ff00db
   else
       udisksctl unmount -b $XLOOP1;udisksctl loop-delete -b $XLOOP1
       udisksctl unmount -b $TARGETPART
@@ -189,7 +178,6 @@ FULLINSTALLER=0
 NOUDISKS2=0
 
 while [ ! -z "$1" ]; do
-<<<<<<< HEAD
     case $1 in
 	-e|--errors)
 	    ABORT_ON_ERROR=1
@@ -239,59 +227,6 @@ while [ ! -z "$1" ]; do
 	    ;;
     esac
     shift
-=======
-  case $1 in
-    -e|--errors)
-      ABORT_ON_ERROR=1
-      shift
-      ;;
-    -f|--format)
-      REFORMAT=1
-      shift
-      ;;
-    -h|--help)
-      showhelp
-      exit
-      ;;
-    -i|--infile)
-      USBIMG="$(cd $(dirname $2); pwd)/$(basename $2)"
-      shift 2
-      ;;
-    -l|--logfile)
-      LOGFILE="$(cd $(dirname $2); pwd)/$(basename $2)"
-      shift 2
-      ;;
-    -o|--outdev)
-      TARGET="$2"
-      TARGETPART="${TARGET}1"
-      shift 2
-      ;;
-    -s|--slackdir)
-      REPODIR="$2"
-      FULLINSTALLER=1
-      shift 2
-      ;;
-    -u|--unattended)
-      UNATTENDED=1
-      shift
-      ;;
-    -L|--label)
-      CUSTOMLABEL="$2"
-      shift 2
-      ;;
-    -gpart)
-      GPARTISO="$2"
-      shift 2
-      ;;
-    -noudisks2)
-      NOUDISKS2=1
-      ;;
-    *)
-      echo "*** Unknown parameter '$1'!"
-      exit 1
-      ;;
-  esac
->>>>>>> 3b31eff1dbd5a37fd0acfdb89ed5fbc194ff00db
 done
 
 if [ "$ABORT_ON_ERROR" = "1" ]; then
@@ -309,11 +244,7 @@ if [ -n "$REPODIR" ]; then
   else
     # This also takes care of stripping a trailing '/', which is required
     # for the rsync command to work as intended:
-<<<<<<< HEAD
     REPOSROOT="$(cd $(dirname $REPODIR); pwd)/$(basename $REPODIR)";cd "$MYPWD"
-=======
-    REPOSROOT="$(cd $(dirname $REPODIR); pwd)/$(basename $REPODIR)"
->>>>>>> 3b31eff1dbd5a37fd0acfdb89ed5fbc194ff00db
   fi
 fi
 
@@ -462,10 +393,6 @@ if [ $REFORMAT -eq 1 ]; then
   ( reformat $TARGET "${FATLABEL}" ) 1>>$LOGFILE 2>&1
 else
   # We do not format the drive, but apply a FAT label if required.
-<<<<<<< HEAD
-=======
-
->>>>>>> 3b31eff1dbd5a37fd0acfdb89ed5fbc194ff00db
   # Prepare for using mlabel to change the FAT label:
   MTOOLSRCFILE=$(mktemp -p /tmp -t mtoolsrc.XXXXXX)
   echo "drive s: file=\"$TARGETPART\"" > $MTOOLSRCFILE
@@ -492,13 +419,8 @@ fi
 # Mount the image file:
 if [ $NOUDISKS2 -eq 1 ] ;then
     XLOOP1=$(losetup -f);losetup $XLOOP1 "$USBIMG"
-<<<<<<< HEAD
     MNTDIR1=$(mktemp -d -p /tmp -t pbimg2disk1.XXXXXX)
     mount -t auto $XLOOP1 "$MNTDIR1"
-=======
-    MNTDIR1=$(mktemp -p /tmp -t pbimg2disk1.XXXXXX)
-    mount -t auto $XLOOP1 $MNTDIR1
->>>>>>> 3b31eff1dbd5a37fd0acfdb89ed5fbc194ff00db
 else
     XLOOP1=$(udisksctl loop-setup -f "$USBIMG"|sed 's@^.* \(.*\)\.$@\1@')
     MNTDIR1=$(udisksctl mount -b "$XLOOP1"|cut -d ' ' -f4-|sed 's@^\(.*\)\.$@\1@')
@@ -508,13 +430,8 @@ echo "USBIMG mount directory is : $MNTDIR1"
 
 # Mount the vfat partition:
 if [ $NOUDISKS2 -eq 1 ] ;then
-<<<<<<< HEAD
     MNTDIR2=$(mktemp -d -p /tmp -t pbimg2disk2.XXXXXX)
     mount -t vfat -o shortname=mixed $TARGETPART "$MNTDIR2"
-=======
-    MNTDIR2=$(mktemp -p /tmp -t pbimg2disk2.XXXXXX)
-    mount -t vfat -o shortname=mixed $TARGETPART $MNTDIR2
->>>>>>> 3b31eff1dbd5a37fd0acfdb89ed5fbc194ff00db
 else
     MNTDIR2=$(udisksctl mount -b "$TARGETPART"|cut -d ' ' -f4-|\
 	sed 's@^\(.*\)\.$@\1@')
@@ -555,11 +472,7 @@ if [ $UNATTENDED -eq 0 ]; then
       echo "--- These will be overwritten.  Press CTRL-C to abort now!"
       read -p "Or press ENTER to continue: " JUNK
     fi
-<<<<<<< HEAD
   elif [ -d "$MNTDIR2/syslinux" ]; then
-=======
-  elif [ -d $MNTDIR2/syslinux ]; then
->>>>>>> 3b31eff1dbd5a37fd0acfdb89ed5fbc194ff00db
       echo "--- Your USB drive contains directory 'syslinux'"
       echo "--- This will be overwritten.  Press CTRL-C to abort now!"
       read -p "Or press ENTER to continue: " JUNK
@@ -568,11 +481,7 @@ fi
 
 # Copy boot image files to the USB disk:
 echo "--- Copying boot files to the USB drive..."
-<<<<<<< HEAD
 cp -R "$MNTDIR1/"* "$MNTDIR2"
-=======
-cp -R $MNTDIR1/* $MNTDIR2
->>>>>>> 3b31eff1dbd5a37fd0acfdb89ed5fbc194ff00db
 
 # Add a gparted boot (syslinux + grub).
 if [ "$GPARTISO" != '' ] ;then
@@ -582,7 +491,6 @@ if [ "$GPARTISO" != '' ] ;then
 # syslinux for legacy boot.
 ###################################
 # Exemple de menu (menu.c32) :
-<<<<<<< HEAD
 # ui menu.c32
 # menu label ...
 # A faire bouton aide comme f2.txt mais avec infos sur cas dual boot...
@@ -627,26 +535,6 @@ EOF
     cp "$GPARTISO" "$MNTDIR2"
 ###################################
 # refind can't boot on an isofile.
-=======
-# default menu.c32
-# prompt 0
-# menu label ...
-    cat $MNTDIR2/syslinux.cfg|\
-	sed 's@^\(default .*\)$@ui menu.c32\n\1@'|\
-	sed 's@^label \(.*\)$@label \1\n    menu label \1@' >\
-	$MNTDIR2/syslinux.cfg.new
-    mv $MNTDIR2/syslinux.cfg.new $MNTDIR2/syslinux.cfg
-    cat <<EOF >> $MNTDIR2/syslinux.cfg
-menu separator
-label gparted
-    menu label GParted disk manager
-    linux memdisk
-    initrd $LPARTISO
-EOF
-    cp "$SYSLINHOME/memdisk" $MNTDIR2
-    cp "$SYSLINHOME/menu.c32" $MNTDIR2
-    cp "$GPARTISO" $MNTDIR2
->>>>>>> 3b31eff1dbd5a37fd0acfdb89ed5fbc194ff00db
 #    REFINDHOME="$(ls /usr/share/refind-* 2> /dev/null)"
 #    [ -d "$REFINDHOME" ] && \
 #	(cd "$REFINDHOME";./refind-install --usedefault $TARGETPART)
@@ -654,14 +542,12 @@ EOF
 # grub for uefi boot.
 #    loopback loop (hd0,1)$isofile
 # memtest86+ mettre le package.
-<<<<<<< HEAD
 ###################################
     cp "$PBSLACKSPWD/bootimg.png" "$MNTDIR2"
     grub-install --removable --boot-directory="$MNTDIR2" \
 	--efi-directory="$MNTDIR2" --target=x86_64-efi $TARGETPART
     grub-mkfont -s 14 -o $MNTDIR2/grub/fonts/DejaVuSansMono.pf2 \
 	/usr/share/fonts/TTF/DejaVuSansMono.ttf
-#   cp "$MNTDIR2/efi/grub/grubx64.efi" "$MNTDIR2/efi/boot/bootx64.efi"
     cat <<EOF > "$MNTDIR2/grub/grub.cfg"
 insmod all_video
 insmod loopback
@@ -695,52 +581,11 @@ EOF
 fi
 
 # If we are creating a full Slackware installer, copy the package tree:
-=======
-# huge.s load_ramdisk=1 prompt_ramdisk=0rw printk.time=0 nomodeset
-# huge.s load_ramdisk=1 prompt_ramdisk=0rw printk.time=0
-###################################
-    grub-install --removable --boot-directory=$MNTDIR2 --efi-directory=$MNTDIR2 \
-	--target=x86_64-efi $TARGETPART
-    cp $MNTDIR2/efi/grub/grubx64.efi $MNTDIR2/efi/boot/bootx64.efi
-    cat <<EOF > $MNTDIR2/grub/grub.cfg
-set default=0
-set timeout=120
-
-menuentry "Huge kernel" {
-    linux huge.s load_ramdisk=1 prompt_ramdisk=0 rw printk.time=0 nomodeset
-    initrd initrd.img
-}
-
-menuentry "Kms kernel" {
-    linux huge.s load_ramdisk=1 prompt_ramdisk=0 rw printk.time=0
-    initrd initrd.img
-}
-
-menuentry "memtest" {
-    linux memtest
-}
-
-menuentry "GParted disk manager" {
-    set isofile="$LPARTISO"
-    loopback loop \$isofile
-    linux (loop)/live/efi/boot/vmlinuz.efi
-    initrd (loop)/live/efi/boot/initrd.lz
-}
-EOF
-fi
-
-# If we are creating a full Slackware installer, copy the package tree:
-#FULLINSTALLER=0
->>>>>>> 3b31eff1dbd5a37fd0acfdb89ed5fbc194ff00db
 if [ $FULLINSTALLER -eq 1 ]; then
   # Copy Slackware package tree (no sources) to the USB disk -
   # we already made sure that ${REPOSROOT} does not end with a '/'
     echo "--- Copying Slackware package tree to the USB drive..."
-<<<<<<< HEAD
     rsync -rpthDL --delete $EXCLUDES "$REPOSROOT" "$MNTDIR2/"
-=======
-    rsync -rpthDL --delete $EXCLUDES "$REPOSROOT" $MNTDIR2/
->>>>>>> 3b31eff1dbd5a37fd0acfdb89ed5fbc194ff00db
 fi
 
 # Unmount/remove stuff:

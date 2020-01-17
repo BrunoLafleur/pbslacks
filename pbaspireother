@@ -90,18 +90,10 @@ xgetsrcpac () {
 xmodpac () {
     name="$1"
     cat="$2"
-<<<<<<< HEAD
-#    if [ ! -d "$name" ] ;then
-#        cp -a "../slackware64-current/source/$cat/$name" .
-#    fi
-#    cp "../pbslacks/builds/${name}.SlackBuild" "$name"
-    tar xvfz "../pbslacks/builds/${name}.tar.gz"
-=======
     if [ ! -d "$name" ] ;then
         cp -a "../slackware64-current/source/$cat/$name" .
     fi
     cp "../pbslacks/builds/${name}.SlackBuild" "$name"
->>>>>>> 3b31eff1dbd5a37fd0acfdb89ed5fbc194ff00db
     cd "$name"
     sh "./${name}.SlackBuild"
     cp "/tmp/${name}-"*.t?z ..
