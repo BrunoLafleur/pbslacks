@@ -543,21 +543,20 @@ EOF
 #    loopback loop (hd0,1)$isofile
 # memtest86+ mettre le package.
 ###################################
+    cp "$PBSLACKSPWD/bootimg.png" "$MNTDIR2"
     grub-install --removable --boot-directory="$MNTDIR2" \
 	--efi-directory="$MNTDIR2" --target=x86_64-efi $TARGETPART
 #   cp "$MNTDIR2/efi/grub/grubx64.efi" "$MNTDIR2/efi/boot/bootx64.efi"
-    cat <<EOF > "$MNTDIR2/grub/grubtheme.cfg"
-desktop-image: /bootimg.jpg
-EOF
     cat <<EOF > "$MNTDIR2/grub/grub.cfg"
 insmod all_video
 insmod loopback
 insmod gfxterm
-insmod jpg
+insmod png
 set default=0
 set timeout=120
 set gfxmode=640x480
-set theme=/grub/grubtheme.cfg
+terminal_output gfxterm
+background_image /bootimg.png
 
 menuentry "Huge kernel" --class=Slackware {
     linux /huge.s load_ramdisk=1 prompt_ramdisk=0 rw printk.time=0 nomodeset
