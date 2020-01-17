@@ -9,8 +9,8 @@ xhelp () {
 Script a lancer dans un repertoire contenant slackware64-current ou slackware64
   ou a partir du repertoire courant pour une nouvelle copie complete.
 
-Launch this script in a directory which contains slackware64-current or slackware64
-  or from the current directory for a new clone.
+Launch this script in a directory which contains slackware64-current or
+  slackware64 or from the current directory for a new clone.
 EOF
 }
 
@@ -28,11 +28,111 @@ while [ $# -ge 1 ] ;do
 done
 
 MYPROG=$(basename "$0")
+PBMYPROG="pbslacks/$MYPROG"
 
-if [ $XTEST -ne 1 -a "$0" != "../pbslacks/$MYPROG" \
-    -a "$0" != "pbslacks/$MYPROG" ] ;then
+if [ $XTEST -ne 1 -a "$0" != "../$PBMYPROG" -a "$0" != "$PBMYPROG" ] ;then
     xhelp
     exit 1
 fi
 
-# TODO
+MYPWD=$(pwd)
+PBSLACKSPWD="$(cd $(dirname $0); pwd)";cd "$MYPWD"
+SLREPO=$(basename "$MYPWD"|cut -c1-14)
+
+if [ $XTEST -ne 1 -a "$0" = "$PBMYPROG" -a "$SLREPO" != 'Slackware-x64-' ] ;then
+    test_slack () {
+	pac="$1"
+	last=$(ls -1td "$pac"[0-9]* 2> /dev/null |head -1)
+	ls -1td "$pac"[0-9]* 2> /dev/null |head -2|tail -1
+    }
+
+    LASTSLACK=$(test_slack Slackware-x64-)
+    if [ "$LASTSLACK" != '' ] ;then
+	echo "Local repository $LASTSLACK found."
+	echo "Do you wan't to work with it (y or n) ?"
+	read c
+	if [ "$c" = 'y' ] ;then
+	    cd "$LASTSLACK"
+	else
+	    XDATE=`date '+%Y%m%d'`
+	    mkdir "Slackware-x64-$XDATE"
+	    cd "Slackware-x64-$XDATE"
+	fi
+	PBSLACKSPWD='../pbslacks'
+    fi
+fi
+
+MYPWD=$(pwd)
+HOMESLACK="$MYPWD"
+
+XTEMPOUT=$(mktemp -p /tmp -t pbsetupout.XXXXXX)
+XTEMPMES=$(mktemp -p /tmp -t pbsetupmes.XXXXXX)
+
+XUPASPIRE=on
+XUPUPDATE=off
+
+xmaster () {
+    defitem=$1;shift
+    xsel1=$1;shift;xsel2=$1
+    dialog --colors --title 'Main menu' --default-item $defitem --defaultno \
+	--separate-output --item-help --help-button --help-status --checklist \
+	'Choose your actions below' 0 100 2 \
+	aspire 'Get/Update local repository versus officiel remote Slackware and add-on packages' $xsel1 aspire \
+	update 'Sync/Update system to the last fetched current Slackware and add-on packages' $xsel2 update
+}
+
+xsel="$XUPASPIRE $XUPUPDATE"
+ditem=aspire
+bclaide=1
+
+while [ $bclaide -eq 1 ] ;do
+    xmaster $ditem $xsel 2> $XTEMPOUT
+    bclaide=$(cat $XTEMPOUT|grep '^HELP'|wc -l)
+    if [ $bclaide -eq 1 ] ;then
+	xitem="$(cat $XTEMPOUT|grep '^HELP'|cut -d ' ' -f2)"
+	xsel=
+	for i in aspire update ;do
+	  if [ $(grep "^$i$" "$XTEMPOUT"|wc -l) -eq 1 ] ;then
+	      xsel="$xsel on"
+	  else
+	      xsel="$xsel off"
+	  fi
+	done
+	ditem=$xitem;bclaide=1;pacaide=
+	if [ "$xitem" = aspire ] ;then
+	    pacaide='Do a local clone of the officiel Slackware and add-on'
+	    pacaide="${pacaide} packages.\nUses pbslacks/pbaspire."
+	elif [ "$xitem" = update ] ;then
+	    pacaide='Update the local system with the local clone.'
+	fi
+	dialog --colors --title "$xitem" --msgbox "$pacaide" 20 80
+    fi
+done
+
+PBTEST=;[ $XTEST -eq 1 ] && PBTEST='-test'
+
+while read i;test "$i" != "" ;do
+    if [ "$(echo $i|cut -c1-4)" = 'HELP' ] ;then
+	continue
+    elif [ "$i" = aspire ] ;then
+	"$PBSLACKSPWD/pbaspire" $PBTEST
+	echo "Clone done (full or partial depending on selected options)." \
+	    >> $XTEMPMES
+    elif [ "$i" = update ] ;then
+	"$PBSLACKSPWD/pbupgrade" $PBTEST
+	echo "Upgrade done for selected set of packages." >> $XTEMPMES
+    fi
+done < $XTEMPOUT
+
+XEND=0
+
+if [ ! -f "$XTEMPMES" -o $(cat "$XTEMPMES"|wc -c) -eq 0 ] ;then
+    echo "No action was demanded. Exit." > $XTEMPMES
+    XEND=1
+fi
+
+dialog --colors --title 'Actions which were done' --msgbox "$(cat $XTEMPMES)" \
+    20 80
+
+rm -f $XTEMPOUT
+rm -f $XTEMPMES
