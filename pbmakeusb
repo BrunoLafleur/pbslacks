@@ -54,18 +54,32 @@ while [ $# -ge 1 ] ;do
 	exit 0
     elif [ "$MYARG" = "-iso" ] ;then
 	IMGISO="$(cd $(dirname $1); pwd)/$(basename $1)";cd "$MYPWD"
-	if [ "$IMGISO" != '' ] ;then
-	    BIMG=$(basename "$IMGISO")
-	    BIMGISO=$(basename "$IMGISO" .iso)
-	    [ "$BIMG" != "$BIMGISO" ] && ISO=1
-	fi
 	shift
     elif [ "$MYARG" = "-gpart" ] ;then
 	GPARTISO="$(cd $(dirname $1); pwd)/$(basename $1)";cd "$MYPWD"
 	GPARTISO="-gpart $GPARTISO"
 	shift
+    elif [ "$MYARG" = "-ask" ] ;then
+	echo "Give the name of an ISO slackware file or nothing the Slackware"
+	echo "is on the current directory :"
+	read c
+	if [ "$c" != '' ] ;then
+	    IMGISO="$(cd $(dirname $c); pwd)/$(basename $c)";cd "$MYPWD"
+	fi
+	echo "Give the name of an ISO GParted file or nothing :"
+	read c
+	if [ "$c" != '' ] ;then
+	    GPARTISO="$(cd $(dirname $c); pwd)/$(basename $c)";cd "$MYPWD"
+	    GPARTISO="-gpart $GPARTISO"
+	fi
     fi
 done
+
+if [ "$IMGISO" != '' ] ;then
+    BIMG=$(basename "$IMGISO")
+    BIMGISO=$(basename "$IMGISO" .iso)
+    [ "$BIMG" != "$BIMGISO" ] && ISO=1
+fi
 
 if [ ! $UID = 0 -a $XTEST -ne 1 ]; then
   cat << EOF
