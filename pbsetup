@@ -104,7 +104,7 @@ while [ $bclaide -eq 1 ] ;do
 	if [ "$xitem" = aspire ] ;then
 	    pacaide='Do a local clone of the officiel Slackware and add-on'
 	    pacaide="${pacaide} packages.\nUses pbslacks/pbaspire."
-	elif [ "$xitem" = update ] ;then
+	elif [ "$xitem" = upgrade ] ;then
 	    pacaide='Update the local system with the local clone.'
 	elif [ "$xitem" = makeusb ] ;then
 	    pacaide='Make a dual boot install USB stick.'
@@ -123,7 +123,7 @@ while read i;test "$i" != "" ;do
 	"$PBSLACKSPWD/pbaspire" $PBTEST
 	echo "Clone done (full or partial depending on selected options)." \
 	    >> $XTEMPMES
-    elif [ "$i" = update ] ;then
+    elif [ "$i" =  ] ;then
 	"$PBSLACKSPWD/pbupgrade" $PBTEST
 	echo "Upgrade done for selected set of packages." >> $XTEMPMES
     elif [ "$i" = makeusb ] ;then
