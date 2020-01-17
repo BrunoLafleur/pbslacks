@@ -546,6 +546,8 @@ EOF
     cp "$PBSLACKSPWD/bootimg.png" "$MNTDIR2"
     grub-install --removable --boot-directory="$MNTDIR2" \
 	--efi-directory="$MNTDIR2" --target=x86_64-efi $TARGETPART
+    grub-mkfont -s 14 -o $MNTDIR2/grub/fonts/DejaVuSansMono.pf2 \
+	/usr/share/fonts/TTF/DejaVuSansMono.ttf
 #   cp "$MNTDIR2/efi/grub/grubx64.efi" "$MNTDIR2/efi/boot/bootx64.efi"
     cat <<EOF > "$MNTDIR2/grub/grub.cfg"
 insmod all_video
@@ -557,6 +559,7 @@ set timeout=120
 set gfxmode=640x480
 terminal_output gfxterm
 background_image /bootimg.png
+loadfont /grub/fonts/DejaVuSansMono.pf2
 
 menuentry "Huge kernel" --class=Slackware {
     linux /huge.s load_ramdisk=1 prompt_ramdisk=0 rw printk.time=0 nomodeset
