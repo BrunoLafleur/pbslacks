@@ -6,9 +6,14 @@ License : See the LICENSE file in this repository.
 Those are some scripts which download the latest Linux Slackware current
 Intel 64 bits distribution and my preferred add-ons packages.
 
+They also upgrade an already installed current Slackware.
+
 An iso image can also be done which include the resulting downloaded
 Slackware and her add-ons.
 It can be put on a USB stick or a double layer DVD Rom.
+
+It can be a multi-boot USB stick with the installable Slackware and
+the GParted live iso.
 
 =================================================================
 For a fresh install from a USB stick do :
