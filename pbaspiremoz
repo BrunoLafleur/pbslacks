@@ -23,11 +23,7 @@ while [ $# -ge 1 ] ;do
     if [ "$MYARG" = "-lang" ] ;then
 	shift
 	XLANG="$1"
-<<<<<<< HEAD
     elif [ "$MYARG" = "-help" -o "$MYARG" = "-h" ] ;then
-=======
-    elif [ "$MYARG" = "-help" ] ;then
->>>>>>> 3b31eff1dbd5a37fd0acfdb89ed5fbc194ff00db
 	xhelp
 	exit 0
     fi

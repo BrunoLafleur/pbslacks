@@ -13,7 +13,6 @@ It can be put on a USB stick or a double layer DVD Rom.
 =================================================================
 For a fresh install from a USB stick do :
 -on a working computer with a working system with a Bourne shell terminal
-<<<<<<< HEAD
 like bash (on Linux or MS Windows or ...) and the wget program.
 -with internet acces.
 -in a newly created repository like Slackware-x64-date in the same directory
@@ -44,41 +43,6 @@ You can also do an iso image as a normal user :
 You can put this iso on a USB stick (as root or a user in the plugdev group) :
   > pbslacks/pbmakeiso2usb
 or> pbslacks/pbmakeusb -iso image_slackware.iso
-=======
-like bash (on Linux or MS Windows or ...)
--with internet acces
--in a newly created repository like Slackware-x64-date in the same directory
-as pbslacks
--if there is an old Slackware-x64-date in the same parent directory, the
-add-on packages are copied and not fetched again if there were not upgraded.
-
-> XDATE=`date '+%Y%m%d'`
-> mkdir Slackware-x64-$XDATE
-> cd Slackware-x64-$XDATE
-> ../pbslacks/pbaspire
-
-This script has a dialog menu which permits to choose packages to get.
-It can also launch some other scripts from this project.
-
-Then do a USB stick (a 16 Go or above one) as root (admin user) or a normal user
-in the plugdev group, with the current repository just downloaded / updated or
-with a slackware iso downloaded or made with the pbmakeiso below :
-> pbslacks/pbmakeusb
-> pbslacks/pbmakeusb image_slackware.iso
-
-Or manually as root with sdXXX the device of the USB stick to find with the
-command dmesg as root or fdisk -l as a user or root :
-> cd slackware64-current/usb-and-pxe-installers
-> ./usbimg2disk.sh -f -i `pwd`/usbboot.img -o /dev/sdXXX -s `pwd`/..
-> cd ../..
-
-You can also do an iso image as a normal user :
-> pbslacks/pbmakeiso
-
-You can put this iso on a USB stick (as root or a user in the plugdev group) :
-> pbslacks/pbmakeiso2usb
-Or with the pbmakeusb command above.
->>>>>>> 3b31eff1dbd5a37fd0acfdb89ed5fbc194ff00db
 
 Those generated iso need a double layer media for being put on a DVD
 with your favorite record software.
@@ -88,12 +52,8 @@ Then install the Slackware current with this new USB stick
 and reboot on it (see SLACKWARE.txt)
 
 Then do on the USB stick or a copy on a central/local repository as root :
-<<<<<<< HEAD
   > pbslacks/pbsetup # Choose upgrade in the displayed menu
 or> pbslacks/pbupgrade -new
-=======
-> pbslacks/pbupgrade -new
->>>>>>> 3b31eff1dbd5a37fd0acfdb89ed5fbc194ff00db
 
 This script has a dialog menu which permits to choose packages to add.
 It can also launch some other scripts from this project.
@@ -102,13 +62,9 @@ It can also launch some other scripts from this project.
 For updating one installed Slackware current to the latest
 Download again (only the differences as we do with wget -N)
 on a fresh or existant USB or central/local repository :
-<<<<<<< HEAD
 
   > pbslacks/pbsetup # Choose aspire in the displayed menu
 or> ../pbslacks/pbaspire
-=======
-> ../pbslacks/pbaspire
->>>>>>> 3b31eff1dbd5a37fd0acfdb89ed5fbc194ff00db
 
 This script has a dialog menu which permits to choose packages to get.
 It can also launch some other scripts from this project.
@@ -117,13 +73,9 @@ It can also launch some other scripts from this project.
 On the installed Slackware current to update,
 lauch the following scripts on the USB stick or a disk copy of it on a central
 repository on the new machine as root.
-<<<<<<< HEAD
 
   > pbslacks/pbsetup # Choose upgrade in the displayed menu
 or> pbsclacks/upgrade
-=======
-> pbsclacks/upgrade
->>>>>>> 3b31eff1dbd5a37fd0acfdb89ed5fbc194ff00db
 
 This script has a dialog menu which permits to choose packages to add.
 It can also launch some other scripts from this project.
@@ -132,9 +84,5 @@ It can also launch some other scripts from this project.
 
 Those scripts uses slackpkg, wget and udisks2.
 
-<<<<<<< HEAD
 I have tested with Slackware current of july 2019, aout 2019, december 2019,
 january 2020.
-=======
-I have tested with Slackware current of july 2019, aout 2019 and december 2019.
->>>>>>> 3b31eff1dbd5a37fd0acfdb89ed5fbc194ff00db

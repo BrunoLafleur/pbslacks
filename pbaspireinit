@@ -10,15 +10,11 @@ test_oldslack () {
     last=$(ls -1td "$pac"[0-9]* 2> /dev/null |head -1)
 
     if [ "$last" = "$rcur" ] ;then
-<<<<<<< HEAD
 	if [ $(ls -1td "$pac"[0-9]* 2> /dev/null |wc -l) -eq 1 ] ;then
 	    echo
 	else
 	    ls -1td "$pac"[0-9]* 2> /dev/null |head -2|tail -1
 	fi
-=======
-	ls -1td "$pac"[0-9]* 2> /dev/null |head -2|tail -1
->>>>>>> 3b31eff1dbd5a37fd0acfdb89ed5fbc194ff00db
     else
 	echo "$last"
     fi
@@ -31,7 +27,6 @@ if [ ! -d packages -a -d "$OLDSLACK" ] ;then
     echo "Copies of $OLDSLACK/packages* and bumblebee will be done."
     echo "Else all add-on packages will be downloaded again."
 
-<<<<<<< HEAD
     if [ -d "$OLDSLACK/packages" ] ;then
 	cp -a "$OLDSLACK/packages"* .
 	if [ -d "$OLDSLACK/divers" ] ;then
@@ -40,14 +35,6 @@ if [ ! -d packages -a -d "$OLDSLACK" ] ;then
 	else	
 	    cp -a "$OLDSLACK/bumblebee" .
 	fi
-=======
-    cp -a "$OLDSLACK/packages"* .
-    if [ -d "$OLDSLACK/divers" ] ;then
-	cp -a "$OLDSLACK/divers" .
-	mv divers bumblebee
-    else	
-	cp -a "$OLDSLACK/bumblebee" .
->>>>>>> 3b31eff1dbd5a37fd0acfdb89ed5fbc194ff00db
     fi
 fi
 
@@ -61,11 +48,7 @@ if [ ! -h perso ] ; then
     if [ -d ../perso ] ;then
         ln -s ../perso .
     else
-<<<<<<< HEAD
 	[ ! -d perso ] && mkdir perso
-=======
-	mkdir perso
->>>>>>> 3b31eff1dbd5a37fd0acfdb89ed5fbc194ff00db
     fi
 fi
 
@@ -74,11 +57,7 @@ if [ ! -h divers ] ; then
     if [ -d ../divers ] ;then
         ln -s ../divers .
     else
-<<<<<<< HEAD
 	[ ! -d divers ] && mkdir divers
-=======
-	mkdir divers
->>>>>>> 3b31eff1dbd5a37fd0acfdb89ed5fbc194ff00db
     fi
 fi
 
