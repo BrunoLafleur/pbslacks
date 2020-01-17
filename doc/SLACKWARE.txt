@@ -1,116 +1,181 @@
+Retour au menu principal
+Pour tout problème de lecture audio et vidéo, installez VLC ici (X11; Linux x86_64)
+
 Installation de la distribution Linux Slackware current du 1er juillet 2019
 Linux Pierre Brochard 2019-07-05T13:45:24Z
+admin
 
-Installation en dual boot avec le windows 10 pro d'origine
+Commentaire : Installation en dual boot avec le windows 10 pro d'origine
 
-========================================================================
-Activation du Windows 10 fourni (si pas déjà fait ou si le portable est
-tout neuf comme ici).
+Fil dédié a une installation de Slackware current du 1er juillet 20192019-07-05T13:45:24Zadmin
 
-Se connecter sous Windows et vérifier que l'activation est bien terminée
-et finalisée en allant dans le panneau de configuration.
+Ce fil décrit une installation de la distribution LINUX Slackware current du 1er juillet 2019 (bientôt Slackware 15) réalisée sur un portable DELL Precision 5530 par les soins de l'auteur avec un ensemble de logiciels dédiés au multimédia. Cette installation est réalisée à côté du Windows 10 Pro d'origine. La machine est neuve.
 
-Lors de l'installation Windows demande un mot de passe puis permet l'usage d'un
-code à 4 chiffres. Il faut bien retenir les 2. Le code n'est pas suffisant lors
-des étapes ci-dessous.
+L'installation a été réalisée vers le mois de juillet 2019.
+
+J'ai aussi installé la même distribution sur un DELL Optiplex 790 de 2011 à côté d'une version antérieure (Slackware 14.1).
+
+Je l'ai aussi installé sur un ordinateur portable Lenovo G780 à la place d'une Slackware 14.0 et à côté du Windows 8 d'origine.
+
+Je viens aussi de la mettre en parallèle de Windows 8.1 pro et de Linux Ubuntu 16.04 sur le portable DELL M4800 que je décrit dans un autre fil.
+Première étape2019-07-05T14:03:26Zadmin
+
+Activation du Windows 10 fourni (si pas déjà fait ou si le portable est tout neuf comme ici).
+
+Se connecter sous Windows et vérifier que l'activation est bien terminée et finalisée en allant dans le panneau de configuration.
+
+Lors de l'installation Windows demande un mot de passe puis permet l'usage d'un code à 4 chiffres. Il faut bien retenir les 2. Le code n'est pas suffisant lors des étapes ci-dessous.
 
 A noter que Windows 10 crypte ses partitions avec Bitlocker.
-========================================================================
+Deuxième étape2019-07-05T14:03:26Zadmin
+
 Sous Windows, faire de la place sur le ou les disques durs.
 
 Cette opération permet de rétrécir la place allouée à Windows.
 
 On mettra Linux sur la place récupérée.
 
-Cette opération doit se faire sous Windows pour éviter les problèmes liés à 
-Bitlocker. Ou avec GParted si la partition Windows est décryptée.
+Cette opération doit se faire sous Windows pour éviter les problèmes liés à Bitlocker.
 
 Sous Windows, il faut donc:
 
-    Lancer une console (démarrer rechercher command ou cmd, puis en mode
-administrateur)
+    Lancer une console (démarrer rechercher command (ou cmd), puis en mode administrateur)
     Taper diskmgmt.msc (lance une application fenêtrée)
-    Choisir la ou les partitions à réduire (les plus grosses - ne pas toucher
-aux autres)
+    Choisir la ou les partitions à réduire (les plus grosses - ne pas toucher aux autres)
     Avec le bouton de droite de la souris choisir Réduire le volume
-    Donner la taille à récupérer (laisser au moins 10 % d'espace libre sur ce
-qu'il reste)
+    Donner la taille à récupérer (laisser au moins 10 % d'espace libre sur ce qu'il reste)
     Cliquer sur réduire
 
-Si l'on veut enlever le cryptage Bitlocker sur les partitions Windows restantes,
-il faut dans la console en mode administrateur taper :
+Si l'on veut enlever le cryptage Bitlocker sur les partitions Windows restantes, il faut dans la console en mode administrateur taper :
 
     manage-bde -off c:
-========================================================================
-Il faut ensuite préparer Windows pour pouvoir changer RAID en AHCI dans le BIOS
-de la machine. Ensuite il faut :
+
+Troisième étape2019-07-05T14:19:32Zadmin
+
+Il faut ensuite préparer Windows pour pouvoir changer RAID en AHCI dans le BIOS de la machine. Ensuite il faut :
 
     Revenir dans une console en mode administrateur.
     Taper : bcdedit /set {current} safeboot minimal
-    Redémarrer l'ordinateur et entrer dans le BIOS (en tapant F12 ou F2 au tout
-début).
+    Redémarrer l'ordinateur et entrer dans le BIOS (en tapant F12 au tout début).
     Chercher le menu SATA et changer Raid en AHCI.
-    Sauvegarder et sortir du BIOS (Window redémarre en mode sans échec et
-demande le mot de passe au lieu du code obtenu lors de l'installation de
-Windows).
-    Recherche à nouveau une console en mode administrateur (si le champ
-recherche du menu démarrer ne marche pas, prendre celui du gestionnaire du
-fichier)
+    Sauvegarder et sortir du BIOS (Window redémarre en mode sans échec et demande le mot de passe au lieu du code obtenu lors de l'installation de Windows).
+    Recherche à nouveau une console en mode administrateur (si le champ recherche du menu démarrer ne marche pas, prendre celui du gestionnaire du fichier)
     Tapez : bcdedit /deletevalue {current} safeboot
     Rédémarrer sous Windows et il devrait fonctionner en AHCI.
-    Pour être sur de ne pas être en mode hibernation en arrêtant Windows (qui
-ne relira pas les nouvelles partitions du ou des disques durs ou SSD si on les
-modifie avec un partitionneur Linux et les abimera - ci-dessus on a utilisé le
-partitionneur Windows pour faire de la place ce qui évite aussi ce problème),
-recherchez à nouveau une console en mode administrateur et tapez :
+    Pour être sur de ne pas être en mode hibernation en arrêtant Windows (qui ne relira pas les nouvelles partitions du ou des disques durs ou SSD si on les modifie avec un partitionneur Linux et les abimera - ci-dessus on a utilisé le partitionneur Windows pour faire de la place ce qui évite aussi ce problème), recherchez à nouveau une console en mode administrateur et tapez :
     powercfg /h off
     Arrêtez la machine
 
-A noter que les commandes Windows ci-dessous doivent répondre que tout s'est
-bien passé, ou rendre la main sans message d'erreurs, avant d'aller plus loin.
-========================================================================
+A noter que les commandes Windows ci-dessous doivent répondre que tout s'est bien passé, ou rendre la main sans message d'erreurs, avant d'aller plus loin.
+Quatrième étape2019-07-05T14:19:32Zadmin
+
 Revenez dans le BIOS comme ci-dessus.
-Désactivez "Secureboot" dans le BIOS sinon la Slackware aura du mal à
-démarrer sur sa clé USB.
+Désactivez "Secureboot" dans le BIOS sinon la Slackware aura du mal à démarrer sur sa clé USB.
 
-Si on désire repartitionner ou réduire une ou plusieurs partitions Windows par
-un outil Linux comme gparted (au lieu de le faire comme vu plus haut sous
-Windows), il existe une version live que l'on peut mettre sur un DVD ou une
-clé USB.
+Si on désire repartitionner ou réduire une ou plusieurs partitions Windows par un outil Linux comme gparted (au lieu de le faire comme vu plus haut sous Windows), il existe une version live que l'on peut mettre sur un DVD ou une clé USB.
 
-Si on retaille avec ces outils Linux des partitions qui concernent Windows, il
-faut être sur que Windows n'est pas été arrêté en mode d'hibernation (voir
-plus haut).
+Si on retaille avec ces outils Linux des partitions qui concernent Windows, il faut être sur que Windows n'est pas été arrêté en mode d'hibernation (voir plus haut).
 
-A défaut, faire la manip suivante sous Slackware après l'avoir installée et
-avant de redémarrer Windows où sdXN désigne la partition où est installé 
-Windows :
+A défaut, faire la manip suivante sous Slackware après l'avoir installée et avant de redémarrer Windows où sdXN désigne la partition où est installé Windows :
 
     ntfsfix /dev/sdXN
     mount -t ntfs-3g /dev/sdXN /mnt -o remove_hiberfile
 
-Windows redémarrera complétement et relira les informations de partitionnement
-de disque.
-========================================================================
-Utilisez BrunoLafleur/pbslacks sur github pour télécharger Linux Slackware
-current sur l'un des miroirs référencés par le site officiel de Slackware.
+Windows redémarrera complétement et relira les informations de partitionnement de disque.
+Cinqième étape2019-07-05T14:42:54Zadmin
 
-Toujours avec BrunoLafleur/pbslacks, télécharger aussi le mode de
-compatibilité 32 bits de Alien Bob (ici ou sur un mirroir).
+Télécharger Linux Slackware current sur l'un des miroirs référencés par le site officiel de Slackware.
 
-Et ramener aussi firefox et thunderbird en français sur le site de Mozilla.
+Télécharger aussi le mode de compatibilité 32 bits de Alien Bob (ici ou sur un mirroir).
 
-Ramener download crazybee.sh et les paquets proposes par pbslacks.
-========================================================================
-Faire une clé USB avec tout ce qu'on a ramené avec :
-BrunoLafleur/pbslacks/pbmakeusb.
-========================================================================
+Ramener aussi firefox et thunderbird en français sur le site de Mozilla.
+
+Ramener download crazybee.sh
+
+Sixième étape2019-07-05T14:42:54Zadmin
+
+Pour avoir les logiciels suivants :
+
+    Libre Office en français qui est un ensemble composé d'un traitement de texte, d'un tableur, d'un logiciel de présentation, ... concurrent de Microsoft Office.
+    Musescore qui permet de créer des partitions de musique.
+    Openjdk qui implémente le langage Java.
+    Openshot qui permet de réaliser des montages multimédias (audio, vidéo, photos, sons, ...)
+    Steam qui est une plateforme de gestion et de lancement de jeux.
+    refind utilisé plus loin comme gestionnaire de démarrage de l'ordinateur.
+
+On installe les paquets suivants que l'on peut trouver en tapant leur nom dans un moteur de recherche sur Internet :
+
+    OpenAL-1.19.1-x86_64-1_SBo.tgz
+    cabextract-1.4-x86_64-1alien.tgz
+    frei0r-plugins-1.4-x86_64-2dj.txz
+    goocanvas-0.15-x86_64-1_slonly.txz
+    icoutils-0.31.0-x86_64-1_slonly.txz
+    jack-1.9.9.5-x86_64-2alien.txz
+    ladspa_sdk-1.13-x86_64-4ponce.txz
+    libdvdcss-1.4.0-x86_64-2ponce.txz
+    libgaminggear-0.15.1-x86_64-1_SBo.tgz
+    libpng-legacy12-1.2.57-x86_64-1_slonly.txz
+    libreoffice-6.2.4-x86_64-1alien.txz
+    libreoffice-dict-fr-6.2.4-x86_64-1alien.txz
+    libreoffice-l10n-fr-6.2.4-x86_64-1alien.txz
+    libreoffice-sdkdoc-6.2.4-noarch-1alien.txz
+    libtxc_dxtn-1.0.1-x86_64-1_SBo.tgz
+    libxkbcommon-0.8.4-x86_64-1alien.txz
+    lua-5.3.5-x86_64-1_SBo.tgz
+    mlt-6.14.0-x86_64-3ponce.txz
+    musescore-3.2.0-x86_64-1alien.tgz
+    openjdk-8u212_b04-x86_64-1alien.txz
+    openshot-1.4.3-x86_64-2dj.txz
+    portaudio-v19_20140130-x86_64-1_slonly.txz
+    portmidi-217-x86_64-7_slonly.txz
+    pygoocanvas-0.14.1-x86_64-3_slonly.txz
+    python-requests-2.22.0-x86_64-1.txz
+    qt5-5.12.3-x86_64-1alien.txz
+    refind-0.11.2-x86_64-1_slonly.txz
+    steamclient-1.0.0.54-i386-1alien.tgz
+    swfdec-0.9.2-x86_64-1ponce.txz
+    vid.stab-97c6ae2-x86_64-1ponce.txz
+    wxPython-2.8.12.1-x86_64-5_slonly.txz
+    x264-20170225-x86_64-1ponce.txz
+    x265-2.8-x86_64-1cf.txz
+
+On peut fabriquer les paquets 32 bits pour le mode de compatibilité avec :
+
+    OpenAL-1.19.1-i486-1_SBo.tgz
+    cabextract-1.4-i486-1alien.tgz
+    icoutils-0.31.0-i586-1_slonly.txz
+    libdvdcss-1.4.0-i586-2ponce.txz
+    libtxc_dxtn-1.0.1-i486-1_SBo.tgz
+    wxPython-2.8.12.1-i486-3dj.txz
+
+On lance ensuite sur ces paquets la commande : convertpkg-compat32
+Septième étape2019-07-05T14:42:54Zadmin
+
+Faire une clé USB avec tout ce qu'on a ramené. Elle doit faire au moins 4 Go.
+
+    Dans un dossier Slackware-current mettez la distribution Slackware slackware-current.
+    A coté mettez le mode de compatibilité 32 bits dans current.
+    A coté aussi mettez les autres paquets dans packages.
+    Et crazybee.sh dans divers.
+
+Faire les liens suivants dans slackware-current :
+
+    ln -s ../current .
+    ln -s ../packages .
+    ln -s ../current .
+
+Brancher une clé USB (qui sera remise à 0).
+Aller dans slackware-current/usb-and-pxe-installers et lancez :
+
+    ./usbimg2disk.sh -f -i `pwd`/usbboot.img -o /dev/sdXXX (device de la clé à trouver avec dmesg) -s `pwd`/..
+    Vérifiez que tout s'est bien passé.
+
+Huitième étape2019-07-05T15:04:54Zadmin
 On installe la Slackware que l'on vient de mettre sur la clé USB.
 
     On démarre le PC avec la clé que l'on vient de faire (F12 et boot USB)
     On se connecte root (mot de passe vide)
-    On lance parted et on crée 4 partitions sur les espaces récupérés sous 
-Window (help, mkpart) :
+    On lance parted et on crée 4 partitions sur les espaces récupérés sous Window (help, mkpart) :
     La partition qui sera '/' d'environ 30 à 50 Go.
     La partition qui sera '/var' d'environ 10 Go.
     La partition qui sera le swap d'environ 10 Go.
@@ -118,48 +183,67 @@ Window (help, mkpart) :
 
 On tape ensuite la commande setup.
 
-On suit ensuite la procédure d'installation en entier en utilisant les
-partitions que l'on vient de créer (on installe tout - on ne met pas de mot
-de passe maintenant pour root). On choisit KDE comme bureau (ou celui que l'on
-préferre).
+On suit ensuite la procédure d'installation en entier en utilisant les partitions que l'on vient de créer (on installe tout - on ne met pas de mot de passe maintenant pour root). On choisit KDE comme bureau (ou celui que l'on préferre).
 
-A la fin, on lui dit d'installer elilo et on sort du setup et on redémarre
-(directement sous Linux - pour l'instant on ne voit plus Windows qui est
-toujours là).
-========================================================================
-On installe les paquets additionnels avec BrunoLafleur/pbslacks/pbupgrade.
+A la fin, on lui dit d'installer elilo et on sort du setup et on redémarre (directement sous Linux - pour l'instant on ne voit plus Windows qui est toujours là.
 
-Qui installe refind-0.11.2-x86_64-1_slonly.txz récupérer le boot Windows et le
-boot Linux. Lancez ensuite :
 
+Neuvième étape2019-07-05T15:04:54Zadmin
+
+On installe refind-0.11.2-x86_64-1_slonly.txz que l'on a mis dans packages pour récupérer le boot Windows et le boot Linux.
+
+    installpkg refind-0.11.2-x86_64-1_slonly.txz
     /usr/share/refind-0.11.2/install.sh
-    On redémarre et on tombe sur le menu de refind avec une icône pour Windows 
-à gauche et une pour Linux à côté (les autres boutons n'ont pas d'intérêt).
-    On sélectionne avec la flèche droite le bouton Linux et on appuie sur
-entrée.
+    On redémarre et on tombe sur le menu de refind avec une icône pour Windows à gauche et une pour Linux à côté (les autres boutons n'ont pas d'intérêt).
+    On sélectionne avec la flèche droite le bouton Linux et on appuie sur entrée.
 
-Une fois sous Linux, on est en mode console. On se connecte root (mot de passe
-vide).
+Une fois sous Linux, on est en mode console. On se connecte root (mot de passe vide).
 
-    On lance startx et on laisse Xorg se lancer. On le quitte avec le menu de
-fond.
-    Dans la console on tape :
-    cp /usr/share/X11/xorg.conf.d/90-* /etc/X11/xorg.conf.d
+    On lance startx et on laisse Xorg se lancer. On le quitte avec le menu de fond.
+    Dans la console on tape : cp /usr/share/X11/xorg.conf.d/90-* /etc/X11/xorg.conf.d
     On édite cette copie : vi /etc/X11/xorg.conf.d/90-*
     On remplace en par fr, on sauvegarde et on quitte vi.
     On relance startx et on ressort.
     On met un mot de passe pour root (passwd).
-    On crée un utilisateur XXXXX (adduser - répondre oui pour les groupes
-proposés).
+    On crée un utilisateur XXXXX (adduser - répondre oui pour les groupes proposés).
     Dans /etc/inittab, on met 4 à la place de 3 dans : id:3:initdefault:
     On redémarre ou on tape : telinit 4
-========================================================================
-Sur ce portable DELL, on a une deuxième carte graphique NVIDIA qui peut être
-activée en étant root.
-Avec BrunoLafleur/pbslacks/pbupgrade :
+    On met la clé USB où l'on a mis la Slackware. On la monte avec le bureau choisit. On ouvre une console.
 
-    Lancez compilebumblebe ou upgradebumblebee si Bumblebee a déjà �
-été recompilé avec la nouvelle Slackware.
+On installe les paquets du mode de compatibilité 32 bits en tapant les commandes suivantes dans cette console :
 
-Redémarrer sous Linux et tester avec : primusrun command
-les commandes dont on veut un affichage optimisé.
+    cd current
+    upgradepkg --reinstall --install-new *.t?z
+    upgradepkg --install-new slackware64-compat32/*-compat32/*.t?z
+
+Ainsi que pour les logiciels supplémentaires vus plus haut :
+
+    cd ../packages
+    installpkg *-x86_64-*.t?z
+    installpkg *-compat32-*.t?z
+
+Puis on redémarre la machine et on repart sous Linux (obligatoire après cette étape).
+
+On peut ensuite mettre firefox et thunderbird en français :
+
+    Dans une fenêtre de type console allez dans /usr/bin.
+    Faites : mv firefox firefox.en
+    tar xvfj .../firefox...tar.bz2 ramené précédemment.
+
+Faites de même pour thunderbird.
+
+Dixième étape2016-09-25T08:47:31Zadmin
+
+Sur ce portable DELL, on a une deuxième carte graphique NVIDIA qui peut être activée en étant root.
+
+Remontez la clé USB et allez dans divers.
+
+Tapez sh ./crazybee.sh
+
+Après corrigez le script nvidia-bumblebee.SlackBuild généré dans /root/nvidia-bumblebee en enlevant les lignes libGLX* et libEGL* en double. Le relancer avec :
+
+    COMPAT32=yes nvidia-bumblebee.SlackBuild
+    installpkg /tmp/nvidia-bumblebee...
+
+Redémarrer sous Linux et tester avec : optirun commande les commandes dont on veut un affichage optimisé.
+

@@ -4,6 +4,7 @@
 # Date : 2019
 # License : See the LICENSE file in this repository.
 
+<<<<<<< HEAD
 xhelp () {
     cat <<EOF
   Script a lancer dans le repertoire contenant slackware64 or slackware64-current
@@ -15,11 +16,27 @@ deja aspire.
 slackware64-current.
   It can be on the bootable slackware install USB stick.
   pbslacks should also be there.
+=======
+XTEST=
+XNEW=
+XPOST=
+
+xhelp () {
+    cat <<EOF
+Script a lancer dans le repertoire contenant slackware64 fraichement aspire.
+Ce repertoire peut etre la cle USB bootable d'installation.
+pbslacks doit aussi etre accessible du repertoire courant.
+
+Launch this script in the directory including slackware64.
+It can be on the bootable slackware install USB stick.
+pbslacks should also be there.
+>>>>>>> 3b31eff1dbd5a37fd0acfdb89ed5fbc194ff00db
 
   > cd .../slackware-current"
 or> cd /run/media/$USER/USBSLACKINS/SlackDVD
   > pbslacks/pbupgrade [-new (no system update)]
                [-test (test only, no actions)]
+<<<<<<< HEAD
                [-help|-h] [-nodial]
                [-post (actions to do preferably after a postinstall reboot)]
 EOF
@@ -49,22 +66,52 @@ done
 
 [ $(which dialog 2> /dev/null) = '' ] && ISDIAL=0
 
+=======
+               [-help]
+               [-post (actions to do preferably after a postinstall reboot)]
+EOF
+}
+
+while [ $# -ge 1 ] ;do
+    MYARG="$1"
+    if [ "$MYARG" = "-new" ] ;then
+	XNEW=yes
+    elif [ "$MYARG" = "-test" ] ;then
+	XTEST=yes
+    elif [ "$MYARG" = "-post" ] ;then
+	XPOST=yes
+    elif [ "$MYARG" = "-help" ] ;then
+	xhelp
+	exit 0
+    fi
+    shift
+done
+
+>>>>>>> 3b31eff1dbd5a37fd0acfdb89ed5fbc194ff00db
 if [ ! -d /boot ] ;then
     echo "Do the install of the Slackware Linux distribution before :"
     echo "-see the doc/SLACKWARE.txt file."
     exit 1
 fi
 
+<<<<<<< HEAD
 if [ $XTEST -ne 1 ] ;then
+=======
+if [ "$XTEST" != 'yes' ] ;then
+>>>>>>> 3b31eff1dbd5a37fd0acfdb89ed5fbc194ff00db
     if [ ! $UID = 0 ]; then
 	cat << EOF
 This script must be run as root.
 EOF
 	exit 1
     fi
+<<<<<<< HEAD
     if [ -d slackware64-current ] ;then
 	cd slackware64-current
     fi
+=======
+
+>>>>>>> 3b31eff1dbd5a37fd0acfdb89ed5fbc194ff00db
     if [ ! -d slackware64 -o '(' ! -h pbslacks -a ! -d pbslacks ')' ] ;then
 	xhelp
 	exit 1
@@ -179,7 +226,11 @@ while read i;test "$i" != "" ;do
     if [ "$(echo $i|cut -c1-4)" = 'HELP' ] ;then
 	continue
     elif [ "$XNEW" != 'yes' -a "$i" = system ] ;then
+<<<<<<< HEAD
 	if [ $XTEST -ne 1 ] ;then
+=======
+	if [ "$XTEST" != 'yes' ] ;then
+>>>>>>> 3b31eff1dbd5a37fd0acfdb89ed5fbc194ff00db
 	    cp pbslacks/Slackpkg/blacklist /etc/slackpkg
 	    cp pbslacks/Slackpkg/slackpkg.conf /etc/slackpkg
 	    cat pbslacks/Slackpkg/mirrors | sed "s@HOMESLACK@${HOMESLACK}@" \
@@ -199,64 +250,112 @@ while read i;test "$i" != "" ;do
 	fi
 	echo "Upgrade system fait." >> $XTEMPMES
     elif [ "$i" = compat32 ] ;then
+<<<<<<< HEAD
 	if [ $XTEST -ne 1 ] ;then
+=======
+	if [ "$XTEST" != 'yes' ] ;then
+>>>>>>> 3b31eff1dbd5a37fd0acfdb89ed5fbc194ff00db
 	    upgradepkg --reinstall --install-new current/*.t?z
 	    upgradepkg --install-new current/slackware64-compat32/*/*.t?z
 	fi
 	echo "Upgrade Alien Bob multilib fait." >> $XTEMPMES
     elif [ "$i" = mozilla ] ;then
+<<<<<<< HEAD
 	if [ $XTEST -ne 1 ] ;then
+=======
+	if [ "$XTEST" != 'yes' ] ;then
+>>>>>>> 3b31eff1dbd5a37fd0acfdb89ed5fbc194ff00db
 	    $HOMESLACK/pbslacks/pbupgrademoz
 	fi
 	echo "Upgrade Mozilla fait." >> $XTEMPMES
     elif [ "$i" = packages ] ;then
+<<<<<<< HEAD
 	if [ $XTEST -ne 1 ] ;then
+=======
+	if [ "$XTEST" != 'yes' ] ;then
+>>>>>>> 3b31eff1dbd5a37fd0acfdb89ed5fbc194ff00db
 	    upgradepkg --install-new packages/*.t?z
 	fi
 	echo "Upgrade packages fait." >> $XTEMPMES
     elif [ "$i" = packages2 ] ;then
+<<<<<<< HEAD
 	if [ $XTEST -ne 1 ] ;then
+=======
+	if [ "$XTEST" != 'yes' ] ;then
+>>>>>>> 3b31eff1dbd5a37fd0acfdb89ed5fbc194ff00db
 	    upgradepkg --install-new packages2/*.t?z
 	fi
 	echo "Upgrade packages2 fait." >> $XTEMPMES
     elif [ "$i" = packages3 ] ;then
+<<<<<<< HEAD
 	if [ $XTEST -ne 1 ] ;then
+=======
+	if [ "$XTEST" != 'yes' ] ;then
+>>>>>>> 3b31eff1dbd5a37fd0acfdb89ed5fbc194ff00db
 	    upgradepkg --install-new packages3/*.t?z
 	fi
 	echo "Upgrade packages3 fait." >> $XTEMPMES
     elif [ "$i" = packages4 ] ;then
+<<<<<<< HEAD
 	if [ $XTEST -ne 1 ] ;then
+=======
+	if [ "$XTEST" != 'yes' ] ;then
+>>>>>>> 3b31eff1dbd5a37fd0acfdb89ed5fbc194ff00db
 	    upgradepkg --install-new packages4/*.t?z
 	fi
 	echo "Upgrade packages4 fait." >> $XTEMPMES
     elif [ "$i" = frameworks ] ;then
+<<<<<<< HEAD
 	if [ $XTEST -ne 1 ] ;then
+=======
+	if [ "$XTEST" != 'yes' ] ;then
+>>>>>>> 3b31eff1dbd5a37fd0acfdb89ed5fbc194ff00db
 	    upgradepkg --install-new packages4/frameworks/*.t?z
 	fi
 	echo "Upgrade frameworks fait." >> $XTEMPMES
     elif [ "$i" = audacity ] ;then
+<<<<<<< HEAD
 	if [ $XTEST -ne 1 ] ;then
+=======
+	if [ "$XTEST" != 'yes' ] ;then
+>>>>>>> 3b31eff1dbd5a37fd0acfdb89ed5fbc194ff00db
 	    upgradepkg --install-new packages4/audacity/*.t?z
 	fi
 	echo "Upgrade audacity fait." >> $XTEMPMES
     elif [ "$i" = tesseract4 ] ;then
+<<<<<<< HEAD
 	if [ $XTEST -ne 1 ] ;then
+=======
+	if [ "$XTEST" != 'yes' ] ;then
+>>>>>>> 3b31eff1dbd5a37fd0acfdb89ed5fbc194ff00db
 	    upgradepkg --install-new packages4/tesseract4/*.t?z
 	    cp packages4/tesseract4/xsane2tess* /usr/bin
 	fi
 	echo "Upgrade tesseract4 fait." >> $XTEMPMES
     elif [ "$i" = bumblebee ] ;then
+<<<<<<< HEAD
 	if [ $XTEST -ne 1 ] ;then
+=======
+	if [ "$XTEST" != 'yes' ] ;then
+>>>>>>> 3b31eff1dbd5a37fd0acfdb89ed5fbc194ff00db
 	    $HOMESLACK/pbslacks/pbupgradebumblebee
 	fi
 	echo "Upgrade Bumblebee fait." >> $XTEMPMES
     elif [ "$i" = recreate ] ;then
+<<<<<<< HEAD
 	if [ $XTEST -ne 1 ] ;then
+=======
+	if [ "$XTEST" != 'yes' ] ;then
+>>>>>>> 3b31eff1dbd5a37fd0acfdb89ed5fbc194ff00db
 	    $HOMESLACK/pbslacks/pbcompilepost
 	fi
 	echo "Recreate source packages fait." >> $XTEMPMES
     elif [ "$i" = recreatebumblebee ] ;then
+<<<<<<< HEAD
 	if [ $XTEST -ne 1 ] ;then
+=======
+	if [ "$XTEST" != 'yes' ] ;then
+>>>>>>> 3b31eff1dbd5a37fd0acfdb89ed5fbc194ff00db
 	    $HOMESLACK/pbslacks/pbcompilebumblebee
 	fi
 	echo "Recreate source Bumblebee fait." >> $XTEMPMES
@@ -290,8 +389,11 @@ if [ $XBOOTLOAD -ge 1 ] ;then
 	xitem=grub
     elif [ -f /etc/lilo.conf ] ;then
 	xitem=lilo
+<<<<<<< HEAD
     elif [ -f /syslinux.cfg ] ;then
 	xitem=syslinux
+=======
+>>>>>>> 3b31eff1dbd5a37fd0acfdb89ed5fbc194ff00db
     else
 	xitem=none
     fi
@@ -300,7 +402,10 @@ if [ $XBOOTLOAD -ge 1 ] ;then
 	elilo 'Boot Elilo : /boot/efi/EFI/Slackware' \
 	grub 'Boot Grub : /boot/grub/grub.cfg' \
 	lilo 'Boot Lilo : /etc/lilo.conf' \
+<<<<<<< HEAD
 	syslinux 'Boot Syslinux : /syslinux.cfg' \
+=======
+>>>>>>> 3b31eff1dbd5a37fd0acfdb89ed5fbc194ff00db
 	none 'No bootloader detected. Reconfigure your bootloader before reboot.' \
 	2> $XTEMPOUT
     xitem=$(cat $XTEMPOUT)
@@ -310,7 +415,10 @@ cat <<EOF
 \ZbThe boot loader was not updated.\ZB
 If lilo is installed, launch : \Z3/sbin/lilo\Zn
 If Grub is installed, launch : \Z3grub-mkconfig -o /boot/grub/grub.cfg\Zn
+<<<<<<< HEAD
 If Syslinux is installed, launch : \Z3syslinux BOOTDEVICE\Zn
+=======
+>>>>>>> 3b31eff1dbd5a37fd0acfdb89ed5fbc194ff00db
 If Boot UEFI ELILO is installed, do :
   \Z3cp /boot/vmlinuz /boot/initrd.gz /boot/efi/EFI/Slackware\Zn
 
@@ -320,21 +428,35 @@ EOF
 
     if [ "$xitem" = elilo -a -d /boot/efi/EFI/Slackware ] ;then
 	echo "Elilo updated : Files vmlinuz et initrd.gz copied in \Z3/boot/efi/EFI/Slackware\Zn" >> $XTEMPMES
+<<<<<<< HEAD
 	if [ $XTEST -ne 1 ] ;then
+=======
+	if [ "$XTEST" != 'yes' ] ;then
+>>>>>>> 3b31eff1dbd5a37fd0acfdb89ed5fbc194ff00db
 	    cp /boot/vmlinuz /boot/initrd.gz /boot/efi/EFI/Slackware
 	fi
     elif [ "$xitem" = grub -a -f /boot/grub/grub.cfg ] ;then
 	echo "Grub updated : \Z3grub-mkconfig\Zn relaunched.\n\Z1Look if there are error messages below\Zn." >> $XTEMPMES
+<<<<<<< HEAD
 	if [ $XTEST -ne 1 ] ;then
+=======
+	if [ "$XTEST" != 'yes' ] ;then
+>>>>>>> 3b31eff1dbd5a37fd0acfdb89ed5fbc194ff00db
 	    grub-mkconfig -o /boot/grub/grub.cfg 2>> $XTEMPMES
 	fi
     elif [ "$xitem" = lilo -a -f /etc/lilo.conf ] ;then
 	echo "Lilo updated with \Z3/sbin/lilo\Zn.\n\Z1Look if there are error messages below\Zn." >> $XTEMPMES
+<<<<<<< HEAD
 	if [ $XTEST -ne 1 ] ;then
 	    /sbin/lilo 2>> $XTEMPMES
 	fi
     elif [ "$xitem" = syslinux -a -f /syslinux.cfg ] ;then
 	echo "Look at \Z3/syslinux.cfg\Zn and rerun \Z3syslinux\Zn on your boot partition if some path have changed." >> $XTEMPMES
+=======
+	if [ "$XTEST" != 'yes' ] ;then
+	    /sbin/lilo 2>> $XTEMPMES
+	fi
+>>>>>>> 3b31eff1dbd5a37fd0acfdb89ed5fbc194ff00db
     else
 	xmes1 >> $XTEMPMES
     fi
