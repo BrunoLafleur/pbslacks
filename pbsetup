@@ -45,6 +45,9 @@ MYPWD=$(pwd)
 PBSLACKSPWD="$(dirname $0)"
 SLREPO=$(basename "$MYPWD"|cut -c1-14)
 
+XTEMPOUT=$(mktemp -p /tmp -t pbsetupout.XXXXXX)
+XTEMPMES=$(mktemp -p /tmp -t pbsetupmes.XXXXXX)
+
 if [ $XTEST -ne 1 -a "$0" = "$PBMYPROG" -a "$SLREPO" != 'Slackware-x64-' ] ;then
     test_slack () {
 	pac="$1"
@@ -54,10 +57,19 @@ if [ $XTEST -ne 1 -a "$0" = "$PBMYPROG" -a "$SLREPO" != 'Slackware-x64-' ] ;then
 
     LASTSLACK=$(test_slack Slackware-x64-)
     if [ "$LASTSLACK" != '' ] ;then
-	echo '------------------------------------'
-	echo "Local repository $LASTSLACK found."
-	echo "Do you wan't to work with it (y or n) ?"
-	read c
+        if [ $ISDIAL -eq 1 ] ;then
+            c=n
+	    pactext='Local repository $LASTSLACK found.'
+	    pactext="${pactext}\nDo you want to work with it ?"
+	    dialog --colors --title 'Choose working dir' --defaultno \
+	        --yesno "$pactext" 10 100
+	    [ $? -eq 0 ] && c=y
+	else
+	    echo '------------------------------------'
+	    echo "Local repository $LASTSLACK found."
+	    echo "Do you want to work with it (y or n) ?"
+	    read c
+	fi
 	if [ "$c" = 'y' ] ;then
 	    cd "$LASTSLACK"
 	else
@@ -74,9 +86,6 @@ fi
 
 MYPWD=$(pwd)
 HOMESLACK="$MYPWD"
-
-XTEMPOUT=$(mktemp -p /tmp -t pbsetupout.XXXXXX)
-XTEMPMES=$(mktemp -p /tmp -t pbsetupmes.XXXXXX)
 
 XUPASPIRE=on
 XUPUPGRADE=off
