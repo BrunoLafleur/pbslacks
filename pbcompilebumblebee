@@ -4,6 +4,9 @@
 # Date : 2019
 # License : See the LICENSE file in this repository.
 
+MYUSER=produits
+MYGROUP=users
+
 if [ ! $UID = 0 ]; then
   cat << EOF
 This script must be run as root.
@@ -60,6 +63,7 @@ xpurgepac () {
 
 cd "$HOMESLACK/bumblebee"
 cp ~/Bumblebee-SlackBuilds/nouveau-blacklist/xf86-video-nouveau-blacklist-noarch-1.txz .
+chown ${MYUSER}.$MYGROUP *.t?z
 
 for i in libbsd primus bbswitch nvidia-bumblebee bumblebee nvidia-kernel ;do
     cp "/tmp/${i}-"* .
