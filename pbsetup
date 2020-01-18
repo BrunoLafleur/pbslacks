@@ -134,10 +134,10 @@ while [ $bclaide -eq 1 ] ;do
 	done
 	ditem=$xitem;bclaide=1;pacaide=
 	if [ "$xitem" = aspire ] ;then
-	    pacaide='Do a local clone of the officiel Slackware and add-on'
+	    pacaide='Do a local clone/update of the officiel Slackware and add-on'
 	    pacaide="${pacaide} packages.\nUses pbslacks/pbaspire."
 	elif [ "$xitem" = upgrade ] ;then
-	    pacaide='Update the local system with the local clone.'
+	    pacaide='Upgrade the local system with the local clone.'
 	elif [ "$xitem" = makeusb ] ;then
 	    pacaide='Make a dual boot install USB stick with Slackware install and GParted Live'
 	    pacaide="$pacaide\nwhich can boot on old bios or new UEFI bios computers."

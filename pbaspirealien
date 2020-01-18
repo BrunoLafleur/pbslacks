@@ -46,12 +46,13 @@ xgetpac () {
 }
 
 xgetsrcpac () {
-    dir="$1"
-    prof="$2"
+    pac="$1"
+    dir="$2"
+    prof="$3"
     wget -N -r -nv -np -nH --cut-dir=$prof "$dir/"
-    cd "$dir"
-    sh "./${dir}.SlackBuild"
-    cp "/tmp/${dir}-"*.t?z ..
+    cd "$pac"
+    sh "./${pac}.SlackBuild"
+    cp "/tmp/${pac}-"*.t?z ..
     cd ..
 }
 
@@ -69,7 +70,7 @@ xpurgepac "$i-"
 # Et le mlt.SlackBuild importe dans python et pas python3 (PYTHONSITEPKG).
 export PYTHON=python
 export BUILD=3alien
-xgetsrcpac "$SLACKALIENSRC2/$i/" 9
+xgetsrcpac "$i" "$SLACKALIENSRC2/$i/" 9
 
 for i in steamclient ;do
     xgetpac "$i-" "$SLACKALIEN/$i/pkg/current" 10
