@@ -183,11 +183,19 @@ if [ $ISASPIRE -eq 1 ] ;then
 	>> $XTEMPMES
 fi
 if [ $ISUPGRADE -eq 1 ] ;then
-    "$PBSLACKSPWD/pbupgrade" $PBTEST $PBDIAL
+    if [ $UID -eq 0 ]; then
+        "$PBSLACKSPWD/pbupgrade" $PBTEST $PBDIAL
+    else
+        su - root -c "(cd \"$MYPWD\";screen -S pbupgrade \"$PBSLACKSPWD/pbupgrade\" $PBTEST $PBDIAL)"
+    fi
     echo "Upgrade done for selected set of packages." >> $XTEMPMES
 fi
 if [ $ISUSB -eq 1 ] ;then
-    "$PBSLACKSPWD/pbmakeusb" -ask $PBTEST
+    if [ $UID -eq 0 ]; then
+        "$PBSLACKSPWD/pbmakeusb" -ask $PBTEST
+    else
+	su - root -c "(cd \"$MYPWD\";\"$PBSLACKSPWD/pbmakeusb\" -ask $PBTEST)"
+    fi
     echo "USB stick created." >> $XTEMPMES
 fi
 
