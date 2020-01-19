@@ -43,6 +43,14 @@ if [ ! -h pbslacks ] ; then
     ln -s ../pbslacks .
 fi
 
+# For putting iso images.amges.
+if [ ! -h Linuxiso ] ; then
+    if [ ! -d ../Linuxiso ] ;then
+	mkdir ../Linuxiso
+    fi
+    ln -s ../Linuxiso .
+fi
+
 # Some specifics tunings.
 if [ ! -h perso ] ; then
     if [ -d ../perso ] ;then

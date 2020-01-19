@@ -39,6 +39,7 @@ REPO="$MYPWD/slackware64-current"
 GPARTISO=
 NOUDISKS2=
 FULLINSTALLER=1
+REPISO=Linuxiso
 
 while [ $# -ge 1 ] ;do
     MYARG="$1"
@@ -60,13 +61,15 @@ while [ $# -ge 1 ] ;do
 	GPARTISO="-gpart $GPARTISO"
 	shift
     elif [ "$MYARG" = "-ask" ] ;then
-	echo "Give the name of an ISO slackware file or nothing the Slackware"
-	echo "is on the current directory :"
+	echo "Give the name of an ISO slackware file or nothing if the"
+	echo "Slackware is on the current directory :"
+	ls -1 "$REPISO/Slackware-x64-"*
 	read c
 	if [ "$c" != '' ] ;then
 	    IMGISO="$(cd $(dirname $c); pwd)/$(basename $c)";cd "$MYPWD"
 	fi
 	echo "Give the name of an ISO GParted file or nothing :"
+	ls -1 "$REPISO/gparted-live-"*
 	read c
 	if [ "$c" != '' ] ;then
 	    GPARTISO="$(cd $(dirname $c); pwd)/$(basename $c)";cd "$MYPWD"
