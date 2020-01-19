@@ -56,12 +56,6 @@ if [ ! -d /boot ] ;then
 fi
 
 if [ $XTEST -ne 1 ] ;then
-    if [ ! $UID = 0 ]; then
-	cat << EOF
-This script must be run as root.
-EOF
-	exit 1
-    fi
     if [ -d slackware64-current ] ;then
 	cd slackware64-current
     fi
@@ -174,6 +168,16 @@ while [ $bclaide -eq 1 ] ;do
 	dialog --colors --title "$xitem" --msgbox "$pacaide" 20 80
     fi
 done
+
+if [ $XTEST -ne 1 ] ;then
+    if [ ! $UID = 0 ]; then
+        echo "This script must be done as root. Exit." > $XTEMPMES
+        dialog --colors --title 'Actions which were done' --msgbox "$(cat $XTEMPMES)" 20 80
+        rm -f $XTEMPOUT
+        rm -f $XTEMPMES
+	exit 1
+    fi
+fi
 
 while read i;test "$i" != "" ;do
     if [ "$(echo $i|cut -c1-4)" = 'HELP' ] ;then
