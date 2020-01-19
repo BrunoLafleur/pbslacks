@@ -40,12 +40,16 @@ GPARTISO=
 NOUDISKS2=
 FULLINSTALLER=1
 REPISO=Linuxiso
+ISDIAL=1
+[ $(which dialog 2> /dev/null) = '' ] && ISDIAL=0
 
 while [ $# -ge 1 ] ;do
     MYARG="$1"
     shift
     if [ "$MYARG" = "-test" ] ;then
 	XTEST=1
+    elif [ "$MYARG" = "-nodial" ] ;then
+	ISDIAL=0
     elif [ "$MYARG" = "-noudisks2" ] ;then
 	NOUDISKS2='-noudisks2'
     elif [ "$MYARG" = "-noslack" ] ;then
@@ -61,16 +65,34 @@ while [ $# -ge 1 ] ;do
 	GPARTISO="-gpart $GPARTISO"
 	shift
     elif [ "$MYARG" = "-ask" ] ;then
-	echo "Give the name of an ISO slackware file or nothing if the"
-	echo "Slackware is on the current directory :"
-	ls -1 "$REPISO/Slackware-x64-"*
-	read c
+	if [ $ISDIAL -eq 1 ] ;then
+            XTEMPOUT=$(mktemp -p /tmp -t pbsetupout.XXXXXX)
+            dialog --colors --title 'ISO Slackware file' --defaultno \
+	        --menu 'Give the name of an ISO Slackware file or nothing if the Slackware is on the current directory :'  \
+		15 80 5 $(ls -1 "$REPISO/Slackware-x64-"*|sed 's@^\(.*Slackware-x64-\)\(.*\)$@\2 \1\2@') 2> $XTEMPOUT
+            c="$REPISO/Slackware-x64-"$(cat $XTEMPOUT)
+	    rm -f $XTEMPOUT
+        else
+	    echo "Give the name of an ISO Slackware file or nothing if the"
+	    echo "Slackware is on the current directory :"
+	    ls -1 "$REPISO/Slackware-x64-"*
+	    read c
+	fi
 	if [ "$c" != '' ] ;then
 	    IMGISO="$(cd $(dirname $c); pwd)/$(basename $c)";cd "$MYPWD"
 	fi
-	echo "Give the name of an ISO GParted file or nothing :"
-	ls -1 "$REPISO/gparted-live-"*
-	read c
+	if [ $ISDIAL -eq 1 ] ;then
+            XTEMPOUT=$(mktemp -p /tmp -t pbsetupout.XXXXXX)
+            dialog --colors --title 'ISO GParted file' --defaultno \
+	        --menu 'Give the name of an ISO GParted file or nothing :'  \
+		15 80 5 $(ls -1 "$REPISO/gparted-live-"*|sed 's@^\(.*gparted-live-\)\(.*\)$@\2 \1\2@') 2> $XTEMPOUT
+            c="$REPISO/gparted-live-"$(cat $XTEMPOUT)
+	    rm -f $XTEMPOUT
+        else
+	    echo "Give the name of an ISO GParted file or nothing :"
+	    ls -1 "$REPISO/gparted-live-"*
+	    read c
+	fi
 	if [ "$c" != '' ] ;then
 	    GPARTISO="$(cd $(dirname $c); pwd)/$(basename $c)";cd "$MYPWD"
 	    GPARTISO="-gpart $GPARTISO"
@@ -99,6 +121,17 @@ elif [ '(' ! -h pbslacks -a ! -d pbslacks ')' -a $ISO -eq 1 ] ;then
     exit 1
 fi
 
+cleanup () {
+    cd "$MYPWD"
+    if [ "$NOUDISKS2" != '' ] ;then
+        [ ! -z "$REPO" ] && ( [ ! -z "$XLOOP" ] &&
+	    (umount "${XLOOP}p1";losetup -d $XLOOP);rmdir "$REPO")
+    else
+	[ ! -z "$XLOOP" ] && (udisksctl unmount -b "${XLOOP}p1";
+	    udisksctl loop-delete -b "$XLOOP")
+    fi
+}
+
 if [ $ISO -eq 1 ] ;then
     if [ "$NOUDISKS2" != '' ] ;then
 	XLOOP=$(losetup -f);losetup $XLOOP "$IMGISO"
@@ -114,6 +147,7 @@ For the iso $IMGISO :
   The loop device is : $XLOOP
   The mount dir is : $REPO
 EOF
+    trap 'echo "*** Ctrl-C caught -- aborting operations ***"; cleanup; exit 1' 2 14 15 # trap Ctrl-C and kill
 fi
 
 cd "$REPO"
@@ -163,13 +197,4 @@ if [ "$c" = 'y' -a "$MYDEVNAME" != '' ] ;then
 	-o "$MYDEVNAME" $OPTREPO $NOUDISKS2 $GPARTISO
 fi
 
-if [ $ISO -eq 1 ] ;then
-    cd "$MYPWD"
-    if [ "$NOUDISKS2" != '' ] ;then
-	[ ! -z "$REPO" ] && ( [ ! -z "$XLOOP" ] &&
-	    (umount "${XLOOP}p1";losetup -d $XLOOP);rmdir "$REPO")
-    else
-	[ ! -z "$XLOOP" ] && (udisksctl unmount -b "${XLOOP}p1";
-	    udisksctl loop-delete -b "$XLOOP")
-    fi
-fi
+[ $ISO -eq 1 ] && cleanup
