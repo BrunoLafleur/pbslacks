@@ -18,8 +18,13 @@ if [ ! -d slackware64-current ] ;then
     exit 1
 fi
 
+REPISO=../Linuxiso
+if [ ! -d "$REPISO" ] ;then
+    mkdir "$REPISO"
+fi
+
 MYPWD=$(pwd)
-NAMEISO=$(basename "$MYPWD").iso
+NAMEISO=$REPISO/$(basename "$MYPWD").iso
 
 echo "The ISO image will be created with $NAMEISO name."
 
