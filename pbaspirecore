@@ -110,5 +110,8 @@ if [ ! -h Linuxiso ] ; then
     ln -s ../Linuxiso .
 fi
 cd Linuxiso
-wget -N -nv --content-disposition "$GPARTEDISO"
+LGPARTEDISO=$(basename "$GPARTEDISO")
+if [ "$LGPARTEDISO" = '' ] ;then
+    wget -N -nv --content-disposition "$GPARTEDISO"
+fi
 cd ..
