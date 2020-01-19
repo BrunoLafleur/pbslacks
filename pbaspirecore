@@ -11,6 +11,7 @@ export HOMESLACK="$MYPWD"
 SLACKMIR='http://nephtys.lip6.fr/pub/linux/distributions/slackware'
 SLACKMULTI="$SLACKMIR/people/alien/multilib/current"
 SLACKKDEFW="$SLACKMIR/people/alien-kde/current/latest/x86_64/kde/frameworks"
+GPARTEDISO="https://downloads.sourceforge.net/gparted/gparted-live-1.0.0-5-amd64.iso"
 
 # Function for getting packages.
 myrget () {
@@ -37,55 +38,77 @@ xpurgepac () {
 myrget 4 "$SLACKMIR/slackware64-current" slackware64-current
 
 # Nettoyage des doublons
-cd slackware64-current
-find . -name '*.t?z'|grep -v '^./source/'|while read i;test "$i" != "" ;do
-    pack=$(echo $i|sed 's@-[0-9].*$@@')
-    xpurgepac "$pack-[0-9]" txt
-    xpurgepac "$pack-[0-9]" t?z
-    xpurgepac "$pack-[0-9]" asc
-done
-cd ..
-echo "Copie Slackware current faite."
+if [ -d slackware64-current ] ;then
+    cd slackware64-current
+    find . -name '*.t?z'|grep -v '^./source/'|while read i;test "$i" != "" ;do
+        pack=$(echo $i|sed 's@-[0-9].*$@@')
+        xpurgepac "$pack-[0-9]" txt
+        xpurgepac "$pack-[0-9]" t?z
+        xpurgepac "$pack-[0-9]" asc
+    done
+    cd ..
+    echo "Copie Slackware current faite."
+fi
 
 # Multilib Alien Bob.
 # can be done non root.
 myrget 7 "$SLACKMULTI" current
 
 # Nettoyage des doublons
-cd current
-find . -name '*.t?z'|grep -v '^./source/'|while read i;test "$i" != "" ;do
-    pack=$(echo $i|sed 's@-[0-9].*$@@')
-    xpurgepac "$pack-[0-9]" lst
-    xpurgepac "$pack-[0-9]" meta
-    xpurgepac "$pack-[0-9]" txt
-    xpurgepac "$pack-[0-9]" t?z
-    xpurgepac "$pack-[0-9]" asc
-    xpurgepac "$pack-[0-9]" md5
-done
-cd ..
+if [ -d current ] ;then
+    cd current
+    find . -name '*.t?z'|grep -v '^./source/'|while read i;test "$i" != "" ;do
+        pack=$(echo $i|sed 's@-[0-9].*$@@')
+        xpurgepac "$pack-[0-9]" lst
+        xpurgepac "$pack-[0-9]" meta
+        xpurgepac "$pack-[0-9]" txt
+        xpurgepac "$pack-[0-9]" t?z
+        xpurgepac "$pack-[0-9]" asc
+        xpurgepac "$pack-[0-9]" md5
+    done
+    cd ..
+fi
 
-cd slackware64-current
-ln -sf ../current .
-ln -sf ../perso .
-ln -sf ../pbslacks .
-ln -sf ../bumblebee .
-ln -sf ../divers .
-ln -sf ../packages* .
-cd ..
+if [ -d slackware64-current ] ;then
+    cd slackware64-current
+    ln -sf ../current .
+    ln -sf ../perso .
+    ln -sf ../pbslacks .
+    ln -sf ../bumblebee .
+    ln -sf ../divers .
+    ln -sf ../packages* .
+    cd ..
+fi
 
 # Frameworks KDE5 Alien Bob
-cd packages4
-myrget 10 "$SLACKKDEFW" frameworks
+if [ -d packages4 ] ;then
+    cd packages4
+    myrget 10 "$SLACKKDEFW" frameworks
 
 # Nettoyage des doublons
-cd frameworks
-find . -name '*.t?z'|grep -v '^./source/'|while read i;test "$i" != "" ;do
-    pack=$(echo $i|sed 's@-[0-9].*$@@')
-    xpurgepac "$pack-[0-9]" lst
-    xpurgepac "$pack-[0-9]" meta
-    xpurgepac "$pack-[0-9]" txt
-    xpurgepac "$pack-[0-9]" t?z
-    xpurgepac "$pack-[0-9]" asc
-    xpurgepac "$pack-[0-9]" md5
-done
+    if [ -d frameworks ] ;then
+        cd frameworks
+        find . -name '*.t?z'|grep -v '^./source/'|while read i;test "$i" != "" ;do
+            pack=$(echo $i|sed 's@-[0-9].*$@@')
+            xpurgepac "$pack-[0-9]" lst
+            xpurgepac "$pack-[0-9]" meta
+            xpurgepac "$pack-[0-9]" txt
+            xpurgepac "$pack-[0-9]" t?z
+            xpurgepac "$pack-[0-9]" asc
+            xpurgepac "$pack-[0-9]" md5
+        done
+        cd ..
+    fi
+    cd ..
+fi
+
+# GParted
+if [ ! -h Linuxiso ] ; then
+    if [ ! -d ../Linuxiso ] ;then
+	mkdir ../Linuxiso
+    fi
+    ln -s ../Linuxiso .
+fi
+cd Linuxiso
+wget -N -nv --content-disposition "$GPARTEDISO"
 cd ..
