@@ -174,7 +174,7 @@ while read i;test "$i" != "" ;do
     [ "$(echo $i|cut -c1-4)" = 'HELP' ] && continue
     [ "$i" = aspire ] && ISASPIRE=1
     [ "$i" = upgrade ] && ISUPGRADE=1
-    [ "$i" = makeusb ] &&ISUSB=1
+    [ "$i" = makeusb ] && ISUSB=1
 done < $XTEMPOUT
 
 if [ $ISASPIRE -eq 1 ] ;then

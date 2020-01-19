@@ -327,7 +327,7 @@ if [ -d "$REPOSROOT" ] ; then
         EXCLUDES="${EXCLUDES} --exclude=$link"
       fi
     done
-  popd
+    popd
 fi
 
 # Check for prerequisites which may not always be installed:

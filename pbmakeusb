@@ -128,16 +128,17 @@ echo "It will be erased and replaced by a bootable Slackware installation media.
 read c
 
 sleep 3
-MYDEVNAME=$(/sbin/fdisk -l 2> /dev/null| tail -1 | grep 'FAT32$'|\
-    cut -d ' ' -f1|cut -d '1' -f1)
-
-if [ "$MYDEVNAME" = '' ] ;then
-# If it is an already created Slackware USB stick."
-    MYDEVNAME=$(/sbin/fdisk -l 2> /dev/null| tail -3 | grep 'EFI '|\
-	cut -d ' ' -f1|cut -d '2' -f1)
-fi
+MYDEVNAME=$(/sbin/fdisk -l 2> /dev/null| tail -12 | grep ' /dev/[a-z]'|\
+	sed 's@^.*\(/dev/[a-z]*\).*$@\1@')
+MYRDEV=$(echo $MYDEVNAME|cut -c 6-)
+MYTEST=$(dmesg|tail -10|grep $MYRDEV|wc -l)
+[ $MYTEST -lt 1 ] && MYDEVNAME=
 
 /sbin/fdisk -l 2> /dev/null
+if [ "$MYDEVNAME" = '' ] ;then
+    echo "USB stick not found."
+    exit 1
+fi
 echo "The device name for your writable erasable USB stick is $MYDEVNAME."
 echo "Is this correct ? y(es) or n(o) or ynof(ormat) :"
 read c
