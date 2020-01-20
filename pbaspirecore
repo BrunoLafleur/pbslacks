@@ -46,6 +46,12 @@ if [ -d slackware64-current ] ;then
         xpurgepac "$pack-[0-9]" t?z
         xpurgepac "$pack-[0-9]" asc
     done
+    ln -sf ../current .
+    ln -sf ../perso .
+    ln -sf ../pbslacks .
+    ln -sf ../bumblebee .
+    ln -sf ../divers .
+    ln -sf ../packages* .
     cd ..
     echo "Copie Slackware current faite."
 fi
@@ -69,38 +75,29 @@ if [ -d current ] ;then
     cd ..
 fi
 
-if [ -d slackware64-current ] ;then
-    cd slackware64-current
-    ln -sf ../current .
-    ln -sf ../perso .
-    ln -sf ../pbslacks .
-    ln -sf ../bumblebee .
-    ln -sf ../divers .
-    ln -sf ../packages* .
-    cd ..
+# Frameworks KDE5 Alien Bob
+if [ ! -d packages4 ] ;then
+    mkdir packages4
 fi
 
-# Frameworks KDE5 Alien Bob
-if [ -d packages4 ] ;then
-    cd packages4
-    myrget 10 "$SLACKKDEFW" frameworks
+cd packages4
+myrget 10 "$SLACKKDEFW" frameworks
 
 # Nettoyage des doublons
-    if [ -d frameworks ] ;then
-        cd frameworks
-        find . -name '*.t?z'|grep -v '^./source/'|while read i;test "$i" != "" ;do
-            pack=$(echo $i|sed 's@-[0-9].*$@@')
-            xpurgepac "$pack-[0-9]" lst
-            xpurgepac "$pack-[0-9]" meta
-            xpurgepac "$pack-[0-9]" txt
-            xpurgepac "$pack-[0-9]" t?z
-            xpurgepac "$pack-[0-9]" asc
-            xpurgepac "$pack-[0-9]" md5
-        done
-        cd ..
-    fi
+if [ -d frameworks ] ;then
+    cd frameworks
+    find . -name '*.t?z'|grep -v '^./source/'|while read i;test "$i" != "" ;do
+	pack=$(echo $i|sed 's@-[0-9].*$@@')
+	xpurgepac "$pack-[0-9]" lst
+	xpurgepac "$pack-[0-9]" meta
+	xpurgepac "$pack-[0-9]" txt
+	xpurgepac "$pack-[0-9]" t?z
+	xpurgepac "$pack-[0-9]" asc
+	xpurgepac "$pack-[0-9]" md5
+    done
     cd ..
 fi
+cd ..
 
 # GParted
 if [ ! -h Linuxiso ] ; then
@@ -111,7 +108,7 @@ if [ ! -h Linuxiso ] ; then
 fi
 cd Linuxiso
 LGPARTEDISO=$(basename "$GPARTEDISO")
-if [ "$LGPARTEDISO" = '' ] ;then
+if [ ! -f "$LGPARTEDISO" ] ;then
     wget -N -nv --content-disposition "$GPARTEDISO"
 fi
 cd ..
