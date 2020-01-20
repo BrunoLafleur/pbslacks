@@ -75,7 +75,7 @@ This script has a dialog menu which permits to choose packages to get.
 It can also launch some other scripts from this project.
 
 -----------------------------------------------------------------
-On the installed Slackware current to update,
+On the installed Slackware current to upgrade,
 lauch the following scripts on the USB stick or a disk copy of it on a central
 repository on the new machine as root.
 

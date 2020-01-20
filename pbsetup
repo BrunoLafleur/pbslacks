@@ -18,6 +18,14 @@ EOF
 
 XTEST=0
 ISDIAL=1
+[ x$(which dialog 2> /dev/null) = 'x' ] && ISDIAL=0
+
+nodialog () {
+    echo '------------------------------------'
+    echo "  $1"
+    echo '------------------------------------'
+    cat "$2"
+}
 
 while [ $# -ge 1 ] ;do
     MYARG="$1"
@@ -32,7 +40,6 @@ while [ $# -ge 1 ] ;do
     shift
 done
 
-[ $(which dialog 2> /dev/null) = '' ] && ISDIAL=0
 MYPROG=$(basename "$0")
 PBMYPROG="pbslacks/$MYPROG"
 
@@ -59,15 +66,15 @@ if [ $XTEST -ne 1 -a "$0" = "$PBMYPROG" -a "$SLREPO" != 'Slackware-x64-' ] ;then
     if [ "$LASTSLACK" != '' ] ;then
         if [ $ISDIAL -eq 1 ] ;then
             c=n
-	    pactext='Local repository $LASTSLACK found.'
-	    pactext="${pactext}\nDo you want to work with it ?"
+	    pactext='Local repository $LASTSLACK found.\n'
+	    pactext="${pactext}Do you want to work with it ?"
 	    dialog --colors --title 'Choose working dir' --defaultno \
 	        --yesno "$pactext" 10 100
 	    [ $? -eq 0 ] && c=y
 	else
 	    echo '------------------------------------'
 	    echo "Local repository $LASTSLACK found."
-	    echo "Do you want to work with it (y or n) ?"
+	    echo 'Do you want to work with it (y or n) ?'
 	    read c
 	fi
 	if [ "$c" = 'y' ] ;then
@@ -143,13 +150,14 @@ while [ $bclaide -eq 1 ] ;do
 	done
 	ditem=$xitem;bclaide=1;pacaide=
 	if [ "$xitem" = aspire ] ;then
-	    pacaide='Do a local clone/update of the officiel Slackware and add-on'
-	    pacaide="${pacaide} packages.\nUses pbslacks/pbaspire."
+	    pacaide='Do a local clone/update of the officiel Slackware and'
+	    pacaide="${pacaide} add-on packages.\nUses pbslacks/pbaspire."
 	elif [ "$xitem" = upgrade ] ;then
 	    pacaide='Upgrade the local system with the local clone.'
 	elif [ "$xitem" = makeusb ] ;then
-	    pacaide='Make a dual boot install USB stick with Slackware install and GParted Live'
-	    pacaide="$pacaide\nwhich can boot on old bios or new UEFI bios computers."
+	    pacaide='Make a dual boot install USB stick with Slackware install'
+	    pacaide="${pacaide} and GParted Live which can boot on old bios or"
+	    pacaise="${pacaide} new UEFI bios computers."
 	fi
 	if [ $ISDIAL -eq 1 ] ;then
 	    dialog --colors --title "$xitem" --msgbox "$pacaide" 20 80
@@ -183,17 +191,20 @@ if [ $ISASPIRE -eq 1 ] ;then
 	>> $XTEMPMES
 fi
 if [ $ISUPGRADE -eq 1 ] ;then
-    if [ $UID -eq 0 ]; then
-        "$PBSLACKSPWD/pbupgrade" $PBTEST $PBDIAL
+    MYSCR='screen -S pbupgrade'
+    if [ $XTEST -eq 1 -o $UID -eq 0 ]; then
+        $MYSCR "$PBSLACKSPWD/pbupgrade" $PBTEST $PBDIAL
     else
-        su - root -c "(cd \"$MYPWD\";screen -S pbupgrade \"$PBSLACKSPWD/pbupgrade\" $PBTEST $PBDIAL)"
+	echo 'Change to root.'
+        su - root -c "(cd \"$MYPWD\";$MYSCR \"$PBSLACKSPWD/pbupgrade\" $PBTEST $PBDIAL)"
     fi
     echo "Upgrade done for selected set of packages." >> $XTEMPMES
 fi
 if [ $ISUSB -eq 1 ] ;then
-    if [ $UID -eq 0 ]; then
+    if [ $XTEST -eq 1 -o $UID -eq 0 ]; then
         "$PBSLACKSPWD/pbmakeusb" -ask $PBTEST
     else
+	echo 'Change to root.'
 	su - root -c "(cd \"$MYPWD\";\"$PBSLACKSPWD/pbmakeusb\" -ask $PBTEST)"
     fi
     echo "USB stick created." >> $XTEMPMES
@@ -211,10 +222,7 @@ DACTION='Actions which were done'
 if [ $ISDIAL -eq 1 ] ;then
     dialog --colors --title "$DACTION" --msgbox "$(cat $XTEMPMES)" 20 80
 else
-    echo '------------------------------------'
-    echo "  $DACTION"
-    echo '------------------------------------'
-    cat $XTEMPMES
+    nodialog "$DACTION" $XTEMPMES
 fi
 
 rm -f $XTEMPOUT

@@ -20,6 +20,14 @@ EOF
 
 XTEST=0
 ISDIAL=1
+[ x$(which dialog 2> /dev/null) = 'x' ] && ISDIAL=0
+
+nodialog () {
+    echo '------------------------------------'
+    echo "  $1"
+    echo '------------------------------------'
+    cat "$2"
+}
 
 while [ $# -ge 1 ] ;do
     MYARG="$1"
@@ -34,7 +42,6 @@ while [ $# -ge 1 ] ;do
     shift
 done
 
-[ $(which dialog 2> /dev/null) = '' ] && ISDIAL=0
 MYPROG=$(basename "$0")
 
 if [ $XTEST -ne 1 -a "$0" != "../pbslacks/$MYPROG" \
@@ -208,10 +215,7 @@ DACTION='Actions which were done'
 if [ $ISDIAL -eq 1 ] ;then
     dialog --colors --title "$DACTION" --msgbox "$(cat $XTEMPMES)" 20 80
 else
-    echo '------------------------------------'
-    echo "  $DACTION"
-    echo '------------------------------------'
-    cat $XTEMPMES
+    nodialog "$DACTION" $XTEMPMES
 fi
 
 rm -f $XTEMPMES

@@ -47,7 +47,7 @@ while [ $# -ge 1 ] ;do
     shift
 done
 
-[ $(which dialog 2> /dev/null) = '' ] && ISDIAL=0
+[ x$(which dialog 2> /dev/null) = 'x' ] && ISDIAL=0
 
 if [ ! -d /boot ] ;then
     echo "Do the install of the Slackware Linux distribution before :"
@@ -114,7 +114,7 @@ xpacaide () {
     pacaide="Update the $packages set of tools :"
     ls -1 "$packages/"*.t?z > $XTEMPMES
     while read j;test "$j" != "" ;do
-	pacaide="$pacaide\n$j"
+	pacaide="${pacaide}\n$j"
     done < $XTEMPMES
     rm -f $XTEMPMES
 }
@@ -140,13 +140,14 @@ while [ $bclaide -eq 1 ] ;do
 	done
 	ditem=$xitem;bclaide=1;pacaide=
 	if [ "$xitem" = system ] ;then
-	    pacaide='Update your Slackware system with the last current fetched before.'
-	    pacaide="$pacaide\nUses Slackpkg."
+	    pacaide='Upgrade your Slackware system with the last current fetched'
+	    pacaide="$pacaide before.\nUses Slackpkg."
 	elif [ "$xitem" = compat32 ] ;then
-	    pacaide='Update the Alien Bob 32 bits compatible mode.'
+	    pacaide='Upgrade the Alien Bob 32 bits compatible mode.'
 	elif [ "$xitem" = mozilla ] ;then
-	    pacaide='Update the Firefox and Thunderbird products.'
-	    pacaide="$pacaide\nThey should be downloaded and put in the packages/Mozilla directory before."
+	    pacaide='Upgrade the Firefox and Thunderbird products.'
+	    pacaide="${pacaide}\nThey should be downloaded and put in the"
+	    pacaise="$pacaide packages/Mozilla directory before."
 	elif [ "$(echo "$xitem"|cut -c1-8)" = packages ] ;then
 	    xpacaide "$xitem"
 	elif [ "$xitem" = frameworks ] ;then
@@ -156,8 +157,9 @@ while [ $bclaide -eq 1 ] ;do
 	elif [ "$xitem" = tesseract4 ] ;then
 	    xpacaide packages4/tesseract4
 	elif [ "$xitem" = bumblebee ] ;then
-	    pacaide='Update your Bumblebee packages if they are in sync with the upgraded Slackware.'
-	    pacaide="$pacaide\nDone on another machine for exemple."
+	    pacaide='Upgrade your Bumblebee packages if they are in sync with'
+	    pacaide="$pacaide the upgraded Slackware.\n"
+	    pacaide="${pacaide}Done on another machine for exemple."
 	elif [ "$xitem" = recreate ] ;then
 	    pacaide='Redo the packages which are here in sources form.'
 	    pacaide="$pacaide\nIf not already done on this machine or another."
