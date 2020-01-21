@@ -180,7 +180,7 @@ while [ $bclaide -eq 1 ] ;do
 	elif [ "$xitem" = makeusb ] ;then
 	    pacaide='Make a dual boot install USB stick with Slackware install'
 	    pacaide="${pacaide} and GParted Live which can boot on old bios or"
-	    pacaise="${pacaide} new UEFI bios computers."
+	    pacaide="${pacaide} new UEFI bios computers."
 	fi
 	if [ $ISDIAL -eq 1 ] ;then
 	    dialog --colors --title "$xitem" --msgbox "$pacaide" 20 80
