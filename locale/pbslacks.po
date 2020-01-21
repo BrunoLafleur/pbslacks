@@ -1,0 +1,81 @@
+# Template pour locale du projet pbslacks
+# Copyright (C) 2020 Pierre Brochard
+# This file is distributed under the same license as the pbslacks package.
+# Pierre Brochard <pierre.brochard.1982@m4x.orig>, 2020.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: pbslacks v0.7\n"
+"Report-Msgid-Bugs-To: pierre.brochard.1982@m4x.org\n"
+"POT-Creation-Date: 2020-01-21 16:09+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: pbsetup:32
+msgid "Launch this script in a directory containing slackware64-current"
+msgstr ""
+
+#: pbsetup:33
+msgid "or slackware64 or from the current directory for a new clone."
+msgstr ""
+
+#: pbsetup:86
+msgid "Choose working dir"
+msgstr ""
+
+#: pbsetup:88
+#, sh-format
+msgid "Local repository $LASTSLACK found.\\nDo you want to work with it$YN ?"
+msgstr ""
+
+#: pbsetup:128
+msgid "Main menu"
+msgstr ""
+
+#: pbsetup:243
+msgid "Actions which were done"
+msgstr ""
+
+#: pbsetup:239
+msgid "No action was demanded. Exit."
+msgstr ""
+
+#: pbsetup:129
+msgid "Choose your actions below"
+msgstr ""
+
+#: pbsetup:121
+msgid ""
+"Get/Update local repository versus officiel remote Slackware and add-on "
+"packages"
+msgstr ""
+
+#: pbsetup:122
+msgid ""
+"Sync/Update system to the last fetched current Slackware and add-on packages"
+msgstr ""
+
+#: pbsetup:123
+msgid "Make a bootable USB stick for Slackware install."
+msgstr ""
+
+#: pbsetup:213
+msgid "Clone done (full or partial depending on selected options)."
+msgstr ""
+
+#: pbsetup:224
+msgid "Upgrade done for selected set of packages."
+msgstr ""
+
+#: pbsetup:233
+msgid "USB stick created."
+msgstr ""
+
+#: pbsetup:221 pbsetup:230
+msgid "Change to root."
+msgstr ""
