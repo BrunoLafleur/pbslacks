@@ -1,0 +1,84 @@
+# French translations for pbslacks package.
+# Copyright (C) 2020 Pierre Brochard
+# This file is distributed under the same license as the pbslacks package.
+# CDEI <pierre.brochard.1982@m4x.org>, 2020.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: pbslacks v0.7\n"
+"Report-Msgid-Bugs-To: pierre.brochard.1982@m4x.org\n"
+"POT-Creation-Date: 2020-01-21 16:09+0100\n"
+"PO-Revision-Date: 2020-01-21 14:39+0100\n"
+"Last-Translator: CDEI <pierre.brochard.1982@m4x.org>\n"
+"Language-Team: French <traduc@traduc.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: pbsetup:32
+msgid "Launch this script in a directory containing slackware64-current"
+msgstr ""
+"Script à lancer dans un repertoire contenant slackware64-current ou "
+"slackware64"
+
+#: pbsetup:33
+msgid "or slackware64 or from the current directory for a new clone."
+msgstr "ou à partir du répertoire courant pour une nouvelle copie complète."
+
+#: pbsetup:86
+msgid "Choose working dir"
+msgstr "Choisissez votre répertoire de travail"
+
+#: pbsetup:88
+#, sh-format
+msgid "Local repository $LASTSLACK found.\\nDo you want to work with it$YN ?"
+msgstr "Copie locale $LASTSLACK trouvée.\\nVoulez vous travailler avec$YN ?"
+
+#: pbsetup:128
+msgid "Main menu"
+msgstr "Menu principal"
+
+#: pbsetup:243
+msgid "Actions which were done"
+msgstr "Actions réalisées"
+
+#: pbsetup:239
+msgid "No action was demanded. Exit."
+msgstr "Aucune action demandée. Sortie."
+
+#: pbsetup:129
+msgid "Choose your actions below"
+msgstr "Choisissez vos actions ci-dessous"
+
+#: pbsetup:121
+msgid ""
+"Get/Update local repository versus officiel remote Slackware and add-on "
+"packages"
+msgstr ""
+"Obtenir/mettre à jour la copie locale du site Slackware avec ses ajouts"
+
+#: pbsetup:122
+msgid ""
+"Sync/Update system to the last fetched current Slackware and add-on packages"
+msgstr "Synchroniser la copie locale avec le système courant"
+
+#: pbsetup:123
+msgid "Make a bootable USB stick for Slackware install."
+msgstr "Fabriquer une clé USB avec l'installateur de la Slackware"
+
+#: pbsetup:213
+msgid "Clone done (full or partial depending on selected options)."
+msgstr "Copie faite (complète ou partielle selon options choisies)"
+
+#: pbsetup:224
+msgid "Upgrade done for selected set of packages."
+msgstr "Mise à jour du système courant pour les paquets choisis"
+
+#: pbsetup:233
+msgid "USB stick created."
+msgstr "Clé USB créée"
+
+#: pbsetup:221 pbsetup:230
+msgid "Change to root."
+msgstr "Connection root."

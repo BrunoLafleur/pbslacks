@@ -4,16 +4,35 @@
 # Date : 2019
 # License : See the LICENSE file in this repository.
 
+ISGETTEXT=1
+[ x$(which gettext.sh 2> /dev/null) = 'x' ] && ISGETTEXT=0
+
+if [ $ISGETTEXT -eq 1 ] ;then
+    MYPWD=$(pwd)
+    export TEXTDOMAIN=pbslacks
+    export TEXTDOMAINDIR="$(cd $(dirname $0); pwd)/locale";cd "$MYPWD"
+    . gettext.sh
+    mygt () {
+	gettext "$1";echo
+    }
+    emygt () {
+	eval_gettext "$1";echo
+    }
+else
+    mygt () {
+	echo "$1"
+    }
+    emygt () {
+	STR=$(echo "$1"|sed 's@\\n@\\\\n@')
+	eval echo $STR
+    }
+fi
+
 xhelp () {
-    cat <<EOF
-Script a lancer dans un repertoire contenant slackware64-current ou slackware64
-  ou a partir du repertoire courant pour une nouvelle copie complete.
-
-Launch this script in a directory which contains slackware64-current or
-  slackware64 or from the current directory for a new clone.
-
-> [../]pbslack/pbseup [-test] [-h|-help] [-nodial]
-EOF
+    mygt "Launch this script in a directory containing slackware64-current"
+    mygt "or slackware64 or from the current directory for a new clone."
+    echo
+    echo "> [../]pbslack/pbseup [-test] [-h|-help] [-nodial]"
 }
 
 XTEST=0
@@ -64,17 +83,19 @@ if [ $XTEST -ne 1 -a "$0" = "$PBMYPROG" -a "$SLREPO" != 'Slackware-x64-' ] ;then
 
     LASTSLACK=$(test_slack Slackware-x64-)
     if [ "$LASTSLACK" != '' ] ;then
+	pactit=$(mygt 'Choose working dir')
+        YN=;[ $ISDIAL -ne 1 ] && YN=' (y or n)'
+	pactext=$(emygt "Local repository \$LASTSLACK found.\nDo you want to work with it\$YN ?")
         if [ $ISDIAL -eq 1 ] ;then
             c=n
-	    pactext='Local repository $LASTSLACK found.\n'
-	    pactext="${pactext}Do you want to work with it ?"
-	    dialog --colors --title 'Choose working dir' --defaultno \
-	        --yesno "$pactext" 10 100
+	    dialog --colors --title "$pactit" --defaultno \
+		--yesno "$pactext" 10 100
 	    [ $? -eq 0 ] && c=y
 	else
 	    echo '------------------------------------'
-	    echo "Local repository $LASTSLACK found."
-	    echo 'Do you want to work with it (y or n) ?'
+	    echo "  $pactit"
+	    echo '------------------------------------'
+	    echo "$pactext"|sed 's@\\n@\n@'
 	    read c
 	fi
 	if [ "$c" = 'y' ] ;then
@@ -97,23 +118,25 @@ HOMESLACK="$MYPWD"
 XUPASPIRE=on
 XUPUPGRADE=off
 XUPMAKEUSB=off
-ASPIRE='Get/Update local repository versus officiel remote Slackware and add-on packages'
-UPGRADE='Sync/Update system to the last fetched current Slackware and add-on packages'
-MAKEUSB='Make a bootable USB stick for Slackware install.'
+ASPIRE=$(mygt 'Get/Update local repository versus officiel remote Slackware and add-on packages')
+UPGRADE=$(mygt 'Sync/Update system to the last fetched current Slackware and add-on packages')
+MAKEUSB=$(mygt 'Make a bootable USB stick for Slackware install.')
 
 xmaster () {
     defitem=$1;shift
     xsel1=$1;shift;xsel2=$1;shift;xsel3=$1
+    pactit=$(mygt 'Main menu')
+    pactext=$(mygt 'Choose your actions below')
     if [ $ISDIAL -eq 1 ] ;then
-	dialog --colors --title 'Main menu' --default-item $defitem --defaultno \
+	dialog --colors --title "$pactit" --default-item $defitem --defaultno \
 	    --separate-output --item-help --help-button --help-status \
-	    --checklist 'Choose your actions below' 0 100 3 \
+	    --checklist "$pactext" 0 100 3 \
 	    aspire "$ASPIRE" $xsel1 aspire \
 	    upgrade "$UPGRADE" $xsel2 upgrade \
 	    makeusb "$MAKEUSB" $xsel3 makeusb
     else
 	echo '------------------------------------'
-	echo "          Main menu"
+	echo "          $pactit"
 	echo '------------------------------------'
 	echo "HELP aspire (y or n) :";read c
 	if [ "$c" = "y" ] ;then echo "HELP aspire" 1>&2;return;fi
@@ -126,7 +149,7 @@ xmaster () {
 	[ "$c" = "y" ] && echo "aspire" 1>&2
 	echo "$UPGRADE (y or n) :";read c
 	[ "$c" = "y" ] && echo "upgrade" 1>&2
-	echo $"$MAKEUSB (y or n) :";read c
+	echo "$MAKEUSB (y or n) :";read c
 	[ "$c" = "y" ] && echo "makeusb" 1>&2
     fi
 }
@@ -187,7 +210,7 @@ done < $XTEMPOUT
 
 if [ $ISASPIRE -eq 1 ] ;then
     "$PBSLACKSPWD/pbaspire" $PBTEST $PBDIAL
-    echo "Clone done (full or partial depending on selected options)." \
+    mygt "Clone done (full or partial depending on selected options)." \
 	>> $XTEMPMES
 fi
 if [ $ISUPGRADE -eq 1 ] ;then
@@ -195,29 +218,29 @@ if [ $ISUPGRADE -eq 1 ] ;then
     if [ $XTEST -eq 1 -o $UID -eq 0 ]; then
         $MYSCR "$PBSLACKSPWD/pbupgrade" $PBTEST $PBDIAL
     else
-	echo 'Change to root.'
+	mygt 'Change to root.'
         su - root -c "(cd \"$MYPWD\";$MYSCR \"$PBSLACKSPWD/pbupgrade\" $PBTEST $PBDIAL)"
     fi
-    echo "Upgrade done for selected set of packages." >> $XTEMPMES
+    mygt "Upgrade done for selected set of packages." >> $XTEMPMES
 fi
 if [ $ISUSB -eq 1 ] ;then
     if [ $XTEST -eq 1 -o $UID -eq 0 ]; then
         "$PBSLACKSPWD/pbmakeusb" -ask $PBTEST
     else
-	echo 'Change to root.'
+	mygt 'Change to root.'
 	su - root -c "(cd \"$MYPWD\";\"$PBSLACKSPWD/pbmakeusb\" -ask $PBTEST)"
     fi
-    echo "USB stick created." >> $XTEMPMES
+    mygt "USB stick created." >> $XTEMPMES
 fi
 
 XEND=0
 
 if [ ! -f "$XTEMPMES" -o $(cat "$XTEMPMES"|wc -c) -eq 0 ] ;then
-    echo "No action was demanded. Exit." > $XTEMPMES
+    mygt "No action was demanded. Exit." > $XTEMPMES
     XEND=1
 fi
 
-DACTION='Actions which were done'
+DACTION=$(mygt 'Actions which were done')
 
 if [ $ISDIAL -eq 1 ] ;then
     dialog --colors --title "$DACTION" --msgbox "$(cat $XTEMPMES)" 20 80
