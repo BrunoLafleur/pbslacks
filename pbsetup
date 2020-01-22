@@ -4,46 +4,12 @@
 # Date : 2019
 # License : See the LICENSE file in this repository.
 
-ISGETTEXT=1
-[ x$(which gettext.sh 2> /dev/null) = 'x' ] && ISGETTEXT=0
-
-if [ $ISGETTEXT -eq 1 ] ;then
-    MYPWD=$(pwd)
-    export TEXTDOMAIN=pbslacks
-    export TEXTDOMAINDIR="$(cd $(dirname $0); pwd)/locale";cd "$MYPWD"
-    . gettext.sh
-    mygt () {
-	gettext "$1";echo
-    }
-    emygt () {
-	eval_gettext "$1";echo
-    }
-else
-    mygt () {
-	echo "$1"
-    }
-    emygt () {
-	STR=$(echo "$1"|sed 's@\\n@\\\\n@')
-	eval echo $STR
-    }
-fi
+. "$(dirname $0)/pbinclude"
 
 xhelp () {
-    mygt "Launch this script in a directory containing slackware64-current"
-    mygt "or slackware64 or from the current directory for a new clone."
+    mygt 'Launch this script in a directory containing slackware64-current\nor slackware64 or from the current directory for a new clone.'|sed 's@\\n@\n@'
     echo
-    echo "> [../]pbslack/pbseup [-test] [-h|-help] [-nodial]"
-}
-
-XTEST=0
-ISDIAL=1
-[ x$(which dialog 2> /dev/null) = 'x' ] && ISDIAL=0
-
-nodialog () {
-    echo '------------------------------------'
-    echo "  $1"
-    echo '------------------------------------'
-    cat "$2"
+    echo "> [../]pbslack/pbsetup [-test] [-h|-help] [-nodial]"
 }
 
 while [ $# -ge 1 ] ;do
@@ -59,15 +25,11 @@ while [ $# -ge 1 ] ;do
     shift
 done
 
-MYPROG=$(basename "$0")
-PBMYPROG="pbslacks/$MYPROG"
-
 if [ $XTEST -ne 1 -a "$0" != "../$PBMYPROG" -a "$0" != "$PBMYPROG" ] ;then
     xhelp
     exit 1
 fi
 
-MYPWD=$(pwd)
 PBSLACKSPWD="$(dirname $0)"
 SLREPO=$(basename "$MYPWD"|cut -c1-14)
 
@@ -173,14 +135,11 @@ while [ $bclaide -eq 1 ] ;do
 	done
 	ditem=$xitem;bclaide=1;pacaide=
 	if [ "$xitem" = aspire ] ;then
-	    pacaide='Do a local clone/update of the officiel Slackware and'
-	    pacaide="${pacaide} add-on packages.\nUses pbslacks/pbaspire."
+	    pacaide=$(mygt 'Do a local clone/update of the officiel Slackware and add-on packages.\nUses pbslacks/pbaspire.')
 	elif [ "$xitem" = upgrade ] ;then
-	    pacaide='Upgrade the local system with the local clone.'
+	    pacaide=$(mygt 'Upgrade the local system with the local clone.')
 	elif [ "$xitem" = makeusb ] ;then
-	    pacaide='Make a dual boot install USB stick with Slackware install'
-	    pacaide="${pacaide} and GParted Live which can boot on old bios or"
-	    pacaide="${pacaide} new UEFI bios computers."
+	    pacaide=$(mygt 'Make a dual boot install USB stick with Slackware install and GParted Live which can boot on old bios or new UEFI bios computers.')
 	fi
 	if [ $ISDIAL -eq 1 ] ;then
 	    dialog --colors --title "$xitem" --msgbox "$pacaide" 20 80
@@ -189,7 +148,7 @@ while [ $bclaide -eq 1 ] ;do
 	    echo "          $xitem"
 	    echo '------------------------------------'
 	    echo "$pacaide"|sed 's@\\n@\n@'
-	    echo "Press a key to continue."
+	    mygt "Press a key to continue."
 	    read c
 	fi
     fi
@@ -230,7 +189,11 @@ if [ $ISUSB -eq 1 ] ;then
 	mygt 'Change to root.'
 	su - root -c "(cd \"$MYPWD\";\"$PBSLACKSPWD/pbmakeusb\" -ask $PBTEST)"
     fi
-    mygt "USB stick created." >> $XTEMPMES
+    if [ $? -eq 0 ] ;then
+	mygt "USB stick created." >> $XTEMPMES
+    else
+	mygt "USB stick not created." >> $XTEMPMES
+    fi
 fi
 
 XEND=0

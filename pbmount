@@ -1,0 +1,48 @@
+#! /bin/sh
+
+# Auteur : Pierre Brochard (pierre.brochard.1982@m4x.org)
+# Date : 2019
+# License : See the LICENSE file in this repository.
+
+FN="$0";[ "$0" = "$(basename $0)" ] && FN=$(which "$0")
+PBSDIR=$(dirname "$(readlink -f "$FN")")
+. "$PBSDIR/pbinclude"
+
+xhelp () {
+    mygt "Give the name of the iso file to mount."
+    echo
+    echo "> $(basename $0) nameiso"
+}
+
+if [ "$1" = '' ] ;then
+    xhelp
+    exit 1
+fi
+
+NAMEISO="$1"
+
+if [ ! -f "$NAMEISO" ] ;then
+    xhelp
+    exit 1
+fi
+
+if [ -b "$NAMEISO" ] ;then
+    MNTDIR=$(udisksctl mount -b "${NAMEISO}"|cut -d ' ' -f4-|\
+	sed 's@^\(.*\)\.$@\1@')
+    XLOOP="$NAMEISO"
+else
+    XLOOP=$(udisksctl loop-setup -f "$NAMEISO"|sed 's@^.* \(.*\)\.$@\1@')
+    echo "Loop device is : $XLOOP"
+
+    if [ -b "${XLOOP}p1" ] ;then
+        MNTDIR=$(udisksctl mount -b "${XLOOP}p1"|cut -d ' ' -f4-|\
+	    sed 's@^\(.*\)\.$@\1@')
+    else
+        MNTDIR=$(udisksctl mount -b "${XLOOP}"|cut -d ' ' -f4-|\
+	    sed 's@^\(.*\)\.$@\1@')
+    fi
+fi
+
+emygt "Look at $MNTDIR"
+mygt "unmount with :"
+echo "> pbunmountiso $XLOOP"

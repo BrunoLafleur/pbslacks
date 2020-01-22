@@ -71,10 +71,11 @@ fi
 
 if [ ! -d packages ] ;then
     mkdir packages
-    mkdir packages/32
-    mkdir packages/compat32
-    mkdir packages/Mozilla
 fi
+mkdir -p packages/32
+mkdir -p packages/compat32
+mkdir -p packages/Mozilla
+
 if [ ! -d packages2 ] ;then
     mkdir packages2
 fi

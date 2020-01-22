@@ -4,11 +4,11 @@
 # Date : 2019
 # License : See the LICENSE file in this repository.
 
+. "$(dirname $0)/pbinclude"
+. "$(dirname $0)/pbaspireinc"
+
 xhelp () {
-    cat <<EOF
-Script a lancer dans le repertoire contenant packages, packages2 et al.
-Launch this script in the directory including packages, packages2 et al.
-EOF
+    mygt 'Launch this script in the directory including packages, packages2 et al.'
 }
 
 if [ ! -d packages ] ;then
@@ -19,41 +19,15 @@ fi
 SLACKSLONLY="https://slackonly.com/pub/packages/current-x86_64"
 SLACKSLONLY32="https://slackonly.com/pub/packages/current-x86"
 
-xpurgeindex () {
-    dir="$1"
-    find "$dir" -name 'index.html*' -exec rm -f {} \;
-    rm -f "$dir/robots.txt"*
-    rm -f "$dir/"*"/robots.txt"*
-}
-
-xpurgepac () {
-    pac="$1"
-    last=$(ls -1t "$pac"*.t?z|head -1)
-    for j in "$pac"*.t?z ;do
-	if [ "$j" != "$last" ] ;then
-	    rm -f "$j"
-	fi
-    done
-}
-
-xgetpac () {
-    pac="$1"
-    dir="$2"
-    prof="$3"
-    wget -N -A "$pac"'*.t?z' -r -nv -np -nH --cut-dir=$prof "$dir/"
-}
-
 cd packages
 for i in graphics/goocanvas development/portaudio system/refind development/icoutils audio/portmidi libraries/wxPython libraries/libpng-legacy12 python/pygoocanvas ;do
     PROJ=$(echo $i|cut -d '/' -f2)
     xgetpac "$PROJ-" "$SLACKSLONLY/$i" 5
-    xpurgepac "$PROJ-"
 done
 cd 32
 for i in development/icoutils ;do
     PROJ=$(echo $i|cut -d '/' -f2)
     xgetpac "$PROJ-" "$SLACKSLONLY32/$i" 5
-    xpurgepac "$PROJ-"
 done
 cd ../..
 xpurgeindex packages
@@ -62,7 +36,6 @@ cd packages2
 for i in office/evince libraries/libsmf multimedia/lsdvd graphics/fontforge graphics/lilypond system/t1utils ;do
     PROJ=$(echo $i|cut -d '/' -f2)
     xgetpac "$PROJ-" "$SLACKSLONLY/$i" 5
-    xpurgepac "$PROJ-"
 done
 cd ..
 xpurgeindex packages2

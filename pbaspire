@@ -4,6 +4,8 @@
 # Date : 2019
 # License : See the LICENSE file in this repository.
 
+. "$(dirname $0)/pbinclude"
+
 xhelp () {
     cat <<EOF
 Script a lancer dans un repertoire nouvellement cree
@@ -16,17 +18,6 @@ pbslacks should be side by side of this current directory.
 
 > ../pbslacks/pbaspire [-test (test only, no actions)] [-help|-h] [-nodial]
 EOF
-}
-
-XTEST=0
-ISDIAL=1
-[ x$(which dialog 2> /dev/null) = 'x' ] && ISDIAL=0
-
-nodialog () {
-    echo '------------------------------------'
-    echo "  $1"
-    echo '------------------------------------'
-    cat "$2"
 }
 
 while [ $# -ge 1 ] ;do
@@ -42,15 +33,12 @@ while [ $# -ge 1 ] ;do
     shift
 done
 
-MYPROG=$(basename "$0")
-
 if [ $XTEST -ne 1 -a "$0" != "../pbslacks/$MYPROG" \
     -a "$0" != "pbslacks/$MYPROG" ] ;then
     xhelp
     exit 1
 fi
 
-MYPWD=$(pwd)
 XTEMPOUT=$(mktemp -p /tmp -t pbaspireout.XXXXXX)
 XTEMPMES=$(mktemp -p /tmp -t pbaspiremes.XXXXXX)
 INIT='Init/Verify the repository.'

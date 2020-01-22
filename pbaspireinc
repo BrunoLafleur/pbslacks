@@ -1,0 +1,65 @@
+#! /bin/sh
+
+# Auteur : Pierre Brochard (pierre.brochard.1982@m4x.org)
+# Date : 2019
+# License : See the LICENSE file in this repository.
+
+xpurgeindex () {
+    dir="$1"
+    find "$dir" -name 'index.html*' -exec rm -f {} \;
+    rm -f "$dir/robots.txt"*
+    rm -f "$dir/"*"/robots.txt"*
+}
+
+xpurgepac () {
+    pac="$1"
+    last=$(ls -1t "$pac"*.t?z 2> /dev/null|head -1)
+    for j in $(ls "$pac"*.t?z 2> /dev/null) ;do
+	if [ "$j" != "$last" ] ;then
+	    rm -f "$j"
+	fi
+    done
+}
+
+xgetpac () {
+    pac="$1"
+    dir="$2"
+    prof="$3"
+    echo '------------------------------------'
+    echo "Package $pac :"
+    wget -N -A "$pac"'*.t?z' -r -nv -np -nH --cut-dir=$prof "$dir/"
+    xpurgepac "$pac"
+}
+
+# Get the original tarball with the slack build scripts.
+xgetsrcpac () {
+    pac="$1"
+    dir="$2"
+    prof="$3"
+    wget -N -r -nv -np -nH --cut-dir=$prof "$dir/"
+}
+
+# Get a local copie of the original tarball with the slack build scripts.
+xlocalsrcpac () {
+    name="$1"
+    path="$2"
+    if [ ! -d "$name" ] ;then
+        mkdir "$name"
+        cp "../pbslacks/builds/${name}.tar.gz" "$name"
+    fi
+    echo "Copie locale de ../pbslacks/builds/$path vers $name"
+    cp "../pbslacks/builds/$path" "$name"
+}
+
+# Get the original source tarball.
+xgetsrc () {
+    name="$1"
+    path="$2"
+    if [ ! -d "$name" ] ;then
+        mkdir "$name"
+        cp "../pbslacks/builds/${name}.tar.gz" "$name"
+        cd "$name"
+        wget -N -nv --content-disposition "$path"
+	cd ..
+    fi
+}

@@ -4,11 +4,11 @@
 # Date : 2019
 # License : See the LICENSE file in this repository.
 
+. "$(dirname $0)/pbinclude"
+. "$(dirname $0)/pbaspireinc"
+
 xhelp () {
-    cat <<EOF
-Script a lancer dans le repertoire contenant packages, packages2 et al.
-Launch this script in the directory including packages, packages2 et al.
-EOF
+    mygt 'Launch this script in the directory including packages, packages2 et al.'
 }
 
 if [ ! -d packages ] ;then
@@ -45,100 +45,43 @@ SLACKCF="http://slack.conraid.net/repository/slackware64-current"
 SLACKDJ="http://www.slackel.gr/repo/x86_64/current/slackel/extra"
 SLACKDJ32="http://www.slackel.gr/repo/i486/current/slackel/extra"
 
-xpurgeindex () {
-    dir="$1"
-    find "$dir" -name 'index.html*' -exec rm -f {} \;
-    rm -f "$dir/robots.txt"*
-    rm -f "$dir/"*"/robots.txt"*
-}
-
-xpurgepac () {
-    pac="$1"
-    last=$(ls -1t "$pac"*.t?z|head -1)
-    for j in "$pac"*.t?z ;do
-	if [ "$j" != "$last" ] ;then
-	    rm -f "$j"
-	fi
-    done
-}
-
-xgetpac () {
-    pac="$1"
-    dir="$2"
-    prof="$3"
-    wget -N -A "$pac"'*.t?z' -r -nv -np -nH --cut-dir=$prof "$dir/"
-    xpurgepac "$pac"
-}
-
-xgetsrcpac () {
-    name="$1"
-    path="$2"
-    localcopie=$(echo "$path"|cut -d ':' -f1)
-    if [ ! -d "$name" ] ;then
-        mkdir "$name"
-        cp "../pbslacks/builds/${name}.tar.gz" "$name"
-    fi
-    if [ "$localcopie" = http -o "$localcopie" = https ] ;then
-        cd "$name"
-        wget -N -nv --content-disposition "$path"
-	cd ..
-    else
-	echo "Copie locale de ../pbslacks/builds/$path vers $name"
-	cp "../pbslacks/builds/$path" "$name"
-    fi
-}
-
-xmodpac () {
-    name="$1"
-    cat="$2"
-#    if [ ! -d "$name" ] ;then
-#        cp -a "../slackware64-current/source/$cat/$name" .
-#    fi
-#    cp "../pbslacks/builds/${name}.SlackBuild" "$name"
-    tar xvfz "../pbslacks/builds/${name}.tar.gz"
-    cd "$name"
-    sh "./${name}.SlackBuild"
-    cp "/tmp/${name}-"*.t?z ..
-    cd ..
-}
-
 # Download new sources.
 
 cd packages
-xgetsrcpac OpenAL "$PATHOPENAL"
-xgetsrcpac libtxc_dxtn "$PATHLIBTXC_DXTN"
-xgetsrcpac libgaminggear "$PATHLIBGAMINGGEAR"
+xgetsrc OpenAL "$PATHOPENAL"
+xgetsrc libtxc_dxtn "$PATHLIBTXC_DXTN"
+xgetsrc libgaminggear "$PATHLIBGAMINGGEAR"
 # python-pillow : re-add python2.7 support for openshot.
 # Pillow 7 from current Slackware drop support. Don't use it.
-xgetsrcpac python-pillow "$PATHPYTHONPIL"
+xgetsrc python-pillow "$PATHPYTHONPIL"
 cd ..
 
 cd packages2
-xgetsrcpac roccat-tools "$PATHROCCATTOOLS"
-xgetsrcpac kmplayer "kmplayer_0.11.5b.tar.bz2"
-xgetsrcpac denemo "$PATHDENEMO"
+xgetsrc roccat-tools "$PATHROCCATTOOLS"
+xlocalsrcpac kmplayer "kmplayer_0.11.5b.tar.bz2"
+xgetsrc denemo "$PATHDENEMO"
 # Guile 2.2 supprime en janvier. Utile a denemo.
-xgetsrcpac guile2.2 "$PATHGUILE22"
+xgetsrc guile2.2 "$PATHGUILE22"
 cd ..
 
 cd packages3
-xgetsrcpac bsddb3 "$PATHBSDDB3"
-xgetsrcpac db53 "$PATHDB53"
-xgetsrcpac db53 "$PATHDB53BIS"
-xgetsrcpac pyicu "$PATHPYICU"
-xgetsrcpac gramps "$PATHGRAMPS"
+xgetsrc bsddb3 "$PATHBSDDB3"
+xgetsrc db53 "$PATHDB53"
+xgetsrc db53 "$PATHDB53BIS"
+xgetsrc pyicu "$PATHPYICU"
+xgetsrc gramps "$PATHGRAMPS"
 cd ..
 
 cd packages4
-xgetsrcpac xrdp "$PATHXRDP"
-xgetsrcpac xorgxrdp "$PATHXORGXRDP"
-xgetsrcpac SFML "$PATHSFML"
-xgetsrcpac wxGTK3 "$PATHWXGTK3"
-xgetsrcpac vbam "$PATHVBAM"
-xgetsrcpac fbida "$PATHFBIDA"
-xgetsrcpac kaffeine "$PATHKAFFEINE"
-xgetsrcpac opencv "$PATHOPENCV"
-xgetsrcpac opencv "$PATHOPENCVBIS"
+xgetsrc xrdp "$PATHXRDP"
+xgetsrc xorgxrdp "$PATHXORGXRDP"
+xgetsrc SFML "$PATHSFML"
+xgetsrc wxGTK3 "$PATHWXGTK3"
+xgetsrc vbam "$PATHVBAM"
+xgetsrc fbida "$PATHFBIDA"
+xgetsrc kaffeine "$PATHKAFFEINE"
+xgetsrc opencv "$PATHOPENCV"
+xgetsrc opencv "$PATHOPENCVBIS"
 cd ..
 
 # Download new versions of binary packages.

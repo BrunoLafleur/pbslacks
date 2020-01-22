@@ -20,6 +20,8 @@
 # You can launch this script as a normal user in the plugdev group.
 # Use fdisk and udisksctl.
 
+. "$(dirname $0)/pbinclude"
+
 xhelp () {
     cat <<EOF
   Script a lancer dans le repertoire contenant slackware64-current deja aspire
@@ -33,24 +35,14 @@ EOF
 }
 
 MYPWD=$(pwd)
-XTEST=0
 ISO=0
 REPO="$MYPWD/slackware64-current"
 REPISO=Linuxiso
 GPARTISO=
 FULLINSTALLER=1
-ISDIAL=1
-[ x$(which dialog 2> /dev/null) = 'x' ] && ISDIAL=0
 NOUDISKS2=
 [ x$(which udisksctl 2> /dev/null) = 'x' ] && NOUDISKS2='-noudisks2'
 ISASK=0
-
-nodialog () {
-    echo '------------------------------------'
-    echo "  $1"
-    echo '------------------------------------'
-    cat "$2"
-}
 
 while [ $# -ge 1 ] ;do
     MYARG="$1"
