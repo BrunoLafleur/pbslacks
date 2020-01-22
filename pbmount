@@ -21,7 +21,7 @@ fi
 
 NAMEISO="$1"
 
-if [ ! -f "$NAMEISO" ] ;then
+if [ ! -f "$NAMEISO" -a ! -b "$NAMEISO" ] ;then
     xhelp
     exit 1
 fi
