@@ -4,6 +4,8 @@
 # Date : 2019
 # License : See the LICENSE file in this repository.
 
+. "$(dirname $0)/pbinclude"
+
 xhelp () {
     cat <<EOF
   Script a lancer dans le repertoire contenant slackware64 or slackware64-current
@@ -25,10 +27,8 @@ or> cd /run/media/$USER/USBSLACKINS/SlackDVD
 EOF
 }
 
-XTEST=0
 XNEW=
 XPOST=
-ISDIAL=1
 
 while [ $# -ge 1 ] ;do
     MYARG="$1"
@@ -46,8 +46,6 @@ while [ $# -ge 1 ] ;do
     fi
     shift
 done
-
-[ x$(which dialog 2> /dev/null) = 'x' ] && ISDIAL=0
 
 if [ ! -d /boot ] ;then
     echo "Do the install of the Slackware Linux distribution before :"

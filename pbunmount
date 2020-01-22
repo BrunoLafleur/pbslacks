@@ -1,0 +1,33 @@
+#! /bin/sh
+
+# Auteur : Pierre Brochard (pierre.brochard.1982@m4x.org)
+# Date : 2019
+# License : See the LICENSE file in this repository.
+
+FN="$0";[ "$0" = "$(basename $0)" ] && FN=$(which "$0")
+PBSDIR=$(dirname "$(readlink -f "$FN")")
+. "$PBSDIR/pbinclude"
+
+xhelp () {
+    mygt "Give the name of the device to unmount like /dev/loop0."
+    echo
+    echo "> $(basename $0) /dev/loop0"
+}
+
+if [ "$1" = '' ] ;then
+    xhelp
+    exit 1
+fi
+
+XDEV="$1"
+
+if [ -b "${XLOOP}p1" ] ;then
+    udisksctl unmount -b "${XDEV}p1"
+else
+    udisksctl unmount -b "${XDEV}"
+fi
+if [ "$(echo "$XDEV"|cut -c1-9)" = "/dev/loop" ] ;then
+    udisksctl loop-delete -b "$XDEV"
+fi
+
+mygt "ISO unmounted."

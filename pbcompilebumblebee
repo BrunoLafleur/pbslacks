@@ -14,14 +14,11 @@ EOF
   exit 1
 fi
 
-xhelp () {
-    cat <<EOF
-Script a lancer dans un repertoire contenant bumblebee.
-Launch this script in a directory which contains bumblebee.
+. "$(dirname $0)/pbinclude"
+. "$(dirname $0)/pbaspireinc"
 
-pbslacks should be side by side of this current directory.
-> pbslacks/pbinstallbumblebee
-EOF
+xhelp () {
+    mygt 'Launch this script in the directory including bumblebee.'
 }
 
 if [ ! -d bumblebee ] ;then
@@ -51,21 +48,11 @@ else
     sh "$HOMESLACK/bumblebee/crazybee.sh"
 fi
 
-xpurgepac () {
-    pac="$1"
-    last=$(ls -1t "$pac"*.t?z|head -1)
-    for j in "$pac"*.t?z ;do
-	if [ "$j" != "$last" ] ;then
-	    rm -f "$j"
-	fi
-    done
-}
-
 cd "$HOMESLACK/bumblebee"
-cp ~/Bumblebee-SlackBuilds/nouveau-blacklist/xf86-video-nouveau-blacklist-noarch-1.txz .
-chown ${MYUSER}.$MYGROUP *.t?z
+cp ~/Bumblebee-SlackBuilds/nouveau-blacklist/xf86-video-nouveau-blacklist-noarch-1.t?z .
 
 for i in libbsd primus bbswitch nvidia-bumblebee bumblebee nvidia-kernel ;do
-    cp "/tmp/${i}-"* .
+    cp "/tmp/${i}-"*.t?z .
     xpurgepac "${i}-"
 done
+chown ${MYUSER}.$MYGROUP *.t?z

@@ -1,0 +1,49 @@
+#! /bin/sh
+
+# Auteur : Pierre Brochard (pierre.brochard.1982@m4x.org)
+# Date : 2019
+# License : See the LICENSE file in this repository.
+
+ISGETTEXT=1
+[ x$(which gettext.sh 2> /dev/null) = 'x' ] && ISGETTEXT=0
+
+if [ $ISGETTEXT -eq 1 ] ;then
+    MYPWD=$(pwd)
+    export TEXTDOMAIN=pbslacks
+    if [ "$PBSDIR" != '' ] ;then
+	export TEXTDOMAINDIR="$PBSDIR/locale"
+    else
+	export TEXTDOMAINDIR="$(cd $(dirname $0); pwd)/locale";cd "$MYPWD"
+    fi
+    . gettext.sh
+    mygt () {
+	gettext "$1";echo
+    }
+    emygt () {
+	eval_gettext "$1";echo
+    }
+else
+    mygt () {
+	echo "$1"
+    }
+    emygt () {
+	STR=$(echo "$1"|sed 's@\\n@\\\\n@')
+	eval echo $STR
+    }
+fi
+
+XTEST=0
+ISDIAL=1
+[ x$(which dialog 2> /dev/null) = 'x' ] && ISDIAL=0
+
+nodialog () {
+    echo '------------------------------------'
+    echo "  $1"
+    echo '------------------------------------'
+    cat "$2"
+}
+
+MYPROG=$(basename "$0")
+PBMYPROG="pbslacks/$MYPROG"
+MYPWD=$(pwd)
+PBDIRPROG="$(cd $(dirname $0); pwd)";cd "$MYPWD"

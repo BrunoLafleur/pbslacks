@@ -5,6 +5,7 @@
 # License : See the LICENSE file in this repository.
 
 # Recompilations a faire apres reboot.
+
 MYUSER=produits
 MYGROUP=users
 
@@ -15,11 +16,10 @@ EOF
   exit 1
 fi
 
+. "$(dirname $0)/pbinclude"
+
 xhelp () {
-cat <<EOF
-Script a lancer dans le repertoire contenant packages, packages2 et al.
-Launch this script in the directory including packages, packages2 et al.
-EOF
+    mygt 'Launch this script in the directory including packages, packages2 et al.'
 }
 
 if [ ! -d packages -o ! -d packages2 -o ! -d packages3 -o ! -d packages4 ] ;then
@@ -41,23 +41,36 @@ Press a touch for continue or abort.
 EOF
 read c
 
+xmakealienpac () {
+    XDIR="$1"
+    pac="$2"
+    if [ $RECOMP -eq 1 -a -d "${XDIR}/$pac" ] ;then
+	cd "${XDIR}/$pac"
+	sh "./${pac}.SlackBuild"
+	cp "/tmp/${pac}-"*.t?z ..
+	cd ../..
+    fi
+}
+
 xmakepac () {
-    XDIR=$1
-    XPAC=$2
-    XSUB=$3
+    XDIR="$1"
+    XPAC="$2"
+    XSUB="$3"
 
     if [ $RECOMP -eq 1 ] ;then
       cd ${XDIR}/$XPAC
       tar xvfz ${XPAC}.t*gz
-      cd $XPAC
-      ./${XPAC}.SlackBuild
-      cp /tmp/${XPAC}-*.t?z ../..
-      if [ $? -ne 0 ] ;then
-	echo 'Erreur a corriger puis relancer ce script.'
-	echo 'Correct this error and relaunch this script.'
-        exit 1
+      if [ -d "$XPAC" ] ;then
+	  cd $XPAC
+	  ./${XPAC}.SlackBuild
+	  cp /tmp/${XPAC}-*.t?z ../..
+	  if [ $? -ne 0 ] ;then
+	      echo 'Erreur a corriger puis relancer ce script.'
+	      echo 'Correct this error and relaunch this script.'
+	      exit 1
+	  fi
+	  cd ..;rm -rf $XPAC
       fi
-      cd ..;rm -rf $XPAC
       cd ../..
       chown ${MYUSER}.$MYGROUP $XDIR/${XPAC}-*.t?z
       rm -f /tmp/${XPAC}-*.t?z
@@ -72,6 +85,13 @@ xmakepac () {
 }
 
 rm -f /usr/lib64/lib*.la
+
+# Binding python et pas python3 pour openshot.
+# Et le mlt.SlackBuild importe dans python et pas python3 (PYTHONSITEPKG).
+export PYTHON=python
+export BUILD=3alien
+xmakealienpac packages mlt
+
 for i in OpenAL libtxc_dxtn libgaminggear python-pillow ;do
     xmakepac packages $i
 done

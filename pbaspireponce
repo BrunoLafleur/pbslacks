@@ -4,11 +4,11 @@
 # Date : 2019
 # License : See the LICENSE file in this repository.
 
+. "$(dirname $0)/pbinclude"
+. "$(dirname $0)/pbaspireinc"
+
 xhelp () {
-    cat <<EOF
-Script a lancer dans le repertoire contenant packages, packages2 et al.
-Launch this script in the directory including packages, packages2 et al.
-EOF
+    mygt 'Launch this script in the directory including packages, packages2 et al.'
 }
 
 if [ ! -d packages ] ;then
@@ -19,39 +19,13 @@ fi
 SLACKPONCE="http://ponce.cc/slackware/slackware64-current/packages"
 SLACKPONCE32="http://ponce.cc/slackware/slackware-current/packages"
 
-xpurgeindex () {
-    dir="$1"
-    find "$dir" -name 'index.html*' -exec rm -f {} \;
-    rm -f "$dir/robots.txt"*
-    rm -f "$dir/"*"/robots.txt"*
-}
-
-xpurgepac () {
-    pac="$1"
-    last=$(ls -1t "$pac"*.t?z|head -1)
-    for j in "$pac"*.t?z ;do
-	if [ "$j" != "$last" ] ;then
-	    rm -f "$j"
-	fi
-    done
-}
-
-xgetpac () {
-    pac="$1"
-    dir="$2"
-    prof="$3"
-    wget -N -A "$pac"'*.t?z' -r -nv -np -nH --cut-dir=$prof "$dir/"
-}
-
 cd packages
 for i in ladspa_sdk swfdec x264 libdvdcss vid.stab ;do
     xgetpac "$i-" "$SLACKPONCE" 3
-    xpurgepac "$i-"
 done
 cd 32
 for i in libdvdcss ;do
     xgetpac "$i-" "$SLACKPONCE32" 3
-    xpurgepac "$i-"
 done
 cd ../..
 xpurgeindex packages
@@ -59,7 +33,6 @@ xpurgeindex packages
 cd packages2
 for i in gtksourceview3 ;do
     xgetpac "$i-" "$SLACKPONCE" 3
-    xpurgepac "$i-"
 done
 cd ..
 xpurgeindex packages2
@@ -67,7 +40,6 @@ xpurgeindex packages2
 cd packages3
 for i in graphviz ;do
     xgetpac "$i-" "$SLACKPONCE" 3
-    xpurgepac "$i-"
 done
 cd ..
 xpurgeindex packages3
@@ -75,7 +47,6 @@ xpurgeindex packages3
 cd packages4
 for i in hdf5 numpy ;do
     xgetpac "$i-" "$SLACKPONCE" 3
-    xpurgepac "$i-"
 done
 if [ ! -d audacity ] ;then
     mkdir audacity
@@ -83,7 +54,6 @@ fi
 cd audacity
 for i in celt051 ;do
     xgetpac "$i-" "$SLACKPONCE" 3
-    xpurgepac "$i-"
 done
 cd ../..
 xpurgeindex packages4

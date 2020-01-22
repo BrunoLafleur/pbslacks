@@ -16,66 +16,114 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: pbsetup:32
-msgid "Launch this script in a directory containing slackware64-current"
-msgstr ""
-
-#: pbsetup:33
-msgid "or slackware64 or from the current directory for a new clone."
-msgstr ""
-
-#: pbsetup:86
+#: pbsetup:48
 msgid "Choose working dir"
 msgstr ""
 
-#: pbsetup:88
+#: pbsetup:50
 #, sh-format
 msgid "Local repository $LASTSLACK found.\\nDo you want to work with it$YN ?"
 msgstr ""
 
-#: pbsetup:128
+#: pbsetup:90
 msgid "Main menu"
 msgstr ""
 
-#: pbsetup:243
+#: pbsetup:206
 msgid "Actions which were done"
 msgstr ""
 
-#: pbsetup:239
+#: pbsetup:202
 msgid "No action was demanded. Exit."
 msgstr ""
 
-#: pbsetup:129
+#: pbsetup:91
 msgid "Choose your actions below"
 msgstr ""
 
-#: pbsetup:121
+#: pbsetup:83
 msgid ""
 "Get/Update local repository versus officiel remote Slackware and add-on "
 "packages"
 msgstr ""
 
-#: pbsetup:122
+#: pbsetup:84
 msgid ""
 "Sync/Update system to the last fetched current Slackware and add-on packages"
 msgstr ""
 
-#: pbsetup:123
+#: pbsetup:85
 msgid "Make a bootable USB stick for Slackware install."
 msgstr ""
 
-#: pbsetup:213
+#: pbsetup:172
 msgid "Clone done (full or partial depending on selected options)."
 msgstr ""
 
-#: pbsetup:224
+#: pbsetup:183
 msgid "Upgrade done for selected set of packages."
 msgstr ""
 
-#: pbsetup:233
+#: pbsetup:193
 msgid "USB stick created."
 msgstr ""
 
-#: pbsetup:221 pbsetup:230
+#: pbsetup:180 pbsetup:189
 msgid "Change to root."
+msgstr ""
+
+#: pbsetup:138
+msgid ""
+"Do a local clone/update of the officiel Slackware and add-on packages."
+"\\nUses pbslacks/pbaspire."
+msgstr ""
+
+#: pbsetup:140
+msgid "Upgrade the local system with the local clone."
+msgstr ""
+
+#: pbsetup:142
+msgid ""
+"Make a dual boot install USB stick with Slackware install and GParted Live "
+"which can boot on old bios or new UEFI bios computers."
+msgstr ""
+
+#: pbsetup:151
+msgid "Press a key to continue."
+msgstr ""
+
+#: pbsetup:10
+msgid ""
+"Launch this script in a directory containing slackware64-current\\nor "
+"slackware64 or from the current directory for a new clone."
+msgstr ""
+
+#: pbsetup:195
+msgid "USB stick not created."
+msgstr ""
+
+#: pbaspirealien:11 pbaspireponce:11 pbaspireslonly:11 pbaspireother:11
+#: pbaspiremoz:11 pbcompilepost:22
+msgid ""
+"Launch this script in the directory including packages, packages2 et al."
+msgstr ""
+
+#: pbcompilebumblebee:20
+msgid "Launch this script in the directory including bumblebee."
+msgstr ""
+
+#: pbmountiso:10
+msgid "Give the name of the iso file to mount."
+msgstr ""
+
+#: pbmountiso:34
+msgid "unmount with :"
+msgstr ""
+
+#: pbunmountiso:10
+msgid "Give the name of the device to unmount like /dev/loop0."
+msgstr ""
+
+#: pbunmountiso:27
+msgid "ISO unmounted."
 msgstr ""

@@ -16,69 +16,123 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: pbsetup:32
-msgid "Launch this script in a directory containing slackware64-current"
-msgstr ""
-"Script à lancer dans un repertoire contenant slackware64-current ou "
-"slackware64"
-
-#: pbsetup:33
-msgid "or slackware64 or from the current directory for a new clone."
-msgstr "ou à partir du répertoire courant pour une nouvelle copie complète."
-
-#: pbsetup:86
+#: pbsetup:48
 msgid "Choose working dir"
 msgstr "Choisissez votre répertoire de travail"
 
-#: pbsetup:88
+#: pbsetup:50
 #, sh-format
 msgid "Local repository $LASTSLACK found.\\nDo you want to work with it$YN ?"
 msgstr "Copie locale $LASTSLACK trouvée.\\nVoulez vous travailler avec$YN ?"
 
-#: pbsetup:128
+#: pbsetup:90
 msgid "Main menu"
 msgstr "Menu principal"
 
-#: pbsetup:243
+#: pbsetup:206
 msgid "Actions which were done"
 msgstr "Actions réalisées"
 
-#: pbsetup:239
+#: pbsetup:202
 msgid "No action was demanded. Exit."
 msgstr "Aucune action demandée. Sortie."
 
-#: pbsetup:129
+#: pbsetup:91
 msgid "Choose your actions below"
 msgstr "Choisissez vos actions ci-dessous"
 
-#: pbsetup:121
+#: pbsetup:83
 msgid ""
 "Get/Update local repository versus officiel remote Slackware and add-on "
 "packages"
 msgstr ""
 "Obtenir/mettre à jour la copie locale du site Slackware avec ses ajouts"
 
-#: pbsetup:122
+#: pbsetup:84
 msgid ""
 "Sync/Update system to the last fetched current Slackware and add-on packages"
 msgstr "Synchroniser la copie locale avec le système courant"
 
-#: pbsetup:123
+#: pbsetup:85
 msgid "Make a bootable USB stick for Slackware install."
 msgstr "Fabriquer une clé USB avec l'installateur de la Slackware"
 
-#: pbsetup:213
+#: pbsetup:172
 msgid "Clone done (full or partial depending on selected options)."
 msgstr "Copie faite (complète ou partielle selon options choisies)"
 
-#: pbsetup:224
+#: pbsetup:183
 msgid "Upgrade done for selected set of packages."
 msgstr "Mise à jour du système courant pour les paquets choisis"
 
-#: pbsetup:233
+#: pbsetup:193
 msgid "USB stick created."
 msgstr "Clé USB créée"
 
-#: pbsetup:221 pbsetup:230
+#: pbsetup:180 pbsetup:189
 msgid "Change to root."
 msgstr "Connection root."
+
+#: pbsetup:138
+msgid ""
+"Do a local clone/update of the officiel Slackware and add-on packages."
+"\\nUses pbslacks/pbaspire."
+msgstr ""
+"Obtenir/mettre à jour la copie locale du site Slackware avec ses ajouts"
+"\\nUtilise pbslacks/pbaspire."
+
+#: pbsetup:140
+msgid "Upgrade the local system with the local clone."
+msgstr "Mise à jour du système local à l'aide du clone local"
+
+#: pbsetup:142
+msgid ""
+"Make a dual boot install USB stick with Slackware install and GParted Live "
+"which can boot on old bios or new UEFI bios computers."
+msgstr ""
+"Fabriquer une clé USB de démarrage avec l'installeur de la Slackware et la "
+"GParted Live. Elle peut se lancer sur les anciens bios ou les bios UEFI."
+
+#: pbsetup:151
+msgid "Press a key to continue."
+msgstr "Appuyez sur une touche pour continuer."
+
+#: pbsetup:10
+msgid ""
+"Launch this script in a directory containing slackware64-current\\nor "
+"slackware64 or from the current directory for a new clone."
+msgstr ""
+"Script à lancer dans un repertoire contenant slackware64-current\\nou "
+"slackware64 ou à partir du répertoire courant pour une nouvelle copie "
+"complète."
+
+#: pbsetup:195
+msgid "USB stick not created."
+msgstr "Clé USB non créée"
+
+#: pbaspirealien:11 pbaspireponce:11 pbaspireslonly:11 pbaspireother:11
+#: pbaspiremoz:11 pbcompilepost:22
+msgid ""
+"Launch this script in the directory including packages, packages2 et al."
+msgstr ""
+"Script à lancer dans le répertoire contenant packages, packages2 et al."
+
+#: pbcompilebumblebee:20
+msgid "Launch this script in the directory including bumblebee."
+msgstr "Script à lancer dans le répertoire contenant bumblebee."
+
+#: pbmountiso:10
+msgid "Give the name of the iso file to mount."
+msgstr "Donnez le nom d'une image iso à monter"
+
+#: pbmountiso:34
+msgid "unmount with :"
+msgstr "démontez avec :"
+
+#: pbunmountiso:10
+msgid "Give the name of the device to unmount like /dev/loop0."
+msgstr "Donnez le nom d'un périphérique à démonter."
+
+#: pbunmountiso:27
+msgid "ISO unmounted."
+msgstr "Image ISO démontée"

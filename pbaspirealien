@@ -4,11 +4,11 @@
 # Date : 2019
 # License : See the LICENSE file in this repository.
 
+. "$(dirname $0)/pbinclude"
+. "$(dirname $0)/pbaspireinc"
+
 xhelp () {
-    cat <<EOF
-Script a lancer dans le repertoire contenant packages, packages2 et al.
-Launch this script in the directory including packages, packages2 et al.
-EOF
+    mygt 'Launch this script in the directory including packages, packages2 et al.'
 }
 
 if [ ! -d packages ] ;then
@@ -21,51 +21,14 @@ SLACKALIEN="$SLACKMIR/people/alien/slackbuilds"
 SLACKALIEN2="$SLACKMIR/people/alien-kde/current/latest/x86_64/deps"
 SLACKALIENSRC2="$SLACKMIR/people/alien-kde/source/latest/deps"
 
-xpurgeindex () {
-    dir="$1"
-    find "$dir" -name 'index.html*' -exec rm -f {} \;
-    rm -f "$dir/robots.txt"*
-    rm -f "$dir/"*"/robots.txt"*
-}
-
-xpurgepac () {
-    pac="$1"
-    last=$(ls -1t "$pac"*.t?z|head -1)
-    for j in "$pac"*.t?z ;do
-	if [ "$j" != "$last" ] ;then
-	    rm -f "$j"
-	fi
-    done
-}
-
-xgetpac () {
-    pac="$1"
-    dir="$2"
-    prof="$3"
-    wget -N -A "$pac"'*.t?z' -r -nv -np -nH --cut-dir=$prof "$dir/"
-}
-
-xgetsrcpac () {
-    pac="$1"
-    dir="$2"
-    prof="$3"
-    wget -N -r -nv -np -nH --cut-dir=$prof "$dir/"
-    cd "$pac"
-    sh "./${pac}.SlackBuild"
-    cp "/tmp/${pac}-"*.t?z ..
-    cd ..
-}
-
 cd packages
 for i in cabextract jack2 libxkbcommon mlt musescore openjdk qt5 qt5-speech ;do
     xgetpac "$i-" "$SLACKALIEN/$i/pkg64/current" 10
-    xpurgepac "$i-"
 done
 
 # MLT pour openshot.
 i=mlt
 xgetpac "$i-" "$SLACKALIEN2" 10
-xpurgepac "$i-"
 # Binding python et pas python3 pour openshot.
 # Et le mlt.SlackBuild importe dans python et pas python3 (PYTHONSITEPKG).
 export PYTHON=python
@@ -74,16 +37,13 @@ xgetsrcpac "$i" "$SLACKALIENSRC2/$i/" 9
 
 for i in steamclient ;do
     xgetpac "$i-" "$SLACKALIEN/$i/pkg/current" 10
-    xpurgepac "$i-"
 done
 for i in libreoffice libreoffice-dict-fr libreoffice-l10n-fr libreoffice-sdkdoc ;do
     xgetpac "$i-"'[0-9]' "$SLACKALIEN/libreoffice/pkg64/current" 10
-    xpurgepac "$i-"'[0-9]'
 done
 cd 32
 for i in cabextract ;do
     xgetpac "$i-" "$SLACKALIEN/$i/pkg/current" 10
-    xpurgepac "$i-"
 done
 cd ../..
 xpurgeindex packages
@@ -91,7 +51,6 @@ xpurgeindex packages
 cd packages2
 for i in SDL_sound aubio rubberband vlc ;do
     xgetpac "$i-" "$SLACKALIEN/$i/pkg64/current" 10
-    xpurgepac "$i-"
 done
 cd ..
 xpurgeindex packages2
@@ -99,7 +58,6 @@ xpurgeindex packages2
 cd packages3
 for i in calibre ;do
     xgetpac "$i-" "$SLACKALIEN/$i/pkg64/current" 10
-    xpurgepac "$i-"
 done
 cd ..
 xpurgeindex packages3
@@ -111,7 +69,6 @@ for i in chromium ;do
 done
 for i in PyQt5 wayland-protocols ;do
     xgetpac "$i-" "$SLACKALIEN2" 10
-    xpurgepac "$i-"
 done
 if [ ! -d audacity ] ;then
     mkdir audacity
@@ -119,7 +76,6 @@ fi
 cd audacity
 for i in audacity lilv lv2 serd sord sratom suil vamp-plugin-sdk ;do
     xgetpac "$i-" "$SLACKALIEN/$i/pkg64/current" 10
-    xpurgepac "$i-"
 done
 cd ../..
 xpurgeindex packages4
