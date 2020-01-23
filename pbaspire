@@ -7,17 +7,9 @@
 . "$(dirname $0)/pbinclude"
 
 xhelp () {
-    cat <<EOF
-Script a lancer dans un repertoire nouvellement cree
-  ou existant contenant slackware64-current.
-
-Launch this script in a new directory.
-  or in a directory which contains slackware64-current.
-
-pbslacks should be side by side of this current directory.
-
-> ../pbslacks/pbaspire [-test (test only, no actions)] [-help|-h] [-nodial]
-EOF
+    mygt 'Launch this script in a new directory.\nor in a directory which contains slackware64-current.\n\npbslacks should be side by side of this current directory.'|sed 's@\\n@\n@g'
+    echo
+    echo '> ../pbslacks/pbaspire [-test (test only, no actions)] [-help|-h] [-nodial]'
 }
 
 while [ $# -ge 1 ] ;do
@@ -39,24 +31,35 @@ if [ $XTEST -ne 1 -a "$0" != "../pbslacks/$MYPROG" \
     exit 1
 fi
 
+PBNAME=$0
 XTEMPOUT=$(mktemp -p /tmp -t pbaspireout.XXXXXX)
 XTEMPMES=$(mktemp -p /tmp -t pbaspiremes.XXXXXX)
-INIT='Init/Verify the repository.'
-CORE='Get/Update versus officiel Slackware, multilib and frameworks KDE5'
-ALIEN='Get/Update some Alien Bob binary packages'
-PONCE='Get/Update some Ponce binary packages'
-SLONLY='Get/Update some Slackonly binary packages'
-OTHER='Get/Update some other source or binary packages'
-MOZILLA='Get/Update latest Firefox and Thunderbird'
+
+cleanup () {
+    rm -f $XTEMPOUT
+    rm -f $XTEMPMES
+}
+
+trap 'echo "*** Ctrl-C caught -- aborting operations ***"; cleanup; exit 1' 2 14 15 # trap Ctrl-C and kill
+
+INIT=$(mygt 'Init/Verify the repository.')
+CORE=$(mygt 'Get/Update versus officiel Slackware, multilib and frameworks KDE5')
+ALIEN=$(mygt 'Get/Update some Alien Bob binary packages')
+PONCE=$(mygt 'Get/Update some Ponce binary packages')
+SLONLY=$(mygt 'Get/Update some Slackonly binary packages')
+OTHER=$(mygt 'Get/Update some other source or binary packages')
+MOZILLA=$(mygt 'Get/Update latest Firefox and Thunderbird')
 
 xmaster () {
     defitem=$1;shift
     xsel1=$1;shift;xsel2=$1;shift;xsel3=$1;shift;xsel4=$1;shift;xsel5=$1;shift
     xsel6=$1;shift;xsel7=$1
+    pactit=$(mygt 'Main menu');pactit="pbaspire: $pactit"
+    pactxt=$(mygt 'Choose your actions below')
     if [ $ISDIAL -eq 1 ] ;then
-	dialog --colors --title 'Main menu' --default-item $defitem --defaultno \
-	    --separate-output --item-help --help-button --help-status \
-	    --checklist 'Choose your actions below' 0 100 7 \
+	dialog --colors --title "$pactit" --default-item $defitem \
+	    --defaultno --separate-output --item-help --help-button \
+	    --help-status --checklist "$pactxt" 0 100 7 \
 	    init "$INIT" $xsel1 init \
 	    core "$CORE" $xsel2 core \
 	    alien "$ALIEN" $xsel3 alien \
@@ -66,36 +69,38 @@ xmaster () {
 	    mozilla "$MOZILLA" $xsel7 mozilla
     else
 	echo '------------------------------------'
-	echo "          Main menu"
+	echo "        $pactit"
 	echo '------------------------------------'
-	echo "HELP init (y or n) :";read c
-	if [ "$c" = "y" ] ;then echo "HELP init" 1>&2;return;fi
-	echo "HELP core (y or n) :";read c
-	if [ "$c" = "y" ] ;then echo "HELP core" 1>&2;return;fi
-	echo "HELP alien (y or n) :";read c
-	if [ "$c" = "y" ] ;then echo "HELP alien" 1>&2;return;fi
-	echo "HELP ponce (y or n) :";read c
-	if [ "$c" = "y" ] ;then echo "HELP ponce" 1>&2;return;fi
-	echo "HELP slonly (y or n) :";read c
-	if [ "$c" = "y" ] ;then echo "HELP slonly" 1>&2;return;fi
-	echo "HELP other (y or n) :";read c
-	if [ "$c" = "y" ] ;then echo "HELP other" 1>&2;return;fi
-	echo "HELP mozilla (y or n) :";read c
-	if [ "$c" = "y" ] ;then echo "HELP mozilla" 1>&2;return;fi
-
+	echo "HELP (y or n) :";read c
+	if [ "$c" = "y" ] ;then
+	    echo "HELP init (y or n) :";read c
+	    if [ "$c" = "y" ] ;then echo "HELP init" 1>&2;return;fi
+	    echo "HELP core (y or n) :";read c
+	    if [ "$c" = "y" ] ;then echo "HELP core" 1>&2;return;fi
+	    echo "HELP alien (y or n) :";read c
+	    if [ "$c" = "y" ] ;then echo "HELP alien" 1>&2;return;fi
+	    echo "HELP ponce (y or n) :";read c
+	    if [ "$c" = "y" ] ;then echo "HELP ponce" 1>&2;return;fi
+	    echo "HELP slonly (y or n) :";read c
+	    if [ "$c" = "y" ] ;then echo "HELP slonly" 1>&2;return;fi
+	    echo "HELP other (y or n) :";read c
+	    if [ "$c" = "y" ] ;then echo "HELP other" 1>&2;return;fi
+	    echo "HELP mozilla (y or n) :";read c
+	    if [ "$c" = "y" ] ;then echo "HELP mozilla" 1>&2;return;fi
+	fi
 	echo "$INIT (y or n) :";read c
 	[ "$c" = "y" ] && echo "init" 1>&2
 	echo "$CORE (y or n) :";read c
 	[ "$c" = "y" ] && echo "core" 1>&2
-	echo $"$ALIEN (y or n) :";read c
+	echo "$ALIEN (y or n) :";read c
 	[ "$c" = "y" ] && echo "alien" 1>&2
 	echo "$PONCE (y or n) :";read c
 	[ "$c" = "y" ] && echo "ponce" 1>&2
 	echo "$SLONLY (y or n) :";read c
 	[ "$c" = "y" ] && echo "slonly" 1>&2
-	echo $"$OTHER (y or n) :";read c
+	echo "$OTHER (y or n) :";read c
 	[ "$c" = "y" ] && echo "other" 1>&2
-	echo $"$MOZILLA (y or n) :";read c
+	echo "$MOZILLA (y or n) :";read c
 	[ "$c" = "y" ] && echo "mozilla" 1>&2
     fi
 }
@@ -119,21 +124,19 @@ while [ $bclaide -eq 1 ] ;do
 	done
 	ditem=$xitem;bclaide=1;pacaide=
 	if [ "$xitem" = init ] ;then
-	    pacaide='Initialize or verify the current repository.'
+	    pacaide=$(mygt 'Initialize or verify the current repository.')
 	elif [ "$xitem" = core ] ;then
-	    pacaide='Get or update the officiel lastest current Slackware.'
-	    pacaide="$pacaide\nAnd the multilib of Alien Bob which is a 32 bits compatibility set of packages."
-	    pacaide="$pacaide\nAnd the frameworks libraries of Kde5 offered by Alien Bob."
+	    pacaide=$(mygt 'Get or update the officiel lastest current Slackware.\nAnd the multilib of Alien Bob which is a 32 bits compatibility set of packages.\nAnd the frameworks libraries of Kde5 offered by Alien Bob.')
 	elif [ "$xitem" = alien ] ;then
-	    pacaide='Get or update some Alien Bob binary packages.'
+	    pacaide=$(mygt 'Get or update some Alien Bob binary packages.')
 	elif [ "$xitem" = ponce ] ;then
-	    pacaide='Get or update some Ponce binary packages.'
+	    pacaide=$(mygt 'Get or update some Ponce binary packages.')
 	elif [ "$xitem" = slonly ] ;then
-	    pacaide='Get or update some Slackonly binary packages.'
+	    pacaide=$(mygt 'Get or update some Slackonly binary packages.')
 	elif [ "$xitem" = other ] ;then
-	    pacaide='Get or update some other source or binary packages.'
+	    pacaide=$(mygt 'Get or update some other source or binary packages.')
 	elif [ "$xitem" = mozilla ] ;then
-	    pacaide='Get or update Firefox and Thunderbird.'
+	    pacaide=$(mygt 'Get or update Firefox and Thunderbird.')
 	fi
 	if [ $ISDIAL -eq 1 ] ;then
 	    dialog --colors --title "$xitem" --msgbox "$pacaide" 20 80
@@ -141,9 +144,7 @@ while [ $bclaide -eq 1 ] ;do
 	    echo '------------------------------------'
 	    echo "          $xitem"
 	    echo '------------------------------------'
-	    echo "$pacaide"|sed 's@\\n@\n@'
-	    echo "Press a key to continue."
-	    read c
+	    echo "$pacaide"|sed 's@\\n@\n@g'
 	fi
     fi
 done
@@ -152,42 +153,28 @@ while read i;test "$i" != "" ;do
     if [ "$(echo $i|cut -c1-4)" = 'HELP' ] ;then
 	continue
     elif [ "$i" = init ] ;then
-	if [ $XTEST -ne 1 ] ;then
-	    "$0"init
-	fi
-	echo "Initialisation done : \Z3${0}init\Zn." >> $XTEMPMES
+	[ $XTEST -ne 1 ] && "$PBNAME"init
+	emygt "Initialisation done : \Z3\${PBNAME}init\Zn." >> $XTEMPMES
     elif [ "$i" = core ] ;then
-	if [ $XTEST -ne 1 ] ;then
-	    "$0"core
-	fi
-	echo "Get/Upgrade core system done : \Z3${0}core\Zn." >> $XTEMPMES
+	[ $XTEST -ne 1 ] && "$PBNAME"core
+	emygt "Get/Upgrade core system done : \Z3\${PBNAME}core\Zn." >> $XTEMPMES
     elif [ "$i" = alien ] ;then
-	if [ $XTEST -ne 1 ] ;then
-	    "$0"alien
-	fi
-	echo "Get/Upgrade Alien Bob packages done : \Z3${0}alien\Zn." \
+	[ $XTEST -ne 1 ] && "$PBNAME"alien
+	emygt "Get/Upgrade Alien Bob packages done : \Z3\${PBNAME}alien\Zn." \
 	    >> $XTEMPMES
     elif [ "$i" = ponce ] ;then
-	if [ $XTEST -ne 1 ] ;then
-	    "$0"ponce
-	fi
-	echo "Get/Upgrade Ponce packages done : \Z3${0}ponce\Zn." >> $XTEMPMES
+        [ $XTEST -ne 1 ] && "$PBNAME"ponce
+	emygt "Get/Upgrade Ponce packages done : \Z3\${PBNAME}ponce\Zn." >> $XTEMPMES
     elif [ "$i" = slonly ] ;then
-	if [ $XTEST -ne 1 ] ;then
-	    "$0"slonly
-	fi
-	echo "Get/Upgrade Slackonly packages done : \Z3${0}slonly\Zn." \
+	[ $XTEST -ne 1 ] && "$PBNAME"slonly
+	emygt "Get/Upgrade Slackonly packages done : \Z3\${PBNAME}slonly\Zn." \
 	    >> $XTEMPMES
     elif [ "$i" = other ] ;then
-	if [ $XTEST -ne 1 ] ;then
-	    "$0"other
-	fi
-	echo "Get/Upgrade other source or binary packages done : \Z3${0}other\Zn." >> $XTEMPMES
+	[ $XTEST -ne 1 ] && "$PBNAME"other
+	emygt "Get/Upgrade other source or binary packages done : \Z3\${PBNAME}other\Zn." >> $XTEMPMES
     elif [ "$i" = mozilla ] ;then
-	if [ $XTEST -ne 1 ] ;then
-	    "$0"moz -lang fr
-	fi
-	echo "Get/Upgrade Firefox and Thunderbird done : \Z3${0}mozilla\Zn." \
+	[ $XTEST -ne 1 ] && "$PBNAME"moz -lang fr
+	emygt "Get/Upgrade Firefox and Thunderbird done : \Z3\${PBNAME}mozilla\Zn." \
 	    >> $XTEMPMES
     fi
 done < $XTEMPOUT
@@ -195,13 +182,13 @@ done < $XTEMPOUT
 rm -f $XTEMPOUT
 
 if [ ! -f "$XTEMPMES" -o $(cat "$XTEMPMES"|wc -c) -eq 0 ] ;then
-    echo "No action was demanded. Exit." > $XTEMPMES
+    mygt "No action was demanded. Exit." > $XTEMPMES
 fi
 
-DACTION='Actions which were done'
+DACTION=$(mygt 'Actions which were done')
 
 if [ $ISDIAL -eq 1 ] ;then
-    dialog --colors --title "$DACTION" --msgbox "$(cat $XTEMPMES)" 20 80
+    dialog --colors --title "$DACTION" --msgbox "$(cat $XTEMPMES)" 20 90
 else
     nodialog "$DACTION" $XTEMPMES
 fi

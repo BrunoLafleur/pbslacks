@@ -48,9 +48,7 @@ cd packages4
 for i in hdf5 numpy ;do
     xgetpac "$i-" "$SLACKPONCE" 3
 done
-if [ ! -d audacity ] ;then
-    mkdir audacity
-fi
+[ ! -d audacity ] && mkdir audacity
 cd audacity
 for i in celt051 ;do
     xgetpac "$i-" "$SLACKPONCE" 3

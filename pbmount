@@ -9,40 +9,44 @@ PBSDIR=$(dirname "$(readlink -f "$FN")")
 . "$PBSDIR/pbinclude"
 
 xhelp () {
-    mygt "Give the name of the iso file to mount."
+    mygt "Give the name of the iso file or the device to mount."
     echo
-    echo "> $(basename $0) nameiso"
+    echo "> $(basename $0) nameiso|/dev/xxx"
 }
-
-if [ "$1" = '' ] ;then
-    xhelp
-    exit 1
-fi
 
 NAMEISO="$1"
 
-if [ ! -f "$NAMEISO" -a ! -b "$NAMEISO" ] ;then
+if [ "$1" = '' -o '(' ! -b "$NAMEISO" -a ! -f "$NAMEISO" ')' ] ;then
     xhelp
     exit 1
 fi
 
+xlosetup () {
+    XL="$1"
+    udisksctl loop-setup -f "$XL"|sed 's@^.* \(.*\)\.$@\1@'
+}
+
+xmount () {
+    XL="$1"
+    udisksctl mount -b "${XL}p1"|cut -d ' ' -f4-|sed 's@^\(.*\)\.$@\1@'
+}
+
 if [ -b "$NAMEISO" ] ;then
-    MNTDIR=$(udisksctl mount -b "${NAMEISO}"|cut -d ' ' -f4-|\
-	sed 's@^\(.*\)\.$@\1@')
+    MNTDIR=$(xmount "$NAMEISO")
     XLOOP="$NAMEISO"
 else
-    XLOOP=$(udisksctl loop-setup -f "$NAMEISO"|sed 's@^.* \(.*\)\.$@\1@')
-    echo "Loop device is : $XLOOP"
+    XLOOP=$(xlosetup "$NAMEISO")
+    emygt "Loop device is : \$XLOOP"
 
     if [ -b "${XLOOP}p1" ] ;then
-        MNTDIR=$(udisksctl mount -b "${XLOOP}p1"|cut -d ' ' -f4-|\
-	    sed 's@^\(.*\)\.$@\1@')
+        MNTDIR=$(xmount "${XLOOP}p1")
     else
-        MNTDIR=$(udisksctl mount -b "${XLOOP}"|cut -d ' ' -f4-|\
-	    sed 's@^\(.*\)\.$@\1@')
+        MNTDIR=$(xmount "${XLOOP}")
     fi
 fi
 
-emygt "Look at $MNTDIR"
-mygt "unmount with :"
-echo "> pbunmountiso $XLOOP"
+if [ "$MNTDIR" != '' ] ;then
+    emygt "Look at \$MNTDIR"
+    mygt "unmount with :"
+    echo "> pbunmountiso $XLOOP"
+fi

@@ -5,7 +5,7 @@
 # License : See the LICENSE file in this repository.
 
 xhelp () {
-    echo "> ./pblocale [-h|-help] [-init new_language] [-prog progname]"
+    echo "> ./pblocale [-h|-help] [-init new_language] [progname]"
 }
 
 XINIT=
@@ -16,12 +16,11 @@ while [ $# -ge 1 ] ;do
     if [ "$MYARG" = "-init" ] ;then
 	shift
 	XINIT="$1"
-    elif [ "$MYARG" = "-prog" ] ;then
-	shift
-	XPROG="$1"
     elif [ "$MYARG" = "-help" -o "$MYARG" = "-h" ] ;then
 	xhelp
 	exit 0
+    else
+	XPROG="$XPROG $MYARG"	
     fi
     shift
 done
@@ -30,10 +29,12 @@ MYPWD=$(pwd)
 TEXTDOMAIN=pbslacks
 TEXTDOMAINDIR="$(cd $(dirname $0); pwd)/locale";cd "$MYPWD"
 
-xgettext -d "$TEXTDOMAIN" -p "$TEXTDOMAINDIR" -L Shell \
-    --copyright-holder='Pierre Brochard' \
-    --msgid-bugs-address=pierre.brochard.1982@m4x.org -kmygt -kemygt \
-    -j --omit-header "$XPROG"
+for i in $XPROG ; do
+    xgettext -d "$TEXTDOMAIN" -p "$TEXTDOMAINDIR" -L Shell \
+	--copyright-holder='Pierre Brochard' \
+	--msgid-bugs-address=pierre.brochard.1982@m4x.org -kmygt -kemygt \
+	-j --omit-header $i
+done
 
 if [ "$XINIT" != '' ] ;then
     mkdir "$TEXTDOMAINDIR/$XINIT"

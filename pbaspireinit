@@ -39,15 +39,11 @@ if [ ! -d packages -a -d "$OLDSLACK" ] ;then
 fi
 
 # This project.
-if [ ! -h pbslacks ] ; then
-    ln -s ../pbslacks .
-fi
+[ ! -h pbslacks ] && ln -s ../pbslacks .
 
 # For putting iso images.amges.
 if [ ! -h Linuxiso ] ; then
-    if [ ! -d ../Linuxiso ] ;then
-	mkdir ../Linuxiso
-    fi
+    [ ! -d ../Linuxiso ] && mkdir ../Linuxiso
     ln -s ../Linuxiso .
 fi
 
@@ -69,22 +65,15 @@ if [ ! -h divers ] ; then
     fi
 fi
 
-if [ ! -d packages ] ;then
-    mkdir packages
-fi
+[ ! -d packages ] && mkdir packages
 mkdir -p packages/32
 mkdir -p packages/compat32
 mkdir -p packages/Mozilla
 
-if [ ! -d packages2 ] ;then
-    mkdir packages2
-fi
-if [ ! -d packages3 ] ;then
-    mkdir packages3
-fi
-if [ ! -d packages4 ] ;then
-    mkdir packages4
-fi
+[ ! -d packages2 ] && mkdir packages2
+[ ! -d packages3 ] && mkdir packages3
+[ ! -d packages4 ] && mkdir packages4
+
 if [ ! -d bumblebee ] ;then
     mkdir bumblebee
     mkdir bumblebee/Crazybee

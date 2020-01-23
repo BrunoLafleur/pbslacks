@@ -19,7 +19,7 @@ myrget () {
     gpath="$2"
     pack="$3"
     wget -N -nv -np -nH --cut-dirs=$prof -r "$gpath/"
-    find "$pack" -name 'index.html*' -exec rm -f {} \;
+    [ -d "$pack" ] && find "$pack" -name 'index.html*' -exec rm -f {} \;
 }
 
 # Function for purge old packages.
@@ -38,6 +38,7 @@ xpurgepac () {
 myrget 4 "$SLACKMIR/slackware64-current" slackware64-current
 
 # Nettoyage des doublons
+echo '------------------------------------'
 if [ -d slackware64-current ] ;then
     cd slackware64-current
     find . -name '*.t?z'|grep -v '^./source/'|while read i;test "$i" != "" ;do
@@ -54,13 +55,17 @@ if [ -d slackware64-current ] ;then
     ln -sf ../packages* .
     cd ..
     echo "Copie Slackware current faite."
+else
+    echo "Copie Slackware current non faite."
 fi
+echo '------------------------------------'
 
 # Multilib Alien Bob.
 # can be done non root.
 myrget 7 "$SLACKMULTI" current
 
 # Nettoyage des doublons
+echo '------------------------------------'
 if [ -d current ] ;then
     cd current
     find . -name '*.t?z'|grep -v '^./source/'|while read i;test "$i" != "" ;do
@@ -73,17 +78,20 @@ if [ -d current ] ;then
         xpurgepac "$pack-[0-9]" md5
     done
     cd ..
+    echo "Copie Slackware multilib faite."
+else
+    echo "Copie Slackware multilib non faite."
 fi
+echo '------------------------------------'
 
 # Frameworks KDE5 Alien Bob
-if [ ! -d packages4 ] ;then
-    mkdir packages4
-fi
+[ ! -d packages4 ] && mkdir packages4
 
 cd packages4
 myrget 10 "$SLACKKDEFW" frameworks
 
 # Nettoyage des doublons
+echo '------------------------------------'
 if [ -d frameworks ] ;then
     cd frameworks
     find . -name '*.t?z'|grep -v '^./source/'|while read i;test "$i" != "" ;do
@@ -96,19 +104,28 @@ if [ -d frameworks ] ;then
 	xpurgepac "$pack-[0-9]" md5
     done
     cd ..
+    echo "Copie alien KDE5 frameworks faite."
+else
+    echo "Copie alien KDE5 frameworks non faite."
 fi
+echo '------------------------------------'
 cd ..
 
 # GParted
 if [ ! -h Linuxiso ] ; then
-    if [ ! -d ../Linuxiso ] ;then
-	mkdir ../Linuxiso
-    fi
+    [ ! -d ../Linuxiso ] && mkdir ../Linuxiso
     ln -s ../Linuxiso .
 fi
 cd Linuxiso
 LGPARTEDISO=$(basename "$GPARTEDISO")
 if [ ! -f "$LGPARTEDISO" ] ;then
     wget -N -nv --content-disposition "$GPARTEDISO"
+    echo '------------------------------------'
+    if [ -f "$GPARTEDISO" ] ;then
+	echo "Copie GParted faite."
+    else
+	echo "Copie GParted non faite."
+    fi
+    echo '------------------------------------'
 fi
 cd ..
