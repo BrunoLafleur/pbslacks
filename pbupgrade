@@ -89,7 +89,8 @@ xmaster () {
     xsel1=$1;shift;xsel2=$1;shift;xsel3=$1;shift;xsel4=$1;shift;xsel5=$1;shift
     xsel6=$1;shift;xsel7=$1;shift;xsel8=$1;shift;xsel9=$1;shift;xsel10=$1;shift
     xsel11=$1;shift;xsel12=$1;shift;xsel13=$1;shift
-    dialog --colors --title 'Main menu' --default-item $defitem --defaultno \
+    pactit=$(mygt 'Main menu');pactit="pbupgrade: $pactit"
+    dialog --colors --title "$pactit" --default-item $defitem --defaultno \
 	--separate-output --item-help --help-button --help-status --checklist \
 	'Choose your actions below after you have launch the \Zbpbaspire*\ZB script' 0 100 13 \
 	system 'Sync/Update system to the last fetched current Slackware' $xsel1 system \

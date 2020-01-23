@@ -117,9 +117,7 @@ done
 for i in xcftools ;do
     xgetpac "$i-" "$SLACKDJ" 5
 done
-if [ ! -d tesseract4 ] ;then
-    mkdir tesseract4
-fi
+[ ! -d tesseract4 ] && mkdir tesseract4
 cd tesseract4
 for i in leptonica tesseract ;do
     xgetpac "$i-" "$SLACKCF/$i" 3

@@ -21,13 +21,30 @@ fi
 
 XDEV="$1"
 
-if [ -b "${XLOOP}p1" ] ;then
-    udisksctl unmount -b "${XDEV}p1"
+xunmount () {
+    XL="$1"
+    udisksctl unmount -b "$XL"
+}
+
+xunlosetup () {
+    XL="$1"
+    udisksctl loop-delete -b "$XL"
+}
+
+if [ -b "${XDEV}p1" ] ;then
+    xunmount "${XDEV}p1"
+elif [ -b "${XDEV}" ] ;then
+    xunmount "${XDEV}"
 else
-    udisksctl unmount -b "${XDEV}"
-fi
-if [ "$(echo "$XDEV"|cut -c1-9)" = "/dev/loop" ] ;then
-    udisksctl loop-delete -b "$XDEV"
+    xhelp
+    exit 1
 fi
 
-mygt "ISO unmounted."
+if [ $? -eq 0 ] ;then
+    mygt "Device unmounted."
+
+    if [ "$(echo "$XDEV"|cut -c1-9)" = "/dev/loop" ] ;then
+	mygt "Loop device detached."
+	xunlosetup "$XDEV"
+    fi
+fi

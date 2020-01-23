@@ -9,71 +9,71 @@ msgstr ""
 "Report-Msgid-Bugs-To: pierre.brochard.1982@m4x.org\n"
 "POT-Creation-Date: 2020-01-21 16:09+0100\n"
 "PO-Revision-Date: 2020-01-21 14:39+0100\n"
-"Last-Translator: CDEI <pierre.brochard.1982@m4x.org>\n"
+"Last-Translator: Pierre Brochard <pierre.brochard.1982@m4x.org>\n"
 "Language-Team: French <traduc@traduc.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: pbsetup:48
+#: pbsetup:54
 msgid "Choose working dir"
 msgstr "Choisissez votre répertoire de travail"
 
-#: pbsetup:50
+#: pbsetup:56
 #, sh-format
 msgid "Local repository $LASTSLACK found.\\nDo you want to work with it$YN ?"
 msgstr "Copie locale $LASTSLACK trouvée.\\nVoulez vous travailler avec$YN ?"
 
-#: pbsetup:90
+#: pbaspire:57 pbsetup:98
 msgid "Main menu"
 msgstr "Menu principal"
 
-#: pbsetup:206
+#: pbaspire:190 pbaspire:188 pbsetup:246
 msgid "Actions which were done"
 msgstr "Actions réalisées"
 
-#: pbsetup:202
+#: pbaspire:187 pbaspire:185 pbsetup:242
 msgid "No action was demanded. Exit."
 msgstr "Aucune action demandée. Sortie."
 
-#: pbsetup:91
+#: pbaspire:58 pbsetup:99
 msgid "Choose your actions below"
 msgstr "Choisissez vos actions ci-dessous"
 
-#: pbsetup:83
+#: pbsetup:90
 msgid ""
 "Get/Update local repository versus officiel remote Slackware and add-on "
 "packages"
 msgstr ""
 "Obtenir/mettre à jour la copie locale du site Slackware avec ses ajouts"
 
-#: pbsetup:84
+#: pbsetup:91
 msgid ""
 "Sync/Update system to the last fetched current Slackware and add-on packages"
 msgstr "Synchroniser la copie locale avec le système courant"
 
-#: pbsetup:85
+#: pbsetup:92
 msgid "Make a bootable USB stick for Slackware install."
 msgstr "Fabriquer une clé USB avec l'installateur de la Slackware"
 
-#: pbsetup:172
+#: pbsetup:190
 msgid "Clone done (full or partial depending on selected options)."
 msgstr "Copie faite (complète ou partielle selon options choisies)"
 
-#: pbsetup:183
+#: pbsetup:203
 msgid "Upgrade done for selected set of packages."
 msgstr "Mise à jour du système courant pour les paquets choisis"
 
-#: pbsetup:193
+#: pbsetup:215
 msgid "USB stick created."
 msgstr "Clé USB créée"
 
-#: pbsetup:180 pbsetup:189
+#: pbsetup:200 pbsetup:211 pbsetup:228
 msgid "Change to root."
 msgstr "Connection root."
 
-#: pbsetup:138
+#: pbsetup:153
 msgid ""
 "Do a local clone/update of the officiel Slackware and add-on packages."
 "\\nUses pbslacks/pbaspire."
@@ -81,11 +81,11 @@ msgstr ""
 "Obtenir/mettre à jour la copie locale du site Slackware avec ses ajouts"
 "\\nUtilise pbslacks/pbaspire."
 
-#: pbsetup:140
+#: pbsetup:155
 msgid "Upgrade the local system with the local clone."
 msgstr "Mise à jour du système local à l'aide du clone local"
 
-#: pbsetup:142
+#: pbsetup:157
 msgid ""
 "Make a dual boot install USB stick with Slackware install and GParted Live "
 "which can boot on old bios or new UEFI bios computers."
@@ -93,20 +93,16 @@ msgstr ""
 "Fabriquer une clé USB de démarrage avec l'installeur de la Slackware et la "
 "GParted Live. Elle peut se lancer sur les anciens bios ou les bios UEFI."
 
-#: pbsetup:151
-msgid "Press a key to continue."
-msgstr "Appuyez sur une touche pour continuer."
-
 #: pbsetup:10
 msgid ""
 "Launch this script in a directory containing slackware64-current\\nor "
 "slackware64 or from the current directory for a new clone."
 msgstr ""
-"Script à lancer dans un repertoire contenant slackware64-current\\nou "
+"Script à lancer dans un répertoire contenant slackware64-current\\nou "
 "slackware64 ou à partir du répertoire courant pour une nouvelle copie "
 "complète."
 
-#: pbsetup:195
+#: pbsetup:217
 msgid "USB stick not created."
 msgstr "Clé USB non créée"
 
@@ -121,18 +117,169 @@ msgstr ""
 msgid "Launch this script in the directory including bumblebee."
 msgstr "Script à lancer dans le répertoire contenant bumblebee."
 
-#: pbmountiso:10
-msgid "Give the name of the iso file to mount."
-msgstr "Donnez le nom d'une image iso à monter"
-
-#: pbmountiso:34
+#: pbmount:50
 msgid "unmount with :"
 msgstr "démontez avec :"
 
-#: pbunmountiso:10
+#: pbunmount:12
 msgid "Give the name of the device to unmount like /dev/loop0."
 msgstr "Donnez le nom d'un périphérique à démonter."
 
-#: pbunmountiso:27
-msgid "ISO unmounted."
-msgstr "Image ISO démontée"
+#: pbmount:39
+#, sh-format
+msgid "Loop device is : $XLOOP"
+msgstr "Le nom du périphérique est : $XLOOP"
+
+#: pbmount:49
+#, sh-format
+msgid "Look at $MNTDIR"
+msgstr "Voir le contenu dans $MNTDIR"
+
+#: pbunmount:47
+msgid "Loop device detached."
+msgstr "Périphérique détaché."
+
+#: pbmount:12
+msgid "Give the name of the iso file or the device to mount."
+msgstr "Donnez le nom d'une image iso ou un périphérique à monter."
+
+#: pbunmount:44
+msgid "Device unmounted."
+msgstr "Périphérique démonté."
+
+#: pbaspire:45
+msgid "Init/Verify the repository."
+msgstr "Initialisation du dépot local."
+
+#: pbaspire:46
+msgid "Get/Update versus officiel Slackware, multilib and frameworks KDE5"
+msgstr ""
+"Obtenir/mettre à jour le dépot copie locale du site Slackware avec ses ajouts"
+
+#: pbaspire:47
+msgid "Get/Update some Alien Bob binary packages"
+msgstr "Obtenir/mettre à jour des paquets binaires d'Alien Bob"
+
+#: pbaspire:48
+msgid "Get/Update some Ponce binary packages"
+msgstr "Obtenir/mettre à jour des paquets binaires de Ponce"
+
+#: pbaspire:49
+msgid "Get/Update some Slackonly binary packages"
+msgstr "Obtenir/mettre à jour des paquets bnaires de Slackonly"
+
+#: pbaspire:50
+msgid "Get/Update some other source or binary packages"
+msgstr "Obtenir/mettre à jour d'autres paquets sources ou binaires"
+
+#: pbaspire:51
+msgid "Get/Update latest Firefox and Thunderbird"
+msgstr "Obtenir/mettre à jour Firefox et Thunderbird"
+
+#: pbaspire:10
+msgid ""
+"Launch this script in a new directory.\\nor in a directory which contains "
+"slackware64-current.\\n\\npbslacks should be side by side of this current "
+"directory."
+msgstr ""
+"Script à lancer dans un répertoire nouvellement créé\\nou existant contenant "
+"slackware64-current.\\n\\npbslacks devrait être à côté de ce répertoire "
+"courant."
+
+#: pbaspire:127
+msgid "Initialize or verify the current repository."
+msgstr "Initialise ou vérifie le dépot local."
+
+#: pbaspire:129
+msgid ""
+"Get or update the officiel lastest current Slackware.\\nAnd the multilib of "
+"Alien Bob which is a 32 bits compatibility set of packages.\\nAnd the "
+"frameworks libraries of Kde5 offered by Alien Bob."
+msgstr ""
+"Obtenir ou mettre à jour la dernière et officielle Slackware current.\\nEt "
+"les paquets multilib d'Alien Bob qui est un jeu de paquets assurant un mode "
+"de compatibilité 32 bits.\\nEt les librairies 'frameworks' de Kde5 offertes "
+"par Alien Bob."
+
+#: pbaspire:131
+msgid "Get or update some Alien Bob binary packages."
+msgstr "Obtenir ou mettre à jour des paquets binaires d'Alien Bob"
+
+#: pbaspire:133
+msgid "Get or update some Ponce binary packages."
+msgstr "Obtenir ou mettre à jour des paquets binaires de Ponce"
+
+#: pbaspire:135
+msgid "Get or update some Slackonly binary packages."
+msgstr "Obtenir ou mettre à jour des paquets bnaires de Slackonly"
+
+#: pbaspire:137
+msgid "Get or update some other source or binary packages."
+msgstr "Obtenir ou mettre à jour d'autres paquets sources ou binaires"
+
+#: pbaspire:139
+msgid "Get or update Firefox and Thunderbird."
+msgstr "Obtenir ou mettre à jour Firefox et Thunderbird"
+
+#: pbaspire:157
+#, sh-format
+msgid "Initialisation done : \\Z3${PBNAME}init\\Zn."
+msgstr "Initialisation faite : \\Z3${PBNAME}init\\Zn."
+
+#: pbaspire:160
+#, sh-format
+msgid "Get/Upgrade core system done : \\Z3${PBNAME}core\\Zn."
+msgstr "Coeur du système obtenu ou mis à jour : \\Z3${PBNAME}core\\Zn."
+
+#: pbaspire:163
+#, sh-format
+msgid "Get/Upgrade Alien Bob packages done : \\Z3${PBNAME}alien\\Zn."
+msgstr "Paquets d'Alien Bob obtenus ou mis à jour : \\Z3${PBNAME}alien\\Zn."
+
+#: pbaspire:167
+#, sh-format
+msgid "Get/Upgrade Ponce packages done : \\Z3${PBNAME}ponce\\Zn."
+msgstr "Paquets de Ponce obtenus ou mis à jour : \\Z3${PBNAME}ponce\\Zn."
+
+#: pbaspire:170
+#, sh-format
+msgid "Get/Upgrade Slackonly packages done : \\Z3${PBNAME}slonly\\Zn."
+msgstr "Paquets de Slackonly obtenus ou mis à jour : \\Z3${PBNAME}slonly\\Zn."
+
+#: pbaspire:174
+#, sh-format
+msgid ""
+"Get/Upgrade other source or binary packages done : \\Z3${PBNAME}other\\Zn."
+msgstr ""
+"Autres paquets sources ou binaires obtenus ou mis à jour : \\Z3${PBNAME}other"
+"\\Zn."
+
+#: pbaspire:177
+#, sh-format
+msgid "Get/Upgrade Firefox and Thunderbird done : \\Z3${PBNAME}mozilla\\Zn."
+msgstr ""
+"Obtention ou mise à jour de Firefox et Thunderbird faite : \\Z3${PBNAME}"
+"mozilla\\Zn."
+
+#: pbsetup:93
+msgid "Install the refind boot manager for dual or more boot."
+msgstr ""
+"Installez le gestionnaire de démarrage refind si vous avez plus d'un système "
+"installé."
+
+#: pbsetup:159
+msgid ""
+"Setup the boot manager refind if you have set elilo in the installation of "
+"Slackware and you have other systems like MS Windows."
+msgstr ""
+"Installez le gestionnaire de démarrage refind si vous avez mis elilo lors de "
+"l'installation de Slackware et avez plus d'un système installé comme MS "
+"Windows."
+
+#: pbsetup:233
+msgid "refind installed."
+msgstr "refind installé."
+
+#: pbsetup:235
+msgid "refind not installed."
+msgstr "refind non installé."
