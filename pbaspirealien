@@ -65,7 +65,6 @@ xpurgeindex packages3
 cd packages4
 for i in chromium ;do
     xgetpac "$i-" "$SLACKALIEN/$i/pkg64/current" 10
-    xpurgepac "$i-"
 done
 for i in PyQt5 wayland-protocols ;do
     xgetpac "$i-" "$SLACKALIEN2" 10

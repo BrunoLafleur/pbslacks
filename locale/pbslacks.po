@@ -25,15 +25,15 @@ msgstr ""
 msgid "Local repository $LASTSLACK found.\\nDo you want to work with it$YN ?"
 msgstr ""
 
-#: pbaspire:57 pbsetup:98
+#: pbaspire:57 pbsetup:98 pbupgrade:84
 msgid "Main menu"
 msgstr ""
 
-#: pbaspire:190 pbaspire:188 pbsetup:246
+#: pbaspire:190 pbaspire:188 pbsetup:246 pbupgrade:159 pbsetup:250
 msgid "Actions which were done"
 msgstr ""
 
-#: pbaspire:187 pbaspire:185 pbsetup:242
+#: pbaspire:187 pbaspire:185 pbsetup:242 pbupgrade:263 pbsetup:246
 msgid "No action was demanded. Exit."
 msgstr ""
 
@@ -104,7 +104,7 @@ msgid ""
 "Launch this script in the directory including packages, packages2 et al."
 msgstr ""
 
-#: pbcompilebumblebee:20
+#: pbcompilebumblebee:19
 msgid "Launch this script in the directory including bumblebee."
 msgstr ""
 
@@ -250,10 +250,123 @@ msgid ""
 "Slackware and you have other systems like MS Windows."
 msgstr ""
 
-#: pbsetup:233
+#: pbsetup:234
 msgid "refind installed."
 msgstr ""
 
-#: pbsetup:235
+#: pbsetup:239
 msgid "refind not installed."
+msgstr ""
+
+#: pbcompilebumblebee:14
+msgid "This script must be run as root."
+msgstr ""
+
+#: pbaspirecore:47
+msgid "Slackware current copied."
+msgstr ""
+
+#: pbaspirecore:49
+msgid "Slackware current not copied."
+msgstr ""
+
+#: pbaspirecore:71
+msgid "Slackware multilib copied."
+msgstr ""
+
+#: pbaspirecore:73
+msgid "Slackware multilib not copied."
+msgstr ""
+
+#: pbaspirecore:97
+msgid "Alien Bob KDE5 frameworks copied."
+msgstr ""
+
+#: pbaspirecore:99
+msgid "Alien Bob KDE5 frameworks not copied."
+msgstr ""
+
+#: pbaspirecore:115
+msgid "GParted copied."
+msgstr ""
+
+#: pbaspirecore:117
+msgid "GParted not copied."
+msgstr ""
+
+#: pbupgrade:10
+msgid ""
+"Launch this script in the directory including alreadey cloned slackware64 or "
+"slackware64-current.\\nIt can be on the bootable slackware install USB stick."
+"\\npbslacks should also be there."
+msgstr ""
+
+#: pbupgrade:43
+msgid ""
+"Do the install of the Slackware Linux distribution before :\\n-see the doc/"
+"SLACKWARE.txt file."
+msgstr ""
+
+#: pbupgrade:163
+msgid "This script must be done as root. Exit."
+msgstr ""
+
+#: pbupgrade:191
+msgid "Abort : see previous errors."
+msgstr ""
+
+#: pbsetup:236
+msgid "refind not installed because elilo is not."
+msgstr ""
+
+#: pbupgrade:196
+msgid "Upgrade system done."
+msgstr ""
+
+#: pbupgrade:202
+msgid "Upgrade Alien Bob multilib done."
+msgstr ""
+
+#: pbupgrade:207
+msgid "Upgrade Mozilla done."
+msgstr ""
+
+#: pbupgrade:212
+msgid "Upgrade packages done."
+msgstr ""
+
+#: pbupgrade:217
+msgid "Upgrade packages2 done."
+msgstr ""
+
+#: pbupgrade:222
+msgid "Upgrade packages3 done."
+msgstr ""
+
+#: pbupgrade:227
+msgid "Upgrade packages4 done."
+msgstr ""
+
+#: pbupgrade:232
+msgid "Upgrade frameworks done."
+msgstr ""
+
+#: pbupgrade:237
+msgid "Upgrade audacity done."
+msgstr ""
+
+#: pbupgrade:243
+msgid "Upgrade tesseract4 done."
+msgstr ""
+
+#: pbupgrade:248
+msgid "Upgrade Bumblebee done."
+msgstr ""
+
+#: pbupgrade:253
+msgid "Recreate source packages done."
+msgstr ""
+
+#: pbupgrade:258
+msgid "Recreate source Bumblebee done."
 msgstr ""

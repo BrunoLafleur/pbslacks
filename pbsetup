@@ -104,7 +104,7 @@ xmaster () {
 	    aspire "$ASPIRE" $xsel1 aspire \
 	    upgrade "$UPGRADE" $xsel2 upgrade \
 	    makeusb "$MAKEUSB" $xsel3 makeusb \
-	    refind "$MAKEUSB" $xsel4 refind
+	    refind "$REFIND" $xsel4 refind
     else
 	echo '------------------------------------'
 	echo "          $pactit"
@@ -141,7 +141,7 @@ while [ $bclaide -eq 1 ] ;do
     if [ $bclaide -eq 1 ] ;then
 	xitem="$(cat $XTEMPOUT|grep '^HELP'|cut -d ' ' -f2)"
 	xsel=
-	for i in aspire upgrade makeusb ;do
+	for i in aspire upgrade makeusb refind ;do
 	  if [ $(grep "^$i$" "$XTEMPOUT"|wc -l) -eq 1 ] ;then
 	      xsel="$xsel on"
 	  else
@@ -193,7 +193,7 @@ fi
 
 # Upgrade
 if [ $ISUPGRADE -eq 1 ] ;then
-    MYSCR='screen -S pbupgrade'
+    MYSCR='screen -A -S pbupgrade'
     if [ $XTEST -eq 1 -o $UID -eq 0 ]; then
         $MYSCR "$PBSLACKSPWD/pbupgrade" $PBTEST $PBDIAL
     else
@@ -223,14 +223,18 @@ if [ $ISREFIND -eq 1 ] ;then
     if [ $XTEST -eq 0 -a -d /boot/efi/EFI/Slackware ] ;then
 	xrefind=$(xlast /usr/share/refind-0)/install.sh
 	if [ $UID -eq 0 ]; then
-	    $xrefind
+	    $xrefind >> $XTEMPMES
 	else
 	    mygt 'Change to root.'
-	    su - root -c "(cd \"$MYPWD\";$xrefind)"
+	    su - root -c "(cd \"$MYPWD\";$xrefind)" 2>> $XTEMPMES
 	fi
     fi
-    if [ $? -eq 0 -a -d /boot/efi/EFI/Slackware ] ;then
-	mygt "refind installed." >> $XTEMPMES
+    if [ $? -eq 0 ] ;then
+	if [ -d /boot/efi/EFI/Slackware ] ;then
+	    mygt "refind installed." >> $XTEMPMES
+	else
+	    mygt "refind not installed because elilo is not." >> $XTEMPMES
+	fi
     else
 	mygt "refind not installed." >> $XTEMPMES
     fi

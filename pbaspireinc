@@ -4,6 +4,7 @@
 # Date : 2019
 # License : See the LICENSE file in this repository.
 
+# Function for purge html index.
 xpurgeindex () {
     dir="$1"
     find "$dir" -name 'index.html*' -exec rm -f {} \;
@@ -11,16 +12,20 @@ xpurgeindex () {
     rm -f "$dir/"*"/robots.txt"*
 }
 
+# Function for purge old packages.
 xpurgepac () {
     pac="$1"
-    last=$(ls -1t "$pac"*.t?z 2> /dev/null|head -1)
-    for j in $(ls "$pac"*.t?z 2> /dev/null) ;do
+    suf="$2"
+    last=$(ls -1t ${pac}*.$suf 2> /dev/null|head -1)
+    for j in $(ls ${pac}*.$suf 2> /dev/null) ;do
 	if [ "$j" != "$last" ] ;then
+	    echo "Delete : $j"
 	    rm -f "$j"
 	fi
     done
 }
 
+# Get new version of a package in a repository.
 xgetpac () {
     pac="$1"
     dir="$2"
@@ -28,7 +33,7 @@ xgetpac () {
     echo '------------------------------------'
     echo "Package $pac :"
     wget -N -A "$pac"'*.t?z' -r -nv -np -nH --cut-dir=$prof "$dir/"
-    xpurgepac "$pac"
+    xpurgepac "$pac" t?z
 }
 
 # Get the original tarball with the slack build scripts.
