@@ -27,11 +27,7 @@ fi
 MYPWD=$(pwd)
 HOMESLACK="$MYPWD"
 
-cat <<EOF
-Recreation des packages Slackware de Bummblebee.
-Si deja fait sur une machine a jour, ne pas refaire et utilisez
-  directement les paquets generes dans bumblebee (avec pbupgradebumblebee).
-EOF
+mygt 'Redo the Bumblebee Slackware packages.\nIf already done on an upgraded host use the packages already generated with upgradebumblebee.'
 
 export UPDATE=no
 rm -rf ~/Bumblebee-SlackBuilds
@@ -54,3 +50,5 @@ for i in libbsd primus bbswitch nvidia-bumblebee bumblebee nvidia-kernel ;do
     xpurgepac "${i}-" t?z
 done
 chown ${MYUSER}.$MYGROUP *.t?z
+
+[ -x /etc/rc.d/rc.bumblebee ] && /etc/rc.d/rc.bumbleebee restart
