@@ -39,6 +39,14 @@ done
 XTEMPOUT=$(mktemp -p /tmp -t pbupgradeout.XXXXXX)
 XTEMPMES=$(mktemp -p /tmp -t pbupgrademes.XXXXXX)
 
+cleanup () {
+    rm -f $XTEMPOUT
+    cat $XTEMPMES
+    rm -f $XTEMPMES
+}
+
+trap 'echo "*** Ctrl-C caught -- aborting operations ***"; cleanup; exit 1' 2 14 15 # trap Ctrl-C and kill
+
 if [ ! -d /boot ] ;then
     mygt "Do the install of the Slackware Linux distribution before :\n-see the doc/SLACKWARE.txt file." |sed 's@\\n@\n@g' > $XTEMPMES
 fi
