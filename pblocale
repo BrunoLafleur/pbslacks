@@ -9,7 +9,7 @@ xhelp () {
 }
 
 XINIT=
-XPROG=pbsetup
+XPROG=
 
 while [ $# -ge 1 ] ;do
     MYARG="$1"

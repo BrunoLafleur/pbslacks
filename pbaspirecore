@@ -6,6 +6,9 @@
 
 # can be done non root.
 
+. "$(dirname $0)/pbinclude"
+. "$(dirname $0)/pbaspireinc"
+
 MYPWD=$(pwd)
 export HOMESLACK="$MYPWD"
 SLACKMIR='http://nephtys.lip6.fr/pub/linux/distributions/slackware'
@@ -20,19 +23,6 @@ myrget () {
     pack="$3"
     wget -N -nv -np -nH --cut-dirs=$prof -r "$gpath/"
     [ -d "$pack" ] && find "$pack" -name 'index.html*' -exec rm -f {} \;
-}
-
-# Function for purge old packages.
-xpurgepac () {
-    pac="$1"
-    suf="$2"
-    last=$(ls -1t ${pac}*.$suf|head -1)
-    for j in ${pac}*.$suf ;do
-	if [ "$j" != "$last" ] ;then
-	    echo "Delete : $j"
-	    rm -f "$j"
-	fi
-    done
 }
 
 myrget 4 "$SLACKMIR/slackware64-current" slackware64-current
@@ -54,9 +44,9 @@ if [ -d slackware64-current ] ;then
     ln -sf ../divers .
     ln -sf ../packages* .
     cd ..
-    echo "Copie Slackware current faite."
+    mygt "Slackware current copied."
 else
-    echo "Copie Slackware current non faite."
+    mygt "Slackware current not copied."
 fi
 echo '------------------------------------'
 
@@ -78,9 +68,9 @@ if [ -d current ] ;then
         xpurgepac "$pack-[0-9]" md5
     done
     cd ..
-    echo "Copie Slackware multilib faite."
+    mygt "Slackware multilib copied."
 else
-    echo "Copie Slackware multilib non faite."
+    mygt "Slackware multilib not copied."
 fi
 echo '------------------------------------'
 
@@ -104,9 +94,9 @@ if [ -d frameworks ] ;then
 	xpurgepac "$pack-[0-9]" md5
     done
     cd ..
-    echo "Copie alien KDE5 frameworks faite."
+    mygt "Alien Bob KDE5 frameworks copied."
 else
-    echo "Copie alien KDE5 frameworks non faite."
+    mygt "Alien Bob KDE5 frameworks not copied."
 fi
 echo '------------------------------------'
 cd ..
@@ -122,9 +112,9 @@ if [ ! -f "$LGPARTEDISO" ] ;then
     wget -N -nv --content-disposition "$GPARTEDISO"
     echo '------------------------------------'
     if [ -f "$GPARTEDISO" ] ;then
-	echo "Copie GParted faite."
+	mygt "GParted copied."
     else
-	echo "Copie GParted non faite."
+	mygt "GParted not copied."
     fi
     echo '------------------------------------'
 fi

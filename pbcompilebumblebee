@@ -7,15 +7,13 @@
 MYUSER=produits
 MYGROUP=users
 
-if [ ! $UID = 0 ]; then
-  cat << EOF
-This script must be run as root.
-EOF
-  exit 1
-fi
-
 . "$(dirname $0)/pbinclude"
 . "$(dirname $0)/pbaspireinc"
+
+if [ ! $UID = 0 ]; then
+    mygt 'This script must be run as root.'
+    exit 1
+fi
 
 xhelp () {
     mygt 'Launch this script in the directory including bumblebee.'
@@ -53,6 +51,6 @@ cp ~/Bumblebee-SlackBuilds/nouveau-blacklist/xf86-video-nouveau-blacklist-noarch
 
 for i in libbsd primus bbswitch nvidia-bumblebee bumblebee nvidia-kernel ;do
     cp "/tmp/${i}-"*.t?z .
-    xpurgepac "${i}-"
+    xpurgepac "${i}-" t?z
 done
 chown ${MYUSER}.$MYGROUP *.t?z

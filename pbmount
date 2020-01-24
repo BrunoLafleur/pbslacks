@@ -28,7 +28,7 @@ xlosetup () {
 
 xmount () {
     XL="$1"
-    udisksctl mount -b "${XL}p1"|cut -d ' ' -f4-|sed 's@^\(.*\)\.$@\1@'
+    udisksctl mount -b "$XL"|cut -d ' ' -f4-|sed 's@^\(.*\)\.$@\1@'
 }
 
 if [ -b "$NAMEISO" ] ;then
