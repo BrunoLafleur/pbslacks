@@ -29,11 +29,11 @@ msgstr ""
 msgid "Main menu"
 msgstr ""
 
-#: pbaspire:190 pbaspire:188 pbsetup:246 pbupgrade:159 pbsetup:250
+#: pbaspire:190 pbaspire:188 pbsetup:246 pbupgrade:159 pbsetup:250 pbsetup:253
 msgid "Actions which were done"
 msgstr ""
 
-#: pbaspire:187 pbaspire:185 pbsetup:242 pbupgrade:263 pbsetup:246
+#: pbaspire:187 pbaspire:185 pbsetup:242 pbupgrade:263 pbsetup:246 pbsetup:249
 msgid "No action was demanded. Exit."
 msgstr ""
 
@@ -64,11 +64,11 @@ msgstr ""
 msgid "Upgrade done for selected set of packages."
 msgstr ""
 
-#: pbsetup:215
+#: pbsetup:215 pbsetup:216
 msgid "USB stick created."
 msgstr ""
 
-#: pbsetup:200 pbsetup:211 pbsetup:228
+#: pbsetup:200 pbsetup:211 pbsetup:228 pbsetup:212 pbsetup:229
 msgid "Change to root."
 msgstr ""
 
@@ -94,7 +94,7 @@ msgid ""
 "slackware64 or from the current directory for a new clone."
 msgstr ""
 
-#: pbsetup:217
+#: pbsetup:217 pbsetup:218
 msgid "USB stick not created."
 msgstr ""
 
@@ -250,11 +250,11 @@ msgid ""
 "Slackware and you have other systems like MS Windows."
 msgstr ""
 
-#: pbsetup:234
+#: pbsetup:239
 msgid "refind installed."
 msgstr ""
 
-#: pbsetup:239
+#: pbsetup:242
 msgid "refind not installed."
 msgstr ""
 
@@ -315,7 +315,7 @@ msgstr ""
 msgid "Abort : see previous errors."
 msgstr ""
 
-#: pbsetup:236
+#: pbsetup:235
 msgid "refind not installed because elilo is not."
 msgstr ""
 
@@ -369,4 +369,8 @@ msgstr ""
 
 #: pbupgrade:258
 msgid "Recreate source Bumblebee done."
+msgstr ""
+
+#: pbsetup:237
+msgid "refind already installed."
 msgstr ""
