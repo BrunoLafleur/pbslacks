@@ -45,7 +45,9 @@ XTAG="$(cat $FVERSION|fgrep "$VERSION"|sed 's/^.* //')"
 echo "Mise a jour git et creation archive git."
 echo "----------------------------------------"
 
-rm -f *~ .??*~
+find . '(' -name '*%' -o -name '*~' -o -name '#*#' -o -name '.??*%' \
+    -o -name '.??*~' -o -name '.#*#' -o -name 'core' -o -name 'gmon.out' ')' \
+    -user $USER -type f -exec \rm -f '{}' \;
 git add .
 git add -u
 git commit -F $FVERSION
