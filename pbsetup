@@ -208,6 +208,7 @@ if [ $ISUSB -eq 1 ] ;then
     if [ $XTEST -eq 1 -o $UID -eq 0 ]; then
         "$PBSLACKSPWD/pbmakeusb" -ask $PBTEST
     else
+	if [ ! -d /boot/efi/EFI/Slackware ] ;then
 	mygt 'Change to root.'
 	su - root -c "(cd \"$MYPWD\";\"$PBSLACKSPWD/pbmakeusb\" -ask $PBTEST)"
     fi
@@ -230,10 +231,12 @@ if [ $ISREFIND -eq 1 ] ;then
 	fi
     fi
     if [ $? -eq 0 ] ;then
-	if [ -d /boot/efi/EFI/Slackware ] ;then
-	    mygt "refind installed." >> $XTEMPMES
-	else
+	if [ ! -d /boot/efi/EFI/Slackware ] ;then
 	    mygt "refind not installed because elilo is not." >> $XTEMPMES
+	elif [ -d /boot/efi/EFI/refind ] ;then
+	    mygt "refind already installed." >> $XTEMPMES
+	else
+	    mygt "refind installed." >> $XTEMPMES
 	fi
     else
 	mygt "refind not installed." >> $XTEMPMES
