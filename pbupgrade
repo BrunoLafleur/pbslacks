@@ -41,7 +41,6 @@ XTEMPMES=$(mktemp -p /tmp -t pbupgrademes.XXXXXX)
 
 cleanup () {
     rm -f $XTEMPOUT
-    cat $XTEMPMES
     rm -f $XTEMPMES
 }
 
