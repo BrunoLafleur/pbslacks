@@ -374,3 +374,9 @@ msgstr ""
 #: pbsetup:237
 msgid "refind already installed."
 msgstr ""
+
+#: pbcompilebumblebee:30
+msgid ""
+"Redo the Bumblebee Slackware packages.\\nIf already done on an upgraded host "
+"use the packages already generated with upgradebumblebee."
+msgstr ""

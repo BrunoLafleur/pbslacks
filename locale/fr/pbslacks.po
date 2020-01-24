@@ -404,3 +404,12 @@ msgstr "Bumblebee recréé à partir des sources."
 #: pbsetup:237
 msgid "refind already installed."
 msgstr "refind déjà installé."
+
+#: pbcompilebumblebee:30
+msgid ""
+"Redo the Bumblebee Slackware packages.\\nIf already done on an upgraded host "
+"use the packages already generated with upgradebumblebee."
+msgstr ""
+"Recréation des packages Slackware de Bummblebee.\\nSi déjà fait sur une "
+"machine a jour, ne pas refaire et utilisez directement les paquets générés "
+"avec upgradebumblebee."
