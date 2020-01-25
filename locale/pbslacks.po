@@ -25,66 +25,67 @@ msgstr ""
 msgid "Local repository $LASTSLACK found.\\nDo you want to work with it$YN ?"
 msgstr ""
 
-#: pbaspire:57 pbsetup:98 pbupgrade:84 pbupgrade:91
+#: pbaspire:57 pbsetup:98 pbupgrade:84 pbupgrade:91 pbsetup:100
 msgid "Main menu"
 msgstr ""
 
 #: pbaspire:190 pbaspire:188 pbsetup:246 pbupgrade:159 pbsetup:250 pbsetup:253
-#: pbupgrade:166
+#: pbupgrade:166 pbsetup:273
 msgid "Actions which were done"
 msgstr ""
 
 #: pbaspire:187 pbaspire:185 pbsetup:242 pbupgrade:263 pbsetup:246 pbsetup:249
-#: pbupgrade:325
+#: pbupgrade:325 pbsetup:269
 msgid "No action was demanded. Exit."
 msgstr ""
 
-#: pbaspire:58 pbsetup:99
+#: pbaspire:58 pbsetup:99 pbsetup:101
 msgid "Choose your actions below"
 msgstr ""
 
-#: pbsetup:90
+#: pbsetup:91
 msgid ""
 "Get/Update local repository versus officiel remote Slackware and add-on "
 "packages"
 msgstr ""
 
-#: pbsetup:91
+#: pbsetup:92
 msgid ""
 "Sync/Update system to the last fetched current Slackware and add-on packages"
 msgstr ""
 
-#: pbsetup:92
+#: pbsetup:93
 msgid "Make a bootable USB stick for Slackware install."
 msgstr ""
 
-#: pbsetup:190
+#: pbsetup:201
 msgid "Clone done (full or partial depending on selected options)."
 msgstr ""
 
-#: pbsetup:203
+#: pbsetup:214
 msgid "Upgrade done for selected set of packages."
 msgstr ""
 
-#: pbsetup:216
+#: pbsetup:226
 msgid "USB stick created."
 msgstr ""
 
-#: pbsetup:200 pbsetup:212 pbsetup:229
+#: pbsetup:200 pbsetup:212 pbsetup:229 pbsetup:211 pbsetup:222 pbsetup:239
+#: pbsetup:261
 msgid "Change to root."
 msgstr ""
 
-#: pbsetup:153
+#: pbsetup:160
 msgid ""
 "Do a local clone/update of the officiel Slackware and add-on packages."
 "\\nUses pbslacks/pbaspire."
 msgstr ""
 
-#: pbsetup:155
+#: pbsetup:162
 msgid "Upgrade the local system with the local clone."
 msgstr ""
 
-#: pbsetup:157
+#: pbsetup:164
 msgid ""
 "Make a dual boot install USB stick with Slackware install and GParted Live "
 "which can boot on old bios or new UEFI bios computers."
@@ -96,7 +97,7 @@ msgid ""
 "slackware64 or from the current directory for a new clone."
 msgstr ""
 
-#: pbsetup:217 pbsetup:218
+#: pbsetup:217 pbsetup:218 pbsetup:228
 msgid "USB stick not created."
 msgstr ""
 
@@ -242,21 +243,21 @@ msgstr ""
 msgid "Get/Upgrade Firefox and Thunderbird done : \\Z3${PBNAME}mozilla\\Zn."
 msgstr ""
 
-#: pbsetup:93
+#: pbsetup:94
 msgid "Install the refind boot manager for dual or more boot."
 msgstr ""
 
-#: pbsetup:159
+#: pbsetup:166
 msgid ""
 "Setup the boot manager refind if you have set elilo in the installation of "
 "Slackware and you have other systems like MS Windows."
 msgstr ""
 
-#: pbsetup:239
+#: pbsetup:249
 msgid "refind installed."
 msgstr ""
 
-#: pbsetup:242
+#: pbsetup:252
 msgid "refind not installed."
 msgstr ""
 
@@ -309,7 +310,7 @@ msgid ""
 "SLACKWARE.txt file."
 msgstr ""
 
-#: pbupgrade:170
+#: pbupgrade:170 pbstophy:27
 msgid "This script must be done as root. Exit."
 msgstr ""
 
@@ -317,7 +318,7 @@ msgstr ""
 msgid "Abort : see previous errors."
 msgstr ""
 
-#: pbsetup:235
+#: pbsetup:245
 msgid "refind not installed because elilo is not."
 msgstr ""
 
@@ -373,7 +374,7 @@ msgstr ""
 msgid "Recreate source Bumblebee done."
 msgstr ""
 
-#: pbsetup:237
+#: pbsetup:247
 msgid "refind already installed."
 msgstr ""
 
@@ -381,4 +382,18 @@ msgstr ""
 msgid ""
 "Redo the Bumblebee Slackware packages.\\nIf already done on an upgraded host "
 "use the packages already generated with upgradebumblebee."
+msgstr ""
+
+#: pbsetup:95
+msgid "Stop the eventual hybernation of Windows."
+msgstr ""
+
+#: pbsetup:168
+msgid ""
+"Stop the hybernation of Windows in case it is active after modifying the "
+"disks partitions."
+msgstr ""
+
+#: pbstophy:10
+msgid "Stop the hybernate mode of the Windows partitions."
 msgstr ""
