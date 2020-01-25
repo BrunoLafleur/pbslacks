@@ -333,10 +333,9 @@ if [ $XEND -eq 1 ] ;then
     exit 0
 fi
 
-XBOOTLOAD=$(cat $XTEMPOUT|grep system|wc -l)
 cleanup
 
-if [ $XBOOTLOAD -ge 1 ] ;then
+if [ $ISSYSTEM -eq 1 ] ;then
 # Only if system was modified
     if [ -d /boot/efi/EFI/Slackware ] ;then
 	xitem=elilo

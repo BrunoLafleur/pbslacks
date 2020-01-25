@@ -231,13 +231,14 @@ fi
 
 # Install refind
 if [ $ISREFIND -eq 1 ] ;then
-    if [ $XTEST -eq 0 -a -d /boot/efi/EFI/Slackware ] ;then
+    if [ $XTEST -eq 0 -a -d /boot/efi/EFI/Slackware \
+		-a ! -d /boot/efi/EFI/refind ] ;then
 	xrefind=$(xlast /usr/share/refind-0)/install.sh
 	if [ $UID -eq 0 ]; then
-	    $xrefind >> $XTEMPMES
+	    $xrefind 2>> $XTEMPRES
 	else
 	    mygt 'Change to root.'
-	    su - root -c "(cd \"$MYPWD\";$xrefind)" 2>> $XTEMPMES
+	    su - root -c "(cd \"$MYPWD\";$xrefind 2>> $XTEMPMES)"
 	fi
     fi
     if [ $? -eq 0 ] ;then
@@ -256,10 +257,10 @@ fi
 # Stop hybernation
 if [ $ISSTOPHY -eq 1 ] ;then
     if [ $UID -eq 0 ]; then
-        "$PBSLACKSPWD/pbstophy" $PBTEST
+        "$PBSLACKSPWD/pbstophy" $PBTEST >> $XTEMPMES
     else
 	mygt 'Change to root.'
-	su - root -c "(cd \"$MYPWD\";\"$PBSLACKSPWD/pbstophy\" $PBTEST)"
+	su - root -c "(cd \"$MYPWD\";\"$PBSLACKSPWD/pbstophy\" $PBTEST >> $XTEMPMES)"
     fi
 fi
 
