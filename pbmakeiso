@@ -47,12 +47,12 @@ xorriso -as mkisofs \
   -no-emul-boot -isohybrid-gpt-basdat \
   -m 'source' \
   -volid "SlackDVD" \
-  -output "../../$NAMEISO" \
+  -output "../$NAMEISO" \
   -graft-points \
   . current/=../current packages/=../packages packages2/=../packages2 \
 	 packages3/=../packages3 packages4/=../packages4 bumblebee/=../bumblebee \
 	 divers/=../../divers pbslacks/=../../pbslacks perso/=../../perso
-cd ../..
+cd ..
 
 cat <<EOF
 If not too big for your recorder which should use double layer media,
