@@ -171,9 +171,9 @@ done
 
 PBTEST=;[ $XTEST -eq 1 ] && PBTEST='-test'
 PBDIAL=;[ $ISDIAL -eq 0 ] && PBDIAL='-nodial'
-ISUSB=0
 ISASPIRE=0
 ISUPGRADE=0
+ISUSB=0
 ISREFIND=0
 
 while read i;test "$i" != "" ;do
@@ -193,7 +193,7 @@ fi
 
 # Upgrade
 if [ $ISUPGRADE -eq 1 ] ;then
-    MYSCR='screen -A -S pbupgrade'
+    MYSCR="screen -A -c $PBSLACKSPWD/screenrc -S pbupgrade"
     if [ $XTEST -eq 1 -o $UID -eq 0 ]; then
         $MYSCR "$PBSLACKSPWD/pbupgrade" $PBTEST $PBDIAL
     else
@@ -208,7 +208,6 @@ if [ $ISUSB -eq 1 ] ;then
     if [ $XTEST -eq 1 -o $UID -eq 0 ]; then
         "$PBSLACKSPWD/pbmakeusb" -ask $PBTEST
     else
-	if [ ! -d /boot/efi/EFI/Slackware ] ;then
 	mygt 'Change to root.'
 	su - root -c "(cd \"$MYPWD\";\"$PBSLACKSPWD/pbmakeusb\" -ask $PBTEST)"
     fi
@@ -245,7 +244,7 @@ fi
 
 XEND=0
 
-if [ ! -f "$XTEMPMES" -o $(cat "$XTEMPMES"|wc -c) -eq 0 ] ;then
+if [ ! -f "$XTEMPMES" -o ! -s "$XTEMPMES" ] ;then
     mygt "No action was demanded. Exit." > $XTEMPMES
     XEND=1
 fi
