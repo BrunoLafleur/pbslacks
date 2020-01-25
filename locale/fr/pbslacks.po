@@ -26,17 +26,15 @@ msgstr "Choisissez votre répertoire de travail"
 msgid "Local repository $LASTSLACK found.\\nDo you want to work with it$YN ?"
 msgstr "Copie locale $LASTSLACK trouvée.\\nVoulez vous travailler avec$YN ?"
 
-#: pbaspire:57 pbsetup:98 pbupgrade:84 pbupgrade:91 pbsetup:100
+#: pbaspire:57 pbupgrade:91 pbsetup:100
 msgid "Main menu"
 msgstr "Menu principal"
 
-#: pbaspire:190 pbaspire:188 pbsetup:246 pbupgrade:159 pbsetup:250 pbsetup:253
-#: pbupgrade:166 pbsetup:273
+#: pbaspire:188 pbupgrade:166 pbsetup:273
 msgid "Actions which were done"
 msgstr "Actions réalisées"
 
-#: pbaspire:187 pbaspire:185 pbsetup:242 pbupgrade:263 pbsetup:246 pbsetup:249
-#: pbupgrade:325 pbsetup:269
+#: pbaspire:185 pbupgrade:325 pbsetup:269
 msgid "No action was demanded. Exit."
 msgstr "Aucune action demandée. Sortie."
 
@@ -72,8 +70,7 @@ msgstr "Mise à jour du système courant pour les paquets choisis."
 msgid "USB stick created."
 msgstr "Clé USB créée"
 
-#: pbsetup:200 pbsetup:212 pbsetup:229 pbsetup:211 pbsetup:222 pbsetup:239
-#: pbsetup:261
+#: pbsetup:211 pbsetup:222 pbsetup:239 pbsetup:261
 msgid "Change to root."
 msgstr "Connection root."
 
@@ -106,7 +103,7 @@ msgstr ""
 "slackware64 ou à partir du répertoire courant pour une nouvelle copie "
 "complète."
 
-#: pbsetup:217 pbsetup:218 pbsetup:228
+#: pbsetup:228
 msgid "USB stick not created."
 msgstr "Clé USB non créée"
 
@@ -368,7 +365,7 @@ msgstr "Mise à jour Mozilla faite."
 msgid "Upgrade packages done."
 msgstr "Mise à jour de packages faite."
 
-#: pbupgrade:270
+#: pbupgrade:270 pbupgrade:271
 msgid "Upgrade packages2 done."
 msgstr "Mise à jour de packages2 faite."
 
