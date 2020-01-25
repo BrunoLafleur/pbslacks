@@ -266,13 +266,13 @@ fi
 if [ $ISPACK2 -eq 1 ] ;then
     if [ $XTEST -ne 1 ] ;then
 	upgradepkg --install-new packages2/*.t?z
+	upgradepkg --install-new --reinstall packages2/*master*.t?z
     fi
     mygt "Upgrade packages2 done." >> $XTEMPMES
 fi
 if [ $ISPACK3 -eq 1 ] ;then
     if [ $XTEST -ne 1 ] ;then
 	upgradepkg --install-new packages3/*.t?z
-	upgradepkg --install-new --reinstall packages2/*master*.t?z
     fi
     mygt "Upgrade packages3 done." >> $XTEMPMES
 fi

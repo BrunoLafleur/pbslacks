@@ -25,17 +25,15 @@ msgstr ""
 msgid "Local repository $LASTSLACK found.\\nDo you want to work with it$YN ?"
 msgstr ""
 
-#: pbaspire:57 pbsetup:98 pbupgrade:84 pbupgrade:91 pbsetup:100
+#: pbaspire:57 pbupgrade:91 pbsetup:100
 msgid "Main menu"
 msgstr ""
 
-#: pbaspire:190 pbaspire:188 pbsetup:246 pbupgrade:159 pbsetup:250 pbsetup:253
-#: pbupgrade:166 pbsetup:273
+#: pbaspire:188 pbupgrade:166 pbsetup:273
 msgid "Actions which were done"
 msgstr ""
 
-#: pbaspire:187 pbaspire:185 pbsetup:242 pbupgrade:263 pbsetup:246 pbsetup:249
-#: pbupgrade:325 pbsetup:269
+#: pbaspire:185 pbupgrade:325 pbsetup:269
 msgid "No action was demanded. Exit."
 msgstr ""
 
@@ -70,8 +68,7 @@ msgstr ""
 msgid "USB stick created."
 msgstr ""
 
-#: pbsetup:200 pbsetup:212 pbsetup:229 pbsetup:211 pbsetup:222 pbsetup:239
-#: pbsetup:261
+#: pbsetup:211 pbsetup:222 pbsetup:239 pbsetup:261
 msgid "Change to root."
 msgstr ""
 
@@ -97,7 +94,7 @@ msgid ""
 "slackware64 or from the current directory for a new clone."
 msgstr ""
 
-#: pbsetup:217 pbsetup:218 pbsetup:228
+#: pbsetup:228
 msgid "USB stick not created."
 msgstr ""
 
@@ -338,7 +335,7 @@ msgstr ""
 msgid "Upgrade packages done."
 msgstr ""
 
-#: pbupgrade:270
+#: pbupgrade:270 pbupgrade:271
 msgid "Upgrade packages2 done."
 msgstr ""
 
