@@ -392,5 +392,10 @@ msgid ""
 msgstr ""
 
 #: pbstophy:10
-msgid "Stop the hybernate mode of the Windows partitions."
+msgid "Stop the hibernate mode of the Windows partitions."
+msgstr ""
+
+#: pbstophy:52
+#, sh-format
+msgid "$xdev hibernate removed."
 msgstr ""
