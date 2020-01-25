@@ -7,7 +7,7 @@
 . "$(dirname $0)/pbinclude"
 
 xhelp () {
-    mygt 'Stop the hybernate mode of the Windows partitions.'
+    mygt 'Stop the hibernate mode of the Windows partitions.'
     echo
     echo "> [../]pbslack/pbstophy"
 }
@@ -42,10 +42,13 @@ DOSLIST="$($PBDIRPROG/probe -l 2> /dev/null |\
 
 echo "$DOSLIST" | while read i ; do
     xdev=$(echo "$i"| cut -d ' ' -f1)
-    echo "$xdev => $i"
-    if [ $XTEST -eq 0 ] ;then
+    rdev=$(echo "$xdev"| cut -c6-)
+    type=$(lsblk -f $xdev|grep $rdev|tr -s ' '|cut -d ' ' -f2)
+    echo "type = ${type},$xdev => $i"
+    if [ $XTEST -eq 0 -a "$type" = 'ntfs' ] ;then
         ntfsfix $xdev
         mount -t ntfs-3g $xdev /mnt/hd -o remove_hiberfile
         umount /mnt/hd
+	emygt "\$xdev hibernate removed."
     fi
 done

@@ -427,5 +427,10 @@ msgstr ""
 "modification des partitions de disques."
 
 #: pbstophy:10
-msgid "Stop the hybernate mode of the Windows partitions."
-msgstr "Arrêter le mode hybernation des partitions Windows."
+msgid "Stop the hibernate mode of the Windows partitions."
+msgstr "Arrêter le mode hibernation des partitions Windows."
+
+#: pbstophy:52
+#, sh-format
+msgid "$xdev hibernate removed."
+msgstr "$xdev hibernation enlevée."
