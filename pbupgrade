@@ -180,6 +180,7 @@ ISCOMPAT=0
 ISMOZ=0
 ISPACK=0
 ISPACK2=0
+ISPACK3=0
 ISPACK4=0
 ISFRAME=0
 ISAUDACITY=0
@@ -258,6 +259,7 @@ fi
 if [ $ISPACK -eq 1 ] ;then
     if [ $XTEST -ne 1 ] ;then
 	upgradepkg --install-new packages/*.t?z
+	upgradepkg --install-new packages/compat32/*.t?z
     fi
     mygt "Upgrade packages done." >> $XTEMPMES
 fi
