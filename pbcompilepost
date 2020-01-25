@@ -91,6 +91,8 @@ rm -f /usr/lib64/lib*.la
 export PYTHON=python
 export BUILD=3alien
 xmakealienpac packages mlt
+unset PYTHON
+unset BUILD
 
 for i in OpenAL libtxc_dxtn libgaminggear python-pillow ;do
     xmakepac packages $i

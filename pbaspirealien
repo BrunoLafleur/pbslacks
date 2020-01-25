@@ -34,6 +34,8 @@ xgetpac "$i-" "$SLACKALIEN2" 10
 export PYTHON=python
 export BUILD=3alien
 xgetsrcpac "$i" "$SLACKALIENSRC2/$i/" 9
+unset PYTHON
+unset BUILD
 
 for i in steamclient ;do
     xgetpac "$i-" "$SLACKALIEN/$i/pkg/current" 10
