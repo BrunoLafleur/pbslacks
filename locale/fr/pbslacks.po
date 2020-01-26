@@ -26,15 +26,15 @@ msgstr "Choisissez votre répertoire de travail"
 msgid "Local repository $LASTSLACK found.\\nDo you want to work with it$YN ?"
 msgstr "Copie locale $LASTSLACK trouvée.\\nVoulez vous travailler avec$YN ?"
 
-#: pbaspire:57 pbupgrade:99 pbsetup:102
+#: pbaspire:57 pbsetup:102 pbupgrade:100
 msgid "Main menu"
 msgstr "Menu principal"
 
-#: pbaspire:188 pbupgrade:174 pbsetup:268
+#: pbaspire:188 pbsetup:268 pbupgrade:175
 msgid "Actions which were done"
 msgstr "Actions réalisées"
 
-#: pbaspire:185 pbupgrade:301 pbsetup:264
+#: pbaspire:185 pbsetup:264 pbupgrade:302
 msgid "No action was demanded. Exit."
 msgstr "Aucune action demandée. Sortie."
 
@@ -337,11 +337,11 @@ msgstr ""
 "Faite l'installation de la Slackware current avant :\\n-voir doc/SLACKWARE."
 "txt."
 
-#: pbstophy:27 pbupgrade:178
+#: pbstophy:27 pbupgrade:179
 msgid "This script must be done as root. Exit."
 msgstr "Ce script doit être lancé root. On sort."
 
-#: pbupgrade:215
+#: pbupgrade:216
 msgid "Abort : see previous errors."
 msgstr "Arrêt : voir les erreurs précédentes."
 
@@ -349,55 +349,55 @@ msgstr "Arrêt : voir les erreurs précédentes."
 msgid "refind not installed because elilo is not."
 msgstr "refind non installé car elilo ne l'est pas."
 
-#: pbupgrade:220
+#: pbupgrade:221
 msgid "Upgrade system done."
 msgstr "Mise à jour du système faite."
 
-#: pbupgrade:227
+#: pbupgrade:228
 msgid "Upgrade Alien Bob multilib done."
 msgstr "Mise à jour multilib d'Alien Bob faite."
 
-#: pbupgrade:233
+#: pbupgrade:234
 msgid "Upgrade Mozilla done."
 msgstr "Mise à jour Mozilla faite."
 
-#: pbupgrade:240
+#: pbupgrade:241
 msgid "Upgrade packages done."
 msgstr "Mise à jour de packages faite."
 
-#: pbupgrade:247
+#: pbupgrade:248
 msgid "Upgrade packages2 done."
 msgstr "Mise à jour de packages2 faite."
 
-#: pbupgrade:253
+#: pbupgrade:254
 msgid "Upgrade packages3 done."
 msgstr "Mise à jour de packages3 faite."
 
-#: pbupgrade:259
+#: pbupgrade:260
 msgid "Upgrade packages4 done."
 msgstr "Mise à jour de packages4 faite."
 
-#: pbupgrade:266
+#: pbupgrade:267
 msgid "Upgrade frameworks done."
 msgstr "Mise à jour de frameworks faite."
 
-#: pbupgrade:272
+#: pbupgrade:273
 msgid "Upgrade audacity done."
 msgstr "Mise à jour d'audacity faite."
 
-#: pbupgrade:279
+#: pbupgrade:280
 msgid "Upgrade tesseract4 done."
 msgstr "Mise à jour de tesseract4 faite."
 
-#: pbupgrade:285
+#: pbupgrade:286
 msgid "Upgrade Bumblebee done."
 msgstr "Mise à jour de Bumblebee faite."
 
-#: pbupgrade:291
+#: pbupgrade:292
 msgid "Recreate source packages done."
 msgstr "Paquets sources recréés."
 
-#: pbupgrade:297
+#: pbupgrade:298
 msgid "Recreate source Bumblebee done."
 msgstr "Bumblebee recréé à partir des sources."
 
