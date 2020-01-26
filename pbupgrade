@@ -175,51 +175,19 @@ if [ $XTEST -ne 1 ] ;then
 fi
 
 XEND=0
-ISSYSTEM=0
-ISCOMPAT=0
-ISMOZ=0
-ISPACK=0
-ISPACK2=0
-ISPACK3=0
-ISPACK4=0
-ISFRAME=0
-ISAUDACITY=0
-ISTESS=0
-ISBUMBLE=0
-ISRECRE=0
-ISRECREBUMBLE=0
-
-while read i;test "$i" != "" ;do
-    if [ "$(echo $i|cut -c1-4)" = 'HELP' ] ;then
-	continue
-    elif [ "$XNEW" != 'yes' -a "$i" = system ] ;then
-	ISSYSTEM=1
-    elif [ "$i" = compat32 ] ;then
-	ISCOMPAT=1
-    elif [ "$i" = mozilla ] ;then
-	ISMOZ=1
-    elif [ "$i" = packages ] ;then
-	ISPACK=1
-    elif [ "$i" = packages2 ] ;then
-	ISPACK2=1
-    elif [ "$i" = packages3 ] ;then
-	ISPACK3=1
-    elif [ "$i" = packages4 ] ;then
-	ISPACK4=1
-    elif [ "$i" = frameworks ] ;then
-	ISFRAME=1
-    elif [ "$i" = audacity ] ;then
-	ISAUDACITY=1
-    elif [ "$i" = tesseract4 ] ;then
-	ISTESS=1
-    elif [ "$i" = bumblebee ] ;then
-	ISBUMBLE=1
-    elif [ "$i" = recreate ] ;then
-	ISRECRE=1
-    elif [ "$i" = recreatebumblebee ] ;then
-	ISRECREBUMBLE=1
-    fi
-done < $XTEMPOUT
+ISSYSTEM="$(cat $XTEMPOUT|grep '^system$'|wc -l)"
+ISCOMPAT="$(cat $XTEMPOUT|grep '^compat32$'|wc -l)"
+ISMOZ="$(cat $XTEMPOUT|grep '^mozilla$'|wc -l)"
+ISPACK="$(cat $XTEMPOUT|grep '^packages$'|wc -l)"
+ISPACK2="$(cat $XTEMPOUT|grep '^packages2$'|wc -l)"
+ISPACK3="$(cat $XTEMPOUT|grep '^packages3$'|wc -l)"
+ISPACK4="$(cat $XTEMPOUT|grep '^packages4$'|wc -l)"
+ISFRAME="$(cat $XTEMPOUT|grep '^frameworks$'|wc -l)"
+ISAUDACITY="$(cat $XTEMPOUT|grep '^audacity$'|wc -l)"
+ISTESS="$(cat $XTEMPOUT|grep '^tesseract4$'|wc -l)"
+ISBUMBLE="$(cat $XTEMPOUT|grep '^bumblebee$'|wc -l)"
+ISRECRE="$(cat $XTEMPOUT|grep '^recreate$'|wc -l)"
+ISRECREBUMBLE="$(cat $XTEMPOUT|grep '^recreatebumblebee$'|wc -l)"
 
 if [ $ISSYSTEM -eq 1 ] ;then
     if [ $XTEST -ne 1 ] ;then
@@ -416,7 +384,7 @@ Reboot the host${XBOOTMES}.
 \ZbIf your host is a dual graphic card laptop with a NVIDIA card :\ZB
   \Z4Do either :\Zn
     Select '\Z3recreatebumblebee\Zn' in the above menu after launching this script again.
-    or do> \Z3pbslacks/pbcompilecrazybee\Zn
+    or do> \Z3pbslacks/pbcompilebumblebee\Zn
   \Z4Or do only if already done on an upgraded target :\Zn
     Select '\Z3bumblebee\Zn' in the above menu after launching this script again.
     or do> \Z3pbslacks/pbupgradebumblebee\Zn

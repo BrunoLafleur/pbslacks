@@ -46,6 +46,9 @@ echo "$DOSLIST" | while read i ; do
     type=$(lsblk -f $xdev|grep $rdev|tr -s ' '|cut -d ' ' -f2)
     echo "type = ${type},$xdev => $i"
     if [ $XTEST -eq 0 -a "$type" = 'ntfs' ] ;then
+        if mount | grep -q $xdev ; then
+	    umount -f $xdev
+	fi
         ntfsfix $xdev
         mount -t ntfs-3g $xdev /mnt/hd -o remove_hiberfile
         umount /mnt/hd
