@@ -70,6 +70,7 @@ fi
 
 if [ -s "$XTEMPMES" ] ;then
     dialog --colors --title 'End messages' --msgbox "$(cat $XTEMPMES)" 20 85
+    cleanup
     exit 1
 fi
 
