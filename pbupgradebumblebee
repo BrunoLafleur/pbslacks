@@ -39,4 +39,6 @@ read c
 
 cd $HOMESLACK
 upgradepkg --install-new bumblebee/*.t?z
+[ -x /etc/rc.d/rc.bumblebee ] && /etc/rc.d/rc.bumbleebee restart
+
 echo "Upgrade bumblebee fait."

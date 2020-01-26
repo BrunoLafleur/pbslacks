@@ -82,6 +82,8 @@ fi
 
 MYPWD=$(pwd)
 HOMESLACK="$MYPWD"
+MYUSER=$(id -u -n)
+MYGROUP=$(id -g -n)
 
 XUPASPIRE=on
 XUPUPGRADE=off
@@ -197,10 +199,11 @@ fi
 if [ $ISUPGRADE -eq 1 ] ;then
     MYSCR="screen -A -c $PBSLACKSPWD/screenrc -S pbupgrade"
     if [ $XTEST -eq 1 -o $UID -eq 0 ]; then
-        $MYSCR "$PBSLACKSPWD/pbupgrade" $PBTEST $PBDIAL
+        $MYSCR "$PBSLACKSPWD/pbupgrade" -u $MYUSER -g $MYGROUP $PBTEST $PBDIAL
     else
 	mygt 'Change to root.'
-        su - root -c "(cd \"$MYPWD\";$MYSCR \"$PBSLACKSPWD/pbupgrade\" $PBTEST $PBDIAL)"
+        su - root -c "(cd \"$MYPWD\";$MYSCR \"$PBSLACKSPWD/pbupgrade\" \
+		-u $MYUSER -g $MYGROUP $PBTEST $PBDIAL)"
     fi
     mygt "Upgrade done for selected set of packages." >> $XTEMPMES
 fi

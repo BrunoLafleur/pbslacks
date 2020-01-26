@@ -18,6 +18,8 @@ xhelp () {
 
 XNEW=
 XPOST=
+MYUSER=produits
+MYGROUP=users
 
 while [ $# -ge 1 ] ;do
     MYARG="$1"
@@ -29,6 +31,12 @@ while [ $# -ge 1 ] ;do
 	XTEST=1
     elif [ "$MYARG" = "-post" ] ;then
 	XPOST=yes
+    elif [ "$MYARG" = "-u" ] ;then
+	shift
+	MYUSER="$1"
+    elif [ "$MYARG" = "-g" ] ;then
+	shift
+	MYGROUP="$1"
     elif [ "$MYARG" = "-help" -o "$MYARG" = "-h" ] ;then
 	xhelp
 	exit 0
@@ -278,13 +286,13 @@ if [ $ISBUMBLE -eq 1 ] ;then
 fi
 if [ $ISRECRE -eq 1 ] ;then
     if [ $XTEST -ne 1 ] ;then
-	$HOMESLACK/pbslacks/pbcompilepost
+	$HOMESLACK/pbslacks/pbcompilepost -u $MYUSER -g $MYGROUP
     fi
     mygt "Recreate source packages done." >> $XTEMPMES
 fi
 if [ $ISRECREBUMBLE -eq 1 ] ;then
     if [ $XTEST -ne 1 ] ;then
-	$HOMESLACK/pbslacks/pbcompilebumblebee
+	$HOMESLACK/pbslacks/pbcompilebumblebee -u $MYUSER -g $MYGROUP
     fi
     mygt "Recreate source Bumblebee done." >> $XTEMPMES
 fi

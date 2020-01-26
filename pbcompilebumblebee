@@ -4,9 +4,6 @@
 # Date : 2019
 # License : See the LICENSE file in this repository.
 
-MYUSER=produits
-MYGROUP=users
-
 . "$(dirname $0)/pbinclude"
 . "$(dirname $0)/pbaspireinc"
 
@@ -23,6 +20,24 @@ if [ ! -d bumblebee ] ;then
     xhelp
     exit 1
 fi
+
+MYUSER=produits
+MYGROUP=users
+
+while [ $# -ge 1 ] ;do
+    MYARG="$1"
+    if [ "$MYARG" = "-u" ] ;then
+	shift
+	MYUSER="$1"
+    elif [ "$MYARG" = "-g" ] ;then
+	shift
+	MYGROUP="$1"
+    elif [ "$MYARG" = "-help" -o "$MYARG" = "-h" ] ;then
+	xhelp
+	exit 0
+    fi
+    shift
+done
 
 MYPWD=$(pwd)
 HOMESLACK="$MYPWD"
