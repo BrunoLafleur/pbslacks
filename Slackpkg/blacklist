@@ -50,3 +50,4 @@ xf86-video-nouveau
 [0-9]+djcompat32
 [0-9]+compat32
 db53
+guile2.2
