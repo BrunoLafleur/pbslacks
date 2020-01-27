@@ -11,10 +11,10 @@ msgstr ""
 "PO-Revision-Date: 2020-01-21 14:39+0100\n"
 "Last-Translator: Pierre Brochard <pierre.brochard.1982@m4x.org>\n"
 "Language-Team: French <traduc@traduc.org>\n"
-"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: pbsetup:54
@@ -30,11 +30,11 @@ msgstr "Copie locale $LASTSLACK trouvée.\\nVoulez vous travailler avec$YN ?"
 msgid "Main menu"
 msgstr "Menu principal"
 
-#: pbaspire:188 pbsetup:268 pbupgrade:175
+#: pbaspire:188 pbsetup:268 pbupgrade:176
 msgid "Actions which were done"
 msgstr "Actions réalisées"
 
-#: pbaspire:185 pbsetup:264 pbupgrade:302
+#: pbaspire:185 pbsetup:264 pbupgrade:308
 msgid "No action was demanded. Exit."
 msgstr "Aucune action demandée. Sortie."
 
@@ -108,7 +108,7 @@ msgid "USB stick not created."
 msgstr "Clé USB non créée"
 
 #: pbaspirealien:11 pbaspireponce:11 pbaspireslonly:11 pbaspireother:11
-#: pbaspiremoz:11 pbcompilepost:19
+#: pbaspiremoz:11 pbcompilepost:19 pbcompilepost:17
 msgid ""
 "Launch this script in the directory including packages, packages2 et al."
 msgstr ""
@@ -319,7 +319,7 @@ msgstr "Copie GParted faite."
 msgid "GParted not copied."
 msgstr "Copie GParted non faite."
 
-#: pbupgrade:10
+#: pbupgrade:10 pbupgrademoz:15
 msgid ""
 "Launch this script in the directory including alreadey cloned slackware64 or "
 "slackware64-current.\\nIt can be on the bootable slackware install USB stick."
@@ -337,11 +337,11 @@ msgstr ""
 "Faite l'installation de la Slackware current avant :\\n-voir doc/SLACKWARE."
 "txt."
 
-#: pbstophy:27 pbupgrade:179
+#: pbstophy:27 pbupgrade:180 pbupgrademoz:10 pbcompilepost:12
 msgid "This script must be done as root. Exit."
 msgstr "Ce script doit être lancé root. On sort."
 
-#: pbupgrade:216
+#: pbupgrade:217
 msgid "Abort : see previous errors."
 msgstr "Arrêt : voir les erreurs précédentes."
 
@@ -349,55 +349,55 @@ msgstr "Arrêt : voir les erreurs précédentes."
 msgid "refind not installed because elilo is not."
 msgstr "refind non installé car elilo ne l'est pas."
 
-#: pbupgrade:221
+#: pbupgrade:224 pbupgrade:221
 msgid "Upgrade system done."
 msgstr "Mise à jour du système faite."
 
-#: pbupgrade:228
+#: pbupgrade:233
 msgid "Upgrade Alien Bob multilib done."
 msgstr "Mise à jour multilib d'Alien Bob faite."
 
-#: pbupgrade:234
+#: pbupgrade:239
 msgid "Upgrade Mozilla done."
 msgstr "Mise à jour Mozilla faite."
 
-#: pbupgrade:241
+#: pbupgrade:246
 msgid "Upgrade packages done."
 msgstr "Mise à jour de packages faite."
 
-#: pbupgrade:248
+#: pbupgrade:253
 msgid "Upgrade packages2 done."
 msgstr "Mise à jour de packages2 faite."
 
-#: pbupgrade:254
+#: pbupgrade:259
 msgid "Upgrade packages3 done."
 msgstr "Mise à jour de packages3 faite."
 
-#: pbupgrade:260
+#: pbupgrade:265
 msgid "Upgrade packages4 done."
 msgstr "Mise à jour de packages4 faite."
 
-#: pbupgrade:267
+#: pbupgrade:272
 msgid "Upgrade frameworks done."
 msgstr "Mise à jour de frameworks faite."
 
-#: pbupgrade:273
+#: pbupgrade:278
 msgid "Upgrade audacity done."
 msgstr "Mise à jour d'audacity faite."
 
-#: pbupgrade:280
+#: pbupgrade:285
 msgid "Upgrade tesseract4 done."
 msgstr "Mise à jour de tesseract4 faite."
 
-#: pbupgrade:286
+#: pbupgrade:291
 msgid "Upgrade Bumblebee done."
 msgstr "Mise à jour de Bumblebee faite."
 
-#: pbupgrade:292
+#: pbupgrade:297
 msgid "Recreate source packages done."
 msgstr "Paquets sources recréés."
 
-#: pbupgrade:298
+#: pbupgrade:303
 msgid "Recreate source Bumblebee done."
 msgstr "Bumblebee recréé à partir des sources."
 
@@ -434,3 +434,130 @@ msgstr "Arrêter le mode hibernation des partitions Windows."
 #, sh-format
 msgid "$xdev hibernate removed."
 msgstr "$xdev hibernation enlevée."
+
+#: pbupgrade:218
+msgid "Upgrade system not done."
+msgstr "Mise à jour du système non faite."
+
+#: pbupgrademoz:51
+msgid "Firefox et Thunderbird added."
+msgstr "Firefox et Thunderbird ajoutés."
+
+#: pbupgrade:332
+msgid "Bootloader menu"
+msgstr "Menu gestionnaire de démarrage"
+
+#: pbupgrade:333
+msgid ""
+"We have detected the bootloader below. Cancel if it is not true.\\nIn this "
+"last case, you should recreate the config of your bootloader before reboot. "
+"Else you will have to boot from another media as a DVD or an USB stick and "
+"rerun the install of your bootloader."
+msgstr ""
+"Nous avons détecté the gestionnaire de démarrage ci-dessous.\\nAnnulez si ce "
+"n'est pas correct.\\nDans ce cas, vous devrez mettre à jour la config de "
+"votre gestionnaire avant de redémarrer la machine.\\nSinon vous aurez à "
+"démarrer d'un autre média comme un DVD ou une clé USB et relancez "
+"l'installation de votre gestionnaire."
+
+#: pbupgrade:334
+msgid "No bootloader detected. Reconfigure your bootloader before reboot."
+msgstr "Aucun gestionnaire de démarrage détecté. Mettez le vôtre à jour."
+
+#: pbupgrade:66
+msgid "slackware64 or pbslacks not found."
+msgstr "slackware64 or pbslacks  non trouvé"
+
+#: pbupgrade:152
+msgid ""
+"Upgrade your Slackware system with the last current fetched\\nUses Slackpkg."
+msgstr ""
+"Mettez à jour votre système Slackware avec la dernière current\\nUtilise "
+"Slackpkg."
+
+#: pbupgrade:154
+msgid "Upgrade the Alien Bob 32 bits compatible mode."
+msgstr "Mettez à jour le mode de compatibilté 32 bits (multilib) d'Alien Bob."
+
+#: pbupgrade:156
+msgid ""
+"Upgrade the Firefox and Thunderbird products.\\nThey should be downloaded "
+"and put in the packages/Mozilla directory before."
+msgstr ""
+"Mettez à jour Firefox et Thunderbird\\nIls doivent avoir été aspirés "
+"préalablement."
+
+#: pbupgrade:166
+msgid ""
+"Upgrade your Bumblebee packages if they are in sync with the upgraded "
+"Slackware.\\nDone on another machine for exemple."
+msgstr ""
+"Mettez à jour les paquets Bumblebee s'ils ont été recompilés avec la "
+"dernière Slackware installée.\\nFait sur une autre machine par exmple."
+
+#: pbupgrade:168
+msgid ""
+"Redo the packages which are here in sources form.\\nIf not already done on "
+"this machine or another."
+msgstr ""
+"Recompilez les paquets qui sont ici sous forme source.\\nSi non fait sur "
+"cette machine ou une autre."
+
+#: pbupgrade:170
+msgid ""
+"Redo the Bumblebee packages.\\nIf not already done on this machine or "
+"another.\\nYou should reboot after upgrading system packages and before "
+"doing this action else the Bumblebee packages wont built."
+msgstr ""
+"Recompilez les paquets Bumblebee.\\.Si non fait sur cette machine ou une "
+"autre.\\nVous devez redémarrer après mise à jour des paquets systèmes avant "
+"cette action sinon les paquets Bumblebee ne se reconstruiront pas."
+
+#: pbupgrade:356
+msgid ""
+"Elilo updated : Files vmlinuz et initrd.gz copied in \\Z3/boot/efi/EFI/"
+"Slackware\\Zn"
+msgstr ""
+"Elilo mis à jour : Fichiers vmlinuz et initrd.gz copiés dans \\Z3/boot/efi/"
+"EFI/Slackware\\Zn"
+
+#: pbupgrade:361
+msgid ""
+"Grub updated : \\Z3grub-mkconfig\\Zn relaunched.\\n\\Z1Look if there are "
+"error messages below\\Zn."
+msgstr ""
+"Grub mis à jour : \\Z3grub-mkconfig\\Zn relancé.\\n\\Z1Regardez s'il y a des "
+"messages d'erreurs ci-dessous\\Zn."
+
+#: pbupgrade:367
+msgid ""
+"Lilo updated with \\Z3/sbin/lilo\\Zn.\\n\\Z1Look if there are error messages "
+"below\\Zn."
+msgstr ""
+"Lilo mis à jour avec \\Z3/sbin/lilo\\Zn.\\n\\Z1Regardez s'il y a des "
+"messages d'erreurs ci-dessous\\Zn."
+
+#: pbupgrade:373
+msgid ""
+"Look at \\Z3/syslinux.cfg\\Zn and rerun \\Z3syslinux\\Zn on your boot "
+"partition if some path have changed."
+msgstr ""
+"Regardez \\Z3/syslinux.cfg\\Zn et relancez \\Z3syslinux\\Zn sur votre "
+"partition de démarrage si certains chemins ont changé."
+
+#: pbupgrade:346
+msgid ""
+"\\ZbThe boot loader was not updated.\\ZB\\nIf lilo is installed, launch : "
+"\\Z3/sbin/lilo\\Zn\\nIf Grub is installed, launch : \\Z3grub-mkconfig -o /"
+"boot/grub/grub.cfg\\Zn\\nIf Syslinux is installed, launch : \\Z3syslinux "
+"BOOTDEVICE\\Zn\\nIf Boot UEFI ELILO is installed, do :\\n  \\Z3cp /boot/"
+"vmlinuz /boot/initrd.gz /boot/efi/EFI/Slackware\\Zn\\n\\n\\ZbOr rerun your "
+"other favorite bootloader install procedure before rebooting.\\ZB"
+msgstr ""
+"\\ZbLe gestionnaire de démarrage n'a pas été mis à jour.\\ZB\\nSi lilo est "
+"installé, lancez : \\Z3/sbin/lilo\\Zn\\nSi Grub est installé, lancez : "
+"\\Z3grub-mkconfig -o /boot/grub/grub.cfg\\Zn\\nSi Syslinux est installé, "
+"lancez : \\Z3syslinux BOOTDEVICE\\Zn\\nSi le gestionnaire UEFI UEFI ELILO "
+"est installé, faîtes :\\n  \\Z3cp /boot/vmlinuz /boot/initrd.gz /boot/efi/"
+"EFI/Slackware\\Zn\\n\\n\\ZbOu relancez votre autre gestionnaire de démarrage "
+"favori avant de redémarrer votre machine.\\ZB"

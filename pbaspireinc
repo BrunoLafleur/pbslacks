@@ -48,10 +48,8 @@ xgetsrcpac () {
 xlocalsrcpac () {
     name="$1"
     path="$2"
-    if [ ! -d "$name" ] ;then
-        mkdir "$name"
-        cp "../pbslacks/builds/${name}.tar.gz" "$name"
-    fi
+    [ ! -d "$name" ] && mkdir "$name"
+    cp -u "../pbslacks/builds/${name}.tar.gz" "$name"
     echo "Copie locale de ../pbslacks/builds/$path vers $name"
     cp "../pbslacks/builds/$path" "$name"
 }
@@ -60,11 +58,9 @@ xlocalsrcpac () {
 xgetsrc () {
     name="$1"
     path="$2"
-    if [ ! -d "$name" ] ;then
-        mkdir "$name"
-        cp "../pbslacks/builds/${name}.tar.gz" "$name"
-        cd "$name"
-        wget -N -nv --content-disposition "$path"
-	cd ..
-    fi
+    [ ! -d "$name" ] && mkdir "$name"
+    cp -u "../pbslacks/builds/${name}.tar.gz" "$name"
+    cd "$name"
+    wget -N -nv --content-disposition "$path"
+    cd ..
 }

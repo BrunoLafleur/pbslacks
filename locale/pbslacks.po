@@ -29,11 +29,11 @@ msgstr ""
 msgid "Main menu"
 msgstr ""
 
-#: pbaspire:188 pbsetup:268 pbupgrade:175
+#: pbaspire:188 pbsetup:268 pbupgrade:176
 msgid "Actions which were done"
 msgstr ""
 
-#: pbaspire:185 pbsetup:264 pbupgrade:302
+#: pbaspire:185 pbsetup:264 pbupgrade:308
 msgid "No action was demanded. Exit."
 msgstr ""
 
@@ -99,7 +99,7 @@ msgid "USB stick not created."
 msgstr ""
 
 #: pbaspirealien:11 pbaspireponce:11 pbaspireslonly:11 pbaspireother:11
-#: pbaspiremoz:11 pbcompilepost:19
+#: pbaspiremoz:11 pbcompilepost:19 pbcompilepost:17
 msgid ""
 "Launch this script in the directory including packages, packages2 et al."
 msgstr ""
@@ -294,7 +294,7 @@ msgstr ""
 msgid "GParted not copied."
 msgstr ""
 
-#: pbupgrade:10
+#: pbupgrade:10 pbupgrademoz:15
 msgid ""
 "Launch this script in the directory including alreadey cloned slackware64 or "
 "slackware64-current.\\nIt can be on the bootable slackware install USB stick."
@@ -307,11 +307,11 @@ msgid ""
 "SLACKWARE.txt file."
 msgstr ""
 
-#: pbstophy:27 pbupgrade:179
+#: pbstophy:27 pbupgrade:180 pbupgrademoz:10 pbcompilepost:12
 msgid "This script must be done as root. Exit."
 msgstr ""
 
-#: pbupgrade:216
+#: pbupgrade:217
 msgid "Abort : see previous errors."
 msgstr ""
 
@@ -319,55 +319,55 @@ msgstr ""
 msgid "refind not installed because elilo is not."
 msgstr ""
 
-#: pbupgrade:221
+#: pbupgrade:224 pbupgrade:221
 msgid "Upgrade system done."
 msgstr ""
 
-#: pbupgrade:228
+#: pbupgrade:233
 msgid "Upgrade Alien Bob multilib done."
 msgstr ""
 
-#: pbupgrade:234
+#: pbupgrade:239
 msgid "Upgrade Mozilla done."
 msgstr ""
 
-#: pbupgrade:241
+#: pbupgrade:246
 msgid "Upgrade packages done."
 msgstr ""
 
-#: pbupgrade:248
+#: pbupgrade:253
 msgid "Upgrade packages2 done."
 msgstr ""
 
-#: pbupgrade:254
+#: pbupgrade:259
 msgid "Upgrade packages3 done."
 msgstr ""
 
-#: pbupgrade:260
+#: pbupgrade:265
 msgid "Upgrade packages4 done."
 msgstr ""
 
-#: pbupgrade:267
+#: pbupgrade:272
 msgid "Upgrade frameworks done."
 msgstr ""
 
-#: pbupgrade:273
+#: pbupgrade:278
 msgid "Upgrade audacity done."
 msgstr ""
 
-#: pbupgrade:280
+#: pbupgrade:285
 msgid "Upgrade tesseract4 done."
 msgstr ""
 
-#: pbupgrade:286
+#: pbupgrade:291
 msgid "Upgrade Bumblebee done."
 msgstr ""
 
-#: pbupgrade:292
+#: pbupgrade:297
 msgid "Recreate source packages done."
 msgstr ""
 
-#: pbupgrade:298
+#: pbupgrade:303
 msgid "Recreate source Bumblebee done."
 msgstr ""
 
@@ -398,4 +398,100 @@ msgstr ""
 #: pbstophy:55
 #, sh-format
 msgid "$xdev hibernate removed."
+msgstr ""
+
+#: pbupgrade:218
+msgid "Upgrade system not done."
+msgstr ""
+
+#: pbupgrademoz:51
+msgid "Firefox et Thunderbird added."
+msgstr ""
+
+#: pbupgrade:332
+msgid "Bootloader menu"
+msgstr ""
+
+#: pbupgrade:333
+msgid ""
+"We have detected the bootloader below. Cancel if it is not true.\\nIn this "
+"last case, you should recreate the config of your bootloader before reboot. "
+"Else you will have to boot from another media as a DVD or an USB stick and "
+"rerun the install of your bootloader."
+msgstr ""
+
+#: pbupgrade:334
+msgid "No bootloader detected. Reconfigure your bootloader before reboot."
+msgstr ""
+
+#: pbupgrade:66
+msgid "slackware64 or pbslacks not found."
+msgstr ""
+
+#: pbupgrade:152
+msgid ""
+"Upgrade your Slackware system with the last current fetched\\nUses Slackpkg."
+msgstr ""
+
+#: pbupgrade:154
+msgid "Upgrade the Alien Bob 32 bits compatible mode."
+msgstr ""
+
+#: pbupgrade:156
+msgid ""
+"Upgrade the Firefox and Thunderbird products.\\nThey should be downloaded "
+"and put in the packages/Mozilla directory before."
+msgstr ""
+
+#: pbupgrade:166
+msgid ""
+"Upgrade your Bumblebee packages if they are in sync with the upgraded "
+"Slackware.\\nDone on another machine for exemple."
+msgstr ""
+
+#: pbupgrade:168
+msgid ""
+"Redo the packages which are here in sources form.\\nIf not already done on "
+"this machine or another."
+msgstr ""
+
+#: pbupgrade:170
+msgid ""
+"Redo the Bumblebee packages.\\nIf not already done on this machine or "
+"another.\\nYou should reboot after upgrading system packages and before "
+"doing this action else the Bumblebee packages wont built."
+msgstr ""
+
+#: pbupgrade:356
+msgid ""
+"Elilo updated : Files vmlinuz et initrd.gz copied in \\Z3/boot/efi/EFI/"
+"Slackware\\Zn"
+msgstr ""
+
+#: pbupgrade:361
+msgid ""
+"Grub updated : \\Z3grub-mkconfig\\Zn relaunched.\\n\\Z1Look if there are "
+"error messages below\\Zn."
+msgstr ""
+
+#: pbupgrade:367
+msgid ""
+"Lilo updated with \\Z3/sbin/lilo\\Zn.\\n\\Z1Look if there are error messages "
+"below\\Zn."
+msgstr ""
+
+#: pbupgrade:373
+msgid ""
+"Look at \\Z3/syslinux.cfg\\Zn and rerun \\Z3syslinux\\Zn on your boot "
+"partition if some path have changed."
+msgstr ""
+
+#: pbupgrade:346
+msgid ""
+"\\ZbThe boot loader was not updated.\\ZB\\nIf lilo is installed, launch : "
+"\\Z3/sbin/lilo\\Zn\\nIf Grub is installed, launch : \\Z3grub-mkconfig -o /"
+"boot/grub/grub.cfg\\Zn\\nIf Syslinux is installed, launch : \\Z3syslinux "
+"BOOTDEVICE\\Zn\\nIf Boot UEFI ELILO is installed, do :\\n  \\Z3cp /boot/"
+"vmlinuz /boot/initrd.gz /boot/efi/EFI/Slackware\\Zn\\n\\n\\ZbOr rerun your "
+"other favorite bootloader install procedure before rebooting.\\ZB"
 msgstr ""
