@@ -4,27 +4,24 @@
 # Date : 2019
 # License : See the LICENSE file in this repository.
 
+. "$(dirname $0)/pbinclude"
+
 if [ ! $UID = 0 ]; then
-  cat << EOF
-This script must be run as root.
-EOF
-  exit 1
+    mygt 'This script must be done as root. Exit.' > $XTEMPMES
+    exit 1
 fi
 
 xhelp () {
-    cat <<EOF
-Script a lancer dans le repertoire contenant slackware64 fraichement aspire.
-pbslacks doit aussi etre accessible du repertoire courant.
-
-Launch this script in the directory including slackware64.
-pbslacks should also be there.
-
-  > cd .../slackware-current
-or> cd /run/media/$USER/USBSLACKINS/SlackDVD
-  > pbslacks/pbupgrademoz
-EOF
+    mygt 'Launch this script in the directory including alreadey cloned slackware64 or slackware64-current.\nIt can be on the bootable slackware install USB stick.\npbslacks should also be there.'|sed 's@\\n@\n@g'
+    echo
+    echo "  > cd .../slackware-current"
+    echo "or> cd /run/media/$USER/USBSLACKINS/SlackDVD"
+    echo "  > pbslacks/pbupgrademoz"
 }
 
+if [ -d slackware64-current ] ;then
+    cd slackware64-current
+fi
 if [ ! -d slackware64 -o '(' ! -h pbslacks -a ! -d pbslacks ')' ] ;then
     xhelp
     exit 1
@@ -34,13 +31,13 @@ MYPWD=$(pwd)
 HOMESLACK="$MYPWD"
 HOMEMOZ=/usr/lib64
 
-FFVERSION=$(ls "$HOMESLACK/packages/Mozilla/firefox-"*"esr.tar.bz2")
-THVERSION=$(ls "$HOMESLACK/packages/Mozilla/thunderbird-"*".tar.bz2")
+FFVERSION=$(ls "$HOMESLACK/packages/Mozilla/firefox-"*"esr.tar.bz2" 2> /dev/null)
+THVERSION=$(ls "$HOMESLACK/packages/Mozilla/thunderbird-"*".tar.bz2" 2> /dev/null)
 
 installmoz () {
     PROD="$1"
     VERSION="$2"
-    if [ -f "$VERSION" ] ;then
+    if [ -s "$VERSION" ] ;then
 	rm -rf $HOMEMOZ/${PROD}.en
 	mv $HOMEMOZ/$PROD $HOMEMOZ/${PROD}.en
 	cd $HOMEMOZ
@@ -51,5 +48,5 @@ installmoz () {
 installmoz firefox "$FFVERSION"
 installmoz thunderbird "$THVERSION"
 
-echo "Firefox et Thunderbird en français ajoutés"
+mygt "Firefox et Thunderbird added."
 cd "$MYPWD"
