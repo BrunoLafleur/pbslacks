@@ -14,7 +14,7 @@ export HOMESLACK="$MYPWD"
 SLACKMIR='http://nephtys.lip6.fr/pub/linux/distributions/slackware'
 SLACKMULTI="$SLACKMIR/people/alien/multilib/current"
 SLACKKDEFW="$SLACKMIR/people/alien-kde/current/latest/x86_64/kde/frameworks"
-GPARTEDISO="https://downloads.sourceforge.net/gparted/gparted-live-1.0.0-5-amd64.iso"
+GPARTEDISO="https://downloads.sourceforge.net/gparted/gparted-live-1.1.0-1-amd64.iso"
 
 # Function for getting packages.
 myrget () {
