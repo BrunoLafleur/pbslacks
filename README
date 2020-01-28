@@ -26,7 +26,7 @@ as pbslacks.
 add-on packages are copied and not fetched again if there were not upgraded.
 
  > pbslacks/pbsetup # Choose aspire in the displayed menu
-
+   ----------------
 or> XDATE=`date '+%Y%m%d'`
   > mkdir Slackware-x64-$XDATE
   > cd Slackware-x64-$XDATE
@@ -40,6 +40,7 @@ current repository just downloaded / updated or
 with a slackware iso downloaded or made with the pbmakeiso below :
 
   > pbslacks/pbsetup # Choose makeusb in the displayed menu
+    ----------------
 or> pbslacks/pbmakeusb
 
 You can also do an iso image as a normal user :
@@ -58,6 +59,7 @@ and reboot on it (see SLACKWARE.txt)
 
 Then do on the USB stick or a copy on a central/local repository as root :
   > pbslacks/pbsetup # Choose upgrade in the displayed menu
+    ----------------
 or> pbslacks/pbupgrade -new
 
 This script has a dialog menu which permits to choose packages to add.
@@ -69,6 +71,7 @@ Download again (only the differences as we do with wget -N)
 on a fresh or existant USB or central/local repository :
 
   > pbslacks/pbsetup # Choose aspire in the displayed menu
+    ----------------
 or> ../pbslacks/pbaspire
 
 This script has a dialog menu which permits to choose packages to get.
@@ -80,6 +83,7 @@ lauch the following scripts on the USB stick or a disk copy of it on a central
 repository on the new machine as root.
 
   > pbslacks/pbsetup # Choose upgrade in the displayed menu
+    ----------------
 or> pbsclacks/upgrade
 
 This script has a dialog menu which permits to choose packages to add.

@@ -41,11 +41,12 @@ done
 
 MYPWD=$(pwd)
 HOMESLACK="$MYPWD"
+HOMEBUMBLE=~/Bumblebee-SlackBuilds
 
-mygt 'Redo the Bumblebee Slackware packages.\nIf already done on an upgraded host use the packages already generated with upgradebumblebee.'
+mygt 'Redo the Bumblebee Slackware packages.\nIf already done on an upgraded host use the packages already generated with upgradebumblebee.'|sed 's@\\n@\n@g'
 
 export UPDATE=no
-rm -rf ~/Bumblebee-SlackBuilds
+rm -rf $HOMEBUMBLE
 
 if [ -f "$HOMESLACK/bumblebee/Crazybee/Bumblebee-SlackBuilds.tgz" ] ;then
     cd 
@@ -58,12 +59,14 @@ else
 fi
 
 cd "$HOMESLACK/bumblebee"
-cp ~/Bumblebee-SlackBuilds/nouveau-blacklist/xf86-video-nouveau-blacklist-noarch-1.t?z .
+cp $HOMEBUMBLE/nouveau-blacklist/xf86-video-nouveau-blacklist-noarch-1.t?z .
 
-for i in libbsd primus bbswitch nvidia-bumblebee bumblebee nvidia-kernel ;do
+for i in libbsd primus primus_vk bbswitch nvidia-bumblebee bumblebee \
+nvidia-kernel ;do
     cp "/tmp/${i}-"*.t?z .
     xpurgepac "${i}-" t?z
 done
 chown ${MYUSER}.$MYGROUP *.t?z
 
+# Not sufficient. Should rmmod nouveau driver.
 [ -x /etc/rc.d/rc.bumblebee ] && /etc/rc.d/rc.bumbleebee restart

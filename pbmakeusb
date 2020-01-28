@@ -23,15 +23,10 @@
 . "$(dirname $0)/pbinclude"
 
 xhelp () {
-    cat <<EOF
-  Script a lancer dans le repertoire contenant slackware64-current deja aspire
-et qui contient pbslacks.
-  Launch this script in the directory including slackware64-current and which
-contains pbslacks.
-
-> pbslacks/pbmakeusb [-iso slack.iso] [-gpart gparted.iso] [-noudisks2]
-                     [-noslack (no packages copy on the stick)]
-EOF
+    mygt '  Launch this script in the directory including slackware64-current and which\ncontains pbslacks.'|sed 's@\\n@\n@g'
+    echo
+    echo '> pbslacks/pbmakeusb [-iso slack.iso] [-gpart gparted.iso] [-noudisks2]'
+    echo '                     [-noslack (no packages copy on the stick)]'
 }
 
 MYPWD=$(pwd)
@@ -71,11 +66,13 @@ while [ $# -ge 1 ] ;do
 done
 
 if [ $ISASK -eq 1 ] ;then
+    xtext=$(mygt 'Give the name of an ISO Slackware file or nothing if the Slackware is on the current directory :')
     if [ $ISDIAL -eq 1 ] ;then
 	XTEMPOUT=$(mktemp -p /tmp -t pbsetupout.XXXXXX)
-	dialog --colors --title 'ISO Slackware file' --defaultno \
-	    --menu 'Give the name of an ISO Slackware file or nothing if the Slackware is on the current directory :'  \
-	    15 80 5 none 'current directory' \
+	xtit=$(mygt 'ISO Slackware file')
+	xcur=$(mygt 'current directory')
+	dialog --colors --title "$xtit" --defaultno --menu "$xtext" \
+	    15 80 5 none "$xcur" \
 	    $(ls -1 "$REPISO/Slackware-x64-"*.iso 2> /dev/null|\
 	    sed 's@^\(.*Slackware-x64-\)\(.*\)\.iso$@\2 \1\2.iso@') \
 	    2> $XTEMPOUT
@@ -84,8 +81,7 @@ if [ $ISASK -eq 1 ] ;then
 	    c="$REPISO/Slackware-x64-${res}.iso"
 	rm -f $XTEMPOUT
     else
-	echo "Give the name of an ISO Slackware file or nothing if the"
-	echo "Slackware is on the current directory :"
+	echo "$xtext"|sed 's@\\n@\n@g'
 	ls -1 "$REPISO/Slackware-x64-"*.iso 2> /dev/null|\
 	    sed 's@^\(.*Slackware-x64-\)\(.*\)\.iso$@\2 \1\2.iso@'
 	read c
@@ -95,11 +91,13 @@ if [ $ISASK -eq 1 ] ;then
 	IMGISO="$(cd $(dirname $c); pwd)/$(basename $c)";cd "$MYPWD"
     fi
 
+    xtext=$(mygt 'Give the name of an ISO GParted file or nothing :')
     if [ $ISDIAL -eq 1 ] ;then
 	XTEMPOUT=$(mktemp -p /tmp -t pbsetupout.XXXXXX)
-	dialog --colors --title 'ISO GParted file' --defaultno \
-	    --menu 'Give the name of an ISO GParted file or nothing :'  \
-	    15 80 5 none 'no GParted Live' \
+	xtit=$(mygt 'ISO GParted file')
+	xnone=$(mygt 'no GParted Live')
+	dialog --colors --title "$xtit" --defaultno \
+	    --menu "$xtext" 15 80 5 none "$xnone" \
 	    $(ls -1 "$REPISO/gparted-live-"*.iso 2> /dev/null|\
 	    sed 's@^\(.*gparted-live-\)\(.*\)\.iso$@\2 \1\2.iso@') \
 	    2> $XTEMPOUT
@@ -108,7 +106,7 @@ if [ $ISASK -eq 1 ] ;then
 	    c="$REPISO/gparted-live-${res}.iso"
 	rm -f $XTEMPOUT
     else
-	echo "Give the name of an ISO GParted file or nothing :"
+	echo "$xtext"|sed 's@\\n@\n@g'
 	ls -1 "$REPISO/gparted-live-"*.iso 2> /dev/null|\
 	    sed 's@^\(.*gparted-live-\)\(.*\)\.iso$@\2 \1\2.iso@'
 	read c
@@ -127,9 +125,7 @@ if [ "$IMGISO" != '' ] ;then
 fi
 
 if [ ! $UID = 0 -a $XTEST -ne 1 ]; then
-    cat << EOF
-This script must be run as root.
-EOF
+    mygt 'This script must be done as root. Exit.'
     exit 1
 fi
 
@@ -150,6 +146,7 @@ cleanup () {
 }
 
 ISERR=0
+DACTION=
 
 if [ $ISO -eq 1 ] ;then
     if [ "$NOUDISKS2" != '' ] ;then
@@ -163,40 +160,34 @@ if [ $ISO -eq 1 ] ;then
     fi
     if [ $? -ne 0 -o "$REPO" = '' ] ;then
 	ISERR=1
-	cat <<EOF >> $XTEMPMES
-------------------------------------
-Directory not mounted.
-Is your ISO file a Slackware image ?
-EOF
+	echo '------------------------------------\n' >> $XTEMPMES
+	mygt 'Directory not mounted.\nIs your ISO file a Slackware image ?' \
+	    >> $XTEMPMES
     else
-	cat <<EOF > $XTEMPMES
-For the iso $IMGISO :
-  The loop device is : $XLOOP
-  The mount dir is : $REPO
-EOF
+	emygt "For the iso \$IMGISO :\n  The loop device is : \$XLOOP\n  The mount dir is : \$REPO" >> $XTEMPMES
     fi
-    DACTION='Iso mounted status'
+    DACTION=$(mygt 'Iso mounted status')
 fi
 
 if [ $ISERR -eq 0 ] ;then
-    DACTION='Directory status'
+    [ -z "$DACTION" ] && DACTION=$(mygt 'Directory status')
     if [ ! -d "$REPO" ] ;then
 	ISERR=1
-	echo 'Directory slackware64-current not found.' > $XTEMPMES
+	mygt 'Directory slackware64-current not found.' > $XTEMPMES
 	xhelp >> $XTEMPMES
     elif [ ! -h pbslacks -a ! -d pbslacks ] ;then
 	ISERR=1
-	echo 'Directory pbslacks not found.' > $XTEMPMES
+	mygt 'Directory pbslacks not found.' > $XTEMPMES
 	xhelp >> $XTEMPMES
     elif [ $ISO -eq 0 ] ;then
-	echo 'Directory slackware64-current found.' > $XTEMPMES
+	mygt 'Directory slackware64-current found.' >> $XTEMPMES
     fi
 fi
 
 if [ $ISDIAL -eq 1 ] ;then
     dialog --colors --title "$DACTION" --msgbox "$(cat $XTEMPMES)" 20 85
 else
-    nodialog "$DACTION" $XTEMPMES
+    nodialog "$DACTION" $XTEMPMES 1
 fi
 trap 'echo "*** Ctrl-C caught -- aborting operations ***"; cleanup; exit 1' 2 14 15 # trap Ctrl-C and kill
 
@@ -213,16 +204,16 @@ cd "$REPO"
 ###############################################
 # Grab the USB stick.
 ###############################################
-DACTION='Grab the USB stick.'
+DACTION=$(mygt 'Grab the USB stick.')
 DUAL='dual '
 [ "$GPARTISO" = '' ] && DUAL=
-echo "Put your writable USB stick on an USB port and press OK or Enter." \
+mygt "Put your writable USB stick on an USB port and press OK or Enter." \
     > $XTEMPMES
 echo "------------------------------------" >> $XTEMPMES
-echo "It will be erased and replaced by a ${DUAL}boot media :" >> $XTEMPMES
-echo "  -with a Slackware installation media" >> $XTEMPMES
+emygt "It will be erased and replaced by a \${DUAL}boot media :" >> $XTEMPMES
+mygt "  -with a Slackware installation media" >> $XTEMPMES
 if [ "$GPARTISO" != '' ] ;then
-    echo "  -with a GParted Live media" >> $XTEMPMES
+    mygt "  -with a GParted Live media" >> $XTEMPMES
 fi
 
 if [ $ISDIAL -eq 1 ] ;then
@@ -240,8 +231,8 @@ MYTEST=$(dmesg|tail -10|grep $MYRDEV 2> /dev/null|wc -l)
 [ $MYTEST -lt 1 ] && MYDEVNAME=
 
 if [ "$MYDEVNAME" = '' ] ;then
-    DACTION='Confirm USB stick.'
-    DMES='USB stick not found.'
+    DACTION=$(mygt 'Confirm USB stick.')
+    DMES=$(mygt 'USB stick not found.')
     if [ $ISDIAL -eq 1 ] ;then
 	echo "$DMES" > $XTEMPMES
 	echo "------------------------------------" >> $XTEMPMES
@@ -259,22 +250,24 @@ fi
 
 if [ $ISDIAL -eq 1 ] ;then
     XTEMPOUT=$(mktemp -p /tmp -t pbsetupout.XXXXXX)
-    dialog --colors --title 'Do the USB stick' --defaultno --clear \
-	--msgbox "$(/sbin/fdisk -l 2> /dev/null||sed 's@\\n@\n@')\n" 20 80 \
-	--and-widget --colors --title 'Do the USB stick' --defaultno \
-	--menu "The device name for your writable erasable USB stick is $MYDEVNAME.\nIs this correct ?"  \
-	15 80 5 n 'no' y 'yes' a 'yes and no format' \
-	b 'yes and no format and no packages copy' 2> $XTEMPOUT
+    xtit=$(mygt 'Do the USB stick')
+    xtext=$(emygt "The device name for your writable erasable USB stick is \$MYDEVNAME.\nIs this correct ?")
+    xno=$(mygt 'no')
+    xyes=$(mygt 'yes')
+    xyesnof=$(mygt 'yes and no format')
+    xyesnofp=$(mygt 'yes and no format and no packages copy')
+    dialog --colors --title "$xtit" --defaultno --clear \
+	--msgbox "$(/sbin/fdisk -l 2> /dev/null|sed 's@\\n@\n@')\n" 20 80 \
+	--and-widget --colors --title "$xtit" --defaultno \
+	--menu "$xtext" 15 80 5 n "$xno" y "$xyes" a "$xyesnof" b "$xyesnofp" \
+	2> $XTEMPOUT
     c=$(cat $XTEMPOUT)
     rm -f $XTEMPOUT
 else
     /sbin/fdisk -l 2> /dev/null
-    cat <<EOF
-------------------------------------
-The device name for your writable erasable USB stick is $MYDEVNAME.
-Is this correct ?
-y(es), n(o), a (yes and noformat), b (yes and no format and no packages copy) :
-EOF
+    echo '------------------------------------'
+    echo "$xtit" |sed 's@\\n@\n@g'
+    mygt 'y(es), n(o), a (yes and noformat), b (yes and no format and no packages copy) :'
     read c
 fi
 
@@ -296,7 +289,7 @@ else
 fi
 
 if [ "$c" = 'y' -a "$MYDEVNAME" != '' ] ;then
-    echo "$MYPWD/pbslacks/pbimg2disk launched."
+    mygt "$MYPWD/pbslacks/pbimg2disk launched."
     if [ $XTEST -ne 1 ] ; then
 	cd usb-and-pxe-installers
 	"$MYPWD/pbslacks/pbimg2disk" $FORMAT -i "$(pwd)/usbboot.img" \

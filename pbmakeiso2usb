@@ -19,30 +19,31 @@
 #   -guess the device name of the USB stick.
 #   -copy the iso file givent in argument.
 
+. "$(dirname $0)/pbinclude"
+
 if [ "$1" = '' ] ;then
-    echo "Give the name of the iso file to copy on the USB stick."
+    mygt "Give the name of the iso file to copy on the USB stick."
     exit 1
 fi
 
 NAMEISO="$1"
 
 if [ ! -f "$NAMEISO" ] ;then
-    echo "Give the name of an existant iso file to copy on the USB stick."
+    mygt "Give the name of an existant iso file to copy on the USB stick."
     exit 1
 fi
 
-echo "Put your USB stick on an USB port and press Enter."
+mygt "Put your USB stick on an USB port and press Enter."
 read c
 sleep 3
-MYDEVNAME=`/sbin/fdisk -l 2> /dev/null| tail -1 | grep 'FAT32$'|cut -d ' ' -f1|cut -d '1' -f1`
-
-if [ "$MYDEVNAME" = '' ] ;then
-# If it is an already created Slackware USB stick."
-    MYDEVNAME=`/sbin/fdisk -l 2> /dev/null| tail -3 | grep 'EFI '|cut -d ' ' -f1|cut -d '2' -f1`
-fi
+MYDEVNAME=$(/sbin/fdisk -l 2> /dev/null| tail -12 | grep ' /dev/[a-z]'|\
+	sed 's@^.*\(/dev/[a-z]*\).*$@\1@')
+MYRDEV=$(echo $MYDEVNAME|cut -c 6-)
+MYTEST=$(dmesg|tail -10|grep $MYRDEV 2> /dev/null|wc -l)
+[ $MYTEST -lt 1 ] && MYDEVNAME=
 
 /sbin/fdisk -l 2> /dev/null
-echo "Your device name is $MYDEVNAME. Is this correct ? y(es) or n(o) :"
+emygt "Your device name is \$MYDEVNAME. Is this correct ? y(es) or n(o) :"
 read c
 
 if [ "$c" = 'y' -a "$MYDEVNAME" != '' ] ;then

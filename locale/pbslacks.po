@@ -16,126 +16,11 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: pbsetup:54
-msgid "Choose working dir"
-msgstr ""
-
-#: pbsetup:56
-#, sh-format
-msgid "Local repository $LASTSLACK found.\\nDo you want to work with it$YN ?"
-msgstr ""
-
-#: pbaspire:57 pbsetup:102 pbupgrade:100
-msgid "Main menu"
-msgstr ""
-
-#: pbaspire:188 pbsetup:268 pbupgrade:176
-msgid "Actions which were done"
-msgstr ""
-
-#: pbaspire:185 pbsetup:264 pbupgrade:308
-msgid "No action was demanded. Exit."
-msgstr ""
-
-#: pbaspire:58 pbsetup:103
-msgid "Choose your actions below"
-msgstr ""
-
-#: pbsetup:93
+#: pbaspire:10
 msgid ""
-"Get/Update local repository versus officiel remote Slackware and add-on "
-"packages"
-msgstr ""
-
-#: pbsetup:94
-msgid ""
-"Sync/Update system to the last fetched current Slackware and add-on packages"
-msgstr ""
-
-#: pbsetup:95
-msgid "Make a bootable USB stick for Slackware install."
-msgstr ""
-
-#: pbsetup:194
-msgid "Clone done (full or partial depending on selected options)."
-msgstr ""
-
-#: pbsetup:208
-msgid "Upgrade done for selected set of packages."
-msgstr ""
-
-#: pbsetup:220
-msgid "USB stick created."
-msgstr ""
-
-#: pbsetup:204 pbsetup:216 pbsetup:234 pbsetup:256
-msgid "Change to root."
-msgstr ""
-
-#: pbsetup:162
-msgid ""
-"Do a local clone/update of the officiel Slackware and add-on packages."
-"\\nUses pbslacks/pbaspire."
-msgstr ""
-
-#: pbsetup:164
-msgid "Upgrade the local system with the local clone."
-msgstr ""
-
-#: pbsetup:166
-msgid ""
-"Make a dual boot install USB stick with Slackware install and GParted Live "
-"which can boot on old bios or new UEFI bios computers."
-msgstr ""
-
-#: pbsetup:10
-msgid ""
-"Launch this script in a directory containing slackware64-current\\nor "
-"slackware64 or from the current directory for a new clone."
-msgstr ""
-
-#: pbsetup:222
-msgid "USB stick not created."
-msgstr ""
-
-#: pbaspirealien:11 pbaspireponce:11 pbaspireslonly:11 pbaspireother:11
-#: pbaspiremoz:11 pbcompilepost:19 pbcompilepost:17
-msgid ""
-"Launch this script in the directory including packages, packages2 et al."
-msgstr ""
-
-#: pbcompilebumblebee:16
-msgid "Launch this script in the directory including bumblebee."
-msgstr ""
-
-#: pbmount:50
-msgid "unmount with :"
-msgstr ""
-
-#: pbunmount:12
-msgid "Give the name of the device to unmount like /dev/loop0."
-msgstr ""
-
-#: pbmount:39
-#, sh-format
-msgid "Loop device is : $XLOOP"
-msgstr ""
-
-#: pbmount:49
-#, sh-format
-msgid "Look at $MNTDIR"
-msgstr ""
-
-#: pbunmount:47
-msgid "Loop device detached."
-msgstr ""
-
-#: pbmount:12
-msgid "Give the name of the iso file or the device to mount."
-msgstr ""
-
-#: pbunmount:44
-msgid "Device unmounted."
+"Launch this script in a new directory.\\nor in a directory which contains "
+"slackware64-current.\\n\\npbslacks should be side by side of this current "
+"directory."
 msgstr ""
 
 #: pbaspire:45
@@ -166,11 +51,12 @@ msgstr ""
 msgid "Get/Update latest Firefox and Thunderbird"
 msgstr ""
 
-#: pbaspire:10
-msgid ""
-"Launch this script in a new directory.\\nor in a directory which contains "
-"slackware64-current.\\n\\npbslacks should be side by side of this current "
-"directory."
+#: pbaspire:57 pbsetup:102 pbupgrade:100
+msgid "Main menu"
+msgstr ""
+
+#: pbaspire:58 pbsetup:103
+msgid "Choose your actions below"
 msgstr ""
 
 #: pbaspire:127
@@ -240,26 +126,18 @@ msgstr ""
 msgid "Get/Upgrade Firefox and Thunderbird done : \\Z3${PBNAME}mozilla\\Zn."
 msgstr ""
 
-#: pbsetup:96
-msgid "Install the refind boot manager for dual or more boot."
+#: pbaspire:185 pbsetup:264 pbupgrade:308
+msgid "No action was demanded. Exit."
 msgstr ""
 
-#: pbsetup:168
+#: pbaspire:188 pbsetup:268 pbupgrade:176
+msgid "Actions which were done"
+msgstr ""
+
+#: pbaspirealien:11 pbaspiremoz:11 pbaspireother:11 pbaspireponce:11
+#: pbaspireslonly:11 pbcompilepost:17
 msgid ""
-"Setup the boot manager refind if you have set elilo in the installation of "
-"Slackware and you have other systems like MS Windows."
-msgstr ""
-
-#: pbsetup:244
-msgid "refind installed."
-msgstr ""
-
-#: pbsetup:247
-msgid "refind not installed."
-msgstr ""
-
-#: pbcompilebumblebee:11
-msgid "This script must be run as root."
+"Launch this script in the directory including packages, packages2 et al."
 msgstr ""
 
 #: pbaspirecore:47
@@ -294,7 +172,328 @@ msgstr ""
 msgid "GParted not copied."
 msgstr ""
 
-#: pbupgrade:10 pbupgrademoz:15
+#: pbaspireinc:22
+#, sh-format
+msgid "Delete : $j"
+msgstr ""
+
+#: pbaspireinc:34
+#, sh-format
+msgid "Package $pac :"
+msgstr ""
+
+#: pbaspireinc:53
+#, sh-format
+msgid "Local copy of ../pbslacks/builds/$path to $name"
+msgstr ""
+
+#: pbaspireinit:26
+#, sh-format
+msgid ""
+"OLDSLACK = $OLDSLACK\\nCopies of $OLDSLACK/packages* and bumblebee will be "
+"done.\\nElse all add-on packages will be downloaded again."
+msgstr ""
+
+#: pbcompilebumblebee:11
+msgid "This script must be run as root."
+msgstr ""
+
+#: pbcompilebumblebee:16
+msgid "Launch this script in the directory including bumblebee."
+msgstr ""
+
+#: pbcompilebumblebee:46
+msgid ""
+"Redo the Bumblebee Slackware packages.\\nIf already done on an upgraded host "
+"use the packages already generated with upgradebumblebee."
+msgstr ""
+
+#: pbcompilepost:12 pbmakeusb:128 pbstophib:27 pbupgrade:180
+#: pbupgradebumblebee:10 pbupgrademoz:10
+msgid "This script must be done as root. Exit."
+msgstr ""
+
+#: pbcompilepost:46
+msgid ""
+"Only after a system update and reboot.\\nIf already done on this or another "
+"machine, this script is not useful.\\nPress a touch for continue or abort."
+msgstr ""
+
+#: pbcompilepost:73
+msgid "Correct this error and relaunch this script."
+msgstr ""
+
+#: pbcompilepost:131
+msgid "Upgrade packages* done."
+msgstr ""
+
+#: pbmakeusb:26
+msgid ""
+"  Launch this script in the directory including slackware64-current and which"
+"\\ncontains pbslacks."
+msgstr ""
+
+#: pbmakeusb:69
+msgid ""
+"Give the name of an ISO Slackware file or nothing if the Slackware is on the "
+"current directory :"
+msgstr ""
+
+#: pbmakeusb:72
+msgid "ISO Slackware file"
+msgstr ""
+
+#: pbmakeusb:73
+msgid "current directory"
+msgstr ""
+
+#: pbmakeusb:94
+msgid "Give the name of an ISO GParted file or nothing :"
+msgstr ""
+
+#: pbmakeusb:97
+msgid "ISO GParted file"
+msgstr ""
+
+#: pbmakeusb:98
+msgid "no GParted Live"
+msgstr ""
+
+#: pbmakeusb:164
+msgid "Directory not mounted.\\nIs your ISO file a Slackware image ?"
+msgstr ""
+
+#: pbmakeusb:167
+#, sh-format
+msgid ""
+"For the iso $IMGISO :\\n  The loop device is : $XLOOP\\n  The mount dir is : "
+"$REPO"
+msgstr ""
+
+#: pbmakeusb:169
+msgid "Iso mounted status"
+msgstr ""
+
+#: pbmakeusb:173
+msgid "Directory status"
+msgstr ""
+
+#: pbmakeusb:176
+msgid "Directory slackware64-current not found."
+msgstr ""
+
+#: pbmakeusb:180
+msgid "Directory pbslacks not found."
+msgstr ""
+
+#: pbmakeusb:183
+msgid "Directory slackware64-current found."
+msgstr ""
+
+#: pbmakeusb:207
+msgid "Grab the USB stick."
+msgstr ""
+
+#: pbmakeusb:210
+msgid "Put your writable USB stick on an USB port and press OK or Enter."
+msgstr ""
+
+#: pbmakeusb:213
+#, sh-format
+msgid "It will be erased and replaced by a ${DUAL}boot media :"
+msgstr ""
+
+#: pbmakeusb:214
+msgid "  -with a Slackware installation media"
+msgstr ""
+
+#: pbmakeusb:216
+msgid "  -with a GParted Live media"
+msgstr ""
+
+#: pbmakeusb:234
+msgid "Confirm USB stick."
+msgstr ""
+
+#: pbmakeusb:235
+msgid "USB stick not found."
+msgstr ""
+
+#: pbmakeusb:253
+msgid "Do the USB stick"
+msgstr ""
+
+#: pbmakeusb:254
+#, sh-format
+msgid ""
+"The device name for your writable erasable USB stick is $MYDEVNAME.\\nIs "
+"this correct ?"
+msgstr ""
+
+#: pbmakeusb:255
+msgid "no"
+msgstr ""
+
+#: pbmakeusb:256
+msgid "yes"
+msgstr ""
+
+#: pbmakeusb:257
+msgid "yes and no format"
+msgstr ""
+
+#: pbmakeusb:258
+msgid "yes and no format and no packages copy"
+msgstr ""
+
+#: pbmakeusb:270
+msgid ""
+"y(es), n(o), a (yes and noformat), b (yes and no format and no packages "
+"copy) :"
+msgstr ""
+
+#: pbmount:12
+msgid "Give the name of the iso file or the device to mount."
+msgstr ""
+
+#: pbmount:39
+#, sh-format
+msgid "Loop device is : $XLOOP"
+msgstr ""
+
+#: pbmount:49
+#, sh-format
+msgid "Look at $MNTDIR"
+msgstr ""
+
+#: pbmount:50
+msgid "unmount with :"
+msgstr ""
+
+#: pbsetup:10
+msgid ""
+"Launch this script in a directory containing slackware64-current\\nor "
+"slackware64 or from the current directory for a new clone."
+msgstr ""
+
+#: pbsetup:54
+msgid "Choose working dir"
+msgstr ""
+
+#: pbsetup:56
+#, sh-format
+msgid "Local repository $LASTSLACK found.\\nDo you want to work with it$YN ?"
+msgstr ""
+
+#: pbsetup:93
+msgid ""
+"Get/Update local repository versus officiel remote Slackware and add-on "
+"packages"
+msgstr ""
+
+#: pbsetup:94
+msgid ""
+"Sync/Update system to the last fetched current Slackware and add-on packages"
+msgstr ""
+
+#: pbsetup:95
+msgid "Make a bootable USB stick for Slackware install."
+msgstr ""
+
+#: pbsetup:96
+msgid "Install the refind boot manager for dual or more boot."
+msgstr ""
+
+#: pbsetup:97
+msgid "Stop the eventual hibernation of Windows."
+msgstr ""
+
+#: pbsetup:162
+msgid ""
+"Do a local clone/update of the officiel Slackware and add-on packages."
+"\\nUses pbslacks/pbaspire."
+msgstr ""
+
+#: pbsetup:164
+msgid "Upgrade the local system with the local clone."
+msgstr ""
+
+#: pbsetup:166
+msgid ""
+"Make a dual boot install USB stick with Slackware install and GParted Live "
+"which can boot on old bios or new UEFI bios computers."
+msgstr ""
+
+#: pbsetup:168
+msgid ""
+"Setup the boot manager refind if you have set elilo in the installation of "
+"Slackware and you have other systems like MS Windows."
+msgstr ""
+
+#: pbsetup:170
+msgid ""
+"Stop the hibernation of Windows in case it is active after modifying the "
+"disks partitions."
+msgstr ""
+
+#: pbsetup:194
+msgid "Clone done (full or partial depending on selected options)."
+msgstr ""
+
+#: pbsetup:204 pbsetup:216 pbsetup:234 pbsetup:256
+msgid "Change to root."
+msgstr ""
+
+#: pbsetup:208
+msgid "Upgrade done for selected set of packages."
+msgstr ""
+
+#: pbsetup:220
+msgid "USB stick created."
+msgstr ""
+
+#: pbsetup:222
+msgid "USB stick not created."
+msgstr ""
+
+#: pbsetup:240
+msgid "refind not installed because elilo is not."
+msgstr ""
+
+#: pbsetup:242
+msgid "refind already installed."
+msgstr ""
+
+#: pbsetup:244
+msgid "refind installed."
+msgstr ""
+
+#: pbsetup:247
+msgid "refind not installed."
+msgstr ""
+
+#: pbstophib:10
+msgid "Stop the hibernate mode of the Windows partitions."
+msgstr ""
+
+#: pbstophib:55
+#, sh-format
+msgid "$xdev hibernate removed."
+msgstr ""
+
+#: pbunmount:12
+msgid "Give the name of the device to unmount like /dev/loop0."
+msgstr ""
+
+#: pbunmount:44
+msgid "Device unmounted."
+msgstr ""
+
+#: pbunmount:47
+msgid "Loop device detached."
+msgstr ""
+
+#: pbupgrade:10 pbupgradebumblebee:15 pbupgrademoz:15
 msgid ""
 "Launch this script in the directory including alreadey cloned slackware64 or "
 "slackware64-current.\\nIt can be on the bootable slackware install USB stick."
@@ -307,19 +506,53 @@ msgid ""
 "SLACKWARE.txt file."
 msgstr ""
 
-#: pbstophy:27 pbupgrade:180 pbupgrademoz:10 pbcompilepost:12
-msgid "This script must be done as root. Exit."
+#: pbupgrade:66
+msgid "slackware64 or pbslacks not found."
+msgstr ""
+
+#: pbupgrade:152
+msgid ""
+"Upgrade your Slackware system with the last current fetched\\nUses Slackpkg."
+msgstr ""
+
+#: pbupgrade:154
+msgid "Upgrade the Alien Bob 32 bits compatible mode."
+msgstr ""
+
+#: pbupgrade:156
+msgid ""
+"Upgrade the Firefox and Thunderbird products.\\nThey should be downloaded "
+"and put in the packages/Mozilla directory before."
+msgstr ""
+
+#: pbupgrade:166
+msgid ""
+"Upgrade your Bumblebee packages if they are in sync with the upgraded "
+"Slackware.\\nDone on another machine for exemple."
+msgstr ""
+
+#: pbupgrade:168
+msgid ""
+"Redo the packages which are here in sources form.\\nIf not already done on "
+"this machine or another."
+msgstr ""
+
+#: pbupgrade:170
+msgid ""
+"Redo the Bumblebee packages.\\nIf not already done on this machine or "
+"another.\\nYou should reboot after upgrading system packages and before "
+"doing this action else the Bumblebee packages wont built."
 msgstr ""
 
 #: pbupgrade:217
 msgid "Abort : see previous errors."
 msgstr ""
 
-#: pbsetup:240
-msgid "refind not installed because elilo is not."
+#: pbupgrade:218
+msgid "Upgrade system not done."
 msgstr ""
 
-#: pbupgrade:224 pbupgrade:221
+#: pbupgrade:221 pbupgrade:224
 msgid "Upgrade system done."
 msgstr ""
 
@@ -371,43 +604,6 @@ msgstr ""
 msgid "Recreate source Bumblebee done."
 msgstr ""
 
-#: pbsetup:242
-msgid "refind already installed."
-msgstr ""
-
-#: pbcompilebumblebee:45
-msgid ""
-"Redo the Bumblebee Slackware packages.\\nIf already done on an upgraded host "
-"use the packages already generated with upgradebumblebee."
-msgstr ""
-
-#: pbsetup:97
-msgid "Stop the eventual hybernation of Windows."
-msgstr ""
-
-#: pbsetup:170
-msgid ""
-"Stop the hybernation of Windows in case it is active after modifying the "
-"disks partitions."
-msgstr ""
-
-#: pbstophy:10
-msgid "Stop the hibernate mode of the Windows partitions."
-msgstr ""
-
-#: pbstophy:55
-#, sh-format
-msgid "$xdev hibernate removed."
-msgstr ""
-
-#: pbupgrade:218
-msgid "Upgrade system not done."
-msgstr ""
-
-#: pbupgrademoz:51
-msgid "Firefox et Thunderbird added."
-msgstr ""
-
 #: pbupgrade:332
 msgid "Bootloader menu"
 msgstr ""
@@ -424,68 +620,6 @@ msgstr ""
 msgid "No bootloader detected. Reconfigure your bootloader before reboot."
 msgstr ""
 
-#: pbupgrade:66
-msgid "slackware64 or pbslacks not found."
-msgstr ""
-
-#: pbupgrade:152
-msgid ""
-"Upgrade your Slackware system with the last current fetched\\nUses Slackpkg."
-msgstr ""
-
-#: pbupgrade:154
-msgid "Upgrade the Alien Bob 32 bits compatible mode."
-msgstr ""
-
-#: pbupgrade:156
-msgid ""
-"Upgrade the Firefox and Thunderbird products.\\nThey should be downloaded "
-"and put in the packages/Mozilla directory before."
-msgstr ""
-
-#: pbupgrade:166
-msgid ""
-"Upgrade your Bumblebee packages if they are in sync with the upgraded "
-"Slackware.\\nDone on another machine for exemple."
-msgstr ""
-
-#: pbupgrade:168
-msgid ""
-"Redo the packages which are here in sources form.\\nIf not already done on "
-"this machine or another."
-msgstr ""
-
-#: pbupgrade:170
-msgid ""
-"Redo the Bumblebee packages.\\nIf not already done on this machine or "
-"another.\\nYou should reboot after upgrading system packages and before "
-"doing this action else the Bumblebee packages wont built."
-msgstr ""
-
-#: pbupgrade:356
-msgid ""
-"Elilo updated : Files vmlinuz et initrd.gz copied in \\Z3/boot/efi/EFI/"
-"Slackware\\Zn"
-msgstr ""
-
-#: pbupgrade:361
-msgid ""
-"Grub updated : \\Z3grub-mkconfig\\Zn relaunched.\\n\\Z1Look if there are "
-"error messages below\\Zn."
-msgstr ""
-
-#: pbupgrade:367
-msgid ""
-"Lilo updated with \\Z3/sbin/lilo\\Zn.\\n\\Z1Look if there are error messages "
-"below\\Zn."
-msgstr ""
-
-#: pbupgrade:373
-msgid ""
-"Look at \\Z3/syslinux.cfg\\Zn and rerun \\Z3syslinux\\Zn on your boot "
-"partition if some path have changed."
-msgstr ""
-
 #: pbupgrade:346
 msgid ""
 "\\ZbThe boot loader was not updated.\\ZB\\nIf lilo is installed, launch : "
@@ -494,4 +628,79 @@ msgid ""
 "BOOTDEVICE\\Zn\\nIf Boot UEFI ELILO is installed, do :\\n  \\Z3cp /boot/"
 "vmlinuz /boot/initrd.gz /boot/efi/EFI/Slackware\\Zn\\n\\n\\ZbOr rerun your "
 "other favorite bootloader install procedure before rebooting.\\ZB"
+msgstr ""
+
+#: pbupgrade:350
+msgid ""
+"Elilo updated : Files vmlinuz et initrd.gz copied in \\Z3/boot/efi/EFI/"
+"Slackware\\Zn"
+msgstr ""
+
+#: pbupgrade:355
+msgid ""
+"Grub updated : \\Z3grub-mkconfig\\Zn relaunched.\\n\\Z1Look if there are "
+"error messages below\\Zn."
+msgstr ""
+
+#: pbupgrade:360
+msgid ""
+"Lilo updated with \\Z3/sbin/lilo\\Zn.\\n\\Z1Look if there are error messages "
+"below\\Zn."
+msgstr ""
+
+#: pbupgrade:365
+msgid ""
+"Look at \\Z3/syslinux.cfg\\Zn and rerun \\Z3syslinux\\Zn on your boot "
+"partition if some path have changed."
+msgstr ""
+
+#: pbupgradebumblebee:33
+msgid ""
+"Only for NVDIA second card on laptop.\\nUpdate eventually Bumblebee with "
+"pbcompilebumblebee which update also.\\nPress a touch for continue or abort."
+msgstr ""
+
+#: pbupgradebumblebee:40
+msgid "Upgrade bumblebee done."
+msgstr ""
+
+#: pbupgrademoz:51
+msgid "Firefox et Thunderbird added."
+msgstr ""
+
+#: pbmakeiso:10
+msgid "Launch this script in the directory including slackware64-current."
+msgstr ""
+
+#: pbmakeiso:30
+#, sh-format
+msgid "The ISO image will be created with $NAMEISO name."
+msgstr ""
+
+#: pbmakeiso:60
+#, sh-format
+msgid ""
+"If not too big for your recorder which should use double layer media,\\nthe "
+"iso created can be put on a DVD with :\\n> growisofs -speed=2 -dvd-compat -"
+"Z /dev/dvd $FNAMEISO\\n\\n  Or your favorite DVD recorder.\\n\\n  Or on an "
+"USB stick (sdX below is the name of the USB device) :\\n> dd if=$FNAMEISO "
+"of=/dev/sdX bs=1M ;sync\\n\\n  Or launch :\\n> pbmakeiso2usb $FNAMEISO\\n"
+"\\n  Or lauch :\\n> pbmakeusb"
+msgstr ""
+
+#: pbmakeiso2usb:25
+msgid "Give the name of the iso file to copy on the USB stick."
+msgstr ""
+
+#: pbmakeiso2usb:32
+msgid "Give the name of an existant iso file to copy on the USB stick."
+msgstr ""
+
+#: pbmakeiso2usb:36
+msgid "Put your USB stick on an USB port and press Enter."
+msgstr ""
+
+#: pbmakeiso2usb:46
+#, sh-format
+msgid "Your device name is $MYDEVNAME. Is this correct ? y(es) or n(o) :"
 msgstr ""

@@ -343,14 +343,8 @@ if [ $ISSYSTEM -eq 1 ] ;then
     xitem=$(cat $XTEMPOUT)
 
     xmes1 () {
-	mygt "\ZbThe boot loader was not updated.\ZB\n\
-If lilo is installed, launch : \Z3/sbin/lilo\Zn\n\
-If Grub is installed, launch : \Z3grub-mkconfig -o /boot/grub/grub.cfg\Zn\n\
-If Syslinux is installed, launch : \Z3syslinux BOOTDEVICE\Zn\n\
-If Boot UEFI ELILO is installed, do :\n\
-  \Z3cp /boot/vmlinuz /boot/initrd.gz /boot/efi/EFI/Slackware\Zn\n\
-\n\
-\ZbOr rerun your other favorite bootloader install procedure before rebooting.\ZB"    }
+	mygt "\ZbThe boot loader was not updated.\ZB\nIf lilo is installed, launch : \Z3/sbin/lilo\Zn\nIf Grub is installed, launch : \Z3grub-mkconfig -o /boot/grub/grub.cfg\Zn\nIf Syslinux is installed, launch : \Z3syslinux BOOTDEVICE\Zn\nIf Boot UEFI ELILO is installed, do :\n  \Z3cp /boot/vmlinuz /boot/initrd.gz /boot/efi/EFI/Slackware\Zn\n\n\ZbOr rerun your other favorite bootloader install procedure before rebooting.\ZB"
+    }
 
     if [ "$xitem" = elilo -a -d /boot/efi/EFI/Slackware ] ;then
 	mygt "Elilo updated : Files vmlinuz et initrd.gz copied in \Z3/boot/efi/EFI/Slackware\Zn" >> $XTEMPMES
@@ -358,14 +352,12 @@ If Boot UEFI ELILO is installed, do :\n\
 	    cp /boot/vmlinuz /boot/initrd.gz /boot/efi/EFI/Slackware
 	fi
     elif [ "$xitem" = grub -a -f /boot/grub/grub.cfg ] ;then
-	mygt "Grub updated : \Z3grub-mkconfig\Zn relaunched.\n\
-\Z1Look if there are error messages below\Zn." >> $XTEMPMES
+	mygt "Grub updated : \Z3grub-mkconfig\Zn relaunched.\n\Z1Look if there are error messages below\Zn." >> $XTEMPMES
 	if [ $XTEST -ne 1 ] ;then
 	    grub-mkconfig -o /boot/grub/grub.cfg 2>> $XTEMPMES
 	fi
     elif [ "$xitem" = lilo -a -f /etc/lilo.conf ] ;then
-	mygt "Lilo updated with \Z3/sbin/lilo\Zn.\n\
-\Z1Look if there are error messages below\Zn." >> $XTEMPMES
+	mygt "Lilo updated with \Z3/sbin/lilo\Zn.\n\Z1Look if there are error messages below\Zn." >> $XTEMPMES
 	if [ $XTEST -ne 1 ] ;then
 	    /sbin/lilo 2>> $XTEMPMES
 	fi

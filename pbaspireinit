@@ -23,9 +23,7 @@ test_oldslack () {
 OLDSLACK=$(test_oldslack ../Slackware-x64-)
 
 if [ ! -d packages -a -d "$OLDSLACK" ] ;then
-    echo "OLDSLACK = $OLDSLACK"
-    echo "Copies of $OLDSLACK/packages* and bumblebee will be done."
-    echo "Else all add-on packages will be downloaded again."
+    emygt "OLDSLACK = \$OLDSLACK\nCopies of \$OLDSLACK/packages* and bumblebee will be done.\nElse all add-on packages will be downloaded again."
 
     if [ -d "$OLDSLACK/packages" ] ;then
 	cp -a "$OLDSLACK/packages"* .

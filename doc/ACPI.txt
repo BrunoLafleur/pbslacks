@@ -1,0 +1,89 @@
+acpi_listen :
+video/brightnessdown BRTDN 00000087 00000000
+video/brightnessup BRTUP 00000086 00000000
+
+cat /etc/acpi/events/latitude-brightness-down
+# /etc/acpi/events/latitude-brightness-down
+
+event=video/brightnessdown BRTDN 00000087 00000000
+action=/etc/acpi/latitude-brightness.sh down
+
+cat /etc/acpi/events/latitude-brightness-up
+# /etc/acpi/events/latitude-brightness-up
+
+event=video/brightnessup BRTUP 00000086 00000000
+action=/etc/acpi/latitude-brightness.sh up
+
+cat /etc/acpi/latitude-brightness.sh
+#!/bin/bash
+
+BRIGHTNESSPATH="/sys/class/backlight/intel_backlight"
+MAXBRIGHTNESS=$(cat $BRIGHTNESSPATH/max_brightness)
+BRIGHTNESS=$(cat $BRIGHTNESSPATH/brightness)
+
+# ensure brightness is in the range 0 .. max_brightness
+if [ "$BRIGHTNESS" -gt "$MAXBRIGHTNESS" ]; then
+  BRIGHTNESS=$MAXBRIGHTNESS
+elif [ "$BRIGHTNESS" -lt 0 ]; then
+  BRIGHTNESS=0
+fi
+
+# increment/decrement the brightness by the given percentage
+MAXBRIGHTNESS_PERCENT=$(expr $MAXBRIGHTNESS / 100)
+INCREMENT_PERCENT=2
+INCREMENT=$(expr $INCREMENT_PERCENT \* $MAXBRIGHTNESS_PERCENT)
+
+# handle the "up" and "down" brightness events
+if [ "x$1" = "xdown" ]; then
+   NEWBRIGHTNESS=$(( $BRIGHTNESS - $INCREMENT ))
+   if [ "$NEWBRIGHTNESS" -ge $INCREMENT ]; then
+      echo $NEWBRIGHTNESS > $BRIGHTNESSPATH/brightness
+   else
+      echo 0 > $BRIGHTNESSPATH/brightness
+   fi
+elif [ "x$1" = "xup" ]; then
+   NEWBRIGHTNESS=$(( $BRIGHTNESS + $INCREMENT ))
+   if [ "$NEWBRIGHTNESS" -le "$MAXBRIGHTNESS" ]; then
+      echo $NEWBRIGHTNESS > $BRIGHTNESSPATH/brightness
+   else
+      echo $MAXBRIGHTNESS > $BRIGHTNESSPATH/brightness
+   fi
+else
+   echo >&2 Unknown argument $1
+fi
+
+sudo service acpid restart
+
+E: Latitude e7440 A14 bios update breaks brightness key control in Ubuntu
+
+Adding boot parameters acpi_osi=Linux acpi_backlight=vendor
+
+nano /etc/default/grub
+
+add acpi_backlight=vendor to GRUB_CMDLINE_LINUX_DEFAULT, so it should look like something like this (if you don't have additional parameters):
+
+GRUB_CMDLINE_LINUX_DEFAULT="quiet splash acpi_backlight=vendor"
+
+then you should update your GRUB by this command:
+
+sudo update-grub
+
+and after all, you must reboot your system for the changes to take effect:
+dbus-send \
+     --print-reply \
+     --system \
+     --dest=org.freedesktop.Hal  \
+     /org/freedesktop/Hal/devices/computer_backlight \
+     org.freedesktop.Hal.Device.LaptopPanel.SetBrightness \
+     int32:10 #2&>1 > /dev/null
+
+    If the system starts with the kernel parameter acpi_backlight=vendor, the item acpi_video0 is replaced by the item intel, but then the Fn-Keys can not change the value of this item.
+
+I also came across this documentation for the Kernel, titled: Kernel Parameters. In this doc the following aCPI options are mentioned:
+
+acpi_backlight= [HW,ACPI]
+        acpi_backlight=vendor
+        acpi_backlight=video
+        If set to vendor, prefer vendor specific driver
+        (e.g. thinkpad_acpi, sony_acpi, etc.) instead
+        of the ACPI video.ko driver.
