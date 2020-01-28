@@ -19,7 +19,7 @@ xpurgepac () {
     last=$(ls -1t ${pac}*.$suf 2> /dev/null|head -1)
     for j in $(ls ${pac}*.$suf 2> /dev/null) ;do
 	if [ "$j" != "$last" ] ;then
-	    echo "Delete : $j"
+	    emygt "Delete : \$j"
 	    rm -f "$j"
 	fi
     done
@@ -31,7 +31,7 @@ xgetpac () {
     dir="$2"
     prof="$3"
     echo '------------------------------------'
-    echo "Package $pac :"
+    emygt "Package \$pac :"
     wget -N -A "$pac"'*.t?z' -r -nv -np -nH --cut-dir=$prof "$dir/"
     xpurgepac "$pac" t?z
 }
@@ -50,7 +50,7 @@ xlocalsrcpac () {
     path="$2"
     [ ! -d "$name" ] && mkdir "$name"
     cp -u "../pbslacks/builds/${name}.tar.gz" "$name"
-    echo "Copie locale de ../pbslacks/builds/$path vers $name"
+    emygt "Local copy of ../pbslacks/builds/\$path to \$name"
     cp "../pbslacks/builds/$path" "$name"
 }
 

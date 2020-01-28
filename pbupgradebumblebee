@@ -4,41 +4,37 @@
 # Date : 2019
 # License : See the LICENSE file in this repository.
 
+. "$(dirname $0)/pbinclude"
+
 if [ ! $UID = 0 ]; then
-  cat << EOF
-This script must be run as root.
-EOF
-  exit 1
+    mygt 'This script must be done as root. Exit.'
+    exit 1
 fi
 
 xhelp () {
-    cat <<EOF
-Script a lancer dans un repertoire contenant slackware64-current.
-Launch this script in a directory which contains slackware64-current.
-
-pbslacks should be side by side of this current directory.
-> pbslacks/pbupgradebumblebee
-EOF
+    mygt 'Launch this script in the directory including alreadey cloned slackware64 or slackware64-current.\nIt can be on the bootable slackware install USB stick.\npbslacks should also be there.'|sed 's@\\n@\n@g'
+    echo
+    echo "  > cd .../slackware-current"
+    echo "or> cd /run/media/$USER/USBSLACKINS/SlackDVD"
+    echo '  > pbslacks/pbupgradebumblebee'
 }
 
-if [ ! -d slackware64-current ] ;then
+if [ -d slackware64-current ] ;then
+    cd slackware64-current
+fi
+if [ ! -d slackware64 -o '(' ! -h pbslacks -a ! -d pbslacks ')' ] ;then
     xhelp
     exit 1
 fi
 
-MYPWD=`pwd`
+MYPWD=$(pwd)
 HOMESLACK="$MYPWD"
 
-cat <<EOF
-Only for NVDIA second card on laptop.
-Seulement pour portable équipés d'une deuxième carte NVIDIA.
-Mettez eventuellement Bumblebee a jour avec pbinstallbumblebee.
-Appuyez sur une touche pour continuer - press a touch for continue or abort.
-EOF
+mygt 'Only for NVDIA second card on laptop.\nUpdate eventually Bumblebee with pbcompilebumblebee which update also.\nPress a touch for continue or abort.'|sed 's@\\n@\n@g'
 read c
 
 cd $HOMESLACK
 upgradepkg --install-new bumblebee/*.t?z
 [ -x /etc/rc.d/rc.bumblebee ] && /etc/rc.d/rc.bumbleebee restart
 
-echo "Upgrade bumblebee fait."
+mygt "Upgrade bumblebee done."

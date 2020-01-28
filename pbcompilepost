@@ -9,7 +9,7 @@
 . "$(dirname $0)/pbinclude"
 
 if [ ! $UID = 0 ]; then
-    mygt 'This script must be done as root. Exit.' > $XTEMPMES
+    mygt 'This script must be done as root. Exit.'
     exit 1
 fi
 
@@ -43,12 +43,7 @@ while [ $# -ge 1 ] ;do
     shift
 done
 
-cat <<EOF
-A lancer seulement apres la mise a jour du systeme et son redemarrage.
-Si deja fait sur une machine a jour, il n'est pas utile de relancer ce script.
-Appuyer sur une touche pour continuer sinon CTRLc pour arreter
-Press a touch for continue or abort.
-EOF
+mygt 'Only after a system update and reboot.\nIf already done on this or another machine, this script is not useful.\nPress a touch for continue or abort.'|sed 's@\\n@\n@g'
 read c
 
 xmakealienpac () {
@@ -75,8 +70,7 @@ xmakepac () {
 	  ./${XPAC}.SlackBuild
 	  cp /tmp/${XPAC}-*.t?z ../..
 	  if [ $? -ne 0 ] ;then
-	      echo 'Erreur a corriger puis relancer ce script.'
-	      echo 'Correct this error and relaunch this script.'
+	      mygt 'Correct this error and relaunch this script.'
 	      exit 1
 	  fi
 	  cd ..;rm -rf $XPAC
@@ -134,4 +128,4 @@ for i in cabextract libdvdcss icoutils wxPython OpenAL libtxc_dxtn ;do
 done
 cd ../..
 
-echo "Upgrade packages* fait."
+mygt "Upgrade packages* done."

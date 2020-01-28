@@ -89,12 +89,12 @@ XUPASPIRE=on
 XUPUPGRADE=off
 XUPMAKEUSB=off
 XUPREFIND=off
-XUPSTOPHY=off
+XUPSTOPHIB=off
 ASPIRE=$(mygt 'Get/Update local repository versus officiel remote Slackware and add-on packages')
 UPGRADE=$(mygt 'Sync/Update system to the last fetched current Slackware and add-on packages')
 MAKEUSB=$(mygt 'Make a bootable USB stick for Slackware install.')
 REFIND=$(mygt 'Install the refind boot manager for dual or more boot.')
-STOPHY=$(mygt 'Stop the eventual hybernation of Windows.')
+STOPHIB=$(mygt 'Stop the eventual hibernation of Windows.')
 
 xmaster () {
     defitem=$1;shift
@@ -109,7 +109,7 @@ xmaster () {
 	    upgrade "$UPGRADE" $xsel2 upgrade \
 	    makeusb "$MAKEUSB" $xsel3 makeusb \
 	    refind "$REFIND" $xsel4 refind \
-	    stophy "$STOPHY" $xsel5 stophy
+	    stophib "$STOPHIB" $xsel5 stophib
     else
 	echo '------------------------------------'
 	echo "          $pactit"
@@ -124,8 +124,8 @@ xmaster () {
 	    if [ "$c" = "y" ] ;then echo "HELP makeusb" 1>&2;return;fi
 	    echo "HELP refind (y or n) :";read c
 	    if [ "$c" = "y" ] ;then echo "HELP refind" 1>&2;return;fi
-	    echo "HELP stophybernate (y or n) :";read c
-	    if [ "$c" = "y" ] ;then echo "HELP stophy" 1>&2;return;fi
+	    echo "HELP stophibbernate (y or n) :";read c
+	    if [ "$c" = "y" ] ;then echo "HELP stophib" 1>&2;return;fi
 	fi
 	echo "$ASPIRE (y or n) :";read c
 	[ "$c" = "y" ] && echo "aspire" 1>&2
@@ -135,12 +135,12 @@ xmaster () {
 	[ "$c" = "y" ] && echo "makeusb" 1>&2
 	echo "$REFIND (y or n) :";read c
 	[ "$c" = "y" ] && echo "refind" 1>&2
-	echo "$STOPHY (y or n) :";read c
-	[ "$c" = "y" ] && echo "stophy" 1>&2
+	echo "$STOPHIB (y or n) :";read c
+	[ "$c" = "y" ] && echo "stophib" 1>&2
     fi
 }
 
-xsel="$XUPASPIRE $XUPUPGRADE $XUPMAKEUSB $XUPREFIND $XUPSTOPHY"
+xsel="$XUPASPIRE $XUPUPGRADE $XUPMAKEUSB $XUPREFIND $XUPSTOPHIB"
 ditem=aspire
 bclaide=1
 
@@ -150,7 +150,7 @@ while [ $bclaide -eq 1 ] ;do
     if [ $bclaide -eq 1 ] ;then
 	xitem="$(cat $XTEMPOUT|grep '^HELP'|cut -d ' ' -f2)"
 	xsel=
-	for i in aspire upgrade makeusb refind stophy ;do
+	for i in aspire upgrade makeusb refind stophib ;do
 	  if [ $(grep "^$i$" "$XTEMPOUT"|wc -l) -eq 1 ] ;then
 	      xsel="$xsel on"
 	  else
@@ -166,8 +166,8 @@ while [ $bclaide -eq 1 ] ;do
 	    pacaide=$(mygt 'Make a dual boot install USB stick with Slackware install and GParted Live which can boot on old bios or new UEFI bios computers.')
 	elif [ "$xitem" = refind ] ;then
 	    pacaide=$(mygt 'Setup the boot manager refind if you have set elilo in the installation of Slackware and you have other systems like MS Windows.')
-	elif [ "$xitem" = stophy ] ;then
-	    pacaide=$(mygt 'Stop the hybernation of Windows in case it is active after modifying the disks partitions.')
+	elif [ "$xitem" = stophib ] ;then
+	    pacaide=$(mygt 'Stop the hibernation of Windows in case it is active after modifying the disks partitions.')
 	fi
 	if [ $ISDIAL -eq 1 ] ;then
 	    dialog --colors --title "$xitem" --msgbox "$pacaide" 20 80
@@ -186,7 +186,7 @@ ISASPIRE=$(cat $XTEMPOUT|grep '^aspire$'|wc -l)
 ISUPGRADE=$(cat $XTEMPOUT|grep '^upgrade$'|wc -l)
 ISUSB=$(cat $XTEMPOUT|grep '^makeusb$'|wc -l)
 ISREFIND=$(cat $XTEMPOUT|grep '^refind$'|wc -l)
-ISSTOPHY=$(cat $XTEMPOUT|grep '^stophy$'|wc -l)
+ISSTOPHIB=$(cat $XTEMPOUT|grep '^stophib$'|wc -l)
 
 # Aspire
 if [ $ISASPIRE -eq 1 ] ;then
@@ -248,13 +248,13 @@ if [ $ISREFIND -eq 1 ] ;then
     fi
 fi
 
-# Stop hybernation
-if [ $ISSTOPHY -eq 1 ] ;then
+# Stop MS Windows hibernation
+if [ $ISSTOPHIB -eq 1 ] ;then
     if [ $UID -eq 0 ]; then
-        "$PBSLACKSPWD/pbstophy" $PBTEST >> $XTEMPMES
+        "$PBSLACKSPWD/pbstophib" $PBTEST >> $XTEMPMES
     else
 	mygt 'Change to root.'
-	su - root -c "(cd \"$MYPWD\";\"$PBSLACKSPWD/pbstophy\" $PBTEST >> $XTEMPMES)"
+	su - root -c "(cd \"$MYPWD\";\"$PBSLACKSPWD/pbstophib\" $PBTEST >> $XTEMPMES)"
     fi
 fi
 

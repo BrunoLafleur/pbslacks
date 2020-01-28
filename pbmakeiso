@@ -4,13 +4,12 @@
 # Date : 2019
 # License : See the LICENSE file in this repository.
 
-xhelp () {
-    cat <<EOF
-Script a lancer dans le repertoire contenant slackware64-current fraichement aspire.
-Launch this script in the directory including slackware64-current.
+. "$(dirname $0)/pbinclude"
 
-> pbslacks/pbmakeiso
-EOF
+xhelp () {
+    mygt 'Launch this script in the directory including slackware64-current.'
+    echo
+    echo '> pbslacks/pbmakeiso'
 }
 
 if [ ! -d slackware64-current ] ;then
@@ -25,8 +24,11 @@ fi
 
 MYPWD=$(pwd)
 NAMEISO=$REPISO/$(basename "$MYPWD").iso
+FNAMEISO=$MYPWD/$NAMEISO
 
-echo "The ISO image will be created with $NAMEISO name."
+echo '-------------------------------------------------'
+emygt "The ISO image will be created with \$NAMEISO name."
+echo '-------------------------------------------------'
 
 cd slackware64-current
 
@@ -54,14 +56,6 @@ xorriso -as mkisofs \
 	 divers/=../../divers pbslacks/=../../pbslacks perso/=../../perso
 cd ..
 
-cat <<EOF
-If not too big for your recorder which should use double layer media,
-the iso created can be put on a DVD with :
-> growisofs -speed=2 -dvd-compat -Z /dev/dvd $(pwd)/$NAMEISO
-
-Or on an USB stick (sdX below is the name of the USB device) :
-> dd if=$(pwd)/$NAMEISO of=/dev/sdX bs=1M ;sync
-
-Or launch :
-> pbmakeiso2usb $(pwd)/$NAMEISO
-EOF
+echo '-------------------------------------------------'
+emygt "If not too big for your recorder which should use double layer media,\nthe iso created can be put on a DVD with :\n> growisofs -speed=2 -dvd-compat -Z /dev/dvd \$FNAMEISO\n\n  Or your favorite DVD recorder.\n\n  Or on an USB stick (sdX below is the name of the USB device) :\n> dd if=\$FNAMEISO of=/dev/sdX bs=1M ;sync\n\n  Or launch :\n> pbmakeiso2usb \$FNAMEISO\n\n  Or lauch :\n> pbmakeusb"|sed 's@\\n@\n@g'
+echo '-------------------------------------------------'
