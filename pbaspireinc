@@ -50,8 +50,10 @@ xlocalsrcpac () {
     path="$2"
     [ ! -d "$name" ] && mkdir "$name"
     cp -u "../pbslacks/builds/${name}.tar.gz" "$name"
-    emygt "Local copy of ../pbslacks/builds/\$path to \$name"
-    cp "../pbslacks/builds/$path" "$name"
+    if [ "$path" != '' ] ;then
+      	emygt "Local copy of ../pbslacks/builds/\$path to \$name"
+    	cp "../pbslacks/builds/$path" "$name"
+    fi
 }
 
 # Get the original source tarball.
