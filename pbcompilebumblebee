@@ -55,7 +55,7 @@ if [ -f "$HOMESLACK/bumblebee/Crazybee/Bumblebee-SlackBuilds.tgz" ] ;then
     cd Bumblebee-SlackBuilds
     sh ./crazybee.sh
 else
-    sh "$HOMESLACK/bumblebee/crazybee.sh"
+    sh "$HOMESLACK/bumblebee/Crazybee/crazybee.sh"
 fi
 
 cd "$HOMESLACK/bumblebee"
