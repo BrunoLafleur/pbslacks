@@ -42,13 +42,13 @@ fi
 # For putting iso images.amges.
 if [ ! -h Linuxiso ] ; then
     [ ! -d ../Linuxiso ] && mkdir ../Linuxiso
-    ln -s ../Linuxiso .
+    ln -sf ../Linuxiso .
 fi
 
 # Some specifics tunings.
 if [ ! -h perso ] ; then
     if [ -d ../perso ] ;then
-        ln -s ../perso .
+        ln -sf ../perso .
     else
 	[ ! -d perso ] && mkdir perso
     fi
@@ -57,7 +57,7 @@ fi
 # MPlayer Skins (to download).
 if [ ! -h divers ] ; then
     if [ -d ../divers ] ;then
-        ln -s ../divers .
+        ln -sf ../divers .
     else
 	[ ! -d divers ] && mkdir divers
     fi
@@ -76,7 +76,8 @@ if [ ! -d bumblebee ] ;then
     mkdir bumblebee
     mkdir bumblebee/Crazybee
     cp pbslacks/builds/crazybee.sh bumblebee/Crazybee
-    if [ -f ../Crazybee/Bumblebee-SlackBuilds.tgz ] ;then
-        ln -s ../../../Crazybee/Bumblebee-SlackBuilds.tgz bumblebee/Crazybee
-    fi
+fi
+
+if [ -f ../Crazybee/Bumblebee-SlackBuilds.tgz ] ;then
+    ln -sf ../../../Crazybee/Bumblebee-SlackBuilds.tgz bumblebee/Crazybee
 fi

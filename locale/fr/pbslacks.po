@@ -56,11 +56,11 @@ msgstr "Obtenir/mettre à jour d'autres paquets sources ou binaires"
 msgid "Get/Update latest Firefox and Thunderbird"
 msgstr "Obtenir/mettre à jour Firefox et Thunderbird"
 
-#: pbaspire:57 pbsetup:102 pbupgrade:100
+#: pbaspire:57 pbsetup:105 pbupgrade:100
 msgid "Main menu"
 msgstr "Menu principal"
 
-#: pbaspire:58 pbsetup:103
+#: pbaspire:58 pbsetup:106
 msgid "Choose your actions below"
 msgstr "Choisissez vos actions ci-dessous"
 
@@ -139,11 +139,11 @@ msgstr ""
 "Obtention ou mise à jour de Firefox et Thunderbird faite : \\Z3${PBNAME}"
 "mozilla\\Zn."
 
-#: pbaspire:185 pbsetup:264 pbupgrade:308
+#: pbaspire:185 pbsetup:285 pbupgrade:308
 msgid "No action was demanded. Exit."
 msgstr "Aucune action demandée. Sortie."
 
-#: pbaspire:188 pbsetup:268 pbupgrade:176
+#: pbaspire:188 pbsetup:289 pbupgrade:176
 msgid "Actions which were done"
 msgstr "Actions réalisées"
 
@@ -196,7 +196,7 @@ msgstr "Effacement : $j"
 msgid "Package $pac :"
 msgstr "Paquet $pac :"
 
-#: pbaspireinc:53
+#: pbaspireinc:54
 #, sh-format
 msgid "Local copy of ../pbslacks/builds/$path to $name"
 msgstr "Copie locale de ../pbslacks/builds/$path vers $name"
@@ -421,31 +421,35 @@ msgstr "Choisissez votre répertoire de travail"
 msgid "Local repository $LASTSLACK found.\\nDo you want to work with it$YN ?"
 msgstr "Copie locale $LASTSLACK trouvée.\\nVoulez vous travailler avec$YN ?"
 
-#: pbsetup:93
+#: pbsetup:94
 msgid ""
 "Get/Update local repository versus officiel remote Slackware and add-on "
 "packages"
 msgstr ""
 "Obtenir/mettre à jour la copie locale du site Slackware avec ses ajouts"
 
-#: pbsetup:94
+#: pbsetup:95
 msgid ""
 "Sync/Update system to the last fetched current Slackware and add-on packages"
 msgstr "Synchroniser la copie locale avec le système courant"
 
-#: pbsetup:95
+#: pbsetup:96
 msgid "Make a bootable USB stick for Slackware install."
 msgstr "Fabriquer une clé USB avec l'installateur de la Slackware"
 
-#: pbsetup:96
+#: pbsetup:97
+msgid "Make a bootable DVD ROM for Slackware install."
+msgstr "Fabriquer un DVD ROM de démarrage avec l'installeur de la Slackware"
+
+#: pbsetup:98
 msgid "Install the refind boot manager for dual or more boot."
 msgstr "Installez le gestionnaire de démarrage refind si nécessaire."
 
-#: pbsetup:97
+#: pbsetup:99
 msgid "Stop the eventual hibernation of Windows."
 msgstr "Arrêter l'hibernation éventuelle de Windows."
 
-#: pbsetup:162
+#: pbsetup:170
 msgid ""
 "Do a local clone/update of the officiel Slackware and add-on packages."
 "\\nUses pbslacks/pbaspire."
@@ -453,11 +457,11 @@ msgstr ""
 "Obtenir/mettre à jour la copie locale du site Slackware avec ses ajouts"
 "\\nUtilise pbslacks/pbaspire."
 
-#: pbsetup:164
+#: pbsetup:172
 msgid "Upgrade the local system with the local clone."
 msgstr "Mise à jour du système local à l'aide du clone local"
 
-#: pbsetup:166
+#: pbsetup:174
 msgid ""
 "Make a dual boot install USB stick with Slackware install and GParted Live "
 "which can boot on old bios or new UEFI bios computers."
@@ -465,7 +469,15 @@ msgstr ""
 "Fabriquer une clé USB de démarrage avec l'installeur de la Slackware et la "
 "GParted Live. Elle peut se lancer sur les anciens bios ou les bios UEFI."
 
-#: pbsetup:168
+#: pbsetup:176
+msgid ""
+"Make a boot install DVD ROM with Slackware install which can boot on old "
+"bios or new UEFI bios computers."
+msgstr ""
+"Fabriquer un DVD ROM de démarrage avec l'installeur de la Slackware. Elle "
+"peut se lancer sur les anciens bios ou les bios UEFI."
+
+#: pbsetup:178
 msgid ""
 "Setup the boot manager refind if you have set elilo in the installation of "
 "Slackware and you have other systems like MS Windows."
@@ -474,7 +486,7 @@ msgstr ""
 "l'installation de Slackware et avez plus d'un système installé comme MS "
 "Windows."
 
-#: pbsetup:170
+#: pbsetup:180
 msgid ""
 "Stop the hibernation of Windows in case it is active after modifying the "
 "disks partitions."
@@ -482,39 +494,47 @@ msgstr ""
 "Arrêter l'hibernation de Windows au cas ou elle soit active après "
 "modification des partitions de disques."
 
-#: pbsetup:194
+#: pbsetup:205
 msgid "Clone done (full or partial depending on selected options)."
 msgstr "Copie faite (complète ou partielle selon options choisies)"
 
-#: pbsetup:204 pbsetup:216 pbsetup:234 pbsetup:256
+#: pbsetup:215 pbsetup:227 pbsetup:255 pbsetup:277
 msgid "Change to root."
 msgstr "Connection root."
 
-#: pbsetup:208
+#: pbsetup:219
 msgid "Upgrade done for selected set of packages."
 msgstr "Mise à jour du système courant pour les paquets choisis."
 
-#: pbsetup:220
+#: pbsetup:231
 msgid "USB stick created."
 msgstr "Clé USB créée"
 
-#: pbsetup:222
+#: pbsetup:233
 msgid "USB stick not created."
 msgstr "Clé USB non créée"
 
-#: pbsetup:240
+#: pbsetup:241
+msgid "\\Z3ISO DVD ROM created.\\Zn"
+msgstr "\\Z3ISO DVD ROM créé.\\Zn"
+
+#: pbsetup:243
+msgid "\\Z3ISO DVD ROM not created.\\Zn"
+msgstr "\\Z3ISO DVD ROM non créé.\\Zn"
+
+#: pbsetup:261
 msgid "refind not installed because elilo is not."
 msgstr "refind non installé car elilo ne l'est pas."
 
-#: pbsetup:242
+#: pbsetup:263
 msgid "refind already installed."
 msgstr "refind déjà installé."
 
-#: pbsetup:244
+#: pbsetup:265
 msgid "refind installed."
 msgstr "refind installé."
 
-#: pbsetup:247
+#: pbsetup:268
 msgid "refind not installed."
 msgstr "refind non installé."
 
@@ -764,7 +784,7 @@ msgstr ""
 msgid "The ISO image will be created with $NAMEISO name."
 msgstr "L'image ISO sera créée avec le nom $NAMEISO."
 
-#: pbmakeiso:60
+#: pbmakeiso:61
 #, sh-format
 msgid ""
 "If not too big for your recorder which should use double layer media,\\nthe "
