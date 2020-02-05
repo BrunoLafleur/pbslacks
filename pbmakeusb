@@ -71,8 +71,8 @@ if [ $ISASK -eq 1 ] ;then
 	XTEMPOUT=$(mktemp -p /tmp -t pbsetupout.XXXXXX)
 	xtit=$(mygt 'ISO Slackware file')
 	xcur=$(mygt 'current directory')
-	dialog --colors --title "$xtit" --defaultno --menu "$xtext" \
-	    15 80 5 none "$xcur" \
+	dialog --colors --backtitle 'pbmakeusb' --title "$xtit" --defaultno \
+	    --menu "$xtext" 15 80 5 none "$xcur" \
 	    $(ls -1 "$REPISO/Slackware-x64-"*.iso 2> /dev/null|\
 	    sed 's@^\(.*Slackware-x64-\)\(.*\)\.iso$@\2 \1\2.iso@') \
 	    2> $XTEMPOUT
@@ -96,7 +96,7 @@ if [ $ISASK -eq 1 ] ;then
 	XTEMPOUT=$(mktemp -p /tmp -t pbsetupout.XXXXXX)
 	xtit=$(mygt 'ISO GParted file')
 	xnone=$(mygt 'no GParted Live')
-	dialog --colors --title "$xtit" --defaultno \
+	dialog --colors --backtitle 'pbmakeusb' --title "$xtit" --defaultno \
 	    --menu "$xtext" 15 80 5 none "$xnone" \
 	    $(ls -1 "$REPISO/gparted-live-"*.iso 2> /dev/null|\
 	    sed 's@^\(.*gparted-live-\)\(.*\)\.iso$@\2 \1\2.iso@') \
@@ -185,7 +185,8 @@ if [ $ISERR -eq 0 ] ;then
 fi
 
 if [ $ISDIAL -eq 1 ] ;then
-    dialog --colors --title "$DACTION" --msgbox "$(cat $XTEMPMES)" 20 85
+    dialog --colors --backtitle 'pbmakeusb' --title "$DACTION" \
+	--msgbox "$(cat $XTEMPMES)" 20 85
 else
     nodialog "$DACTION" $XTEMPMES 1
 fi
@@ -217,18 +218,22 @@ if [ "$GPARTISO" != '' ] ;then
 fi
 
 if [ $ISDIAL -eq 1 ] ;then
-    dialog --colors --title "$DACTION" --msgbox "$(cat $XTEMPMES)" 20 80
+    dialog --colors --backtitle 'pbmakeusb' --title "$DACTION" \
+	--msgbox "$(cat $XTEMPMES)" 20 80
 else
     nodialog "$DACTION" $XTEMPMES
     read c
 fi
 
 sleep 3
-MYDEVNAME=$(/sbin/fdisk -l 2> /dev/null| tail -12 | grep ' /dev/[a-z]'|\
+MYTDEVNAME=$(/sbin/fdisk -l 2> /dev/null| tail -12 | grep ' /dev/[a-z]'|\
 	sed 's@^.*\(/dev/[a-z]*\).*$@\1@')
-MYRDEV=$(echo $MYDEVNAME|cut -c 6-)
-MYTEST=$(dmesg|tail -10|grep $MYRDEV 2> /dev/null|wc -l)
-[ $MYTEST -lt 1 ] && MYDEVNAME=
+MYDEVNAME=
+for i in $MYTDEVNAME ;do
+    MYRDEV=$(echo $i|cut -c 6-)
+    MYTEST=$(dmesg|tail -10|grep "$MYRDEV" 2> /dev/null|wc -l)
+    [ $MYTEST -ge 1 ] && MYDEVNAME="$i"
+done
 
 if [ "$MYDEVNAME" = '' ] ;then
     DACTION=$(mygt 'Confirm USB stick.')
@@ -237,7 +242,8 @@ if [ "$MYDEVNAME" = '' ] ;then
 	echo "$DMES" > $XTEMPMES
 	echo "------------------------------------" >> $XTEMPMES
 	/sbin/fdisk -l 2> /dev/null >> $XTEMPMES
-	dialog --colors --title "$DACTION" --msgbox "$(cat $XTEMPMES)" 20 80
+	dialog --colors --backtitle 'pbmakeusb' --title "$DACTION" \
+	    --msgbox "$(cat $XTEMPMES)" 20 80
     else
 	/sbin/fdisk -l 2> /dev/null > $XTEMPMES
 	echo "------------------------------------" >> $XTEMPMES
@@ -248,25 +254,30 @@ if [ "$MYDEVNAME" = '' ] ;then
     exit 1
 fi
 
+xtit=$(mygt 'Do the USB stick')
+xtext=$(emygt "The device name for your writable erasable USB stick is \Z1\$MYDEVNAME\Zn.\nIs this correct ?")
+
 if [ $ISDIAL -eq 1 ] ;then
     XTEMPOUT=$(mktemp -p /tmp -t pbsetupout.XXXXXX)
-    xtit=$(mygt 'Do the USB stick')
-    xtext=$(emygt "The device name for your writable erasable USB stick is \$MYDEVNAME.\nIs this correct ?")
     xno=$(mygt 'no')
     xyes=$(mygt 'yes')
     xyesnof=$(mygt 'yes and no format')
     xyesnofp=$(mygt 'yes and no format and no packages copy')
-    dialog --colors --title "$xtit" --defaultno --clear \
-	--msgbox "$(/sbin/fdisk -l 2> /dev/null|sed 's@\\n@\n@')\n" 20 80 \
-	--and-widget --colors --title "$xtit" --defaultno \
-	--menu "$xtext" 15 80 5 n "$xno" y "$xyes" a "$xyesnof" b "$xyesnofp" \
-	2> $XTEMPOUT
+    mygt "\Z1Look at your USB stick device below. It will be autodetected later.\Zn" \
+	> $XTEMPMES
+    /sbin/fdisk -l 2> /dev/null >> $XTEMPMES
+    dialog --colors --backtitle 'pbmakeusb' --title "$xtit" --defaultno --clear \
+	--msgbox "$(cat $XTEMPMES)" 20 80 --and-widget --colors --title "$xtit" \
+	--defaultno --menu "$xtext" 15 80 5 n "$xno" y "$xyes" a "$xyesnof" \
+	b "$xyesnofp" 2> $XTEMPOUT
     c=$(cat $XTEMPOUT)
     rm -f $XTEMPOUT
 else
     /sbin/fdisk -l 2> /dev/null
     echo '------------------------------------'
     echo "$xtit" |sed 's@\\n@\n@g'
+    echo '------------------------------------'
+    echo "$xtext" |sed 's@\\n@\n@g'
     mygt 'y(es), n(o), a (yes and noformat), b (yes and no format and no packages copy) :'
     read c
 fi

@@ -69,7 +69,8 @@ if [ $XTEST -ne 1 ] ;then
 fi
 
 if [ -s "$XTEMPMES" ] ;then
-    dialog --colors --title 'End messages' --msgbox "$(cat $XTEMPMES)" 20 85
+    dialog --colors --backtitle 'pbupgrade' --title 'End messages' \
+	--msgbox "$(cat $XTEMPMES)" 20 85
     cleanup
     exit 1
 fi
@@ -99,7 +100,8 @@ xmaster () {
     xsel11=$1;shift;xsel12=$1;shift;xsel13=$1;shift
     pactit=$(mygt 'Main menu')
     pactit="pbupgrade: $pactit"
-    dialog --colors --title "$pactit" --default-item $defitem --defaultno \
+    dialog --colors --backtitle 'pbupgrade' --title "$pactit" \
+	--default-item $defitem --defaultno \
 	--separate-output --item-help --help-button --help-status --checklist \
 	'Choose your actions below after you have launch the \Zbpbaspire*\ZB script' 0 100 13 \
 	system 'Sync/Update system to the last fetched current Slackware' $xsel1 system \
@@ -169,7 +171,8 @@ while [ $bclaide -eq 1 ] ;do
 	elif [ "$xitem" = recreatebumblebee ] ;then
 	    pacaide=$(mygt 'Redo the Bumblebee packages.\nIf not already done on this machine or another.\nYou should reboot after upgrading system packages and before doing this action else the Bumblebee packages wont built.')
 	fi
-	dialog --colors --title "$xitem" --msgbox "$pacaide" 20 80
+	dialog --colors --backtitle 'pbupgrade' --title "$xitem" \
+	    --msgbox "$pacaide" 20 80
     fi
 done
 
@@ -178,7 +181,8 @@ DACTION=$(mygt 'Actions which were done')
 if [ $XTEST -ne 1 ] ;then
     if [ ! $UID = 0 ]; then
         mygt 'This script must be done as root. Exit.' > $XTEMPMES
-        dialog --colors --title "$DACTION" --msgbox "$(cat $XTEMPMES)" 20 80
+        dialog --colors --backtitle 'pbupgrade' --title "$DACTION" \
+	    --msgbox "$(cat $XTEMPMES)" 20 80
 	cleanup
 	exit 1
     fi
@@ -309,7 +313,8 @@ if [ ! -f "$XTEMPMES" -o ! -s "$XTEMPMES" ] ;then
     XEND=1
 fi
 
-dialog --colors --title "$DACTION" --msgbox "$(cat $XTEMPMES)" 20 80
+dialog --colors --backtitle 'pbupgrade' --title "$DACTION" \
+    --msgbox "$(cat $XTEMPMES)" 20 80
 cleanup
 
 if [ $XEND -eq 1 ] ;then
@@ -332,8 +337,8 @@ if [ $ISSYSTEM -eq 1 ] ;then
     pactit=$(mygt 'Bootloader menu')
     pactxt=$(mygt 'We have detected the bootloader below. Cancel if it is not true.\nIn this last case, you should recreate the config of your bootloader before reboot. Else you will have to boot from another media as a DVD or an USB stick and rerun the install of your bootloader.')
     pacnone=$(mygt 'No bootloader detected. Reconfigure your bootloader before reboot.')
-    dialog --colors --title "$pactit" --defaultno --default-item $xitem \
-	--menu "$pactxt" 15 80 5 \
+    dialog --colors --backtitle 'pbupgrade' --title "$pactit" --defaultno \
+	--default-item $xitem --menu "$pactxt" 15 80 5 \
 	elilo 'Boot Elilo : /boot/efi/EFI/Slackware' \
 	grub 'Boot Grub : /boot/grub/grub.cfg' \
 	lilo 'Boot Lilo : /etc/lilo.conf' \
@@ -368,7 +373,8 @@ if [ $ISSYSTEM -eq 1 ] ;then
     fi
 
     if [ -f "$XTEMPMES" ] ;then
-	dialog --colors --title 'Bootloader upgraded' --msgbox "$(cat $XTEMPMES)" 20 80
+	dialog --colors --backtitle 'pbupgrade' --title 'Bootloader upgraded' \
+	    --msgbox "$(cat $XTEMPMES)" 20 80
     fi
 
     cleanup
@@ -401,6 +407,7 @@ EOF
 xend >> $XTEMPMES
 
 if [ -f "$XTEMPMES" ] ;then
-    dialog --colors --title 'End messages' --msgbox "$(cat $XTEMPMES)" 20 80
+    dialog --colors --backtitle 'pbupgrade' --title 'End messages' \
+	--msgbox "$(cat $XTEMPMES)" 20 80
 fi
 rm -f $XTEMPMES

@@ -57,9 +57,9 @@ xmaster () {
     pactit=$(mygt 'Main menu');pactit="pbaspire: $pactit"
     pactxt=$(mygt 'Choose your actions below')
     if [ $ISDIAL -eq 1 ] ;then
-	dialog --colors --title "$pactit" --default-item $defitem \
-	    --defaultno --separate-output --item-help --help-button \
-	    --help-status --checklist "$pactxt" 0 100 7 \
+	dialog --colors --backtitle 'pbaspire' --title "$pactit" \
+	    --default-item $defitem --defaultno --separate-output --item-help \
+	    --help-button --help-status --checklist "$pactxt" 0 100 7 \
 	    init "$INIT" $xsel1 init \
 	    core "$CORE" $xsel2 core \
 	    alien "$ALIEN" $xsel3 alien \
@@ -139,7 +139,8 @@ while [ $bclaide -eq 1 ] ;do
 	    pacaide=$(mygt 'Get or update Firefox and Thunderbird.')
 	fi
 	if [ $ISDIAL -eq 1 ] ;then
-	    dialog --colors --title "$xitem" --msgbox "$pacaide" 20 80
+	    dialog --colors --backtitle 'pbaspire' --title "$xitem" \
+		--msgbox "$pacaide" 20 80
 	else
 	    echo '------------------------------------'
 	    echo "          $xitem"
@@ -188,7 +189,8 @@ fi
 DACTION=$(mygt 'Actions which were done')
 
 if [ $ISDIAL -eq 1 ] ;then
-    dialog --colors --title "$DACTION" --msgbox "$(cat $XTEMPMES)" 20 90
+    dialog --colors --backtitle 'pbaspire' --title "$DACTION" \
+	--msgbox "$(cat $XTEMPMES)" 20 90
 else
     nodialog "$DACTION" $XTEMPMES
 fi
