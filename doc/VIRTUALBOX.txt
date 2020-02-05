@@ -1,0 +1,19 @@
+Notes pour Slackware avec Virtualbox :
+====================================
+
+Pour installer la Slackware current sous VirtualBox a partrir d'une clé USB
+bootable :
+  -Chercher le numéro de device de la clé si la machine hote est Windows :
+    Gestionnaire de fichiers -> Clic droit sur Ordinateur et regarder le numéro
+    de prériphérique de la clé.
+  -Ensuite dans une fenetre cmd :
+    vboxmanage internalcommands createrawvmdk -filename d:\usb.vmdk -rawdisk \\.\PhysicalDriveNUMERO
+
+Lors de la creation de la VM mettez ce disque en premier en IDE par exemple.
+Creez un disque virtuel de taille variable en deuxième (en SATA par exemple).
+
+Dans Configuration/Stockage de la machine virtuelle, pour éviter des blocages
+de la machine virtuelle, cochez pour le controleur SATA :
+  "Utilisez le cache E/S de l'hote"
+
+Pour choisir le device de boot de la machine virtuelle appuyez sur F12.

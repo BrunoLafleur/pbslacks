@@ -56,11 +56,11 @@ msgstr "Obtenir/mettre à jour d'autres paquets sources ou binaires"
 msgid "Get/Update latest Firefox and Thunderbird"
 msgstr "Obtenir/mettre à jour Firefox et Thunderbird"
 
-#: pbaspire:57 pbsetup:105 pbupgrade:100
+#: pbaspire:57 pbsetup:112 pbupgrade:101
 msgid "Main menu"
 msgstr "Menu principal"
 
-#: pbaspire:58 pbsetup:106
+#: pbaspire:58 pbsetup:113
 msgid "Choose your actions below"
 msgstr "Choisissez vos actions ci-dessous"
 
@@ -99,32 +99,32 @@ msgstr "Obtenir ou mettre à jour d'autres paquets sources ou binaires"
 msgid "Get or update Firefox and Thunderbird."
 msgstr "Obtenir ou mettre à jour Firefox et Thunderbird"
 
-#: pbaspire:157
+#: pbaspire:158
 #, sh-format
 msgid "Initialisation done : \\Z3${PBNAME}init\\Zn."
 msgstr "Initialisation faite : \\Z3${PBNAME}init\\Zn."
 
-#: pbaspire:160
+#: pbaspire:161
 #, sh-format
 msgid "Get/Upgrade core system done : \\Z3${PBNAME}core\\Zn."
 msgstr "Coeur du système obtenu ou mis à jour : \\Z3${PBNAME}core\\Zn."
 
-#: pbaspire:163
+#: pbaspire:164
 #, sh-format
 msgid "Get/Upgrade Alien Bob packages done : \\Z3${PBNAME}alien\\Zn."
 msgstr "Paquets d'Alien Bob obtenus ou mis à jour : \\Z3${PBNAME}alien\\Zn."
 
-#: pbaspire:167
+#: pbaspire:168
 #, sh-format
 msgid "Get/Upgrade Ponce packages done : \\Z3${PBNAME}ponce\\Zn."
 msgstr "Paquets de Ponce obtenus ou mis à jour : \\Z3${PBNAME}ponce\\Zn."
 
-#: pbaspire:170
+#: pbaspire:171
 #, sh-format
 msgid "Get/Upgrade Slackonly packages done : \\Z3${PBNAME}slonly\\Zn."
 msgstr "Paquets de Slackonly obtenus ou mis à jour : \\Z3${PBNAME}slonly\\Zn."
 
-#: pbaspire:174
+#: pbaspire:175
 #, sh-format
 msgid ""
 "Get/Upgrade other source or binary packages done : \\Z3${PBNAME}other\\Zn."
@@ -132,18 +132,18 @@ msgstr ""
 "Autres paquets sources ou binaires obtenus ou mis à jour : \\Z3${PBNAME}other"
 "\\Zn."
 
-#: pbaspire:177
+#: pbaspire:178
 #, sh-format
 msgid "Get/Upgrade Firefox and Thunderbird done : \\Z3${PBNAME}mozilla\\Zn."
 msgstr ""
 "Obtention ou mise à jour de Firefox et Thunderbird faite : \\Z3${PBNAME}"
 "mozilla\\Zn."
 
-#: pbaspire:185 pbsetup:285 pbupgrade:308
+#: pbaspire:186 pbsetup:293 pbupgrade:312
 msgid "No action was demanded. Exit."
 msgstr "Aucune action demandée. Sortie."
 
-#: pbaspire:188 pbsetup:289 pbupgrade:176
+#: pbaspire:189 pbsetup:297 pbupgrade:179
 msgid "Actions which were done"
 msgstr "Actions réalisées"
 
@@ -154,35 +154,35 @@ msgid ""
 msgstr ""
 "Script à lancer dans le répertoire contenant packages, packages2 et al."
 
-#: pbaspirecore:47
+#: pbaspirecore:51
 msgid "Slackware current copied."
 msgstr "Copie Slackware current faite."
 
-#: pbaspirecore:49
+#: pbaspirecore:53
 msgid "Slackware current not copied."
 msgstr "Copie Slackware current non faite."
 
-#: pbaspirecore:71
+#: pbaspirecore:76
 msgid "Slackware multilib copied."
 msgstr "Copie Slackware multilib faite."
 
-#: pbaspirecore:73
+#: pbaspirecore:78
 msgid "Slackware multilib not copied."
 msgstr "Copie Slackware multilib non faite."
 
-#: pbaspirecore:97
+#: pbaspirecore:101
 msgid "Alien Bob KDE5 frameworks copied."
 msgstr "Copie alien KDE5 frameworks faite."
 
-#: pbaspirecore:99
+#: pbaspirecore:103
 msgid "Alien Bob KDE5 frameworks not copied."
 msgstr "Copie alien KDE5 frameworks non faite."
 
-#: pbaspirecore:115
+#: pbaspirecore:120
 msgid "GParted copied."
 msgstr "Copie GParted faite."
 
-#: pbaspirecore:117
+#: pbaspirecore:122 pbaspirecore:128
 msgid "GParted not copied."
 msgstr "Copie GParted non faite."
 
@@ -227,7 +227,7 @@ msgstr ""
 "machine a jour, ne pas refaire et utilisez directement les paquets générés "
 "avec upgradebumblebee."
 
-#: pbcompilepost:12 pbmakeusb:128 pbstophib:27 pbupgrade:180
+#: pbcompilepost:12 pbmakeusb:128 pbstophib:27 pbupgrade:183
 #: pbupgradebumblebee:10 pbupgrademoz:10
 msgid "This script must be done as root. Exit."
 msgstr "Ce script doit être lancé root. On sort."
@@ -317,67 +317,74 @@ msgstr "Répertoire pbslacks  non trouvé"
 msgid "Directory slackware64-current found."
 msgstr "Répertoire slackware64-current trouvé."
 
-#: pbmakeusb:207
+#: pbmakeusb:208
 msgid "Grab the USB stick."
 msgstr "On cherche la clé USB."
 
-#: pbmakeusb:210
+#: pbmakeusb:211
 msgid "Put your writable USB stick on an USB port and press OK or Enter."
 msgstr ""
 "Mettez votre clé USB inscriptible dans un port USB et appuyez sur Accepter "
 "ou Entrée."
 
-#: pbmakeusb:213
+#: pbmakeusb:214
 #, sh-format
 msgid "It will be erased and replaced by a ${DUAL}boot media :"
 msgstr "Elle sera effacée et remplacé par un media ${DUAL}boot :"
 
-#: pbmakeusb:214
+#: pbmakeusb:215
 msgid "  -with a Slackware installation media"
 msgstr "  -avec une image d'installation de Slackware"
 
-#: pbmakeusb:216
+#: pbmakeusb:217
 msgid "  -with a GParted Live media"
 msgstr "  -avec une image GParted Live"
 
-#: pbmakeusb:234
+#: pbmakeusb:239
 msgid "Confirm USB stick."
 msgstr "Confirmation de la clé USB trouvée."
 
-#: pbmakeusb:235
+#: pbmakeusb:240
 msgid "USB stick not found."
 msgstr "Clé USB non trouvée."
 
-#: pbmakeusb:253
+#: pbmakeusb:257
 msgid "Do the USB stick"
 msgstr "On fabrique la clé USB."
 
-#: pbmakeusb:254
+#: pbmakeusb:258
 #, sh-format
 msgid ""
-"The device name for your writable erasable USB stick is $MYDEVNAME.\\nIs "
-"this correct ?"
+"The device name for your writable erasable USB stick is \\Z1$MYDEVNAME\\Zn."
+"\\nIs this correct ?"
 msgstr ""
-"Le nom de périphérique pour votre clé USB à écrire est $MYDEVNAME.\\nEst-ce "
-"correct ?"
+"Le nom de périphérique pour votre clé USB à écrire est \\Z1$MYDEVNAME\\Zn."
+"\\nEst-ce correct ?"
 
-#: pbmakeusb:255
+#: pbmakeusb:262
 msgid "no"
 msgstr "non"
 
-#: pbmakeusb:256
+#: pbmakeusb:263
 msgid "yes"
 msgstr "oui"
 
-#: pbmakeusb:257
+#: pbmakeusb:264
 msgid "yes and no format"
 msgstr "oui et pas de formattage"
 
-#: pbmakeusb:258
+#: pbmakeusb:265
 msgid "yes and no format and no packages copy"
 msgstr "oui et pas de formattage et pas de copie de paquets"
 
-#: pbmakeusb:270
+#: pbmakeusb:266
+msgid ""
+"\\Z1Look at your USB stick device below. It will be autodetected later.\\Zn"
+msgstr ""
+"\\Z1Regardez le nom de périphérique de votre clé USB ci-dessous. Il sera "
+"détecté automatiquement plus tard.\\Zn"
+
+#: pbmakeusb:281
 msgid ""
 "y(es), n(o), a (yes and noformat), b (yes and no format and no packages "
 "copy) :"
@@ -412,44 +419,44 @@ msgstr ""
 "slackware64 ou à partir du répertoire courant pour une nouvelle copie "
 "complète."
 
-#: pbsetup:54
+#: pbsetup:61
 msgid "Choose working dir"
 msgstr "Choisissez votre répertoire de travail"
 
-#: pbsetup:56
+#: pbsetup:63
 #, sh-format
 msgid "Local repository $LASTSLACK found.\\nDo you want to work with it$YN ?"
 msgstr "Copie locale $LASTSLACK trouvée.\\nVoulez vous travailler avec$YN ?"
 
-#: pbsetup:94
+#: pbsetup:101
 msgid ""
 "Get/Update local repository versus officiel remote Slackware and add-on "
 "packages"
 msgstr ""
 "Obtenir/mettre à jour la copie locale du site Slackware avec ses ajouts"
 
-#: pbsetup:95
+#: pbsetup:102
 msgid ""
 "Sync/Update system to the last fetched current Slackware and add-on packages"
 msgstr "Synchroniser la copie locale avec le système courant"
 
-#: pbsetup:96
+#: pbsetup:103
 msgid "Make a bootable USB stick for Slackware install."
 msgstr "Fabriquer une clé USB avec l'installateur de la Slackware"
 
-#: pbsetup:97
+#: pbsetup:104
 msgid "Make a bootable DVD ROM for Slackware install."
 msgstr "Fabriquer un DVD ROM de démarrage avec l'installeur de la Slackware"
 
-#: pbsetup:98
+#: pbsetup:105
 msgid "Install the refind boot manager for dual or more boot."
 msgstr "Installez le gestionnaire de démarrage refind si nécessaire."
 
-#: pbsetup:99
+#: pbsetup:106
 msgid "Stop the eventual hibernation of Windows."
 msgstr "Arrêter l'hibernation éventuelle de Windows."
 
-#: pbsetup:170
+#: pbsetup:177
 msgid ""
 "Do a local clone/update of the officiel Slackware and add-on packages."
 "\\nUses pbslacks/pbaspire."
@@ -457,11 +464,11 @@ msgstr ""
 "Obtenir/mettre à jour la copie locale du site Slackware avec ses ajouts"
 "\\nUtilise pbslacks/pbaspire."
 
-#: pbsetup:172
+#: pbsetup:179
 msgid "Upgrade the local system with the local clone."
 msgstr "Mise à jour du système local à l'aide du clone local"
 
-#: pbsetup:174
+#: pbsetup:181
 msgid ""
 "Make a dual boot install USB stick with Slackware install and GParted Live "
 "which can boot on old bios or new UEFI bios computers."
@@ -469,7 +476,7 @@ msgstr ""
 "Fabriquer une clé USB de démarrage avec l'installeur de la Slackware et la "
 "GParted Live. Elle peut se lancer sur les anciens bios ou les bios UEFI."
 
-#: pbsetup:176
+#: pbsetup:183
 msgid ""
 "Make a boot install DVD ROM with Slackware install which can boot on old "
 "bios or new UEFI bios computers."
@@ -477,7 +484,7 @@ msgstr ""
 "Fabriquer un DVD ROM de démarrage avec l'installeur de la Slackware. Elle "
 "peut se lancer sur les anciens bios ou les bios UEFI."
 
-#: pbsetup:178
+#: pbsetup:185
 msgid ""
 "Setup the boot manager refind if you have set elilo in the installation of "
 "Slackware and you have other systems like MS Windows."
@@ -486,7 +493,7 @@ msgstr ""
 "l'installation de Slackware et avez plus d'un système installé comme MS "
 "Windows."
 
-#: pbsetup:180
+#: pbsetup:187
 msgid ""
 "Stop the hibernation of Windows in case it is active after modifying the "
 "disks partitions."
@@ -494,47 +501,47 @@ msgstr ""
 "Arrêter l'hibernation de Windows au cas ou elle soit active après "
 "modification des partitions de disques."
 
-#: pbsetup:205
+#: pbsetup:213
 msgid "Clone done (full or partial depending on selected options)."
 msgstr "Copie faite (complète ou partielle selon options choisies)"
 
-#: pbsetup:215 pbsetup:227 pbsetup:255 pbsetup:277
+#: pbsetup:223 pbsetup:235 pbsetup:263 pbsetup:285
 msgid "Change to root."
 msgstr "Connection root."
 
-#: pbsetup:219
+#: pbsetup:227
 msgid "Upgrade done for selected set of packages."
 msgstr "Mise à jour du système courant pour les paquets choisis."
 
-#: pbsetup:231
+#: pbsetup:239
 msgid "USB stick created."
 msgstr "Clé USB créée"
 
-#: pbsetup:233
+#: pbsetup:241
 msgid "USB stick not created."
 msgstr "Clé USB non créée"
 
-#: pbsetup:241
+#: pbsetup:249
 msgid "\\Z3ISO DVD ROM created.\\Zn"
 msgstr "\\Z3ISO DVD ROM créé.\\Zn"
 
-#: pbsetup:243
+#: pbsetup:251
 msgid "\\Z3ISO DVD ROM not created.\\Zn"
 msgstr "\\Z3ISO DVD ROM non créé.\\Zn"
 
-#: pbsetup:261
+#: pbsetup:269
 msgid "refind not installed because elilo is not."
 msgstr "refind non installé car elilo ne l'est pas."
 
-#: pbsetup:263
+#: pbsetup:271
 msgid "refind already installed."
 msgstr "refind déjà installé."
 
-#: pbsetup:265
+#: pbsetup:273
 msgid "refind installed."
 msgstr "refind installé."
 
-#: pbsetup:268
+#: pbsetup:276
 msgid "refind not installed."
 msgstr "refind non installé."
 
@@ -581,18 +588,18 @@ msgstr ""
 msgid "slackware64 or pbslacks not found."
 msgstr "slackware64 or pbslacks  non trouvé"
 
-#: pbupgrade:152
+#: pbupgrade:154
 msgid ""
 "Upgrade your Slackware system with the last current fetched\\nUses Slackpkg."
 msgstr ""
 "Mettez à jour votre système Slackware avec la dernière current\\nUtilise "
 "Slackpkg."
 
-#: pbupgrade:154
+#: pbupgrade:156
 msgid "Upgrade the Alien Bob 32 bits compatible mode."
 msgstr "Mettez à jour le mode de compatibilté 32 bits (multilib) d'Alien Bob."
 
-#: pbupgrade:156
+#: pbupgrade:158
 msgid ""
 "Upgrade the Firefox and Thunderbird products.\\nThey should be downloaded "
 "and put in the packages/Mozilla directory before."
@@ -600,7 +607,7 @@ msgstr ""
 "Mettez à jour Firefox et Thunderbird\\nIls doivent avoir été aspirés "
 "préalablement."
 
-#: pbupgrade:166
+#: pbupgrade:168
 msgid ""
 "Upgrade your Bumblebee packages if they are in sync with the upgraded "
 "Slackware.\\nDone on another machine for exemple."
@@ -608,7 +615,7 @@ msgstr ""
 "Mettez à jour les paquets Bumblebee s'ils ont été recompilés avec la "
 "dernière Slackware installée.\\nFait sur une autre machine par exmple."
 
-#: pbupgrade:168
+#: pbupgrade:170
 msgid ""
 "Redo the packages which are here in sources form.\\nIf not already done on "
 "this machine or another."
@@ -616,7 +623,7 @@ msgstr ""
 "Recompilez les paquets qui sont ici sous forme source.\\nSi non fait sur "
 "cette machine ou une autre."
 
-#: pbupgrade:170
+#: pbupgrade:172
 msgid ""
 "Redo the Bumblebee packages.\\nIf not already done on this machine or "
 "another.\\nYou should reboot after upgrading system packages and before "
@@ -626,71 +633,71 @@ msgstr ""
 "autre.\\nVous devez redémarrer après mise à jour des paquets systèmes avant "
 "cette action sinon les paquets Bumblebee ne se reconstruiront pas."
 
-#: pbupgrade:217
+#: pbupgrade:221
 msgid "Abort : see previous errors."
 msgstr "Arrêt : voir les erreurs précédentes."
 
-#: pbupgrade:218
+#: pbupgrade:222
 msgid "Upgrade system not done."
 msgstr "Mise à jour du système non faite."
 
-#: pbupgrade:221 pbupgrade:224
+#: pbupgrade:225 pbupgrade:228
 msgid "Upgrade system done."
 msgstr "Mise à jour du système faite."
 
-#: pbupgrade:233
+#: pbupgrade:237
 msgid "Upgrade Alien Bob multilib done."
 msgstr "Mise à jour multilib d'Alien Bob faite."
 
-#: pbupgrade:239
+#: pbupgrade:243
 msgid "Upgrade Mozilla done."
 msgstr "Mise à jour Mozilla faite."
 
-#: pbupgrade:246
+#: pbupgrade:250
 msgid "Upgrade packages done."
 msgstr "Mise à jour de packages faite."
 
-#: pbupgrade:253
+#: pbupgrade:257
 msgid "Upgrade packages2 done."
 msgstr "Mise à jour de packages2 faite."
 
-#: pbupgrade:259
+#: pbupgrade:263
 msgid "Upgrade packages3 done."
 msgstr "Mise à jour de packages3 faite."
 
-#: pbupgrade:265
+#: pbupgrade:269
 msgid "Upgrade packages4 done."
 msgstr "Mise à jour de packages4 faite."
 
-#: pbupgrade:272
+#: pbupgrade:276
 msgid "Upgrade frameworks done."
 msgstr "Mise à jour de frameworks faite."
 
-#: pbupgrade:278
+#: pbupgrade:282
 msgid "Upgrade audacity done."
 msgstr "Mise à jour d'audacity faite."
 
-#: pbupgrade:285
+#: pbupgrade:289
 msgid "Upgrade tesseract4 done."
 msgstr "Mise à jour de tesseract4 faite."
 
-#: pbupgrade:291
+#: pbupgrade:295
 msgid "Upgrade Bumblebee done."
 msgstr "Mise à jour de Bumblebee faite."
 
-#: pbupgrade:297
+#: pbupgrade:301
 msgid "Recreate source packages done."
 msgstr "Paquets sources recréés."
 
-#: pbupgrade:303
+#: pbupgrade:307
 msgid "Recreate source Bumblebee done."
 msgstr "Bumblebee recréé à partir des sources."
 
-#: pbupgrade:332
+#: pbupgrade:337
 msgid "Bootloader menu"
 msgstr "Menu gestionnaire de démarrage"
 
-#: pbupgrade:333
+#: pbupgrade:338
 msgid ""
 "We have detected the bootloader below. Cancel if it is not true.\\nIn this "
 "last case, you should recreate the config of your bootloader before reboot. "
@@ -703,11 +710,11 @@ msgstr ""
 "démarrer d'un autre média comme un DVD ou une clé USB et relancez "
 "l'installation de votre gestionnaire."
 
-#: pbupgrade:334
+#: pbupgrade:339
 msgid "No bootloader detected. Reconfigure your bootloader before reboot."
 msgstr "Aucun gestionnaire de démarrage détecté. Mettez le vôtre à jour."
 
-#: pbupgrade:346
+#: pbupgrade:351
 msgid ""
 "\\ZbThe boot loader was not updated.\\ZB\\nIf lilo is installed, launch : "
 "\\Z3/sbin/lilo\\Zn\\nIf Grub is installed, launch : \\Z3grub-mkconfig -o /"
@@ -724,7 +731,7 @@ msgstr ""
 "EFI/Slackware\\Zn\\n\\n\\ZbOu relancez votre autre gestionnaire de démarrage "
 "favori avant de redémarrer votre machine.\\ZB"
 
-#: pbupgrade:350
+#: pbupgrade:355
 msgid ""
 "Elilo updated : Files vmlinuz et initrd.gz copied in \\Z3/boot/efi/EFI/"
 "Slackware\\Zn"
@@ -732,7 +739,7 @@ msgstr ""
 "Elilo mis à jour : Fichiers vmlinuz et initrd.gz copiés dans \\Z3/boot/efi/"
 "EFI/Slackware\\Zn"
 
-#: pbupgrade:355
+#: pbupgrade:360
 msgid ""
 "Grub updated : \\Z3grub-mkconfig\\Zn relaunched.\\n\\Z1Look if there are "
 "error messages below\\Zn."
@@ -740,7 +747,7 @@ msgstr ""
 "Grub mis à jour : \\Z3grub-mkconfig\\Zn relancé.\\n\\Z1Regardez s'il y a des "
 "messages d'erreurs ci-dessous\\Zn."
 
-#: pbupgrade:360
+#: pbupgrade:365
 msgid ""
 "Lilo updated with \\Z3/sbin/lilo\\Zn.\\n\\Z1Look if there are error messages "
 "below\\Zn."
@@ -748,7 +755,7 @@ msgstr ""
 "Lilo mis à jour avec \\Z3/sbin/lilo\\Zn.\\n\\Z1Regardez s'il y a des "
 "messages d'erreurs ci-dessous\\Zn."
 
-#: pbupgrade:365
+#: pbupgrade:370
 msgid ""
 "Look at \\Z3/syslinux.cfg\\Zn and rerun \\Z3syslinux\\Zn on your boot "
 "partition if some path have changed."

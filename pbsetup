@@ -40,9 +40,16 @@ cleanup () {
     rm -f $XTEMPMES
 }
 
-trap 'echo "*** Ctrl-C caught -- aborting operations ***"; cleanup; exit 1' 2 14 15 # trap Ctrl-C and kill
+# trap Ctrl-C and kill
+trap 'echo "*** Ctrl-C caught -- aborting operations ***"; cleanup; exit 1' 2 14 15
 
-if [ $XTEST -ne 1 -a "$0" = "$PBMYPROG" -a "$SLREPO" != 'Slackware-x64-' ] ;then
+# Can be the USB stick.
+CDIR=$(basename $MYPWD)
+ISSTICK=0;[ -d current -a "$CDIR" = slackware64-current ] && ISSTICK=1
+
+if [ $XTEST -ne 1 -a $ISSTICK -eq 0 -a "$0" = "$PBMYPROG" \
+    -a "$SLREPO" != 'Slackware-x64-' ] ;then
+
     test_slack () {
 	pac="$1"
 	last=$(ls -1td "$pac"[0-9]* 2> /dev/null |head -1)
@@ -73,7 +80,7 @@ if [ $XTEST -ne 1 -a "$0" = "$PBMYPROG" -a "$SLREPO" != 'Slackware-x64-' ] ;then
 	fi
     fi
     if [ "$LASTSLACK" = '' ] ;then
-	XDATE=`date '+%Y%m%d'`
+	XDATE=$(date '+%Y%m%d')
 	mkdir -p "Slackware-x64-$XDATE"
 	cd "Slackware-x64-$XDATE"
     fi
@@ -105,9 +112,9 @@ xmaster () {
     pactit=$(mygt 'Main menu');pactit="pbsetup: $pactit"
     pactext=$(mygt 'Choose your actions below')
     if [ $ISDIAL -eq 1 ] ;then
-	dialog --colors --title "$pactit" --default-item $defitem \
-	    --defaultno --separate-output --item-help --help-button \
-	    --help-status --checklist "$pactext" 0 100 6 \
+	dialog --colors --backtitle 'pbsetup' --title "$pactit" \
+	    --default-item $defitem --defaultno --separate-output --item-help \
+	    --help-button --help-status --checklist "$pactext" 0 100 6 \
 	    aspire "$ASPIRE" $xsel1 aspire \
 	    upgrade "$UPGRADE" $xsel2 upgrade \
 	    makeusb "$MAKEUSB" $xsel3 makeusb \
@@ -180,7 +187,8 @@ while [ $bclaide -eq 1 ] ;do
 	    pacaide=$(mygt 'Stop the hibernation of Windows in case it is active after modifying the disks partitions.')
 	fi
 	if [ $ISDIAL -eq 1 ] ;then
-	    dialog --colors --title "$xitem" --msgbox "$pacaide" 20 80
+	    dialog --colors --backtitle 'pbsetup' --title "$xitem" \
+		--msgbox "$pacaide" 20 80
 	else
 	    echo '------------------------------------'
 	    echo "          $xitem"
@@ -289,7 +297,8 @@ fi
 DACTION=$(mygt 'Actions which were done')
 
 if [ $ISDIAL -eq 1 ] ;then
-    dialog --colors --title "$DACTION" --msgbox "$(cat $XTEMPMES)" 20 80
+    dialog --colors --backtitle 'pbsetup' --title "$DACTION" \
+	--msgbox "$(cat $XTEMPMES)" 20 80
 else
     nodialog "$DACTION" $XTEMPMES
 fi
