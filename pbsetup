@@ -63,7 +63,7 @@ if [ $XTEST -ne 1 -a $ISSTICK -eq 0 -a "$0" = "$PBMYPROG" \
 	pactext=$(emygt "Local repository \$LASTSLACK found.\nDo you want to work with it\$YN ?")
         if [ $ISDIAL -eq 1 ] ;then
             c=n
-	    dialog --colors --title "$pactit" --defaultno \
+	    dialog --colors --backtitle 'pbsetup' --title "$pactit" --defaultno \
 		--yesno "$pactext" 10 100
 	    [ $? -eq 0 ] && c=y
 	else
