@@ -1,19 +1,56 @@
 Notes pour Slackware avec Virtualbox :
 ====================================
 
-Pour installer la Slackware current sous VirtualBox a partrir d'une clé USB
-bootable :
+Installez sous Windows en cliquant dessus :
+  -VirtualBox-6.1.2-135663-Win.exe
+  -Oracle_VM_VirtualBox_Extension_Pack-6.1.2.vbox-extpack
+
+Copiez VirtualBoxUserManual.pdf
+
+Pour installer la Slackware current sous VirtualBox a partir d'une clé USB
+bootable et sous MS Windows :
+  -lancez ou double cliquez slackware64-current/pbslacks/windows/vboxusbvmdk.bat
+  -et repondez d:\usb.vmdk ou un autre emplacement, puis 1
+ou bien manuellement :
   -Chercher le numéro de device de la clé si la machine hote est Windows :
-    Gestionnaire de fichiers -> Clic droit sur Ordinateur et regarder le numéro
-    de prériphérique de la clé.
+    "Gestionnaire de fichiers" -> Clic droit sur Ordinateur -> Gérer
+    puis "Stockage -> Gestion des disques"
+    et regarder le numéro de périphérique de la clé.
   -Ensuite dans une fenetre cmd :
-    vboxmanage internalcommands createrawvmdk -filename d:\usb.vmdk -rawdisk \\.\PhysicalDriveNUMERO
+    > cd \Program Files\Oracle\VirtualBox
+    > vboxmanage internalcommands createrawvmdk -filename d:\usb.vmdk -rawdisk \\.\PhysicalDriveNUMERO
 
-Lors de la creation de la VM mettez ce disque en premier en IDE par exemple.
-Creez un disque virtuel de taille variable en deuxième (en SATA par exemple).
+Créez une nouvelle machine virtuelle :
+  -Mettez ce disque d:\usb.vmdk en premier en IDE.
+  -Avec "Configuration/Stockage" :
+    +Créez un disque virtuel de taille variable en deuxième en SATA.
+    +Pour éviter des blocages de la machine virtuelle, cochez pour le
+      controleur SATA : "Utilisez le cache E/S de l'hote"
 
-Dans Configuration/Stockage de la machine virtuelle, pour éviter des blocages
-de la machine virtuelle, cochez pour le controleur SATA :
-  "Utilisez le cache E/S de l'hote"
+Dans la "Configuration" de la machine virtuelle arrêtée, on a :
+  -Systeme : chipset PIIX3, mémoire 8Go, 1 processeur.
+  -Affichage : mémoire vidéo 32 Mo, VMSVGA et accélération 3D.
+  -Réseau :
+    +"Réseau privé hôte" et "VirtualBox Host-Only Ethernet Adapter".
+    +"Accès par pont" et "... Ethernet Connection..."
+  -Dossiers partagés : Ajoutez C:\Users\... et al.
 
-Pour choisir le device de boot de la machine virtuelle appuyez sur F12.
+Pour choisir le device de boot de la machine virtuelle :
+  -Démarrez la.
+  -appuyez sur F12.
+
+Une fois installée et redémarrée, on peut ajouter les paquets gérés par pbslacks.
+
+Ensuite on arrête la machine virtuelle, on enleve le disque d:\usb.vmdk
+dans "Configuration/Stockage" de la machine virtuelle et on redémarre.
+
+Dans "Périphériques" de la machine virtuelle démarrée, cliquez sur
+"Insérer l'image CD des Additions invité..."
+  -Dans la Slackware on voit le montage avec df et on se positionne dessus.
+  -On lance le script d'installation.
+
+Dans "Ecran", on clique sur "Taille d'écran automatique".
+Ctrldroit+f passe en mode plein écran ou fenêtré.
+
+Dans la machine Slackware démarrée, on configure les interfaces réseaux
+présentes avec les moyens habituels. J'utilise NetworkManager.
