@@ -21,7 +21,7 @@ myrget () {
     prof=$1
     gpath="$2"
     pack="$3"
-    wget -N -nv -np -nH --cut-dirs=$prof -r -R '\?C=*' "$gpath/"
+    wget -N -nv -np -nH --cut-dirs=$prof -r -R '*\?C=*' "$gpath/"
     [ -d "$pack" ] && find "$pack" -name 'index.html*' -exec rm -f {} \;
 }
 
