@@ -1,4 +1,7 @@
 @echo off
+REM Auteur : Pierre Brochard (pierre.brochard.1982@m4x.org)
+REM Date : 2019
+REM License : See the LICENSE file in the top repository.
 echo Associe une cle USB avec un nom d'image iso en .vmdk pour VirtualBox.
 echo Permet d'installer un système à partir d'une cle USB.
 echo Vous devez etre en mode administrateur.

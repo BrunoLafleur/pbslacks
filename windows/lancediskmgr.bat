@@ -1,4 +1,7 @@
 @echo off
+REM Auteur : Pierre Brochard (pierre.brochard.1982@m4x.org)
+REM Date : 2019
+REM License : See the LICENSE file in the top repository.
 echo Lance le gestionnaire de disques.
 echo Vous devez etre en mode administrateur.
 echo Launch the disk manager.
