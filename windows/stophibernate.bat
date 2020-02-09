@@ -1,4 +1,7 @@
 @echo off
+REM Auteur : Pierre Brochard (pierre.brochard.1982@m4x.org)
+REM Date : 2019
+REM License : See the LICENSE file in the top repository.
 echo A lancez avant d'arrêter la machine pour qu'elle ne reste pas en mode d'hibernation.
 echo Vous devez etre en mode administrateur.
 echo -------------------------------------------------------------------------
