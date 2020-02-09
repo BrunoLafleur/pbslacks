@@ -11,10 +11,10 @@ msgstr ""
 "PO-Revision-Date: 2020-01-21 14:39+0100\n"
 "Last-Translator: Pierre Brochard <pierre.brochard.1982@m4x.org>\n"
 "Language-Team: French <traduc@traduc.org>\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: pbaspire:10
@@ -56,7 +56,7 @@ msgstr "Obtenir/mettre à jour d'autres paquets sources ou binaires"
 msgid "Get/Update latest Firefox and Thunderbird"
 msgstr "Obtenir/mettre à jour Firefox et Thunderbird"
 
-#: pbaspire:57 pbsetup:112 pbupgrade:101
+#: pbaspire:57 pbsetup:112 pbupgrade:102
 msgid "Main menu"
 msgstr "Menu principal"
 
@@ -139,11 +139,11 @@ msgstr ""
 "Obtention ou mise à jour de Firefox et Thunderbird faite : \\Z3${PBNAME}"
 "mozilla\\Zn."
 
-#: pbaspire:186 pbsetup:293 pbupgrade:312
+#: pbaspire:186 pbsetup:293 pbupgrade:322
 msgid "No action was demanded. Exit."
 msgstr "Aucune action demandée. Sortie."
 
-#: pbaspire:189 pbsetup:297 pbupgrade:179
+#: pbaspire:189 pbsetup:297 pbupgrade:183
 msgid "Actions which were done"
 msgstr "Actions réalisées"
 
@@ -227,7 +227,7 @@ msgstr ""
 "machine a jour, ne pas refaire et utilisez directement les paquets générés "
 "avec upgradebumblebee."
 
-#: pbcompilepost:12 pbmakeusb:128 pbstophib:27 pbupgrade:183
+#: pbcompilepost:12 pbmakeusb:128 pbstophib:27 pbupgrade:187
 #: pbupgradebumblebee:10 pbupgrademoz:10
 msgid "This script must be done as root. Exit."
 msgstr "Ce script doit être lancé root. On sort."
@@ -576,7 +576,7 @@ msgstr ""
 "current déjà aspiré.\\nCe répertoire peut être la cle USB bootable "
 "d'installation.\\npbslacks doit aussi être accessible du répertoire courant."
 
-#: pbupgrade:58
+#: pbupgrade:59
 msgid ""
 "Do the install of the Slackware Linux distribution before :\\n-see the doc/"
 "SLACKWARE.txt file."
@@ -584,22 +584,30 @@ msgstr ""
 "Faite l'installation de la Slackware current avant :\\n-voir doc/SLACKWARE."
 "txt."
 
-#: pbupgrade:66
+#: pbupgrade:67
 msgid "slackware64 or pbslacks not found."
-msgstr "slackware64 or pbslacks  non trouvé"
-
-#: pbupgrade:154
-msgid ""
-"Upgrade your Slackware system with the last current fetched\\nUses Slackpkg."
-msgstr ""
-"Mettez à jour votre système Slackware avec la dernière current\\nUtilise "
-"Slackpkg."
+msgstr "slackware64 or pbslacks non trouvé."
 
 #: pbupgrade:156
+msgid ""
+"Upgrade your Slackware system with the last current fetched.\\nUses Slackpkg."
+msgstr ""
+"Mettez à jour votre système Slackware avec la dernière current ramenée."
+"\\nUtilise Slackpkg."
+
+#: pbupgrade:158
+msgid ""
+"Upgrade your Slackware system with the last current on the internet.\\nUses "
+"Slackpkg."
+msgstr ""
+"Mettez à jour votre système Slackware avec la dernière current sur internet."
+"\\nUtilise Slackpkg."
+
+#: pbupgrade:160
 msgid "Upgrade the Alien Bob 32 bits compatible mode."
 msgstr "Mettez à jour le mode de compatibilté 32 bits (multilib) d'Alien Bob."
 
-#: pbupgrade:158
+#: pbupgrade:162
 msgid ""
 "Upgrade the Firefox and Thunderbird products.\\nThey should be downloaded "
 "and put in the packages/Mozilla directory before."
@@ -607,7 +615,7 @@ msgstr ""
 "Mettez à jour Firefox et Thunderbird\\nIls doivent avoir été aspirés "
 "préalablement."
 
-#: pbupgrade:168
+#: pbupgrade:172
 msgid ""
 "Upgrade your Bumblebee packages if they are in sync with the upgraded "
 "Slackware.\\nDone on another machine for exemple."
@@ -615,7 +623,7 @@ msgstr ""
 "Mettez à jour les paquets Bumblebee s'ils ont été recompilés avec la "
 "dernière Slackware installée.\\nFait sur une autre machine par exmple."
 
-#: pbupgrade:170
+#: pbupgrade:174
 msgid ""
 "Redo the packages which are here in sources form.\\nIf not already done on "
 "this machine or another."
@@ -623,7 +631,7 @@ msgstr ""
 "Recompilez les paquets qui sont ici sous forme source.\\nSi non fait sur "
 "cette machine ou une autre."
 
-#: pbupgrade:172
+#: pbupgrade:176
 msgid ""
 "Redo the Bumblebee packages.\\nIf not already done on this machine or "
 "another.\\nYou should reboot after upgrading system packages and before "
@@ -633,71 +641,71 @@ msgstr ""
 "autre.\\nVous devez redémarrer après mise à jour des paquets systèmes avant "
 "cette action sinon les paquets Bumblebee ne se reconstruiront pas."
 
-#: pbupgrade:221
+#: pbupgrade:231
 msgid "Abort : see previous errors."
 msgstr "Arrêt : voir les erreurs précédentes."
 
-#: pbupgrade:222
+#: pbupgrade:232
 msgid "Upgrade system not done."
 msgstr "Mise à jour du système non faite."
 
-#: pbupgrade:225 pbupgrade:228
+#: pbupgrade:235 pbupgrade:238
 msgid "Upgrade system done."
 msgstr "Mise à jour du système faite."
 
-#: pbupgrade:237
+#: pbupgrade:247
 msgid "Upgrade Alien Bob multilib done."
 msgstr "Mise à jour multilib d'Alien Bob faite."
 
-#: pbupgrade:243
+#: pbupgrade:253
 msgid "Upgrade Mozilla done."
 msgstr "Mise à jour Mozilla faite."
 
-#: pbupgrade:250
+#: pbupgrade:260
 msgid "Upgrade packages done."
 msgstr "Mise à jour de packages faite."
 
-#: pbupgrade:257
+#: pbupgrade:267
 msgid "Upgrade packages2 done."
 msgstr "Mise à jour de packages2 faite."
 
-#: pbupgrade:263
+#: pbupgrade:273
 msgid "Upgrade packages3 done."
 msgstr "Mise à jour de packages3 faite."
 
-#: pbupgrade:269
+#: pbupgrade:279
 msgid "Upgrade packages4 done."
 msgstr "Mise à jour de packages4 faite."
 
-#: pbupgrade:276
+#: pbupgrade:286
 msgid "Upgrade frameworks done."
 msgstr "Mise à jour de frameworks faite."
 
-#: pbupgrade:282
+#: pbupgrade:292
 msgid "Upgrade audacity done."
 msgstr "Mise à jour d'audacity faite."
 
-#: pbupgrade:289
+#: pbupgrade:299
 msgid "Upgrade tesseract4 done."
 msgstr "Mise à jour de tesseract4 faite."
 
-#: pbupgrade:295
+#: pbupgrade:305
 msgid "Upgrade Bumblebee done."
 msgstr "Mise à jour de Bumblebee faite."
 
-#: pbupgrade:301
+#: pbupgrade:311
 msgid "Recreate source packages done."
 msgstr "Paquets sources recréés."
 
-#: pbupgrade:307
+#: pbupgrade:317
 msgid "Recreate source Bumblebee done."
 msgstr "Bumblebee recréé à partir des sources."
 
-#: pbupgrade:337
+#: pbupgrade:347
 msgid "Bootloader menu"
 msgstr "Menu gestionnaire de démarrage"
 
-#: pbupgrade:338
+#: pbupgrade:348
 msgid ""
 "We have detected the bootloader below. Cancel if it is not true.\\nIn this "
 "last case, you should recreate the config of your bootloader before reboot. "
@@ -710,11 +718,11 @@ msgstr ""
 "démarrer d'un autre média comme un DVD ou une clé USB et relancez "
 "l'installation de votre gestionnaire."
 
-#: pbupgrade:339
+#: pbupgrade:349
 msgid "No bootloader detected. Reconfigure your bootloader before reboot."
 msgstr "Aucun gestionnaire de démarrage détecté. Mettez le vôtre à jour."
 
-#: pbupgrade:351
+#: pbupgrade:361
 msgid ""
 "\\ZbThe boot loader was not updated.\\ZB\\nIf lilo is installed, launch : "
 "\\Z3/sbin/lilo\\Zn\\nIf Grub is installed, launch : \\Z3grub-mkconfig -o /"
@@ -731,7 +739,7 @@ msgstr ""
 "EFI/Slackware\\Zn\\n\\n\\ZbOu relancez votre autre gestionnaire de démarrage "
 "favori avant de redémarrer votre machine.\\ZB"
 
-#: pbupgrade:355
+#: pbupgrade:365
 msgid ""
 "Elilo updated : Files vmlinuz et initrd.gz copied in \\Z3/boot/efi/EFI/"
 "Slackware\\Zn"
@@ -739,7 +747,7 @@ msgstr ""
 "Elilo mis à jour : Fichiers vmlinuz et initrd.gz copiés dans \\Z3/boot/efi/"
 "EFI/Slackware\\Zn"
 
-#: pbupgrade:360
+#: pbupgrade:370
 msgid ""
 "Grub updated : \\Z3grub-mkconfig\\Zn relaunched.\\n\\Z1Look if there are "
 "error messages below\\Zn."
@@ -747,7 +755,7 @@ msgstr ""
 "Grub mis à jour : \\Z3grub-mkconfig\\Zn relancé.\\n\\Z1Regardez s'il y a des "
 "messages d'erreurs ci-dessous\\Zn."
 
-#: pbupgrade:365
+#: pbupgrade:375
 msgid ""
 "Lilo updated with \\Z3/sbin/lilo\\Zn.\\n\\Z1Look if there are error messages "
 "below\\Zn."
@@ -755,7 +763,7 @@ msgstr ""
 "Lilo mis à jour avec \\Z3/sbin/lilo\\Zn.\\n\\Z1Regardez s'il y a des "
 "messages d'erreurs ci-dessous\\Zn."
 
-#: pbupgrade:370
+#: pbupgrade:380
 msgid ""
 "Look at \\Z3/syslinux.cfg\\Zn and rerun \\Z3syslinux\\Zn on your boot "
 "partition if some path have changed."
@@ -826,5 +834,5 @@ msgstr ""
 #, sh-format
 msgid "Your device name is $MYDEVNAME. Is this correct ? y(es) or n(o) :"
 msgstr ""
-"Le nom de votre périphérique est $MYDEVNAME. Est-ce exact ? y(oui) ou n"
-"(non) :"
+"Le nom de votre périphérique est $MYDEVNAME. Est-ce exact ? y(oui) ou "
+"n(non) :"
