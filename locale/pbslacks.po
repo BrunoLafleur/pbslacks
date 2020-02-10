@@ -51,7 +51,7 @@ msgstr ""
 msgid "Get/Update latest Firefox and Thunderbird"
 msgstr ""
 
-#: pbaspire:57 pbsetup:112 pbupgrade:102
+#: pbaspire:57 pbsetup:112 pbupgrade:114
 msgid "Main menu"
 msgstr ""
 
@@ -130,7 +130,7 @@ msgstr ""
 msgid "No action was demanded. Exit."
 msgstr ""
 
-#: pbaspire:189 pbsetup:297 pbupgrade:183
+#: pbaspire:189 pbsetup:297 pbupgrade:79
 msgid "Actions which were done"
 msgstr ""
 
@@ -208,7 +208,7 @@ msgid ""
 "use the packages already generated with upgradebumblebee."
 msgstr ""
 
-#: pbcompilepost:12 pbmakeusb:128 pbstophib:27 pbupgrade:187
+#: pbcompilepost:12 pbmakeusb:128 pbstophib:27 pbupgrade:83
 #: pbupgradebumblebee:10 pbupgrademoz:10
 msgid "This script must be done as root. Exit."
 msgstr ""
@@ -533,40 +533,101 @@ msgstr ""
 msgid "slackware64 or pbslacks not found."
 msgstr ""
 
-#: pbupgrade:156
+#: pbupgrade:119
+msgid ""
+"Choose your actions below after you have launch the \\Zbpbaspire*\\ZB script"
+msgstr ""
+
+#: pbupgrade:120
+msgid "Sync/Update system to the last fetched current Slackware"
+msgstr ""
+
+#: pbupgrade:121
+msgid "Sync/Update system to the last current Slackware on the internet"
+msgstr ""
+
+#: pbupgrade:122
+msgid "Install/Update the 32 bits compatible mode"
+msgstr ""
+
+#: pbupgrade:123
+msgid "Install/Update the Firefox and Thunderbird softwares"
+msgstr ""
+
+#: pbupgrade:124
+msgid "Install/Update the packages set of software"
+msgstr ""
+
+#: pbupgrade:125
+msgid "Install/Update the packages2 set of software"
+msgstr ""
+
+#: pbupgrade:126
+msgid "Install/Update the packages3 set of software"
+msgstr ""
+
+#: pbupgrade:127
+msgid "Install/Update the packages4 set of software"
+msgstr ""
+
+#: pbupgrade:128
+msgid "Install/Update the KDE5 frameworks libraries"
+msgstr ""
+
+#: pbupgrade:129
+msgid "Install/Update the Audacity software"
+msgstr ""
+
+#: pbupgrade:130
+msgid "Install/Update the Tesseract version 4 software"
+msgstr ""
+
+#: pbupgrade:131
+msgid "Install/Update the Bumblebee support of your second NVIDIA graphic card"
+msgstr ""
+
+#: pbupgrade:132
+msgid "Compile again some packages."
+msgstr ""
+
+#: pbupgrade:133
+msgid "Compile again Bumblebee packages."
+msgstr ""
+
+#: pbupgrade:168
 msgid ""
 "Upgrade your Slackware system with the last current fetched.\\nUses Slackpkg."
 msgstr ""
 
-#: pbupgrade:158
+#: pbupgrade:170
 msgid ""
 "Upgrade your Slackware system with the last current on the internet.\\nUses "
 "Slackpkg."
 msgstr ""
 
-#: pbupgrade:160
+#: pbupgrade:172
 msgid "Upgrade the Alien Bob 32 bits compatible mode."
 msgstr ""
 
-#: pbupgrade:162
+#: pbupgrade:174
 msgid ""
 "Upgrade the Firefox and Thunderbird products.\\nThey should be downloaded "
 "and put in the packages/Mozilla directory before."
 msgstr ""
 
-#: pbupgrade:172
+#: pbupgrade:184
 msgid ""
 "Upgrade your Bumblebee packages if they are in sync with the upgraded "
 "Slackware.\\nDone on another machine for exemple."
 msgstr ""
 
-#: pbupgrade:174
+#: pbupgrade:186
 msgid ""
 "Redo the packages which are here in sources form.\\nIf not already done on "
 "this machine or another."
 msgstr ""
 
-#: pbupgrade:176
+#: pbupgrade:188
 msgid ""
 "Redo the Bumblebee packages.\\nIf not already done on this machine or "
 "another.\\nYou should reboot after upgrading system packages and before "
@@ -681,6 +742,24 @@ msgstr ""
 msgid ""
 "Look at \\Z3/syslinux.cfg\\Zn and rerun \\Z3syslinux\\Zn on your boot "
 "partition if some path have changed."
+msgstr ""
+
+#: pbupgrade:394
+msgid " (\\Z1be sure to have updated the bootloader before\\Zn)"
+msgstr ""
+
+#: pbupgrade:400
+#, sh-format
+msgid ""
+"Reboot the host${XBOOTMES}.\\n\\n\\ZbThen do if not already done on an "
+"already upgraded target :\\ZB\\nSelect '\\Z3recreate\\Zn' in the above menu "
+"after launching this script again.\\n or do> \\Z3pbslacks/pbcompilepost\\Zn"
+"\\n\\n\\ZbIf your host is a dual graphic card laptop with a NVIDIA card :\\ZB"
+"\\n  \\Z4Do either :\\Zn\\n    Select '\\Z3recreatebumblebee\\Zn' in the "
+"above menu after launching this script again.\\n    or do> \\Z3pbslacks/"
+"pbcompilebumblebee\\Zn\\n  \\Z4Or do only if already done on an upgraded "
+"target :\\Zn\\n    Select '\\Z3bumblebee\\Zn' in the above menu after "
+"launching this script again.\\n    or do> \\Z3pbslacks/pbupgradebumblebee\\Zn"
 msgstr ""
 
 #: pbupgradebumblebee:33

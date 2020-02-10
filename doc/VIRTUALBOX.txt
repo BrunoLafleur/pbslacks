@@ -33,7 +33,8 @@ Dans la "Configuration" de la machine virtuelle arrêtée, on a :
   -Réseau :
     +"Réseau privé hôte" et "VirtualBox Host-Only Ethernet Adapter".
     +"Accès par pont" et "... Ethernet Connection..."
-  -Dossiers partagés : Ajoutez C:\Users\... et al.
+  -Dossiers partagés :
+    + Ajoutez C:\Users\... et al. avec l'option "Montage automatique"
 
 Pour choisir le device de boot de la machine virtuelle :
   -Démarrez la.
