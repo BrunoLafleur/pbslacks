@@ -76,6 +76,18 @@ if [ -s "$XTEMPMES" ] ;then
     exit 1
 fi
 
+DACTION=$(mygt 'Actions which were done')
+
+if [ $XTEST -ne 1 ] ;then
+    if [ ! $UID = 0 ]; then
+        mygt 'This script must be done as root. Exit.' > $XTEMPMES
+        dialog --colors --backtitle 'pbupgrade' --title "$DACTION" \
+	    --msgbox "$(cat $XTEMPMES)" 20 80
+	cleanup
+	exit 1
+    fi
+fi
+
 MYPWD=$(pwd)
 HOMESLACK="$MYPWD"
 
@@ -104,21 +116,21 @@ xmaster () {
     dialog --colors --backtitle 'pbupgrade' --title "$pactit" \
 	--default-item $defitem --defaultno \
 	--separate-output --item-help --help-button --help-status --checklist \
-	'Choose your actions below after you have launch the \Zbpbaspire*\ZB script' 0 100 14 \
-	system 'Sync/Update system to the last fetched current Slackware' $xsel1 system \
-	systemnet 'Sync/Update system to the last current Slackware on the internet' $xsel2 systemnet \
-	compat32 'Install/Update the 32 bits compatible mode' $xsel3 compat32 \
-	mozilla 'Install/Update the Firefox and Thunderbird softwares' $xsel4 mozilla \
-	packages 'Install/Update the packages set of software' $xsel5 packages \
-	packages2 'Install/Update the packages2 set of software' $xsel6 packages2 \
-	packages3 'Install/Update the packages3 set of software' $xsel7 packages3 \
-	packages4 'Install/Update the packages4 set of software' $xsel8 packages4 \
-	frameworks 'Install/Update the KDE5 frameworks libraries' $xsel9 frameworks \
-	audacity 'Install/Update the Audacity software' $xsel10 audacity \
-	tesseract4 'Install/Update the Tesseract version 4 software' $xsel11 tesseract4 \
-	bumblebee 'Install/Update the Bumblebee support of your second NVIDIA graphic card' $xsel12 bumblebee \
-	recreate 'Compile again some packages.' $xsel13 recreate \
-	recreatebumblebee 'Compile again Bumblebee packages.' $xsel14 recreatebumblebee
+	"$(mygt 'Choose your actions below after you have launch the \Zbpbaspire*\ZB script')" 0 100 14 \
+	system "$(mygt 'Sync/Update system to the last fetched current Slackware')" $xsel1 system \
+	systemnet "$(mygt 'Sync/Update system to the last current Slackware on the internet')" $xsel2 systemnet \
+	compat32 "$(mygt 'Install/Update the 32 bits compatible mode')" $xsel3 compat32 \
+	mozilla "$(mygt 'Install/Update the Firefox and Thunderbird softwares')" $xsel4 mozilla \
+	packages "$(mygt 'Install/Update the packages set of software')" $xsel5 packages \
+	packages2 "$(mygt 'Install/Update the packages2 set of software')" $xsel6 packages2 \
+	packages3 "$(mygt 'Install/Update the packages3 set of software')" $xsel7 packages3 \
+	packages4 "$(mygt 'Install/Update the packages4 set of software')" $xsel8 packages4 \
+	frameworks "$(mygt 'Install/Update the KDE5 frameworks libraries')" $xsel9 frameworks \
+	audacity "$(mygt 'Install/Update the Audacity software')" $xsel10 audacity \
+	tesseract4 "$(mygt 'Install/Update the Tesseract version 4 software')" $xsel11 tesseract4 \
+	bumblebee "$(mygt 'Install/Update the Bumblebee support of your second NVIDIA graphic card')" $xsel12 bumblebee \
+	recreate "$(mygt 'Compile again some packages.')" $xsel13 recreate \
+	recreatebumblebee "$(mygt 'Compile again Bumblebee packages.')" $xsel14 recreatebumblebee
 }
 
 xpacaide () {
@@ -179,18 +191,6 @@ while [ $bclaide -eq 1 ] ;do
 	    --msgbox "$pacaide" 20 80
     fi
 done
-
-DACTION=$(mygt 'Actions which were done')
-
-if [ $XTEST -ne 1 ] ;then
-    if [ ! $UID = 0 ]; then
-        mygt 'This script must be done as root. Exit.' > $XTEMPMES
-        dialog --colors --backtitle 'pbupgrade' --title "$DACTION" \
-	    --msgbox "$(cat $XTEMPMES)" 20 80
-	cleanup
-	exit 1
-    fi
-fi
 
 XEND=0
 ISSYSTEM="$(cat $XTEMPOUT|grep '^system$'|wc -l)"
@@ -391,33 +391,19 @@ if [ $ISSYSTEM -eq 1 ] ;then
 fi
 
 if [ "$XNEW" != 'yes' ] ;then
-    XBOOTMES=' (\Z1be sure to have updated the bootloader before\Zn)'
+    XBOOTMES=$(mygt ' (\Z1be sure to have updated the bootloader before\Zn)')
 else
     XBOOTMES=
 fi
 
 xend () {
-cat <<EOF
-Reboot the host${XBOOTMES}.
-
-\ZbThen do if not already done on an already upgraded target :\ZB
- Select '\Z3recreate\Zn' in the above menu after launching this script again.
- or do> \Z3pbslacks/pbcompilepost\Zn
-
-\ZbIf your host is a dual graphic card laptop with a NVIDIA card :\ZB
-  \Z4Do either :\Zn
-    Select '\Z3recreatebumblebee\Zn' in the above menu after launching this script again.
-    or do> \Z3pbslacks/pbcompilebumblebee\Zn
-  \Z4Or do only if already done on an upgraded target :\Zn
-    Select '\Z3bumblebee\Zn' in the above menu after launching this script again.
-    or do> \Z3pbslacks/pbupgradebumblebee\Zn
-EOF
+    emygt "Reboot the host\${XBOOTMES}.\n\n\ZbThen do if not already done on an already upgraded target :\ZB\nSelect '\Z3recreate\Zn' in the above menu after launching this script again.\n or do> \Z3pbslacks/pbcompilepost\Zn\n\n\ZbIf your host is a dual graphic card laptop with a NVIDIA card :\ZB\n  \Z4Do either :\Zn\n    Select '\Z3recreatebumblebee\Zn' in the above menu after launching this script again.\n    or do> \Z3pbslacks/pbcompilebumblebee\Zn\n  \Z4Or do only if already done on an upgraded target :\Zn\n    Select '\Z3bumblebee\Zn' in the above menu after launching this script again.\n    or do> \Z3pbslacks/pbupgradebumblebee\Zn"
 }
 
 xend >> $XTEMPMES
 
 if [ -f "$XTEMPMES" ] ;then
     dialog --colors --backtitle 'pbupgrade' --title 'End messages' \
-	--msgbox "$(cat $XTEMPMES)" 20 80
+	--msgbox "$(cat $XTEMPMES)" 20 85
 fi
 rm -f $XTEMPMES
