@@ -63,14 +63,14 @@ xmaster () {
 	    --default-item $defitem --defaultno --separate-output --item-help \
 	    --help-button --help-status --checklist "$pactxt" 0 100 9 \
 	    core "$CORE" $xsel1 core \
-	    multi "$MULTI" $xsel1 multi \
-	    framew "$FRAMEW" $xsel1 framew \
-	    gparted "$GPARTED" $xsel1 gparted \
-	    alien "$ALIEN" $xsel3 alien \
-	    ponce "$PONCE" $xsel4 ponce \
-	    slonly "$SLONLY" $xsel5 slonly \
-	    other "$OTHER" $xsel6 other \
-	    mozilla "$MOZILLA" $xsel7 mozilla
+	    multi "$MULTI" $xsel2 multi \
+	    framew "$FRAMEW" $xsel3 framew \
+	    gparted "$GPARTED" $xsel4 gparted \
+	    alien "$ALIEN" $xsel5 alien \
+	    ponce "$PONCE" $xsel6 ponce \
+	    slonly "$SLONLY" $xsel7 slonly \
+	    other "$OTHER" $xsel8 other \
+	    mozilla "$MOZILLA" $xsel9 mozilla
     else
 	echo '------------------------------------'
 	echo "        $pactit"
