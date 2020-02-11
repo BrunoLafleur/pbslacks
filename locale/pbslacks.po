@@ -105,57 +105,57 @@ msgstr ""
 msgid "Get or update Firefox and Thunderbird."
 msgstr ""
 
-#: pbaspire:181
+#: pbaspire:189
 #, sh-format
 msgid "Get/Upgrade core system done : \\Z3${PBNAME}core\\Zn."
 msgstr ""
 
-#: pbaspire:185
+#: pbaspire:190
 #, sh-format
 msgid "Get/Upgrade multilib compat 32 bits mode done : \\Z3${PBNAME}core\\Zn."
 msgstr ""
 
-#: pbaspire:190
+#: pbaspire:192
 #, sh-format
 msgid "Get/Upgrade framewoks libraries KDE5 done : \\Z3${PBNAME}core\\Zn."
 msgstr ""
 
-#: pbaspire:195
+#: pbaspire:194
 #, sh-format
 msgid "Get/Upgrade gparted live iso done : \\Z3${PBNAME}core\\Zn."
 msgstr ""
 
-#: pbaspire:200
+#: pbaspire:199
 #, sh-format
 msgid "Get/Upgrade Alien Bob packages done : \\Z3${PBNAME}alien\\Zn."
 msgstr ""
 
-#: pbaspire:205
+#: pbaspire:204
 #, sh-format
 msgid "Get/Upgrade Ponce packages done : \\Z3${PBNAME}ponce\\Zn."
 msgstr ""
 
-#: pbaspire:209
+#: pbaspire:208
 #, sh-format
 msgid "Get/Upgrade Slackonly packages done : \\Z3${PBNAME}slonly\\Zn."
 msgstr ""
 
-#: pbaspire:214
+#: pbaspire:213
 #, sh-format
 msgid ""
 "Get/Upgrade other source or binary packages done : \\Z3${PBNAME}other\\Zn."
 msgstr ""
 
-#: pbaspire:219
+#: pbaspire:218
 #, sh-format
 msgid "Get/Upgrade Firefox and Thunderbird done : \\Z3${PBNAME}mozilla\\Zn."
 msgstr ""
 
-#: pbaspire:226 pbsetup:293 pbupgrade:322
+#: pbaspire:225 pbsetup:293 pbupgrade:322
 msgid "No action was demanded. Exit."
 msgstr ""
 
-#: pbaspire:229 pbsetup:297 pbupgrade:79
+#: pbaspire:228 pbsetup:297 pbupgrade:79
 msgid "Actions which were done"
 msgstr ""
 
