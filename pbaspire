@@ -176,25 +176,24 @@ ISSLONLY="$(cat $XTEMPOUT|grep '^slonly$'|wc -l)"
 ISOTHER="$(cat $XTEMPOUT|grep '^other$'|wc -l)"
 ISMOZ="$(cat $XTEMPOUT|grep '^mozilla$'|wc -l)"
 
-if [ $ISCORE -eq 1 ] ;then
-    [ $XTEST -ne 1 ] && "$PBNAME"core -core
-    emygt "Get/Upgrade core system done : \Z3\${PBNAME}core\Zn." >> $XTEMPMES
+COREATTR=
+[ $ISCORE -eq 1 ] && COREATTR="$COREATTR -core"
+[ $ISMULTI -eq 1 ] && COREATTR="$COREATTR -multi"
+[ $ISFRAMEW -eq 1 ] && COREATTR="$COREATTR -framew"
+[ $ISGPARTED -eq 1 ] && COREATTR="$COREATTR -gparted"
+
+if [ "$COREATTR" != '' ] ;then
+    [ $XTEST -ne 1 ] && "$PBNAME"core $COREATTR
 fi
-if [ $ISMULTI -eq 1 ] ;then
-    [ $XTEST -ne 1 ] && "$PBNAME"core -multi
-    emygt "Get/Upgrade multilib compat 32 bits mode done : \Z3\${PBNAME}core\Zn." \
+
+[ $ISCORE -eq 1 ] && emygt "Get/Upgrade core system done : \Z3\${PBNAME}core\Zn." >> $XTEMPMES
+[ $ISMULTI -eq 1 ] && emygt "Get/Upgrade multilib compat 32 bits mode done : \Z3\${PBNAME}core\Zn." \
 	>> $XTEMPMES
-fi
-if [ $ISFRAMEW -eq 1 ] ;then
-    [ $XTEST -ne 1 ] && "$PBNAME"core -framew
-    emygt "Get/Upgrade framewoks libraries KDE5 done : \Z3\${PBNAME}core\Zn." \
+[ $ISFRAMEW -eq 1 ] && emygt "Get/Upgrade framewoks libraries KDE5 done : \Z3\${PBNAME}core\Zn." \
 	>> $XTEMPMES
-fi
-if [ $ISGPARTED -eq 1 ] ;then
-    [ $XTEST -ne 1 ] && "$PBNAME"core -gparted
-    emygt "Get/Upgrade gparted live iso done : \Z3\${PBNAME}core\Zn." \
+[ $ISGPARTED -eq 1 ] && emygt "Get/Upgrade gparted live iso done : \Z3\${PBNAME}core\Zn." \
 	>> $XTEMPMES
-fi
+
 if [ $ISALIEN -eq 1 ] ;then
     [ $XTEST -ne 1 ] && "$PBNAME"alien
     emygt "Get/Upgrade Alien Bob packages done : \Z3\${PBNAME}alien\Zn." \
