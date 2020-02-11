@@ -8,7 +8,7 @@ echo A noter que Linux peut supporter ce mode.
 echo -------------------------------------------------------------------------
 
 if not defined "%1" (
-    echo "Quel lettre de disque dur voulez-vous décrypter "
+    echo Quel lettre de disque dur voulez-vous decrypter
     set /p ldev="(c: si pas de nom) ? "
 ) else (set ldev="%1")
 if "%ldev%" == "" (set ldev="c:")

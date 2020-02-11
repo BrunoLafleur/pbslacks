@@ -42,8 +42,10 @@ cleanup () {
 
 trap 'echo "*** Ctrl-C caught -- aborting operations ***"; cleanup; exit 1' 2 14 15 # trap Ctrl-C and kill
 
-INIT=$(mygt 'Init/Verify the repository.')
-CORE=$(mygt 'Get/Update versus officiel Slackware, multilib and frameworks KDE5')
+CORE=$(mygt 'Get/Update versus officiel Slackware')
+MULTI=$(mygt 'Get/Update multilib compat 32 bits mode')
+FRAMEW=$(mygt 'Get/Update frameworks libraries of KDE5')
+GPARTED=$(mygt 'Get/Update GParted live iso')
 ALIEN=$(mygt 'Get/Update some Alien Bob binary packages')
 PONCE=$(mygt 'Get/Update some Ponce binary packages')
 SLONLY=$(mygt 'Get/Update some Slackonly binary packages')
@@ -53,15 +55,17 @@ MOZILLA=$(mygt 'Get/Update latest Firefox and Thunderbird')
 xmaster () {
     defitem=$1;shift
     xsel1=$1;shift;xsel2=$1;shift;xsel3=$1;shift;xsel4=$1;shift;xsel5=$1;shift
-    xsel6=$1;shift;xsel7=$1
+    xsel6=$1;shift;xsel7=$1;shift;xsel8=$1;shift;xsel9=$1
     pactit=$(mygt 'Main menu');pactit="pbaspire: $pactit"
     pactxt=$(mygt 'Choose your actions below')
     if [ $ISDIAL -eq 1 ] ;then
 	dialog --colors --backtitle 'pbaspire' --title "$pactit" \
 	    --default-item $defitem --defaultno --separate-output --item-help \
-	    --help-button --help-status --checklist "$pactxt" 0 100 7 \
-	    init "$INIT" $xsel1 init \
-	    core "$CORE" $xsel2 core \
+	    --help-button --help-status --checklist "$pactxt" 0 100 9 \
+	    core "$CORE" $xsel1 core \
+	    multi "$MULTI" $xsel1 multi \
+	    framew "$FRAMEW" $xsel1 framew \
+	    gparted "$GPARTED" $xsel1 gparted \
 	    alien "$ALIEN" $xsel3 alien \
 	    ponce "$PONCE" $xsel4 ponce \
 	    slonly "$SLONLY" $xsel5 slonly \
@@ -73,10 +77,14 @@ xmaster () {
 	echo '------------------------------------'
 	echo "HELP (y or n) :";read c
 	if [ "$c" = "y" ] ;then
-	    echo "HELP init (y or n) :";read c
-	    if [ "$c" = "y" ] ;then echo "HELP init" 1>&2;return;fi
 	    echo "HELP core (y or n) :";read c
 	    if [ "$c" = "y" ] ;then echo "HELP core" 1>&2;return;fi
+	    echo "HELP multi (y or n) :";read c
+	    if [ "$c" = "y" ] ;then echo "HELP multi" 1>&2;return;fi
+	    echo "HELP framew (y or n) :";read c
+	    if [ "$c" = "y" ] ;then echo "HELP framew" 1>&2;return;fi
+	    echo "HELP gparted (y or n) :";read c
+	    if [ "$c" = "y" ] ;then echo "HELP gparted" 1>&2;return;fi
 	    echo "HELP alien (y or n) :";read c
 	    if [ "$c" = "y" ] ;then echo "HELP alien" 1>&2;return;fi
 	    echo "HELP ponce (y or n) :";read c
@@ -88,10 +96,14 @@ xmaster () {
 	    echo "HELP mozilla (y or n) :";read c
 	    if [ "$c" = "y" ] ;then echo "HELP mozilla" 1>&2;return;fi
 	fi
-	echo "$INIT (y or n) :";read c
-	[ "$c" = "y" ] && echo "init" 1>&2
 	echo "$CORE (y or n) :";read c
 	[ "$c" = "y" ] && echo "core" 1>&2
+	echo "$MULTI (y or n) :";read c
+	[ "$c" = "y" ] && echo "multi" 1>&2
+	echo "$FRAMEW (y or n) :";read c
+	[ "$c" = "y" ] && echo "framew" 1>&2
+	echo "$GPARTED (y or n) :";read c
+	[ "$c" = "y" ] && echo "gparted" 1>&2
 	echo "$ALIEN (y or n) :";read c
 	[ "$c" = "y" ] && echo "alien" 1>&2
 	echo "$PONCE (y or n) :";read c
@@ -105,8 +117,8 @@ xmaster () {
     fi
 }
 
-xsel="on on on on on on on on"
-ditem=init
+xsel="on on on on on on on on on on"
+ditem=core
 bclaide=1
 
 while [ $bclaide -eq 1 ] ;do
@@ -115,7 +127,7 @@ while [ $bclaide -eq 1 ] ;do
     if [ $bclaide -eq 1 ] ;then
 	xitem="$(cat $XTEMPOUT|grep '^HELP'|cut -d ' ' -f2)"
 	xsel=
-	for i in init core alien ponce slonly other mozilla ;do
+	for i in core multi framew gparted alien ponce slonly other mozilla ;do
 	  if [ $(grep "^$i$" "$XTEMPOUT"|wc -l) -eq 1 ] ;then
 	      xsel="$xsel on"
 	  else
@@ -123,10 +135,14 @@ while [ $bclaide -eq 1 ] ;do
 	  fi
 	done
 	ditem=$xitem;bclaide=1;pacaide=
-	if [ "$xitem" = init ] ;then
-	    pacaide=$(mygt 'Initialize or verify the current repository.')
-	elif [ "$xitem" = core ] ;then
-	    pacaide=$(mygt 'Get or update the officiel lastest current Slackware.\nAnd the multilib of Alien Bob which is a 32 bits compatibility set of packages.\nAnd the frameworks libraries of Kde5 offered by Alien Bob.')
+	if [ "$xitem" = core ] ;then
+	    pacaide=$(mygt 'Get or update the officiel lastest current Slackware.')
+	elif [ "$xitem" = multi ] ;then
+	    pacaide=$(mygt 'Get or update the multilib of Alien Bob which is a 32 bits compatibility set of packages.')
+	elif [ "$xitem" = framew ] ;then
+	    pacaide=$(mygt 'Get or update the frameworks libraries of Kde5 offered by Alien Bob.')
+	elif [ "$xitem" = gparted ] ;then
+	    pacaide=$(mygt 'Get or update the GParted live ISO.')
 	elif [ "$xitem" = alien ] ;then
 	    pacaide=$(mygt 'Get or update some Alien Bob binary packages.')
 	elif [ "$xitem" = ponce ] ;then
@@ -150,35 +166,59 @@ while [ $bclaide -eq 1 ] ;do
     fi
 done
 
-while read i;test "$i" != "" ;do
-    if [ "$(echo $i|cut -c1-4)" = 'HELP' ] ;then
-	continue
-    elif [ "$i" = init ] ;then
-	[ $XTEST -ne 1 ] && "$PBNAME"init
-	emygt "Initialisation done : \Z3\${PBNAME}init\Zn." >> $XTEMPMES
-    elif [ "$i" = core ] ;then
-	[ $XTEST -ne 1 ] && "$PBNAME"core
-	emygt "Get/Upgrade core system done : \Z3\${PBNAME}core\Zn." >> $XTEMPMES
-    elif [ "$i" = alien ] ;then
-	[ $XTEST -ne 1 ] && "$PBNAME"alien
-	emygt "Get/Upgrade Alien Bob packages done : \Z3\${PBNAME}alien\Zn." \
-	    >> $XTEMPMES
-    elif [ "$i" = ponce ] ;then
-        [ $XTEST -ne 1 ] && "$PBNAME"ponce
-	emygt "Get/Upgrade Ponce packages done : \Z3\${PBNAME}ponce\Zn." >> $XTEMPMES
-    elif [ "$i" = slonly ] ;then
-	[ $XTEST -ne 1 ] && "$PBNAME"slonly
-	emygt "Get/Upgrade Slackonly packages done : \Z3\${PBNAME}slonly\Zn." \
-	    >> $XTEMPMES
-    elif [ "$i" = other ] ;then
-	[ $XTEST -ne 1 ] && "$PBNAME"other
-	emygt "Get/Upgrade other source or binary packages done : \Z3\${PBNAME}other\Zn." >> $XTEMPMES
-    elif [ "$i" = mozilla ] ;then
-	[ $XTEST -ne 1 ] && "$PBNAME"moz -lang fr
-	emygt "Get/Upgrade Firefox and Thunderbird done : \Z3\${PBNAME}mozilla\Zn." \
-	    >> $XTEMPMES
-    fi
-done < $XTEMPOUT
+ISCORE="$(cat $XTEMPOUT|grep '^core$'|wc -l)"
+ISMULTI="$(cat $XTEMPOUT|grep '^multi$'|wc -l)"
+ISFRAMEW="$(cat $XTEMPOUT|grep '^framew$'|wc -l)"
+ISGPARTED="$(cat $XTEMPOUT|grep '^gparted$'|wc -l)"
+ISALIEN="$(cat $XTEMPOUT|grep '^alien$'|wc -l)"
+ISPONCE="$(cat $XTEMPOUT|grep '^ponce$'|wc -l)"
+ISSLONLY="$(cat $XTEMPOUT|grep '^slonly$'|wc -l)"
+ISOTHER="$(cat $XTEMPOUT|grep '^other$'|wc -l)"
+ISMOZ="$(cat $XTEMPOUT|grep '^mozilla$'|wc -l)"
+
+if [ $ISCORE -eq 1 ] ;then
+    [ $XTEST -ne 1 ] && "$PBNAME"core -core
+    emygt "Get/Upgrade core system done : \Z3\${PBNAME}core\Zn." >> $XTEMPMES
+fi
+if [ $ISMULTI -eq 1 ] ;then
+    [ $XTEST -ne 1 ] && "$PBNAME"core -multi
+    emygt "Get/Upgrade multilib compat 32 bits mode done : \Z3\${PBNAME}core\Zn." \
+	>> $XTEMPMES
+fi
+if [ $ISFRAMEW -eq 1 ] ;then
+    [ $XTEST -ne 1 ] && "$PBNAME"core -framew
+    emygt "Get/Upgrade framewoks libraries KDE5 done : \Z3\${PBNAME}core\Zn." \
+	>> $XTEMPMES
+fi
+if [ $ISGPARTED -eq 1 ] ;then
+    [ $XTEST -ne 1 ] && "$PBNAME"core -gparted
+    emygt "Get/Upgrade gparted live iso done : \Z3\${PBNAME}core\Zn." \
+	>> $XTEMPMES
+fi
+if [ $ISALIEN -eq 1 ] ;then
+    [ $XTEST -ne 1 ] && "$PBNAME"alien
+    emygt "Get/Upgrade Alien Bob packages done : \Z3\${PBNAME}alien\Zn." \
+	>> $XTEMPMES
+fi
+if [ $ISPONCE -eq 1 ] ;then
+    [ $XTEST -ne 1 ] && "$PBNAME"ponce
+    emygt "Get/Upgrade Ponce packages done : \Z3\${PBNAME}ponce\Zn." >> $XTEMPMES
+fi
+if [ $ISSLONLY -eq 1 ] ;then
+    [ $XTEST -ne 1 ] && "$PBNAME"slonly
+    emygt "Get/Upgrade Slackonly packages done : \Z3\${PBNAME}slonly\Zn." \
+	>> $XTEMPMES
+fi
+if [ $ISOTHER -eq 1 ] ;then
+    [ $XTEST -ne 1 ] && "$PBNAME"other
+    emygt "Get/Upgrade other source or binary packages done : \Z3\${PBNAME}other\Zn." \
+	>> $XTEMPMES
+fi
+if [ $ISMOZ -eq 1 ] ;then
+    [ $XTEST -ne 1 ] && "$PBNAME"moz -lang fr
+    emygt "Get/Upgrade Firefox and Thunderbird done : \Z3\${PBNAME}mozilla\Zn." \
+	>> $XTEMPMES
+fi
 
 rm -f $XTEMPOUT
 
