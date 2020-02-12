@@ -499,7 +499,7 @@ VBOXDOC="$VBOXREP/VirtualBoxUserManual.pdf"
 echo "VirtualBox = $VBOXARCH"
 echo "VirtualBox extensions = $VBOXEXT"
 echo "VirtualBox doc = $VBOXDOC"
-[ -f "$VBOXARCH" ] && cp -a "$VBOXARCH" "$VBOXEXT" "$VBOXDOC" "$MNTDIR2"
+[ -f "$VBOXARCH" ] && cp "$VBOXARCH" "$VBOXEXT" "$VBOXDOC" "$MNTDIR2"
 
 # If we are creating a full Slackware installer, copy the package tree:
 if [ $FULLINSTALLER -eq 1 ]; then
