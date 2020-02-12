@@ -46,6 +46,7 @@ CORE=$(mygt 'Get/Update versus officiel Slackware')
 MULTI=$(mygt 'Get/Update multilib compat 32 bits mode')
 FRAMEW=$(mygt 'Get/Update frameworks libraries of KDE5')
 GPARTED=$(mygt 'Get/Update GParted live iso')
+VBOX=$(mygt 'Get/Update VirtualBox installer')
 ALIEN=$(mygt 'Get/Update some Alien Bob binary packages')
 PONCE=$(mygt 'Get/Update some Ponce binary packages')
 SLONLY=$(mygt 'Get/Update some Slackonly binary packages')
@@ -55,22 +56,23 @@ MOZILLA=$(mygt 'Get/Update latest Firefox and Thunderbird')
 xmaster () {
     defitem=$1;shift
     xsel1=$1;shift;xsel2=$1;shift;xsel3=$1;shift;xsel4=$1;shift;xsel5=$1;shift
-    xsel6=$1;shift;xsel7=$1;shift;xsel8=$1;shift;xsel9=$1
+    xsel6=$1;shift;xsel7=$1;shift;xsel8=$1;shift;xsel9=$1;shift;xsel10=$1
     pactit=$(mygt 'Main menu');pactit="pbaspire: $pactit"
     pactxt=$(mygt 'Choose your actions below')
     if [ $ISDIAL -eq 1 ] ;then
 	dialog --colors --backtitle 'pbaspire' --title "$pactit" \
 	    --default-item $defitem --defaultno --separate-output --item-help \
-	    --help-button --help-status --checklist "$pactxt" 0 100 9 \
+	    --help-button --help-status --checklist "$pactxt" 0 100 10 \
 	    core "$CORE" $xsel1 core \
 	    multi "$MULTI" $xsel2 multi \
 	    framew "$FRAMEW" $xsel3 framew \
 	    gparted "$GPARTED" $xsel4 gparted \
-	    alien "$ALIEN" $xsel5 alien \
-	    ponce "$PONCE" $xsel6 ponce \
-	    slonly "$SLONLY" $xsel7 slonly \
-	    other "$OTHER" $xsel8 other \
-	    mozilla "$MOZILLA" $xsel9 mozilla
+	    vbox "$VBOX" $xsel5 vbox \
+	    alien "$ALIEN" $xsel6 alien \
+	    ponce "$PONCE" $xsel7 ponce \
+	    slonly "$SLONLY" $xsel8 slonly \
+	    other "$OTHER" $xsel9 other \
+	    mozilla "$MOZILLA" $xsel10 mozilla
     else
 	echo '------------------------------------'
 	echo "        $pactit"
@@ -85,6 +87,8 @@ xmaster () {
 	    if [ "$c" = "y" ] ;then echo "HELP framew" 1>&2;return;fi
 	    echo "HELP gparted (y or n) :";read c
 	    if [ "$c" = "y" ] ;then echo "HELP gparted" 1>&2;return;fi
+	    echo "HELP virtualbox (y or n) :";read c
+	    if [ "$c" = "y" ] ;then echo "HELP vbox" 1>&2;return;fi
 	    echo "HELP alien (y or n) :";read c
 	    if [ "$c" = "y" ] ;then echo "HELP alien" 1>&2;return;fi
 	    echo "HELP ponce (y or n) :";read c
@@ -104,6 +108,8 @@ xmaster () {
 	[ "$c" = "y" ] && echo "framew" 1>&2
 	echo "$GPARTED (y or n) :";read c
 	[ "$c" = "y" ] && echo "gparted" 1>&2
+	echo "$VBOX (y or n) :";read c
+	[ "$c" = "y" ] && echo "vbox" 1>&2
 	echo "$ALIEN (y or n) :";read c
 	[ "$c" = "y" ] && echo "alien" 1>&2
 	echo "$PONCE (y or n) :";read c
@@ -117,7 +123,7 @@ xmaster () {
     fi
 }
 
-xsel="on on on on on on on on on on"
+xsel="on on on on on on on on on on on"
 ditem=core
 bclaide=1
 
@@ -127,7 +133,7 @@ while [ $bclaide -eq 1 ] ;do
     if [ $bclaide -eq 1 ] ;then
 	xitem="$(cat $XTEMPOUT|grep '^HELP'|cut -d ' ' -f2)"
 	xsel=
-	for i in core multi framew gparted alien ponce slonly other mozilla ;do
+	for i in core multi framew gparted vbox alien ponce slonly other mozilla ;do
 	  if [ $(grep "^$i$" "$XTEMPOUT"|wc -l) -eq 1 ] ;then
 	      xsel="$xsel on"
 	  else
@@ -143,6 +149,8 @@ while [ $bclaide -eq 1 ] ;do
 	    pacaide=$(mygt 'Get or update the frameworks libraries of Kde5 offered by Alien Bob.')
 	elif [ "$xitem" = gparted ] ;then
 	    pacaide=$(mygt 'Get or update the GParted live ISO.')
+	elif [ "$xitem" = vbox ] ;then
+	    pacaide=$(mygt 'Get or update the VirtualBox installer and extensions.')
 	elif [ "$xitem" = alien ] ;then
 	    pacaide=$(mygt 'Get or update some Alien Bob binary packages.')
 	elif [ "$xitem" = ponce ] ;then
@@ -170,6 +178,7 @@ ISCORE="$(cat $XTEMPOUT|grep '^core$'|wc -l)"
 ISMULTI="$(cat $XTEMPOUT|grep '^multi$'|wc -l)"
 ISFRAMEW="$(cat $XTEMPOUT|grep '^framew$'|wc -l)"
 ISGPARTED="$(cat $XTEMPOUT|grep '^gparted$'|wc -l)"
+ISVBOX="$(cat $XTEMPOUT|grep '^vbox$'|wc -l)"
 ISALIEN="$(cat $XTEMPOUT|grep '^alien$'|wc -l)"
 ISPONCE="$(cat $XTEMPOUT|grep '^ponce$'|wc -l)"
 ISSLONLY="$(cat $XTEMPOUT|grep '^slonly$'|wc -l)"
@@ -181,6 +190,7 @@ COREATTR=
 [ $ISMULTI -eq 1 ] && COREATTR="$COREATTR -multi"
 [ $ISFRAMEW -eq 1 ] && COREATTR="$COREATTR -framew"
 [ $ISGPARTED -eq 1 ] && COREATTR="$COREATTR -gparted"
+[ $ISVBOX -eq 1 ] && COREATTR="$COREATTR -vbox"
 
 if [ "$COREATTR" != '' ] ;then
     [ $XTEST -ne 1 ] && "$PBNAME"core $COREATTR
@@ -192,6 +202,8 @@ fi
 [ $ISFRAMEW -eq 1 ] && emygt "Get/Upgrade framewoks libraries KDE5 done : \Z3\${PBNAME}core\Zn." \
 	>> $XTEMPMES
 [ $ISGPARTED -eq 1 ] && emygt "Get/Upgrade gparted live iso done : \Z3\${PBNAME}core\Zn." \
+	>> $XTEMPMES
+[ $ISVBOX -eq 1 ] && emygt "Get/Upgrade VirtualBox installer done : \Z3\${PBNAME}core\Zn." \
 	>> $XTEMPMES
 
 if [ $ISALIEN -eq 1 ] ;then

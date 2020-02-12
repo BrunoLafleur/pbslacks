@@ -15,11 +15,13 @@ if [ $# -eq 0 ] ;then
     ISMULTI=1
     ISFRAMEW=1
     ISGPARTED=1
+    ISVBOX=1
 else
     ISCORE=0
     ISMULTI=0
     ISFRAMEW=0
     ISGPARTED=0
+    ISVBOX=0
 fi
 
 while [ $# -ge 1 ] ;do
@@ -32,6 +34,8 @@ while [ $# -ge 1 ] ;do
 	ISFRAMEW=1
     elif [ "$MYARG" = "-gparted" ] ;then
 	ISGPARTED=1
+    elif [ "$MYARG" = "-vbox" ] ;then
+	ISVBOX=1
     fi
     shift
 done
@@ -42,6 +46,10 @@ SLACKMIR='http://nephtys.lip6.fr/pub/linux/distributions/slackware'
 SLACKMULTI="$SLACKMIR/people/alien/multilib/current"
 SLACKKDEFW="$SLACKMIR/people/alien-kde/current/latest/x86_64/kde/frameworks"
 GPARTEDISO="https://downloads.sourceforge.net/gparted/gparted-live-1.1.0-1-amd64.iso"
+VBOXREP='https://download.virtualbox.org/virtualbox/6.1.2/'
+VBOXARCH="$VBOXREP/VirtualBox-6.1.2-135663-Win.exe"
+VBOXEXT="$VBOXREP/Oracle_VM_VirtualBox_Extension_Pack-6.1.2.vbox-extpack"
+VBOXDOC="$VBOXREP/UserManual.pdf"
 
 # Function for getting packages.
 myrget () {
@@ -151,7 +159,7 @@ if [ $ISGPARTED -eq 1 ] ;then
 	if [ ! -f "$LGPARTEDISO" ] ;then
 	    wget -N -nv --content-disposition "$GPARTEDISO"
 	    echo '------------------------------------'
-	    if [ -f "$GPARTEDISO" ] ;then
+	    if [ -f "$LGPARTEDISO" ] ;then
 		mygt "GParted copied."
 	    else
 		mygt "GParted not copied."
@@ -161,5 +169,33 @@ if [ $ISGPARTED -eq 1 ] ;then
 	cd ..
     else
 	mygt "GParted not copied."
+    fi
+fi
+
+# VirtualBox
+if [ $ISVBOX -eq 1 ] ;then
+    LVBOXARCH=$(basename "$VBOXARCH")
+    if [ ! -f "../$LVBOXARCH" ] ;then
+	if [ ! -h Virtualbox ] ; then
+	    [ ! -d ../Virtualbox ] && mkdir ../Virtualbox
+	    ln -s ../Virtualbox .
+	fi
+	cd Virtualbox
+	if [ ! -f "$LVBOXARCH" ] ;then
+	    wget -N -nv --content-disposition "$VBOXARCH"
+	    wget -N -nv --content-disposition "$VBOXEXT"
+	    wget -N -nv --content-disposition "$VBOXDOC"
+	    mv $(basename "$VBOXDOC") VirtualBoxUserManual.pdf
+	    echo '------------------------------------'
+	    if [ -f "$LVBOXARCH" ] ;then
+		mygt "VirtualBox copied."
+	    else
+		mygt "VirtualBox not copied."
+	    fi
+	    echo '------------------------------------'
+	fi
+	cd ..
+    else
+	mygt "VirtualBox not copied."
     fi
 fi

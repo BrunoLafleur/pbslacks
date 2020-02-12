@@ -218,11 +218,11 @@ fi
 if [ $ISUPGRADE -eq 1 ] ;then
     MYSCR="screen -A -c $PBSLACKSPWD/screenrc -S pbupgrade"
     if [ $XTEST -eq 1 -o $UID -eq 0 ]; then
-        $MYSCR "$PBSLACKSPWD/pbupgrade" -u $MYUSER -g $MYGROUP $PBTEST $PBDIAL
+        $MYSCR "$PBSLACKSPWD/pbupgrade" -u $MYUSER -g $MYGROUP $PBTEST
     else
 	mygt 'Change to root.'
         su - root -c "(cd \"$MYPWD\";$MYSCR \"$PBSLACKSPWD/pbupgrade\" \
-		-u $MYUSER -g $MYGROUP $PBTEST $PBDIAL)"
+		-u $MYUSER -g $MYGROUP $PBTEST)"
     fi
     mygt "Upgrade done for selected set of packages." >> $XTEMPMES
 fi
@@ -230,10 +230,10 @@ fi
 # Makeusb
 if [ $ISUSB -eq 1 ] ;then
     if [ $XTEST -eq 1 -o $UID -eq 0 ]; then
-        "$PBSLACKSPWD/pbmakeusb" -ask $PBTEST
+        "$PBSLACKSPWD/pbmakeusb" -ask $PBTEST $PBDIAL
     else
 	mygt 'Change to root.'
-	su - root -c "(cd \"$MYPWD\";\"$PBSLACKSPWD/pbmakeusb\" -ask $PBTEST)"
+	su - root -c "(cd \"$MYPWD\";\"$PBSLACKSPWD/pbmakeusb\" -ask $PBTEST $PBDIAL)"
     fi
     if [ $? -eq 0 ] ;then
 	mygt "USB stick created." >> $XTEMPMES
@@ -244,7 +244,10 @@ fi
 
 # Makeiso
 if [ $ISISO -eq 1 ] ;then
-    "$PBSLACKSPWD/pbmakeiso" >> $XTEMPMES 2>> $XTEMPMES
+    XTEMPMES2=$(mktemp -p /tmp -t pbsetupmes.XXXXXX)
+    "$PBSLACKSPWD/pbmakeiso" 2>> $XTEMPMES2 | tee -a $XTEMPMES
+    cat $XTEMPMES2 >> $XTEMPMES
+    rm -f $XTEMPMES2
     if [ $? -eq 0 ] ;then
 	mygt "\Z3ISO DVD ROM created.\Zn" >> $XTEMPMES
     else

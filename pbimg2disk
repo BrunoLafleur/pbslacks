@@ -218,6 +218,10 @@ while [ ! -z "$1" ]; do
 	    shift
 	    GPARTISO="$1"
 	    ;;
+	-vbox)
+	    shift
+	    VBOXVER="$1"
+	    ;;
 	-noudisks2)
 	    NOUDISKS2=1
 	    ;;
@@ -485,6 +489,14 @@ cp -R "$MNTDIR1/"* "$MNTDIR2"
 
 # Add a gparted boot (syslinux + grub).
 "$PBSLACKSPWD/pbaddbootgparted" "$GPARTISO" "$MNTDIR2" "$TARGETPART"
+
+# Add VirtualBox installer
+VBOXREP=$(dirname "$VBOXVER")
+VBOXVER=$(basename "$VBOXVER")
+VBOXARCH=$(ls -1t "$VBOXREP/VirtualBox-${VBOXVER}-*.exe" 2> /dev/null|head -1)
+VBOXEXT=$(ls -1t "$VBOXREP/Oracle_VM_VirtualBox_Extension_Pack-${VBOXVER}.vbox-extpack" 2> /dev/null|head -1)
+VBOXDOC="$VBOXREP/VirtualBoxUserManual.pdf"
+[ -f "$VBOXARCH" ] && cp -a "$VBOXARCH" "$VBOXEXT" "$VBOXDOC" "$MNTDIR2"
 
 # If we are creating a full Slackware installer, copy the package tree:
 if [ $FULLINSTALLER -eq 1 ]; then

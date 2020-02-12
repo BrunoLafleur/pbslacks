@@ -11,10 +11,10 @@ msgstr ""
 "PO-Revision-Date: 2020-01-21 14:39+0100\n"
 "Last-Translator: Pierre Brochard <pierre.brochard.1982@m4x.org>\n"
 "Language-Team: French <traduc@traduc.org>\n"
-"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: pbaspire:10
@@ -44,38 +44,42 @@ msgid "Get/Update GParted live iso"
 msgstr "Obtenir/mettre à jour l'image iso GParted live"
 
 #: pbaspire:49
+msgid "Get/Update VirtualBox installer"
+msgstr "Obtenir/mettre à jour VirtualBox"
+
+#: pbaspire:50
 msgid "Get/Update some Alien Bob binary packages"
 msgstr "Obtenir/mettre à jour des paquets binaires d'Alien Bob"
 
-#: pbaspire:50
+#: pbaspire:51
 msgid "Get/Update some Ponce binary packages"
 msgstr "Obtenir/mettre à jour des paquets binaires de Ponce"
 
-#: pbaspire:51
+#: pbaspire:52
 msgid "Get/Update some Slackonly binary packages"
 msgstr "Obtenir/mettre à jour des paquets bnaires de Slackonly"
 
-#: pbaspire:52
+#: pbaspire:53
 msgid "Get/Update some other source or binary packages"
 msgstr "Obtenir/mettre à jour d'autres paquets sources ou binaires"
 
-#: pbaspire:53
+#: pbaspire:54
 msgid "Get/Update latest Firefox and Thunderbird"
 msgstr "Obtenir/mettre à jour Firefox et Thunderbird"
 
-#: pbaspire:59 pbsetup:112 pbupgrade:114
+#: pbaspire:60 pbsetup:112 pbupgrade:114
 msgid "Main menu"
 msgstr "Menu principal"
 
-#: pbaspire:60 pbsetup:113
+#: pbaspire:61 pbsetup:113
 msgid "Choose your actions below"
 msgstr "Choisissez vos actions ci-dessous"
 
-#: pbaspire:139
+#: pbaspire:145
 msgid "Get or update the officiel lastest current Slackware."
 msgstr "Synchroniser avec la copie locale de la dernière Slackware current"
 
-#: pbaspire:141
+#: pbaspire:147
 msgid ""
 "Get or update the multilib of Alien Bob which is a 32 bits compatibility set "
 "of packages."
@@ -83,75 +87,84 @@ msgstr ""
 "Obtenir ou mettre à jour les paquets multilib d'Alien Bob qui est un jeu de "
 "paquets assurant un mode de compatibilité 32 bits."
 
-#: pbaspire:143
+#: pbaspire:149
 msgid "Get or update the frameworks libraries of Kde5 offered by Alien Bob."
 msgstr ""
 "Obtenir ou mettre à jour les librairies 'frameworks' de Kde5 offertes par "
 "Alien Bob."
 
-#: pbaspire:145
+#: pbaspire:151
 msgid "Get or update the GParted live ISO."
 msgstr "Obtenir ou mettre à jour l'image ISO GParted live"
 
-#: pbaspire:147
+#: pbaspire:153
+msgid "Get or update the VirtualBox installer and extensions."
+msgstr ""
+
+#: pbaspire:155
 msgid "Get or update some Alien Bob binary packages."
 msgstr "Obtenir ou mettre à jour des paquets binaires d'Alien Bob"
 
-#: pbaspire:149
+#: pbaspire:157
 msgid "Get or update some Ponce binary packages."
 msgstr "Obtenir ou mettre à jour des paquets binaires de Ponce"
 
-#: pbaspire:151
+#: pbaspire:159
 msgid "Get or update some Slackonly binary packages."
 msgstr "Obtenir ou mettre à jour des paquets bnaires de Slackonly"
 
-#: pbaspire:153
+#: pbaspire:161
 msgid "Get or update some other source or binary packages."
 msgstr "Obtenir ou mettre à jour d'autres paquets sources ou binaires"
 
-#: pbaspire:155
+#: pbaspire:163
 msgid "Get or update Firefox and Thunderbird."
 msgstr "Obtenir ou mettre à jour Firefox et Thunderbird"
 
-#: pbaspire:189
+#: pbaspire:199
 #, sh-format
 msgid "Get/Upgrade core system done : \\Z3${PBNAME}core\\Zn."
 msgstr "Coeur du système obtenu ou mis à jour : \\Z3${PBNAME}core\\Zn."
 
-#: pbaspire:190
+#: pbaspire:200
 #, sh-format
 msgid "Get/Upgrade multilib compat 32 bits mode done : \\Z3${PBNAME}core\\Zn."
 msgstr ""
 "Mode de compatibilié 32 bits obtenu ou mis à jour : \\Z3${PBNAME}core\\Zn."
 
-#: pbaspire:192
+#: pbaspire:202
 #, sh-format
 msgid "Get/Upgrade framewoks libraries KDE5 done : \\Z3${PBNAME}core\\Zn."
 msgstr ""
 "librairies frameworks de KDE5 obtenues ou mises à jour : \\Z3${PBNAME}core"
 "\\Zn."
 
-#: pbaspire:194
+#: pbaspire:204
 #, sh-format
 msgid "Get/Upgrade gparted live iso done : \\Z3${PBNAME}core\\Zn."
 msgstr "Image iso GParted live obtenue ou mise à jour : \\Z3${PBNAME}core\\Zn."
 
-#: pbaspire:199
+#: pbaspire:206
+#, sh-format
+msgid "Get/Upgrade VirtualBox installer done : \\Z3${PBNAME}core\\Zn."
+msgstr "Installeur VirtualBox obtenu ou mis à jour : \\Z3${PBNAME}core\\Zn."
+
+#: pbaspire:211
 #, sh-format
 msgid "Get/Upgrade Alien Bob packages done : \\Z3${PBNAME}alien\\Zn."
 msgstr "Paquets d'Alien Bob obtenus ou mis à jour : \\Z3${PBNAME}alien\\Zn."
 
-#: pbaspire:204
+#: pbaspire:216
 #, sh-format
 msgid "Get/Upgrade Ponce packages done : \\Z3${PBNAME}ponce\\Zn."
 msgstr "Paquets de Ponce obtenus ou mis à jour : \\Z3${PBNAME}ponce\\Zn."
 
-#: pbaspire:208
+#: pbaspire:220
 #, sh-format
 msgid "Get/Upgrade Slackonly packages done : \\Z3${PBNAME}slonly\\Zn."
 msgstr "Paquets de Slackonly obtenus ou mis à jour : \\Z3${PBNAME}slonly\\Zn."
 
-#: pbaspire:213
+#: pbaspire:225
 #, sh-format
 msgid ""
 "Get/Upgrade other source or binary packages done : \\Z3${PBNAME}other\\Zn."
@@ -159,18 +172,18 @@ msgstr ""
 "Autres paquets sources ou binaires obtenus ou mis à jour : \\Z3${PBNAME}other"
 "\\Zn."
 
-#: pbaspire:218
+#: pbaspire:230
 #, sh-format
 msgid "Get/Upgrade Firefox and Thunderbird done : \\Z3${PBNAME}mozilla\\Zn."
 msgstr ""
 "Obtention ou mise à jour de Firefox et Thunderbird faite : \\Z3${PBNAME}"
 "mozilla\\Zn."
 
-#: pbaspire:225 pbsetup:293 pbupgrade:322
+#: pbaspire:237 pbsetup:296 pbupgrade:322
 msgid "No action was demanded. Exit."
 msgstr "Aucune action demandée. Sortie."
 
-#: pbaspire:228 pbsetup:297 pbupgrade:79
+#: pbaspire:240 pbsetup:300 pbupgrade:79
 msgid "Actions which were done"
 msgstr "Actions réalisées"
 
@@ -181,37 +194,45 @@ msgid ""
 msgstr ""
 "Script à lancer dans le répertoire contenant packages, packages2 et al."
 
-#: pbaspirecore:81
+#: pbaspirecore:89
 msgid "Slackware current copied."
 msgstr "Copie Slackware current faite."
 
-#: pbaspirecore:83
+#: pbaspirecore:91
 msgid "Slackware current not copied."
 msgstr "Copie Slackware current non faite."
 
-#: pbaspirecore:107
+#: pbaspirecore:115
 msgid "Slackware multilib copied."
 msgstr "Copie Slackware multilib faite."
 
-#: pbaspirecore:109
+#: pbaspirecore:117
 msgid "Slackware multilib not copied."
 msgstr "Copie Slackware multilib non faite."
 
-#: pbaspirecore:134
+#: pbaspirecore:142
 msgid "Alien Bob KDE5 frameworks copied."
 msgstr "Copie alien KDE5 frameworks faite."
 
-#: pbaspirecore:136
+#: pbaspirecore:144
 msgid "Alien Bob KDE5 frameworks not copied."
 msgstr "Copie alien KDE5 frameworks non faite."
 
-#: pbaspirecore:155
+#: pbaspirecore:163
 msgid "GParted copied."
 msgstr "Copie GParted faite."
 
-#: pbaspirecore:157 pbaspirecore:163
+#: pbaspirecore:165 pbaspirecore:171
 msgid "GParted not copied."
 msgstr "Copie GParted non faite."
+
+#: pbaspirecore:191
+msgid "VirtualBox copied."
+msgstr "Copie VirtualBox faite."
+
+#: pbaspirecore:193 pbaspirecore:199
+msgid "VirtualBox not copied."
+msgstr "Copie VirtualBox non faite."
 
 #: pbaspireinc:22
 #, sh-format
@@ -254,7 +275,7 @@ msgstr ""
 "machine a jour, ne pas refaire et utilisez directement les paquets générés "
 "avec upgradebumblebee."
 
-#: pbcompilepost:12 pbmakeusb:128 pbstophib:27 pbupgrade:83
+#: pbcompilepost:12 pbmakeusb:157 pbstophib:27 pbupgrade:83
 #: pbupgradebumblebee:10 pbupgrademoz:10
 msgid "This script must be done as root. Exit."
 msgstr "Ce script doit être lancé root. On sort."
@@ -283,7 +304,7 @@ msgid ""
 msgstr ""
 "Script à lancer dans le répertoire contenant slackware64-current et pbslacks."
 
-#: pbmakeusb:69
+#: pbmakeusb:74
 msgid ""
 "Give the name of an ISO Slackware file or nothing if the Slackware is on the "
 "current directory :"
@@ -291,31 +312,43 @@ msgstr ""
 "Donnez le nom d'une image ISO Slackware ou rien\\nsi la Slackware est dans "
 "le répertoire courant."
 
-#: pbmakeusb:72
+#: pbmakeusb:77
 msgid "ISO Slackware file"
 msgstr "image ISO Slackware"
 
-#: pbmakeusb:73
+#: pbmakeusb:78
 msgid "current directory"
 msgstr "répertoire courant"
 
-#: pbmakeusb:94
+#: pbmakeusb:99
 msgid "Give the name of an ISO GParted file or nothing :"
 msgstr "Donnez le nom d'une image ISO GParted ou rien."
 
-#: pbmakeusb:97
+#: pbmakeusb:102
 msgid "ISO GParted file"
 msgstr "Image ISO GParted"
 
-#: pbmakeusb:98
+#: pbmakeusb:103
 msgid "no GParted Live"
 msgstr "pas d'image ISO GParted Live"
 
-#: pbmakeusb:164
+#: pbmakeusb:125
+msgid "Give the name of a VirtualBox installer or nothing :"
+msgstr "Donnez le nom d'une archive d'installation de VirtualBox ou rien."
+
+#: pbmakeusb:128
+msgid "VirtualBox archive"
+msgstr "Archive d'installation de VirtualBox"
+
+#: pbmakeusb:129
+msgid "no VirtualBox archive"
+msgstr "Pas d'archive d'installation de VirtualBox"
+
+#: pbmakeusb:193
 msgid "Directory not mounted.\\nIs your ISO file a Slackware image ?"
 msgstr "Répertoire non monté.\\nVotre image ISO est-elle une image Slackware ?"
 
-#: pbmakeusb:167
+#: pbmakeusb:196
 #, sh-format
 msgid ""
 "For the iso $IMGISO :\\n  The loop device is : $XLOOP\\n  The mount dir is : "
@@ -324,62 +357,66 @@ msgstr ""
 "Pour l'image iso $IMGISO :\\n  le périphérique est : $XLOOP\\n  Le point de "
 "maontage est : $REPO"
 
-#: pbmakeusb:169
+#: pbmakeusb:198
 msgid "Iso mounted status"
 msgstr "Infos Iso."
 
-#: pbmakeusb:173
+#: pbmakeusb:202
 msgid "Directory status"
 msgstr "Infos sur le répertoire"
 
-#: pbmakeusb:176
+#: pbmakeusb:205
 msgid "Directory slackware64-current not found."
 msgstr "Répertoire slackware64-current non trouvé."
 
-#: pbmakeusb:180
+#: pbmakeusb:209
 msgid "Directory pbslacks not found."
 msgstr "Répertoire pbslacks  non trouvé"
 
-#: pbmakeusb:183
+#: pbmakeusb:212
 msgid "Directory slackware64-current found."
 msgstr "Répertoire slackware64-current trouvé."
 
-#: pbmakeusb:208
+#: pbmakeusb:237
 msgid "Grab the USB stick."
 msgstr "On cherche la clé USB."
 
-#: pbmakeusb:211
+#: pbmakeusb:240
 msgid "Put your writable USB stick on an USB port and press OK or Enter."
 msgstr ""
 "Mettez votre clé USB inscriptible dans un port USB et appuyez sur Accepter "
 "ou Entrée."
 
-#: pbmakeusb:214
+#: pbmakeusb:243
 #, sh-format
 msgid "It will be erased and replaced by a ${DUAL}boot media :"
 msgstr "Elle sera effacée et remplacé par un media ${DUAL}boot :"
 
-#: pbmakeusb:215
+#: pbmakeusb:244
 msgid "  -with a Slackware installation media"
 msgstr "  -avec une image d'installation de Slackware"
 
-#: pbmakeusb:217
+#: pbmakeusb:246
 msgid "  -with a GParted Live media"
 msgstr "  -avec une image GParted Live"
 
-#: pbmakeusb:239
+#: pbmakeusb:249
+msgid "  -with a VirtualBox installer"
+msgstr "  -avec une archive d'installation de VirtualBox"
+
+#: pbmakeusb:271
 msgid "Confirm USB stick."
 msgstr "Confirmation de la clé USB trouvée."
 
-#: pbmakeusb:240
+#: pbmakeusb:272
 msgid "USB stick not found."
 msgstr "Clé USB non trouvée."
 
-#: pbmakeusb:257
+#: pbmakeusb:289
 msgid "Do the USB stick"
 msgstr "On fabrique la clé USB."
 
-#: pbmakeusb:258
+#: pbmakeusb:290
 #, sh-format
 msgid ""
 "The device name for your writable erasable USB stick is \\Z1$MYDEVNAME\\Zn."
@@ -388,30 +425,30 @@ msgstr ""
 "Le nom de périphérique pour votre clé USB à écrire est \\Z1$MYDEVNAME\\Zn."
 "\\nEst-ce correct ?"
 
-#: pbmakeusb:262
+#: pbmakeusb:294
 msgid "no"
 msgstr "non"
 
-#: pbmakeusb:263
+#: pbmakeusb:295
 msgid "yes"
 msgstr "oui"
 
-#: pbmakeusb:264
+#: pbmakeusb:296
 msgid "yes and no format"
 msgstr "oui et pas de formattage"
 
-#: pbmakeusb:265
+#: pbmakeusb:297
 msgid "yes and no format and no packages copy"
 msgstr "oui et pas de formattage et pas de copie de paquets"
 
-#: pbmakeusb:266
+#: pbmakeusb:298
 msgid ""
 "\\Z1Look at your USB stick device below. It will be autodetected later.\\Zn"
 msgstr ""
 "\\Z1Regardez le nom de périphérique de votre clé USB ci-dessous. Il sera "
 "détecté automatiquement plus tard.\\Zn"
 
-#: pbmakeusb:281
+#: pbmakeusb:313
 msgid ""
 "y(es), n(o), a (yes and noformat), b (yes and no format and no packages "
 "copy) :"
@@ -525,14 +562,14 @@ msgid ""
 "Stop the hibernation of Windows in case it is active after modifying the "
 "disks partitions."
 msgstr ""
-"Arrêter l'hibernation de Windows au cas ou elle soit active après "
+"Arrêter l'hibernation de Windows au cas où elle soit active après "
 "modification des partitions de disques."
 
 #: pbsetup:213
 msgid "Clone done (full or partial depending on selected options)."
 msgstr "Copie faite (complète ou partielle selon options choisies)"
 
-#: pbsetup:223 pbsetup:235 pbsetup:263 pbsetup:285
+#: pbsetup:223 pbsetup:235 pbsetup:266 pbsetup:288
 msgid "Change to root."
 msgstr "Connection root."
 
@@ -548,27 +585,27 @@ msgstr "Clé USB créée"
 msgid "USB stick not created."
 msgstr "Clé USB non créée"
 
-#: pbsetup:249
+#: pbsetup:252
 msgid "\\Z3ISO DVD ROM created.\\Zn"
 msgstr "\\Z3ISO DVD ROM créé.\\Zn"
 
-#: pbsetup:251
+#: pbsetup:254
 msgid "\\Z3ISO DVD ROM not created.\\Zn"
 msgstr "\\Z3ISO DVD ROM non créé.\\Zn"
 
-#: pbsetup:269
+#: pbsetup:272
 msgid "refind not installed because elilo is not."
 msgstr "refind non installé car elilo ne l'est pas."
 
-#: pbsetup:271
+#: pbsetup:274
 msgid "refind already installed."
 msgstr "refind déjà installé."
 
-#: pbsetup:273
+#: pbsetup:276
 msgid "refind installed."
 msgstr "refind installé."
 
-#: pbsetup:276
+#: pbsetup:279
 msgid "refind not installed."
 msgstr "refind non installé."
 
@@ -953,5 +990,5 @@ msgstr ""
 #, sh-format
 msgid "Your device name is $MYDEVNAME. Is this correct ? y(es) or n(o) :"
 msgstr ""
-"Le nom de votre périphérique est $MYDEVNAME. Est-ce exact ? y(oui) ou "
-"n(non) :"
+"Le nom de votre périphérique est $MYDEVNAME. Est-ce exact ? y(oui) ou n"
+"(non) :"

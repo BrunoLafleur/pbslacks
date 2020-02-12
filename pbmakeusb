@@ -25,7 +25,7 @@
 xhelp () {
     mygt '  Launch this script in the directory including slackware64-current and which\ncontains pbslacks.'|sed 's@\\n@\n@g'
     echo
-    echo '> pbslacks/pbmakeusb [-iso slack.iso] [-gpart gparted.iso] [-noudisks2]'
+    echo '> pbslacks/pbmakeusb [-iso slack.iso] [-gpart gparted.iso] [-vbox version] [-noudisks2]'
     echo '                     [-noslack (no packages copy on the stick)]'
 }
 
@@ -34,6 +34,8 @@ ISO=0
 REPO="$MYPWD/slackware64-current"
 REPISO=Linuxiso
 GPARTISO=
+VBOXREP=Virtualbox
+VBOXVER=
 FULLINSTALLER=1
 NOUDISKS2=
 [ x$(which udisksctl 2> /dev/null) = 'x' ] && NOUDISKS2='-noudisks2'
@@ -60,6 +62,9 @@ while [ $# -ge 1 ] ;do
 	GPARTISO="$(cd $(dirname $1); pwd)/$(basename $1)";cd "$MYPWD"
 	GPARTISO="-gpart $GPARTISO"
 	shift
+    elif [ "$MYARG" = "-vbox" ] ;then
+	VBOXVER="-vbox $1"
+	shift
     elif [ "$MYARG" = "-ask" ] ;then
 	ISASK=1
     fi
@@ -83,9 +88,9 @@ if [ $ISASK -eq 1 ] ;then
     else
 	echo "$xtext"|sed 's@\\n@\n@g'
 	ls -1 "$REPISO/Slackware-x64-"*.iso 2> /dev/null|\
-	    sed 's@^\(.*Slackware-x64-\)\(.*\)\.iso$@\2 \1\2.iso@'
+	    sed 's@^\(.*Slackware-x64-\)\(.*\)\.iso$@name=\2 => \1\2.iso@'
 	read c
-	[ "$c" != '' ] && c="$REPISO/Slackware-x64-${res}.iso"
+	[ "$c" != '' ] && c="$REPISO/Slackware-x64-${c}.iso"
     fi
     if [ "$c" != '' ] ;then
 	IMGISO="$(cd $(dirname $c); pwd)/$(basename $c)";cd "$MYPWD"
@@ -108,13 +113,37 @@ if [ $ISASK -eq 1 ] ;then
     else
 	echo "$xtext"|sed 's@\\n@\n@g'
 	ls -1 "$REPISO/gparted-live-"*.iso 2> /dev/null|\
-	    sed 's@^\(.*gparted-live-\)\(.*\)\.iso$@\2 \1\2.iso@'
+	    sed 's@^\(.*gparted-live-\)\(.*\)\.iso$@name=\2 => \1\2.iso@'
 	read c
 	[ "$c" != '' ] && c="$REPISO/gparted-live-${c}.iso"
     fi
     if [ "$c" != '' ] ;then
 	GPARTISO="$(cd $(dirname $c); pwd)/$(basename $c)";cd "$MYPWD"
 	GPARTISO="-gpart $GPARTISO"
+    fi
+
+    xtext=$(mygt 'Give the name of a VirtualBox installer or nothing :')
+    if [ $ISDIAL -eq 1 ] ;then
+	XTEMPOUT=$(mktemp -p /tmp -t pbsetupout.XXXXXX)
+	xtit=$(mygt 'VirtualBox archive')
+	xnone=$(mygt 'no VirtualBox archive')
+	dialog --colors --backtitle 'pbmakeusb' --title "$xtit" --defaultno \
+	    --menu "$xtext" 15 80 5 none "$xnone" \
+	    $(ls -1 "$VBOXREP/VirtualBox-"*.exe 2> /dev/null|\
+	    sed 's@^\(.*VirtualBox-\)\([^-]*\)\(-.*\.exe\)@\2 \1\2\3@') \
+	    2> $XTEMPOUT
+	res=$(cat $XTEMPOUT)
+	c=;[ "$res" != 'none' -a "$res" != '' ] && c="$res"
+	rm -f $XTEMPOUT
+    else
+	echo "$xtext"|sed 's@\\n@\n@g'
+	ls -1 "$VBOXREP/VirtualBox-"*.exe 2> /dev/null|\
+	    sed 's@^\(.*VirtualBox-\)\([^-]*\)\(-.*\.exe\)@name=\2 => \1\2\3@'
+	read c
+    fi
+    if [ "$c" != '' ] ;then
+	VBOXVER="$(cd $(dirname $VBOXREP/$c); pwd)/$(basename $c)";cd "$MYPWD"
+	VBOXVER="-vbox $VBOXVER"
     fi
 fi
 
@@ -216,6 +245,9 @@ mygt "  -with a Slackware installation media" >> $XTEMPMES
 if [ "$GPARTISO" != '' ] ;then
     mygt "  -with a GParted Live media" >> $XTEMPMES
 fi
+if [ "$VBOXVER" != '' ] ;then
+    mygt "  -with a VirtualBox installer" >> $XTEMPMES
+fi
 
 if [ $ISDIAL -eq 1 ] ;then
     dialog --colors --backtitle 'pbmakeusb' --title "$DACTION" \
@@ -304,7 +336,7 @@ if [ "$c" = 'y' -a "$MYDEVNAME" != '' ] ;then
     if [ $XTEST -ne 1 ] ; then
 	cd usb-and-pxe-installers
 	"$MYPWD/pbslacks/pbimg2disk" $FORMAT -i "$(pwd)/usbboot.img" \
-	    -o "$MYDEVNAME" $OPTREPO $NOUDISKS2 $GPARTISO
+	    -o "$MYDEVNAME" $OPTREPO $NOUDISKS2 $GPARTISO $VBOXVER
     fi
 fi
 
