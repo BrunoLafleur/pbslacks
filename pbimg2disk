@@ -31,6 +31,7 @@
 # and to add -gpart option to have a dual boot on the USB stick with :
 #   -install slackware
 #   -gparted
+#   -virtualbox for MS Windows
 #########################################################################
 
 # Define some variables ahead of time, so that cleanup knows about them:
