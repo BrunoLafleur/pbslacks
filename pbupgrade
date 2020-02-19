@@ -211,11 +211,13 @@ ISRECREBUMBLE="$(cat $XTEMPOUT|grep '^recreatebumblebee$'|wc -l)"
 if [ $ISSYSTEM -eq 1 -o $ISSYSNET -eq 1 ] ;then
     if [ $XTEST -ne 1 ] ;then
 	cp pbslacks/Slackpkg/blacklist /etc/slackpkg
-	cp pbslacks/Slackpkg/slackpkg.conf /etc/slackpkg
         if [ $ISSYSTEM -eq 1 ] ;then
+	    cat pbslacks/Slackpkg/slackpkg.conf | sed "s@CHECKGPG=on@CHECKGPG=off@" \
+		    > /etc/slackpkg/slackpkg.conf
 	    cat pbslacks/Slackpkg/mirrors | sed "s@HOMESLACK@${HOMESLACK}@" \
 		    > /etc/slackpkg/mirrors
 	else
+	    cp pbslacks/Slackpkg/slackpkg.conf /etc/slackpkg
 	    cat pbslacks/Slackpkg/mirrors | \
 		    sed "s@^.*HOMESLACK.*\$@${SLACKMIR}@" > /etc/slackpkg/mirrors
 	fi
