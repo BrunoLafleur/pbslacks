@@ -98,7 +98,7 @@ xmakealienpac packages mlt
 unset PYTHON
 unset BUILD
 
-for i in OpenAL libtxc_dxtn libgaminggear python-pillow acpibrightness ;do
+for i in openal-soft libtxc_dxtn libgaminggear python-pillow acpibrightness ;do
     xmakepac packages $i
 done
 for i in roccat-tools kmplayer denemo guile2.2 ;do
@@ -112,13 +112,13 @@ for i in xrdp xorgxrdp SFML wxGTK3 vbam fbida kaffeine opencv ;do
 done
 
 export ARCH=i486
-for i in OpenAL libtxc_dxtn ;do
+for i in openal-soft libtxc_dxtn ;do
     xmakepac packages $i 32
 done
 unset ARCH
 
 cd packages/32
-for i in cabextract libdvdcss icoutils wxPython OpenAL libtxc_dxtn ;do
+for i in cabextract libdvdcss icoutils wxPython openal-soft libtxc_dxtn ;do
     if [ $RECOMP -eq 1 ] ;then
       convertpkg-compat32 -i "$i-"'*.t?z' -d ../compat32
       chown ${MYUSER}.$MYGROUP ../compat32/$i-compat32-*.t?z

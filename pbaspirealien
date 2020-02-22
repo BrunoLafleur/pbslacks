@@ -23,7 +23,8 @@ SLACKALIEN2="$SLACKMIR/people/alien-kde/current/latest/x86_64/deps"
 SLACKALIENSRC2="$SLACKMIR/people/alien-kde/source/latest/deps"
 
 cd packages
-for i in cabextract jack2 libxkbcommon mlt musescore openjdk qt5 qt5-speech wine ;do
+#for i in cabextract jack2 libxkbcommon mlt musescore openjdk qt5 wine ;do
+for i in cabextract jack2 mlt musescore openjdk wine ;do
     xgetpac "$i-" "$SLACKALIEN/$i/pkg64/current" 10
 done
 
@@ -69,7 +70,8 @@ cd packages4
 for i in chromium ;do
     xgetpac "$i-" "$SLACKALIEN/$i/pkg64/current" 10
 done
-for i in PyQt5 wayland-protocols ;do
+#for i in PyQt5 wayland-protocols ;do
+for i in PyQt5 ;do
     xgetpac "$i-" "$SLACKALIEN2" 10
 done
 [ ! -d audacity ] && mkdir audacity

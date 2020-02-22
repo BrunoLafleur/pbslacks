@@ -22,7 +22,7 @@ PATHPYTHONPIL="https://github.com/python-pillow/Pillow/archive/6.2.2.tar.gz"
 PATHGUILE22="https://ftp.gnu.org/gnu/guile/guile-2.2.6.tar.xz"
 PATHDENEMO="http://git.savannah.gnu.org/cgit/denemo.git/snapshot/denemo-master.tar.gz"
 PATHGRAMPS="https://github.com/gramps-project/gramps/archive/v5.1.1.zip"
-PATHOPENAL="https://www.openal-soft.org/openal-releases/openal-soft-1.20.0.tar.bz2"
+PATHOPENAL="https://www.openal-soft.org/openal-releases/openal-soft-1.20.1.tar.bz2"
 PATHLIBTXC_DXTN="https://people.freedesktop.org/~cbrill/libtxc_dxtn/libtxc_dxtn-1.0.1.tar.bz2"
 PATHLIBGAMINGGEAR="https://downloads.sourceforge.net/libgaminggear/libgaminggear-0.15.1.tar.bz2"
 PATHROCCATTOOLS="https://downloads.sourceforge.net/roccat/roccat-tools-5.9.0.tar.bz2"
@@ -49,7 +49,7 @@ SLACKDJ32="http://www.slackel.gr/repo/i486/current/slackel/extra"
 # Download new sources.
 
 cd packages
-xgetsrc OpenAL "$PATHOPENAL"
+xgetsrc openal-soft "$PATHOPENAL"
 xgetsrc libtxc_dxtn "$PATHLIBTXC_DXTN"
 xgetsrc libgaminggear "$PATHLIBGAMINGGEAR"
 xlocalsrcpac acpibrightness ""
