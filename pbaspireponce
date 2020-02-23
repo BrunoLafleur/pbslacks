@@ -4,9 +4,10 @@
 # Date : 2019
 # License : See the LICENSE file in this repository.
 
-. "$(dirname $0)/pbaspireinit"
-. "$(dirname $0)/pbinclude"
-. "$(dirname $0)/pbaspireinc"
+XDIR="$(dirname $0)"
+. "$XDIR/pbaspireinit"
+. "$XDIR/pbinclude"
+. "$XDIR/pbaspireinc"
 
 xhelp () {
     mygt 'Launch this script in the directory including packages, packages2 et al.'
