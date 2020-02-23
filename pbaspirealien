@@ -4,9 +4,10 @@
 # Date : 2019
 # License : See the LICENSE file in this repository.
 
-. "$(dirname $0)/pbaspireinit"
-. "$(dirname $0)/pbinclude"
-. "$(dirname $0)/pbaspireinc"
+XDIR="$(dirname $0)"
+. "$XDIR/pbaspireinit"
+. "$XDIR/pbinclude"
+. "$XDIR/pbaspireinc"
 
 xhelp () {
     mygt 'Launch this script in the directory including packages, packages2 et al.'
@@ -23,7 +24,6 @@ SLACKALIEN2="$SLACKMIR/people/alien-kde/current/latest/x86_64/deps"
 SLACKALIENSRC2="$SLACKMIR/people/alien-kde/source/latest/deps"
 
 cd packages
-#for i in cabextract jack2 libxkbcommon mlt musescore openjdk qt5 wine ;do
 for i in cabextract jack2 mlt musescore openjdk wine ;do
     xgetpac "$i-" "$SLACKALIEN/$i/pkg64/current" 10
 done
@@ -70,7 +70,6 @@ cd packages4
 for i in chromium ;do
     xgetpac "$i-" "$SLACKALIEN/$i/pkg64/current" 10
 done
-#for i in PyQt5 wayland-protocols ;do
 for i in PyQt5 ;do
     xgetpac "$i-" "$SLACKALIEN2" 10
 done
