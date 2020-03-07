@@ -301,7 +301,7 @@ DACTION=$(mygt 'Actions which were done')
 
 if [ $ISDIAL -eq 1 ] ;then
     dialog --colors --backtitle 'pbsetup' --title "$DACTION" \
-	--msgbox "$(cat $XTEMPMES)" 20 80
+	--msgbox "$(cat $XTEMPMES)" 20 90
 else
     nodialog "$DACTION" $XTEMPMES
 fi
