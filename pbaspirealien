@@ -27,6 +27,8 @@ cd packages
 for i in cabextract jack2 mlt musescore openjdk wine ;do
     xgetpac "$i-" "$SLACKALIEN/$i/pkg64/current" 10
 done
+rm -f libxkbcommon-*
+rm -f qt5-*
 
 # MLT pour openshot.
 i=mlt
