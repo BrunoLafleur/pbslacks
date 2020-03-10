@@ -238,6 +238,8 @@ if [ $ISSYSTEM -eq 1 -o $ISSYSNET -eq 1 ] ;then
 		upgradepkg slackware64/l/libxkbcommon-*.t?z
 	    [ $(ls /var/log/packages/qt5-[0-9]*-alien.*|wc -l) -eq 1 ] &&\
 	        upgradepkg slackware64/l/qt5-[0-9]*.t?z
+	    [ $(ls /var/log/packages/qt5-webkit-[0-9]*-alien.*|wc -l) -eq 1 ] &&\
+	        upgradepkg slackware64/l/qt5-webkit-[0-9]*.t?z
 	    mygt "Upgrade system done." >> $XTEMPMES
 	fi
 
