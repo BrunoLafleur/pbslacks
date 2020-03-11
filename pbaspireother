@@ -56,9 +56,10 @@ xgetsrc openal-soft "$PATHOPENAL"
 xgetsrc libtxc_dxtn "$PATHLIBTXC_DXTN"
 xgetsrc libgaminggear "$PATHLIBGAMINGGEAR"
 xlocalsrcpac acpibrightness ""
-# python-pillow : re-add python2.7 support for openshot.
-# Pillow 7 from current Slackware drop support. Don't use it.
-xgetsrc python-pillow "$PATHPYTHONPIL"
+# python-pillow6 : re-add python2.7 support for openshot.
+# Pillow 7 from current Slackware drop support of python2.
+xgetsrc python-pillow6 "$PATHPYTHONPIL"
+rm -f python-pillow-[0-9]*.t?z
 cd ..
 
 cd packages2

@@ -98,9 +98,10 @@ xmakealienpac packages mlt
 unset PYTHON
 unset BUILD
 
-for i in openal-soft libtxc_dxtn libgaminggear python-pillow acpibrightness ;do
+for i in openal-soft libtxc_dxtn libgaminggear python-pillow6 acpibrightness ;do
     xmakepac packages $i
 done
+rm -rf packages/python-pillow
 for i in roccat-tools kmplayer denemo guile2.2 ;do
     xmakepac packages2 $i
 done
