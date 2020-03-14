@@ -83,7 +83,7 @@ xmakepac () {
       fi
     fi
     if [ "$XSUB" = '' ] ;then
-      upgradepkg --reinstall $XDIR/${XPAC}-*.t?z
+      upgradepkg --install-new --reinstall $XDIR/${XPAC}-*.t?z
       rm -f /usr/lib64/lib*.la
     fi
 }
@@ -124,7 +124,7 @@ for i in cabextract libdvdcss icoutils wxPython openal-soft libtxc_dxtn ;do
       convertpkg-compat32 -i "$i-"'*.t?z' -d ../compat32
       chown ${MYUSER}.$MYGROUP ../compat32/$i-compat32-*.t?z
     fi
-    upgradepkg --reinstall ../compat32/$i-compat32-*.t?z
+    upgradepkg --install-new --reinstall ../compat32/$i-compat32-*.t?z
     rm -f /usr/lib/lib*.la
 done
 cd ../..
