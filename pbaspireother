@@ -43,6 +43,7 @@ PATHOPENCV="https://github.com/opencv/opencv/archive/4.1.1/opencv-4.1.1.tar.gz"
 PATHOPENCVBIS="https://github.com/opencv/opencv_contrib/archive/4.1.1/opencv_contrib-4.1.1.tar.gz"
 PATHGRADLE="https://services.gradle.org/distributions/gradle-6.2.2-all.zip"
 PATHAUDIVERIS="https://github.com/Audiveris/audiveris/archive/master.zip"
+PATHDISCORD="https://discordapp.com/api/download?platform=linux&format=tar.gz"
 
 # Binary packages.
 SLACKCF="http://slack.conraid.net/repository/slackware64-current"
@@ -68,6 +69,9 @@ xlocalsrcpac kmplayer "kmplayer_0.11.5b.tar.bz2"
 xgetsrc denemo "$PATHDENEMO"
 # Guile 2.2 supprime en janvier. Utile a denemo.
 xgetsrc guile2.2 "$PATHGUILE22"
+# Discord just being put here. No packages done for now.
+wget -N -nv --content-disposition "$PATHDISCORD"
+xpurgepac discord tar.gz
 cd ..
 
 cd packages3
