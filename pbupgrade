@@ -6,16 +6,6 @@
 
 . "$(dirname $0)/pbinclude"
 
-# Upgrade with the main stream package.
-xupmainpac () {
-    pac="$1"
-    suf="$2"
-    repo="$3"
-    grp="$4"
-    [ $(ls /var/log/packages/${pac}*-$repo.$suf|wc -l) -eq 1 ] &&\
-	upgradepkg slackware64/$grp/${pac}*.$suf
-}
-
 xhelp () {
     mygt 'Launch this script in the directory including alreadey cloned slackware64 or slackware64-current.\nIt can be on the bootable slackware install USB stick.\npbslacks should also be there.'|sed 's@\\n@\n@g'
     echo
@@ -57,6 +47,16 @@ done
 SLACKMIR='http://nephtys.lip6.fr/pub/linux/distributions/slackware/slackware64-current/'
 XTEMPOUT=$(mktemp -p /tmp -t pbupgradeout.XXXXXX)
 XTEMPMES=$(mktemp -p /tmp -t pbupgrademes.XXXXXX)
+
+# Upgrade with the main stream package.
+xupmainpac () {
+    pac="$1"
+    suf="$2"
+    repo="$3"
+    grp="$4"
+    [ $(ls /var/log/packages/${pac}*-$repo.$suf|wc -l) -eq 1 ] &&\
+	upgradepkg slackware64/$grp/${pac}*.$suf
+}
 
 cleanup () {
     rm -f $XTEMPOUT
