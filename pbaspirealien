@@ -24,7 +24,7 @@ SLACKALIEN2="$SLACKMIR/people/alien-kde/current/latest/x86_64/deps"
 SLACKALIENSRC2="$SLACKMIR/people/alien-kde/source/latest/deps"
 
 cd packages
-for i in cabextract jack2 mlt musescore openjdk wine ;do
+for i in cabextract jack2 musescore openjdk wine ;do
     xgetpac "$i-" "$SLACKALIEN/$i/pkg64/current" 10
 done
 rm -f libxkbcommon-*
