@@ -55,7 +55,7 @@ xupmainpac () {
     repo="$3"
     grp="$4"
     [ $(ls /var/log/packages/${pac}*-$repo.$suf|wc -l) -eq 1 ] &&\
-	upgradepkg slackware64/$grp/${pac}*.$suf
+	upgradepkg slackware64/$grp/${pac}*$suf
 }
 
 cleanup () {
