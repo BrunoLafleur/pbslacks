@@ -99,7 +99,7 @@ cd ..
 # Download new versions of binary packages.
 
 cd packages
-for i in gimp-script-fu x265 ;do
+for i in gimp-script-fu x265 skypeforlinux-bin ;do
     xgetpac "$i-" "$SLACKCF/$i" 3
 done
 for i in frei0r-plugins libvdpau-va-gl openshot ;do
