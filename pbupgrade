@@ -54,7 +54,8 @@ xupmainpac () {
     suf="$2"
     repo="$3"
     grp="$4"
-    [ $(ls /var/log/packages/${pac}*-$repo.$suf|wc -l) -eq 1 ] &&\
+    dir="$5"
+    [ $(ls /var/log/$dir/${pac}*-$repo.$suf|wc -l) -eq 1 ] &&\
 	upgradepkg slackware64/$grp/${pac}*$suf
 }
 
@@ -244,10 +245,10 @@ if [ $ISSYSTEM -eq 1 -o $ISSYSNET -eq 1 ] ;then
 	    mygt "Upgrade system not done." >> $XTEMPMES
 	    XEND=1
 	else
-            xupmainpac "libxkbcommon-" t?z alien l
-            xupmainpac "qt5-[0-9]" t?z alien l
-            xupmainpac "qt5-webkit-[0-9]" t?z alien l
-            xupmainpac "PyQt5-[0-9]" t?z alien l
+            xupmainpac "libxkbcommon-" t?z alien l packages
+            xupmainpac "qt5-[0-9]" t?z alien l packages
+            xupmainpac "qt5-webkit-[0-9]" t?z alien l packages
+            xupmainpac "PyQt5-[0-9]" t?z alien l packages4
 	    mygt "Upgrade system done." >> $XTEMPMES
 	fi
 
@@ -280,6 +281,7 @@ if [ $XEND -eq 0 ] ;then
 	if [ $XTEST -ne 1 ] ;then
 	    upgradepkg --install-new packages2/*.t?z
 	    upgradepkg --install-new --reinstall packages2/*master*.t?z
+            cp packages2/youtube.lua /usr/lib64/vlc/lua/playlist
 	fi
 	mygt "Upgrade packages2 done." >> $XTEMPMES
     fi
