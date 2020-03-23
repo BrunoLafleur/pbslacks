@@ -247,6 +247,7 @@ if [ $ISSYSTEM -eq 1 -o $ISSYSNET -eq 1 ] ;then
             xupmainpac "libxkbcommon-" t?z alien l
             xupmainpac "qt5-[0-9]" t?z alien l
             xupmainpac "qt5-webkit-[0-9]" t?z alien l
+            xupmainpac "PyQt5-[0-9]" t?z alien l
 	    mygt "Upgrade system done." >> $XTEMPMES
 	fi
 
