@@ -108,7 +108,7 @@ done
 for i in bsddb3 db53 pyicu gramps ;do
     xmakepac packages3 $i
 done
-for i in xrdp xorgxrdp SFML wxGTK3 vbam fbida kaffeine opencv ;do
+for i in xrdp xorgxrdp SFML wxGTK3 vbam fbida kaffeine opencv gradle signal-desktop ;do
     xmakepac packages4 $i
 done
 
