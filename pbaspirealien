@@ -72,9 +72,7 @@ cd packages4
 for i in chromium ;do
     xgetpac "$i-" "$SLACKALIEN/$i/pkg64/current" 10
 done
-for i in PyQt5 ;do
-    xgetpac "$i-" "$SLACKALIEN2" 10
-done
+rm -f PyQt5-*
 [ ! -d audacity ] && mkdir audacity
 cd audacity
 for i in audacity lilv lv2 serd sord sratom suil vamp-plugin-sdk ;do
