@@ -282,6 +282,7 @@ if [ $XEND -eq 0 ] ;then
 	    upgradepkg --install-new packages2/*.t?z
 	    upgradepkg --install-new --reinstall packages2/*master*.t?z
             cp packages2/youtube.lua /usr/lib64/vlc/lua/playlist
+            rm -f /usr/lib64/vlc/lua/playlist/youtube.luac
 	fi
 	mygt "Upgrade packages2 done." >> $XTEMPMES
     fi
