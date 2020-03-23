@@ -158,7 +158,7 @@ if [ $ISGPARTED -eq 1 ] ;then
 	fi
 	cd Linuxiso
 	if [ ! -f "$LGPARTEDISO" ] ;then
-	    wget -N -nv --content-disposition "$GPARTEDISO"
+	    xgeturl "$GPARTEDISO"
 	    echo '------------------------------------'
 	    if [ -f "$LGPARTEDISO" ] ;then
 		mygt "GParted copied."
@@ -183,9 +183,9 @@ if [ $ISVBOX -eq 1 ] ;then
 	fi
 	cd Virtualbox
 	if [ ! -f "$LVBOXARCH" ] ;then
-	    wget -N -nv --content-disposition "$VBOXARCH"
-	    wget -N -nv --content-disposition "$VBOXEXT"
-	    wget -N -nv --content-disposition "$VBOXDOC"
+	    xgeturl "$VBOXARCH"
+	    xgeturl "$VBOXEXT"
+	    xgeturl "$VBOXDOC"
 	    mv $(basename "$VBOXDOC") VirtualBoxUserManual.pdf
 	    echo '------------------------------------'
 	    if [ -f "$LVBOXARCH" ] ;then

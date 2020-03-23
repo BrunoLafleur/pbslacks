@@ -80,3 +80,9 @@ xgetsbosrc () {
     wget -N -nv --content-disposition "$path"
     cd ..
 }
+
+# Get static url.
+xgeturl () {
+    path="$1"
+    wget -N -nv --content-disposition "$path"
+}

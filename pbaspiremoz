@@ -37,8 +37,8 @@ XTHUNDERBIRD="https://download.mozilla.org/?product=thunderbird-latest-SSL&os=li
 
 [ ! -d packages/Mozilla ] && mkdir packages/Mozilla
 cd packages/Mozilla
-wget -N -nv --content-disposition "$XFIREFOX"
+xgeturl "$XFIREFOX"
 xpurgepac 'firefox-' tar.bz2
 
-wget -N -nv --content-disposition "$XTHUNDERBIRD"
+xgeturl "$XTHUNDERBIRD"
 xpurgepac 'thunderbird-' tar.bz2
