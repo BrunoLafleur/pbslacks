@@ -295,13 +295,14 @@ if [ $ISDIAL -eq 1 ] ;then
     xyes=$(mygt 'yes')
     xyesnof=$(mygt 'yes and no format')
     xyesnofp=$(mygt 'yes and no format and no packages copy')
+    xyesnop=$(mygt 'yes and no packages copy')
     mygt "\Z1Look at your USB stick device below. It will be autodetected later.\Zn" \
 	> $XTEMPMES
     /sbin/fdisk -l 2> /dev/null >> $XTEMPMES
     dialog --colors --backtitle 'pbmakeusb' --title "$xtit" --defaultno --clear \
 	--msgbox "$(cat $XTEMPMES)" 20 80 --and-widget --colors --title "$xtit" \
-	--defaultno --menu "$xtext" 15 80 5 n "$xno" y "$xyes" a "$xyesnof" \
-	b "$xyesnofp" 2> $XTEMPOUT
+	--defaultno --menu "$xtext" 15 80 6 n "$xno" y "$xyes" a "$xyesnof" \
+	b "$xyesnofp" c "$xyesnop" 2> $XTEMPOUT
     c=$(cat $XTEMPOUT)
     rm -f $XTEMPOUT
 else
@@ -310,7 +311,7 @@ else
     echo "$xtit" |sed 's@\\n@\n@g'
     echo '------------------------------------'
     echo "$xtext" |sed 's@\\n@\n@g'
-    mygt 'y(es), n(o), a (yes and noformat), b (yes and no format and no packages copy) :'
+    mygt 'y(es), n(o), a (yes and noformat), b (yes and no format and no packages copy), c (yes and no packages copy) :'
     read c
 fi
 
@@ -320,6 +321,10 @@ if [ "$c" = 'a' ] ;then
 elif [ "$c" = 'b' ] ;then
     c=y
     FORMAT=
+    FULLINSTALLER=0
+elif [ "$c" = 'c' ] ;then
+    c=y
+    FORMAT=-f
     FULLINSTALLER=0
 else
     FORMAT=-f
@@ -337,6 +342,11 @@ if [ "$c" = 'y' -a "$MYDEVNAME" != '' ] ;then
 	cd usb-and-pxe-installers
 	"$MYPWD/pbslacks/pbimg2disk" $FORMAT -i "$(pwd)/usbboot.img" \
 	    -o "$MYDEVNAME" $OPTREPO $NOUDISKS2 $GPARTISO $VBOXVER
+
+	if [ $? -eq 1 ] ;then
+	    cleanup
+	    exit 1
+	fi
     fi
 fi
 
