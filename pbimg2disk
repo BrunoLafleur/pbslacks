@@ -518,6 +518,7 @@ echo "--- Making the USB drive '$TARGET' bootable..."
 ( makebootable $TARGET ) 1>>$LOGFILE 2>&1
 /usr/bin/syslinux $TARGETPART 1>>$LOGFILE 2>&1
 dd if=$MBRBIN of=$TARGET 1>>$LOGFILE 2>&1
+sync
 
 echo "--- Done."
 

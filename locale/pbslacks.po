@@ -408,7 +408,7 @@ msgstr ""
 msgid "yes and no format and no packages copy"
 msgstr ""
 
-#: pbmakeusb:298
+#: pbmakeusb:298 pbmakeusb:299
 msgid ""
 "\\Z1Look at your USB stick device below. It will be autodetected later.\\Zn"
 msgstr ""
@@ -873,4 +873,14 @@ msgstr ""
 #: pbmakeiso2usb:46
 #, sh-format
 msgid "Your device name is $MYDEVNAME. Is this correct ? y(es) or n(o) :"
+msgstr ""
+
+#: pbmakeusb:298
+msgid "yes and no packages copy"
+msgstr ""
+
+#: pbmakeusb:314
+msgid ""
+"y(es), n(o), a (yes and noformat), b (yes and no format and no packages "
+"copy), c (yes and no packages copy) :"
 msgstr ""

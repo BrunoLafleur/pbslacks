@@ -11,10 +11,10 @@ msgstr ""
 "PO-Revision-Date: 2020-01-21 14:39+0100\n"
 "Last-Translator: Pierre Brochard <pierre.brochard.1982@m4x.org>\n"
 "Language-Team: French <traduc@traduc.org>\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: pbaspire:10
@@ -441,7 +441,7 @@ msgstr "oui et pas de formattage"
 msgid "yes and no format and no packages copy"
 msgstr "oui et pas de formattage et pas de copie de paquets"
 
-#: pbmakeusb:298
+#: pbmakeusb:298 pbmakeusb:299
 msgid ""
 "\\Z1Look at your USB stick device below. It will be autodetected later.\\Zn"
 msgstr ""
@@ -990,5 +990,17 @@ msgstr ""
 #, sh-format
 msgid "Your device name is $MYDEVNAME. Is this correct ? y(es) or n(o) :"
 msgstr ""
-"Le nom de votre périphérique est $MYDEVNAME. Est-ce exact ? y(oui) ou n"
-"(non) :"
+"Le nom de votre périphérique est $MYDEVNAME. Est-ce exact ? y(oui) ou "
+"n(non) :"
+
+#: pbmakeusb:298
+msgid "yes and no packages copy"
+msgstr "oui et pas de copie de paquets"
+
+#: pbmakeusb:314
+msgid ""
+"y(es), n(o), a (yes and noformat), b (yes and no format and no packages "
+"copy), c (yes and no packages copy) :"
+msgstr ""
+"y(oui), n(non), a(oui et pas de formattage), b(oui et pas de formattage et "
+"pas de copie de paquets), c (oui et pas de copie de paquets) :"
