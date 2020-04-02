@@ -46,6 +46,14 @@ done
 mygt 'Only after a system update and reboot.\nIf already done on this or another machine, this script is not useful.\nPress a touch for continue or abort.'|sed 's@\\n@\n@g'
 read c
 
+xpurgetmp () {
+    pac="$1"
+    rm -f "/tmp/${pac}-"*.t?z
+    rm -rf "/tmp/${pac}-"*
+    rm -rf "/tmp/package-$pac"
+    rm -rf "/tmp/*/package-$pac"
+}
+
 xmakealienpac () {
     XDIR="$1"
     pac="$2"
@@ -53,7 +61,9 @@ xmakealienpac () {
 	cd "${XDIR}/$pac"
 	sh "./${pac}.SlackBuild"
 	cp "/tmp/${pac}-"*.t?z ..
+	xpurgetmp $pac
 	cd ../..
+        upgradepkg --install-new --reinstall $XDIR/${XPAC}-*.t?z
     fi
 }
 
@@ -77,7 +87,7 @@ xmakepac () {
       fi
       cd ../..
       chown ${MYUSER}.$MYGROUP $XDIR/${XPAC}-*.t?z
-      rm -f /tmp/${XPAC}-*.t?z
+      xpurgetmp $XPAC
       if [ "$XSUB" != '' ] ;then
         mv $XDIR/${XPAC}-*i486*.t?z $XDIR/$XSUB
       fi
