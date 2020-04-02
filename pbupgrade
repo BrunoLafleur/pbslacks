@@ -54,8 +54,7 @@ xupmainpac () {
     suf="$2"
     repo="$3"
     grp="$4"
-    dir="$5"
-    [ $(ls /var/log/$dir/${pac}*-$repo.$suf|wc -l) -eq 1 ] &&\
+    [ $(ls /var/log/packages/${pac}*-$repo|wc -l) -eq 1 ] &&\
 	upgradepkg slackware64/$grp/${pac}*$suf
 }
 
@@ -245,10 +244,10 @@ if [ $ISSYSTEM -eq 1 -o $ISSYSNET -eq 1 ] ;then
 	    mygt "Upgrade system not done." >> $XTEMPMES
 	    XEND=1
 	else
-            xupmainpac "libxkbcommon-" t?z alien l packages
-            xupmainpac "qt5-[0-9]" t?z alien l packages
-            xupmainpac "qt5-webkit-[0-9]" t?z alien l packages
-            xupmainpac "PyQt5-[0-9]" t?z alien l packages4
+            xupmainpac "libxkbcommon-" t?z alien l
+            xupmainpac "qt5-[0-9]" t?z alien l
+            xupmainpac "qt5-webkit-[0-9]" t?z alien l
+            xupmainpac "PyQt5-[0-9]" t?z alien l
 	    mygt "Upgrade system done." >> $XTEMPMES
 	fi
 
