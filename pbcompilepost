@@ -63,7 +63,7 @@ xmakealienpac () {
 	cp "/tmp/${pac}-"*.t?z ..
 	xpurgetmp $pac
 	cd ../..
-        upgradepkg --install-new --reinstall $XDIR/${XPAC}-*.t?z
+        upgradepkg --install-new --reinstall $XDIR/${pac}-*.t?z
     fi
 }
 
