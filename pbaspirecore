@@ -47,9 +47,9 @@ SLACKMIR='http://nephtys.lip6.fr/pub/linux/distributions/slackware'
 SLACKMULTI="$SLACKMIR/people/alien/multilib/current"
 SLACKKDEFW="$SLACKMIR/people/alien-kde/current/latest/x86_64/kde/frameworks"
 GPARTEDISO="https://downloads.sourceforge.net/gparted/gparted-live-1.1.0-1-amd64.iso"
-VBOXREP='https://download.virtualbox.org/virtualbox/6.1.2/'
-VBOXARCH="$VBOXREP/VirtualBox-6.1.2-135663-Win.exe"
-VBOXEXT="$VBOXREP/Oracle_VM_VirtualBox_Extension_Pack-6.1.2.vbox-extpack"
+VBOXREP='https://download.virtualbox.org/virtualbox/6.1.4/'
+VBOXARCH="$VBOXREP/VirtualBox-6.1.4-136177-Win.exe"
+VBOXEXT="$VBOXREP/Oracle_VM_VirtualBox_Extension_Pack-6.1.4.vbox-extpack"
 VBOXDOC="$VBOXREP/UserManual.pdf"
 
 # Function for getting packages.
