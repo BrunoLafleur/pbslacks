@@ -63,7 +63,7 @@ msgstr ""
 msgid "Get/Update latest Firefox and Thunderbird"
 msgstr ""
 
-#: pbaspire:60 pbsetup:112 pbupgrade:114 pbupgrade:124
+#: pbaspire:60 pbsetup:112 pbupgrade:124
 msgid "Main menu"
 msgstr ""
 
@@ -164,58 +164,57 @@ msgstr ""
 msgid "Get/Upgrade Firefox and Thunderbird done : \\Z3${PBNAME}mozilla\\Zn."
 msgstr ""
 
-#: pbaspire:237 pbsetup:296 pbupgrade:322 pbupgrade:341
+#: pbaspire:237 pbsetup:296 pbupgrade:341
 msgid "No action was demanded. Exit."
 msgstr ""
 
-#: pbaspire:240 pbsetup:300 pbupgrade:79 pbupgrade:89
+#: pbaspire:240 pbsetup:300 pbupgrade:89
 msgid "Actions which were done"
 msgstr ""
 
-#: pbaspirealien:12 pbaspiremoz:12 pbaspireother:12 pbaspireponce:12
-#: pbaspireslonly:12 pbcompilepost:17 pbaspirealien:13 pbaspiremoz:13
-#: pbaspireother:13 pbaspireponce:13 pbaspireslonly:13
+#: pbaspirealien:13 pbaspiremoz:13 pbaspireother:13 pbaspireponce:13
+#: pbaspireslonly:13 pbcompilepost:17
 msgid ""
 "Launch this script in the directory including packages, packages2 et al."
 msgstr ""
 
-#: pbaspirecore:89 pbaspirecore:90
+#: pbaspirecore:90
 msgid "Slackware current copied."
 msgstr ""
 
-#: pbaspirecore:91 pbaspirecore:92
+#: pbaspirecore:92
 msgid "Slackware current not copied."
 msgstr ""
 
-#: pbaspirecore:115 pbaspirecore:116
+#: pbaspirecore:116
 msgid "Slackware multilib copied."
 msgstr ""
 
-#: pbaspirecore:117 pbaspirecore:118
+#: pbaspirecore:118
 msgid "Slackware multilib not copied."
 msgstr ""
 
-#: pbaspirecore:142 pbaspirecore:143
+#: pbaspirecore:143
 msgid "Alien Bob KDE5 frameworks copied."
 msgstr ""
 
-#: pbaspirecore:144 pbaspirecore:145
+#: pbaspirecore:145
 msgid "Alien Bob KDE5 frameworks not copied."
 msgstr ""
 
-#: pbaspirecore:163 pbaspirecore:164
+#: pbaspirecore:164
 msgid "GParted copied."
 msgstr ""
 
-#: pbaspirecore:165 pbaspirecore:171 pbaspirecore:166 pbaspirecore:172
+#: pbaspirecore:166 pbaspirecore:172
 msgid "GParted not copied."
 msgstr ""
 
-#: pbaspirecore:191 pbaspirecore:192
+#: pbaspirecore:192
 msgid "VirtualBox copied."
 msgstr ""
 
-#: pbaspirecore:193 pbaspirecore:199 pbaspirecore:194 pbaspirecore:200
+#: pbaspirecore:194 pbaspirecore:200
 msgid "VirtualBox not copied."
 msgstr ""
 
@@ -255,8 +254,8 @@ msgid ""
 "use the packages already generated with upgradebumblebee."
 msgstr ""
 
-#: pbcompilepost:12 pbmakeusb:157 pbstophib:27 pbupgrade:83
-#: pbupgradebumblebee:10 pbupgrademoz:10 pbupgrade:93
+#: pbcompilepost:12 pbmakeusb:157 pbstophib:27 pbupgrade:93
+#: pbupgradebumblebee:10 pbupgrademoz:10
 msgid "This script must be done as root. Exit."
 msgstr ""
 
@@ -266,11 +265,11 @@ msgid ""
 "machine, this script is not useful.\\nPress a touch for continue or abort."
 msgstr ""
 
-#: pbcompilepost:73 pbcompilepost:83
+#: pbcompilepost:83
 msgid "Correct this error and relaunch this script."
 msgstr ""
 
-#: pbcompilepost:131 pbcompilepost:142
+#: pbcompilepost:142
 msgid "Upgrade packages* done."
 msgstr ""
 
@@ -409,15 +408,19 @@ msgstr ""
 msgid "yes and no format and no packages copy"
 msgstr ""
 
-#: pbmakeusb:298 pbmakeusb:299
+#: pbmakeusb:298
+msgid "yes and no packages copy"
+msgstr ""
+
+#: pbmakeusb:299
 msgid ""
 "\\Z1Look at your USB stick device below. It will be autodetected later.\\Zn"
 msgstr ""
 
-#: pbmakeusb:313
+#: pbmakeusb:314
 msgid ""
 "y(es), n(o), a (yes and noformat), b (yes and no format and no packages "
-"copy) :"
+"copy), c (yes and no packages copy) :"
 msgstr ""
 
 #: pbmount:12
@@ -586,182 +589,182 @@ msgid ""
 "\\npbslacks should also be there."
 msgstr ""
 
-#: pbupgrade:59 pbupgrade:69
+#: pbupgrade:69
 msgid ""
 "Do the install of the Slackware Linux distribution before :\\n-see the doc/"
 "SLACKWARE.txt file."
 msgstr ""
 
-#: pbupgrade:67 pbupgrade:77
+#: pbupgrade:77
 msgid "slackware64 or pbslacks not found."
 msgstr ""
 
-#: pbupgrade:119 pbupgrade:129
+#: pbupgrade:129
 msgid ""
 "Choose your actions below after you have launch the \\Zbpbaspire*\\ZB script"
 msgstr ""
 
-#: pbupgrade:120 pbupgrade:130
+#: pbupgrade:130
 msgid "Sync/Update system to the last fetched current Slackware"
 msgstr ""
 
-#: pbupgrade:121 pbupgrade:131
+#: pbupgrade:131
 msgid "Sync/Update system to the last current Slackware on the internet"
 msgstr ""
 
-#: pbupgrade:122 pbupgrade:132
+#: pbupgrade:132
 msgid "Install/Update the 32 bits compatible mode"
 msgstr ""
 
-#: pbupgrade:123 pbupgrade:133
+#: pbupgrade:133
 msgid "Install/Update the Firefox and Thunderbird softwares"
 msgstr ""
 
-#: pbupgrade:124 pbupgrade:134
+#: pbupgrade:134
 msgid "Install/Update the packages set of software"
 msgstr ""
 
-#: pbupgrade:125 pbupgrade:135
+#: pbupgrade:135
 msgid "Install/Update the packages2 set of software"
 msgstr ""
 
-#: pbupgrade:126 pbupgrade:136
+#: pbupgrade:136
 msgid "Install/Update the packages3 set of software"
 msgstr ""
 
-#: pbupgrade:127 pbupgrade:137
+#: pbupgrade:137
 msgid "Install/Update the packages4 set of software"
 msgstr ""
 
-#: pbupgrade:128 pbupgrade:138
+#: pbupgrade:138
 msgid "Install/Update the KDE5 frameworks libraries"
 msgstr ""
 
-#: pbupgrade:129 pbupgrade:139
+#: pbupgrade:139
 msgid "Install/Update the Audacity software"
 msgstr ""
 
-#: pbupgrade:130 pbupgrade:140
+#: pbupgrade:140
 msgid "Install/Update the Tesseract version 4 software"
 msgstr ""
 
-#: pbupgrade:131 pbupgrade:141
+#: pbupgrade:141
 msgid "Install/Update the Bumblebee support of your second NVIDIA graphic card"
 msgstr ""
 
-#: pbupgrade:132 pbupgrade:142
+#: pbupgrade:142
 msgid "Compile again some packages."
 msgstr ""
 
-#: pbupgrade:133 pbupgrade:143
+#: pbupgrade:143
 msgid "Compile again Bumblebee packages."
 msgstr ""
 
-#: pbupgrade:168 pbupgrade:178
+#: pbupgrade:178
 msgid ""
 "Upgrade your Slackware system with the last current fetched.\\nUses Slackpkg."
 msgstr ""
 
-#: pbupgrade:170 pbupgrade:180
+#: pbupgrade:180
 msgid ""
 "Upgrade your Slackware system with the last current on the internet.\\nUses "
 "Slackpkg."
 msgstr ""
 
-#: pbupgrade:172 pbupgrade:182
+#: pbupgrade:182
 msgid "Upgrade the Alien Bob 32 bits compatible mode."
 msgstr ""
 
-#: pbupgrade:174 pbupgrade:184
+#: pbupgrade:184
 msgid ""
 "Upgrade the Firefox and Thunderbird products.\\nThey should be downloaded "
 "and put in the packages/Mozilla directory before."
 msgstr ""
 
-#: pbupgrade:184 pbupgrade:194
+#: pbupgrade:194
 msgid ""
 "Upgrade your Bumblebee packages if they are in sync with the upgraded "
 "Slackware.\\nDone on another machine for exemple."
 msgstr ""
 
-#: pbupgrade:186 pbupgrade:196
+#: pbupgrade:196
 msgid ""
 "Redo the packages which are here in sources form.\\nIf not already done on "
 "this machine or another."
 msgstr ""
 
-#: pbupgrade:188 pbupgrade:198
+#: pbupgrade:198
 msgid ""
 "Redo the Bumblebee packages.\\nIf not already done on this machine or "
 "another.\\nYou should reboot after upgrading system packages and before "
 "doing this action else the Bumblebee packages wont built."
 msgstr ""
 
-#: pbupgrade:231 pbupgrade:243
+#: pbupgrade:243
 msgid "Abort : see previous errors."
 msgstr ""
 
-#: pbupgrade:232 pbupgrade:244
+#: pbupgrade:244
 msgid "Upgrade system not done."
 msgstr ""
 
-#: pbupgrade:235 pbupgrade:238 pbupgrade:251 pbupgrade:255
+#: pbupgrade:251 pbupgrade:255
 msgid "Upgrade system done."
 msgstr ""
 
-#: pbupgrade:247 pbupgrade:264
+#: pbupgrade:264
 msgid "Upgrade Alien Bob multilib done."
 msgstr ""
 
-#: pbupgrade:253 pbupgrade:270
+#: pbupgrade:270
 msgid "Upgrade Mozilla done."
 msgstr ""
 
-#: pbupgrade:260 pbupgrade:277
+#: pbupgrade:277
 msgid "Upgrade packages done."
 msgstr ""
 
-#: pbupgrade:267 pbupgrade:286
+#: pbupgrade:286
 msgid "Upgrade packages2 done."
 msgstr ""
 
-#: pbupgrade:273 pbupgrade:292
+#: pbupgrade:292
 msgid "Upgrade packages3 done."
 msgstr ""
 
-#: pbupgrade:279 pbupgrade:298
+#: pbupgrade:298
 msgid "Upgrade packages4 done."
 msgstr ""
 
-#: pbupgrade:286 pbupgrade:305
+#: pbupgrade:305
 msgid "Upgrade frameworks done."
 msgstr ""
 
-#: pbupgrade:292 pbupgrade:311
+#: pbupgrade:311
 msgid "Upgrade audacity done."
 msgstr ""
 
-#: pbupgrade:299 pbupgrade:318
+#: pbupgrade:318
 msgid "Upgrade tesseract4 done."
 msgstr ""
 
-#: pbupgrade:305 pbupgrade:324
+#: pbupgrade:324
 msgid "Upgrade Bumblebee done."
 msgstr ""
 
-#: pbupgrade:311 pbupgrade:330
+#: pbupgrade:330
 msgid "Recreate source packages done."
 msgstr ""
 
-#: pbupgrade:317 pbupgrade:336
+#: pbupgrade:336
 msgid "Recreate source Bumblebee done."
 msgstr ""
 
-#: pbupgrade:347 pbupgrade:366
+#: pbupgrade:366
 msgid "Bootloader menu"
 msgstr ""
 
-#: pbupgrade:348 pbupgrade:367
+#: pbupgrade:367
 msgid ""
 "We have detected the bootloader below. Cancel if it is not true.\\nIn this "
 "last case, you should recreate the config of your bootloader before reboot. "
@@ -769,11 +772,11 @@ msgid ""
 "rerun the install of your bootloader."
 msgstr ""
 
-#: pbupgrade:349 pbupgrade:368
+#: pbupgrade:368
 msgid "No bootloader detected. Reconfigure your bootloader before reboot."
 msgstr ""
 
-#: pbupgrade:361 pbupgrade:380
+#: pbupgrade:380
 msgid ""
 "\\ZbThe boot loader was not updated.\\ZB\\nIf lilo is installed, launch : "
 "\\Z3/sbin/lilo\\Zn\\nIf Grub is installed, launch : \\Z3grub-mkconfig -o /"
@@ -783,35 +786,35 @@ msgid ""
 "other favorite bootloader install procedure before rebooting.\\ZB"
 msgstr ""
 
-#: pbupgrade:365 pbupgrade:384
+#: pbupgrade:384
 msgid ""
 "Elilo updated : Files vmlinuz et initrd.gz copied in \\Z3/boot/efi/EFI/"
 "Slackware\\Zn"
 msgstr ""
 
-#: pbupgrade:370 pbupgrade:389
+#: pbupgrade:389
 msgid ""
 "Grub updated : \\Z3grub-mkconfig\\Zn relaunched.\\n\\Z1Look if there are "
 "error messages below\\Zn."
 msgstr ""
 
-#: pbupgrade:375 pbupgrade:394
+#: pbupgrade:394
 msgid ""
 "Lilo updated with \\Z3/sbin/lilo\\Zn.\\n\\Z1Look if there are error messages "
 "below\\Zn."
 msgstr ""
 
-#: pbupgrade:380 pbupgrade:399
+#: pbupgrade:399
 msgid ""
 "Look at \\Z3/syslinux.cfg\\Zn and rerun \\Z3syslinux\\Zn on your boot "
 "partition if some path have changed."
 msgstr ""
 
-#: pbupgrade:394 pbupgrade:413
+#: pbupgrade:413
 msgid " (\\Z1be sure to have updated the bootloader before\\Zn)"
 msgstr ""
 
-#: pbupgrade:400 pbupgrade:419
+#: pbupgrade:419
 #, sh-format
 msgid ""
 "Reboot the host${XBOOTMES}.\\n\\n\\ZbThen do if not already done on an "
@@ -874,14 +877,4 @@ msgstr ""
 #: pbmakeiso2usb:46
 #, sh-format
 msgid "Your device name is $MYDEVNAME. Is this correct ? y(es) or n(o) :"
-msgstr ""
-
-#: pbmakeusb:298
-msgid "yes and no packages copy"
-msgstr ""
-
-#: pbmakeusb:314
-msgid ""
-"y(es), n(o), a (yes and noformat), b (yes and no format and no packages "
-"copy), c (yes and no packages copy) :"
 msgstr ""
