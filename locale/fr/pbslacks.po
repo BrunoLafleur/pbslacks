@@ -111,7 +111,7 @@ msgstr "Obtenir ou mettre à jour des paquets binaires de Ponce"
 
 #: pbaspire:159
 msgid "Get or update some Slackonly binary packages."
-msgstr "Obtenir ou mettre à jour des paquets bnaires de Slackonly"
+msgstr "Obtenir ou mettre à jour des paquets inaires de Slackonly"
 
 #: pbaspire:161
 msgid "Get or update some other source or binary packages."
