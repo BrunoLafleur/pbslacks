@@ -112,16 +112,8 @@ for i in openal-soft libtxc_dxtn libgaminggear python-pillow6 acpibrightness ;do
     xmakepac packages $i
 done
 rm -rf packages/python-pillow
-for i in roccat-tools kmplayer denemo guile2.2 ;do
-    xmakepac packages2 $i
-done
-for i in bsddb3 db53 pyicu gramps ;do
-    xmakepac packages3 $i
-done
-for i in xrdp xorgxrdp SFML wxGTK3 vbam fbida kaffeine opencv gradle signal-desktop audiveris ;do
-    xmakepac packages4 $i
-done
 
+# 32 bits packages
 export ARCH=i486
 for i in openal-soft libtxc_dxtn ;do
     xmakepac packages $i 32
@@ -138,5 +130,16 @@ for i in cabextract libdvdcss icoutils wxPython openal-soft libtxc_dxtn ;do
     rm -f /usr/lib/lib*.la
 done
 cd ../..
+
+# More 64 bits packages
+for i in roccat-tools kmplayer denemo guile2.2 ;do
+    xmakepac packages2 $i
+done
+for i in bsddb3 db53 pyicu gramps ;do
+    xmakepac packages3 $i
+done
+for i in xrdp xorgxrdp SFML wxGTK3 vbam fbida kaffeine opencv gradle signal-desktop audiveris ;do
+    xmakepac packages4 $i
+done
 
 mygt "Upgrade packages* done."
