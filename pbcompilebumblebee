@@ -68,7 +68,7 @@ nvidia-kernel ;do
     xpurgepac "${i}-" t?z
 done
 chown ${MYUSER}.$MYGROUP *.t?z
-rm -f /tmp/bbsb
+rm -rf /tmp/bbsb
 
 # Not sufficient. Should rmmod nouveau driver.
 [ -x /etc/rc.d/rc.bumblebee ] && /etc/rc.d/rc.bumbleebee restart
