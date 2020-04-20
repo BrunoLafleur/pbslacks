@@ -122,7 +122,7 @@ cd ..
 xpurgeindex packages2
 
 cd packages4
-for i in exiftool ;do
+for i in exiftool unrar ;do
     xgetpac "$i-" "$SLACKCF/$i" 3
 done
 for i in xcftools ;do
