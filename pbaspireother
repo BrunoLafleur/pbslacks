@@ -90,7 +90,7 @@ xgetsrc vbam "$PATHVBAM"
 xgetsrc fbida "$PATHFBIDA"
 xgetsrc opencv "$PATHOPENCV"
 xgetsrc opencv "$PATHOPENCVBIS"
-for i in kaffeine gradle audiveris signal-desktop ;do
+for i in kaffeine gradle audiveris signal-desktop vokoscreen ;do
     xgetsbosrc "$i"
 done
 cd ..
