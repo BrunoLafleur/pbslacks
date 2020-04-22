@@ -43,3 +43,12 @@ for i in office/evince libraries/libsmf multimedia/lsdvd graphics/fontforge grap
 done
 cd ..
 xpurgeindex packages2
+
+############################################
+cd packages4
+for i in network/telegram ;do
+    PROJ=$(echo $i|cut -d '/' -f2)
+    xgetpac "$PROJ-" "$SLACKSLONLY/$i" 5
+done
+cd ..
+xpurgeindex packages4
