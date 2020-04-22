@@ -21,6 +21,7 @@ fi
 SLACKPONCE="http://ponce.cc/slackware/slackware64-current/packages"
 SLACKPONCE32="http://ponce.cc/slackware/slackware-current/packages"
 
+############################################
 cd packages
 for i in ladspa_sdk swfdec x264 libdvdcss vid.stab ;do
     xgetpac "$i-" "$SLACKPONCE" 3
@@ -32,6 +33,7 @@ done
 cd ../..
 xpurgeindex packages
 
+############################################
 cd packages2
 for i in gtksourceview3 ;do
     xgetpac "$i-" "$SLACKPONCE" 3
@@ -39,6 +41,7 @@ done
 cd ..
 xpurgeindex packages2
 
+############################################
 cd packages3
 for i in graphviz ;do
     xgetpac "$i-" "$SLACKPONCE" 3
@@ -46,10 +49,12 @@ done
 cd ..
 xpurgeindex packages3
 
+############################################
 cd packages4
-for i in hdf5 numpy ;do
+for i in hdf5 numpy gst-plugins-bad ;do
     xgetpac "$i-" "$SLACKPONCE" 3
 done
+
 [ ! -d audacity ] && mkdir audacity
 cd audacity
 for i in celt051 ;do

@@ -21,6 +21,7 @@ fi
 SLACKSLONLY="https://slackonly.com/pub/packages/current-x86_64"
 SLACKSLONLY32="https://slackonly.com/pub/packages/current-x86"
 
+############################################
 cd packages
 for i in graphics/goocanvas development/portaudio system/refind development/icoutils audio/portmidi libraries/wxPython libraries/libpng-legacy12 python/pygoocanvas ;do
     PROJ=$(echo $i|cut -d '/' -f2)
@@ -34,6 +35,7 @@ done
 cd ../..
 xpurgeindex packages
 
+############################################
 cd packages2
 for i in office/evince libraries/libsmf multimedia/lsdvd graphics/fontforge graphics/lilypond system/t1utils ;do
     PROJ=$(echo $i|cut -d '/' -f2)

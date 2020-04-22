@@ -59,49 +59,49 @@ msgstr ""
 msgid "Get/Update some other source or binary packages"
 msgstr ""
 
-#: pbaspire:54
+#: pbaspire:54 pbaspire:55
 msgid "Get/Update latest Firefox and Thunderbird"
 msgstr ""
 
-#: pbaspire:60 pbsetup:112 pbupgrade:124
+#: pbaspire:60 pbsetup:112 pbupgrade:124 pbaspire:62
 msgid "Main menu"
 msgstr ""
 
-#: pbaspire:61 pbsetup:113
+#: pbaspire:61 pbsetup:113 pbaspire:63
 msgid "Choose your actions below"
 msgstr ""
 
-#: pbaspire:145
+#: pbaspire:145 pbaspire:152
 msgid "Get or update the officiel lastest current Slackware."
 msgstr ""
 
-#: pbaspire:147
+#: pbaspire:147 pbaspire:154
 msgid ""
 "Get or update the multilib of Alien Bob which is a 32 bits compatibility set "
 "of packages."
 msgstr ""
 
-#: pbaspire:149
+#: pbaspire:149 pbaspire:156
 msgid "Get or update the frameworks libraries of Kde5 offered by Alien Bob."
 msgstr ""
 
-#: pbaspire:151
+#: pbaspire:151 pbaspire:158
 msgid "Get or update the GParted live ISO."
 msgstr ""
 
-#: pbaspire:153
+#: pbaspire:153 pbaspire:160
 msgid "Get or update the VirtualBox installer and extensions."
 msgstr ""
 
-#: pbaspire:155
+#: pbaspire:155 pbaspire:162
 msgid "Get or update some Alien Bob binary packages."
 msgstr ""
 
-#: pbaspire:157
+#: pbaspire:157 pbaspire:164
 msgid "Get or update some Ponce binary packages."
 msgstr ""
 
-#: pbaspire:159
+#: pbaspire:159 pbaspire:166
 msgid "Get or update some Slackonly binary packages."
 msgstr ""
 
@@ -109,46 +109,46 @@ msgstr ""
 msgid "Get or update some other source or binary packages."
 msgstr ""
 
-#: pbaspire:163
+#: pbaspire:163 pbaspire:172
 msgid "Get or update Firefox and Thunderbird."
 msgstr ""
 
-#: pbaspire:199
+#: pbaspire:199 pbaspire:209
 #, sh-format
 msgid "Get/Upgrade core system done : \\Z3${PBNAME}core\\Zn."
 msgstr ""
 
-#: pbaspire:200
+#: pbaspire:200 pbaspire:210
 #, sh-format
 msgid "Get/Upgrade multilib compat 32 bits mode done : \\Z3${PBNAME}core\\Zn."
 msgstr ""
 
-#: pbaspire:202
+#: pbaspire:202 pbaspire:212
 #, sh-format
 msgid "Get/Upgrade framewoks libraries KDE5 done : \\Z3${PBNAME}core\\Zn."
 msgstr ""
 
-#: pbaspire:204
+#: pbaspire:204 pbaspire:214
 #, sh-format
 msgid "Get/Upgrade gparted live iso done : \\Z3${PBNAME}core\\Zn."
 msgstr ""
 
-#: pbaspire:206
+#: pbaspire:206 pbaspire:216
 #, sh-format
 msgid "Get/Upgrade VirtualBox installer done : \\Z3${PBNAME}core\\Zn."
 msgstr ""
 
-#: pbaspire:211
+#: pbaspire:211 pbaspire:221
 #, sh-format
 msgid "Get/Upgrade Alien Bob packages done : \\Z3${PBNAME}alien\\Zn."
 msgstr ""
 
-#: pbaspire:216
+#: pbaspire:216 pbaspire:226
 #, sh-format
 msgid "Get/Upgrade Ponce packages done : \\Z3${PBNAME}ponce\\Zn."
 msgstr ""
 
-#: pbaspire:220
+#: pbaspire:220 pbaspire:230
 #, sh-format
 msgid "Get/Upgrade Slackonly packages done : \\Z3${PBNAME}slonly\\Zn."
 msgstr ""
@@ -159,21 +159,21 @@ msgid ""
 "Get/Upgrade other source or binary packages done : \\Z3${PBNAME}other\\Zn."
 msgstr ""
 
-#: pbaspire:230
+#: pbaspire:230 pbaspire:245
 #, sh-format
 msgid "Get/Upgrade Firefox and Thunderbird done : \\Z3${PBNAME}mozilla\\Zn."
 msgstr ""
 
-#: pbaspire:237 pbsetup:296 pbupgrade:341
+#: pbaspire:237 pbsetup:296 pbupgrade:341 pbaspire:252
 msgid "No action was demanded. Exit."
 msgstr ""
 
-#: pbaspire:240 pbsetup:300 pbupgrade:89
+#: pbaspire:240 pbsetup:300 pbupgrade:89 pbaspire:255
 msgid "Actions which were done"
 msgstr ""
 
 #: pbaspirealien:13 pbaspiremoz:13 pbaspireother:13 pbaspireponce:13
-#: pbaspireslonly:13 pbcompilepost:17
+#: pbaspireslonly:13 pbcompilepost:17 pbaspiresources:13
 msgid ""
 "Launch this script in the directory including packages, packages2 et al."
 msgstr ""
@@ -269,7 +269,7 @@ msgstr ""
 msgid "Correct this error and relaunch this script."
 msgstr ""
 
-#: pbcompilepost:142
+#: pbcompilepost:142 pbcompilepost:145
 msgid "Upgrade packages* done."
 msgstr ""
 
@@ -877,4 +877,32 @@ msgstr ""
 #: pbmakeiso2usb:46
 #, sh-format
 msgid "Your device name is $MYDEVNAME. Is this correct ? y(es) or n(o) :"
+msgstr ""
+
+#: pbaspire:53
+msgid "Get/Update some Conraid or Slackel binary packages"
+msgstr ""
+
+#: pbaspire:54
+msgid "Get/Update some other source packages"
+msgstr ""
+
+#: pbaspire:168
+msgid "Get or update some Conraid and Slackel binary packages."
+msgstr ""
+
+#: pbaspire:170
+msgid "Get or update some other source packages."
+msgstr ""
+
+#: pbaspire:235
+#, sh-format
+msgid ""
+"Get/Upgrade Conraid and Slackel binary packages done : \\Z3${PBNAME}other"
+"\\Zn."
+msgstr ""
+
+#: pbaspire:240
+#, sh-format
+msgid "Get/Upgrade other source packages done : \\Z3${PBNAME}sources\\Zn."
 msgstr ""

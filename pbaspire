@@ -50,19 +50,21 @@ VBOX=$(mygt 'Get/Update VirtualBox installer')
 ALIEN=$(mygt 'Get/Update some Alien Bob binary packages')
 PONCE=$(mygt 'Get/Update some Ponce binary packages')
 SLONLY=$(mygt 'Get/Update some Slackonly binary packages')
-OTHER=$(mygt 'Get/Update some other source or binary packages')
+OTHER=$(mygt 'Get/Update some Conraid or Slackel binary packages')
+SOURCES=$(mygt 'Get/Update some other source packages')
 MOZILLA=$(mygt 'Get/Update latest Firefox and Thunderbird')
 
 xmaster () {
     defitem=$1;shift
     xsel1=$1;shift;xsel2=$1;shift;xsel3=$1;shift;xsel4=$1;shift;xsel5=$1;shift
-    xsel6=$1;shift;xsel7=$1;shift;xsel8=$1;shift;xsel9=$1;shift;xsel10=$1
+    xsel6=$1;shift;xsel7=$1;shift;xsel8=$1;shift;xsel9=$1;shift;xsel10=$1;shift
+    xsel11=$1
     pactit=$(mygt 'Main menu');pactit="pbaspire: $pactit"
     pactxt=$(mygt 'Choose your actions below')
     if [ $ISDIAL -eq 1 ] ;then
 	dialog --colors --backtitle 'pbaspire' --title "$pactit" \
 	    --default-item $defitem --defaultno --separate-output --item-help \
-	    --help-button --help-status --checklist "$pactxt" 0 100 10 \
+	    --help-button --help-status --checklist "$pactxt" 0 100 11 \
 	    core "$CORE" $xsel1 core \
 	    multi "$MULTI" $xsel2 multi \
 	    framew "$FRAMEW" $xsel3 framew \
@@ -72,7 +74,8 @@ xmaster () {
 	    ponce "$PONCE" $xsel7 ponce \
 	    slonly "$SLONLY" $xsel8 slonly \
 	    other "$OTHER" $xsel9 other \
-	    mozilla "$MOZILLA" $xsel10 mozilla
+	    sources "$SOURCES" $xsel10 sources \
+	    mozilla "$MOZILLA" $xsel11 mozilla
     else
 	echo '------------------------------------'
 	echo "        $pactit"
@@ -97,6 +100,8 @@ xmaster () {
 	    if [ "$c" = "y" ] ;then echo "HELP slonly" 1>&2;return;fi
 	    echo "HELP other (y or n) :";read c
 	    if [ "$c" = "y" ] ;then echo "HELP other" 1>&2;return;fi
+	    echo "HELP sources (y or n) :";read c
+	    if [ "$c" = "y" ] ;then echo "HELP sources" 1>&2;return;fi
 	    echo "HELP mozilla (y or n) :";read c
 	    if [ "$c" = "y" ] ;then echo "HELP mozilla" 1>&2;return;fi
 	fi
@@ -118,12 +123,14 @@ xmaster () {
 	[ "$c" = "y" ] && echo "slonly" 1>&2
 	echo "$OTHER (y or n) :";read c
 	[ "$c" = "y" ] && echo "other" 1>&2
+	echo "$SOURCES (y or n) :";read c
+	[ "$c" = "y" ] && echo "sources" 1>&2
 	echo "$MOZILLA (y or n) :";read c
 	[ "$c" = "y" ] && echo "mozilla" 1>&2
     fi
 }
 
-xsel="on on on on on on on on on on on"
+xsel="on on on on on on on on on on on on"
 ditem=core
 bclaide=1
 
@@ -133,7 +140,7 @@ while [ $bclaide -eq 1 ] ;do
     if [ $bclaide -eq 1 ] ;then
 	xitem="$(cat $XTEMPOUT|grep '^HELP'|cut -d ' ' -f2)"
 	xsel=
-	for i in core multi framew gparted vbox alien ponce slonly other mozilla ;do
+	for i in core multi framew gparted vbox alien ponce slonly other sources mozilla ;do
 	  if [ $(grep "^$i$" "$XTEMPOUT"|wc -l) -eq 1 ] ;then
 	      xsel="$xsel on"
 	  else
@@ -158,7 +165,9 @@ while [ $bclaide -eq 1 ] ;do
 	elif [ "$xitem" = slonly ] ;then
 	    pacaide=$(mygt 'Get or update some Slackonly binary packages.')
 	elif [ "$xitem" = other ] ;then
-	    pacaide=$(mygt 'Get or update some other source or binary packages.')
+	    pacaide=$(mygt 'Get or update some Conraid and Slackel binary packages.')
+	elif [ "$xitem" = sources ] ;then
+	    pacaide=$(mygt 'Get or update some other source packages.')
 	elif [ "$xitem" = mozilla ] ;then
 	    pacaide=$(mygt 'Get or update Firefox and Thunderbird.')
 	fi
@@ -183,6 +192,7 @@ ISALIEN="$(cat $XTEMPOUT|grep '^alien$'|wc -l)"
 ISPONCE="$(cat $XTEMPOUT|grep '^ponce$'|wc -l)"
 ISSLONLY="$(cat $XTEMPOUT|grep '^slonly$'|wc -l)"
 ISOTHER="$(cat $XTEMPOUT|grep '^other$'|wc -l)"
+ISSOURCES="$(cat $XTEMPOUT|grep '^sources$'|wc -l)"
 ISMOZ="$(cat $XTEMPOUT|grep '^mozilla$'|wc -l)"
 
 COREATTR=
@@ -222,7 +232,12 @@ if [ $ISSLONLY -eq 1 ] ;then
 fi
 if [ $ISOTHER -eq 1 ] ;then
     [ $XTEST -ne 1 ] && "$PBNAME"other
-    emygt "Get/Upgrade other source or binary packages done : \Z3\${PBNAME}other\Zn." \
+    emygt "Get/Upgrade Conraid and Slackel binary packages done : \Z3\${PBNAME}other\Zn." \
+	>> $XTEMPMES
+fi
+if [ $ISSOURCES -eq 1 ] ;then
+    [ $XTEST -ne 1 ] && "$PBNAME"sources
+    emygt "Get/Upgrade other source packages done : \Z3\${PBNAME}sources\Zn." \
 	>> $XTEMPMES
 fi
 if [ $ISMOZ -eq 1 ] ;then
