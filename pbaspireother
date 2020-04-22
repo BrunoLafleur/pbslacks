@@ -55,7 +55,7 @@ xpurgeindex packages2
 
 ############################################
 cd packages4
-for i in exiftool unrar ;do
+for i in exiftool unrar telegram-bin ;do
     xgetpac "$i-" "$SLACKCF/$i" 3
 done
 for i in xcftools ;do
