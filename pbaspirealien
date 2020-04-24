@@ -24,63 +24,71 @@ SLACKALIEN2="$SLACKMIR/people/alien-kde/current/latest/x86_64/deps"
 SLACKALIENSRC2="$SLACKMIR/people/alien-kde/source/latest/deps"
 
 ############################################
-cd packages
-for i in cabextract jack2 musescore openjdk wine ;do
-    xgetpac "$i-" "$SLACKALIEN/$i/pkg64/current" 10
-done
-rm -f libxkbcommon-*
-rm -f qt5-*
+(
+    cd packages
+    for i in cabextract jack2 musescore openjdk wine ;do
+	xgetpac "$i-" "$SLACKALIEN/$i/pkg64/current" 10
+    done
+    rm -f libxkbcommon-*
+    rm -f qt5-*
 
-# MLT pour openshot.
-i=mlt
-xgetpac "$i-" "$SLACKALIEN2" 10
-# Binding python et pas python3 pour openshot.
-# Et le mlt.SlackBuild importe dans python et pas python3 (PYTHONSITEPKG).
-export PYTHON=python
-export BUILD=3alien
-xgetsrcpac "$i" "$SLACKALIENSRC2/$i/" 9
-unset PYTHON
-unset BUILD
+    # MLT pour openshot.
+    i=mlt
+    xgetpac "$i-" "$SLACKALIEN2" 10
+    # Binding python et pas python3 pour openshot.
+    # Et le mlt.SlackBuild importe dans python et pas python3 (PYTHONSITEPKG).
+    export PYTHON=python
+    export BUILD=3alien
+    xgetsrcpac "$i" "$SLACKALIENSRC2/$i/" 9
+    unset PYTHON
+    unset BUILD
 
-for i in steamclient ;do
-    xgetpac "$i-" "$SLACKALIEN/$i/pkg/current" 10
-done
-for i in libreoffice libreoffice-dict-fr libreoffice-l10n-fr libreoffice-sdkdoc ;do
-    xgetpac "$i-"'[0-9]' "$SLACKALIEN/libreoffice/pkg64/current" 10
-done
-cd 32
-for i in cabextract ;do
-    xgetpac "$i-" "$SLACKALIEN/$i/pkg/current" 10
-done
-cd ../..
+    for i in steamclient ;do
+	xgetpac "$i-" "$SLACKALIEN/$i/pkg/current" 10
+    done
+    for i in libreoffice libreoffice-dict-fr libreoffice-l10n-fr libreoffice-sdkdoc ;do
+	xgetpac "$i-"'[0-9]' "$SLACKALIEN/libreoffice/pkg64/current" 10
+    done
+    (
+	cd 32
+	for i in cabextract ;do
+	    xgetpac "$i-" "$SLACKALIEN/$i/pkg/current" 10
+	done
+    )
+)
 xpurgeindex packages
 
 ############################################
-cd packages2
-for i in SDL_sound aubio rubberband vlc ;do
-    xgetpac "$i-" "$SLACKALIEN/$i/pkg64/current" 10
-done
-cd ..
+(
+    cd packages2
+    for i in SDL_sound aubio rubberband vlc ;do
+	xgetpac "$i-" "$SLACKALIEN/$i/pkg64/current" 10
+    done
+)
 xpurgeindex packages2
 
 ############################################
-cd packages3
-for i in calibre ;do
-    xgetpac "$i-" "$SLACKALIEN/$i/pkg64/current" 10
-done
-cd ..
+(
+    cd packages3
+    for i in calibre ;do
+	xgetpac "$i-" "$SLACKALIEN/$i/pkg64/current" 10
+    done
+)
 xpurgeindex packages3
 
 ############################################
-cd packages4
-for i in chromium ;do
-    xgetpac "$i-" "$SLACKALIEN/$i/pkg64/current" 10
-done
-rm -f PyQt5-*
-[ ! -d audacity ] && mkdir audacity
-cd audacity
-for i in audacity lilv lv2 serd sord sratom suil vamp-plugin-sdk ;do
-    xgetpac "$i-" "$SLACKALIEN/$i/pkg64/current" 10
-done
-cd ../..
+(
+    cd packages4
+    for i in chromium ;do
+	xgetpac "$i-" "$SLACKALIEN/$i/pkg64/current" 10
+    done
+    rm -f PyQt5-*
+    [ ! -d audacity ] && mkdir audacity
+    (
+	cd audacity
+	for i in audacity lilv lv2 serd sord sratom suil vamp-plugin-sdk ;do
+	    xgetpac "$i-" "$SLACKALIEN/$i/pkg64/current" 10
+	done
+    )
+)
 xpurgeindex packages4

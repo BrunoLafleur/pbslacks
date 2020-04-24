@@ -58,11 +58,12 @@ xmakealienpac () {
     XDIR="$1"
     pac="$2"
     if [ $RECOMP -eq 1 -a -d "${XDIR}/$pac" ] ;then
-	cd "${XDIR}/$pac"
-	sh "./${pac}.SlackBuild"
-	cp "/tmp/${pac}-"*.t?z ..
-	xpurgetmp $pac
-	cd ../..
+	(
+	    cd "${XDIR}/$pac"
+	    sh "./${pac}.SlackBuild"
+	    cp "/tmp/${pac}-"*.t?z ..
+	    xpurgetmp $pac
+	)
         upgradepkg --install-new --reinstall $XDIR/${pac}-*.t?z
     fi
 }
@@ -73,28 +74,31 @@ xmakepac () {
     XSUB="$3"
 
     if [ $RECOMP -eq 1 ] ;then
-      cd ${XDIR}/$XPAC
-      tar xvfz ${XPAC}.t*gz
-      if [ -d "$XPAC" ] ;then
-	  cd $XPAC
-	  ./${XPAC}.SlackBuild
-	  cp /tmp/${XPAC}-*.t?z ../..
-	  if [ $? -ne 0 ] ;then
-	      mygt 'Correct this error and relaunch this script.'
-	      exit 1
-	  fi
-	  cd ..;rm -rf $XPAC
-      fi
-      cd ../..
-      chown ${MYUSER}.$MYGROUP $XDIR/${XPAC}-*.t?z
-      xpurgetmp $XPAC
-      if [ "$XSUB" != '' ] ;then
-        mv $XDIR/${XPAC}-*i486*.t?z $XDIR/$XSUB
-      fi
+	(
+	    cd ${XDIR}/$XPAC
+	    tar xvfz ${XPAC}.t*gz
+	    if [ -d "$XPAC" ] ;then
+		(
+		    cd $XPAC
+		    ./${XPAC}.SlackBuild
+		    cp /tmp/${XPAC}-*.t?z ../..
+		    if [ $? -ne 0 ] ;then
+			mygt 'Correct this error and relaunch this script.'
+			exit 1
+		    fi
+		)
+		rm -rf $XPAC
+	    fi
+	)
+	chown ${MYUSER}.$MYGROUP $XDIR/${XPAC}-*.t?z
+	xpurgetmp $XPAC
+	if [ "$XSUB" != '' ] ;then
+            mv $XDIR/${XPAC}-*i486*.t?z $XDIR/$XSUB
+	fi
     fi
     if [ "$XSUB" = '' ] ;then
-      upgradepkg --install-new --reinstall $XDIR/${XPAC}-*.t?z
-      rm -f /usr/lib64/lib*.la
+	upgradepkg --install-new --reinstall $XDIR/${XPAC}-*.t?z
+	rm -f /usr/lib64/lib*.la
     fi
 }
 
@@ -120,16 +124,17 @@ for i in openal-soft libtxc_dxtn ;do
 done
 unset ARCH
 
-cd packages/32
-for i in cabextract libdvdcss icoutils wxPython openal-soft libtxc_dxtn ;do
-    if [ $RECOMP -eq 1 ] ;then
-      convertpkg-compat32 -i "$i-"'*.t?z' -d ../compat32
-      chown ${MYUSER}.$MYGROUP ../compat32/$i-compat32-*.t?z
-    fi
-    upgradepkg --install-new --reinstall ../compat32/$i-compat32-*.t?z
-    rm -f /usr/lib/lib*.la
-done
-cd ../..
+(
+    cd packages/32
+    for i in cabextract libdvdcss icoutils wxPython openal-soft libtxc_dxtn ;do
+	if [ $RECOMP -eq 1 ] ;then
+	    convertpkg-compat32 -i "$i-"'*.t?z' -d ../compat32
+	    chown ${MYUSER}.$MYGROUP ../compat32/$i-compat32-*.t?z
+	fi
+	upgradepkg --install-new --reinstall ../compat32/$i-compat32-*.t?z
+	rm -f /usr/lib/lib*.la
+    done
+)
 
 # More 64 bits packages
 for i in roccat-tools kmplayer denemo guile2.2 ;do

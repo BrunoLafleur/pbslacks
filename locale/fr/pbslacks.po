@@ -192,24 +192,27 @@ msgstr ""
 #: pbaspire:252
 #, sh-format
 msgid "Get/Upgrade other source packages done : \\Z3${PBNAME}sources\\Zn."
-msgstr "Autres paquets sources obtenus ou mis à jour : \\Z3${PBNAME}other\\Zn."
-
-#: pbaspire:257
-#, sh-format
-msgid "Get/Upgrade Firefox and Thunderbird done : \\Z3${PBNAME}mozilla\\Zn."
 msgstr ""
-"Obtention ou mise à jour de Firefox et Thunderbird faite : \\Z3${PBNAME}"
-"mozilla\\Zn."
+"Autres paquets sources obtenus ou mis à jour : \\Z3${PBNAME}sources\\Zn."
 
-#: pbaspire:261
+#: pbaspire:258
+#, sh-format
+msgid ""
+"Get/Upgrade Firefox and Thunderbird for $XLANG language done : \\Z3${PBNAME}"
+"mozilla\\Zn."
+msgstr ""
+"Obtention ou mise à jour de Firefox et Thunderbird pour le langage $XLANG "
+"faite : \\Z3${PBNAME}mozilla\\Zn."
+
+#: pbaspire:262
 msgid "GPG signatures checked :"
 msgstr "Signatures GPG vérifiées :"
 
-#: pbaspire:269 pbsetup:296 pbupgrade:341
+#: pbaspire:271 pbsetup:296 pbupgrade:341
 msgid "No action was demanded. Exit."
 msgstr "Aucune action demandée. Sortie."
 
-#: pbaspire:272 pbsetup:300 pbupgrade:89
+#: pbaspire:274 pbsetup:300 pbupgrade:89
 msgid "Actions which were done"
 msgstr "Actions réalisées"
 
@@ -220,47 +223,47 @@ msgid ""
 msgstr ""
 "Script à lancer dans le répertoire contenant packages, packages2 et al."
 
-#: pbaspirecore:101
+#: pbaspirecore:104
 msgid "Slackware current copied."
 msgstr "Copie Slackware current faite."
 
-#: pbaspirecore:103
+#: pbaspirecore:106
 msgid "Slackware current not copied."
 msgstr "Copie Slackware current non faite."
 
-#: pbaspirecore:127
+#: pbaspirecore:131
 msgid "Slackware multilib copied."
 msgstr "Copie Slackware multilib faite."
 
-#: pbaspirecore:129
+#: pbaspirecore:133
 msgid "Slackware multilib not copied."
 msgstr "Copie Slackware multilib non faite."
 
-#: pbaspirecore:154
+#: pbaspirecore:160
 msgid "Alien Bob KDE5 frameworks copied."
 msgstr "Copie alien KDE5 frameworks faite."
 
-#: pbaspirecore:156
+#: pbaspirecore:162
 msgid "Alien Bob KDE5 frameworks not copied."
 msgstr "Copie alien KDE5 frameworks non faite."
 
-#: pbaspirecore:166
+#: pbaspirecore:188
 msgid "Check GPG signatures :"
 msgstr "Vérification des signatures GPG :"
 
-#: pbaspirecore:184
+#: pbaspirecore:211
 msgid "GParted copied."
 msgstr "Copie GParted faite."
 
-#: pbaspirecore:186 pbaspirecore:192
+#: pbaspirecore:213 pbaspirecore:219
 msgid "GParted not copied."
 msgstr "Copie GParted non faite."
 
-#: pbaspirecore:212
+#: pbaspirecore:240
 msgid "VirtualBox copied."
 msgstr "Copie VirtualBox faite."
 
-#: pbaspirecore:214 pbaspirecore:220
+#: pbaspirecore:242 pbaspirecore:248
 msgid "VirtualBox not copied."
 msgstr "Copie VirtualBox non faite."
 
