@@ -18,7 +18,7 @@ if [ ! -d packages ] ;then
     exit 1
 fi
 
-XLANG=$(echo $LANG|cut -d '_' -f1)
+XLANG=$(echo $LANG|cut -d '.' -f1|cut -d '_' -f1)
 
 while [ $# -ge 1 ] ;do
     MYARG="$1"
@@ -36,9 +36,11 @@ XFIREFOX="https://download.mozilla.org/?product=firefox-esr-latest-ssl&os=linux6
 XTHUNDERBIRD="https://download.mozilla.org/?product=thunderbird-latest-SSL&os=linux64&lang=$XLANG"
 
 [ ! -d packages/Mozilla ] && mkdir packages/Mozilla
-cd packages/Mozilla
-xgeturl "$XFIREFOX"
-xpurgepac 'firefox-' tar.bz2
+(
+    cd packages/Mozilla
+    xgeturl "$XFIREFOX"
+    xpurgepac 'firefox-' tar.bz2
 
-xgeturl "$XTHUNDERBIRD"
-xpurgepac 'thunderbird-' tar.bz2
+    xgeturl "$XTHUNDERBIRD"
+    xpurgepac 'thunderbird-' tar.bz2
+)

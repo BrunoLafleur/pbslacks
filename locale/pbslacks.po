@@ -181,20 +181,22 @@ msgstr ""
 msgid "Get/Upgrade other source packages done : \\Z3${PBNAME}sources\\Zn."
 msgstr ""
 
-#: pbaspire:257
+#: pbaspire:258
 #, sh-format
-msgid "Get/Upgrade Firefox and Thunderbird done : \\Z3${PBNAME}mozilla\\Zn."
+msgid ""
+"Get/Upgrade Firefox and Thunderbird for $XLANG language done : \\Z3${PBNAME}"
+"mozilla\\Zn."
 msgstr ""
 
-#: pbaspire:261
+#: pbaspire:262
 msgid "GPG signatures checked :"
 msgstr ""
 
-#: pbaspire:269 pbsetup:296 pbupgrade:341
+#: pbaspire:271 pbsetup:296 pbupgrade:341
 msgid "No action was demanded. Exit."
 msgstr ""
 
-#: pbaspire:272 pbsetup:300 pbupgrade:89
+#: pbaspire:274 pbsetup:300 pbupgrade:89
 msgid "Actions which were done"
 msgstr ""
 
@@ -204,47 +206,47 @@ msgid ""
 "Launch this script in the directory including packages, packages2 et al."
 msgstr ""
 
-#: pbaspirecore:101
+#: pbaspirecore:104
 msgid "Slackware current copied."
 msgstr ""
 
-#: pbaspirecore:103
+#: pbaspirecore:106
 msgid "Slackware current not copied."
 msgstr ""
 
-#: pbaspirecore:127
+#: pbaspirecore:131
 msgid "Slackware multilib copied."
 msgstr ""
 
-#: pbaspirecore:129
+#: pbaspirecore:133
 msgid "Slackware multilib not copied."
 msgstr ""
 
-#: pbaspirecore:154
+#: pbaspirecore:160
 msgid "Alien Bob KDE5 frameworks copied."
 msgstr ""
 
-#: pbaspirecore:156
+#: pbaspirecore:162
 msgid "Alien Bob KDE5 frameworks not copied."
 msgstr ""
 
-#: pbaspirecore:166
+#: pbaspirecore:188
 msgid "Check GPG signatures :"
 msgstr ""
 
-#: pbaspirecore:184
+#: pbaspirecore:211
 msgid "GParted copied."
 msgstr ""
 
-#: pbaspirecore:186 pbaspirecore:192
+#: pbaspirecore:213 pbaspirecore:219
 msgid "GParted not copied."
 msgstr ""
 
-#: pbaspirecore:212
+#: pbaspirecore:240
 msgid "VirtualBox copied."
 msgstr ""
 
-#: pbaspirecore:214 pbaspirecore:220
+#: pbaspirecore:242 pbaspirecore:248
 msgid "VirtualBox not copied."
 msgstr ""
 
