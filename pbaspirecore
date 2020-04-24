@@ -17,12 +17,14 @@ if [ $# -eq 0 ] ;then
     ISFRAMEW=1
     ISGPARTED=1
     ISVBOX=1
+    ISCHECK=1
 else
     ISCORE=0
     ISMULTI=0
     ISFRAMEW=0
     ISGPARTED=0
     ISVBOX=0
+    ISCHECK=0
 fi
 
 while [ $# -ge 1 ] ;do
@@ -37,6 +39,9 @@ while [ $# -ge 1 ] ;do
 	ISGPARTED=1
     elif [ "$MYARG" = "-vbox" ] ;then
 	ISVBOX=1
+    elif [ "$MYARG" = "-check" ] ;then
+	ISCHECK=1
+	XTEMPCHK="$2"
     fi
     shift
 done
@@ -44,12 +49,13 @@ done
 MYPWD=$(pwd)
 export HOMESLACK="$MYPWD"
 SLACKMIR='http://nephtys.lip6.fr/pub/linux/distributions/slackware'
+SLACKKEYS='https://mirrors.slackware.com/slackware'
 SLACKMULTI="$SLACKMIR/people/alien/multilib/current"
 SLACKKDEFW="$SLACKMIR/people/alien-kde/current/latest/x86_64/kde/frameworks"
 GPARTEDISO="https://downloads.sourceforge.net/gparted/gparted-live-1.1.0-1-amd64.iso"
-VBOXREP='https://download.virtualbox.org/virtualbox/6.1.4/'
-VBOXARCH="$VBOXREP/VirtualBox-6.1.4-136177-Win.exe"
-VBOXEXT="$VBOXREP/Oracle_VM_VirtualBox_Extension_Pack-6.1.4.vbox-extpack"
+VBOXREP='https://download.virtualbox.org/virtualbox/6.1.6/'
+VBOXARCH="$VBOXREP/VirtualBox-6.1.6-137129-Win.exe"
+VBOXEXT="$VBOXREP/Oracle_VM_VirtualBox_Extension_Pack-6.1.6.vbox-extpack"
 VBOXDOC="$VBOXREP/UserManual.pdf"
 
 # Function for getting packages.
@@ -57,7 +63,9 @@ myrget () {
     prof=$1
     gpath="$2"
     pack="$3"
-    wget -N -nv -np -nH --cut-dirs=$prof -r "$gpath/"
+    accept="$4"
+    [ -n "$accept" ] && accept="-A $accept"
+    wget -N -nv -np -nH --cut-dirs=$prof -r "$gpath/" $accept
     [ -d "$pack" ] && find "$pack" -name 'index.html*' -exec rm -f {} \;
 }
 
@@ -69,6 +77,9 @@ ISSTICK=0;[ -d current -a "$CDIR" = slackware64-current ] && ISSTICK=1
 if [ $ISCORE -eq 1 ] ;then
     [ $ISSTICK -eq 1 ] && cd ..
     myrget 4 "$SLACKMIR/slackware64-current" slackware64-current
+    # Get GPG Keys from the original Slackware web site.
+    xgeturl "$SLACKKEYS/slackware64-current/GPG-KEY"
+    myrget 4 "$SLACKKEYS/slackware64-current" slackware64-current '*.asc'
 
 # Nettoyage des doublons
     echo '------------------------------------'
@@ -146,6 +157,15 @@ if [ $ISFRAMEW -eq 1 ] ;then
     fi
     echo '------------------------------------'
     cd ..
+fi
+
+# Check with GPG signatures
+# From :
+# https://www.linuxquestions.org/questions/slackware-14/how-do-you-gpg-verify-all-of-your-rsync-slackware-directory-464782/#post2339282
+if [ $ISCHECK -eq 1 ] ;then
+    mygt "Check GPG signatures :" >> $XTEMPCHK
+    find . -name GPG-KEY -exec gpg --import {} \; >> $XTEMPCHK
+    find  . -type f -name *.asc -exec gpg --verify -q {} \; 2>&1 |grep -v 'gpg: Signature made ' | grep -v 'Good signature from "Slackware Linux Project <security@slackware.com>"' >> $XTEMPCHK
 fi
 
 # GParted
