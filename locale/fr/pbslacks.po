@@ -27,63 +27,67 @@ msgstr ""
 "slackware64-current.\\n\\npbslacks devrait être à côté de ce répertoire "
 "courant."
 
-#: pbaspire:45
+#: pbaspire:47
 msgid "Get/Update versus officiel Slackware"
 msgstr "Obtenir/mettre à jour le dépot copie locale du site Slackware"
 
-#: pbaspire:46
+#: pbaspire:48
 msgid "Get/Update multilib compat 32 bits mode"
 msgstr "Obtenir/mettre à jour le mode de compatibilité 32 bits multilib"
 
-#: pbaspire:47
+#: pbaspire:49
 msgid "Get/Update frameworks libraries of KDE5"
 msgstr "Obtenir/mettre à jour les librairies frameworks de KDE5"
 
-#: pbaspire:48
+#: pbaspire:50
 msgid "Get/Update GParted live iso"
 msgstr "Obtenir/mettre à jour l'image iso GParted live"
 
-#: pbaspire:49
+#: pbaspire:51
 msgid "Get/Update VirtualBox installer"
 msgstr "Obtenir/mettre à jour VirtualBox"
 
-#: pbaspire:50
+#: pbaspire:52
 msgid "Get/Update some Alien Bob binary packages"
 msgstr "Obtenir/mettre à jour des paquets binaires d'Alien Bob"
 
-#: pbaspire:51
+#: pbaspire:53
 msgid "Get/Update some Ponce binary packages"
 msgstr "Obtenir/mettre à jour des paquets binaires de Ponce"
 
-#: pbaspire:52
+#: pbaspire:54
 msgid "Get/Update some Slackonly binary packages"
 msgstr "Obtenir/mettre à jour des paquets bnaires de Slackonly"
 
-#: pbaspire:53
+#: pbaspire:55
 msgid "Get/Update some Conraid or Slackel binary packages"
 msgstr "Obtenir/mettre à jour des paquets binaires de Conraid et Slackel"
 
-#: pbaspire:54
+#: pbaspire:56
 msgid "Get/Update some other source packages"
 msgstr "Obtenir/mettre à jour d'autres paquets sources"
 
-#: pbaspire:55
+#: pbaspire:57
 msgid "Get/Update latest Firefox and Thunderbird"
 msgstr "Obtenir/mettre à jour Firefox et Thunderbird"
 
-#: pbaspire:62 pbsetup:112 pbupgrade:124
+#: pbaspire:58
+msgid "Check GPG signatures"
+msgstr "Vérification des signatures GPG"
+
+#: pbaspire:65 pbsetup:112 pbupgrade:124
 msgid "Main menu"
 msgstr "Menu principal"
 
-#: pbaspire:63 pbsetup:113
+#: pbaspire:66 pbsetup:113
 msgid "Choose your actions below"
 msgstr "Choisissez vos actions ci-dessous"
 
-#: pbaspire:152
+#: pbaspire:160
 msgid "Get or update the officiel lastest current Slackware."
 msgstr "Synchroniser avec la copie locale de la dernière Slackware current"
 
-#: pbaspire:154
+#: pbaspire:162
 msgid ""
 "Get or update the multilib of Alien Bob which is a 32 bits compatibility set "
 "of packages."
@@ -91,88 +95,92 @@ msgstr ""
 "Obtenir ou mettre à jour les paquets multilib d'Alien Bob qui est un jeu de "
 "paquets assurant un mode de compatibilité 32 bits."
 
-#: pbaspire:156
+#: pbaspire:164
 msgid "Get or update the frameworks libraries of Kde5 offered by Alien Bob."
 msgstr ""
 "Obtenir ou mettre à jour les librairies 'frameworks' de Kde5 offertes par "
 "Alien Bob."
 
-#: pbaspire:158
+#: pbaspire:166
 msgid "Get or update the GParted live ISO."
 msgstr "Obtenir ou mettre à jour l'image ISO GParted live"
 
-#: pbaspire:160
+#: pbaspire:168
 msgid "Get or update the VirtualBox installer and extensions."
 msgstr ""
 
-#: pbaspire:162
+#: pbaspire:170
 msgid "Get or update some Alien Bob binary packages."
 msgstr "Obtenir ou mettre à jour des paquets binaires d'Alien Bob"
 
-#: pbaspire:164
+#: pbaspire:172
 msgid "Get or update some Ponce binary packages."
 msgstr "Obtenir ou mettre à jour des paquets binaires de Ponce"
 
-#: pbaspire:166
+#: pbaspire:174
 msgid "Get or update some Slackonly binary packages."
 msgstr "Obtenir ou mettre à jour des paquets inaires de Slackonly"
 
-#: pbaspire:168
+#: pbaspire:176
 msgid "Get or update some Conraid and Slackel binary packages."
 msgstr "Obtenir ou mettre à jour des paquets binaires de Conraid et Slackel"
 
-#: pbaspire:170
+#: pbaspire:178
 msgid "Get or update some other source packages."
 msgstr "Obtenir ou mettre à jour d'autres paquets sources"
 
-#: pbaspire:172
+#: pbaspire:180
 msgid "Get or update Firefox and Thunderbird."
 msgstr "Obtenir ou mettre à jour Firefox et Thunderbird"
 
-#: pbaspire:209
+#: pbaspire:182
+msgid "Check the GPG signatures of the downloaded packages."
+msgstr "Vérifiez les signatures GPG des paquets téléchargés."
+
+#: pbaspire:221
 #, sh-format
 msgid "Get/Upgrade core system done : \\Z3${PBNAME}core\\Zn."
 msgstr "Coeur du système obtenu ou mis à jour : \\Z3${PBNAME}core\\Zn."
 
-#: pbaspire:210
+#: pbaspire:222
 #, sh-format
 msgid "Get/Upgrade multilib compat 32 bits mode done : \\Z3${PBNAME}core\\Zn."
 msgstr ""
 "Mode de compatibilié 32 bits obtenu ou mis à jour : \\Z3${PBNAME}core\\Zn."
 
-#: pbaspire:212
+#: pbaspire:224
 #, sh-format
 msgid "Get/Upgrade framewoks libraries KDE5 done : \\Z3${PBNAME}core\\Zn."
 msgstr ""
 "librairies frameworks de KDE5 obtenues ou mises à jour : \\Z3${PBNAME}core"
 "\\Zn."
 
-#: pbaspire:214
+#: pbaspire:226
 #, sh-format
 msgid "Get/Upgrade gparted live iso done : \\Z3${PBNAME}core\\Zn."
 msgstr "Image iso GParted live obtenue ou mise à jour : \\Z3${PBNAME}core\\Zn."
 
-#: pbaspire:216
+#: pbaspire:228
 #, sh-format
 msgid "Get/Upgrade VirtualBox installer done : \\Z3${PBNAME}core\\Zn."
 msgstr "Installeur VirtualBox obtenu ou mis à jour : \\Z3${PBNAME}core\\Zn."
 
-#: pbaspire:221
+#: pbaspire:233
 #, sh-format
 msgid "Get/Upgrade Alien Bob packages done : \\Z3${PBNAME}alien\\Zn."
 msgstr "Paquets d'Alien Bob obtenus ou mis à jour : \\Z3${PBNAME}alien\\Zn."
 
-#: pbaspire:226
+#: pbaspire:238
 #, sh-format
 msgid "Get/Upgrade Ponce packages done : \\Z3${PBNAME}ponce\\Zn."
 msgstr "Paquets de Ponce obtenus ou mis à jour : \\Z3${PBNAME}ponce\\Zn."
 
-#: pbaspire:230
+#: pbaspire:242
 #, sh-format
 msgid "Get/Upgrade Slackonly packages done : \\Z3${PBNAME}slonly\\Zn."
 msgstr "Paquets de Slackonly obtenus ou mis à jour : \\Z3${PBNAME}slonly\\Zn."
 
-#: pbaspire:235
+#: pbaspire:247
 #, sh-format
 msgid ""
 "Get/Upgrade Conraid and Slackel binary packages done : \\Z3${PBNAME}other"
@@ -181,23 +189,27 @@ msgstr ""
 "Autres paquets binaires de Conraid et Slackel obtenus ou mis à jour : "
 "\\Z3${PBNAME}other\\Zn."
 
-#: pbaspire:240
+#: pbaspire:252
 #, sh-format
 msgid "Get/Upgrade other source packages done : \\Z3${PBNAME}sources\\Zn."
 msgstr "Autres paquets sources obtenus ou mis à jour : \\Z3${PBNAME}other\\Zn."
 
-#: pbaspire:245
+#: pbaspire:257
 #, sh-format
 msgid "Get/Upgrade Firefox and Thunderbird done : \\Z3${PBNAME}mozilla\\Zn."
 msgstr ""
 "Obtention ou mise à jour de Firefox et Thunderbird faite : \\Z3${PBNAME}"
 "mozilla\\Zn."
 
-#: pbaspire:252 pbsetup:296 pbupgrade:341
+#: pbaspire:261
+msgid "GPG signatures checked :"
+msgstr "Signatures GPG vérifiées :"
+
+#: pbaspire:269 pbsetup:296 pbupgrade:341
 msgid "No action was demanded. Exit."
 msgstr "Aucune action demandée. Sortie."
 
-#: pbaspire:255 pbsetup:300 pbupgrade:89
+#: pbaspire:272 pbsetup:300 pbupgrade:89
 msgid "Actions which were done"
 msgstr "Actions réalisées"
 
@@ -208,43 +220,47 @@ msgid ""
 msgstr ""
 "Script à lancer dans le répertoire contenant packages, packages2 et al."
 
-#: pbaspirecore:90
+#: pbaspirecore:101
 msgid "Slackware current copied."
 msgstr "Copie Slackware current faite."
 
-#: pbaspirecore:92
+#: pbaspirecore:103
 msgid "Slackware current not copied."
 msgstr "Copie Slackware current non faite."
 
-#: pbaspirecore:116
+#: pbaspirecore:127
 msgid "Slackware multilib copied."
 msgstr "Copie Slackware multilib faite."
 
-#: pbaspirecore:118
+#: pbaspirecore:129
 msgid "Slackware multilib not copied."
 msgstr "Copie Slackware multilib non faite."
 
-#: pbaspirecore:143
+#: pbaspirecore:154
 msgid "Alien Bob KDE5 frameworks copied."
 msgstr "Copie alien KDE5 frameworks faite."
 
-#: pbaspirecore:145
+#: pbaspirecore:156
 msgid "Alien Bob KDE5 frameworks not copied."
 msgstr "Copie alien KDE5 frameworks non faite."
 
-#: pbaspirecore:164
+#: pbaspirecore:166
+msgid "Check GPG signatures :"
+msgstr "Vérification des signatures GPG :"
+
+#: pbaspirecore:184
 msgid "GParted copied."
 msgstr "Copie GParted faite."
 
-#: pbaspirecore:166 pbaspirecore:172
+#: pbaspirecore:186 pbaspirecore:192
 msgid "GParted not copied."
 msgstr "Copie GParted non faite."
 
-#: pbaspirecore:192
+#: pbaspirecore:212
 msgid "VirtualBox copied."
 msgstr "Copie VirtualBox faite."
 
-#: pbaspirecore:194 pbaspirecore:200
+#: pbaspirecore:214 pbaspirecore:220
 msgid "VirtualBox not copied."
 msgstr "Copie VirtualBox non faite."
 

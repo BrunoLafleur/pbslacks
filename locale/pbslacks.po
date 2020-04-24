@@ -23,166 +23,178 @@ msgid ""
 "directory."
 msgstr ""
 
-#: pbaspire:45
+#: pbaspire:47
 msgid "Get/Update versus officiel Slackware"
 msgstr ""
 
-#: pbaspire:46
+#: pbaspire:48
 msgid "Get/Update multilib compat 32 bits mode"
 msgstr ""
 
-#: pbaspire:47
+#: pbaspire:49
 msgid "Get/Update frameworks libraries of KDE5"
 msgstr ""
 
-#: pbaspire:48
+#: pbaspire:50
 msgid "Get/Update GParted live iso"
 msgstr ""
 
-#: pbaspire:49
+#: pbaspire:51
 msgid "Get/Update VirtualBox installer"
 msgstr ""
 
-#: pbaspire:50
+#: pbaspire:52
 msgid "Get/Update some Alien Bob binary packages"
 msgstr ""
 
-#: pbaspire:51
+#: pbaspire:53
 msgid "Get/Update some Ponce binary packages"
 msgstr ""
 
-#: pbaspire:52
+#: pbaspire:54
 msgid "Get/Update some Slackonly binary packages"
 msgstr ""
 
-#: pbaspire:53
+#: pbaspire:55
 msgid "Get/Update some Conraid or Slackel binary packages"
 msgstr ""
 
-#: pbaspire:54
+#: pbaspire:56
 msgid "Get/Update some other source packages"
 msgstr ""
 
-#: pbaspire:55
+#: pbaspire:57
 msgid "Get/Update latest Firefox and Thunderbird"
 msgstr ""
 
-#: pbaspire:62 pbsetup:112 pbupgrade:124
+#: pbaspire:58
+msgid "Check GPG signatures"
+msgstr ""
+
+#: pbaspire:65 pbsetup:112 pbupgrade:124
 msgid "Main menu"
 msgstr ""
 
-#: pbaspire:63 pbsetup:113
+#: pbaspire:66 pbsetup:113
 msgid "Choose your actions below"
 msgstr ""
 
-#: pbaspire:152
+#: pbaspire:160
 msgid "Get or update the officiel lastest current Slackware."
 msgstr ""
 
-#: pbaspire:154
+#: pbaspire:162
 msgid ""
 "Get or update the multilib of Alien Bob which is a 32 bits compatibility set "
 "of packages."
 msgstr ""
 
-#: pbaspire:156
+#: pbaspire:164
 msgid "Get or update the frameworks libraries of Kde5 offered by Alien Bob."
 msgstr ""
 
-#: pbaspire:158
+#: pbaspire:166
 msgid "Get or update the GParted live ISO."
 msgstr ""
 
-#: pbaspire:160
+#: pbaspire:168
 msgid "Get or update the VirtualBox installer and extensions."
 msgstr ""
 
-#: pbaspire:162
+#: pbaspire:170
 msgid "Get or update some Alien Bob binary packages."
 msgstr ""
 
-#: pbaspire:164
+#: pbaspire:172
 msgid "Get or update some Ponce binary packages."
 msgstr ""
 
-#: pbaspire:166
+#: pbaspire:174
 msgid "Get or update some Slackonly binary packages."
 msgstr ""
 
-#: pbaspire:168
+#: pbaspire:176
 msgid "Get or update some Conraid and Slackel binary packages."
 msgstr ""
 
-#: pbaspire:170
+#: pbaspire:178
 msgid "Get or update some other source packages."
 msgstr ""
 
-#: pbaspire:172
+#: pbaspire:180
 msgid "Get or update Firefox and Thunderbird."
 msgstr ""
 
-#: pbaspire:209
-#, sh-format
-msgid "Get/Upgrade core system done : \\Z3${PBNAME}core\\Zn."
-msgstr ""
-
-#: pbaspire:210
-#, sh-format
-msgid "Get/Upgrade multilib compat 32 bits mode done : \\Z3${PBNAME}core\\Zn."
-msgstr ""
-
-#: pbaspire:212
-#, sh-format
-msgid "Get/Upgrade framewoks libraries KDE5 done : \\Z3${PBNAME}core\\Zn."
-msgstr ""
-
-#: pbaspire:214
-#, sh-format
-msgid "Get/Upgrade gparted live iso done : \\Z3${PBNAME}core\\Zn."
-msgstr ""
-
-#: pbaspire:216
-#, sh-format
-msgid "Get/Upgrade VirtualBox installer done : \\Z3${PBNAME}core\\Zn."
+#: pbaspire:182
+msgid "Check the GPG signatures of the downloaded packages."
 msgstr ""
 
 #: pbaspire:221
 #, sh-format
-msgid "Get/Upgrade Alien Bob packages done : \\Z3${PBNAME}alien\\Zn."
+msgid "Get/Upgrade core system done : \\Z3${PBNAME}core\\Zn."
+msgstr ""
+
+#: pbaspire:222
+#, sh-format
+msgid "Get/Upgrade multilib compat 32 bits mode done : \\Z3${PBNAME}core\\Zn."
+msgstr ""
+
+#: pbaspire:224
+#, sh-format
+msgid "Get/Upgrade framewoks libraries KDE5 done : \\Z3${PBNAME}core\\Zn."
 msgstr ""
 
 #: pbaspire:226
 #, sh-format
+msgid "Get/Upgrade gparted live iso done : \\Z3${PBNAME}core\\Zn."
+msgstr ""
+
+#: pbaspire:228
+#, sh-format
+msgid "Get/Upgrade VirtualBox installer done : \\Z3${PBNAME}core\\Zn."
+msgstr ""
+
+#: pbaspire:233
+#, sh-format
+msgid "Get/Upgrade Alien Bob packages done : \\Z3${PBNAME}alien\\Zn."
+msgstr ""
+
+#: pbaspire:238
+#, sh-format
 msgid "Get/Upgrade Ponce packages done : \\Z3${PBNAME}ponce\\Zn."
 msgstr ""
 
-#: pbaspire:230
+#: pbaspire:242
 #, sh-format
 msgid "Get/Upgrade Slackonly packages done : \\Z3${PBNAME}slonly\\Zn."
 msgstr ""
 
-#: pbaspire:235
+#: pbaspire:247
 #, sh-format
 msgid ""
 "Get/Upgrade Conraid and Slackel binary packages done : \\Z3${PBNAME}other"
 "\\Zn."
 msgstr ""
 
-#: pbaspire:240
+#: pbaspire:252
 #, sh-format
 msgid "Get/Upgrade other source packages done : \\Z3${PBNAME}sources\\Zn."
 msgstr ""
 
-#: pbaspire:245
+#: pbaspire:257
 #, sh-format
 msgid "Get/Upgrade Firefox and Thunderbird done : \\Z3${PBNAME}mozilla\\Zn."
 msgstr ""
 
-#: pbaspire:252 pbsetup:296 pbupgrade:341
+#: pbaspire:261
+msgid "GPG signatures checked :"
+msgstr ""
+
+#: pbaspire:269 pbsetup:296 pbupgrade:341
 msgid "No action was demanded. Exit."
 msgstr ""
 
-#: pbaspire:255 pbsetup:300 pbupgrade:89
+#: pbaspire:272 pbsetup:300 pbupgrade:89
 msgid "Actions which were done"
 msgstr ""
 
@@ -192,43 +204,47 @@ msgid ""
 "Launch this script in the directory including packages, packages2 et al."
 msgstr ""
 
-#: pbaspirecore:90
+#: pbaspirecore:101
 msgid "Slackware current copied."
 msgstr ""
 
-#: pbaspirecore:92
+#: pbaspirecore:103
 msgid "Slackware current not copied."
 msgstr ""
 
-#: pbaspirecore:116
+#: pbaspirecore:127
 msgid "Slackware multilib copied."
 msgstr ""
 
-#: pbaspirecore:118
+#: pbaspirecore:129
 msgid "Slackware multilib not copied."
 msgstr ""
 
-#: pbaspirecore:143
+#: pbaspirecore:154
 msgid "Alien Bob KDE5 frameworks copied."
 msgstr ""
 
-#: pbaspirecore:145
+#: pbaspirecore:156
 msgid "Alien Bob KDE5 frameworks not copied."
 msgstr ""
 
-#: pbaspirecore:164
+#: pbaspirecore:166
+msgid "Check GPG signatures :"
+msgstr ""
+
+#: pbaspirecore:184
 msgid "GParted copied."
 msgstr ""
 
-#: pbaspirecore:166 pbaspirecore:172
+#: pbaspirecore:186 pbaspirecore:192
 msgid "GParted not copied."
 msgstr ""
 
-#: pbaspirecore:192
+#: pbaspirecore:212
 msgid "VirtualBox copied."
 msgstr ""
 
-#: pbaspirecore:194 pbaspirecore:200
+#: pbaspirecore:214 pbaspirecore:220
 msgid "VirtualBox not copied."
 msgstr ""
 

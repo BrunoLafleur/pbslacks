@@ -34,10 +34,12 @@ fi
 PBNAME=$0
 XTEMPOUT=$(mktemp -p /tmp -t pbaspireout.XXXXXX)
 XTEMPMES=$(mktemp -p /tmp -t pbaspiremes.XXXXXX)
+XTEMPCHK=$(mktemp -p /tmp -t pbaspirechk.XXXXXX)
 
 cleanup () {
     rm -f $XTEMPOUT
     rm -f $XTEMPMES
+    rm -f $XTEMPCHK
 }
 
 trap 'echo "*** Ctrl-C caught -- aborting operations ***"; cleanup; exit 1' 2 14 15 # trap Ctrl-C and kill
@@ -53,18 +55,19 @@ SLONLY=$(mygt 'Get/Update some Slackonly binary packages')
 OTHER=$(mygt 'Get/Update some Conraid or Slackel binary packages')
 SOURCES=$(mygt 'Get/Update some other source packages')
 MOZILLA=$(mygt 'Get/Update latest Firefox and Thunderbird')
+CHECK=$(mygt 'Check GPG signatures')
 
 xmaster () {
     defitem=$1;shift
     xsel1=$1;shift;xsel2=$1;shift;xsel3=$1;shift;xsel4=$1;shift;xsel5=$1;shift
     xsel6=$1;shift;xsel7=$1;shift;xsel8=$1;shift;xsel9=$1;shift;xsel10=$1;shift
-    xsel11=$1
+    xsel11=$1;shift;xsel12=$1
     pactit=$(mygt 'Main menu');pactit="pbaspire: $pactit"
     pactxt=$(mygt 'Choose your actions below')
     if [ $ISDIAL -eq 1 ] ;then
 	dialog --colors --backtitle 'pbaspire' --title "$pactit" \
 	    --default-item $defitem --defaultno --separate-output --item-help \
-	    --help-button --help-status --checklist "$pactxt" 0 100 11 \
+	    --help-button --help-status --checklist "$pactxt" 0 100 12 \
 	    core "$CORE" $xsel1 core \
 	    multi "$MULTI" $xsel2 multi \
 	    framew "$FRAMEW" $xsel3 framew \
@@ -75,7 +78,8 @@ xmaster () {
 	    slonly "$SLONLY" $xsel8 slonly \
 	    other "$OTHER" $xsel9 other \
 	    sources "$SOURCES" $xsel10 sources \
-	    mozilla "$MOZILLA" $xsel11 mozilla
+	    mozilla "$MOZILLA" $xsel11 mozilla \
+	    check "$CHECK" $xsel12 check
     else
 	echo '------------------------------------'
 	echo "        $pactit"
@@ -104,6 +108,8 @@ xmaster () {
 	    if [ "$c" = "y" ] ;then echo "HELP sources" 1>&2;return;fi
 	    echo "HELP mozilla (y or n) :";read c
 	    if [ "$c" = "y" ] ;then echo "HELP mozilla" 1>&2;return;fi
+	    echo "HELP check (y or n) :";read c
+	    if [ "$c" = "y" ] ;then echo "HELP check" 1>&2;return;fi
 	fi
 	echo "$CORE (y or n) :";read c
 	[ "$c" = "y" ] && echo "core" 1>&2
@@ -127,10 +133,12 @@ xmaster () {
 	[ "$c" = "y" ] && echo "sources" 1>&2
 	echo "$MOZILLA (y or n) :";read c
 	[ "$c" = "y" ] && echo "mozilla" 1>&2
+	echo "$CHECK (y or n) :";read c
+	[ "$c" = "y" ] && echo "check" 1>&2
     fi
 }
 
-xsel="on on on on on on on on on on on on"
+xsel="on on on on on on on on on on on on on"
 ditem=core
 bclaide=1
 
@@ -140,7 +148,7 @@ while [ $bclaide -eq 1 ] ;do
     if [ $bclaide -eq 1 ] ;then
 	xitem="$(cat $XTEMPOUT|grep '^HELP'|cut -d ' ' -f2)"
 	xsel=
-	for i in core multi framew gparted vbox alien ponce slonly other sources mozilla ;do
+	for i in core multi framew gparted vbox alien ponce slonly other sources mozilla check ;do
 	  if [ $(grep "^$i$" "$XTEMPOUT"|wc -l) -eq 1 ] ;then
 	      xsel="$xsel on"
 	  else
@@ -170,6 +178,8 @@ while [ $bclaide -eq 1 ] ;do
 	    pacaide=$(mygt 'Get or update some other source packages.')
 	elif [ "$xitem" = mozilla ] ;then
 	    pacaide=$(mygt 'Get or update Firefox and Thunderbird.')
+	elif [ "$xitem" = check ] ;then
+	    pacaide=$(mygt 'Check the GPG signatures of the downloaded packages.')
 	fi
 	if [ $ISDIAL -eq 1 ] ;then
 	    dialog --colors --backtitle 'pbaspire' --title "$xitem" \
@@ -194,6 +204,7 @@ ISSLONLY="$(cat $XTEMPOUT|grep '^slonly$'|wc -l)"
 ISOTHER="$(cat $XTEMPOUT|grep '^other$'|wc -l)"
 ISSOURCES="$(cat $XTEMPOUT|grep '^sources$'|wc -l)"
 ISMOZ="$(cat $XTEMPOUT|grep '^mozilla$'|wc -l)"
+ISCHECK="$(cat $XTEMPOUT|grep '^check$'|wc -l)"
 
 COREATTR=
 [ $ISCORE -eq 1 ] && COREATTR="$COREATTR -core"
@@ -201,9 +212,10 @@ COREATTR=
 [ $ISFRAMEW -eq 1 ] && COREATTR="$COREATTR -framew"
 [ $ISGPARTED -eq 1 ] && COREATTR="$COREATTR -gparted"
 [ $ISVBOX -eq 1 ] && COREATTR="$COREATTR -vbox"
+[ $ISCHECK -eq 1 ] && COREATTR="$COREATTR -check"
 
 if [ "$COREATTR" != '' ] ;then
-    [ $XTEST -ne 1 ] && "$PBNAME"core $COREATTR
+    [ $XTEST -ne 1 ] && "$PBNAME"core $COREATTR $XTEMPCHK
 fi
 
 [ $ISCORE -eq 1 ] && emygt "Get/Upgrade core system done : \Z3\${PBNAME}core\Zn." >> $XTEMPMES
@@ -245,8 +257,13 @@ if [ $ISMOZ -eq 1 ] ;then
     emygt "Get/Upgrade Firefox and Thunderbird done : \Z3\${PBNAME}mozilla\Zn." \
 	>> $XTEMPMES
 fi
+if [ $ISCHECK -eq 1 ] ;then
+    emygt "GPG signatures checked :"
+    cat $XTEMPCHK >> $XTEMPMES
+fi
 
 rm -f $XTEMPOUT
+rm -f $XTEMPCHK
 
 if [ ! -f "$XTEMPMES" -o $(cat "$XTEMPMES"|wc -c) -eq 0 ] ;then
     mygt "No action was demanded. Exit." > $XTEMPMES
