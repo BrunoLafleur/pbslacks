@@ -60,12 +60,17 @@ VBOXDOC="$VBOXREP/UserManual.pdf"
 
 # Function for getting packages.
 myrget () {
+    # TODO : calculate prof with gpath
     prof=$1
     gpath="$2"
     pack="$3"
     accept="$4"
-    [ -n "$accept" ] && accept="-A $accept"
-    wget -N -nv -np -nH --cut-dirs=$prof -r "$gpath/" $accept
+    if [ -n "$accept" ] ;then
+	accept="-A $accept"
+    else
+	accept="-R *\?C=?;O=?"
+    fi
+    wget $accept -N -nv -np -nH --cut-dirs=$prof -r "$gpath/"
     [ -d "$pack" ] && find "$pack" -name 'index.html*' -exec rm -f {} \;
 }
 
@@ -77,27 +82,25 @@ ISSTICK=0;[ -d current -a "$CDIR" = slackware64-current ] && ISSTICK=1
 if [ $ISCORE -eq 1 ] ;then
     [ $ISSTICK -eq 1 ] && cd ..
     myrget 4 "$SLACKMIR/slackware64-current" slackware64-current
-    # Get GPG Keys from the original Slackware web site.
-    xgeturl "$SLACKKEYS/slackware64-current/GPG-KEY"
-    myrget 4 "$SLACKKEYS/slackware64-current" slackware64-current '*.asc'
 
 # Nettoyage des doublons
     echo '------------------------------------'
     if [ -d slackware64-current ] ;then
-	cd slackware64-current
-	find . -name '*.t?z'|grep -v '^./source/'|while read i;test "$i" != "" ;do
-	    pack=$(echo $i|sed 's@-[0-9].*$@@')
-	    xpurgepac "$pack-[0-9]" txt
-	    xpurgepac "$pack-[0-9]" t?z
-	    xpurgepac "$pack-[0-9]" asc
-	done
-	ln -sf ../current .
-	ln -sf ../perso .
-	ln -sf ../pbslacks .
-	ln -sf ../bumblebee .
-	ln -sf ../divers .
-	ln -sf ../packages* .
-	cd ..
+	(
+	    cd slackware64-current
+	    find . -name '*.t?z'|grep -v '^./source/'|while read i;test "$i" != "" ;do
+		pack=$(echo $i|sed 's@-[0-9].*$@@')
+		xpurgepac "$pack-[0-9]" txt
+		xpurgepac "$pack-[0-9]" t?z
+		xpurgepac "$pack-[0-9]" asc
+	    done
+	    ln -sf ../current .
+	    ln -sf ../perso .
+	    ln -sf ../pbslacks .
+	    ln -sf ../bumblebee .
+	    ln -sf ../divers .
+	    ln -sf ../packages* .
+	)
 	mygt "Slackware current copied."
     else
 	mygt "Slackware current not copied."
@@ -113,17 +116,18 @@ if [ $ISMULTI -eq 1 ] ;then
 # Nettoyage des doublons
     echo '------------------------------------'
     if [ -d current ] ;then
-	cd current
-	find . -name '*.t?z'|grep -v '^./source/'|while read i;test "$i" != "" ;do
-	    pack=$(echo $i|sed 's@-[0-9].*$@@')
-	    xpurgepac "$pack-[0-9]" lst
-	    xpurgepac "$pack-[0-9]" meta
-	    xpurgepac "$pack-[0-9]" txt
-	    xpurgepac "$pack-[0-9]" t?z
-	    xpurgepac "$pack-[0-9]" asc
-	    xpurgepac "$pack-[0-9]" md5
-	done
-	cd ..
+	(
+	    cd current
+	    find . -name '*.t?z'|grep -v '^./source/'|while read i;test "$i" != "" ;do
+		pack=$(echo $i|sed 's@-[0-9].*$@@')
+		xpurgepac "$pack-[0-9]" lst
+		xpurgepac "$pack-[0-9]" meta
+		xpurgepac "$pack-[0-9]" txt
+		xpurgepac "$pack-[0-9]" t?z
+		xpurgepac "$pack-[0-9]" asc
+		xpurgepac "$pack-[0-9]" md5
+	    done
+	)
 	mygt "Slackware multilib copied."
     else
 	mygt "Slackware multilib not copied."
@@ -134,38 +138,60 @@ fi
 # Frameworks KDE5 Alien Bob
 if [ $ISFRAMEW -eq 1 ] ;then
     [ ! -d packages4 ] && mkdir packages4
-    cd packages4
-    myrget 10 "$SLACKKDEFW" frameworks
+    (
+	cd packages4
+	myrget 10 "$SLACKKDEFW" frameworks
 
-# Nettoyage des doublons
-    echo '------------------------------------'
-    if [ -d frameworks ] ;then
-	cd frameworks
-	find . -name '*.t?z'|grep -v '^./source/'|while read i;test "$i" != "" ;do
-	    pack=$(echo $i|sed 's@-[0-9].*$@@')
-	    xpurgepac "$pack-[0-9]" lst
-	    xpurgepac "$pack-[0-9]" meta
-	    xpurgepac "$pack-[0-9]" txt
-	    xpurgepac "$pack-[0-9]" t?z
-	    xpurgepac "$pack-[0-9]" asc
-	    xpurgepac "$pack-[0-9]" md5
-	done
-	cd ..
-	mygt "Alien Bob KDE5 frameworks copied."
-    else
-	mygt "Alien Bob KDE5 frameworks not copied."
-    fi
-    echo '------------------------------------'
-    cd ..
+	# Nettoyage des doublons
+	echo '------------------------------------'
+	if [ -d frameworks ] ;then
+	    (
+		cd frameworks
+		find . -name '*.t?z'|grep -v '^./source/'|while read i;test "$i" != "" ;do
+		    pack=$(echo $i|sed 's@-[0-9].*$@@')
+		    xpurgepac "$pack-[0-9]" lst
+		    xpurgepac "$pack-[0-9]" meta
+		    xpurgepac "$pack-[0-9]" txt
+		    xpurgepac "$pack-[0-9]" t?z
+		    xpurgepac "$pack-[0-9]" asc
+		    xpurgepac "$pack-[0-9]" md5
+		done
+	    )
+	    mygt "Alien Bob KDE5 frameworks copied."
+	else
+	    mygt "Alien Bob KDE5 frameworks not copied."
+	fi
+	echo '------------------------------------'
+    )
 fi
 
-# Check with GPG signatures
-# From :
-# https://www.linuxquestions.org/questions/slackware-14/how-do-you-gpg-verify-all-of-your-rsync-slackware-directory-464782/#post2339282
 if [ $ISCHECK -eq 1 ] ;then
+    [ $ISSTICK -eq 1 ] && cd ..
+    # Get GPG Keys from the original Slackware web site.
+    if [ -d slackware64-current ] ;then
+	(
+	    cd slackware64-current;rm -f GPG-KEY
+	    xgeturl "$SLACKKEYS/slackware64-current/GPG-KEY"
+	)
+    fi
+    find slackware64-current -name '*.asc'|while read i;test "$i" != "" ;do
+	(
+	    echo "$i";rm -f "$i";cd $(dirname "$i")
+	    xgeturl "$SLACKKEYS/$i"
+	)
+    done
+    [ $ISSTICK -eq 1 ] && cd slackware64-current
+
+    # Check with GPG signatures
+    # From :
+    # https://www.linuxquestions.org/questions/slackware-14/how-do-you-gpg-verify-all-of-your-rsync-slackware-directory-464782/#post2339282
     mygt "Check GPG signatures :" >> $XTEMPCHK
-    find . -name GPG-KEY -exec gpg --import {} \; >> $XTEMPCHK
-    find  . -type f -name *.asc -exec gpg --verify -q {} \; 2>&1 |grep -v 'gpg: Signature made ' | grep -v 'Good signature from "Slackware Linux Project <security@slackware.com>"' >> $XTEMPCHK
+    (
+	export LANG=C
+	find . -type f -name GPG-KEY -exec gpg --import {} \; >> $XTEMPCHK
+	find . -type f -name '*.asc' -exec gpg --verify -q {} \; 2>&1 | \
+	    egrep -i 'gpg: assuming signed data in |gpg: bad signature' >> $XTEMPCHK
+    )
 fi
 
 # GParted
@@ -176,18 +202,19 @@ if [ $ISGPARTED -eq 1 ] ;then
 	    [ ! -d ../Linuxiso ] && mkdir ../Linuxiso
 	    ln -s ../Linuxiso .
 	fi
-	cd Linuxiso
-	if [ ! -f "$LGPARTEDISO" ] ;then
-	    xgeturl "$GPARTEDISO"
-	    echo '------------------------------------'
-	    if [ -f "$LGPARTEDISO" ] ;then
-		mygt "GParted copied."
-	    else
-		mygt "GParted not copied."
+	(
+	    cd Linuxiso
+	    if [ ! -f "$LGPARTEDISO" ] ;then
+		xgeturl "$GPARTEDISO"
+		echo '------------------------------------'
+		if [ -f "$LGPARTEDISO" ] ;then
+		    mygt "GParted copied."
+		else
+		    mygt "GParted not copied."
+		fi
+		echo '------------------------------------'
 	    fi
-	    echo '------------------------------------'
-	fi
-	cd ..
+	)
     else
 	mygt "GParted not copied."
     fi
@@ -201,21 +228,22 @@ if [ $ISVBOX -eq 1 ] ;then
 	    [ ! -d ../Virtualbox ] && mkdir ../Virtualbox
 	    ln -s ../Virtualbox .
 	fi
-	cd Virtualbox
-	if [ ! -f "$LVBOXARCH" ] ;then
-	    xgeturl "$VBOXARCH"
-	    xgeturl "$VBOXEXT"
-	    xgeturl "$VBOXDOC"
-	    mv $(basename "$VBOXDOC") VirtualBoxUserManual.pdf
-	    echo '------------------------------------'
-	    if [ -f "$LVBOXARCH" ] ;then
-		mygt "VirtualBox copied."
-	    else
-		mygt "VirtualBox not copied."
+	(
+	    cd Virtualbox
+	    if [ ! -f "$LVBOXARCH" ] ;then
+		xgeturl "$VBOXARCH"
+		xgeturl "$VBOXEXT"
+		xgeturl "$VBOXDOC"
+		mv $(basename "$VBOXDOC") VirtualBoxUserManual.pdf
+		echo '------------------------------------'
+		if [ -f "$LVBOXARCH" ] ;then
+		    mygt "VirtualBox copied."
+		else
+		    mygt "VirtualBox not copied."
+		fi
+		echo '------------------------------------'
 	    fi
-	    echo '------------------------------------'
-	fi
-	cd ..
+	)
     else
 	mygt "VirtualBox not copied."
     fi
