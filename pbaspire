@@ -258,8 +258,8 @@ if [ $ISMOZ -eq 1 ] ;then
 	>> $XTEMPMES
 fi
 if [ $ISCHECK -eq 1 ] ;then
-    emygt "GPG signatures checked :"
-    cat $XTEMPCHK >> $XTEMPMES
+    emygt "GPG signatures checked :" >> $XTEMPMES
+    less $XTEMPCHK
 fi
 
 rm -f $XTEMPOUT
