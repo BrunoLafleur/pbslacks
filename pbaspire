@@ -253,12 +253,14 @@ if [ $ISSOURCES -eq 1 ] ;then
 	>> $XTEMPMES
 fi
 if [ $ISMOZ -eq 1 ] ;then
-    [ $XTEST -ne 1 ] && "$PBNAME"moz -lang fr
-    emygt "Get/Upgrade Firefox and Thunderbird done : \Z3\${PBNAME}mozilla\Zn." \
+    XLANG=$(echo $LANG|cut -d '.' -f1|cut -d '_' -f1)
+    [ $XTEST -ne 1 ] && "$PBNAME"moz -lang "$XLANG"
+    emygt "Get/Upgrade Firefox and Thunderbird for \$XLANG language done : \Z3\${PBNAME}mozilla\Zn." \
 	>> $XTEMPMES
 fi
 if [ $ISCHECK -eq 1 ] ;then
     emygt "GPG signatures checked :" >> $XTEMPMES
+    cat $XTEMPCHK | grep -i 'gpg: bad signature' >> $XTEMPMES
     less $XTEMPCHK
 fi
 

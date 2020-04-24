@@ -47,50 +47,55 @@ PATHVLCYOUTUBE="https://raw.githubusercontent.com/videolan/vlc/master/share/lua/
 ############################################
 # Download new sources.
 ############################################
-cd packages
-xgetsrc openal-soft "$PATHOPENAL"
-xgetsrc libtxc_dxtn "$PATHLIBTXC_DXTN"
-xgetsrc libgaminggear "$PATHLIBGAMINGGEAR"
-xlocalsrcpac acpibrightness ""
-# python-pillow6 : re-add python2.7 support for openshot.
-# Pillow 7 from current Slackware drop support of python2.
-xgetsrc python-pillow6 "$PATHPYTHONPIL"
-rm -f python-pillow-[0-9]*.t?z
-cd ..
+(
+    cd packages
+    xgetsrc openal-soft "$PATHOPENAL"
+    xgetsrc libtxc_dxtn "$PATHLIBTXC_DXTN"
+    xgetsrc libgaminggear "$PATHLIBGAMINGGEAR"
+    xlocalsrcpac acpibrightness ""
+    # python-pillow6 : re-add python2.7 support for openshot.
+    # Pillow 7 from current Slackware drop support of python2.
+    xgetsrc python-pillow6 "$PATHPYTHONPIL"
+    rm -f python-pillow-[0-9]*.t?z
+)
 
 ############################################
-cd packages2
-xgetsrc roccat-tools "$PATHROCCATTOOLS"
-xlocalsrcpac kmplayer "kmplayer_0.11.5b.tar.bz2"
-xgetsrc denemo "$PATHDENEMO"
-# Guile 2.2 supprime en janvier. Utile a denemo.
-xgetsrc guile2.2 "$PATHGUILE22"
-# Discord just being put here. No packages done for now.
-xgeturl "$PATHDISCORD"
-xgeturl "$PATHVLCYOUTUBE"
-xpurgepac discord tar.gz
-cd ..
+(
+    cd packages2
+    xgetsrc roccat-tools "$PATHROCCATTOOLS"
+    xlocalsrcpac kmplayer "kmplayer_0.11.5b.tar.bz2"
+    xgetsrc denemo "$PATHDENEMO"
+    # Guile 2.2 supprime en janvier. Utile a denemo.
+    xgetsrc guile2.2 "$PATHGUILE22"
+    # Discord just being put here. No packages done for now.
+    xgeturl "$PATHDISCORD"
+    xgeturl "$PATHVLCYOUTUBE"
+    xpurgepac discord tar.gz
+)
 
 ############################################
-cd packages3
-xgetsrc bsddb3 "$PATHBSDDB3"
-xgetsrc db53 "$PATHDB53"
-xgetsrc db53 "$PATHDB53BIS"
-xgetsrc pyicu "$PATHPYICU"
-xgetsrc gramps "$PATHGRAMPS"
-cd ..
+(
+    cd packages3
+    xgetsrc bsddb3 "$PATHBSDDB3"
+    xgetsrc db53 "$PATHDB53"
+    xgetsrc db53 "$PATHDB53BIS"
+    xgetsrc pyicu "$PATHPYICU"
+    xgetsrc gramps "$PATHGRAMPS"
+)
 
 ############################################
-cd packages4
-xgetsrc xrdp "$PATHXRDP"
-xgetsrc xorgxrdp "$PATHXORGXRDP"
-xgetsrc SFML "$PATHSFML"
-xgetsrc wxGTK3 "$PATHWXGTK3"
-xgetsrc vbam "$PATHVBAM"
-xgetsrc fbida "$PATHFBIDA"
-xgetsrc opencv "$PATHOPENCV"
-xgetsrc opencv "$PATHOPENCVBIS"
-for i in kaffeine gradle audiveris signal-desktop vokoscreen ;do
-    xgetsbosrc "$i"
-done
-cd ..
+(
+    cd packages4
+    xgetsrc xrdp "$PATHXRDP"
+    xgetsrc xorgxrdp "$PATHXORGXRDP"
+    xgetsrc SFML "$PATHSFML"
+    xgetsrc wxGTK3 "$PATHWXGTK3"
+    xgetsrc vbam "$PATHVBAM"
+    xgetsrc fbida "$PATHFBIDA"
+    xgetsrc opencv "$PATHOPENCV"
+    xgetsrc opencv "$PATHOPENCVBIS"
+    for i in kaffeine gradle audiveris signal-desktop vokoscreen ;do
+	xgetsbosrc "$i"
+    done
+)
+
