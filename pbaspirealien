@@ -34,14 +34,9 @@ SLACKALIENSRC2="$SLACKMIR/people/alien-kde/source/latest/deps"
 
     # MLT pour openshot.
     i=mlt
-    xgetpac "$i-" "$SLACKALIEN2" 10
-    # Binding python et pas python3 pour openshot.
-    # Et le mlt.SlackBuild importe dans python et pas python3 (PYTHONSITEPKG).
-    export PYTHON=python
-    export BUILD=3alien
+    tar xvfz ../pbslacks/builds/${i}.tar.gz
+    # xgetpac "$i-" "$SLACKALIEN2" 10
     xgetsrcpac "$i" "$SLACKALIENSRC2/$i/" 9
-    unset PYTHON
-    unset BUILD
 
     for i in steamclient ;do
 	xgetpac "$i-" "$SLACKALIEN/$i/pkg/current" 10
