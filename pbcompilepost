@@ -133,6 +133,7 @@ unset ARCH
 	    convertpkg-compat32 -i "$i-"'*.t?z' -d ../compat32
 	    chown ${MYUSER}.$MYGROUP ../compat32/$i-compat32-*.t?z
 	fi
+	xpurgetmp ${i}-compat32
 	upgradepkg --install-new --reinstall ../compat32/$i-compat32-*.t?z
 	rm -f /usr/lib/lib*.la
     done
