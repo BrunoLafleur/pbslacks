@@ -43,12 +43,14 @@ PATHOPENCV="https://github.com/opencv/opencv/archive/4.1.1/opencv-4.1.1.tar.gz"
 PATHOPENCVBIS="https://github.com/opencv/opencv_contrib/archive/4.1.1/opencv_contrib-4.1.1.tar.gz"
 PATHDISCORD="https://discordapp.com/api/download?platform=linux&format=tar.gz"
 PATHVLCYOUTUBE="https://raw.githubusercontent.com/videolan/vlc/master/share/lua/playlist/youtube.lua"
+PATHMLT="https://github.com/mltframework/mlt/archive/v6.20.0.tar.gz"
 
 ############################################
 # Download new sources.
 ############################################
 (
     cd packages
+    xgetsrc python2-mlt "$PATHMLT"
     xgetsrc openal-soft "$PATHOPENAL"
     xgetsrc libtxc_dxtn "$PATHLIBTXC_DXTN"
     xgetsrc libgaminggear "$PATHLIBGAMINGGEAR"
