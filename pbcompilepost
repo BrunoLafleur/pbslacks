@@ -81,7 +81,7 @@ xmakepac () {
 	    tar xvfz ${XPAC}.t*gz
 	    if [ -d "$XPAC" ] ;then
 		(
-		    cd $XPAC
+		    cd $XPAC;ln -sf ../* .;rm -f $XPAC ${XPAC}.tar.gz
 		    ./${XPAC}.SlackBuild
 		    cp /tmp/${XPAC}-*.t?z ../..
 		    if [ $? -ne 0 ] ;then
@@ -106,14 +106,15 @@ xmakepac () {
 
 rm -f /usr/lib64/lib*.la
 
-# python2-mlt et mlt pour openshot 1.4
-export BUILD=3alien
-xmakealienpac packages mlt
-
-for i in python2-mlt openal-soft libtxc_dxtn libgaminggear python-pillow6 acpibrightness ;do
+# python2-mlt for openshot 1.4
+for i in python2-mlt python2-libcaca python2-libwebp openal-soft libtxc_dxtn libgaminggear python-pillow6 acpibrightness ;do
     xmakepac packages $i
 done
 rm -rf packages/python-pillow
+
+# mlt python3 recompiled with new libs.
+export BUILD=3alien
+xmakealienpac packages mlt
 
 # 32 bits packages
 export ARCH=i486
