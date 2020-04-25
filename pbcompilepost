@@ -106,15 +106,11 @@ xmakepac () {
 
 rm -f /usr/lib64/lib*.la
 
-# Binding python et pas python3 pour openshot.
-# Et le mlt.SlackBuild importe dans python et pas python3 (PYTHONSITEPKG).
-export PYTHON=python
+# python2-mlt et mlt pour openshot 1.4
 export BUILD=3alien
 xmakealienpac packages mlt
-unset PYTHON
-unset BUILD
 
-for i in openal-soft libtxc_dxtn libgaminggear python-pillow6 acpibrightness ;do
+for i in python2-mlt openal-soft libtxc_dxtn libgaminggear python-pillow6 acpibrightness ;do
     xmakepac packages $i
 done
 rm -rf packages/python-pillow

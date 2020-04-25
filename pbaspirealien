@@ -32,12 +32,10 @@ SLACKALIENSRC2="$SLACKMIR/people/alien-kde/source/latest/deps"
     rm -f libxkbcommon-*
     rm -f qt5-*
 
-    # MLT pour openshot.
+    # MLT pour openshot. On recompile pour dependances jackrack, rubberband, swfdec.
     i=mlt
-    tar xvfz ../pbslacks/builds/${i}.tar.gz
-    # xgetpac "$i-" "$SLACKALIEN2" 10
     xgetsrcpac "$i" "$SLACKALIENSRC2/$i/" 9
-
+    
     for i in steamclient ;do
 	xgetpac "$i-" "$SLACKALIEN/$i/pkg/current" 10
     done
