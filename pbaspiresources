@@ -27,7 +27,6 @@ PATHGRAMPS="https://github.com/gramps-project/gramps/archive/v5.1.1.zip"
 PATHOPENAL="https://www.openal-soft.org/openal-releases/openal-soft-1.20.1.tar.bz2"
 PATHLIBTXC_DXTN="https://people.freedesktop.org/~cbrill/libtxc_dxtn/libtxc_dxtn-1.0.1.tar.bz2"
 PATHLIBGAMINGGEAR="https://downloads.sourceforge.net/libgaminggear/libgaminggear-0.15.1.tar.bz2"
-PATHROCCATTOOLS="https://downloads.sourceforge.net/roccat/roccat-tools-5.9.0.tar.bz2"
 PATHKMPLAYER="https://anongit.kde.org/kmplayer.git"
 PATHBSDDB3="https://files.pythonhosted.org/packages/e9/fc/ebfbd4de236b493f9ece156f816c21df0ae87ccc22604c5f9b664efef1b9/bsddb3-6.2.6.tar.gz"
 PATHDB53="http://deb.debian.org/debian/pool/main/d/db5.3/db5.3_5.3.28+dfsg1.orig.tar.xz"
@@ -44,6 +43,8 @@ PATHOPENCVBIS="https://github.com/opencv/opencv_contrib/archive/4.1.1/opencv_con
 PATHDISCORD="https://discordapp.com/api/download?platform=linux&format=tar.gz"
 PATHVLCYOUTUBE="https://raw.githubusercontent.com/videolan/vlc/master/share/lua/playlist/youtube.lua"
 PATHMLT="https://github.com/mltframework/mlt/archive/v6.20.0.tar.gz"
+PATHLIBCACA="http://caca.zoy.org/files/libcaca/libcaca-0.99.beta19.tar.gz"
+PATHLIBWEBP="https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-1.1.0.tar.gz"
 
 ############################################
 # Download new sources.
@@ -51,6 +52,8 @@ PATHMLT="https://github.com/mltframework/mlt/archive/v6.20.0.tar.gz"
 (
     cd packages
     xgetsrc python2-mlt "$PATHMLT"
+    xgetsrc python2-libcaca "$PATHLIBCACA"
+    xgetsrc python2-libwebp "$PATHLIBWEBP"
     xgetsrc openal-soft "$PATHOPENAL"
     xgetsrc libtxc_dxtn "$PATHLIBTXC_DXTN"
     xgetsrc libgaminggear "$PATHLIBGAMINGGEAR"
@@ -64,7 +67,7 @@ PATHMLT="https://github.com/mltframework/mlt/archive/v6.20.0.tar.gz"
 ############################################
 (
     cd packages2
-    xgetsrc roccat-tools "$PATHROCCATTOOLS"
+    xgetsbosrc roccat-tools
     xlocalsrcpac kmplayer "kmplayer_0.11.5b.tar.bz2"
     xgetsrc denemo "$PATHDENEMO"
     # Guile 2.2 supprime en janvier. Utile a denemo.

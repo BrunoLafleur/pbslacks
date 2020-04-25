@@ -62,23 +62,20 @@ xgetsrc () {
     path="$2"
     [ ! -d "$name" ] && mkdir "$name"
     cp -u "../pbslacks/builds/${name}.tar.gz" "$name"
-    cd "$name"
-    wget -N -nv --content-disposition "$path"
-    cd ..
+    (
+	cd "$name"
+	wget -N -nv --content-disposition "$path"
+    )
 }
 
-# Get the original source tarball.
+# Get the original source tarball with path in package.info.
 xgetsbosrc () {
     name="$1"
-    [ ! -d "$name" ] && mkdir "$name"
-    cp -u "../pbslacks/builds/${name}.tar.gz" "$name"
-    cd "$name"
     tar xfz ${name}.tar.gz $name/${name}.info
     path=$(cat $name/${name}.info | fgrep DOWNLOAD_x86_64|cut -d '=' -f2|cut -d '"' -f2)
     [ -z "$path" ] && path=$(cat $name/${name}.info | fgrep DOWNLOAD|cut -d '=' -f2|cut -d '"' -f2)
     rm -f $name/${name}.info;rmdir $name
-    wget -N -nv --content-disposition "$path"
-    cd ..
+    xgetsrc $name "$path"
 }
 
 # Get static url.
