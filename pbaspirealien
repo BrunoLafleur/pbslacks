@@ -8,6 +8,7 @@ XDIR="$(dirname $0)"
 . "$XDIR/pbaspireinit"
 . "$XDIR/pbinclude"
 . "$XDIR/pbaspireinc"
+. "$XDIR/pbpathinc"
 
 xhelp () {
     mygt 'Launch this script in the directory including packages, packages2 et al.'
@@ -18,11 +19,9 @@ if [ ! -d packages ] ;then
     exit 1
 fi
 
-SLACKMIR='http://nephtys.lip6.fr/pub/linux/distributions/slackware'
-SLACKALIEN="$SLACKMIR/people/alien/slackbuilds"
-SLACKALIEN2="$SLACKMIR/people/alien-kde/current/latest/x86_64/deps"
-SLACKALIENSRC2="$SLACKMIR/people/alien-kde/source/latest/deps"
-
+############################################
+# Download new versions of binary packages.
+# Alien Bob packages.
 ############################################
 (
     cd packages
