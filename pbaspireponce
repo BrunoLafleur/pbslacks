@@ -8,6 +8,7 @@ XDIR="$(dirname $0)"
 . "$XDIR/pbaspireinit"
 . "$XDIR/pbinclude"
 . "$XDIR/pbaspireinc"
+. "$XDIR/pbpathinc"
 
 xhelp () {
     mygt 'Launch this script in the directory including packages, packages2 et al.'
@@ -18,9 +19,9 @@ if [ ! -d packages ] ;then
     exit 1
 fi
 
-SLACKPONCE="http://ponce.cc/slackware/slackware64-current/packages"
-SLACKPONCE32="http://ponce.cc/slackware/slackware-current/packages"
-
+############################################
+# Download new versions of binary packages.
+# Ponce packages.
 ############################################
 (
     cd packages

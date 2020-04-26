@@ -8,6 +8,7 @@ XDIR="$(dirname $0)"
 . "$XDIR/pbaspireinit"
 . "$XDIR/pbinclude"
 . "$XDIR/pbaspireinc"
+. "$XDIR/pbpathinc"
 
 xhelp () {
     mygt 'Launch this script in the directory including packages, packages2 et al.'
@@ -17,12 +18,6 @@ if [ ! -d packages ] ;then
     xhelp
     exit 1
 fi
-
-# Binary packages from Conraid and Slackel.
-
-SLACKCF="http://slack.conraid.net/repository/slackware64-current"
-SLACKDJ="http://www.slackel.gr/repo/x86_64/current/slackel/extra"
-SLACKDJ32="http://www.slackel.gr/repo/i486/current/slackel/extra"
 
 ############################################
 # Download new versions of binary packages.

@@ -8,6 +8,7 @@ XDIR="$(dirname $0)"
 . "$XDIR/pbaspireinit"
 . "$XDIR/pbinclude"
 . "$XDIR/pbaspireinc"
+. "$XDIR/pbpathinc"
 
 xhelp () {
     mygt 'Launch this script in the directory including packages, packages2 et al.'
@@ -31,9 +32,6 @@ while [ $# -ge 1 ] ;do
     fi
     shift
 done
-
-XFIREFOX="https://download.mozilla.org/?product=firefox-esr-latest-ssl&os=linux64&lang=$XLANG"
-XTHUNDERBIRD="https://download.mozilla.org/?product=thunderbird-latest-SSL&os=linux64&lang=$XLANG"
 
 [ ! -d packages/Mozilla ] && mkdir packages/Mozilla
 (
