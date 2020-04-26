@@ -8,6 +8,7 @@ XDIR="$(dirname $0)"
 . "$XDIR/pbaspireinit"
 . "$XDIR/pbinclude"
 . "$XDIR/pbaspireinc"
+. "$XDIR/pbpathinc"
 
 xhelp () {
     mygt 'Launch this script in the directory including packages, packages2 et al.'
@@ -18,9 +19,9 @@ if [ ! -d packages ] ;then
     exit 1
 fi
 
-SLACKSLONLY="https://slackonly.com/pub/packages/current-x86_64"
-SLACKSLONLY32="https://slackonly.com/pub/packages/current-x86"
-
+############################################
+# Download new versions of binary packages.
+# Slonly packages.
 ############################################
 (
     cd packages

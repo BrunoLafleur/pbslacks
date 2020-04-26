@@ -10,6 +10,7 @@ XDIR="$(dirname $0)"
 . "$XDIR/pbaspireinit"
 . "$XDIR/pbinclude"
 . "$XDIR/pbaspireinc"
+. "$XDIR/pbpathinc"
 
 if [ $# -eq 0 ] ;then
     ISCORE=1
@@ -48,15 +49,6 @@ done
 
 MYPWD=$(pwd)
 export HOMESLACK="$MYPWD"
-SLACKMIR='http://nephtys.lip6.fr/pub/linux/distributions/slackware'
-SLACKKEYS='https://mirrors.slackware.com/slackware'
-SLACKMULTI="$SLACKMIR/people/alien/multilib/current"
-SLACKKDEFW="$SLACKMIR/people/alien-kde/current/latest/x86_64/kde/frameworks"
-GPARTEDISO="https://downloads.sourceforge.net/gparted/gparted-live-1.1.0-1-amd64.iso"
-VBOXREP='https://download.virtualbox.org/virtualbox/6.1.6/'
-VBOXARCH="$VBOXREP/VirtualBox-6.1.6-137129-Win.exe"
-VBOXEXT="$VBOXREP/Oracle_VM_VirtualBox_Extension_Pack-6.1.6.vbox-extpack"
-VBOXDOC="$VBOXREP/UserManual.pdf"
 
 # Function for getting packages.
 myrget () {
