@@ -42,18 +42,22 @@ PATHSIGNALDESKTOP="https://sourceforge.net/projects/slackbuildsdirectlinks/files
 PATHVOKOSCREEN="https://github.com/vkohaupt/vokoscreenNG/archive/3.0.3.tar.gz"
 
 # List of aspire links.
-
+# explicit mirror chosen here.
 SLACKMIR='http://nephtys.lip6.fr/pub/linux/distributions/slackware'
+
 SLACKKEYS='https://mirrors.slackware.com/slackware'
 SLACKMULTI="$SLACKMIR/people/alien/multilib/current"
 SLACKKDEFW="$SLACKMIR/people/alien-kde/current/latest/x86_64/kde/frameworks"
+
+# GParted Live iso and VirtualBox for Windows.
+
 GPARTEDISO="https://downloads.sourceforge.net/gparted/gparted-live-1.1.0-1-amd64.iso"
 VBOXREP='https://download.virtualbox.org/virtualbox/6.1.6/'
 VBOXARCH="$VBOXREP/VirtualBox-6.1.6-137129-Win.exe"
 VBOXEXT="$VBOXREP/Oracle_VM_VirtualBox_Extension_Pack-6.1.6.vbox-extpack"
 VBOXDOC="$VBOXREP/UserManual.pdf"
 
-# Alien Bob list of repositories (explicit mirror chosen here).
+# Alien Bob list of repositories.
 
 SLACKALIEN="$SLACKMIR/people/alien/slackbuilds"
 SLACKALIEN2="$SLACKMIR/people/alien-kde/current/latest/x86_64/deps"
