@@ -201,52 +201,54 @@ msgid "Actions which were done"
 msgstr ""
 
 #: pbaspirealien:13 pbaspiremoz:13 pbaspireother:13 pbaspireponce:13
-#: pbaspireslonly:13 pbaspiresources:13 pbcompilepost:17
+#: pbaspireslonly:13 pbaspiresources:13 pbcompilepost:17 pbaspirealien:14
+#: pbaspiremoz:14 pbaspireother:14 pbaspireponce:14 pbaspireslonly:14
+#: pbaspiresources:14
 msgid ""
 "Launch this script in the directory including packages, packages2 et al."
 msgstr ""
 
-#: pbaspirecore:104
+#: pbaspirecore:104 pbaspirecore:96
 msgid "Slackware current copied."
 msgstr ""
 
-#: pbaspirecore:106
+#: pbaspirecore:106 pbaspirecore:98
 msgid "Slackware current not copied."
 msgstr ""
 
-#: pbaspirecore:131
+#: pbaspirecore:131 pbaspirecore:123
 msgid "Slackware multilib copied."
 msgstr ""
 
-#: pbaspirecore:133
+#: pbaspirecore:133 pbaspirecore:125
 msgid "Slackware multilib not copied."
 msgstr ""
 
-#: pbaspirecore:160
+#: pbaspirecore:160 pbaspirecore:152
 msgid "Alien Bob KDE5 frameworks copied."
 msgstr ""
 
-#: pbaspirecore:162
+#: pbaspirecore:162 pbaspirecore:154
 msgid "Alien Bob KDE5 frameworks not copied."
 msgstr ""
 
-#: pbaspirecore:188
+#: pbaspirecore:188 pbaspirecore:180
 msgid "Check GPG signatures :"
 msgstr ""
 
-#: pbaspirecore:211
+#: pbaspirecore:211 pbaspirecore:203
 msgid "GParted copied."
 msgstr ""
 
-#: pbaspirecore:213 pbaspirecore:219
+#: pbaspirecore:213 pbaspirecore:219 pbaspirecore:205 pbaspirecore:211
 msgid "GParted not copied."
 msgstr ""
 
-#: pbaspirecore:240
+#: pbaspirecore:240 pbaspirecore:232
 msgid "VirtualBox copied."
 msgstr ""
 
-#: pbaspirecore:242 pbaspirecore:248
+#: pbaspirecore:242 pbaspirecore:248 pbaspirecore:234 pbaspirecore:240
 msgid "VirtualBox not copied."
 msgstr ""
 
@@ -297,11 +299,11 @@ msgid ""
 "machine, this script is not useful.\\nPress a touch for continue or abort."
 msgstr ""
 
-#: pbcompilepost:83
+#: pbcompilepost:83 pbcompilepost:88
 msgid "Correct this error and relaunch this script."
 msgstr ""
 
-#: pbcompilepost:145
+#: pbcompilepost:145 pbcompilepost:150
 msgid "Upgrade packages* done."
 msgstr ""
 
