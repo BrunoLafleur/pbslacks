@@ -216,56 +216,54 @@ msgstr "Aucune action demandée. Sortie."
 msgid "Actions which were done"
 msgstr "Actions réalisées"
 
-#: pbaspirealien:13 pbaspiremoz:13 pbaspireother:13 pbaspireponce:13
-#: pbaspireslonly:13 pbaspiresources:13 pbcompilepost:17 pbaspirealien:14
-#: pbaspiremoz:14 pbaspireother:14 pbaspireponce:14 pbaspireslonly:14
-#: pbaspiresources:14
+#: pbaspirealien:14 pbaspiremoz:14 pbaspireother:14 pbaspireponce:14
+#: pbaspireslonly:14 pbaspiresources:14 pbcompilepost:17
 msgid ""
 "Launch this script in the directory including packages, packages2 et al."
 msgstr ""
 "Script à lancer dans le répertoire contenant packages, packages2 et al."
 
-#: pbaspirecore:104 pbaspirecore:96
+#: pbaspirecore:96
 msgid "Slackware current copied."
 msgstr "Copie Slackware current faite."
 
-#: pbaspirecore:106 pbaspirecore:98
+#: pbaspirecore:98
 msgid "Slackware current not copied."
 msgstr "Copie Slackware current non faite."
 
-#: pbaspirecore:131 pbaspirecore:123
+#: pbaspirecore:123
 msgid "Slackware multilib copied."
 msgstr "Copie Slackware multilib faite."
 
-#: pbaspirecore:133 pbaspirecore:125
+#: pbaspirecore:125
 msgid "Slackware multilib not copied."
 msgstr "Copie Slackware multilib non faite."
 
-#: pbaspirecore:160 pbaspirecore:152
+#: pbaspirecore:152
 msgid "Alien Bob KDE5 frameworks copied."
 msgstr "Copie alien KDE5 frameworks faite."
 
-#: pbaspirecore:162 pbaspirecore:154
+#: pbaspirecore:154
 msgid "Alien Bob KDE5 frameworks not copied."
 msgstr "Copie alien KDE5 frameworks non faite."
 
-#: pbaspirecore:188 pbaspirecore:180
+#: pbaspirecore:180
 msgid "Check GPG signatures :"
 msgstr "Vérification des signatures GPG :"
 
-#: pbaspirecore:211 pbaspirecore:203
+#: pbaspirecore:203
 msgid "GParted copied."
 msgstr "Copie GParted faite."
 
-#: pbaspirecore:213 pbaspirecore:219 pbaspirecore:205 pbaspirecore:211
+#: pbaspirecore:205 pbaspirecore:211
 msgid "GParted not copied."
 msgstr "Copie GParted non faite."
 
-#: pbaspirecore:240 pbaspirecore:232
+#: pbaspirecore:232
 msgid "VirtualBox copied."
 msgstr "Copie VirtualBox faite."
 
-#: pbaspirecore:242 pbaspirecore:248 pbaspirecore:234 pbaspirecore:240
+#: pbaspirecore:234 pbaspirecore:240
 msgid "VirtualBox not copied."
 msgstr "Copie VirtualBox non faite."
 
@@ -324,11 +322,11 @@ msgstr ""
 "déjà fait sur une machine a jour, il n'est pas utile de relancer ce script."
 "\\nAppuyer sur une touche pour continuer sinon CTRLc pour arrêter"
 
-#: pbcompilepost:83 pbcompilepost:88
+#: pbcompilepost:88
 msgid "Correct this error and relaunch this script."
 msgstr "Erreur à corriger puis relancer ce script."
 
-#: pbcompilepost:145 pbcompilepost:150
+#: pbcompilepost:150
 msgid "Upgrade packages* done."
 msgstr "Mise à jour de packages* faite."
 
