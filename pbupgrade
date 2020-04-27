@@ -120,13 +120,13 @@ xmaster () {
     defitem=$1;shift
     xsel1=$1;shift;xsel2=$1;shift;xsel3=$1;shift;xsel4=$1;shift;xsel5=$1;shift
     xsel6=$1;shift;xsel7=$1;shift;xsel8=$1;shift;xsel9=$1;shift;xsel10=$1;shift
-    xsel11=$1;shift;xsel12=$1;shift;xsel13=$1;shift;xsel14=$1
+    xsel11=$1;shift;xsel12=$1;shift;xsel13=$1;shift;xsel14=$11;shift;xsel15=$12
     pactit=$(mygt 'Main menu')
     pactit="pbupgrade: $pactit"
     dialog --colors --backtitle 'pbupgrade' --title "$pactit" \
 	--default-item $defitem --defaultno \
 	--separate-output --item-help --help-button --help-status --checklist \
-	"$(mygt 'Choose your actions below after you have launch the \Zbpbaspire*\ZB script')" 0 100 14 \
+	"$(mygt 'Choose your actions below after you have launch the \Zbpbaspire*\ZB script')" 0 100 15 \
 	system "$(mygt 'Sync/Update system to the last fetched current Slackware')" $xsel1 system \
 	systemnet "$(mygt 'Sync/Update system to the last current Slackware on the internet')" $xsel2 systemnet \
 	compat32 "$(mygt 'Install/Update the 32 bits compatible mode')" $xsel3 compat32 \
@@ -140,7 +140,8 @@ xmaster () {
 	tesseract4 "$(mygt 'Install/Update the Tesseract version 4 software')" $xsel11 tesseract4 \
 	bumblebee "$(mygt 'Install/Update the Bumblebee support of your second NVIDIA graphic card')" $xsel12 bumblebee \
 	recreate "$(mygt 'Compile again some packages.')" $xsel13 recreate \
-	recreatebumblebee "$(mygt 'Compile again Bumblebee packages.')" $xsel14 recreatebumblebee
+	recreatebumblebee "$(mygt 'Compile again Bumblebee packages.')" $xsel14 recreatebumblebee \
+    	bootload "$(mygt 'Update boot loader.')" $xsel15 bootload
 }
 
 xpacaide () {
@@ -154,7 +155,7 @@ xpacaide () {
 }
 
 xsel="$XUPSYSTEM off $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST \
-$XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPPOST $XUPPOST $XUPPOST"
+$XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPPOST $XUPPOST $XUPPOST off"
 ditem=system
 bclaide=1
 
@@ -166,7 +167,7 @@ while [ $bclaide -eq 1 ] ;do
 	xsel=
 	for i in system systemnet compat32 mozilla packages packages2 packages3 \
 	    packages4 frameworks audacity tesseract4 bumblebee recreate \
-	    recreatebumblebee ;do
+	    recreatebumblebee bootload ;do
 	  if [ $(grep "^$i$" "$XTEMPOUT"|wc -l) -eq 1 ] ;then
 	      xsel="$xsel on"
 	  else
@@ -196,6 +197,8 @@ while [ $bclaide -eq 1 ] ;do
 	    pacaide=$(mygt 'Redo the packages which are here in sources form.\nIf not already done on this machine or another.')
 	elif [ "$xitem" = recreatebumblebee ] ;then
 	    pacaide=$(mygt 'Redo the Bumblebee packages.\nIf not already done on this machine or another.\nYou should reboot after upgrading system packages and before doing this action else the Bumblebee packages wont built.')
+	elif [ "$xitem" = bootload ] ;then
+	    pacaide=$(mygt 'Update your boot loader only if you update your system.') 
 	fi
 	dialog --colors --backtitle 'pbupgrade' --title "$xitem" \
 	    --msgbox "$pacaide" 20 80
@@ -217,6 +220,7 @@ ISTESS="$(cat $XTEMPOUT|grep '^tesseract4$'|wc -l)"
 ISBUMBLE="$(cat $XTEMPOUT|grep '^bumblebee$'|wc -l)"
 ISRECRE="$(cat $XTEMPOUT|grep '^recreate$'|wc -l)"
 ISRECREBUMBLE="$(cat $XTEMPOUT|grep '^recreatebumblebee$'|wc -l)"
+ISBOOTLOAD="$(cat $XTEMPOUT|grep '^bootload$'|wc -l)"
 
 if [ $ISSYSTEM -eq 1 -o $ISSYSNET -eq 1 ] ;then
     if [ $XTEST -ne 1 ] ;then
@@ -335,6 +339,9 @@ if [ $XEND -eq 0 ] ;then
 	fi
 	mygt "Recreate source Bumblebee done." >> $XTEMPMES
     fi
+    if [ $ISBOOTLOAD -eq 1 ] ;then
+	mygt "Updating bootloader asked." >> $XTEMPMES
+    fi
 fi
 
 if [ ! -f "$XTEMPMES" -o ! -s "$XTEMPMES" ] ;then
@@ -343,14 +350,14 @@ if [ ! -f "$XTEMPMES" -o ! -s "$XTEMPMES" ] ;then
 fi
 
 dialog --colors --backtitle 'pbupgrade' --title "$DACTION" \
-    --msgbox "$(cat $XTEMPMES)" 20 80
+       --msgbox "$(cat $XTEMPMES)" 20 80
 cleanup
 
 if [ $XEND -eq 1 ] ;then
     exit 0
 fi
 
-if [ $ISSYSTEM -eq 1 ] ;then
+if [ $ISSYSTEM -eq 1 -o $ISBOOTLOAD -eq 1 ] ;then
 # Only if system was modified
     if [ -d /boot/efi/EFI/Slackware ] ;then
 	xitem=elilo
