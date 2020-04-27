@@ -192,7 +192,7 @@ msgstr ""
 msgid "GPG signatures checked :"
 msgstr ""
 
-#: pbaspire:271 pbsetup:296 pbupgrade:341
+#: pbaspire:271 pbsetup:296 pbupgrade:341 pbupgrade:348
 msgid "No action was demanded. Exit."
 msgstr ""
 
@@ -692,111 +692,111 @@ msgstr ""
 msgid "Compile again Bumblebee packages."
 msgstr ""
 
-#: pbupgrade:178
+#: pbupgrade:178 pbupgrade:179
 msgid ""
 "Upgrade your Slackware system with the last current fetched.\\nUses Slackpkg."
 msgstr ""
 
-#: pbupgrade:180
+#: pbupgrade:180 pbupgrade:181
 msgid ""
 "Upgrade your Slackware system with the last current on the internet.\\nUses "
 "Slackpkg."
 msgstr ""
 
-#: pbupgrade:182
+#: pbupgrade:182 pbupgrade:183
 msgid "Upgrade the Alien Bob 32 bits compatible mode."
 msgstr ""
 
-#: pbupgrade:184
+#: pbupgrade:184 pbupgrade:185
 msgid ""
 "Upgrade the Firefox and Thunderbird products.\\nThey should be downloaded "
 "and put in the packages/Mozilla directory before."
 msgstr ""
 
-#: pbupgrade:194
+#: pbupgrade:194 pbupgrade:195
 msgid ""
 "Upgrade your Bumblebee packages if they are in sync with the upgraded "
 "Slackware.\\nDone on another machine for exemple."
 msgstr ""
 
-#: pbupgrade:196
+#: pbupgrade:196 pbupgrade:197
 msgid ""
 "Redo the packages which are here in sources form.\\nIf not already done on "
 "this machine or another."
 msgstr ""
 
-#: pbupgrade:198
+#: pbupgrade:198 pbupgrade:199
 msgid ""
 "Redo the Bumblebee packages.\\nIf not already done on this machine or "
 "another.\\nYou should reboot after upgrading system packages and before "
 "doing this action else the Bumblebee packages wont built."
 msgstr ""
 
-#: pbupgrade:243
+#: pbupgrade:243 pbupgrade:247
 msgid "Abort : see previous errors."
 msgstr ""
 
-#: pbupgrade:244
+#: pbupgrade:244 pbupgrade:248
 msgid "Upgrade system not done."
 msgstr ""
 
-#: pbupgrade:251 pbupgrade:255
+#: pbupgrade:251 pbupgrade:255 pbupgrade:259
 msgid "Upgrade system done."
 msgstr ""
 
-#: pbupgrade:264
+#: pbupgrade:264 pbupgrade:268
 msgid "Upgrade Alien Bob multilib done."
 msgstr ""
 
-#: pbupgrade:270
+#: pbupgrade:270 pbupgrade:274
 msgid "Upgrade Mozilla done."
 msgstr ""
 
-#: pbupgrade:277
+#: pbupgrade:277 pbupgrade:281
 msgid "Upgrade packages done."
 msgstr ""
 
-#: pbupgrade:286
+#: pbupgrade:286 pbupgrade:290
 msgid "Upgrade packages2 done."
 msgstr ""
 
-#: pbupgrade:292
+#: pbupgrade:292 pbupgrade:296
 msgid "Upgrade packages3 done."
 msgstr ""
 
-#: pbupgrade:298
+#: pbupgrade:298 pbupgrade:302
 msgid "Upgrade packages4 done."
 msgstr ""
 
-#: pbupgrade:305
+#: pbupgrade:305 pbupgrade:309
 msgid "Upgrade frameworks done."
 msgstr ""
 
-#: pbupgrade:311
+#: pbupgrade:311 pbupgrade:315
 msgid "Upgrade audacity done."
 msgstr ""
 
-#: pbupgrade:318
+#: pbupgrade:318 pbupgrade:322
 msgid "Upgrade tesseract4 done."
 msgstr ""
 
-#: pbupgrade:324
+#: pbupgrade:324 pbupgrade:328
 msgid "Upgrade Bumblebee done."
 msgstr ""
 
-#: pbupgrade:330
+#: pbupgrade:330 pbupgrade:334
 msgid "Recreate source packages done."
 msgstr ""
 
-#: pbupgrade:336
+#: pbupgrade:336 pbupgrade:340
 msgid "Recreate source Bumblebee done."
 msgstr ""
 
-#: pbupgrade:366
+#: pbupgrade:366 pbupgrade:373
 msgid "Bootloader menu"
 msgstr ""
 
-#: pbupgrade:367
+#: pbupgrade:367 pbupgrade:374
 msgid ""
 "We have detected the bootloader below. Cancel if it is not true.\\nIn this "
 "last case, you should recreate the config of your bootloader before reboot. "
@@ -804,11 +804,11 @@ msgid ""
 "rerun the install of your bootloader."
 msgstr ""
 
-#: pbupgrade:368
+#: pbupgrade:368 pbupgrade:375
 msgid "No bootloader detected. Reconfigure your bootloader before reboot."
 msgstr ""
 
-#: pbupgrade:380
+#: pbupgrade:380 pbupgrade:387
 msgid ""
 "\\ZbThe boot loader was not updated.\\ZB\\nIf lilo is installed, launch : "
 "\\Z3/sbin/lilo\\Zn\\nIf Grub is installed, launch : \\Z3grub-mkconfig -o /"
@@ -818,35 +818,35 @@ msgid ""
 "other favorite bootloader install procedure before rebooting.\\ZB"
 msgstr ""
 
-#: pbupgrade:384
+#: pbupgrade:384 pbupgrade:391
 msgid ""
 "Elilo updated : Files vmlinuz et initrd.gz copied in \\Z3/boot/efi/EFI/"
 "Slackware\\Zn"
 msgstr ""
 
-#: pbupgrade:389
+#: pbupgrade:389 pbupgrade:396
 msgid ""
 "Grub updated : \\Z3grub-mkconfig\\Zn relaunched.\\n\\Z1Look if there are "
 "error messages below\\Zn."
 msgstr ""
 
-#: pbupgrade:394
+#: pbupgrade:394 pbupgrade:401
 msgid ""
 "Lilo updated with \\Z3/sbin/lilo\\Zn.\\n\\Z1Look if there are error messages "
 "below\\Zn."
 msgstr ""
 
-#: pbupgrade:399
+#: pbupgrade:399 pbupgrade:406
 msgid ""
 "Look at \\Z3/syslinux.cfg\\Zn and rerun \\Z3syslinux\\Zn on your boot "
 "partition if some path have changed."
 msgstr ""
 
-#: pbupgrade:413
+#: pbupgrade:413 pbupgrade:420
 msgid " (\\Z1be sure to have updated the bootloader before\\Zn)"
 msgstr ""
 
-#: pbupgrade:419
+#: pbupgrade:419 pbupgrade:426
 #, sh-format
 msgid ""
 "Reboot the host${XBOOTMES}.\\n\\n\\ZbThen do if not already done on an "
@@ -909,4 +909,16 @@ msgstr ""
 #: pbmakeiso2usb:46
 #, sh-format
 msgid "Your device name is $MYDEVNAME. Is this correct ? y(es) or n(o) :"
+msgstr ""
+
+#: pbupgrade:144
+msgid "Update boot loader."
+msgstr ""
+
+#: pbupgrade:201
+msgid "Update your boot loader only if you update your system."
+msgstr ""
+
+#: pbupgrade:343
+msgid "Updating bootloader asked."
 msgstr ""
