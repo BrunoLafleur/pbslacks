@@ -326,7 +326,7 @@ msgstr ""
 msgid "Correct this error and relaunch this script."
 msgstr "Erreur à corriger puis relancer ce script."
 
-#: pbcompilepost:150
+#: pbcompilepost:155
 msgid "Upgrade packages* done."
 msgstr "Mise à jour de packages* faite."
 
