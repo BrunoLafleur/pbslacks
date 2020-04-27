@@ -6,6 +6,9 @@
 
 . "$(dirname $0)/pbinclude"
 
+# For systemnet upgrade. Change mirror if you want.
+SLACKMIR='http://nephtys.lip6.fr/pub/linux/distributions/slackware/slackware64-current/'
+
 xhelp () {
     mygt 'Launch this script in the directory including alreadey cloned slackware64 or slackware64-current.\nIt can be on the bootable slackware install USB stick.\npbslacks should also be there.'|sed 's@\\n@\n@g'
     echo
@@ -44,7 +47,6 @@ while [ $# -ge 1 ] ;do
     shift
 done
 
-SLACKMIR='http://nephtys.lip6.fr/pub/linux/distributions/slackware/slackware64-current/'
 XTEMPOUT=$(mktemp -p /tmp -t pbupgradeout.XXXXXX)
 XTEMPMES=$(mktemp -p /tmp -t pbupgrademes.XXXXXX)
 
@@ -56,6 +58,18 @@ xupmainpac () {
     grp="$4"
     [ $(ls /var/log/packages/${pac}*-$repo|wc -l) -eq 1 ] &&\
 	upgradepkg slackware64/$grp/${pac}*$suf
+}
+
+upgradedir () {
+    xdir="$1"
+    (
+	cd "$xdir"
+	ls *.t?z|while read i;test "$i" != "" ;do
+	    upgradepkg --install-new "$i"
+	    j=/var/log/packages/$(echo "$i"|sed 's/\.t.z$//')
+	    [ "$i" -nt "$j" ] && upgradepkg --reinstall "$i"
+	done
+    )
 }
 
 cleanup () {
@@ -275,15 +289,14 @@ if [ $XEND -eq 0 ] ;then
     fi
     if [ $ISPACK -eq 1 ] ;then
 	if [ $XTEST -ne 1 ] ;then
-	    upgradepkg --install-new packages/*.t?z
-	    upgradepkg --install-new packages/compat32/*.t?z
+	    upgradedir packages
+	    upgradedir packages/compat32
 	fi
 	mygt "Upgrade packages done." >> $XTEMPMES
     fi
     if [ $ISPACK2 -eq 1 ] ;then
 	if [ $XTEST -ne 1 ] ;then
-	    upgradepkg --install-new packages2/*.t?z
-	    upgradepkg --install-new --reinstall packages2/*master*.t?z
+	    upgradedir packages2
             cp packages2/youtube.lua /usr/lib64/vlc/lua/playlist
             rm -f /usr/lib64/vlc/lua/playlist/youtube.luac
 	fi
@@ -291,32 +304,31 @@ if [ $XEND -eq 0 ] ;then
     fi
     if [ $ISPACK3 -eq 1 ] ;then
 	if [ $XTEST -ne 1 ] ;then
-	    upgradepkg --install-new packages3/*.t?z
+	    upgradedir packages3
 	fi
 	mygt "Upgrade packages3 done." >> $XTEMPMES
     fi
     if [ $ISPACK4 -eq 1 ] ;then
 	if [ $XTEST -ne 1 ] ;then
-	    upgradepkg --install-new packages4/*.t?z
+	    upgradedir packages4
 	fi
 	mygt "Upgrade packages4 done." >> $XTEMPMES
     fi
     if [ $ISFRAME -eq 1 ] ;then
 	if [ $XTEST -ne 1 ] ;then
-	    upgradepkg --install-new packages4/frameworks/*.t?z
-	    upgradepkg --install-new --reinstall packages4/*master*.t?z
+	    upgradedir packages4/frameworks
 	fi
 	mygt "Upgrade frameworks done." >> $XTEMPMES
     fi
     if [ $ISAUDACITY -eq 1 ] ;then
 	if [ $XTEST -ne 1 ] ;then
-	    upgradepkg --install-new packages4/audacity/*.t?z
+	    upgradedir packages4/audacity
 	fi
 	mygt "Upgrade audacity done." >> $XTEMPMES
     fi
     if [ $ISTESS -eq 1 ] ;then
 	if [ $XTEST -ne 1 ] ;then
-	    upgradepkg --install-new packages4/tesseract4/*.t?z
+	    upgradedir packages4/tesseract4
 	    cp packages4/tesseract4/xsane2tess* /usr/bin
 	fi
 	mygt "Upgrade tesseract4 done." >> $XTEMPMES
