@@ -112,9 +112,6 @@ xmakepac () {
 
 rm -f /usr/lib64/lib*.la
 
-xmakepac packages4 zoom-linux
-exit 0
-
 # python2-* for openshot 1.4
 for i in python2-mlt python2-libcaca python2-libwebp openal-soft libtxc_dxtn libgaminggear python-pillow6 acpibrightness ;do
     xmakepac packages $i
