@@ -41,7 +41,8 @@ mv -f GPG-KEY gpgkeys/GPG-KEY-slackbuilds-alien
     for i in steamclient ;do
 	xgetpac "$i" "$SLACKALIEN/$i/pkg/current" 10
     done
-    for i in libreoffice libreoffice-dict-fr libreoffice-l10n-fr libreoffice-sdkdoc ;do
+    for i in libreoffice libreoffice-dict-fr libreoffice-l10n-fr \
+			 libreoffice-sdkdoc ;do
 	xgetpac "$i"'[0-9]' "$SLACKALIEN/libreoffice/pkg64/current" 10
     done
     (
