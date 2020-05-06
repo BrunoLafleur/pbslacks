@@ -180,7 +180,7 @@ if [ $ISCHECK -eq 1 ] ;then
     mygt "Check GPG signatures :" >> $XTEMPCHK
     (
 	export LANG=C
-	find . -type f -name GPG-KEY -exec gpg --import {} \; >> $XTEMPCHK
+	find . -type f -name 'GPG-KEY*' -exec gpg --import {} \; >> $XTEMPCHK
 	find . -type f -name '*.asc' -exec gpg --verify -q {} \; 2>&1 | \
 	    egrep -i 'gpg: assuming signed data in |gpg: bad signature' >> $XTEMPCHK
     )
