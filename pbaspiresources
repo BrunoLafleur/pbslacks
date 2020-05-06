@@ -24,6 +24,9 @@ fi
 ############################################
 (
     cd packages
+    for i in python3-certifi openshot_qt ;do
+	xgetsbosrc "$i"
+    done
     xgetsrc python2-mlt "$PATHMLT"
     xgetsrc python2-libcaca "$PATHLIBCACA"
     xgetsrc python2-libwebp "$PATHLIBWEBP"

@@ -113,7 +113,9 @@ xmakepac () {
 rm -f /usr/lib64/lib*.la
 
 # python2-* for openshot 1.4
-for i in python2-mlt python2-libcaca python2-libwebp openal-soft libtxc_dxtn libgaminggear python-pillow6 acpibrightness ;do
+for i in python2-mlt python2-libcaca python2-libwebp openal-soft \
+		     libtxc_dxtn libgaminggear python-pillow6 acpibrightness \
+		     python3-certifi openshot_qt ;do
     xmakepac packages $i
 done
 rm -rf packages/python-pillow
@@ -149,7 +151,8 @@ done
 for i in bsddb3 db53 pyicu gramps ;do
     xmakepac packages3 $i
 done
-for i in xrdp xorgxrdp SFML wxGTK3 vbam fbida kaffeine opencv gradle signal-desktop audiveris zoom-linux ;do
+for i in xrdp xorgxrdp SFML wxGTK3 vbam fbida kaffeine opencv gradle \
+	      signal-desktop audiveris zoom-linux ;do
     xmakepac packages4 $i
 done
 

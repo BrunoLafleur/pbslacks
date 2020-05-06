@@ -30,13 +30,14 @@ mv -f GPG-KEY gpgkeys/GPG-KEY-x32-ponce
 
 (
     cd packages
-    for i in ladspa_sdk swfdec x264 libdvdcss vid.stab ;do
-	xgetpac "$i-" "$SLACKPONCE" 3
+    for i in libdvdcss ladspa_sdk swfdec x264 vid.stab python3-pyzmq \
+		       libopenshot libopenshot-audio httplib2 zeromq ;do
+	xgetpac "$i" "$SLACKPONCE" 3
     done
     (
 	cd 32
 	for i in libdvdcss ;do
-	    xgetpac "$i-" "$SLACKPONCE32" 3
+	    xgetpac "$i" "$SLACKPONCE32" 3
 	done
     )
 )
@@ -46,7 +47,7 @@ xpurgeindex packages
 (
     cd packages2
     for i in gtksourceview3 ;do
-	xgetpac "$i-" "$SLACKPONCE" 3
+	xgetpac "$i" "$SLACKPONCE" 3
     done
 )
 xpurgeindex packages2
@@ -55,7 +56,7 @@ xpurgeindex packages2
 (
     cd packages3
     for i in graphviz ;do
-	xgetpac "$i-" "$SLACKPONCE" 3
+	xgetpac "$i" "$SLACKPONCE" 3
     done
 )
 xpurgeindex packages3
@@ -64,14 +65,14 @@ xpurgeindex packages3
 (
     cd packages4
     for i in hdf5 numpy gst-plugins-bad ;do
-	xgetpac "$i-" "$SLACKPONCE" 3
+	xgetpac "$i" "$SLACKPONCE" 3
     done
 
     [ ! -d audacity ] && mkdir audacity
     (
 	cd audacity
 	for i in celt051 ;do
-	    xgetpac "$i-" "$SLACKPONCE" 3
+	    xgetpac "$i" "$SLACKPONCE" 3
 	done
     )
 )
