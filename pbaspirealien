@@ -23,6 +23,9 @@ fi
 # Download new versions of binary packages.
 # Alien Bob packages.
 ############################################
+xgeturl "$SLACKALIEN/GPG-KEY"
+mv -f GPG-KEY gpgkeys/GPG-KEY-slackbuilds-alien
+
 (
     cd packages
     for i in cabextract jack2 musescore openjdk wine ;do
