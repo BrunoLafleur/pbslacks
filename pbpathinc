@@ -86,3 +86,4 @@ SLACKPONCE32="http://ponce.cc/slackware/slackware-current/packages"
 
 SLACKSLONLY="https://slackonly.com/pub/packages/current-x86_64"
 SLACKSLONLY32="https://slackonly.com/pub/packages/current-x86"
+SLACKSLONLY142="https://slackonly.com/pub/packages/14.2-x86_64"
