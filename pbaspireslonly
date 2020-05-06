@@ -30,10 +30,12 @@ mv -f GPG-KEY gpgkeys/GPG-KEY-x32-slonly
 
 (
     cd packages
-    for i in graphics/goocanvas development/portaudio system/refind development/icoutils audio/portmidi libraries/wxPython libraries/libpng-legacy12 python/pygoocanvas ;do
+    for i in graphics/goocanvas development/portaudio development/icoutils audio/portmidi libraries/wxPython libraries/libpng-legacy12 python/pygoocanvas ;do
 	PROJ=$(echo $i|cut -d '/' -f2)
 	xgetpac "$PROJ-" "$SLACKSLONLY/$i" 5
     done
+    # We took 14.2 one because the current one is too old.
+    xgetpac "refind-" "$SLACKSLONLY142/system/refind" 5
     (
 	cd 32
 	for i in development/icoutils ;do
