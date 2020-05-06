@@ -71,6 +71,7 @@ mkdir -p packages/Mozilla
 [ ! -d packages2 ] && mkdir packages2
 [ ! -d packages3 ] && mkdir packages3
 [ ! -d packages4 ] && mkdir packages4
+[ ! -d gpgkeys ] && mkdir gpgkeys
 
 if [ ! -d bumblebee ] ;then
     mkdir bumblebee
