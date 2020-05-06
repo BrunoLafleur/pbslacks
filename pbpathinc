@@ -32,7 +32,9 @@ PATHMLT="https://github.com/mltframework/mlt/archive/v6.20.0.tar.gz"
 PATHLIBCACA="http://caca.zoy.org/files/libcaca/libcaca-0.99.beta19.tar.gz"
 PATHLIBWEBP="https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-1.1.0.tar.gz"
 
-# Path which are in package.info file inside the package. TODO : Should be updated from those PATH.
+# Path which are in package.info file inside the package.
+# TODO : Should be updated from those PATH.
+# or the SlackBuilbs from SBo updated.
 
 PATHROCCATTOOLS="http://downloads.sourceforge.net/roccat/roccat-tools-5.9.0.tar.bz2"
 PATHKAFFEINE="https://github.com/KDE/kaffeine/archive/master.zip"
@@ -41,6 +43,9 @@ PATHAUDIVERIS="https://github.com/Audiveris/audiveris/archive/master.zip"
 PATHSIGNALDESKTOP="https://sourceforge.net/projects/slackbuildsdirectlinks/files/signal-desktop/signal-desktop_1.33.1_amd64.deb"
 PATHVOKOSCREEN="https://github.com/vkohaupt/vokoscreenNG/archive/3.0.3.tar.gz"
 PATHZOOM="https://www.zoom.us/client/3.5.385850.0413/zoom_x86_64.tar.xz"
+# A renommer en openshot_qt pour eviter les conflits avec openshot 1.4
+PATHOPENSHOT2="https://github.com/OpenShot/openshot-qt/archive/v2.5.1/openshot-qt-2.5.1.tar.gz"
+PATHOPENSHOTSBO="https://slackbuilds.org/slackbuilds/14.2/multimedia/openshot.tar.gz"
 
 # List of aspire links.
 # explicit mirror chosen here.
