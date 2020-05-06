@@ -33,15 +33,15 @@ mv -f GPG-KEY gpgkeys/GPG-KEY-x32-slackel
 (
     cd packages
     for i in gimp-script-fu x265 skypeforlinux-bin ;do
-	xgetpac "$i-" "$SLACKCF/$i" 3
+	xgetpac "$i" "$SLACKCF/$i" 3
     done
     for i in frei0r-plugins libvdpau-va-gl openshot ;do
-	xgetpac "$i-" "$SLACKDJ" 5
+	xgetpac "$i" "$SLACKDJ" 5
     done
     (
 	cd 32
 	for i in wxPython ;do
-	    xgetpac "$i-" "$SLACKDJ32" 5
+	    xgetpac "$i" "$SLACKDJ32" 5
 	done
     )
 )
@@ -51,10 +51,10 @@ xpurgeindex packages
 (
     cd packages2
     for i in jq lua lua53 oniguruma valgrind ;do
-	xgetpac "$i-" "$SLACKCF/$i" 3
+	xgetpac "$i" "$SLACKCF/$i" 3
     done
     for i in guile1.8 ;do
-	xgetpac "$i-" "$SLACKDJ" 5
+	xgetpac "$i" "$SLACKDJ" 5
     done
 )
 xpurgeindex packages2
@@ -63,16 +63,16 @@ xpurgeindex packages2
 (
     cd packages4
     for i in exiftool unrar telegram-bin ;do
-	xgetpac "$i-" "$SLACKCF/$i" 3
+	xgetpac "$i" "$SLACKCF/$i" 3
     done
     for i in xcftools ;do
-	xgetpac "$i-" "$SLACKDJ" 5
+	xgetpac "$i" "$SLACKDJ" 5
     done
     [ ! -d tesseract4 ] && mkdir tesseract4
     (
 	cd tesseract4
 	for i in leptonica tesseract ;do
-	    xgetpac "$i-" "$SLACKCF/$i" 3
+	    xgetpac "$i" "$SLACKCF/$i" 3
 	done
     )
 )
