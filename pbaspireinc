@@ -32,11 +32,11 @@ xgetpac () {
     prof="$3"
     echo '------------------------------------'
     emygt "Package \$pac :"
-    wget -N -A "$pac"'*.t?z*' -r -nv -np -nH --cut-dir=$prof "$dir/"
-    xpurgepac "$pac" t?z
-    xpurgepac "$pac" t?z.asc
-    xpurgepac "$pac" t?z.md5
-    xpurgepac "$pac" t?z.sha256
+    wget -N -A "$pac"'-[0-9]*.t?z*' -r -nv -np -nH --cut-dir=$prof "$dir/"
+    xpurgepac "$pac-[0-9]" t?z
+    xpurgepac "$pac-[0-9]" t?z.asc
+    xpurgepac "$pac-[0-9]" t?z.md5
+    xpurgepac "$pac-[0-9]" t?z.sha256
 }
 
 # Get the original tarball with the slack build scripts.
