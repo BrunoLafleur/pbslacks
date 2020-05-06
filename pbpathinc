@@ -74,6 +74,8 @@ XTHUNDERBIRD="https://download.mozilla.org/?product=thunderbird-latest-SSL&os=li
 SLACKCF="http://slack.conraid.net/repository/slackware64-current"
 SLACKDJ="http://www.slackel.gr/repo/x86_64/current/slackel/extra"
 SLACKDJ32="http://www.slackel.gr/repo/i486/current/slackel/extra"
+SLACKDJPAR="http://www.slackel.gr/repo/x86_64/current"
+SLACKDJPAR32="http://www.slackel.gr/repo/i486/current"
 
 # Links for binary packages from Ponce.
 

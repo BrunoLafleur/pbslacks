@@ -23,6 +23,11 @@ fi
 # Download new versions of binary packages.
 # Ponce packages.
 ############################################
+xgeturl "$SLACKPONCE/GPG-KEY"
+mv -f GPG-KEY gpgkeys/GPG-KEY-x64-ponce
+xgeturl "$SLACKPONCE32/GPG-KEY"
+mv -f GPG-KEY gpgkeys/GPG-KEY-x32-ponce
+
 (
     cd packages
     for i in ladspa_sdk swfdec x264 libdvdcss vid.stab ;do

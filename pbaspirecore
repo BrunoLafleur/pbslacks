@@ -92,6 +92,7 @@ if [ $ISCORE -eq 1 ] ;then
 	    ln -sf ../bumblebee .
 	    ln -sf ../divers .
 	    ln -sf ../packages* .
+	    ln -sf ../gpgkeys .
 	)
 	mygt "Slackware current copied."
     else
