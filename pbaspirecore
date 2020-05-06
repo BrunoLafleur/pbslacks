@@ -165,6 +165,7 @@ if [ $ISCHECK -eq 1 ] ;then
 	(
 	    cd slackware64-current;rm -f GPG-KEY
 	    xgeturl "$SLACKKEYS/slackware64-current/GPG-KEY"
+	    ln -sf ../gpgkeys .
 	)
     fi
     find slackware64-current -name '*.asc'|while read i;test "$i" != "" ;do
