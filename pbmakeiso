@@ -55,7 +55,7 @@ xorriso -as mkisofs \
     . current/=../current packages/=../packages packages2/=../packages2 \
     packages3/=../packages3 packages4/=../packages4 bumblebee/=../bumblebee \
     divers/=../../divers pbslacks/=../../pbslacks perso/=../../perso \
-    gpgkeys/=../../gpgkeys
+    gpgkeys/=../gpgkeys
 cd ..
 
 echo '-------------------------------------------------'

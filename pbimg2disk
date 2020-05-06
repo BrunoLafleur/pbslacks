@@ -508,6 +508,7 @@ if [ $FULLINSTALLER -eq 1 ]; then
   # we already made sure that ${REPOSROOT} does not end with a '/'
     echo "--- Copying Slackware package tree to the USB drive..."
     rsync -rpthDL --delete $EXCLUDES "$REPOSROOT" "$MNTDIR2/"
+    sync
 fi
 
 # Unmount/remove stuff:
@@ -517,6 +518,7 @@ cleanup
 echo "--- Making the USB drive '$TARGET' bootable..."
 ( makebootable $TARGET ) 1>>$LOGFILE 2>&1
 /usr/bin/syslinux $TARGETPART 1>>$LOGFILE 2>&1
+sync
 dd if=$MBRBIN of=$TARGET bs=440 1>>$LOGFILE 2>&1
 sync
 
