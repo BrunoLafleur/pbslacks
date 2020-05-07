@@ -47,6 +47,17 @@ xgetsrcpac () {
     wget -N -r -nv -np -nH --cut-dir=$prof "$dir/"
 }
 
+xgetsrcpac0 () {
+    pac="$1"
+    dir="$2"
+    prof="$3"
+    mkdir -p "$pac"
+    (
+	cd "$pac"
+	xgetsrcpac "$pac" "$dir" $prof
+    )
+}
+
 # Get a local copie of the original tarball with the slack build scripts.
 xlocalsrcpac () {
     name="$1"
