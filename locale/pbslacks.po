@@ -206,47 +206,47 @@ msgid ""
 "Launch this script in the directory including packages, packages2 et al."
 msgstr ""
 
-#: pbaspirecore:96
+#: pbaspirecore:97
 msgid "Slackware current copied."
 msgstr ""
 
-#: pbaspirecore:98
+#: pbaspirecore:99
 msgid "Slackware current not copied."
 msgstr ""
 
-#: pbaspirecore:123
+#: pbaspirecore:124
 msgid "Slackware multilib copied."
 msgstr ""
 
-#: pbaspirecore:125
+#: pbaspirecore:126
 msgid "Slackware multilib not copied."
 msgstr ""
 
-#: pbaspirecore:152
+#: pbaspirecore:153
 msgid "Alien Bob KDE5 frameworks copied."
 msgstr ""
 
-#: pbaspirecore:154
+#: pbaspirecore:155
 msgid "Alien Bob KDE5 frameworks not copied."
 msgstr ""
 
-#: pbaspirecore:180
+#: pbaspirecore:182
 msgid "Check GPG signatures :"
 msgstr ""
 
-#: pbaspirecore:203
+#: pbaspirecore:205
 msgid "GParted copied."
 msgstr ""
 
-#: pbaspirecore:205 pbaspirecore:211
+#: pbaspirecore:207 pbaspirecore:213
 msgid "GParted not copied."
 msgstr ""
 
-#: pbaspirecore:232
+#: pbaspirecore:234
 msgid "VirtualBox copied."
 msgstr ""
 
-#: pbaspirecore:234 pbaspirecore:240
+#: pbaspirecore:236 pbaspirecore:242
 msgid "VirtualBox not copied."
 msgstr ""
 
@@ -260,7 +260,7 @@ msgstr ""
 msgid "Package $pac :"
 msgstr ""
 
-#: pbaspireinc:54
+#: pbaspireinc:57
 #, sh-format
 msgid "Local copy of ../pbslacks/builds/$path to $name"
 msgstr ""
@@ -301,7 +301,7 @@ msgstr ""
 msgid "Correct this error and relaunch this script."
 msgstr ""
 
-#: pbcompilepost:162
+#: pbcompilepost:166
 msgid "Upgrade packages* done."
 msgstr ""
 
@@ -895,7 +895,7 @@ msgstr ""
 msgid "The ISO image will be created with $NAMEISO name."
 msgstr ""
 
-#: pbmakeiso:61
+#: pbmakeiso:62
 #, sh-format
 msgid ""
 "If not too big for your recorder which should use double layer media,\\nthe "

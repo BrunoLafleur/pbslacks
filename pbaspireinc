@@ -59,6 +59,12 @@ xlocalsrcpac () {
     fi
 }
 
+# Get static url.
+xgeturl () {
+    path="$1"
+    wget -N -nv --content-disposition "$path"
+}
+
 # Get the original source tarball.
 xgetsrc () {
     name="$1"
@@ -67,7 +73,12 @@ xgetsrc () {
     cp -u "../pbslacks/builds/${name}.tar.gz" "$name"
     (
 	cd "$name"
-	wget -N -nv --content-disposition "$path"
+	xgeturl "$path"
+	# For queries names.
+	find . -name '*.t*z\?*'|while read i;test "$i" != "" ;do
+	    j="$(echo "$i"|cut -d '?' -f1)"
+	    mv "$i" "$j"
+	done
     )
 }
 
@@ -79,10 +90,4 @@ xgetsbosrc () {
     [ -z "$path" ] && path=$(cat $name/${name}.info | fgrep DOWNLOAD|cut -d '=' -f2|cut -d '"' -f2)
     rm -f $name/${name}.info
     xgetsrc $name "$path"
-}
-
-# Get static url.
-xgeturl () {
-    path="$1"
-    wget -N -nv --content-disposition "$path"
 }
