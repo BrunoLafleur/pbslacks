@@ -260,7 +260,7 @@ msgstr ""
 msgid "Package $pac :"
 msgstr ""
 
-#: pbaspireinc:57
+#: pbaspireinc:57 pbaspireinc:68
 #, sh-format
 msgid "Local copy of ../pbslacks/builds/$path to $name"
 msgstr ""
@@ -297,11 +297,11 @@ msgid ""
 "machine, this script is not useful.\\nPress a touch for continue or abort."
 msgstr ""
 
-#: pbcompilepost:68 pbcompilepost:93
+#: pbcompilepost:68 pbcompilepost:93 pbcompilepost:71 pbcompilepost:96
 msgid "Correct this error and relaunch this script."
 msgstr ""
 
-#: pbcompilepost:166
+#: pbcompilepost:166 pbcompilepost:179
 msgid "Upgrade packages* done."
 msgstr ""
 

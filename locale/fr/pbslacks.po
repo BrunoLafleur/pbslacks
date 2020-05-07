@@ -277,7 +277,7 @@ msgstr "Effacement : $j"
 msgid "Package $pac :"
 msgstr "Paquet $pac :"
 
-#: pbaspireinc:57
+#: pbaspireinc:57 pbaspireinc:68
 #, sh-format
 msgid "Local copy of ../pbslacks/builds/$path to $name"
 msgstr "Copie locale de ../pbslacks/builds/$path vers $name"
@@ -322,11 +322,11 @@ msgstr ""
 "déjà fait sur une machine a jour, il n'est pas utile de relancer ce script."
 "\\nAppuyer sur une touche pour continuer sinon CTRLc pour arrêter"
 
-#: pbcompilepost:68 pbcompilepost:93
+#: pbcompilepost:68 pbcompilepost:93 pbcompilepost:71 pbcompilepost:96
 msgid "Correct this error and relaunch this script."
 msgstr "Erreur à corriger puis relancer ce script."
 
-#: pbcompilepost:166
+#: pbcompilepost:166 pbcompilepost:179
 msgid "Upgrade packages* done."
 msgstr "Mise à jour de packages* faite."
 
