@@ -46,6 +46,9 @@ done
 mygt 'Only after a system update and reboot.\nIf already done on this or another machine, this script is not useful.\nPress a touch for continue or abort.'|sed 's@\\n@\n@g'
 read c
 
+# ===========================================================
+# Some helper functions.
+
 xpurgetmp () {
     pac="$1"
     rm -f /tmp/"${pac}-"*.t?z
@@ -110,6 +113,7 @@ xmakepac () {
     fi
 }
 
+# ===========================================================
 rm -f /usr/lib64/lib*.la
 
 # python2-* for openshot 1.4
@@ -121,16 +125,20 @@ done
 rm -rf packages/python-pillow
 
 # mlt python3 recompiled with new libs.
-export BUILD=3alien
-xmakealienpac packages mlt
-unset BUILD
+(
+    rm -f packages*/*-3alien*.t?z
+    rm -f packages/32/*-3alien*.t?z
+    export BUILD=3alien
+    xmakealienpac packages mlt
+)
 
 # 32 bits packages
-export ARCH=i486
-for i in openal-soft libtxc_dxtn ;do
-    xmakepac packages $i 32
-done
-unset ARCH
+(
+    export ARCH=i486
+    for i in openal-soft libtxc_dxtn ;do
+	xmakepac packages $i 32
+    done
+)
 
 (
     cd packages/32
@@ -152,15 +160,20 @@ done
 for i in bsddb3 db53 pyicu gramps ;do
     xmakepac packages3 $i
 done
-for i in xrdp xorgxrdp SFML wxGTK3 vbam fbida kaffeine opencv gradle \
+for i in xrdp xorgxrdp SFML vbam fbida kaffeine opencv gradle \
 	      signal-desktop audiveris zoom-linux ;do
     xmakepac packages4 $i
 done
+xmakealienpac packages4 wxGTK3
+for i in lilv lv2 serd sord sratom suil vamp-plugin-sdk audacity ;do
+    xmakealienpac packages4/audacity $i
+done
 
 # Recompile and reinstall some Slackware packages for new dependencies.
-export X264=yes
-export X265=yes
-export OPENAL=yes
-xmakealienpac source/l ffmpeg packages
-
+(
+    export X264=yes
+    export X265=yes
+    export OPENAL=yes
+    xmakealienpac source/l ffmpeg packages
+)
 mygt "Upgrade packages* done."
