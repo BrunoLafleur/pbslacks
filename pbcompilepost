@@ -123,6 +123,7 @@ rm -rf packages/python-pillow
 # mlt python3 recompiled with new libs.
 export BUILD=3alien
 xmakealienpac packages mlt
+unset BUILD
 
 # 32 bits packages
 export ARCH=i486

@@ -223,47 +223,47 @@ msgid ""
 msgstr ""
 "Script à lancer dans le répertoire contenant packages, packages2 et al."
 
-#: pbaspirecore:96
+#: pbaspirecore:97
 msgid "Slackware current copied."
 msgstr "Copie Slackware current faite."
 
-#: pbaspirecore:98
+#: pbaspirecore:99
 msgid "Slackware current not copied."
 msgstr "Copie Slackware current non faite."
 
-#: pbaspirecore:123
+#: pbaspirecore:124
 msgid "Slackware multilib copied."
 msgstr "Copie Slackware multilib faite."
 
-#: pbaspirecore:125
+#: pbaspirecore:126
 msgid "Slackware multilib not copied."
 msgstr "Copie Slackware multilib non faite."
 
-#: pbaspirecore:152
+#: pbaspirecore:153
 msgid "Alien Bob KDE5 frameworks copied."
 msgstr "Copie alien KDE5 frameworks faite."
 
-#: pbaspirecore:154
+#: pbaspirecore:155
 msgid "Alien Bob KDE5 frameworks not copied."
 msgstr "Copie alien KDE5 frameworks non faite."
 
-#: pbaspirecore:180
+#: pbaspirecore:182
 msgid "Check GPG signatures :"
 msgstr "Vérification des signatures GPG :"
 
-#: pbaspirecore:203
+#: pbaspirecore:205
 msgid "GParted copied."
 msgstr "Copie GParted faite."
 
-#: pbaspirecore:205 pbaspirecore:211
+#: pbaspirecore:207 pbaspirecore:213
 msgid "GParted not copied."
 msgstr "Copie GParted non faite."
 
-#: pbaspirecore:232
+#: pbaspirecore:234
 msgid "VirtualBox copied."
 msgstr "Copie VirtualBox faite."
 
-#: pbaspirecore:234 pbaspirecore:240
+#: pbaspirecore:236 pbaspirecore:242
 msgid "VirtualBox not copied."
 msgstr "Copie VirtualBox non faite."
 
@@ -277,7 +277,7 @@ msgstr "Effacement : $j"
 msgid "Package $pac :"
 msgstr "Paquet $pac :"
 
-#: pbaspireinc:54
+#: pbaspireinc:57
 #, sh-format
 msgid "Local copy of ../pbslacks/builds/$path to $name"
 msgstr "Copie locale de ../pbslacks/builds/$path vers $name"
@@ -326,7 +326,7 @@ msgstr ""
 msgid "Correct this error and relaunch this script."
 msgstr "Erreur à corriger puis relancer ce script."
 
-#: pbcompilepost:162
+#: pbcompilepost:166
 msgid "Upgrade packages* done."
 msgstr "Mise à jour de packages* faite."
 
@@ -1005,7 +1005,7 @@ msgstr ""
 msgid "The ISO image will be created with $NAMEISO name."
 msgstr "L'image ISO sera créée avec le nom $NAMEISO."
 
-#: pbmakeiso:61
+#: pbmakeiso:62
 #, sh-format
 msgid ""
 "If not too big for your recorder which should use double layer media,\\nthe "
