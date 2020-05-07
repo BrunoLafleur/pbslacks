@@ -79,4 +79,3 @@ fi
 	xgetsbosrc "$i"
     done
 )
-
