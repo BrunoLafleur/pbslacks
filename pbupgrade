@@ -56,10 +56,12 @@ xupmainpac () {
     suf="$2"
     repo="$3"
     grp="$4"
-    [ $(ls /var/log/packages/${pac}*-[0-9]$repo|wc -l) -eq 1 ] &&\
+    [ $(ls /var/log/packages/${pac}*-[0-9]$repo 2> /dev/null|wc -l) -eq 1 ] &&\
 	upgradepkg slackware64/$grp/${pac}*$suf
 }
 
+# Upgradepkg with reinstall if the package date is newer than the installed
+# one. I could have recompiled.
 upgradedir () {
     xdir="$1"
     (
@@ -70,6 +72,21 @@ upgradedir () {
 	    [ "$i" -nt "$j" ] && upgradepkg --reinstall "$i"
 	done
     )
+}
+
+# Some config I always use.
+myconfig () {
+    if [ -d /etc/profile.d ] ; then
+	cp pbslacks/LocaleFR/csh.cshrc /etc
+	cp pbslacks/LocaleFR/pbalias.sh /etc/profile.d
+	XLANG=$(echo $LANG|cut -d '.' -f1|cut -d '_' -f1)
+	if [ "$XLANG" = 'fr' ] ;then
+	    cp pbslacks/LocaleFR/lang.* /etc/profile.d
+	    KBX11=90-keyboard-layout-evdev.conf
+	    [ ! -f /etc/X11/xorg.conf.d/$KBX11 ] && \
+		cp pbslacks/LocaleFR/$KBX11 /etc/X11/xorg.conf.d
+	fi
+    fi
 }
 
 cleanup () {
@@ -155,7 +172,7 @@ xmaster () {
 	bumblebee "$(mygt 'Install/Update the Bumblebee support of your second NVIDIA graphic card')" $xsel12 bumblebee \
 	recreate "$(mygt 'Compile again some packages.')" $xsel13 recreate \
 	recreatebumblebee "$(mygt 'Compile again Bumblebee packages.')" $xsel14 recreatebumblebee \
-    	bootload "$(mygt 'Update boot loader.')" $xsel15 bootload
+    	bootload "$(mygt 'Upgrade boot loader.')" $xsel15 bootload
 }
 
 xpacaide () {
@@ -212,7 +229,7 @@ while [ $bclaide -eq 1 ] ;do
 	elif [ "$xitem" = recreatebumblebee ] ;then
 	    pacaide=$(mygt 'Redo the Bumblebee packages.\nIf not already done on this machine or another.\nYou should reboot after upgrading system packages and before doing this action else the Bumblebee packages wont built.')
 	elif [ "$xitem" = bootload ] ;then
-	    pacaide=$(mygt 'Update your boot loader only if you update your system.') 
+	    pacaide=$(mygt "Upgrade your boot loader only if you update your system and not the bootloader.") 
 	fi
 	dialog --colors --backtitle 'pbupgrade' --title "$xitem" \
 	    --msgbox "$pacaide" 20 80
@@ -266,6 +283,7 @@ if [ $ISSYSTEM -eq 1 -o $ISSYSNET -eq 1 ] ;then
             xupmainpac "qt5-[0-9]" t?z alien l
             xupmainpac "qt5-webkit-[0-9]" t?z alien l
             xupmainpac "PyQt5-[0-9]" t?z alien l
+	    myconfig
 	    mygt "Upgrade system done." >> $XTEMPMES
 	fi
 

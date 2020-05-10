@@ -1,4 +1,5 @@
 alias ll='ls -l'
+alias lt='ls -lt'
 alias h=history
 
 cdl () {
