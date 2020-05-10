@@ -30,11 +30,18 @@ mv -f GPG-KEY gpgkeys/GPG-KEY-x32-ponce
 
 (
     cd packages
-    for i in libdvdcss ladspa_sdk swfdec x264 vid.stab python3-pyzmq \
-		       libopenshot libopenshot-audio httplib2 zeromq \
-		       unittest-cpp ;do
+    for i in libdvdcss ladspa_sdk swfdec x264 vid.sta ;do
 	xgetpac "$i" "$SLACKPONCE" 3
     done
+    [ ! -d openshot ] && mkdir openshot
+    (
+	cd openshot
+	for i in python3-pyzmq libopenshot libopenshot-audio httplib2 zeromq \
+			       unittest-cpp ;do
+	    mv -f ../"$i-"* .
+	    xgetpac "$i" "$SLACKPONCE" 3
+	done
+    )
     (
 	cd 32
 	for i in libdvdcss ;do
