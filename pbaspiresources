@@ -28,19 +28,14 @@ fi
     (
 	cd openshot
 	for i in python3-certifi openshot_qt ;do
-	    mv -f ../"$i-"* .;mv -f ../"$i" .
 	    xgetsbosrc "$i"
 	done
-	mv -f ../python2-mlt-* .;mv -f ../python2-mlt .
-	mv -f ../python2-libcaca-* .;mv -f ../python2-libcaca .
-	mv -f ../python2-libwebp-* .;mv -f ../python2-libwebp .
 	xgetsrc python2-mlt "$PATHMLT"
 	xgetsrc python2-libcaca "$PATHLIBCACA"
 	xgetsrc python2-libwebp "$PATHLIBWEBP"
 	# python-pillow6 : re-add python2.7 support for openshot.
 	# Pillow 7 from current Slackware drop support of python2.
 	rm -f python-pillow-[0-9]*.t?z
-	mv -f ../python-pillow6-* .;mv -f ../python-pillow6 .
 	xgetsrc python-pillow6 "$PATHPYTHONPIL"
     )
     xgetsrc openal-soft "$PATHOPENAL"

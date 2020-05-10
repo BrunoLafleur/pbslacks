@@ -87,5 +87,12 @@ xpurgeindex packages3
 	    xgetsrcpac0 "$i" "$SLACKALIEN/$i/build" 10
 	done
     )
+    [ ! -d ardour ] && mkdir ardour
+    (
+	cd ardour
+	for i in liblo liblrdf ardour ;do
+	    xgetsrcpac0 "$i" "$SLACKALIEN/$i/build" 10
+	done
+    )
 )
 xpurgeindex packages4

@@ -32,6 +32,7 @@ xgetpac () {
     prof="$3"
     echo '------------------------------------'
     emygt "Package \$pac :"
+    mv ../"$pac-[0-9]"* . 2> /dev/null
     wget -N -A "$pac"'-[0-9]*.t?z*' -r -nv -np -nH --cut-dir=$prof "$dir/"
     xpurgepac "$pac-[0-9]" t?z
     xpurgepac "$pac-[0-9]" t?z.asc
@@ -80,6 +81,8 @@ xgeturl () {
 xgetsrc () {
     name="$1"
     path="$2"
+    mv ../"$name-[0-9]"* . 2> /dev/null
+    mv ../"$name" . 2> /dev/null
     [ ! -d "$name" ] && mkdir "$name"
     cp -u "$PBDIRPROG/builds/${name}.tar.gz" "$name"
     (
