@@ -24,20 +24,29 @@ fi
 ############################################
 (
     cd packages
-    for i in python3-certifi openshot_qt ;do
-	xgetsbosrc "$i"
-    done
-    xgetsrc python2-mlt "$PATHMLT"
-    xgetsrc python2-libcaca "$PATHLIBCACA"
-    xgetsrc python2-libwebp "$PATHLIBWEBP"
+    [ ! -d openshot ] && mkdir openshot
+    (
+	cd openshot
+	for i in python3-certifi openshot_qt ;do
+	    mv -f ../"$i-"* .;mv -f ../"$i" .
+	    xgetsbosrc "$i"
+	done
+	mv -f ../python2-mlt-* .;mv -f ../python2-mlt .
+	mv -f ../python2-libcaca-* .;mv -f ../python2-libcaca .
+	mv -f ../python2-libwebp-* .;mv -f ../python2-libwebp .
+	xgetsrc python2-mlt "$PATHMLT"
+	xgetsrc python2-libcaca "$PATHLIBCACA"
+	xgetsrc python2-libwebp "$PATHLIBWEBP"
+	# python-pillow6 : re-add python2.7 support for openshot.
+	# Pillow 7 from current Slackware drop support of python2.
+	rm -f python-pillow-[0-9]*.t?z
+	mv -f ../python-pillow6-* .;mv -f ../python-pillow6 .
+	xgetsrc python-pillow6 "$PATHPYTHONPIL"
+    )
     xgetsrc openal-soft "$PATHOPENAL"
     xgetsrc libtxc_dxtn "$PATHLIBTXC_DXTN"
     xgetsrc libgaminggear "$PATHLIBGAMINGGEAR"
     xlocalsrcpac acpibrightness ""
-    # python-pillow6 : re-add python2.7 support for openshot.
-    # Pillow 7 from current Slackware drop support of python2.
-    xgetsrc python-pillow6 "$PATHPYTHONPIL"
-    rm -f python-pillow-[0-9]*.t?z
 )
 
 ############################################
@@ -50,8 +59,9 @@ fi
     xgetsrc guile2.2 "$PATHGUILE22"
     # Discord just being put here. No packages done for now.
     xgeturl "$PATHDISCORD"
-    xgeturl "$PATHVLCYOUTUBE"
     xpurgepac discord tar.gz
+    # Update Youtube LUA file for VLC.
+    xgeturl "$PATHVLCYOUTUBE"
 )
 
 ############################################

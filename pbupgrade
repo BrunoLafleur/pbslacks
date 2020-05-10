@@ -151,13 +151,14 @@ xmaster () {
     defitem=$1;shift
     xsel1=$1;shift;xsel2=$1;shift;xsel3=$1;shift;xsel4=$1;shift;xsel5=$1;shift
     xsel6=$1;shift;xsel7=$1;shift;xsel8=$1;shift;xsel9=$1;shift;xsel10=$1;shift
-    xsel11=$1;shift;xsel12=$1;shift;xsel13=$1;shift;xsel14=$11;shift;xsel15=$12
+    xsel11=$1;shift;xsel12=$1;shift;xsel13=$1;shift;xsel14=$1;shift
+    xsel15=$1;shift;xsel16=$1
     pactit=$(mygt 'Main menu')
     pactit="pbupgrade: $pactit"
     dialog --colors --backtitle 'pbupgrade' --title "$pactit" \
 	--default-item $defitem --defaultno \
 	--separate-output --item-help --help-button --help-status --checklist \
-	"$(mygt 'Choose your actions below after you have launch the \Zbpbaspire*\ZB script')" 0 100 15 \
+	"$(mygt 'Choose your actions below after you have launch the \Zbpbaspire*\ZB script')" 0 100 16 \
 	system "$(mygt 'Sync/Update system to the last fetched current Slackware')" $xsel1 system \
 	systemnet "$(mygt 'Sync/Update system to the last current Slackware on the internet')" $xsel2 systemnet \
 	compat32 "$(mygt 'Install/Update the 32 bits compatible mode')" $xsel3 compat32 \
@@ -167,12 +168,13 @@ xmaster () {
 	packages3 "$(mygt 'Install/Update the packages3 set of software')" $xsel7 packages3 \
 	packages4 "$(mygt 'Install/Update the packages4 set of software')" $xsel8 packages4 \
 	frameworks "$(mygt 'Install/Update the KDE5 frameworks libraries')" $xsel9 frameworks \
-	audacity "$(mygt 'Install/Update the Audacity software')" $xsel10 audacity \
-	tesseract4 "$(mygt 'Install/Update the Tesseract version 4 software')" $xsel11 tesseract4 \
-	bumblebee "$(mygt 'Install/Update the Bumblebee support of your second NVIDIA graphic card')" $xsel12 bumblebee \
-	recreate "$(mygt 'Compile again some packages.')" $xsel13 recreate \
-	recreatebumblebee "$(mygt 'Compile again Bumblebee packages.')" $xsel14 recreatebumblebee \
-    	bootload "$(mygt 'Upgrade boot loader.')" $xsel15 bootload
+	openshot "$(mygt 'Install/Update the Openshot software')" $xsel10 openshot \
+	audacity "$(mygt 'Install/Update the Audacity software')" $xsel11 audacity \
+	tesseract4 "$(mygt 'Install/Update the Tesseract version 4 software')" $xsel12 tesseract4 \
+	bumblebee "$(mygt 'Install/Update the Bumblebee support of your second NVIDIA graphic card')" $xsel13 bumblebee \
+	recreate "$(mygt 'Compile again some packages.')" $xsel14 recreate \
+	recreatebumblebee "$(mygt 'Compile again Bumblebee packages.')" $xsel15 recreatebumblebee \
+    	bootload "$(mygt 'Upgrade boot loader.')" $xsel16 bootload
 }
 
 xpacaide () {
@@ -186,7 +188,7 @@ xpacaide () {
 }
 
 xsel="$XUPSYSTEM off $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST \
-$XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPPOST $XUPPOST $XUPPOST off"
+$XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPPOST $XUPPOST $XUPPOST off"
 ditem=system
 bclaide=1
 
@@ -197,7 +199,7 @@ while [ $bclaide -eq 1 ] ;do
 	xitem="$(cat $XTEMPOUT|grep '^HELP'|cut -d ' ' -f2)"
 	xsel=
 	for i in system systemnet compat32 mozilla packages packages2 packages3 \
-	    packages4 frameworks audacity tesseract4 bumblebee recreate \
+	    packages4 frameworks openshot audacity tesseract4 bumblebee recreate \
 	    recreatebumblebee bootload ;do
 	  if [ $(grep "^$i$" "$XTEMPOUT"|wc -l) -eq 1 ] ;then
 	      xsel="$xsel on"
@@ -218,6 +220,8 @@ while [ $bclaide -eq 1 ] ;do
 	    xpacaide "$xitem"
 	elif [ "$xitem" = frameworks ] ;then
 	    xpacaide packages4/frameworks
+	elif [ "$xitem" = oepnshot ] ;then
+	    xpacaide packages/openshot
 	elif [ "$xitem" = audacity ] ;then
 	    xpacaide packages4/audacity
 	elif [ "$xitem" = tesseract4 ] ;then
@@ -246,6 +250,7 @@ ISPACK2="$(cat $XTEMPOUT|grep '^packages2$'|wc -l)"
 ISPACK3="$(cat $XTEMPOUT|grep '^packages3$'|wc -l)"
 ISPACK4="$(cat $XTEMPOUT|grep '^packages4$'|wc -l)"
 ISFRAME="$(cat $XTEMPOUT|grep '^frameworks$'|wc -l)"
+ISOPENSHOT="$(cat $XTEMPOUT|grep '^openshot$'|wc -l)"
 ISAUDACITY="$(cat $XTEMPOUT|grep '^audacity$'|wc -l)"
 ISTESS="$(cat $XTEMPOUT|grep '^tesseract4$'|wc -l)"
 ISBUMBLE="$(cat $XTEMPOUT|grep '^bumblebee$'|wc -l)"
@@ -337,6 +342,12 @@ if [ $XEND -eq 0 ] ;then
 	    upgradedir packages4/frameworks
 	fi
 	mygt "Upgrade frameworks done." >> $XTEMPMES
+    fi
+    if [ $ISOPENSHOT -eq 1 ] ;then
+	if [ $XTEST -ne 1 ] ;then
+	    upgradedir packages/openshot
+	fi
+	mygt "Upgrade openshot done." >> $XTEMPMES
     fi
     if [ $ISAUDACITY -eq 1 ] ;then
 	if [ $XTEST -ne 1 ] ;then

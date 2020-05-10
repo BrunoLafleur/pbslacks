@@ -35,9 +35,14 @@ mv -f GPG-KEY gpgkeys/GPG-KEY-x32-slackel
     for i in gimp-script-fu x265 skypeforlinux-bin ;do
 	xgetpac "$i" "$SLACKCF/$i" 3
     done
-    for i in frei0r-plugins libvdpau-va-gl openshot ;do
-	xgetpac "$i" "$SLACKDJ" 5
-    done
+    [ ! -d openshot ] && mkdir openshot
+    (
+	cd openshot
+	for i in frei0r-plugins libvdpau-va-gl openshot ;do
+	    mv -f ../"$i-"* .
+	    xgetpac "$i" "$SLACKDJ" 5
+	done
+    )
     (
 	cd 32
 	for i in wxPython ;do

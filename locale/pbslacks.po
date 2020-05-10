@@ -71,7 +71,7 @@ msgstr ""
 msgid "Check GPG signatures"
 msgstr ""
 
-#: pbaspire:65 pbsetup:112 pbupgrade:155
+#: pbaspire:65 pbsetup:112 pbupgrade:156
 msgid "Main menu"
 msgstr ""
 
@@ -192,7 +192,7 @@ msgstr ""
 msgid "GPG signatures checked :"
 msgstr ""
 
-#: pbaspire:271 pbsetup:296 pbupgrade:378
+#: pbaspire:271 pbsetup:296 pbupgrade:389
 msgid "No action was demanded. Exit."
 msgstr ""
 
@@ -262,7 +262,7 @@ msgstr ""
 
 #: pbaspireinc:68
 #, sh-format
-msgid "Local copy of ../pbslacks/builds/$path to $name"
+msgid "Local copy of pbslacks/builds/$path to $name"
 msgstr ""
 
 #: pbaspireinit:26
@@ -631,186 +631,194 @@ msgstr ""
 msgid "slackware64 or pbslacks not found."
 msgstr ""
 
-#: pbupgrade:160
+#: pbupgrade:161
 msgid ""
 "Choose your actions below after you have launch the \\Zbpbaspire*\\ZB script"
 msgstr ""
 
-#: pbupgrade:161
+#: pbupgrade:162
 msgid "Sync/Update system to the last fetched current Slackware"
 msgstr ""
 
-#: pbupgrade:162
+#: pbupgrade:163
 msgid "Sync/Update system to the last current Slackware on the internet"
 msgstr ""
 
-#: pbupgrade:163
+#: pbupgrade:164
 msgid "Install/Update the 32 bits compatible mode"
 msgstr ""
 
-#: pbupgrade:164
+#: pbupgrade:165
 msgid "Install/Update the Firefox and Thunderbird softwares"
 msgstr ""
 
-#: pbupgrade:165
+#: pbupgrade:166
 msgid "Install/Update the packages set of software"
 msgstr ""
 
-#: pbupgrade:166
+#: pbupgrade:167
 msgid "Install/Update the packages2 set of software"
 msgstr ""
 
-#: pbupgrade:167
+#: pbupgrade:168
 msgid "Install/Update the packages3 set of software"
 msgstr ""
 
-#: pbupgrade:168
+#: pbupgrade:169
 msgid "Install/Update the packages4 set of software"
 msgstr ""
 
-#: pbupgrade:169
+#: pbupgrade:170
 msgid "Install/Update the KDE5 frameworks libraries"
 msgstr ""
 
-#: pbupgrade:170
-msgid "Install/Update the Audacity software"
-msgstr ""
-
 #: pbupgrade:171
-msgid "Install/Update the Tesseract version 4 software"
+msgid "Install/Update the Openshot software"
 msgstr ""
 
 #: pbupgrade:172
-msgid "Install/Update the Bumblebee support of your second NVIDIA graphic card"
+msgid "Install/Update the Audacity software"
 msgstr ""
 
 #: pbupgrade:173
-msgid "Compile again some packages."
+msgid "Install/Update the Tesseract version 4 software"
 msgstr ""
 
 #: pbupgrade:174
-msgid "Compile again Bumblebee packages."
+msgid "Install/Update the Bumblebee support of your second NVIDIA graphic card"
 msgstr ""
 
 #: pbupgrade:175
+msgid "Compile again some packages."
+msgstr ""
+
+#: pbupgrade:176
+msgid "Compile again Bumblebee packages."
+msgstr ""
+
+#: pbupgrade:177
 msgid "Upgrade boot loader."
 msgstr ""
 
-#: pbupgrade:210
+#: pbupgrade:212
 msgid ""
 "Upgrade your Slackware system with the last current fetched.\\nUses Slackpkg."
 msgstr ""
 
-#: pbupgrade:212
+#: pbupgrade:214
 msgid ""
 "Upgrade your Slackware system with the last current on the internet.\\nUses "
 "Slackpkg."
 msgstr ""
 
-#: pbupgrade:214
+#: pbupgrade:216
 msgid "Upgrade the Alien Bob 32 bits compatible mode."
 msgstr ""
 
-#: pbupgrade:216
+#: pbupgrade:218
 msgid ""
 "Upgrade the Firefox and Thunderbird products.\\nThey should be downloaded "
 "and put in the packages/Mozilla directory before."
 msgstr ""
 
-#: pbupgrade:226
+#: pbupgrade:230
 msgid ""
 "Upgrade your Bumblebee packages if they are in sync with the upgraded "
 "Slackware.\\nDone on another machine for exemple."
 msgstr ""
 
-#: pbupgrade:228
+#: pbupgrade:232
 msgid ""
 "Redo the packages which are here in sources form.\\nIf not already done on "
 "this machine or another."
 msgstr ""
 
-#: pbupgrade:230
+#: pbupgrade:234
 msgid ""
 "Redo the Bumblebee packages.\\nIf not already done on this machine or "
 "another.\\nYou should reboot after upgrading system packages and before "
 "doing this action else the Bumblebee packages wont built."
 msgstr ""
 
-#: pbupgrade:232
+#: pbupgrade:236
 msgid ""
 "Upgrade your boot loader only if you update your system and not the "
 "bootloader."
 msgstr ""
 
-#: pbupgrade:278
+#: pbupgrade:283
 msgid "Abort : see previous errors."
 msgstr ""
 
-#: pbupgrade:279
+#: pbupgrade:284
 msgid "Upgrade system not done."
 msgstr ""
 
-#: pbupgrade:287 pbupgrade:291
+#: pbupgrade:292 pbupgrade:296
 msgid "Upgrade system done."
 msgstr ""
 
-#: pbupgrade:300
+#: pbupgrade:305
 msgid "Upgrade Alien Bob multilib done."
 msgstr ""
 
-#: pbupgrade:306
+#: pbupgrade:311
 msgid "Upgrade Mozilla done."
 msgstr ""
 
-#: pbupgrade:313
+#: pbupgrade:318
 msgid "Upgrade packages done."
 msgstr ""
 
-#: pbupgrade:321
+#: pbupgrade:326
 msgid "Upgrade packages2 done."
 msgstr ""
 
-#: pbupgrade:327
+#: pbupgrade:332
 msgid "Upgrade packages3 done."
 msgstr ""
 
-#: pbupgrade:333
+#: pbupgrade:338
 msgid "Upgrade packages4 done."
 msgstr ""
 
-#: pbupgrade:339
+#: pbupgrade:344
 msgid "Upgrade frameworks done."
 msgstr ""
 
-#: pbupgrade:345
+#: pbupgrade:350
+msgid "Upgrade openshot done."
+msgstr ""
+
+#: pbupgrade:356
 msgid "Upgrade audacity done."
 msgstr ""
 
-#: pbupgrade:352
+#: pbupgrade:363
 msgid "Upgrade tesseract4 done."
 msgstr ""
 
-#: pbupgrade:358
+#: pbupgrade:369
 msgid "Upgrade Bumblebee done."
 msgstr ""
 
-#: pbupgrade:364
+#: pbupgrade:375
 msgid "Recreate source packages done."
 msgstr ""
 
-#: pbupgrade:370
+#: pbupgrade:381
 msgid "Recreate source Bumblebee done."
 msgstr ""
 
-#: pbupgrade:373
+#: pbupgrade:384
 msgid "Updating bootloader asked."
 msgstr ""
 
-#: pbupgrade:403
+#: pbupgrade:414
 msgid "Bootloader menu"
 msgstr ""
 
-#: pbupgrade:404
+#: pbupgrade:415
 msgid ""
 "We have detected the bootloader below. Cancel if it is not true.\\nIn this "
 "last case, you should recreate the config of your bootloader before reboot. "
@@ -818,11 +826,11 @@ msgid ""
 "rerun the install of your bootloader."
 msgstr ""
 
-#: pbupgrade:405
+#: pbupgrade:416
 msgid "No bootloader detected. Reconfigure your bootloader before reboot."
 msgstr ""
 
-#: pbupgrade:417
+#: pbupgrade:428
 msgid ""
 "\\ZbThe boot loader was not updated.\\ZB\\nIf lilo is installed, launch : "
 "\\Z3/sbin/lilo\\Zn\\nIf Grub is installed, launch : \\Z3grub-mkconfig -o /"
@@ -832,35 +840,35 @@ msgid ""
 "other favorite bootloader install procedure before rebooting.\\ZB"
 msgstr ""
 
-#: pbupgrade:421
+#: pbupgrade:432
 msgid ""
 "Elilo updated : Files vmlinuz et initrd.gz copied in \\Z3/boot/efi/EFI/"
 "Slackware\\Zn"
 msgstr ""
 
-#: pbupgrade:426
+#: pbupgrade:437
 msgid ""
 "Grub updated : \\Z3grub-mkconfig\\Zn relaunched.\\n\\Z1Look if there are "
 "error messages below\\Zn."
 msgstr ""
 
-#: pbupgrade:431
+#: pbupgrade:442
 msgid ""
 "Lilo updated with \\Z3/sbin/lilo\\Zn.\\n\\Z1Look if there are error messages "
 "below\\Zn."
 msgstr ""
 
-#: pbupgrade:436
+#: pbupgrade:447
 msgid ""
 "Look at \\Z3/syslinux.cfg\\Zn and rerun \\Z3syslinux\\Zn on your boot "
 "partition if some path have changed."
 msgstr ""
 
-#: pbupgrade:450
+#: pbupgrade:461
 msgid " (\\Z1be sure to have updated the bootloader before\\Zn)"
 msgstr ""
 
-#: pbupgrade:456
+#: pbupgrade:467
 #, sh-format
 msgid ""
 "Reboot the host${XBOOTMES}.\\n\\n\\ZbThen do if not already done on an "
