@@ -69,7 +69,7 @@ xpurgeindex packages2
     for i in exiftool unrar telegram-bin ;do
 	xgetpac "$i" "$SLACKCF/$i" 3
     done
-    for i in xcftools ;do
+    for i in xcftools opera ;do
 	xgetpac "$i" "$SLACKDJ" 5
     done
     [ ! -d tesseract4 ] && mkdir tesseract4
