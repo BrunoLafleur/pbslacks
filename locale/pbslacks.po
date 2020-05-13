@@ -193,7 +193,7 @@ msgid "GPG signatures checked :"
 msgstr ""
 
 #: pbaspire:271 pbsetup:296 pbupgrade:389 pbupgrade:400 pbupgrade:405
-#: pbupgradenew:423
+#: pbupgradenew:423 pbupgradenew:433
 msgid "No action was demanded. Exit."
 msgstr ""
 
@@ -202,7 +202,7 @@ msgid "Actions which were done"
 msgstr ""
 
 #: pbaspirealien:14 pbaspiremoz:13 pbaspireother:14 pbaspireponce:14
-#: pbaspireslonly:14 pbaspiresources:14 pbcompilepost:17
+#: pbaspireslonly:14 pbaspiresources:14 pbcompilepost:17 pbcompilepostnew:17
 msgid ""
 "Launch this script in the directory including packages, packages2 et al."
 msgstr ""
@@ -288,21 +288,22 @@ msgid ""
 msgstr ""
 
 #: pbcompilepost:12 pbmakeusb:157 pbstophib:27 pbupgrade:124
-#: pbupgradebumblebee:10 pbupgrademoz:10 pbupgradenew:124
+#: pbupgradebumblebee:10 pbupgrademoz:10 pbupgradenew:124 pbcompilepostnew:12
 msgid "This script must be done as root. Exit."
 msgstr ""
 
-#: pbcompilepost:46 pbcompilepost:78
+#: pbcompilepost:46 pbcompilepost:78 pbcompilepostnew:82
 msgid ""
 "Only after a system update and reboot.\\nIf already done on this or another "
 "machine, this script is not useful.\\nPress a touch for continue or abort."
 msgstr ""
 
 #: pbcompilepost:71 pbcompilepost:96 pbcompilepost:103 pbcompilepost:129
+#: pbcompilepostnew:107 pbcompilepostnew:133
 msgid "Correct this error and relaunch this script."
 msgstr ""
 
-#: pbcompilepost:179 pbcompilepost:190 pbcompilepost:253
+#: pbcompilepost:179 pbcompilepost:190 pbcompilepost:253 pbcompilepostnew:250
 msgid "Upgrade packages* done."
 msgstr ""
 
@@ -693,134 +694,134 @@ msgstr ""
 msgid "Compile again some packages."
 msgstr ""
 
-#: pbupgrade:176 pbupgrade:177 pbupgradenew:185
+#: pbupgrade:176 pbupgrade:177 pbupgradenew:185 pbupgradenew:186
 msgid "Compile again Bumblebee packages."
 msgstr ""
 
-#: pbupgrade:177 pbupgrade:178 pbupgradenew:186
+#: pbupgrade:177 pbupgrade:178 pbupgradenew:186 pbupgradenew:187
 msgid "Upgrade boot loader."
 msgstr ""
 
-#: pbupgrade:212 pbupgrade:214 pbupgrade:219 pbupgradenew:224
+#: pbupgrade:212 pbupgrade:214 pbupgrade:219 pbupgradenew:224 pbupgradenew:225
 msgid ""
 "Upgrade your Slackware system with the last current fetched.\\nUses Slackpkg."
 msgstr ""
 
-#: pbupgrade:214 pbupgrade:216 pbupgrade:221 pbupgradenew:226
+#: pbupgrade:214 pbupgrade:216 pbupgrade:221 pbupgradenew:226 pbupgradenew:227
 msgid ""
 "Upgrade your Slackware system with the last current on the internet.\\nUses "
 "Slackpkg."
 msgstr ""
 
-#: pbupgrade:216 pbupgrade:218 pbupgrade:223 pbupgradenew:228
+#: pbupgrade:216 pbupgrade:218 pbupgrade:223 pbupgradenew:228 pbupgradenew:229
 msgid "Upgrade the Alien Bob 32 bits compatible mode."
 msgstr ""
 
-#: pbupgrade:218 pbupgrade:220 pbupgrade:225 pbupgradenew:230
+#: pbupgrade:218 pbupgrade:220 pbupgrade:225 pbupgradenew:230 pbupgradenew:231
 msgid ""
 "Upgrade the Firefox and Thunderbird products.\\nThey should be downloaded "
 "and put in the packages/Mozilla directory before."
 msgstr ""
 
-#: pbupgrade:230 pbupgrade:234 pbupgrade:239 pbupgradenew:244
+#: pbupgrade:230 pbupgrade:234 pbupgrade:239 pbupgradenew:244 pbupgradenew:245
 msgid ""
 "Upgrade your Bumblebee packages if they are in sync with the upgraded "
 "Slackware.\\nDone on another machine for exemple."
 msgstr ""
 
-#: pbupgrade:232 pbupgrade:236 pbupgrade:241 pbupgradenew:246
+#: pbupgrade:232 pbupgrade:236 pbupgrade:241 pbupgradenew:246 pbupgradenew:247
 msgid ""
 "Redo the packages which are here in sources form.\\nIf not already done on "
 "this machine or another."
 msgstr ""
 
-#: pbupgrade:234 pbupgrade:238 pbupgrade:243 pbupgradenew:254
+#: pbupgrade:234 pbupgrade:238 pbupgrade:243 pbupgradenew:254 pbupgradenew:257
 msgid ""
 "Redo the Bumblebee packages.\\nIf not already done on this machine or "
 "another.\\nYou should reboot after upgrading system packages and before "
 "doing this action else the Bumblebee packages wont built."
 msgstr ""
 
-#: pbupgrade:236 pbupgrade:240 pbupgrade:245 pbupgradenew:256
+#: pbupgrade:236 pbupgrade:240 pbupgrade:245 pbupgradenew:256 pbupgradenew:259
 msgid ""
 "Upgrade your boot loader only if you update your system and not the "
 "bootloader."
 msgstr ""
 
-#: pbupgrade:283 pbupgrade:288 pbupgrade:293 pbupgradenew:311
+#: pbupgrade:283 pbupgrade:288 pbupgrade:293 pbupgradenew:311 pbupgradenew:315
 msgid "Abort : see previous errors."
 msgstr ""
 
-#: pbupgrade:284 pbupgrade:289 pbupgrade:294 pbupgradenew:312
+#: pbupgrade:284 pbupgrade:289 pbupgrade:294 pbupgradenew:312 pbupgradenew:316
 msgid "Upgrade system not done."
 msgstr ""
 
 #: pbupgrade:292 pbupgrade:296 pbupgrade:297 pbupgrade:301 pbupgrade:302
-#: pbupgrade:306 pbupgradenew:320 pbupgradenew:324
+#: pbupgrade:306 pbupgradenew:320 pbupgradenew:324 pbupgradenew:328
 msgid "Upgrade system done."
 msgstr ""
 
-#: pbupgrade:305 pbupgrade:310 pbupgrade:315 pbupgradenew:333
+#: pbupgrade:305 pbupgrade:310 pbupgrade:315 pbupgradenew:333 pbupgradenew:337
 msgid "Upgrade Alien Bob multilib done."
 msgstr ""
 
-#: pbupgrade:311 pbupgrade:316 pbupgrade:321 pbupgradenew:339
+#: pbupgrade:311 pbupgrade:316 pbupgrade:321 pbupgradenew:339 pbupgradenew:343
 msgid "Upgrade Mozilla done."
 msgstr ""
 
-#: pbupgrade:318 pbupgrade:323 pbupgrade:328 pbupgradenew:346
+#: pbupgrade:318 pbupgrade:323 pbupgrade:328 pbupgradenew:346 pbupgradenew:350
 msgid "Upgrade packages done."
 msgstr ""
 
-#: pbupgrade:326 pbupgrade:331 pbupgrade:336 pbupgradenew:354
+#: pbupgrade:326 pbupgrade:331 pbupgrade:336 pbupgradenew:354 pbupgradenew:358
 msgid "Upgrade packages2 done."
 msgstr ""
 
-#: pbupgrade:332 pbupgrade:337 pbupgrade:342 pbupgradenew:360
+#: pbupgrade:332 pbupgrade:337 pbupgrade:342 pbupgradenew:360 pbupgradenew:364
 msgid "Upgrade packages3 done."
 msgstr ""
 
-#: pbupgrade:338 pbupgrade:343 pbupgrade:348 pbupgradenew:366
+#: pbupgrade:338 pbupgrade:343 pbupgrade:348 pbupgradenew:366 pbupgradenew:376
 msgid "Upgrade packages4 done."
 msgstr ""
 
-#: pbupgrade:344 pbupgrade:349 pbupgrade:354 pbupgradenew:372
+#: pbupgrade:344 pbupgrade:349 pbupgrade:354 pbupgradenew:372 pbupgradenew:382
 msgid "Upgrade frameworks done."
 msgstr ""
 
-#: pbupgrade:350 pbupgrade:355 pbupgrade:360 pbupgradenew:378
+#: pbupgrade:350 pbupgrade:355 pbupgrade:360 pbupgradenew:378 pbupgradenew:388
 msgid "Upgrade openshot done."
 msgstr ""
 
-#: pbupgrade:356 pbupgrade:361 pbupgrade:366 pbupgradenew:384
+#: pbupgrade:356 pbupgrade:361 pbupgrade:366 pbupgradenew:384 pbupgradenew:394
 msgid "Upgrade audacity done."
 msgstr ""
 
-#: pbupgrade:363 pbupgrade:374 pbupgrade:379 pbupgradenew:397
+#: pbupgrade:363 pbupgrade:374 pbupgrade:379 pbupgradenew:397 pbupgradenew:407
 msgid "Upgrade tesseract4 done."
 msgstr ""
 
-#: pbupgrade:369 pbupgrade:380 pbupgrade:385 pbupgradenew:403
+#: pbupgrade:369 pbupgrade:380 pbupgrade:385 pbupgradenew:403 pbupgradenew:413
 msgid "Upgrade Bumblebee done."
 msgstr ""
 
-#: pbupgrade:375 pbupgrade:386 pbupgrade:391 pbupgradenew:409
+#: pbupgrade:375 pbupgrade:386 pbupgrade:391 pbupgradenew:409 pbupgradenew:419
 msgid "Recreate source packages done."
 msgstr ""
 
-#: pbupgrade:381 pbupgrade:392 pbupgrade:397 pbupgradenew:415
+#: pbupgrade:381 pbupgrade:392 pbupgrade:397 pbupgradenew:415 pbupgradenew:425
 msgid "Recreate source Bumblebee done."
 msgstr ""
 
-#: pbupgrade:384 pbupgrade:395 pbupgrade:400 pbupgradenew:418
+#: pbupgrade:384 pbupgrade:395 pbupgrade:400 pbupgradenew:418 pbupgradenew:428
 msgid "Updating bootloader asked."
 msgstr ""
 
-#: pbupgrade:414 pbupgrade:425 pbupgrade:430 pbupgradenew:448
+#: pbupgrade:414 pbupgrade:425 pbupgrade:430 pbupgradenew:448 pbupgradenew:458
 msgid "Bootloader menu"
 msgstr ""
 
-#: pbupgrade:415 pbupgrade:426 pbupgrade:431 pbupgradenew:449
+#: pbupgrade:415 pbupgrade:426 pbupgrade:431 pbupgradenew:449 pbupgradenew:459
 msgid ""
 "We have detected the bootloader below. Cancel if it is not true.\\nIn this "
 "last case, you should recreate the config of your bootloader before reboot. "
@@ -828,11 +829,11 @@ msgid ""
 "rerun the install of your bootloader."
 msgstr ""
 
-#: pbupgrade:416 pbupgrade:427 pbupgrade:432 pbupgradenew:450
+#: pbupgrade:416 pbupgrade:427 pbupgrade:432 pbupgradenew:450 pbupgradenew:460
 msgid "No bootloader detected. Reconfigure your bootloader before reboot."
 msgstr ""
 
-#: pbupgrade:428 pbupgrade:439 pbupgrade:444 pbupgradenew:462
+#: pbupgrade:428 pbupgrade:439 pbupgrade:444 pbupgradenew:462 pbupgradenew:472
 msgid ""
 "\\ZbThe boot loader was not updated.\\ZB\\nIf lilo is installed, launch : "
 "\\Z3/sbin/lilo\\Zn\\nIf Grub is installed, launch : \\Z3grub-mkconfig -o /"
@@ -842,35 +843,35 @@ msgid ""
 "other favorite bootloader install procedure before rebooting.\\ZB"
 msgstr ""
 
-#: pbupgrade:432 pbupgrade:443 pbupgrade:448 pbupgradenew:466
+#: pbupgrade:432 pbupgrade:443 pbupgrade:448 pbupgradenew:466 pbupgradenew:476
 msgid ""
 "Elilo updated : Files vmlinuz et initrd.gz copied in \\Z3/boot/efi/EFI/"
 "Slackware\\Zn"
 msgstr ""
 
-#: pbupgrade:437 pbupgrade:448 pbupgrade:453 pbupgradenew:471
+#: pbupgrade:437 pbupgrade:448 pbupgrade:453 pbupgradenew:471 pbupgradenew:481
 msgid ""
 "Grub updated : \\Z3grub-mkconfig\\Zn relaunched.\\n\\Z1Look if there are "
 "error messages below\\Zn."
 msgstr ""
 
-#: pbupgrade:442 pbupgrade:453 pbupgrade:458 pbupgradenew:476
+#: pbupgrade:442 pbupgrade:453 pbupgrade:458 pbupgradenew:476 pbupgradenew:486
 msgid ""
 "Lilo updated with \\Z3/sbin/lilo\\Zn.\\n\\Z1Look if there are error messages "
 "below\\Zn."
 msgstr ""
 
-#: pbupgrade:447 pbupgrade:458 pbupgrade:463 pbupgradenew:481
+#: pbupgrade:447 pbupgrade:458 pbupgrade:463 pbupgradenew:481 pbupgradenew:491
 msgid ""
 "Look at \\Z3/syslinux.cfg\\Zn and rerun \\Z3syslinux\\Zn on your boot "
 "partition if some path have changed."
 msgstr ""
 
-#: pbupgrade:461 pbupgrade:472 pbupgrade:477 pbupgradenew:495
+#: pbupgrade:461 pbupgrade:472 pbupgrade:477 pbupgradenew:495 pbupgradenew:505
 msgid " (\\Z1be sure to have updated the bootloader before\\Zn)"
 msgstr ""
 
-#: pbupgrade:467 pbupgrade:478 pbupgrade:483 pbupgradenew:501
+#: pbupgrade:467 pbupgrade:478 pbupgrade:483 pbupgradenew:501 pbupgradenew:511
 #, sh-format
 msgid ""
 "Reboot the host${XBOOTMES}.\\n\\n\\ZbThen do if not already done on an "
@@ -939,7 +940,7 @@ msgstr ""
 msgid "Install/Update the Ardour software"
 msgstr ""
 
-#: pbupgrade:367 pbupgrade:372 pbupgradenew:390
+#: pbupgrade:367 pbupgrade:372 pbupgradenew:390 pbupgradenew:400
 msgid "Upgrade ardour done."
 msgstr ""
 
@@ -959,32 +960,44 @@ msgstr ""
 msgid "Compile again the packages4 set of software"
 msgstr ""
 
-#: pbupgradenew:182
+#: pbupgradenew:182 pbupgradenew:183
 msgid "Compile again the Openshot software"
 msgstr ""
 
-#: pbupgradenew:183
+#: pbupgradenew:183 pbupgradenew:184
 msgid "Compile again the Audacity software"
 msgstr ""
 
-#: pbupgradenew:184
+#: pbupgradenew:184 pbupgradenew:185
 msgid "Compile again the Ardour software"
 msgstr ""
 
-#: pbupgradenew:248
+#: pbupgradenew:248 pbupgradenew:251
 msgid ""
 "Redo the openshot packages which are here in sources form.\\nIf not already "
 "done on this machine or another."
 msgstr ""
 
-#: pbupgradenew:250
+#: pbupgradenew:250 pbupgradenew:253
 msgid ""
 "Redo the audacity packages which are here in sources form.\\nIf not already "
 "done on this machine or another."
 msgstr ""
 
-#: pbupgradenew:252
+#: pbupgradenew:252 pbupgradenew:255
 msgid ""
 "Redo the ardour packages which are here in sources form.\\nIf not already "
 "done on this machine or another."
+msgstr ""
+
+#: pbupgradenew:182
+msgid "Compile again the Chromium software"
+msgstr ""
+
+#: pbupgradenew:249
+msgid ""
+"Redo the Chromium navigator which are here in sources form.\\nIf not already "
+"done on this machine or another.\\nIt is a very long process (some hours)."
+"\\nIt is usefull for Opera having the libffmeg.so library with the h264 "
+"support."
 msgstr ""
