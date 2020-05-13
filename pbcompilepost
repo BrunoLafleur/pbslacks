@@ -116,11 +116,6 @@ xmakepac () {
 # ===========================================================
 rm -f /usr/lib64/lib*.la
 
-for i in liblo liblrdf ardour ;do
-    xmakealienpac packages4/ardour $i
-done
-exit 0
-
 # python2-* for openshot 1.4, openshot_qt => openshot 2.5
 for i in python2-mlt python2-libcaca python2-libwebp openal-soft \
 		     libtxc_dxtn libgaminggear python-pillow6 acpibrightness \
@@ -172,7 +167,12 @@ for i in xrdp xorgxrdp SFML vbam fbida kaffeine opencv gradle \
     xmakepac packages4 $i
 done
 
+(
+    export SHARED_FFMPEG=true
+    xmakealienpac packages4 chromium
+)
 xmakealienpac packages4 wxGTK3
+
 for i in lilv lv2 serd sord sratom suil vamp-plugin-sdk audacity ;do
     xmakealienpac packages4/audacity $i
 done

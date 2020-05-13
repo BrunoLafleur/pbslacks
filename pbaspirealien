@@ -75,11 +75,13 @@ xpurgeindex packages3
 ############################################
 (
     cd packages4
-    for i in chromium ;do
+    for i in chromium-widevine-plugin ;do
 	xgetpac "$i" "$SLACKALIEN/$i/pkg64/current" 10
     done
     rm -f PyQt5-*
-    xgetsrcpac0 "wxGTK3" "$SLACKALIEN/wxGTK3/build" 10
+    for i in chromium wxGTK3 ;do
+	xgetsrcpac0 "$i" "$SLACKALIEN/$i/build" 10
+    done
     [ ! -d audacity ] && mkdir audacity
     (
 	cd audacity
