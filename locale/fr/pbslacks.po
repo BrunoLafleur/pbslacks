@@ -329,6 +329,7 @@ msgid "Correct this error and relaunch this script."
 msgstr "Erreur à corriger puis relancer ce script."
 
 #: pbcompilepost:179 pbcompilepost:190 pbcompilepost:253 pbcompilepostnew:250
+#: pbcompilepostnew:259
 msgid "Upgrade packages* done."
 msgstr "Mise à jour de packages* faite."
 
@@ -811,7 +812,7 @@ msgid ""
 "another.\\nYou should reboot after upgrading system packages and before "
 "doing this action else the Bumblebee packages wont built."
 msgstr ""
-"Recompilez les paquets Bumblebee.\\n.Si non fait sur cette machine ou une "
+"Recompilez les paquets Bumblebee.\\nSi non fait sur cette machine ou une "
 "autre.\\nVous devez redémarrer après mise à jour des paquets systèmes avant "
 "cette action sinon les paquets Bumblebee ne se reconstruiront pas."
 
@@ -1129,7 +1130,7 @@ msgid ""
 "\\nIt is usefull for Opera having the libffmeg.so library with the h264 "
 "support."
 msgstr ""
-"Recompilez le navigateur Chromium qui sont sous forme source.\\nSi non fait "
+"Recompilez le navigateur Chromium qui est sous forme source.\\nSi non fait "
 "sur cette machine ou une autre.\\nC'est un processus assez long (quelques "
 "heures).\\nC'est utile pour qu'Opera ait la librairie libffmpeg.so avec le "
 "support du h264."
