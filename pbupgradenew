@@ -244,7 +244,13 @@ while [ $bclaide -eq 1 ] ;do
 	elif [ "$xitem" = bumblebee ] ;then
 	    pacaide=$(mygt 'Upgrade your Bumblebee packages if they are in sync with the upgraded Slackware.\nDone on another machine for exemple.')
 	elif [ "$(echo "$xitem"|cut -c1-16)" = recreatepackages ] ;then
-	    pacaide=$(mygt 'Redo the packages which are here in sources form.\nIf not already done on this machine or another.')
+	    pacaide=$(mygt 'Redo the packages which are here in sources form.\nIf not already done on this machine or another.\n')
+	    jtem="$(echo "$xitem"|cut -c9-)"
+	    find -L $jtem -type d|cut -d '/' -f1-2|sort -u|egrep -v "$jtem$|chromium|openshot|audacity|ardour|tesseract|frameworks|Httpfs|32|Mozilla|Steam|compat32|openshot" > $XTEMPMES
+	    while read j;test "$j" != "" ;do
+		pacaide="${pacaide}\n$j"
+	    done < $XTEMPMES
+	    rm -f $XTEMPMES
 	elif [ "$xitem" = recreatechromium ] ;then
 	    pacaide=$(mygt 'Redo the Chromium navigator which are here in sources form.\nIf not already done on this machine or another.\nIt is a very long process (some hours).\nIt is usefull for Opera having the libffmeg.so library with the h264 support.')
 	elif [ "$xitem" = recreateopenshot ] ;then
@@ -279,14 +285,14 @@ ISAUDACITY="$(cat $XTEMPOUT|grep '^audacity$'|wc -l)"
 ISARDOUR="$(cat $XTEMPOUT|grep '^ardour$'|wc -l)"
 ISTESS="$(cat $XTEMPOUT|grep '^tesseract4$'|wc -l)"
 ISBUMBLE="$(cat $XTEMPOUT|grep '^bumblebee$'|wc -l)"
-ISRECRE="$(cat $XTEMPOUT|grep '^recreatepackages$'|wc -l)";[ $ISRECRE -eq 1 ] && OPTRECRE+=' -ispac1'
-ISRECRE="$(cat $XTEMPOUT|grep '^recreatepackages2$'|wc -l)";[ $ISRECRE -eq 1 ] && OPTRECRE+=' -ispac2'
-ISRECRE="$(cat $XTEMPOUT|grep '^recreatepackages3$'|wc -l)";[ $ISRECRE -eq 1 ] && OPTRECRE+=' -ispac3'
-ISRECRE="$(cat $XTEMPOUT|grep '^recreatepackages4$'|wc -l)";[ $ISRECRE -eq 1 ] && OPTRECRE+=' -ispac4'
-ISRECRE="$(cat $XTEMPOUT|grep '^recreatechromium$'|wc -l)";[ $ISRECRE -eq 1 ] && OPTRECRE+=' -ischromium'
-ISRECRE="$(cat $XTEMPOUT|grep '^recreateopenshot$'|wc -l)";[ $ISRECRE -eq 1 ] && OPTRECRE+=' -isopenshot'
-ISRECRE="$(cat $XTEMPOUT|grep '^recreateaudacity$'|wc -l)";[ $ISRECRE -eq 1 ] && OPTRECRE+=' -isaudacity'
-ISRECRE="$(cat $XTEMPOUT|grep '^recreateardour$'|wc -l)";[ $ISRECRE -eq 1 ] && OPTRECRE+=' -isardour'
+ISRECRE="$(cat $XTEMPOUT|grep '^recreatepackages$'|wc -l)";[ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -ispac1"
+ISRECRE="$(cat $XTEMPOUT|grep '^recreatepackages2$'|wc -l)";[ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -ispac2"
+ISRECRE="$(cat $XTEMPOUT|grep '^recreatepackages3$'|wc -l)";[ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -ispac3"
+ISRECRE="$(cat $XTEMPOUT|grep '^recreatepackages4$'|wc -l)";[ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -ispac4"
+ISRECRE="$(cat $XTEMPOUT|grep '^recreatechromium$'|wc -l)";[ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -ischromium"
+ISRECRE="$(cat $XTEMPOUT|grep '^recreateopenshot$'|wc -l)";[ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -isopenshot"
+ISRECRE="$(cat $XTEMPOUT|grep '^recreateaudacity$'|wc -l)";[ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -isaudacity"
+ISRECRE="$(cat $XTEMPOUT|grep '^recreateardour$'|wc -l)";[ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -isardour"
 ISRECREBUMBLE="$(cat $XTEMPOUT|grep '^recreatebumblebee$'|wc -l)"
 ISBOOTLOAD="$(cat $XTEMPOUT|grep '^bootload$'|wc -l)"
 
