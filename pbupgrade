@@ -152,13 +152,15 @@ xmaster () {
     xsel1=$1;shift;xsel2=$1;shift;xsel3=$1;shift;xsel4=$1;shift;xsel5=$1;shift
     xsel6=$1;shift;xsel7=$1;shift;xsel8=$1;shift;xsel9=$1;shift;xsel10=$1;shift
     xsel11=$1;shift;xsel12=$1;shift;xsel13=$1;shift;xsel14=$1;shift
-    xsel15=$1;shift;xsel16=$1;shift;xsel17=$1
+    xsel15=$1;shift;xsel16=$1;shift;xsel17=$1;shift;xsel18=$1;shift
+    xsel19=$1;shift;xsel20=$1;shift;xsel21=$1;shift;xsel22=$1;shift
+    xsel23=$1;shift;xsel24=$1
     pactit=$(mygt 'Main menu')
     pactit="pbupgrade: $pactit"
     dialog --colors --backtitle 'pbupgrade' --title "$pactit" \
 	--default-item $defitem --defaultno \
 	--separate-output --item-help --help-button --help-status --checklist \
-	"$(mygt 'Choose your actions below after you have launch the \Zbpbaspire*\ZB script')" 0 100 17 \
+	"$(mygt 'Choose your actions below after you have launch the \Zbpbaspire*\ZB script')" 0 100 24 \
 	system "$(mygt 'Sync/Update system to the last fetched current Slackware')" $xsel1 system \
 	systemnet "$(mygt 'Sync/Update system to the last current Slackware on the internet')" $xsel2 systemnet \
 	compat32 "$(mygt 'Install/Update the 32 bits compatible mode')" $xsel3 compat32 \
@@ -173,9 +175,16 @@ xmaster () {
 	ardour "$(mygt 'Install/Update the Ardour software')" $xsel12 ardour \
 	tesseract4 "$(mygt 'Install/Update the Tesseract version 4 software')" $xsel13 tesseract4 \
 	bumblebee "$(mygt 'Install/Update the Bumblebee support of your second NVIDIA graphic card')" $xsel14 bumblebee \
-	recreate "$(mygt 'Compile again some packages.')" $xsel15 recreate \
-	recreatebumblebee "$(mygt 'Compile again Bumblebee packages.')" $xsel16 recreatebumblebee \
-    	bootload "$(mygt 'Upgrade boot loader.')" $xsel17 bootload
+	recreatepackages "$(mygt 'Compile again the packages set of software')" $xsel15 recreatepackages \
+	recreatepackages2 "$(mygt 'Compile again the packages2 set of software')" $xsel16 recreatepackages2 \
+	recreatepackages3 "$(mygt 'Compile again the packages3 set of software')" $xsel17 recreatepackages3 \
+	recreatepackages4 "$(mygt 'Compile again the packages4 set of software')" $xsel18 recreatepackages4 \
+	recreatechromium "$(mygt 'Compile again the Chromium software')" $xsel19 recreatechromium \
+	recreateopenshot "$(mygt 'Compile again the Openshot software')" $xsel20 recreateopenshot \
+	recreateaudacity "$(mygt 'Compile again the Audacity software')" $xsel21 recreateaudacity \
+	recreateardour "$(mygt 'Compile again the Ardour software')" $xsel22 recreateardour \
+	recreatebumblebee "$(mygt 'Compile again Bumblebee packages.')" $xsel23 recreatebumblebee \
+    	bootload "$(mygt 'Upgrade boot loader.')" $xsel24 bootload
 }
 
 xpacaide () {
@@ -188,14 +197,9 @@ xpacaide () {
     rm -f $XTEMPMES
 }
 
-xpacredo () {
-    packages="$1"
-    pacaide="Redo the source $packages set of tools."
-}
-
-xsel="$XUPSYSTEM off $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST \
-$XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPPOST \
-$XUPPOST $XUPPOST off"
+xsel="$XUPSYSTEM off $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST \
+$XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPPOST $XUPPOST \
+$XUPPOST $XUPPOST $XUPPOST $XUPPOST $XUPPOST $XUPPOST $XUPPOST $XUPPOST off"
 ditem=system
 bclaide=1
 
@@ -206,8 +210,10 @@ while [ $bclaide -eq 1 ] ;do
 	xitem="$(cat $XTEMPOUT|grep '^HELP'|cut -d ' ' -f2)"
 	xsel=
 	for i in system systemnet compat32 mozilla packages packages2 packages3 \
-	    packages4 frameworks openshot audacity ardour tesseract4 bumblebee recreate \
-	    recreatebumblebee bootload ;do
+			packages4 frameworks openshot audacity ardour tesseract4 \
+			bumblebee recreatepackages recreatepackages2 recreatepackages3 \
+			recreatepackages4 recreatechromium recreateopenshot \
+			recreateaudacity recreateardour recreatebumblebee bootload ;do
 	  if [ $(grep "^$i$" "$XTEMPOUT"|wc -l) -eq 1 ] ;then
 	      xsel="$xsel on"
 	  else
@@ -227,7 +233,7 @@ while [ $bclaide -eq 1 ] ;do
 	    xpacaide "$xitem"
 	elif [ "$xitem" = frameworks ] ;then
 	    xpacaide packages4/frameworks
-	elif [ "$xitem" = oepnshot ] ;then
+	elif [ "$xitem" = openshot ] ;then
 	    xpacaide packages/openshot
 	elif [ "$xitem" = audacity ] ;then
 	    xpacaide packages4/audacity
@@ -237,19 +243,34 @@ while [ $bclaide -eq 1 ] ;do
 	    xpacaide packages4/tesseract4
 	elif [ "$xitem" = bumblebee ] ;then
 	    pacaide=$(mygt 'Upgrade your Bumblebee packages if they are in sync with the upgraded Slackware.\nDone on another machine for exemple.')
-	elif [ "$xitem" = recreate ] ;then
-	    pacaide=$(mygt 'Redo the packages which are here in sources form.\nIf not already done on this machine or another.')
+	elif [ "$(echo "$xitem"|cut -c1-16)" = recreatepackages ] ;then
+	    pacaide=$(mygt 'Redo the packages which are here in sources form.\nIf not already done on this machine or another.\n')
+	    jtem="$(echo "$xitem"|cut -c9-)"
+	    find -L $jtem -type d|cut -d '/' -f1-2|sort -u|egrep -v "$jtem$|chromium|openshot|audacity|ardour|tesseract|frameworks|Httpfs|32|Mozilla|Steam|compat32|openshot" > $XTEMPMES
+	    while read j;test "$j" != "" ;do
+		pacaide="${pacaide}\n$j"
+	    done < $XTEMPMES
+	    rm -f $XTEMPMES
+	elif [ "$xitem" = recreatechromium ] ;then
+	    pacaide=$(mygt 'Redo the Chromium navigator which are here in sources form.\nIf not already done on this machine or another.\nIt is a very long process (some hours).\nIt is usefull for Opera having the libffmeg.so library with the h264 support.')
+	elif [ "$xitem" = recreateopenshot ] ;then
+	    pacaide=$(mygt 'Redo the openshot packages which are here in sources form.\nIf not already done on this machine or another.')
+	elif [ "$xitem" = recreateaudacity ] ;then
+	    pacaide=$(mygt 'Redo the audacity packages which are here in sources form.\nIf not already done on this machine or another.')
+	elif [ "$xitem" = recreateardour ] ;then
+	    pacaide=$(mygt 'Redo the ardour packages which are here in sources form.\nIf not already done on this machine or another.')
 	elif [ "$xitem" = recreatebumblebee ] ;then
 	    pacaide=$(mygt 'Redo the Bumblebee packages.\nIf not already done on this machine or another.\nYou should reboot after upgrading system packages and before doing this action else the Bumblebee packages wont built.')
 	elif [ "$xitem" = bootload ] ;then
 	    pacaide=$(mygt "Upgrade your boot loader only if you update your system and not the bootloader.") 
 	fi
 	dialog --colors --backtitle 'pbupgrade' --title "$xitem" \
-	    --msgbox "$pacaide" 20 80
+	    --msgbox "$pacaide" 20 90
     fi
 done
 
 XEND=0
+OPTRECRE=
 ISSYSTEM="$(cat $XTEMPOUT|grep '^system$'|wc -l)"
 ISSYSNET="$(cat $XTEMPOUT|grep '^systemnet$'|wc -l)"
 ISCOMPAT="$(cat $XTEMPOUT|grep '^compat32$'|wc -l)"
@@ -264,7 +285,14 @@ ISAUDACITY="$(cat $XTEMPOUT|grep '^audacity$'|wc -l)"
 ISARDOUR="$(cat $XTEMPOUT|grep '^ardour$'|wc -l)"
 ISTESS="$(cat $XTEMPOUT|grep '^tesseract4$'|wc -l)"
 ISBUMBLE="$(cat $XTEMPOUT|grep '^bumblebee$'|wc -l)"
-ISRECRE="$(cat $XTEMPOUT|grep '^recreate$'|wc -l)"
+ISRECRE="$(cat $XTEMPOUT|grep '^recreatepackages$'|wc -l)";[ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -ispac1"
+ISRECRE="$(cat $XTEMPOUT|grep '^recreatepackages2$'|wc -l)";[ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -ispac2"
+ISRECRE="$(cat $XTEMPOUT|grep '^recreatepackages3$'|wc -l)";[ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -ispac3"
+ISRECRE="$(cat $XTEMPOUT|grep '^recreatepackages4$'|wc -l)";[ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -ispac4"
+ISRECRE="$(cat $XTEMPOUT|grep '^recreatechromium$'|wc -l)";[ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -ischromium"
+ISRECRE="$(cat $XTEMPOUT|grep '^recreateopenshot$'|wc -l)";[ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -isopenshot"
+ISRECRE="$(cat $XTEMPOUT|grep '^recreateaudacity$'|wc -l)";[ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -isaudacity"
+ISRECRE="$(cat $XTEMPOUT|grep '^recreateardour$'|wc -l)";[ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -isardour"
 ISRECREBUMBLE="$(cat $XTEMPOUT|grep '^recreatebumblebee$'|wc -l)"
 ISBOOTLOAD="$(cat $XTEMPOUT|grep '^bootload$'|wc -l)"
 
@@ -344,6 +372,12 @@ if [ $XEND -eq 0 ] ;then
     if [ $ISPACK4 -eq 1 ] ;then
 	if [ $XTEST -ne 1 ] ;then
 	    upgradedir packages4
+	    if [ -f /usr/lib64/chromium/libffmpeg.so ] ;then
+		mv -f /usr/lib64/opera/libffmpeg.so /usr/lib64/opera/libffmpeg.so.bak
+		ln -sf /usr/lib64/chromium/libffmpeg.so /usr/lib64/opera
+	    fi
+	    [ -f /usr/lib64/chromium/libwidevinecdm.so ] && \
+		ln -sf /usr/lib64/chromium/libwidevinecdm.so /usr/lib64/opera
 	fi
 	mygt "Upgrade packages4 done." >> $XTEMPMES
     fi
@@ -384,9 +418,9 @@ if [ $XEND -eq 0 ] ;then
 	fi
 	mygt "Upgrade Bumblebee done." >> $XTEMPMES
     fi
-    if [ $ISRECRE -eq 1 ] ;then
+    if [ "$OPTRECRE" != '' ] ;then
 	if [ $XTEST -ne 1 ] ;then
-	    $HOMESLACK/pbslacks/pbcompilepost -u $MYUSER -g $MYGROUP
+	    $HOMESLACK/pbslacks/pbcompilepost -u $MYUSER -g $MYGROUP $OPTRECRE
 	fi
 	mygt "Recreate source packages done." >> $XTEMPMES
     fi
