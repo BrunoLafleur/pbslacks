@@ -154,7 +154,7 @@ xmaster () {
     xsel11=$1;shift;xsel12=$1;shift;xsel13=$1;shift;xsel14=$1;shift
     xsel15=$1;shift;xsel16=$1;shift;xsel17=$1;shift;xsel18=$1;shift
     xsel19=$1;shift;xsel20=$1;shift;xsel21=$1;shift;xsel22=$1;shift
-    xsel23=$1
+    xsel23=$1;shift;xsel24=$1
     pactit=$(mygt 'Main menu')
     pactit="pbupgrade: $pactit"
     dialog --colors --backtitle 'pbupgrade' --title "$pactit" \
@@ -179,11 +179,12 @@ xmaster () {
 	recreatepackages2 "$(mygt 'Compile again the packages2 set of software')" $xsel16 recreatepackages2 \
 	recreatepackages3 "$(mygt 'Compile again the packages3 set of software')" $xsel17 recreatepackages3 \
 	recreatepackages4 "$(mygt 'Compile again the packages4 set of software')" $xsel18 recreatepackages4 \
-	recreateopenshot "$(mygt 'Compile again the Openshot software')" $xsel19 recreateopenshot \
-	recreateaudacity "$(mygt 'Compile again the Audacity software')" $xsel20 recreateaudacity \
-	recreateardour "$(mygt 'Compile again the Ardour software')" $xsel21 recreateardour \
-	recreatebumblebee "$(mygt 'Compile again Bumblebee packages.')" $xsel22 recreatebumblebee \
-    	bootload "$(mygt 'Upgrade boot loader.')" $xsel23 bootload
+	recreatechromium "$(mygt 'Compile again the Chromium software')" $xsel19 recreatechromium \
+	recreateopenshot "$(mygt 'Compile again the Openshot software')" $xsel20 recreateopenshot \
+	recreateaudacity "$(mygt 'Compile again the Audacity software')" $xsel21 recreateaudacity \
+	recreateardour "$(mygt 'Compile again the Ardour software')" $xsel22 recreateardour \
+	recreatebumblebee "$(mygt 'Compile again Bumblebee packages.')" $xsel23 recreatebumblebee \
+    	bootload "$(mygt 'Upgrade boot loader.')" $xsel24 bootload
 }
 
 xpacaide () {
@@ -198,7 +199,7 @@ xpacaide () {
 
 xsel="$XUPSYSTEM off $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST \
 $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPPOST $XUPPOST \
-$XUPPOST $XUPPOST $XUPPOST $XUPPOST $XUPPOST $XUPPOST $XUPPOST off"
+$XUPPOST $XUPPOST $XUPPOST $XUPPOST $XUPPOST $XUPPOST $XUPPOST $XUPPOST off"
 ditem=system
 bclaide=1
 
@@ -211,8 +212,8 @@ while [ $bclaide -eq 1 ] ;do
 	for i in system systemnet compat32 mozilla packages packages2 packages3 \
 			packages4 frameworks openshot audacity ardour tesseract4 \
 			bumblebee recreatepackages recreatepackages2 recreatepackages3 \
-			recreatepackages4 recreateopenshot recreateaudacity \
-			recreateardour recreatebumblebee bootload ;do
+			recreatepackages4 recreatechromium recreateopenshot \
+			recreateaudacity recreateardour recreatebumblebee bootload ;do
 	  if [ $(grep "^$i$" "$XTEMPOUT"|wc -l) -eq 1 ] ;then
 	      xsel="$xsel on"
 	  else
@@ -244,6 +245,8 @@ while [ $bclaide -eq 1 ] ;do
 	    pacaide=$(mygt 'Upgrade your Bumblebee packages if they are in sync with the upgraded Slackware.\nDone on another machine for exemple.')
 	elif [ "$(echo "$xitem"|cut -c1-16)" = recreatepackages ] ;then
 	    pacaide=$(mygt 'Redo the packages which are here in sources form.\nIf not already done on this machine or another.')
+	elif [ "$xitem" = recreatechromium ] ;then
+	    pacaide=$(mygt 'Redo the Chromium navigator which are here in sources form.\nIf not already done on this machine or another.\nIt is a very long process (some hours).\nIt is usefull for Opera having the libffmeg.so library with the h264 support.')
 	elif [ "$xitem" = recreateopenshot ] ;then
 	    pacaide=$(mygt 'Redo the openshot packages which are here in sources form.\nIf not already done on this machine or another.')
 	elif [ "$xitem" = recreateaudacity ] ;then
@@ -280,6 +283,7 @@ ISRECRE="$(cat $XTEMPOUT|grep '^recreatepackages$'|wc -l)";[ $ISRECRE -eq 1 ] &&
 ISRECRE="$(cat $XTEMPOUT|grep '^recreatepackages2$'|wc -l)";[ $ISRECRE -eq 1 ] && OPTRECRE+=' -ispac2'
 ISRECRE="$(cat $XTEMPOUT|grep '^recreatepackages3$'|wc -l)";[ $ISRECRE -eq 1 ] && OPTRECRE+=' -ispac3'
 ISRECRE="$(cat $XTEMPOUT|grep '^recreatepackages4$'|wc -l)";[ $ISRECRE -eq 1 ] && OPTRECRE+=' -ispac4'
+ISRECRE="$(cat $XTEMPOUT|grep '^recreatechromium$'|wc -l)";[ $ISRECRE -eq 1 ] && OPTRECRE+=' -ischromium'
 ISRECRE="$(cat $XTEMPOUT|grep '^recreateopenshot$'|wc -l)";[ $ISRECRE -eq 1 ] && OPTRECRE+=' -isopenshot'
 ISRECRE="$(cat $XTEMPOUT|grep '^recreateaudacity$'|wc -l)";[ $ISRECRE -eq 1 ] && OPTRECRE+=' -isaudacity'
 ISRECRE="$(cat $XTEMPOUT|grep '^recreateardour$'|wc -l)";[ $ISRECRE -eq 1 ] && OPTRECRE+=' -isardour'
