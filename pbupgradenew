@@ -160,7 +160,7 @@ xmaster () {
     dialog --colors --backtitle 'pbupgrade' --title "$pactit" \
 	--default-item $defitem --defaultno \
 	--separate-output --item-help --help-button --help-status --checklist \
-	"$(mygt 'Choose your actions below after you have launch the \Zbpbaspire*\ZB script')" 0 100 23 \
+	"$(mygt 'Choose your actions below after you have launch the \Zbpbaspire*\ZB script')" 0 100 24 \
 	system "$(mygt 'Sync/Update system to the last fetched current Slackware')" $xsel1 system \
 	systemnet "$(mygt 'Sync/Update system to the last current Slackware on the internet')" $xsel2 systemnet \
 	compat32 "$(mygt 'Install/Update the 32 bits compatible mode')" $xsel3 compat32 \
@@ -259,7 +259,7 @@ while [ $bclaide -eq 1 ] ;do
 	    pacaide=$(mygt "Upgrade your boot loader only if you update your system and not the bootloader.") 
 	fi
 	dialog --colors --backtitle 'pbupgrade' --title "$xitem" \
-	    --msgbox "$pacaide" 20 80
+	    --msgbox "$pacaide" 20 90
     fi
 done
 
