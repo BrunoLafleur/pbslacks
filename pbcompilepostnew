@@ -194,6 +194,14 @@ if [ $ISPAC1 -eq 1 ] ;then
 	    rm -f /usr/lib/lib*.la
 	done
     )
+    
+    # Recompile and reinstall some Slackware packages for new dependencies.
+    (
+	export X264=yes
+	export X265=yes
+	export OPENAL=yes
+	xmakealienpac source/l ffmpeg packages
+    )
 fi
 
 if [ $ISPAC2 -eq 1 ] ;then    
@@ -214,6 +222,14 @@ if [ $ISPAC4 -eq 1 ] ;then
 		  signal-desktop audiveris zoom-linux opera ;do
 	xmakepac packages4 $i
     done
+    
+    if [ -f /usr/lib64/chromium/libffmpeg.so ] ;then
+	mv -f /usr/lib64/opera/libffmpeg.so /usr/lib64/opera/libffmpeg.so.bak
+	ln -sf /usr/lib64/chromium/libffmpeg.so /usr/lib64/opera
+    fi
+    [ -f /usr/lib64/chromium/libwidevinecdm.so ] && \
+	ln -sf /usr/lib64/chromium/libwidevinecdm.so /usr/lib64/opera
+    
     xmakealienpac packages4 wxGTK3
 fi
 
@@ -240,11 +256,4 @@ if [ $ISARDOUR -eq 1 ] ;then
     done
 fi
 
-# Recompile and reinstall some Slackware packages for new dependencies.
-(
-    export X264=yes
-    export X265=yes
-    export OPENAL=yes
-    xmakealienpac source/l ffmpeg packages
-)
 mygt "Upgrade packages* done."
