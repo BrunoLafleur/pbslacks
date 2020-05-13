@@ -414,7 +414,7 @@ if [ $XEND -eq 0 ] ;then
     fi
     if [ "$OPTRECRE" != '' ] ;then
 	if [ $XTEST -ne 1 ] ;then
-	    $HOMESLACK/pbslacks/pbcompilepost -u $MYUSER -g $MYGROUP $OPTRECREE
+	    $HOMESLACK/pbslacks/pbcompilepost -u $MYUSER -g $MYGROUP $OPTRECRE
 	fi
 	mygt "Recreate source packages done." >> $XTEMPMES
     fi
