@@ -80,7 +80,8 @@ fi
     xgetsrc fbida "$PATHFBIDA"
     xgetsrc opencv "$PATHOPENCV"
     xgetsrc opencv "$PATHOPENCVBIS"
-    for i in kaffeine gradle audiveris signal-desktop vokoscreen zoom-linux ;do
+    for i in kaffeine gradle audiveris signal-desktop vokoscreen zoom-linux \
+	     opera ;do
 	xgetsbosrc "$i"
     done
 )

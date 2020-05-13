@@ -150,15 +150,6 @@ xmakepac () {
 rm -f /usr/lib64/lib*.la
 # ===========================================================
 
-(
-    export SHARED_FFMPEG=true
-    export TMP=$(eval echo ~$MYUSER)/"pbtmp$$/chromium"
-    echo "=> Compile in the $TMP directory"
-    xmakealienpac packages4 chromium
-    rm -rf "$TMP"
-)
-exit 0
-
 if [ $ISOPENSHOT -eq 1 ] ;then
     # python2-* for openshot 1.4, openshot_qt => openshot 2.5
     for i in python2-mlt python2-libcaca python2-libwebp openal-soft \
@@ -223,7 +214,7 @@ if [ $ISPAC4 -eq 1 ] ;then
     (
 	# Recompile for libffmpeg.so for Opera.
 	export SHARED_FFMPEG=true
-	export TMP=$(eval echo ~$MYUSER)/"pbtmp$$/chromium"
+	export TMP=$(eval echo ~$MYUSER)/"pbtmp$$"
 	echo "=> Compile in the $TMP directory"
 	xmakealienpac packages4 chromium
 	rm -rf "$TMP"
