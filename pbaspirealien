@@ -75,25 +75,25 @@ xpurgeindex packages3
 ############################################
 (
     cd packages4
-    for i in chromium-widevine-plugin ;do
+    for i in chromium-widevine-plugin nodejs ;do
 	xgetpac "$i" "$SLACKALIEN/$i/pkg64/current" 10
     done
     rm -f PyQt5-*
     for i in chromium wxGTK3 ;do
-	xgetsrcpac0 "$i" "$SLACKALIEN/$i/build" 10
+	xgetsrcpac0 "$i" "$SLACKALIEN/$i/build" 9
     done
     [ ! -d audacity ] && mkdir audacity
     (
 	cd audacity
 	for i in audacity lilv lv2 serd sord sratom suil vamp-plugin-sdk ;do
-	    xgetsrcpac0 "$i" "$SLACKALIEN/$i/build" 10
+	    xgetsrcpac0 "$i" "$SLACKALIEN/$i/build" 9
 	done
     )
     [ ! -d ardour ] && mkdir ardour
     (
 	cd ardour
 	for i in liblo liblrdf ardour ;do
-	    xgetsrcpac0 "$i" "$SLACKALIEN/$i/build" 10
+	    xgetsrcpac0 "$i" "$SLACKALIEN/$i/build" 9
 	done
     )
 )

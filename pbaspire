@@ -138,7 +138,7 @@ xmaster () {
     fi
 }
 
-xsel="on on on on on on on on on on on on on"
+xsel="on on on on on on on on on on on off"
 ditem=core
 bclaide=1
 
