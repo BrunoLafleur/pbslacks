@@ -239,8 +239,13 @@ if [ $ISCHROMIUM -eq 1 ] ;then
 	export SHARED_FFMPEG=true
 	export TMP=$(eval echo ~$MYUSER)/"pbtmp$$"
 	echo "=> Compile in the $TMP directory"
+	if [ $RECOMP -eq 1 -a -d "packages4/chromium" ] ;then
+	(
+	    cd "packages4/chromium"
+	    cat ../../pbslacks/builds/chromium.patch|patch -p0
+	)
 	xmakealienpac packages4 chromium
-	rm -rf "$TMP"
+	#rm -rf "$TMP"
     )
 fi
 
