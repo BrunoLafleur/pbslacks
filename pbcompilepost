@@ -158,7 +158,7 @@ if [ $ISOPENSHOT -eq 1 ] ;then
     # python2-* for openshot 1.4, openshot_qt => openshot 2.5
     for i in python2-mlt python2-libcaca python2-libwebp openal-soft \
 			 libtxc_dxtn libgaminggear python-pillow6 acpibrightness \
-			 python3-certifi openshot_qt inkscape opencolorio \
+			 python3-certifi openshot_qt lxml inkscape opencolorio \
 			 pybind11 openimageio numpy3 tbb Blender ;do
 	xmakepac packages/openshot $i
     done
