@@ -201,6 +201,7 @@ if [ $ISPAC1 -eq 1 ] ;then
 	export X264=yes
 	export X265=yes
 	export OPENAL=yes
+	export AAC=yes
 	xmakealienpac source/l ffmpeg packages
     )
 fi
