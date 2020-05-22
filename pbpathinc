@@ -62,6 +62,8 @@ PATHPYBIND11='https://github.com/pybind/pybind11/archive/v2.5.0/pybind11-2.5.0.t
 PATHNUMPY3='https://github.com/numpy/numpy/releases/download/v1.14.3/numpy-1.14.3.tar.gz'
 # PATHTBBSBO='https://slackbuilds.org/slackbuilds/14.2/libraries/tbb.tar.gz'
 PATHTBB='https://github.com/oneapi-src/oneTBB/archive/2020_U2/tbb-2020_U2.tar.gz'
+# PATHLXMLSBO='https://slackbuilds.org/slackbuilds/14.2/python/lxml.tar.gz'
+PATHLXML='https://pypi.io/packages/source/l/lxml/lxml-4.4.1.tar.gz'
 
 # List of aspire links.
 # explicit mirror chosen here.
