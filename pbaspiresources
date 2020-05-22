@@ -27,7 +27,8 @@ fi
     [ ! -d openshot ] && mkdir openshot
     (
 	cd openshot
-	for i in python3-certifi openshot_qt ;do
+	for i in python3-certifi openshot_qt inkscape opencolorio \
+				 pybind11 openimageio numpy3 tbb Blender ;do
 	    xgetsbosrc "$i"
 	done
 	xgetsrc python2-mlt "$PATHMLT"
