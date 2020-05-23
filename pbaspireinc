@@ -14,10 +14,10 @@ xpurgeindex () {
 
 # Function for purge old packages.
 xpurgepac () {
-    pac="$1"
+    ppac="$1"
     suf="$2"
-    last=$(ls -1t ${pac}*.$suf 2> /dev/null|head -1)
-    for j in $(ls ${pac}*.$suf 2> /dev/null) ;do
+    last=$(ls -1t ${ppac}*.$suf 2> /dev/null|head -1)
+    for j in $(ls ${ppac}*.$suf 2> /dev/null) ;do
 	if [ "$j" != "$last" ] ;then
 	    emygt "Delete : \$j"
 	    rm -f "$j"
