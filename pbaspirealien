@@ -79,11 +79,13 @@ xpurgeindex packages3
 	xgetpac "$i" "$SLACKALIEN/$i/pkg64/current" 10
     done
     rm -f PyQt5-*
+
     [ -f chromium/chromium.SlackBuild ] && \
 	mv -f chromium/chromium.SlackBuild chromium/chromium.SlackBuild.bak
     for i in chromium wxGTK3 ;do
 	xgetsrcpac0 "$i" "$SLACKALIEN/$i/build" 9
     done
+    
     [ ! -d audacity ] && mkdir audacity
     (
 	cd audacity
@@ -91,6 +93,7 @@ xpurgeindex packages3
 	    xgetsrcpac0 "$i" "$SLACKALIEN/$i/build" 9
 	done
     )
+    
     [ ! -d ardour ] && mkdir ardour
     (
 	cd ardour

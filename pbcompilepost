@@ -86,12 +86,12 @@ read c
 # Some helper functions.
 
 xpurgetmp () {
-    pac="$1"
-    rm -f /tmp/"${pac}-"*.t?z
-    rm -rf /tmp/"${pac}-"*
-    rm -rf /tmp/*/"${pac}-"*
-    rm -rf /tmp/package-"$pac"
-    rm -rf /tmp/*/package-"$pac"
+    ppac="$1"
+    rm -f /tmp/"${ppac}-"*.t?z
+    rm -rf /tmp/"${ppac}-"*
+    rm -rf /tmp/*/"${ppac}-"*
+    rm -rf /tmp/package-"$ppac"
+    rm -rf /tmp/*/package-"$ppac"
 }
 
 xmakealienpac () {
@@ -108,10 +108,12 @@ xmakealienpac () {
 		exit 1
 	    fi
 	)
+	[ $? -ne 0 ] && exit 1
 	cp "/tmp/${pac}-"[0-9]*.t?z "$dest"
 	chown ${MYUSER}.$MYGROUP "$dest/${pac}"-[0-9]*.t?z
 	chown -R ${MYUSER}.$MYGROUP "$dest/$pac"
 	xpurgetmp "$pac"
+	xpurgepac "$dest/$pac-[0-9]" t?z
         upgradepkg --install-new --reinstall "$dest/${pac}"-[0-9]*.t?z
     fi
 }
@@ -134,12 +136,15 @@ xmakepac () {
 			exit 1
 		    fi
 		)
+		[ $? -ne 0 ] && exit 1
 		rm -rf $XPAC
 	    fi
 	)
+	[ $? -ne 0 ] && exit 1
 	cp /tmp/${XPAC}-[0-9]*.t?z $XDIR
 	chown ${MYUSER}.$MYGROUP $XDIR/${XPAC}-[0-9]*.t?z
 	xpurgetmp $XPAC
+	xpurgepac "$XDIR/$XPAC-[0-9]" t?z
 	if [ "$XSUB" != '' ] ;then
             mv $XDIR/${XPAC}-[0-9]*i486*.t?z $XDIR/$XSUB
 	fi
@@ -223,9 +228,14 @@ if [ $ISPAC3 -eq 1 ] ;then
     done
 fi
 
-if [ $ISPAC4 -eq 1 ] ;then    
-    for i in xrdp xorgxrdp SFML vbam fbida kaffeine opencv gradle \
-		  signal-desktop audiveris zoom-linux opera ;do
+if [ $ISPAC4 -eq 1 ] ;then
+    xmakealienpac packages4 wxGTK3
+    (
+	export WXCONF=/usr/lib64/wx/config/gtk3-unicode-static-3.0
+	xmakepac packages4 vbam
+    )
+    for i in xrdp xorgxrdp SFML fbida kaffeine opencv gradle \
+		  signal-desktop vokoscreen audiveris zoom-linux opera ;do
 	xmakepac packages4 $i
     done
     
@@ -235,8 +245,6 @@ if [ $ISPAC4 -eq 1 ] ;then
     fi
     [ -f /usr/lib64/chromium/libwidevinecdm.so ] && \
 	ln -sf /usr/lib64/chromium/libwidevinecdm.so /usr/lib64/opera
-    
-    xmakealienpac packages4 wxGTK3
 fi
 
 if [ $ISCHROMIUM -eq 1 ] ;then 
