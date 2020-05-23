@@ -156,8 +156,7 @@ rm -f /usr/lib64/lib*.la
 
 if [ $ISOPENSHOT -eq 1 ] ;then
     # python2-* for openshot 1.4, openshot_qt => openshot 2.5
-    for i in python2-mlt python2-libcaca python2-libwebp openal-soft \
-			 libtxc_dxtn libgaminggear python-pillow6 acpibrightness \
+    for i in python2-mlt python2-libcaca python2-libwebp  python-pillow6 \
 			 python3-certifi openshot_qt lxml inkscape opencolorio \
 			 pybind11 openimageio numpy3 tbb Blender ;do
 	xmakepac packages/openshot $i
@@ -165,7 +164,11 @@ if [ $ISOPENSHOT -eq 1 ] ;then
     rm -rf packages/python-pillow
 fi
 
-if [ $ISPAC1 -eq 1 ] ;then    
+if [ $ISPAC1 -eq 1 ] ;then
+    for i in openal-soft libtxc_dxtn libgaminggear acpibrightness ;do
+	xmakepac packages $i
+    done
+
     # mlt python3 recompiled with new libs.
     (
 	rm -f packages*/*-3alien*.t?z
@@ -203,6 +206,7 @@ if [ $ISPAC1 -eq 1 ] ;then
 	export OPENAL=yes
 	export AAC=yes
 	xmakealienpac source/l ffmpeg packages
+	xpurgepac "packages/ffmpeg-[0-9]" t?z
     )
 fi
 
@@ -242,16 +246,17 @@ if [ $ISCHROMIUM -eq 1 ] ;then
 	export TMP=$(eval echo ~$MYUSER)/"pbtmp$$"
 	echo "=> Compile in the $TMP directory"
 	if [ $RECOMP -eq 1 -a -d "packages4/chromium" ] ;then
-	(
-	    cd "packages4/chromium"
-	    cat ../../pbslacks/builds/chromium.patch|patch -p0
-	)
+	    (
+		cd "packages4/chromium"
+		cat ../../pbslacks/builds/chromium.patch|patch -p0
+	    )
+	fi
 	xmakealienpac packages4 chromium
 	#rm -rf "$TMP"
     )
 fi
 
-if [ $ISAUDACITY -eq 1 ] ;then    
+if [ $ISAUDACITY -eq 1 ] ;then
     for i in lilv lv2 serd sord sratom suil vamp-plugin-sdk audacity ;do
 	xmakealienpac packages4/audacity $i
     done
