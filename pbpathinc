@@ -35,6 +35,8 @@ PATHLIBWEBP="https://storage.googleapis.com/downloads.webmproject.org/releases/w
 # Path which are in package.info file inside the package.
 # TODO : Should be updated from those PATH or the SlackBuilbs from SBo updated.
 
+PATHSBO='https://slackbuilds.org/slackbuilds/14.2'
+
 PATHROCCATTOOLS="http://downloads.sourceforge.net/roccat/roccat-tools-5.9.0.tar.bz2"
 PATHKAFFEINE="https://github.com/KDE/kaffeine/archive/master.zip"
 PATHGRADLE="https://services.gradle.org/distributions/gradle-6.2.2-all.zip"
@@ -43,26 +45,26 @@ PATHSIGNALDESKTOP="https://sourceforge.net/projects/slackbuildsdirectlinks/files
 PATHVOKOSCREEN="https://github.com/vkohaupt/vokoscreenNG/archive/3.0.3.tar.gz"
 PATHZOOM="https://www.zoom.us/client/3.5.385850.0413/zoom_x86_64.tar.xz"
 # A renommer en openshot_qt pour eviter les conflits avec openshot 1.4
-# PATHOPENSHOTSBO="https://slackbuilds.org/slackbuilds/14.2/multimedia/openshot.tar.gz"
+# "multimedia/openshot.tar.gz"
 PATHOPENSHOT2="https://github.com/OpenShot/openshot-qt/archive/v2.5.1/openshot-qt-2.5.1.tar.gz"
 # python3-certify : compile only. No modifs.
-# PATHPYTHON3CERTIFYSBO="https://slackbuilds.org/slackbuilds/14.2/python/python3-certifi.tar.gz"
+# "python/python3-certifi.tar.gz"
 PATHPYTHON3CERTIFY="https://pypi.python.org/packages/source/c/certifi/certifi-2019.6.16.tar.gz"
-# PATHINKSCAPESBO='https://slackbuilds.org/slackbuilds/14.2/graphics/inkscape.tar.gz'
+# "graphics/inkscape.tar.gz'
 PATHINKSCAPE='https://inkscape.org/gallery/item/13330/inkscape-0.92.4.tar.bz2'
-# PATHBLENDERSBO='https://slackbuilds.org/slackbuilds/14.2/graphics/Blender.tar.gz'
+# "graphics/Blender.tar.gz'
 PATHBLENDER='https://download.blender.org/source/blender-2.82a.tar.xz'
-# PATHOPENIMAGEIOSBO='https://slackbuilds.org/slackbuilds/14.2/graphics/openimageio.tar.gz'
+# "graphics/openimageio.tar.gz'
 PATHOPENIMAGEIO='https://github.com/OpenImageIO/oiio/archive/Release-2.0.13/oiio-Release-2.0.13.tar.gz'
-# PATHOPENCOLORIOSBO='https://slackbuilds.org/slackbuilds/14.2/graphics/opencolorio.tar.gz'
+# "graphics/opencolorio.tar.gz'
 PATHOPENCOLORIO='https://github.com/imageworks/OpenColorIO/archive/v1.1.1/OpenColorIO-1.1.1.tar.gz'
-# PATHPYBIND11SBO='https://slackbuilds.org/slackbuilds/14.2/python/pybind11.tar.gz'
+# "python/pybind11.tar.gz'
 PATHPYBIND11='https://github.com/pybind/pybind11/archive/v2.5.0/pybind11-2.5.0.tar.gz'
-# PATHNUMPY3SBO='https://slackbuilds.org/slackbuilds/14.2/development/numpy3.tar.gz'
+# "development/numpy3.tar.gz'
 PATHNUMPY3='https://github.com/numpy/numpy/releases/download/v1.14.3/numpy-1.14.3.tar.gz'
-# PATHTBBSBO='https://slackbuilds.org/slackbuilds/14.2/libraries/tbb.tar.gz'
+# "libraries/tbb.tar.gz'
 PATHTBB='https://github.com/oneapi-src/oneTBB/archive/2020_U2/tbb-2020_U2.tar.gz'
-# PATHLXMLSBO='https://slackbuilds.org/slackbuilds/14.2/python/lxml.tar.gz'
+# "python/lxml.tar.gz'
 PATHLXML='https://pypi.io/packages/source/l/lxml/lxml-4.4.1.tar.gz'
 
 # List of aspire links.
