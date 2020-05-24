@@ -1,0 +1,11 @@
+--- start-pulseaudio-x11.old	2020-05-24 17:32:45.000000000 +0200
++++ start-pulseaudio-x11	2020-05-24 17:33:45.000000000 +0200
+@@ -25,7 +25,7 @@
+     /usr/bin/pactl load-module module-x11-publish "display=$DISPLAY" > /dev/null
+     /usr/bin/pactl load-module module-x11-cork-request "display=$DISPLAY" > /dev/null
+ 
+-    if [ x"$KDE_FULL_SESSION" = x"true" ]; then
++    if [ -f "$DESKTOP_SESSION.desktop" -a x"$KDE_FULL_SESSION" = x"true" ]; then
+         plasmaversion=`grep "X-KDE-PluginInfo-Version" $DESKTOP_SESSION.desktop | cut -d "=" -f2 | cut -d "." -f1,2 | tr -d "."`
+         if [ "$plasmaversion" -lt "517" ]; then
+             /usr/bin/pactl load-module module-device-manager "do_routing=1" > /dev/null

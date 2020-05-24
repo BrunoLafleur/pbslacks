@@ -87,6 +87,8 @@ myconfig () {
 		cp pbslacks/LocaleFR/$KBX11 /etc/X11/xorg.conf.d
 	fi
     fi
+    # Bug with KDE 4 and Pulseaudio.
+    cat pbslacks/builds/start-pulseaudio-x11.patch|(cd /usr/bin;patch -p0)
 }
 
 cleanup () {
