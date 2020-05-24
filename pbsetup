@@ -94,12 +94,14 @@ MYGROUP=$(id -g -n)
 
 XUPASPIRE=on
 XUPUPGRADE=off
+XUPRECREATE=off
 XUPMAKEUSB=off
 XUPMAKEISO=off
 XUPREFIND=off
 XUPSTOPHIB=off
 ASPIRE=$(mygt 'Get/Update local repository versus officiel remote Slackware and add-on packages')
 UPGRADE=$(mygt 'Sync/Update system to the last fetched current Slackware and add-on packages')
+RECREATE=$(mygt 'Compile some add-on packages from sources')
 MAKEUSB=$(mygt 'Make a bootable USB stick for Slackware install.')
 MAKEISO=$(mygt 'Make a bootable DVD ROM for Slackware install.')
 REFIND=$(mygt 'Install the refind boot manager for dual or more boot.')
@@ -108,19 +110,20 @@ STOPHIB=$(mygt 'Stop the eventual hibernation of Windows.')
 xmaster () {
     defitem=$1;shift
     xsel1=$1;shift;xsel2=$1;shift;xsel3=$1;shift;xsel4=$1;shift;xsel5=$1;shift
-    xsel6=$1
+    xsel6=$1;shift;xsel7=$1
     pactit=$(mygt 'Main menu');pactit="pbsetup: $pactit"
     pactext=$(mygt 'Choose your actions below')
     if [ $ISDIAL -eq 1 ] ;then
 	dialog --colors --backtitle 'pbsetup' --title "$pactit" \
 	    --default-item $defitem --defaultno --separate-output --item-help \
-	    --help-button --help-status --checklist "$pactext" 0 100 6 \
+	    --help-button --help-status --checklist "$pactext" 0 100 7 \
 	    aspire "$ASPIRE" $xsel1 aspire \
 	    upgrade "$UPGRADE" $xsel2 upgrade \
-	    makeusb "$MAKEUSB" $xsel3 makeusb \
-	    makeiso "$MAKEISO" $xsel4 makeiso \
-	    refind "$REFIND" $xsel5 refind \
-	    stophib "$STOPHIB" $xsel6 stophib
+	    recreate "$RECREATE" $xsel3 recreate \
+	    makeusb "$MAKEUSB" $xsel4 makeusb \
+	    makeiso "$MAKEISO" $xsel5 makeiso \
+	    refind "$REFIND" $xsel6 refind \
+	    stophib "$STOPHIB" $xsel7 stophib
     else
 	echo '------------------------------------'
 	echo "          $pactit"
@@ -131,6 +134,8 @@ xmaster () {
 	    if [ "$c" = "y" ] ;then echo "HELP aspire" 1>&2;return;fi
 	    echo "HELP upgrade (y or n) :";read c
 	    if [ "$c" = "y" ] ;then echo "HELP upgrade" 1>&2;return;fi
+	    echo "HELP recreate (y or n) :";read c
+	    if [ "$c" = "y" ] ;then echo "HELP recreate" 1>&2;return;fi
 	    echo "HELP makeusb (y or n) :";read c
 	    if [ "$c" = "y" ] ;then echo "HELP makeusb" 1>&2;return;fi
 	    echo "HELP makeiso (y or n) :";read c
@@ -144,6 +149,8 @@ xmaster () {
 	[ "$c" = "y" ] && echo "aspire" 1>&2
 	echo "$UPGRADE (y or n) :";read c
 	[ "$c" = "y" ] && echo "upgrade" 1>&2
+	echo "$RECREATE (y or n) :";read c
+	[ "$c" = "y" ] && echo "recreate" 1>&2
 	echo "$MAKEUSB (y or n) :";read c
 	[ "$c" = "y" ] && echo "makeusb" 1>&2
 	echo "$MAKEISO (y or n) :";read c
@@ -155,7 +162,7 @@ xmaster () {
     fi
 }
 
-xsel="$XUPASPIRE $XUPUPGRADE $XUPMAKEUSB $XUPMAKEISO $XUPREFIND $XUPSTOPHIB"
+xsel="$XUPASPIRE $XUPUPGRADE $XUPRECREATE $XUPMAKEUSB $XUPMAKEISO $XUPREFIND $XUPSTOPHIB"
 ditem=aspire
 bclaide=1
 
@@ -165,7 +172,7 @@ while [ $bclaide -eq 1 ] ;do
     if [ $bclaide -eq 1 ] ;then
 	xitem="$(cat $XTEMPOUT|grep '^HELP'|cut -d ' ' -f2)"
 	xsel=
-	for i in aspire upgrade makeusb makeiso refind stophib ;do
+	for i in aspire upgrade recreate makeusb makeiso refind stophib ;do
 	  if [ $(grep "^$i$" "$XTEMPOUT"|wc -l) -eq 1 ] ;then
 	      xsel="$xsel on"
 	  else
@@ -177,6 +184,8 @@ while [ $bclaide -eq 1 ] ;do
 	    pacaide=$(mygt 'Do a local clone/update of the officiel Slackware and add-on packages.\nUses pbslacks/pbaspire.')
 	elif [ "$xitem" = upgrade ] ;then
 	    pacaide=$(mygt 'Upgrade the local system with the local clone.')
+	elif [ "$xitem" = recreate ] ;then
+	    pacaide=$(mygt 'Compile some source packages after a fresh upgrade or install.')
 	elif [ "$xitem" = makeusb ] ;then
 	    pacaide=$(mygt 'Make a dual boot install USB stick with Slackware install and GParted Live which can boot on old bios or new UEFI bios computers.')
 	elif [ "$xitem" = makeiso ] ;then
@@ -202,6 +211,7 @@ PBTEST=;[ $XTEST -eq 1 ] && PBTEST='-test'
 PBDIAL=;[ $ISDIAL -eq 0 ] && PBDIAL='-nodial'
 ISASPIRE=$(cat $XTEMPOUT|grep '^aspire$'|wc -l)
 ISUPGRADE=$(cat $XTEMPOUT|grep '^upgrade$'|wc -l)
+ISRECREATE=$(cat $XTEMPOUT|grep '^recreate$'|wc -l)
 ISUSB=$(cat $XTEMPOUT|grep '^makeusb$'|wc -l)
 ISISO=$(cat $XTEMPOUT|grep '^makeiso$'|wc -l)
 ISREFIND=$(cat $XTEMPOUT|grep '^refind$'|wc -l)
@@ -215,14 +225,15 @@ if [ $ISASPIRE -eq 1 ] ;then
 fi
 
 # Upgrade
-if [ $ISUPGRADE -eq 1 ] ;then
+[ $ISRECREATE -eq 1 ] && XXOPT='-post' || XXOPT=
+if [ $ISUPGRADE -eq 1 -o $ISRECREATE -eq 1 ] ;then
     MYSCR="screen -A -c $PBSLACKSPWD/screenrc -S pbupgrade"
     if [ $XTEST -eq 1 -o $UID -eq 0 ]; then
-        $MYSCR "$PBSLACKSPWD/pbupgrade" -u $MYUSER -g $MYGROUP $PBTEST
+        $MYSCR "$PBSLACKSPWD/pbupgrade" -u $MYUSER -g $MYGROUP $PBTEST $XXOPT
     else
 	mygt 'Change to root.'
         su - root -c "(cd \"$MYPWD\";$MYSCR \"$PBSLACKSPWD/pbupgrade\" \
-		-u $MYUSER -g $MYGROUP $PBTEST)"
+		-u $MYUSER -g $MYGROUP $PBTEST $XXOPT)"
     fi
     mygt "Upgrade done for selected set of packages." >> $XTEMPMES
 fi
