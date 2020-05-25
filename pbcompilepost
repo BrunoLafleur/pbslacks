@@ -110,12 +110,12 @@ xmakealienpac () {
 	    fi
 	)
 	[ $? -ne 0 ] && exit 1
-	cp "/tmp/${pac}-"[0-9]*.t?z "$dest"
-	chown ${MYUSER}.$MYGROUP "$dest/${pac}"-[0-9]*.t?z
+	cp "/tmp/${pac}-"[0-9m]*.t?z "$dest"
+	chown ${MYUSER}.$MYGROUP "$dest/${pac}"-[0-9m]*.t?z
 	chown -R ${MYUSER}.$MYGROUP "$dest/$pac"
 	xpurgetmp "$pac"
-	xpurgepac "$dest/$pac-[0-9]" t?z
-        upgradepkg --install-new --reinstall "$dest/${pac}"-[0-9]*.t?z
+	xpurgepac "$dest/$pac-[0-9m]" t?z
+        upgradepkg --install-new --reinstall "$dest/${pac}"-[0-9m]*.t?z
     fi
 }
 
@@ -142,16 +142,16 @@ xmakepac () {
 	    fi
 	)
 	[ $? -ne 0 ] && exit 1
-	cp /tmp/${XPAC}-[0-9]*.t?z $XDIR
-	chown ${MYUSER}.$MYGROUP $XDIR/${XPAC}-[0-9]*.t?z
+	cp /tmp/${XPAC}-[0-9m]*.t?z $XDIR
+	chown ${MYUSER}.$MYGROUP $XDIR/${XPAC}-[0-9m]*.t?z
 	xpurgetmp $XPAC
-	xpurgepac "$XDIR/$XPAC-[0-9]" t?z
+	xpurgepac "$XDIR/$XPAC-[0-9m]" t?z
 	if [ "$XSUB" != '' ] ;then
-            mv $XDIR/${XPAC}-[0-9]*i486*.t?z $XDIR/$XSUB
+            mv $XDIR/${XPAC}-[0-9m]*i486*.t?z $XDIR/$XSUB
 	fi
     fi
     if [ "$XSUB" = '' ] ;then
-	upgradepkg --install-new --reinstall $XDIR/${XPAC}-[0-9]*.t?z
+	upgradepkg --install-new --reinstall $XDIR/${XPAC}-[0-9m]*.t?z
 	rm -f /usr/lib64/lib*.la
     fi
 }
@@ -251,9 +251,9 @@ if [ $ISCHROMIUM -eq 1 ] ;then
 	export SHARED_FFMPEG=true
 	export TMP=$(eval echo ~$MYUSER)/"pbtmp$$"
 	echo "=> Compile in the $TMP directory"
-	if [ $RECOMP -eq 1 -a -d "packages4/chromium" ] ;then
+	if [ $RECOMP -eq 1 -a -d packages4/chromium ] ;then
 	    (
-		cd "packages4/chromium"
+		cd packages4/chromium
 		cat ../../pbslacks/builds/chromium.patch|patch -p0
 	    )
 	fi

@@ -9,6 +9,8 @@ xhookopenshot () {
 }
 
 xhookpac1 () {
+    # Post actions for packages
+    echo 'Nothing to do'
 }
 
 xhookpac2 () {
@@ -17,14 +19,26 @@ xhookpac2 () {
 }
 
 xhookpac3 () {
+    # Post actions for packages3
+    echo 'Nothing to do'
 }
 
 xhookpac4 () {
     # For H264 and DRM support for Opera.
     if [ -f /usr/lib64/chromium/libffmpeg.so ] ;then
-	mv -f /usr/lib64/opera/libffmpeg.so /usr/lib64/opera/libffmpeg.so.bak
-	ln -sf /usr/lib64/chromium/libffmpeg.so /usr/lib64/opera
+	if [ -d /usr/lib64/opera ] ;then
+	    mv -f /usr/lib64/opera/libffmpeg.so /usr/lib64/opera/libffmpeg.so.bak
+	    ln -sf /usr/lib64/chromium/libffmpeg.so /usr/lib64/opera
+	fi
+	if [ -d /usr/lib64/opera-beta ] ;then
+	    mv -f /usr/lib64/opera-beta/libffmpeg.so /usr/lib64/opera-beta/libffmpeg.so.bak
+	    ln -sf /usr/lib64/chromium/libffmpeg.so /usr/lib64/opera-beta
+	fi
     fi
-    [ -f /usr/lib64/chromium/libwidevinecdm.so ] && \
-	ln -sf /usr/lib64/chromium/libwidevinecdm.so /usr/lib64/opera
+    if [ -f /usr/lib64/chromium/libwidevinecdm.so ] ;then
+	[ -d /usr/lib64/opera ] && \
+	    ln -sf /usr/lib64/chromium/libwidevinecdm.so /usr/lib64/opera
+	[ -d /usr/lib64/opera-beta ] && \
+	    ln -sf /usr/lib64/chromium/libwidevinecdm.so /usr/lib64/opera-beta
+    fi
 }

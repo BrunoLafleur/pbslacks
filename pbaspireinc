@@ -12,19 +12,6 @@ xpurgeindex () {
     rm -f "$dir/"*"/robots.txt"*
 }
 
-# Function for purge old packages.
-xpurgepac () {
-    ppac="$1"
-    suf="$2"
-    last=$(ls -1t ${ppac}*.$suf 2> /dev/null|head -1)
-    for j in $(ls ${ppac}*.$suf 2> /dev/null) ;do
-	if [ "$j" != "$last" ] ;then
-	    emygt "Delete : \$j"
-	    rm -f "$j"
-	fi
-    done
-}
-
 # Get new version of a package in a repository.
 xgetpac () {
     pac="$1"
