@@ -42,3 +42,20 @@ xhookpac4 () {
 	    ln -sf /usr/lib64/chromium/libwidevinecdm.so /usr/lib64/opera-beta
     fi
 }
+
+# Some config I always use.
+myconfig () {
+    if [ -d /etc/profile.d ] ; then
+	cp pbslacks/LocaleFR/csh.cshrc /etc
+	cp pbslacks/LocaleFR/pbalias.sh /etc/profile.d
+	XLANG=$(echo $LANG|cut -d '.' -f1|cut -d '_' -f1)
+	if [ "$XLANG" = 'fr' ] ;then
+	    cp pbslacks/LocaleFR/lang.* /etc/profile.d
+	    KBX11=90-keyboard-layout-evdev.conf
+	    [ ! -f /etc/X11/xorg.conf.d/$KBX11 ] && \
+		cp pbslacks/LocaleFR/$KBX11 /etc/X11/xorg.conf.d
+	fi
+    fi
+    # Bug with KDE 4 and Pulseaudio.
+    cat pbslacks/builds/start-pulseaudio-x11.patch|(cd /usr/bin;patch -p0)
+}
