@@ -1,0 +1,30 @@
+#! /bin/sh
+
+# Auteur : Pierre Brochard (pierre.brochard.1982@m4x.org)
+# Date : 2019
+# License : See the LICENSE file in this repository.
+
+xhookopenshot () {
+    rm -rf packages/python-pillow
+}
+
+xhookpac1 () {
+}
+
+xhookpac2 () {
+    cp packages2/youtube.lua /usr/lib64/vlc/lua/playlist
+    rm -f /usr/lib64/vlc/lua/playlist/youtube.luac
+}
+
+xhookpac3 () {
+}
+
+xhookpac4 () {
+    # For H264 and DRM support for Opera.
+    if [ -f /usr/lib64/chromium/libffmpeg.so ] ;then
+	mv -f /usr/lib64/opera/libffmpeg.so /usr/lib64/opera/libffmpeg.so.bak
+	ln -sf /usr/lib64/chromium/libffmpeg.so /usr/lib64/opera
+    fi
+    [ -f /usr/lib64/chromium/libwidevinecdm.so ] && \
+	ln -sf /usr/lib64/chromium/libwidevinecdm.so /usr/lib64/opera
+}
