@@ -66,6 +66,7 @@ PATHNUMPY3='https://github.com/numpy/numpy/releases/download/v1.14.3/numpy-1.14.
 PATHTBB='https://github.com/oneapi-src/oneTBB/archive/2020_U2/tbb-2020_U2.tar.gz'
 # "python/lxml.tar.gz'
 PATHLXML='https://pypi.io/packages/source/l/lxml/lxml-4.4.1.tar.gz'
+PATHOPERA="https://get.geo.opera.com/pub/opera-beta/69.0.3686.7/linux/opera-beta_69.0.3686.7_amd64.deb"
 
 # List of aspire links.
 # explicit mirror chosen here.

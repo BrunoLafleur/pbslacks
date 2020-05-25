@@ -7,6 +7,7 @@
 # Recompilations a faire apres reboot.
 
 . "$(dirname $0)/pbinclude"
+. "$(dirname $0)/pbupgradeinc"
 
 if [ ! $UID = 0 ]; then
     mygt 'This script must be done as root. Exit.'
@@ -166,7 +167,7 @@ if [ $ISOPENSHOT -eq 1 ] ;then
 			 pybind11 openimageio numpy3 tbb Blender ;do
 	xmakepac packages/openshot $i
     done
-    rm -rf packages/python-pillow
+    xhookopenshot
 fi
 
 if [ $ISPAC1 -eq 1 ] ;then
@@ -213,6 +214,7 @@ if [ $ISPAC1 -eq 1 ] ;then
 	xmakealienpac source/l ffmpeg packages
 	xpurgepac "packages/ffmpeg-[0-9]" t?z
     )
+    xhookpac1
 fi
 
 if [ $ISPAC2 -eq 1 ] ;then    
@@ -220,12 +222,14 @@ if [ $ISPAC2 -eq 1 ] ;then
     for i in roccat-tools kmplayer denemo guile2.2 ;do
 	xmakepac packages2 $i
     done
+    xhookpac2
 fi
 
 if [ $ISPAC3 -eq 1 ] ;then    
     for i in bsddb3 db53 pyicu gramps ;do
 	xmakepac packages3 $i
     done
+    xhookpac3
 fi
 
 if [ $ISPAC4 -eq 1 ] ;then
@@ -238,13 +242,7 @@ if [ $ISPAC4 -eq 1 ] ;then
 		  signal-desktop vokoscreen audiveris zoom-linux opera ;do
 	xmakepac packages4 $i
     done
-    
-    if [ -f /usr/lib64/chromium/libffmpeg.so ] ;then
-	mv -f /usr/lib64/opera/libffmpeg.so /usr/lib64/opera/libffmpeg.so.bak
-	ln -sf /usr/lib64/chromium/libffmpeg.so /usr/lib64/opera
-    fi
-    [ -f /usr/lib64/chromium/libwidevinecdm.so ] && \
-	ln -sf /usr/lib64/chromium/libwidevinecdm.so /usr/lib64/opera
+    xhookpac4
 fi
 
 if [ $ISCHROMIUM -eq 1 ] ;then 
