@@ -5,6 +5,7 @@
 # License : See the LICENSE file in this repository.
 
 . "$(dirname $0)/pbinclude"
+. "$(dirname $0)/pbupgradeinc"
 
 # For systemnet upgrade. Change mirror if you want.
 SLACKMIR='http://nephtys.lip6.fr/pub/linux/distributions/slackware/slackware64-current/'
@@ -213,9 +214,10 @@ while [ $bclaide -eq 1 ] ;do
 	xsel=
 	for i in system systemnet compat32 mozilla packages packages2 packages3 \
 			packages4 frameworks openshot audacity ardour tesseract4 \
-			bumblebee recreatepackages recreatepackages2 recreatepackages3 \
-			recreatepackages4 recreatechromium recreateopenshot \
-			recreateaudacity recreateardour recreatebumblebee bootload ;do
+			bumblebee recreatepackages recreatepackages2 \
+			recreatepackages3 recreatepackages4 recreatechromium \
+			recreateopenshot recreateaudacity recreateardour \
+			recreatebumblebee bootload ;do
 	  if [ $(grep "^$i$" "$XTEMPOUT"|wc -l) -eq 1 ] ;then
 	      xsel="$xsel on"
 	  else
@@ -287,14 +289,22 @@ ISAUDACITY="$(cat $XTEMPOUT|grep '^audacity$'|wc -l)"
 ISARDOUR="$(cat $XTEMPOUT|grep '^ardour$'|wc -l)"
 ISTESS="$(cat $XTEMPOUT|grep '^tesseract4$'|wc -l)"
 ISBUMBLE="$(cat $XTEMPOUT|grep '^bumblebee$'|wc -l)"
-ISRECRE="$(cat $XTEMPOUT|grep '^recreatepackages$'|wc -l)";[ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -ispac1"
-ISRECRE="$(cat $XTEMPOUT|grep '^recreatepackages2$'|wc -l)";[ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -ispac2"
-ISRECRE="$(cat $XTEMPOUT|grep '^recreatepackages3$'|wc -l)";[ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -ispac3"
-ISRECRE="$(cat $XTEMPOUT|grep '^recreatepackages4$'|wc -l)";[ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -ispac4"
-ISRECRE="$(cat $XTEMPOUT|grep '^recreatechromium$'|wc -l)";[ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -ischromium"
-ISRECRE="$(cat $XTEMPOUT|grep '^recreateopenshot$'|wc -l)";[ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -isopenshot"
-ISRECRE="$(cat $XTEMPOUT|grep '^recreateaudacity$'|wc -l)";[ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -isaudacity"
-ISRECRE="$(cat $XTEMPOUT|grep '^recreateardour$'|wc -l)";[ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -isardour"
+ISRECRE="$(cat $XTEMPOUT|grep '^recreatepackages$'|wc -l)"
+[ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -ispac1"
+ISRECRE="$(cat $XTEMPOUT|grep '^recreatepackages2$'|wc -l)"
+[ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -ispac2"
+ISRECRE="$(cat $XTEMPOUT|grep '^recreatepackages3$'|wc -l)"
+[ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -ispac3"
+ISRECRE="$(cat $XTEMPOUT|grep '^recreatepackages4$'|wc -l)"
+[ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -ispac4"
+ISRECRE="$(cat $XTEMPOUT|grep '^recreatechromium$'|wc -l)"
+[ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -ischromium"
+ISRECRE="$(cat $XTEMPOUT|grep '^recreateopenshot$'|wc -l)"
+[ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -isopenshot"
+ISRECRE="$(cat $XTEMPOUT|grep '^recreateaudacity$'|wc -l)"
+[ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -isaudacity"
+ISRECRE="$(cat $XTEMPOUT|grep '^recreateardour$'|wc -l)"
+[ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -isardour"
 ISRECREBUMBLE="$(cat $XTEMPOUT|grep '^recreatebumblebee$'|wc -l)"
 ISBOOTLOAD="$(cat $XTEMPOUT|grep '^bootload$'|wc -l)"
 
@@ -302,7 +312,8 @@ if [ $ISSYSTEM -eq 1 -o $ISSYSNET -eq 1 ] ;then
     if [ $XTEST -ne 1 ] ;then
 	cp pbslacks/Slackpkg/blacklist /etc/slackpkg
         if [ $ISSYSTEM -eq 1 ] ;then
-	    cat pbslacks/Slackpkg/slackpkg.conf | sed "s@CHECKGPG=on@CHECKGPG=off@" \
+	    cat pbslacks/Slackpkg/slackpkg.conf | \
+		sed "s@CHECKGPG=on@CHECKGPG=off@" \
 		    > /etc/slackpkg/slackpkg.conf
 	    cat pbslacks/Slackpkg/mirrors | sed "s@HOMESLACK@${HOMESLACK}@" \
 		    > /etc/slackpkg/mirrors
@@ -354,32 +365,28 @@ if [ $XEND -eq 0 ] ;then
 	if [ $XTEST -ne 1 ] ;then
 	    upgradedir packages
 	    upgradedir packages/compat32
+	    xhookpac1
 	fi
 	mygt "Upgrade packages done." >> $XTEMPMES
     fi
     if [ $ISPACK2 -eq 1 ] ;then
 	if [ $XTEST -ne 1 ] ;then
 	    upgradedir packages2
-            cp packages2/youtube.lua /usr/lib64/vlc/lua/playlist
-            rm -f /usr/lib64/vlc/lua/playlist/youtube.luac
+	    xhookpac2
 	fi
 	mygt "Upgrade packages2 done." >> $XTEMPMES
     fi
     if [ $ISPACK3 -eq 1 ] ;then
 	if [ $XTEST -ne 1 ] ;then
 	    upgradedir packages3
+	    xhookpac3
 	fi
 	mygt "Upgrade packages3 done." >> $XTEMPMES
     fi
     if [ $ISPACK4 -eq 1 ] ;then
 	if [ $XTEST -ne 1 ] ;then
 	    upgradedir packages4
-	    if [ -f /usr/lib64/chromium/libffmpeg.so ] ;then
-		mv -f /usr/lib64/opera/libffmpeg.so /usr/lib64/opera/libffmpeg.so.bak
-		ln -sf /usr/lib64/chromium/libffmpeg.so /usr/lib64/opera
-	    fi
-	    [ -f /usr/lib64/chromium/libwidevinecdm.so ] && \
-		ln -sf /usr/lib64/chromium/libwidevinecdm.so /usr/lib64/opera
+	    xhookpac4
 	fi
 	mygt "Upgrade packages4 done." >> $XTEMPMES
     fi
@@ -392,6 +399,7 @@ if [ $XEND -eq 0 ] ;then
     if [ $ISOPENSHOT -eq 1 ] ;then
 	if [ $XTEST -ne 1 ] ;then
 	    upgradedir packages/openshot
+	    xhookopenshot
 	fi
 	mygt "Upgrade openshot done." >> $XTEMPMES
     fi
