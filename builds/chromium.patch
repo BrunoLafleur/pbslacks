@@ -1,20 +1,17 @@
---- chromium.SlackBuild.old	2020-05-15 11:29:10.000000000 +0200
-+++ chromium.SlackBuild	2020-05-15 11:27:36.000000000 +0200
-@@ -374,6 +374,8 @@
- # (formerly libffmpegsumo.so) if you want to be able to swap the libffmpeg.so
- # library for someone else's library with more features:
- SHARED_FFMPEG=${SHARED_FFMPEG:-false} # other option is 'true'
-+SHARED_OTHER=${SHARED_OTHER:-false} # other option is 'true'
-+[ "$SHARED_OTHER" = true ] && SHARED_FFMPEG=true
- 
- # The branding determines what (proprietary) codec support will be added:
- FFMPEG_BRANDING=${FFMPEG_BRANDING:-Chrome} # or "ChromeOS", or "Chromium"
-@@ -747,7 +749,7 @@
-     "google_default_client_secret=\"$_google_default_client_secret\""
-     "is_clang=${do_clang}"
-     'is_debug=false'
--    "is_component_build=${SHARED_FFMPEG}"
-+    "is_component_build=${SHARED_OTHER}"
-     "is_component_ffmpeg=${SHARED_FFMPEG}"
-     "link_pulseaudio=${do_pa}"
-     "linux_sandbox_path=\"/usr/lib${LIBDIRSUFFIX}/${PRGNAM}/chrome_sandbox\""
+--- chromium.SlackBuild.orig	2020-05-22 09:40:40.000000000 +0200
++++ chromium.SlackBuild	2020-05-25 23:23:58.000000000 +0200
+@@ -1000,12 +1000,12 @@
+   $PKG/usr/lib${LIBDIRSUFFIX}/${PRGNAM}/
+ if [ -f out/Release/libffmpeg*.so ]; then
+   cp -a \
+-    out/Release/libffmpeg*.so* \
++    out/Release/lib*.so* \
+     $PKG/usr/lib${LIBDIRSUFFIX}/${PRGNAM}/
+ elif [ -f out/Release/lib/libffmpeg.so ]; then
+   mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/${PRGNAM}/lib/
+   cp -a \
+-    out/Release/lib/libffmpeg.so* \
++    out/Release/lib/lib*.so* \
+     $PKG/usr/lib${LIBDIRSUFFIX}/${PRGNAM}/lib/
+ fi
+ for BLOB in out/Release/{natives_blob.bin,snapshot_blob.bin,v8_context_snapshot.bin};
