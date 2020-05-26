@@ -208,7 +208,7 @@ msgstr ""
 msgid "GPG signatures checked :"
 msgstr "Signatures GPG vérifiées :"
 
-#: pbaspire:271 pbsetup:307 pbupgrade:432 pbupgrade:435
+#: pbaspire:271 pbsetup:307 pbupgrade:435
 msgid "No action was demanded. Exit."
 msgstr "Aucune action demandée. Sortie."
 
@@ -898,83 +898,83 @@ msgstr ""
 "Mettez à jour votre gestionnaire de démarrage seulement si vous avez mis à "
 "jour votre système et pas le gestionnaire de démarrage."
 
-#: pbupgrade:317 pbupgrade:320
+#: pbupgrade:320
 msgid "Abort : see previous errors."
 msgstr "Arrêt : voir les erreurs précédentes."
 
-#: pbupgrade:318 pbupgrade:321
+#: pbupgrade:321
 msgid "Upgrade system not done."
 msgstr "Mise à jour du système non faite."
 
-#: pbupgrade:326 pbupgrade:330 pbupgrade:329 pbupgrade:333
+#: pbupgrade:329 pbupgrade:333
 msgid "Upgrade system done."
 msgstr "Mise à jour du système faite."
 
-#: pbupgrade:339 pbupgrade:342
+#: pbupgrade:342
 msgid "Upgrade Alien Bob multilib done."
 msgstr "Mise à jour multilib d'Alien Bob faite."
 
-#: pbupgrade:345 pbupgrade:348
+#: pbupgrade:348
 msgid "Upgrade Mozilla done."
 msgstr "Mise à jour Mozilla faite."
 
-#: pbupgrade:353 pbupgrade:356
+#: pbupgrade:356
 msgid "Upgrade packages done."
 msgstr "Mise à jour de packages faite."
 
-#: pbupgrade:360 pbupgrade:363
+#: pbupgrade:363
 msgid "Upgrade packages2 done."
 msgstr "Mise à jour de packages2 faite."
 
-#: pbupgrade:367 pbupgrade:370
+#: pbupgrade:370
 msgid "Upgrade packages3 done."
 msgstr "Mise à jour de packages3 faite."
 
-#: pbupgrade:374 pbupgrade:377
+#: pbupgrade:377
 msgid "Upgrade packages4 done."
 msgstr "Mise à jour de packages4 faite."
 
-#: pbupgrade:380 pbupgrade:383
+#: pbupgrade:383
 msgid "Upgrade frameworks done."
 msgstr "Mise à jour de frameworks faite."
 
-#: pbupgrade:387 pbupgrade:390
+#: pbupgrade:390
 msgid "Upgrade openshot done."
 msgstr "Mise à jour de Openshot faite."
 
-#: pbupgrade:393 pbupgrade:396
+#: pbupgrade:396
 msgid "Upgrade audacity done."
 msgstr "Mise à jour d'audacity faite."
 
-#: pbupgrade:399 pbupgrade:402
+#: pbupgrade:402
 msgid "Upgrade ardour done."
 msgstr "Mise à jour de ardour faite."
 
-#: pbupgrade:406 pbupgrade:409
+#: pbupgrade:409
 msgid "Upgrade tesseract4 done."
 msgstr "Mise à jour de tesseract4 faite."
 
-#: pbupgrade:412 pbupgrade:415
+#: pbupgrade:415
 msgid "Upgrade Bumblebee done."
 msgstr "Mise à jour de Bumblebee faite."
 
-#: pbupgrade:418 pbupgrade:421
+#: pbupgrade:421
 msgid "Recreate source packages done."
 msgstr "Paquets sources recréés."
 
-#: pbupgrade:424 pbupgrade:427
+#: pbupgrade:427
 msgid "Recreate source Bumblebee done."
 msgstr "Bumblebee recréé à partir des sources."
 
-#: pbupgrade:427 pbupgrade:430
+#: pbupgrade:430
 msgid "Updating bootloader asked."
 msgstr "La mise à jour du gestionnaire de démarrage a été demandée."
 
-#: pbupgrade:457 pbupgrade:460
+#: pbupgrade:460
 msgid "Bootloader menu"
 msgstr "Menu gestionnaire de démarrage"
 
-#: pbupgrade:458 pbupgrade:461
+#: pbupgrade:461
 msgid ""
 "We have detected the bootloader below. Cancel if it is not true.\\nIn this "
 "last case, you should recreate the config of your bootloader before reboot. "
@@ -987,11 +987,11 @@ msgstr ""
 "démarrer d'un autre média comme un DVD ou une clé USB et relancez "
 "l'installation de votre gestionnaire."
 
-#: pbupgrade:459 pbupgrade:462
+#: pbupgrade:462
 msgid "No bootloader detected. Reconfigure your bootloader before reboot."
 msgstr "Aucun gestionnaire de démarrage détecté. Mettez le vôtre à jour."
 
-#: pbupgrade:471 pbupgrade:474
+#: pbupgrade:474
 msgid ""
 "\\ZbThe boot loader was not updated.\\ZB\\nIf lilo is installed, launch : "
 "\\Z3/sbin/lilo\\Zn\\nIf Grub is installed, launch : \\Z3grub-mkconfig -o /"
@@ -1008,7 +1008,7 @@ msgstr ""
 "Slackware\\Zn\\n\\n\\ZbOu relancez votre autre gestionnaire de démarrage "
 "favori avant de redémarrer votre machine.\\ZB"
 
-#: pbupgrade:475 pbupgrade:478
+#: pbupgrade:478
 msgid ""
 "Elilo updated : Files vmlinuz et initrd.gz copied in \\Z3/boot/efi/EFI/"
 "Slackware\\Zn"
@@ -1016,7 +1016,7 @@ msgstr ""
 "Elilo mis à jour : Fichiers vmlinuz et initrd.gz copiés dans \\Z3/boot/efi/"
 "EFI/Slackware\\Zn"
 
-#: pbupgrade:480 pbupgrade:483
+#: pbupgrade:483
 msgid ""
 "Grub updated : \\Z3grub-mkconfig\\Zn relaunched.\\n\\Z1Look if there are "
 "error messages below\\Zn."
@@ -1024,7 +1024,7 @@ msgstr ""
 "Grub mis à jour : \\Z3grub-mkconfig\\Zn relancé.\\n\\Z1Regardez s'il y a des "
 "messages d'erreurs ci-dessous\\Zn."
 
-#: pbupgrade:485 pbupgrade:488
+#: pbupgrade:488
 msgid ""
 "Lilo updated with \\Z3/sbin/lilo\\Zn.\\n\\Z1Look if there are error messages "
 "below\\Zn."
@@ -1032,7 +1032,7 @@ msgstr ""
 "Lilo mis à jour avec \\Z3/sbin/lilo\\Zn.\\n\\Z1Regardez s'il y a des "
 "messages d'erreurs ci-dessous\\Zn."
 
-#: pbupgrade:490 pbupgrade:493
+#: pbupgrade:493
 msgid ""
 "Look at \\Z3/syslinux.cfg\\Zn and rerun \\Z3syslinux\\Zn on your boot "
 "partition if some path have changed."
@@ -1040,13 +1040,13 @@ msgstr ""
 "Regardez \\Z3/syslinux.cfg\\Zn et relancez \\Z3syslinux\\Zn sur votre "
 "partition de démarrage si certains chemins ont changé."
 
-#: pbupgrade:504 pbupgrade:507
+#: pbupgrade:507
 msgid " (\\Z1be sure to have updated the bootloader before\\Zn)"
 msgstr ""
 " (\\Z1vérifiez que vous avez mis à jour votre gestionnaire de démarrage "
 "avant de redémarrer\\Zn)"
 
-#: pbupgrade:510 pbupgrade:513
+#: pbupgrade:513
 #, sh-format
 msgid ""
 "Reboot the host${XBOOTMES}.\\n\\n\\ZbThen do if not already done on an "
