@@ -43,6 +43,10 @@ xhookpac4 () {
     fi
 }
 
+xhooktess () {
+    cp packages4/tesseract4/xsane2tess* /usr/bin
+}
+
 # Some config I always use.
 myconfig () {
     if [ -d /etc/profile.d ] ; then
