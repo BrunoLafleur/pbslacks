@@ -6,6 +6,7 @@
 
 . "$(dirname $0)/pbinclude"
 . "$(dirname $0)/pbupgradeinc"
+. "$(dirname $0)/pbupgradesys"
 
 # For systemnet upgrade. Change mirror if you want.
 SLACKMIR='http://nephtys.lip6.fr/pub/linux/distributions/slackware/slackware64-current/'
@@ -50,30 +51,6 @@ done
 
 XTEMPOUT=$(mktemp -p /tmp -t pbupgradeout.XXXXXX)
 XTEMPMES=$(mktemp -p /tmp -t pbupgrademes.XXXXXX)
-
-# Upgrade with the main stream package.
-xupmainpac () {
-    pac="$1"
-    suf="$2"
-    repo="$3"
-    grp="$4"
-    [ $(ls /var/log/packages/${pac}*-[0-9]$repo 2> /dev/null|wc -l) -eq 1 ] &&\
-	upgradepkg slackware64/$grp/${pac}*$suf
-}
-
-# Upgradepkg with reinstall if the package date is newer than the installed
-# one. I could have recompiled.
-upgradedir () {
-    xdir="$1"
-    (
-	cd "$xdir"
-	ls *.t?z|while read i;test "$i" != "" ;do
-	    upgradepkg --install-new "$i"
-	    j=/var/log/packages/$(echo "$i"|sed 's/\.t.z$//')
-	    [ "$i" -nt "$j" ] && upgradepkg --reinstall "$i"
-	done
-    )
-}
 
 cleanup () {
     rm -f $XTEMPOUT
@@ -293,42 +270,7 @@ ISBOOTLOAD="$(cat $XTEMPOUT|grep '^bootload$'|wc -l)"
 
 if [ $ISSYSTEM -eq 1 -o $ISSYSNET -eq 1 ] ;then
     if [ $XTEST -ne 1 ] ;then
-	cp pbslacks/Slackpkg/blacklist /etc/slackpkg
-        if [ $ISSYSTEM -eq 1 ] ;then
-	    cat pbslacks/Slackpkg/slackpkg.conf | \
-		sed "s@CHECKGPG=on@CHECKGPG=off@" \
-		    > /etc/slackpkg/slackpkg.conf
-	    cat pbslacks/Slackpkg/mirrors | sed "s@HOMESLACK@${HOMESLACK}@" \
-		    > /etc/slackpkg/mirrors
-	else
-	    cp pbslacks/Slackpkg/slackpkg.conf /etc/slackpkg
-	    cat pbslacks/Slackpkg/mirrors | \
-		    sed "s@^.*HOMESLACK.*\$@${SLACKMIR}@" > /etc/slackpkg/mirrors
-	fi
-	echo "update gpg";slackpkg update gpg
-	echo "update";slackpkg update
-	echo "upgrade slackpkg";slackpkg upgrade slackpkg
-	echo "new-config";slackpkg new-config
-	echo "upgrade glibc-solibs";slackpkg upgrade glibc-solibs
-	echo "install-new";slackpkg install-new
-	echo "upgrade-all";slackpkg upgrade-all
-	echo "clean-system";slackpkg clean-system
-
-	if [ $? -ne 0 ] ;then
-	    rm -f $XTEMPOUT
-	    which slackpkg 2> $XTEMPMES
-	    mygt 'Abort : see previous errors.' >> $XTEMPMES
-	    mygt "Upgrade system not done." >> $XTEMPMES
-	    XEND=1
-	else
-            xupmainpac "libxkbcommon-" t?z alien l
-            xupmainpac "qt5-[0-9]" t?z alien l
-            xupmainpac "qt5-webkit-[0-9]" t?z alien l
-            xupmainpac "PyQt5-[0-9]" t?z alien l
-	    myconfig
-	    mygt "Upgrade system done." >> $XTEMPMES
-	fi
-
+	updatesys
     else
 	mygt "Upgrade system done." >> $XTEMPMES
     fi
@@ -404,7 +346,7 @@ if [ $XEND -eq 0 ] ;then
     if [ $ISTESS -eq 1 ] ;then
 	if [ $XTEST -ne 1 ] ;then
 	    upgradedir packages4/tesseract4
-	    cp packages4/tesseract4/xsane2tess* /usr/bin
+	    xhooktess
 	fi
 	mygt "Upgrade tesseract4 done." >> $XTEMPMES
     fi
