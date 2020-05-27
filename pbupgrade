@@ -271,7 +271,7 @@ ISOPENSHOT="$(cat $XTEMPOUT|grep '^openshot$'|wc -l)"
 ISAUDACITY="$(cat $XTEMPOUT|grep '^audacity$'|wc -l)"
 ISARDOUR="$(cat $XTEMPOUT|grep '^ardour$'|wc -l)"
 ISTESS="$(cat $XTEMPOUT|grep '^tesseract4$'|wc -l)"
-ISBUMBLE="$(cat $XTEMOUT|grep '^bumblebee$'|wc -l)"
+ISBUMBLE="$(cat $XTEMPOUT|grep '^bumblebee$'|wc -l)"
 ISRECRE="$(cat $XTEMPOUT|grep '^recreatepackages$'|wc -l)"
 [ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -ispac1"
 ISRECRE="$(cat $XTEMPOUT|grep '^recreatepackages2$'|wc -l)"
@@ -305,14 +305,14 @@ if [ $ISSYSTEM -eq 1 -o $ISSYSNET -eq 1 ] ;then
 	    cat pbslacks/Slackpkg/mirrors | \
 		    sed "s@^.*HOMESLACK.*\$@${SLACKMIR}@" > /etc/slackpkg/mirrors
 	fi
-	slackpkg update gpg
-	slackpkg update
-	slackpkg upgrade slackpkg
-	slackpkg new-config
-	slackpkg upgrade glibc-solibs
-	slackpkg install-new
-	slackpkg upgrade-all
-	slackpkg clean-system
+	echo "update gpg";slackpkg update gpg
+	echo "update";slackpkg update
+	echo "upgrade slackpkg";slackpkg upgrade slackpkg
+	echo "new-config";slackpkg new-config
+	echo "upgrade glibc-solibs";slackpkg upgrade glibc-solibs
+	echo "install-new";slackpkg install-new
+	echo "upgrade-all";slackpkg upgrade-all
+	echo "clean-system";slackpkg clean-system
 
 	if [ $? -ne 0 ] ;then
 	    rm -f $XTEMPOUT
