@@ -102,7 +102,9 @@ xmakealienpac () {
     [ -z "$dest" ] && dest="$XDIR"
     if [ $RECOMP -eq 1 -a -d "${XDIR}/$pac" ] ;then
 	(
+	    LLPATCH="$(pwd)/pbslacks/builds/${pac}.patch"
 	    cd "${XDIR}/$pac"
+	    [ -f "$LLPATCH" ] && cat "$LLPATCH"|patch -f -p0
 	    sh "./${pac}.SlackBuild"
 	    if [ $? -ne 0 ] ;then
 		mygt 'Correct this error and relaunch this script.'
@@ -251,12 +253,6 @@ if [ $ISCHROMIUM -eq 1 ] ;then
 	export SHARED_FFMPEG=true
 	export TMP=$(eval echo ~$MYUSER)/"pbtmp$$"
 	echo "=> Compile in the $TMP directory"
-	if [ $RECOMP -eq 1 -a -d packages4/chromium ] ;then
-	    (
-		cd packages4/chromium
-		cat ../../pbslacks/builds/chromium.patch|patch -p0
-	    )
-	fi
 	xmakealienpac packages4 chromium
 	rm -rf "$TMP"
     )
