@@ -1,0 +1,60 @@
+--- audacity.SlackBuild	2020-05-28 11:45:42.000000000 +0200
++++ audacity.SlackBuild.new	2020-05-28 11:56:03.000000000 +0200
+@@ -48,7 +48,7 @@
+ # -----------------------------------------------------------------------------
+ 
+ PRGNAM=audacity
+-VERSION=${VERSION:-2.3.3}
++VERSION=${VERSION:-2.4.1}
+ BUILD=${BUILD:-1}
+ NUMJOBS=${NUMJOBS:-" -j$(nproc) "}
+ TAG=${TAG:-alien}
+@@ -165,37 +165,18 @@
+ chmod -R u+w,go+r-w,a+rX-st .
+ 
+ echo Building ...
+-[ ! -x configure ] && autoreconf -vif
++mkdir build-cmake
++cd build-cmake
+ WX_CONFIG="/usr/bin/wx-config-gtk3" \
+-LDFLAGS="$SLKLDFLAGS" \
+-CXXFLAGS="$SLKCFLAGS" \
+-CFLAGS="$SLKCFLAGS" \
+-./configure \
+-  --prefix=/usr \
+-  --libdir=/usr/lib${LIBDIRSUFFIX} \
+-  --mandir=/usr/man \
+-  --docdir=/usr/doc/$PRGNAM-$VERSION \
+-  --with-lib-preference="system local" \
+-  --with-expat=system \
+-  --with-lame=system \
+-  --with-libvorbis=system \
+-  --with-libmad=system \
+-  --with-libflac=system \
+-  --with-libsndfile=system \
+-  --with-libid3tag=system \
+-  --with-ffmpeg \
+-  --with-ladspa \
+-  --with-libsamplerate \
+-  --with-libsoxr \
+-  --with-lv2 \
+-  --with-portaudio \
+-  --with-soundtouch \
+-  --with-twolame \
+-  --with-vamp \
+-  --without-libresample \
+-  --enable-shared \
+-  --enable-static-wx \
+-  2>&1 | tee $OUTPUT/configure-${PRGNAM}.log
++cmake -DCMAKE_BUILD_TYPE=Release \
++  -DCMAKE_C_FLAGS="$SLKCFLAGS" \
++  -DCMAKE_CXX_FLAGS="$SLKCFLAGS -DHAVE_VISIBILITY=1" \
++  -DCMAKE_CXX_STANDARD=11 \
++  -DCMAKE_INSTALL_PREFIX=/usr \
++  -DCMAKE_VERBOSE_MAKEFILE:BOOL="on" \
++  -DCMAKE_BUILD_TYPE=Release \
++  -DCMAKE_INSTALL_LIBDIR=lib${LIBDIRSUFFIX} \
++  .. 2>&1 | tee $OUTPUT/configure-${PRGNAM}.log
+ 
+ make $NUMJOBS 2>&1 | tee $OUTPUT/make-${PRGNAM}.log
+ make DESTDIR=$PKG install 2>&1 | tee $OUTPUT/install-${PRGNAM}.log

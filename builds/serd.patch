@@ -1,0 +1,11 @@
+--- serd.SlackBuild	2019-03-07 00:58:00.000000000 +0100
++++ serd.SlackBuild.new	2020-05-28 10:42:11.000000000 +0200
+@@ -41,7 +41,7 @@
+ # -----------------------------------------------------------------------------
+ 
+ PRGNAM=serd
+-VERSION=${VERSION:-0.30.0}
++VERSION=${VERSION:-0.30.4}
+ BUILD=${BUILD:-1}
+ NUMJOBS=${NUMJOBS:-" -j$(nproc) "}
+ TAG=${TAG:-alien}

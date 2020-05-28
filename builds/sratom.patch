@@ -1,0 +1,11 @@
+--- sratom.SlackBuild	2019-03-07 00:59:18.000000000 +0100
++++ sratom.SlackBuild.new	2020-05-28 10:44:36.000000000 +0200
+@@ -41,7 +41,7 @@
+ # -----------------------------------------------------------------------------
+ 
+ PRGNAM=sratom
+-VERSION=${VERSION:-0.6.2}
++VERSION=${VERSION:-0.6.4}
+ BUILD=${BUILD:-1}
+ NUMJOBS=${NUMJOBS:-" -j$(nproc) "}
+ TAG=${TAG:-alien}
