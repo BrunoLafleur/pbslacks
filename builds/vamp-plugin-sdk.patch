@@ -1,0 +1,20 @@
+--- vamp-plugin-sdk.SlackBuild	2019-03-06 23:23:35.000000000 +0100
++++ vamp-plugin-sdk.SlackBuild.new	2020-05-28 10:48:35.000000000 +0200
+@@ -41,7 +41,7 @@
+ # -----------------------------------------------------------------------------
+ 
+ PRGNAM=vamp-plugin-sdk
+-VERSION=${VERSION:-2.8.0}
++VERSION=${VERSION:-2.9.0}
+ BUILD=${BUILD:-1}
+ NUMJOBS=${NUMJOBS:-" -j$(nproc) "}
+ TAG=${TAG:-alien}
+@@ -57,7 +57,7 @@
+ OUTPUT=${OUTPUT:-/tmp}
+ 
+ SOURCE="$SRCDIR/${PRGNAM}-${VERSION}.tar.gz"
+-SRCURL="https://code.soundsoftware.ac.uk/attachments/download/2450/${PRGNAM}-${VERSION}.tar.gz"
++SRCURL="https://code.soundsoftware.ac.uk/attachments/download/2588/${PRGNAM}-${VERSION}.tar.gz"
+ 
+ ##
+ ## --- with a little luck, you won't have to edit below this point --- ##

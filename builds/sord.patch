@@ -1,0 +1,11 @@
+--- sord.SlackBuild	2019-03-07 00:58:35.000000000 +0100
++++ sord.SlackBuild.new	2020-05-28 10:43:38.000000000 +0200
+@@ -41,7 +41,7 @@
+ # -----------------------------------------------------------------------------
+ 
+ PRGNAM=sord
+-VERSION=${VERSION:-0.16.2}
++VERSION=${VERSION:-0.16.4}
+ BUILD=${BUILD:-1}
+ NUMJOBS=${NUMJOBS:-" -j$(nproc) "}
+ TAG=${TAG:-alien}
