@@ -292,11 +292,11 @@ msgid ""
 "machine, this script is not useful.\\nPress a touch for continue or abort."
 msgstr ""
 
-#: pbcompilepost:108 pbcompilepost:136
+#: pbcompilepost:108 pbcompilepost:136 pbcompilepost:112 pbcompilepost:141
 msgid "Correct this error and relaunch this script."
 msgstr ""
 
-#: pbcompilepost:277
+#: pbcompilepost:277 pbcompilepost:276
 msgid "Upgrade packages* done."
 msgstr ""
 
