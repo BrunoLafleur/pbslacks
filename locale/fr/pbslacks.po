@@ -317,11 +317,11 @@ msgstr ""
 "déjà fait sur une machine a jour, il n'est pas utile de relancer ce script."
 "\\nAppuyer sur une touche pour continuer sinon CTRLc pour arrêter"
 
-#: pbcompilepost:108 pbcompilepost:136
+#: pbcompilepost:108 pbcompilepost:136 pbcompilepost:112 pbcompilepost:141
 msgid "Correct this error and relaunch this script."
 msgstr "Erreur à corriger puis relancer ce script."
 
-#: pbcompilepost:277
+#: pbcompilepost:277 pbcompilepost:276
 msgid "Upgrade packages* done."
 msgstr "Mise à jour de packages* faite."
 

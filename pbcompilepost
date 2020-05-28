@@ -102,9 +102,11 @@ xmakealienpac () {
     [ -z "$dest" ] && dest="$XDIR"
     if [ $RECOMP -eq 1 -a -d "${XDIR}/$pac" ] ;then
 	(
-	    LLPATCH="$(pwd)/pbslacks/builds/${pac}.patch"
+	    # patch
+	    LLPATCH="$(pwd)/pbslacks/builds/alien/${pac}.patch"
 	    cd "${XDIR}/$pac"
 	    [ -f "$LLPATCH" ] && cat "$LLPATCH"|patch -f -p0
+	    # build
 	    sh "./${pac}.SlackBuild"
 	    if [ $? -ne 0 ] ;then
 		mygt 'Correct this error and relaunch this script.'
@@ -117,6 +119,7 @@ xmakealienpac () {
 	chown -R ${MYUSER}.$MYGROUP "$dest/$pac"
 	xpurgetmp "$pac"
 	xpurgepac "$dest/$pac-[0-9m]" t?z
+	# Upgrade packages.
         upgradepkg --install-new --reinstall "$dest/${pac}"-[0-9m]*.t?z
     fi
 }
