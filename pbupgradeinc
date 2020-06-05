@@ -61,5 +61,5 @@ myconfig () {
 	fi
     fi
     # Bug with KDE 4 and Pulseaudio.
-    cat pbslacks/builds/start-pulseaudio-x11.patch|(cd /usr/bin;patch -p0)
+    cat pbslacks/builds/start-pulseaudio-x11.patch|(cd /usr/bin;patch -f -p0)
 }
