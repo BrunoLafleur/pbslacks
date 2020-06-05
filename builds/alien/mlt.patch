@@ -1,0 +1,52 @@
+Les fichiers binaires ./mlt-6.20.0.tar.gz et ../mlt.new/mlt-6.20.0.tar.gz sont différents
+diff -r -u -N ./mlt.SlackBuild ../mlt.new/mlt.SlackBuild
+--- ./mlt.SlackBuild	2020-04-22 21:30:39.000000000 +0200
++++ ../mlt.new/mlt.SlackBuild	2020-06-05 16:51:12.000000000 +0200
+@@ -84,6 +84,9 @@
+ tar xvf $CWD/$PKGNAM-$VERSION.tar.?z* || exit 1
+ cd $PKGNAM-$VERSION || exit 1
+ 
++# Patches
++cat $CWD/patches/mlt-6.20-qt5.15.patch | patch -f -p1
++
+ # Fix bogus permissions:
+ chown -R root:root .
+ find . \
+diff -r -u -N ./patches/mlt-6.20-qt5.15.patch ../mlt.new/patches/mlt-6.20-qt5.15.patch
+--- ./patches/mlt-6.20-qt5.15.patch	1970-01-01 01:00:00.000000000 +0100
++++ ../mlt.new/patches/mlt-6.20-qt5.15.patch	2020-06-05 16:27:24.000000000 +0200
+@@ -0,0 +1,33 @@
++diff -r -u mlt-6.20.0/src/modules/qt/filter_qtext.cpp mlt-6.20.0.new/src/modules/qt/filter_qtext.cpp
++--- mlt-6.20.0/src/modules/qt/filter_qtext.cpp	2020-02-16 23:31:58.000000000 +0100
+++++ mlt-6.20.0.new/src/modules/qt/filter_qtext.cpp	2020-06-05 16:22:20.000000000 +0200
++@@ -21,6 +21,7 @@
++ #include <framework/mlt.h>
++ #include <framework/mlt_log.h>
++ #include <QPainter>
+++#include <QPainterPath>
++ #include <QString>
++ 
++ static QRectF get_text_path( QPainterPath* qpath, mlt_properties filter_properties, const char* text, double scale )
++diff -r -u mlt-6.20.0/src/modules/qt/graph.cpp mlt-6.20.0.new/src/modules/qt/graph.cpp
++--- mlt-6.20.0/src/modules/qt/graph.cpp	2020-02-16 23:31:58.000000000 +0100
+++++ mlt-6.20.0.new/src/modules/qt/graph.cpp	2020-06-05 16:21:26.000000000 +0200
++@@ -19,6 +19,7 @@
++ 
++ #include "graph.h"
++ #include <QVector>
+++#include <QPainterPath>
++ #include <math.h>
++ 
++ /*
++diff -r -u mlt-6.20.0/src/modules/qt/producer_qtext.cpp mlt-6.20.0.new/src/modules/qt/producer_qtext.cpp
++--- mlt-6.20.0/src/modules/qt/producer_qtext.cpp	2020-02-16 23:31:58.000000000 +0100
+++++ mlt-6.20.0.new/src/modules/qt/producer_qtext.cpp	2020-06-05 16:22:52.000000000 +0200
++@@ -26,6 +26,7 @@
++ #include <QImage>
++ #include <QColor>
++ #include <QPainter>
+++#include <QPainterPath>
++ #include <QFont>
++ #include <QString>
++ #include <QTextCodec>
+Les fichiers binaires ./v6.20.0.tar.gz et ../mlt.new/v6.20.0.tar.gz sont différents
