@@ -200,6 +200,7 @@ if [ $ISGPARTED -eq 1 ] ;then
 	    cd Linuxiso
 	    if [ ! -f "$LGPARTEDISO" ] ;then
 		xgeturl "$GPARTEDISO"
+		xpurgepac "gparted-live-[0-9]" iso
 		echo '------------------------------------'
 		if [ -f "$LGPARTEDISO" ] ;then
 		    mygt "GParted copied."
@@ -228,6 +229,8 @@ if [ $ISVBOX -eq 1 ] ;then
 		xgeturl "$VBOXARCH"
 		xgeturl "$VBOXEXT"
 		xgeturl "$VBOXDOC"
+		xpurgepac "VirtualBox-[0-9]" exe
+		xpurgepac "Oracle_VM_VirtualBox_Extension_Pack-[0-9]" vbox-extpack
 		mv $(basename "$VBOXDOC") VirtualBoxUserManual.pdf
 		echo '------------------------------------'
 		if [ -f "$LVBOXARCH" ] ;then
