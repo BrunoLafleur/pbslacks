@@ -113,8 +113,10 @@ In particular desktop environments or multimedia softwares are very dependant of
 packages which should be present on your system.
 
 I have put some python2 packages of mine because the current Slackware tends to remove
-them the Python 2 bindings. In particular, the Openshot 1.4 version I use needs them.
+the Python 2 bindings. In particular, the Openshot 1.4 version I use needs them.
 
+It is better to update your clone of this project before downloading and installing
+the latest current Slackware. I may have done some little patches or adjustement.
 =================================================================
 
 There is some MS Windows .bat files and tricks in the windows subdirectory.
@@ -130,4 +132,4 @@ It reassure people even if the won't ever use the MS Windows installed of their 
 =================================================================
 
 I have tested with Slackware current of july 2019, aout 2019, december 2019,
-january 2020, ... and april 2020.
+january 2020, ... The last one I synchrnonize is dated 5 june 2020.
