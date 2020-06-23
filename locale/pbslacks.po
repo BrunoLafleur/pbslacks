@@ -234,19 +234,19 @@ msgstr ""
 msgid "Check GPG signatures :"
 msgstr ""
 
-#: pbaspirecore:205
+#: pbaspirecore:205 pbaspirecore:206
 msgid "GParted copied."
 msgstr ""
 
-#: pbaspirecore:207 pbaspirecore:213
+#: pbaspirecore:207 pbaspirecore:213 pbaspirecore:208 pbaspirecore:214
 msgid "GParted not copied."
 msgstr ""
 
-#: pbaspirecore:234
+#: pbaspirecore:234 pbaspirecore:237
 msgid "VirtualBox copied."
 msgstr ""
 
-#: pbaspirecore:236 pbaspirecore:242
+#: pbaspirecore:236 pbaspirecore:242 pbaspirecore:239 pbaspirecore:245
 msgid "VirtualBox not copied."
 msgstr ""
 

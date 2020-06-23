@@ -57,7 +57,7 @@ msgstr "Obtenir/mettre à jour des paquets binaires de Ponce"
 
 #: pbaspire:54
 msgid "Get/Update some Slackonly binary packages"
-msgstr "Obtenir/mettre à jour des paquets inaires de Slackonly"
+msgstr "Obtenir/mettre à jour des paquets binaires de Slackonly"
 
 #: pbaspire:55
 msgid "Get/Update some Conraid or Slackel binary packages"
@@ -251,19 +251,19 @@ msgstr "Copie alien KDE5 frameworks non faite."
 msgid "Check GPG signatures :"
 msgstr "Vérification des signatures GPG :"
 
-#: pbaspirecore:205
+#: pbaspirecore:205 pbaspirecore:206
 msgid "GParted copied."
 msgstr "Copie GParted faite."
 
-#: pbaspirecore:207 pbaspirecore:213
+#: pbaspirecore:207 pbaspirecore:213 pbaspirecore:208 pbaspirecore:214
 msgid "GParted not copied."
 msgstr "Copie GParted non faite."
 
-#: pbaspirecore:234
+#: pbaspirecore:234 pbaspirecore:237
 msgid "VirtualBox copied."
 msgstr "Copie VirtualBox faite."
 
-#: pbaspirecore:236 pbaspirecore:242
+#: pbaspirecore:236 pbaspirecore:242 pbaspirecore:239 pbaspirecore:245
 msgid "VirtualBox not copied."
 msgstr "Copie VirtualBox non faite."
 
