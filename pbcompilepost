@@ -169,9 +169,13 @@ if [ $ISOPENSHOT -eq 1 ] ;then
     # python2-* for openshot 1.4, openshot_qt => openshot 2.5
     for i in python2-mlt python2-libcaca python2-libwebp  python-pillow6 \
 			 python3-certifi openshot_qt lxml inkscape opencolorio \
-			 pybind11 openimageio numpy3 tbb Blender ;do
+			 pybind11 openimageio numpy3 tbb ;do
 	xmakepac packages/openshot $i
     done
+    (
+	export CMAKE_BUILD_PARALLEL_LEVEL=8
+	xmakepac packages/openshot Blender
+    )
     xhookopenshot
 fi
 
@@ -217,7 +221,6 @@ if [ $ISPAC1 -eq 1 ] ;then
 	export OPENAL=yes
 	export AAC=yes
 	xmakealienpac source/l ffmpeg packages
-	xpurgepac "packages/ffmpeg-[0-9]" t?z
     )
     xhookpac1
 fi
