@@ -61,8 +61,10 @@ xlocalsrcpac () {
 # Get static url.
 xgeturl () {
     path="$1"
+    echo '-------------------'
+    echo "Getting $path :"
     wget -N -nv --content-disposition --no-check-certificate "$path"
-    [ $? -ne 0 ] &&  wget -nv --content-disposition --no-check-certificate "$path"
+    [ $? -ne 0 ] && wget -nv --content-disposition --no-check-certificate "$path"
 }
 
 # Get the original source tarball.
