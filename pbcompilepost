@@ -231,7 +231,7 @@ if [ $ISPAC2 -eq 1 ] ;then
 fi
 
 if [ $ISPAC3 -eq 1 ] ;then    
-    for i in bsddb3 db53 pyicu gramps ;do
+    for i in bsddb3 db53 pyicu gramps goocanvas2 ;do
 	xmakepac packages3 $i
     done
     xhookpac3

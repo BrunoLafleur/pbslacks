@@ -68,6 +68,7 @@ fi
     xgetsrc db53 "$PATHDB53BIS"
     xgetsrc pyicu "$PATHPYICU"
     xgetsrc gramps "$PATHGRAMPS"
+    xgetsbosrc goocanvas2
 )
 
 ############################################
