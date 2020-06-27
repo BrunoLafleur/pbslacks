@@ -59,7 +59,7 @@ else
 fi
 
 cd "$HOMESLACK/bumblebee"
-cp $HOMEBUMBLE/nouveau-blacklist/xf86-video-nouveau-blacklist-noarch-1.t?z .
+cp $HOMEBUMBLE/nouveau-blacklist/xf86-video-nouveau-blacklist-*noarch-[0-9]*.t?z .
 
 for i in libbsd primus primus_vk bbswitch nvidia-bumblebee bumblebee \
 nvidia-kernel ;do
