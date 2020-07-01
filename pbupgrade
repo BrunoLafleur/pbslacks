@@ -366,7 +366,7 @@ if [ $XEND -eq 0 ] ;then
 	if [ $XTEST -ne 1 ] ;then
 	    $HOMESLACK/pbslacks/pbcompilebumblebee -u $MYUSER -g $MYGROUP
 	fi
-	mygt "Recreate source Bumblebee done." >> $XTEMPMES
+	mygt "Recreate source Bumblebee done. Reboot your computer for Bumblebee to work." >> $XTEMPMES
     fi
     if [ $ISBOOTLOAD -eq 1 ] ;then
 	mygt "Updating bootloader asked." >> $XTEMPMES
