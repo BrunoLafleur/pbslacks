@@ -1,65 +1,11 @@
---- audacity.SlackBuild	2020-06-03 11:12:27.000000000 +0200
-+++ audacity.SlackBuild.new	2020-06-03 11:13:32.000000000 +0200
-@@ -172,49 +172,25 @@
- chmod -R u+w,go+r-w,a+rX-st .
+--- audacity.SlackBuild	2020-07-01 18:56:55.000000000 +0200
++++ audacity.SlackBuild.new2	2020-07-01 19:22:17.000000000 +0200
+@@ -298,7 +298,7 @@
+ install -vDm 644 nyquist/*.lsp -t ${PKG}/usr/share/${PRGNAM}/nyquist
  
- echo Building ...
--touch $OUTPUT/configure-${PRGNAM}.log
--autoreconf -vif \
--  2>&1 | tee -a $OUTPUT/configure-${PRGNAM}.log
--
-+mkdir build-cmake
-+cd build-cmake
- WX_CONFIG="/usr/bin/wx-config-gtk3" \
--LDFLAGS="$SLKLDFLAGS" \
--CXXFLAGS="$SLKCFLAGS -DHAVE_VISIBILITY=1" \
--CFLAGS="$SLKCFLAGS" \
--./configure \
--  --prefix=/usr \
--  --libdir=/usr/lib${LIBDIRSUFFIX} \
--  --mandir=/usr/man \
--  --docdir=/usr/doc/$PRGNAM-$VERSION \
--  --enable-shared \
--  --enable-static-wx \
--  --with-lib-preference="system local" \
--  --with-expat=system \
--  --with-ffmpeg=system \
--  --with-lame=system \
--  --with-libid3tag=system \
--  --with-libmad=system \
--  --with-libflac=system \
--  --with-libsndfile=system \
--  --with-libvorbis=system \
--  --with-ladspa \
--  --with-libsamplerate \
--  --with-libsoxr \
--  --with-libtwolame \
--  --with-lv2 \
--  --with-portaudio \
--  --with-portmidi \
--  --with-sbsms \
--  --with-soundtouch \
--  --with-vamp \
--  2>&1 | tee -a $OUTPUT/configure-${PRGNAM}.log
--  #--without-libresample \
-+cmake -DCMAKE_BUILD_TYPE=Release \
-+  -DCMAKE_C_FLAGS="$SLKCFLAGS" \
-+  -DCMAKE_CXX_FLAGS="$SLKCFLAGS -DHAVE_VISIBILITY=1" \
-+  -DCMAKE_CXX_STANDARD=11 \
-+  -DCMAKE_INSTALL_PREFIX=/usr \
-+  -DCMAKE_VERBOSE_MAKEFILE:BOOL="on" \
-+  -DCMAKE_BUILD_TYPE=Release \
-+  -DCMAKE_INSTALL_LIBDIR=lib${LIBDIRSUFFIX} \
-+  .. 2>&1 | tee $OUTPUT/configure-${PRGNAM}.log
- 
- make $NUMJOBS 2>&1 | tee $OUTPUT/make-${PRGNAM}.log
- make DESTDIR=$PKG install 2>&1 | tee $OUTPUT/install-${PRGNAM}.log
- 
- # Install libnyquist plugins and related files, this is broken since 2.4.0:
--install -vDm 644 plug-ins/*.ny -t ${PKG}/usr/share/${PRGNAM}/plug-ins
--install -vDm 644 nyquist/*.lsp -t ${PKG}/usr/share/${PRGNAM}/nyquist
-+install -vDm 644 ../plug-ins/*.ny -t ${PKG}/usr/share/${PRGNAM}/plug-ins
-+install -vDm 644 ../nyquist/*.lsp -t ${PKG}/usr/share/${PRGNAM}/nyquist
+ # ldd complains if the shared libraries are not executable:
+-chmod 0755 ${PKG}/usr/lib${LIBDIRSUFFIX}/${PRGNAM}/*.so
++# chmod 0755 ${PKG}/usr/lib${LIBDIRSUFFIX}/${PRGNAM}/*.so
  
  # Add this to the doinst.sh:
  mkdir -p $PKG/install
