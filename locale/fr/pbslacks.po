@@ -251,19 +251,19 @@ msgstr "Copie alien KDE5 frameworks non faite."
 msgid "Check GPG signatures :"
 msgstr "Vérification des signatures GPG :"
 
-#: pbaspirecore:205 pbaspirecore:206
+#: pbaspirecore:206
 msgid "GParted copied."
 msgstr "Copie GParted faite."
 
-#: pbaspirecore:207 pbaspirecore:213 pbaspirecore:208 pbaspirecore:214
+#: pbaspirecore:208 pbaspirecore:214
 msgid "GParted not copied."
 msgstr "Copie GParted non faite."
 
-#: pbaspirecore:234 pbaspirecore:237
+#: pbaspirecore:237
 msgid "VirtualBox copied."
 msgstr "Copie VirtualBox faite."
 
-#: pbaspirecore:236 pbaspirecore:242 pbaspirecore:239 pbaspirecore:245
+#: pbaspirecore:239 pbaspirecore:245
 msgid "VirtualBox not copied."
 msgstr "Copie VirtualBox non faite."
 
@@ -317,11 +317,11 @@ msgstr ""
 "déjà fait sur une machine a jour, il n'est pas utile de relancer ce script."
 "\\nAppuyer sur une touche pour continuer sinon CTRLc pour arrêter"
 
-#: pbcompilepost:108 pbcompilepost:136 pbcompilepost:112 pbcompilepost:141
+#: pbcompilepost:112 pbcompilepost:141
 msgid "Correct this error and relaunch this script."
 msgstr "Erreur à corriger puis relancer ce script."
 
-#: pbcompilepost:277 pbcompilepost:276
+#: pbcompilepost:279
 msgid "Upgrade packages* done."
 msgstr "Mise à jour de packages* faite."
 
@@ -955,8 +955,9 @@ msgid "Recreate source packages done."
 msgstr "Paquets sources recréés."
 
 #: pbupgrade:369
-msgid "Recreate source Bumblebee done."
-msgstr "Bumblebee recréé à partir des sources."
+msgid ""
+"Recreate source Bumblebee done. Reboot your computer for Bumblebee to work."
+msgstr "Bumblebee recréé à partir des sources. Redémarrez la machine."
 
 #: pbupgrade:372
 msgid "Updating bootloader asked."
