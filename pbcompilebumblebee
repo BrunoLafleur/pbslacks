@@ -70,5 +70,5 @@ done
 chown ${MYUSER}.$MYGROUP *.t?z
 rm -rf /tmp/bbsb
 
-# Not sufficient. Should rmmod nouveau driver.
+# Not sufficient. Should force rmmod nouveau driver.
 [ -x /etc/rc.d/rc.bumblebee ] && /etc/rc.d/rc.bumbleebee restart

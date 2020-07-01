@@ -234,19 +234,19 @@ msgstr ""
 msgid "Check GPG signatures :"
 msgstr ""
 
-#: pbaspirecore:205 pbaspirecore:206
+#: pbaspirecore:206
 msgid "GParted copied."
 msgstr ""
 
-#: pbaspirecore:207 pbaspirecore:213 pbaspirecore:208 pbaspirecore:214
+#: pbaspirecore:208 pbaspirecore:214
 msgid "GParted not copied."
 msgstr ""
 
-#: pbaspirecore:234 pbaspirecore:237
+#: pbaspirecore:237
 msgid "VirtualBox copied."
 msgstr ""
 
-#: pbaspirecore:236 pbaspirecore:242 pbaspirecore:239 pbaspirecore:245
+#: pbaspirecore:239 pbaspirecore:245
 msgid "VirtualBox not copied."
 msgstr ""
 
@@ -292,11 +292,11 @@ msgid ""
 "machine, this script is not useful.\\nPress a touch for continue or abort."
 msgstr ""
 
-#: pbcompilepost:108 pbcompilepost:136 pbcompilepost:112 pbcompilepost:141
+#: pbcompilepost:112 pbcompilepost:141
 msgid "Correct this error and relaunch this script."
 msgstr ""
 
-#: pbcompilepost:277 pbcompilepost:276
+#: pbcompilepost:279
 msgid "Upgrade packages* done."
 msgstr ""
 
@@ -869,7 +869,8 @@ msgid "Recreate source packages done."
 msgstr ""
 
 #: pbupgrade:369
-msgid "Recreate source Bumblebee done."
+msgid ""
+"Recreate source Bumblebee done. Reboot your computer for Bumblebee to work."
 msgstr ""
 
 #: pbupgrade:372
