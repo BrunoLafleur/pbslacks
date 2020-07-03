@@ -42,7 +42,7 @@ PATHROCCATTOOLS="http://downloads.sourceforge.net/roccat/roccat-tools-5.9.0.tar.
 PATHKAFFEINE="https://github.com/KDE/kaffeine/archive/master.zip"
 PATHGRADLE="https://services.gradle.org/distributions/gradle-6.2.2-all.zip"
 PATHAUDIVERIS="https://github.com/Audiveris/audiveris/archive/master.zip"
-PATHSIGNALDESKTOP="https://sourceforge.net/projects/slackbuildsdirectlinks/files/signal-desktop/signal-desktop_1.33.1_amd64.deb"
+PATHSIGNALDESKTOP="https://sourceforge.net/projects/slackbuildsdirectlinks/files/signal-desktop/signal-desktop_1.34.2_amd64.deb"
 PATHVOKOSCREEN="https://github.com/vkohaupt/vokoscreenNG/archive/3.0.3.tar.gz"
 PATHZOOM="https://zoom.us/client/latest/zoom_x86_64.tar.xz"
 # A renommer en openshot_qt pour eviter les conflits avec openshot 1.4
