@@ -79,6 +79,8 @@ if [ ! -d bumblebee ] ;then
     cp pbslacks/builds/crazybee.sh bumblebee/Crazybee
 fi
 
-if [ -f ../Crazybee/Bumblebee-SlackBuilds.tgz ] ;then
-    ln -sf ../../../Crazybee/Bumblebee-SlackBuilds.tgz bumblebee/Crazybee
+if [ ! -f ../Crazybee/Bumblebee-SlackBuilds.tgz ] ;then
+    mkdir ../Crazybee
 fi
+
+ln -sf ../../../Crazybee/Bumblebee-SlackBuilds.tgz bumblebee/Crazybee
