@@ -1,6 +1,15 @@
---- audacity.SlackBuild	2020-07-01 18:56:55.000000000 +0200
-+++ audacity.SlackBuild.new2	2020-07-01 19:22:17.000000000 +0200
-@@ -298,7 +298,7 @@
+--- audacity.SlackBuild	2020-07-03 14:17:33.000000000 +0200
++++ audacity.SlackBuild.new3	2020-07-03 14:19:54.000000000 +0200
+@@ -287,6 +287,8 @@
+     -Daudacity_use_vamp=system \
+     -Daudacity_use_vorbis=system \
+     -Daudacity_use_wxwidgets=local \
++    -DwxBUILD_OPTIMISE:BOOL=ON \
++    -DwxBUILD_SHARED:BOOL=OFF \
+   .. 2>&1 | tee $OUTPUT/configure-${PRGNAM}.log
+ 
+   make $NUMJOBS 2>&1 | tee $OUTPUT/make-${PRGNAM}.log
+@@ -298,7 +300,7 @@
  install -vDm 644 nyquist/*.lsp -t ${PKG}/usr/share/${PRGNAM}/nyquist
  
  # ldd complains if the shared libraries are not executable:
