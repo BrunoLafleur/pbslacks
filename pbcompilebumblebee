@@ -67,6 +67,7 @@ export UPDATE=no
 sh ./crazybee.sh
 
 cd "$HOMESLACK/bumblebee"
+cp "$HOMESLACK/pbslacks/builds/crazybee.sh" . 
 XNPAC="$HOMEBUMBLE/nouveau-blacklist/xf86-video-nouveau-blacklist-"
 XNPAC=$(ls -t "${XNPAC}"*noarch-[0-9]*.txz | head -1)
 cp "$XNPAC" .
