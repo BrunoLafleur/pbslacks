@@ -74,13 +74,9 @@ mkdir -p packages/Mozilla
 [ ! -d gpgkeys ] && mkdir gpgkeys
 
 if [ ! -d bumblebee ] ;then
-    mkdir bumblebee
-    mkdir bumblebee/Crazybee
+    mkdir -p bumblebee/Crazybee
     cp pbslacks/builds/crazybee.sh bumblebee/Crazybee
 fi
 
-if [ ! -f ../Crazybee/Bumblebee-SlackBuilds.tgz ] ;then
-    mkdir ../Crazybee
-fi
-
+[ ! -d ../Crazybee ] && mkdir ../Crazybee
 ln -sf ../../../Crazybee/Bumblebee-SlackBuilds.tgz bumblebee/Crazybee
