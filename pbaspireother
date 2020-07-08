@@ -80,5 +80,5 @@ xpurgeindex packages2
 	done
     )
 )
-cp pbslacks/tesseract4/* packages4/tesseract4
+cp pbslacks/builds/tesseract4/* packages4/tesseract4
 xpurgeindex packages4
