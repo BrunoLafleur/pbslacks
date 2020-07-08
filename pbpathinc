@@ -93,7 +93,7 @@ SLACKALIENSRC2="$SLACKMIR/people/alien-kde/source/latest/deps"
 
 # Links for localized Mozilla Firefox and Thunderbird.
 
-XFIREFOX="https://download.mozilla.org/?product=firefox-esr-latest-ssl&os=linux64&lang=$XLANG"
+XFIREFOX="https://download.mozilla.org/?product=firefox-esr-next-latest-ssl&os=linux64&lang=$XLANG"
 XTHUNDERBIRD="https://download.mozilla.org/?product=thunderbird-latest-SSL&os=linux64&lang=$XLANG"
 
 # Links for binary packages from Conraid and Slackel.
