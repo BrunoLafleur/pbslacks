@@ -16,8 +16,8 @@ xhelp () {
     mygt 'Launch this script in the directory including bumblebee.'
 }
 
-if [ ! -d bumblebee -o ! -h Crazybee ] ;then
-    xhelp
+if [ ! -d bumblebee ] ;then
+    pwd;xhelp
     exit 1
 fi
 
@@ -49,7 +49,7 @@ export UPDATE=no
 rm -rf $HOMEBUMBLE
 
 (
-    cd Crazybee
+    cd ../Crazybee
     if [ ! -f Bumblebee-SlackBuilds.tgz ] ;then
 	git clone https://github.com/BrunoLafleur/Bumblebee-SlackBuilds.git
 	cd Bumblebee-SlackBuilds
@@ -59,11 +59,14 @@ rm -rf $HOMEBUMBLE
 	git pull
     fi
 )
+read i
 
 cd 
-tar xvfz "$HOMESLACK/Crazybee/Bumblebee-SlackBuilds.tgz"
+tar xvfz "$HOMESLACK/bumblebee/Crazybee/Bumblebee-SlackBuilds.tgz"
+cp "$HOMESLACK/pbslacks/builds/crazybee.sh" Bumblebee-SlackBuilds
 cd Bumblebee-SlackBuilds
 export UPDATE=no
+read i
 sh ./crazybee.sh
 
 cd "$HOMESLACK/bumblebee"
