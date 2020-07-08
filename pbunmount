@@ -33,7 +33,7 @@ xunlosetup () {
 
 if [ -b "${XDEV}p1" ] ;then
     xunmount "${XDEV}p1"
-elif [ -b "${XDEV}" ] ;then
+elif [ ! -f "${XDEV}p1" -a -b "${XDEV}" ] ;then
     xunmount "${XDEV}"
 else
     xhelp
@@ -42,9 +42,9 @@ fi
 
 if [ $? -eq 0 ] ;then
     mygt "Device unmounted."
+fi
 
-    if [ "$(echo "$XDEV"|cut -c1-9)" = "/dev/loop" ] ;then
-	mygt "Loop device detached."
-	xunlosetup "$XDEV"
-    fi
+if [ "$(echo "$XDEV"|cut -c1-9)" = "/dev/loop" ] ;then
+    mygt "Loop device detached."
+    xunlosetup "$XDEV"
 fi
