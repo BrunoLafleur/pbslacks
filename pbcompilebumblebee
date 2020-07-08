@@ -16,7 +16,7 @@ xhelp () {
     mygt 'Launch this script in the directory including bumblebee.'
 }
 
-if [ ! -d bumblebee ] ;then
+if [ ! -d bumblebee -o ! -h Crazybee ] ;then
     xhelp
     exit 1
 fi
@@ -49,8 +49,8 @@ export UPDATE=no
 rm -rf $HOMEBUMBLE
 
 (
-    cd ../Crazybee
-    if [ ! -f "$HOMESLACK/bumblebee/Crazybee/Bumblebee-SlackBuilds.tgz" ] ;then
+    cd Crazybee
+    if [ ! -f Bumblebee-SlackBuilds.tgz ] ;then
 	git clone https://github.com/BrunoLafleur/Bumblebee-SlackBuilds.git
 	cd Bumblebee-SlackBuilds
 	./git_in
@@ -61,13 +61,12 @@ rm -rf $HOMEBUMBLE
 )
 
 cd 
-tar xvfz "$HOMESLACK/bumblebee/Crazybee/Bumblebee-SlackBuilds.tgz"
+tar xvfz "$HOMESLACK/Crazybee/Bumblebee-SlackBuilds.tgz"
 cd Bumblebee-SlackBuilds
 export UPDATE=no
 sh ./crazybee.sh
 
 cd "$HOMESLACK/bumblebee"
-cp "$HOMESLACK/pbslacks/builds/crazybee.sh" . 
 XNPAC="$HOMEBUMBLE/nouveau-blacklist/xf86-video-nouveau-blacklist-"
 XNPAC=$(ls -t "${XNPAC}"*noarch-[0-9]*.txz | head -1)
 cp "$XNPAC" .
