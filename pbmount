@@ -36,6 +36,7 @@ if [ -b "$NAMEISO" ] ;then
     XLOOP="$NAMEISO"
 else
     XLOOP=$(xlosetup "$NAMEISO")
+    sync
     emygt "Loop device is : \$XLOOP"
 
     if [ -b "${XLOOP}p1" ] ;then

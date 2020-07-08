@@ -35,27 +35,21 @@ cd slackware64-current
 # Copied from isolinux/README.TXT in the slackware64-current repository.
 
 set -e
-xorriso -as mkisofs \
-    -iso-level 3 \
-    -full-iso9660-filenames \
-    -R -J -A "Slackware Install" \
-    -hide-rr-moved \
-    -v -d -N \
-    -eltorito-boot isolinux/isolinux.bin \
+xorriso -as mkisofs -iso-level 3 \
+    -full-iso9660-filenames -R -J -A "Slackware Install" \
+    -hide-rr-moved -v -d -N -eltorito-boot isolinux/isolinux.bin \
     -eltorito-catalog isolinux/boot.cat \
     -no-emul-boot -boot-load-size 4 -boot-info-table \
     -isohybrid-mbr /usr/share/syslinux/isohdpfx.bin \
-    -eltorito-alt-boot \
-    -e isolinux/efiboot.img \
-    -no-emul-boot -isohybrid-gpt-basdat \
-    -m 'source' \
-    -volid "SlackDVD" \
-    -output "../$NAMEISO" \
+    -eltorito-alt-boot -e isolinux/efiboot.img \
+    -no-emul-boot -isohybrid-gpt-basdat -m 'source' \
+    -volid "SlackDVD" -output "../$NAMEISO" \
     -graft-points \
-    . current/=../current packages/=../packages packages2/=../packages2 \
-    packages3/=../packages3 packages4/=../packages4 bumblebee/=../bumblebee \
-    divers/=../../divers pbslacks/=../../pbslacks perso/=../../perso \
-    gpgkeys/=../gpgkeys
+    .  bumblebee/Crazybee/Bumblebee-SlackBuilds.tgz=../../Crazybee/Bumblebee-SlackBuilds.tgz \
+    current/=../current packages/=../packages \
+    packages2/=../packages2 packages3/=../packages3 packages4/=../packages4 \
+    bumblebee/=../bumblebee divers/=../../divers pbslacks/=../../pbslacks \
+    perso/=../../perso gpgkeys/=../gpgkeys
 cd ..
 
 echo '-------------------------------------------------'
