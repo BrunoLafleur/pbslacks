@@ -44,11 +44,12 @@ xorriso -as mkisofs -iso-level 3 \
     -eltorito-alt-boot -e isolinux/efiboot.img \
     -no-emul-boot -isohybrid-gpt-basdat -m 'source' \
     -volid "SlackDVD" -output "../$NAMEISO" \
-    -graft-points \
-    .  bumblebee/Crazybee/Bumblebee-SlackBuilds.tgz=../../Crazybee/Bumblebee-SlackBuilds.tgz \
+    -m Bumblebee-SlackBuilds.tgz -graft-points . \
+    bumblebee/Crazybee/Bumblebee-SlackBuilds.tgz=../../Crazybee/Bumblebee-SlackBuilds.tgz \
+    bumblebee/=../bumblebee \
     current/=../current packages/=../packages \
     packages2/=../packages2 packages3/=../packages3 packages4/=../packages4 \
-    bumblebee/=../bumblebee divers/=../../divers pbslacks/=../../pbslacks \
+    divers/=../../divers pbslacks/=../../pbslacks \
     perso/=../../perso gpgkeys/=../gpgkeys
 cd ..
 
