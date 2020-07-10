@@ -255,10 +255,7 @@ fi
 
 # Makeiso
 if [ $ISISO -eq 1 ] ;then
-    XTEMPMES2=$(mktemp -p /tmp -t pbsetupmes.XXXXXX)
-    "$PBSLACKSPWD/pbmakeiso" 2>> $XTEMPMES2 | tee -a $XTEMPMES
-    cat $XTEMPMES2 >> $XTEMPMES
-    rm -f $XTEMPMES2
+    "$PBSLACKSPWD/pbmakeiso" 2>&1 | tee -a $XTEMPMES
     if [ $? -eq 0 ] ;then
 	mygt "\Z3ISO DVD ROM created.\Zn" >> $XTEMPMES
     else
