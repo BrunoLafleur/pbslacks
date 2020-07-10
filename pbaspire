@@ -56,18 +56,19 @@ OTHER=$(mygt 'Get/Update some Conraid or Slackel binary packages')
 SOURCES=$(mygt 'Get/Update some other source packages')
 MOZILLA=$(mygt 'Get/Update latest Firefox and Thunderbird')
 CHECK=$(mygt 'Check GPG signatures')
+CLEAN=$(mygt 'Clean the local repository from old packages versions')
 
 xmaster () {
     defitem=$1;shift
     xsel1=$1;shift;xsel2=$1;shift;xsel3=$1;shift;xsel4=$1;shift;xsel5=$1;shift
     xsel6=$1;shift;xsel7=$1;shift;xsel8=$1;shift;xsel9=$1;shift;xsel10=$1;shift
-    xsel11=$1;shift;xsel12=$1
+    xsel11=$1;shift;xsel12=$1;shift;xsel13=$1
     pactit=$(mygt 'Main menu');pactit="pbaspire: $pactit"
     pactxt=$(mygt 'Choose your actions below')
     if [ $ISDIAL -eq 1 ] ;then
 	dialog --colors --backtitle 'pbaspire' --title "$pactit" \
 	    --default-item $defitem --defaultno --separate-output --item-help \
-	    --help-button --help-status --checklist "$pactxt" 0 100 12 \
+	    --help-button --help-status --checklist "$pactxt" 0 100 13 \
 	    core "$CORE" $xsel1 core \
 	    multi "$MULTI" $xsel2 multi \
 	    framew "$FRAMEW" $xsel3 framew \
@@ -79,7 +80,8 @@ xmaster () {
 	    other "$OTHER" $xsel9 other \
 	    sources "$SOURCES" $xsel10 sources \
 	    mozilla "$MOZILLA" $xsel11 mozilla \
-	    check "$CHECK" $xsel12 check
+	    check "$CHECK" $xsel12 check \
+	    clean "$CLEAN" $xsel13 clean
     else
 	echo '------------------------------------'
 	echo "        $pactit"
@@ -110,6 +112,8 @@ xmaster () {
 	    if [ "$c" = "y" ] ;then echo "HELP mozilla" 1>&2;return;fi
 	    echo "HELP check (y or n) :";read c
 	    if [ "$c" = "y" ] ;then echo "HELP check" 1>&2;return;fi
+	    echo "HELP clean (y or n) :";read c
+	    if [ "$c" = "y" ] ;then echo "HELP clean" 1>&2;return;fi
 	fi
 	echo "$CORE (y or n) :";read c
 	[ "$c" = "y" ] && echo "core" 1>&2
@@ -135,10 +139,12 @@ xmaster () {
 	[ "$c" = "y" ] && echo "mozilla" 1>&2
 	echo "$CHECK (y or n) :";read c
 	[ "$c" = "y" ] && echo "check" 1>&2
+	echo "$CLEAN (y or n) :";read c
+	[ "$c" = "y" ] && echo "clean" 1>&2
     fi
 }
 
-xsel="on on on on on on on on on on on off"
+xsel="on on on on on on on on on on on off off"
 ditem=core
 bclaide=1
 
@@ -148,7 +154,7 @@ while [ $bclaide -eq 1 ] ;do
     if [ $bclaide -eq 1 ] ;then
 	xitem="$(cat $XTEMPOUT|grep '^HELP'|cut -d ' ' -f2)"
 	xsel=
-	for i in core multi framew gparted vbox alien ponce slonly other sources mozilla check ;do
+	for i in core multi framew gparted vbox alien ponce slonly other sources mozilla check clean ;do
 	  if [ $(grep "^$i$" "$XTEMPOUT"|wc -l) -eq 1 ] ;then
 	      xsel="$xsel on"
 	  else
@@ -180,6 +186,8 @@ while [ $bclaide -eq 1 ] ;do
 	    pacaide=$(mygt 'Get or update Firefox and Thunderbird.')
 	elif [ "$xitem" = check ] ;then
 	    pacaide=$(mygt 'Check the GPG signatures of the downloaded packages.')
+	elif [ "$xitem" = clean ] ;then
+	    pacaide=$(mygt 'Clean the local repository from old packages or source files.')
 	fi
 	if [ $ISDIAL -eq 1 ] ;then
 	    dialog --colors --backtitle 'pbaspire' --title "$xitem" \
@@ -205,6 +213,7 @@ ISOTHER="$(cat $XTEMPOUT|grep '^other$'|wc -l)"
 ISSOURCES="$(cat $XTEMPOUT|grep '^sources$'|wc -l)"
 ISMOZ="$(cat $XTEMPOUT|grep '^mozilla$'|wc -l)"
 ISCHECK="$(cat $XTEMPOUT|grep '^check$'|wc -l)"
+ISCLEAN="$(cat $XTEMPOUT|grep '^clean$'|wc -l)"
 
 COREATTR=
 [ $ISCORE -eq 1 ] && COREATTR="$COREATTR -core"
@@ -213,6 +222,7 @@ COREATTR=
 [ $ISGPARTED -eq 1 ] && COREATTR="$COREATTR -gparted"
 [ $ISVBOX -eq 1 ] && COREATTR="$COREATTR -vbox"
 [ $ISCHECK -eq 1 ] && COREATTR="$COREATTR -check"
+[ $ISCLEAN -eq 1 ] && COREATTR="$COREATTR -purge"
 
 if [ "$COREATTR" != '' ] ;then
     [ $XTEST -ne 1 ] && "$PBNAME"core $COREATTR $XTEMPCHK
@@ -227,6 +237,7 @@ fi
 	>> $XTEMPMES
 [ $ISVBOX -eq 1 ] && emygt "Get/Upgrade VirtualBox installer done : \Z3\${PBNAME}core\Zn." \
 	>> $XTEMPMES
+[ $ISCLEAN -eq 1 ] && emygt "Local repository cleaned : \Z3\${PBNAME}core\Zn." >> $XTEMPMES
 
 if [ $ISALIEN -eq 1 ] ;then
     [ $XTEST -ne 1 ] && "$PBNAME"alien
