@@ -255,12 +255,15 @@ fi
 
 # Makeiso
 if [ $ISISO -eq 1 ] ;then
-    "$PBSLACKSPWD/pbmakeiso" 2>&1 | tee -a $XTEMPMES
+    XTEMPMES2=$(mktemp -p /tmp -t pbsetupmes2.XXXXXX)
+    "$PBSLACKSPWD/pbmakeiso" 2>&1 | tee -a $XTEMPMES2
     if [ $? -eq 0 ] ;then
-	mygt "\Z3ISO DVD ROM created.\Zn" >> $XTEMPMES
+	mygt "\Z3ISO DVD ROM created.\Zn" > $XTEMPMES
     else
-	mygt "\Z3ISO DVD ROM not created.\Zn" >> $XTEMPMES
+	mygt "\Z3ISO DVD ROM not created.\Zn" > $XTEMPMES
     fi
+    cat $XTEMPMES2 >> $XTEMPMES
+    rm -f $XTEMPMES2
 fi
 
 # Install refind

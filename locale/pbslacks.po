@@ -71,132 +71,145 @@ msgstr ""
 msgid "Check GPG signatures"
 msgstr ""
 
-#: pbaspire:65 pbsetup:114 pbupgrade:121
+#: pbaspire:59
+msgid "Clean the local repository from old packages versions"
+msgstr ""
+
+#: pbaspire:66 pbsetup:114 pbupgrade:121
 msgid "Main menu"
 msgstr ""
 
-#: pbaspire:66 pbsetup:115
+#: pbaspire:67 pbsetup:115
 msgid "Choose your actions below"
 msgstr ""
 
-#: pbaspire:160
+#: pbaspire:166
 msgid "Get or update the officiel lastest current Slackware."
 msgstr ""
 
-#: pbaspire:162
+#: pbaspire:168
 msgid ""
 "Get or update the multilib of Alien Bob which is a 32 bits compatibility set "
 "of packages."
 msgstr ""
 
-#: pbaspire:164
+#: pbaspire:170
 msgid "Get or update the frameworks libraries of Kde5 offered by Alien Bob."
 msgstr ""
 
-#: pbaspire:166
+#: pbaspire:172
 msgid "Get or update the GParted live ISO."
 msgstr ""
 
-#: pbaspire:168
+#: pbaspire:174
 msgid "Get or update the VirtualBox installer and extensions."
 msgstr ""
 
-#: pbaspire:170
+#: pbaspire:176
 msgid "Get or update some Alien Bob binary packages."
 msgstr ""
 
-#: pbaspire:172
+#: pbaspire:178
 msgid "Get or update some Ponce binary packages."
 msgstr ""
 
-#: pbaspire:174
+#: pbaspire:180
 msgid "Get or update some Slackonly binary packages."
 msgstr ""
 
-#: pbaspire:176
+#: pbaspire:182
 msgid "Get or update some Conraid and Slackel binary packages."
 msgstr ""
 
-#: pbaspire:178
+#: pbaspire:184
 msgid "Get or update some other source packages."
 msgstr ""
 
-#: pbaspire:180
+#: pbaspire:186
 msgid "Get or update Firefox and Thunderbird."
 msgstr ""
 
-#: pbaspire:182
+#: pbaspire:188
 msgid "Check the GPG signatures of the downloaded packages."
 msgstr ""
 
-#: pbaspire:221
+#: pbaspire:190
+msgid "Clean the local repository from old packages or source files."
+msgstr ""
+
+#: pbaspire:231
 #, sh-format
 msgid "Get/Upgrade core system done : \\Z3${PBNAME}core\\Zn."
 msgstr ""
 
-#: pbaspire:222
+#: pbaspire:232
 #, sh-format
 msgid "Get/Upgrade multilib compat 32 bits mode done : \\Z3${PBNAME}core\\Zn."
 msgstr ""
 
-#: pbaspire:224
+#: pbaspire:234
 #, sh-format
 msgid "Get/Upgrade framewoks libraries KDE5 done : \\Z3${PBNAME}core\\Zn."
 msgstr ""
 
-#: pbaspire:226
+#: pbaspire:236
 #, sh-format
 msgid "Get/Upgrade gparted live iso done : \\Z3${PBNAME}core\\Zn."
 msgstr ""
 
-#: pbaspire:228
+#: pbaspire:238
 #, sh-format
 msgid "Get/Upgrade VirtualBox installer done : \\Z3${PBNAME}core\\Zn."
 msgstr ""
 
-#: pbaspire:233
+#: pbaspire:240
+#, sh-format
+msgid "Local repository cleaned : \\Z3${PBNAME}core\\Zn."
+msgstr ""
+
+#: pbaspire:244
 #, sh-format
 msgid "Get/Upgrade Alien Bob packages done : \\Z3${PBNAME}alien\\Zn."
 msgstr ""
 
-#: pbaspire:238
+#: pbaspire:249
 #, sh-format
 msgid "Get/Upgrade Ponce packages done : \\Z3${PBNAME}ponce\\Zn."
 msgstr ""
 
-#: pbaspire:242
+#: pbaspire:253
 #, sh-format
 msgid "Get/Upgrade Slackonly packages done : \\Z3${PBNAME}slonly\\Zn."
 msgstr ""
 
-#: pbaspire:247
+#: pbaspire:258
 #, sh-format
 msgid ""
 "Get/Upgrade Conraid and Slackel binary packages done : \\Z3${PBNAME}other"
 "\\Zn."
 msgstr ""
 
-#: pbaspire:252
+#: pbaspire:263
 #, sh-format
 msgid "Get/Upgrade other source packages done : \\Z3${PBNAME}sources\\Zn."
 msgstr ""
 
-#: pbaspire:258
+#: pbaspire:269
 #, sh-format
 msgid ""
 "Get/Upgrade Firefox and Thunderbird for $XLANG language done : \\Z3${PBNAME}"
 "mozilla\\Zn."
 msgstr ""
 
-#: pbaspire:262
+#: pbaspire:273
 msgid "GPG signatures checked :"
 msgstr ""
 
-#: pbaspire:271 pbsetup:307 pbupgrade:377
+#: pbaspire:282 pbsetup:307 pbupgrade:377
 msgid "No action was demanded. Exit."
 msgstr ""
 
-#: pbaspire:274 pbsetup:311 pbupgrade:83
+#: pbaspire:285 pbsetup:311 pbupgrade:83
 msgid "Actions which were done"
 msgstr ""
 
@@ -206,47 +219,47 @@ msgid ""
 "Launch this script in the directory including packages, packages2 et al."
 msgstr ""
 
-#: pbaspirecore:97
+#: pbaspirecore:111
 msgid "Slackware current copied."
 msgstr ""
 
-#: pbaspirecore:99
+#: pbaspirecore:113
 msgid "Slackware current not copied."
 msgstr ""
 
-#: pbaspirecore:124
+#: pbaspirecore:138
 msgid "Slackware multilib copied."
 msgstr ""
 
-#: pbaspirecore:126
+#: pbaspirecore:140
 msgid "Slackware multilib not copied."
 msgstr ""
 
-#: pbaspirecore:153
+#: pbaspirecore:167
 msgid "Alien Bob KDE5 frameworks copied."
 msgstr ""
 
-#: pbaspirecore:155
+#: pbaspirecore:169
 msgid "Alien Bob KDE5 frameworks not copied."
 msgstr ""
 
-#: pbaspirecore:182
+#: pbaspirecore:196
 msgid "Check GPG signatures :"
 msgstr ""
 
-#: pbaspirecore:206
+#: pbaspirecore:220
 msgid "GParted copied."
 msgstr ""
 
-#: pbaspirecore:208 pbaspirecore:214
+#: pbaspirecore:222 pbaspirecore:228
 msgid "GParted not copied."
 msgstr ""
 
-#: pbaspirecore:237
+#: pbaspirecore:251
 msgid "VirtualBox copied."
 msgstr ""
 
-#: pbaspirecore:239 pbaspirecore:245
+#: pbaspirecore:253 pbaspirecore:259
 msgid "VirtualBox not copied."
 msgstr ""
 
@@ -459,17 +472,17 @@ msgstr ""
 msgid "Give the name of the iso file or the device to mount."
 msgstr ""
 
-#: pbmount:39
+#: pbmount:40
 #, sh-format
 msgid "Loop device is : $XLOOP"
 msgstr ""
 
-#: pbmount:49
+#: pbmount:50
 #, sh-format
 msgid "Look at $MNTDIR"
 msgstr ""
 
-#: pbmount:50
+#: pbmount:51
 msgid "unmount with :"
 msgstr ""
 
@@ -577,11 +590,11 @@ msgstr ""
 msgid "USB stick not created."
 msgstr ""
 
-#: pbsetup:263
+#: pbsetup:261
 msgid "\\Z3ISO DVD ROM created.\\Zn"
 msgstr ""
 
-#: pbsetup:265
+#: pbsetup:263
 msgid "\\Z3ISO DVD ROM not created.\\Zn"
 msgstr ""
 
@@ -618,7 +631,7 @@ msgstr ""
 msgid "Device unmounted."
 msgstr ""
 
-#: pbunmount:47
+#: pbunmount:48
 msgid "Loop device detached."
 msgstr ""
 
@@ -968,7 +981,7 @@ msgstr ""
 msgid "The ISO image will be created with $NAMEISO name."
 msgstr ""
 
-#: pbmakeiso:62
+#: pbmakeiso:33
 #, sh-format
 msgid ""
 "If not too big for your recorder which should use double layer media,\\nthe "

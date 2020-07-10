@@ -19,6 +19,7 @@ if [ $# -eq 0 ] ;then
     ISGPARTED=1
     ISVBOX=1
     ISCHECK=1
+    ISPURGE=1
 else
     ISCORE=0
     ISMULTI=0
@@ -26,6 +27,7 @@ else
     ISGPARTED=0
     ISVBOX=0
     ISCHECK=0
+    ISPURGE=0
 fi
 
 while [ $# -ge 1 ] ;do
@@ -40,6 +42,8 @@ while [ $# -ge 1 ] ;do
 	ISGPARTED=1
     elif [ "$MYARG" = "-vbox" ] ;then
 	ISVBOX=1
+    elif [ "$MYARG" = "-purge" ] ;then
+	ISPURGE=1
     elif [ "$MYARG" = "-check" ] ;then
 	ISCHECK=1
 	XTEMPCHK="$2"
@@ -71,9 +75,10 @@ CDIR=$(basename $MYPWD)
 ISSTICK=0;[ -d current -a "$CDIR" = slackware64-current ] && ISSTICK=1
 
 # The official current Slackware.
-if [ $ISCORE -eq 1 ] ;then
+if [ $ISCORE -eq 1 -o $ISPURGE -eq 1 ] ;then
     [ $ISSTICK -eq 1 ] && cd ..
-    myrget 4 "$SLACKMIR/slackware64-current" slackware64-current
+    [ $ISCORE -eq 1 ] && myrget 4 "$SLACKMIR/slackware64-current" \
+				slackware64-current
 
 # Nettoyage des doublons
     echo '------------------------------------'
@@ -82,10 +87,19 @@ if [ $ISCORE -eq 1 ] ;then
 	    cd slackware64-current
 	    find . -name '*.t?z'|grep -v '^./source/'|while read i;test "$i" != "" ;do
 		pack=$(echo $i|sed 's@-[0-9].*$@@')
+		echo -n .
 		xpurgepac "$pack-[0-9]" txt
 		xpurgepac "$pack-[0-9]" t?z
 		xpurgepac "$pack-[0-9]" asc
 	    done
+	    find source -name '*.tar.?z'|while read i;test "$i" != "" ;do
+		pack=$(echo $i|sed 's@-[0-9].*$@@')
+		echo -n .
+		xpurgepac "$pack-[0-9]" tar.?z
+		xpurgepac "$pack-[0-9]" tar.?z.sig
+		xpurgepac "$pack-[0-9]" tar.?z.asc
+	    done
+	    echo
 	    ln -sf ../current .
 	    ln -sf ../perso .
 	    ln -sf ../pbslacks .
@@ -103,8 +117,8 @@ if [ $ISCORE -eq 1 ] ;then
 fi
 
 # Multilib Alien Bob.
-if [ $ISMULTI -eq 1 ] ;then
-    myrget 7 "$SLACKMULTI" current
+if [ $ISMULTI -eq 1 -o $ISPURGE -eq 1 ] ;then
+    [ $ISMULTI -eq 1 ] && myrget 7 "$SLACKMULTI" current
 
 # Nettoyage des doublons
     echo '------------------------------------'
@@ -129,11 +143,11 @@ if [ $ISMULTI -eq 1 ] ;then
 fi
 
 # Frameworks KDE5 Alien Bob
-if [ $ISFRAMEW -eq 1 ] ;then
+if [ $ISFRAMEW -eq 1 -o $ISPURGE -eq 1 ] ;then
     [ ! -d packages4 ] && mkdir packages4
     (
 	cd packages4
-	myrget 10 "$SLACKKDEFW" frameworks
+	[ $ISFRAMEW -eq 1 ] && myrget 10 "$SLACKKDEFW" frameworks
 
 	# Nettoyage des doublons
 	echo '------------------------------------'
@@ -189,7 +203,7 @@ if [ $ISCHECK -eq 1 ] ;then
 fi
 
 # GParted
-if [ $ISGPARTED -eq 1 ] ;then
+if [ $ISGPARTED -eq 1 -o $ISPURGE -eq 1 ] ;then
     LGPARTEDISO=$(basename "$GPARTEDISO")
     if [ ! -f "../$LGPARTEDISO" ] ;then
 	if [ ! -h Linuxiso ] ; then
@@ -200,7 +214,7 @@ if [ $ISGPARTED -eq 1 ] ;then
 	    cd Linuxiso
 	    if [ ! -f "$LGPARTEDISO" ] ;then
 		xgeturl "$GPARTEDISO"
-		xpurgepac "gparted-live-[0-9]" iso
+		[ $ISGPARTED -eq 1 ] && xpurgepac "gparted-live-[0-9]" iso
 		echo '------------------------------------'
 		if [ -f "$LGPARTEDISO" ] ;then
 		    mygt "GParted copied."
@@ -216,7 +230,7 @@ if [ $ISGPARTED -eq 1 ] ;then
 fi
 
 # VirtualBox
-if [ $ISVBOX -eq 1 ] ;then
+if [ $ISVBOX -eq 1 -o $ISPURGE -eq 1 ] ;then
     LVBOXARCH=$(basename "$VBOXARCH")
     if [ ! -f "../$LVBOXARCH" ] ;then
 	if [ ! -h Virtualbox ] ; then
@@ -226,7 +240,7 @@ if [ $ISVBOX -eq 1 ] ;then
 	(
 	    cd Virtualbox
 	    if [ ! -f "$LVBOXARCH" ] ;then
-		xgeturl "$VBOXARCH"
+		[ $ISVBOX -eq 1 ] && xgeturl "$VBOXARCH"
 		xgeturl "$VBOXEXT"
 		xgeturl "$VBOXDOC"
 		xpurgepac "VirtualBox-[0-9]" exe

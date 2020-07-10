@@ -29,6 +29,9 @@ FNAMEISO=$MYPWD/$NAMEISO
 echo '-------------------------------------------------'
 emygt "The ISO image will be created with \$NAMEISO name."
 echo '-------------------------------------------------'
+echo '-------------------------------------------------'
+emygt "If not too big for your recorder which should use double layer media,\nthe iso created can be put on a DVD with :\n> growisofs -speed=2 -dvd-compat -Z /dev/dvd \$FNAMEISO\n\n  Or your favorite DVD recorder.\n\n  Or on an USB stick (sdX below is the name of the USB device) :\n> dd if=\$FNAMEISO of=/dev/sdX bs=1M ;sync\n\n  Or launch :\n> pbmakeiso2usb \$FNAMEISO\n\n  Or lauch :\n> pbmakeusb"|sed 's@\\n@\n@g'
+echo '-------------------------------------------------'
 
 cd slackware64-current
 
@@ -52,7 +55,3 @@ xorriso -as mkisofs -iso-level 3 \
     divers/=../../divers pbslacks/=../../pbslacks \
     perso/=../../perso gpgkeys/=../gpgkeys
 cd ..
-
-echo '-------------------------------------------------'
-emygt "If not too big for your recorder which should use double layer media,\nthe iso created can be put on a DVD with :\n> growisofs -speed=2 -dvd-compat -Z /dev/dvd \$FNAMEISO\n\n  Or your favorite DVD recorder.\n\n  Or on an USB stick (sdX below is the name of the USB device) :\n> dd if=\$FNAMEISO of=/dev/sdX bs=1M ;sync\n\n  Or launch :\n> pbmakeiso2usb \$FNAMEISO\n\n  Or lauch :\n> pbmakeusb"|sed 's@\\n@\n@g'
-echo '-------------------------------------------------'
