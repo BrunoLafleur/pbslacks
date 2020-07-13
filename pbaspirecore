@@ -96,8 +96,8 @@ if [ $ISCORE -eq 1 -o $ISPURGE -eq 1 ] ;then
 		pack=$(echo $i|sed 's@-[0-9].*$@@')
 		echo -n .
 		xpurgepac "$pack-[0-9]" tar.?z
-		xpurgepac "$pack-[0-9]" tar.?z.sig
-		xpurgepac "$pack-[0-9]" tar.?z.asc
+		xpurgepac "$pack-[0-9]" tar.*sig*
+		xpurgepac "$pack-[0-9]" tar.*asc
 	    done
 	    echo
 	    ln -sf ../current .
