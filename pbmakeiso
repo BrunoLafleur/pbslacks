@@ -34,8 +34,11 @@ emygt "If not too big for your recorder which should use double layer media,\nth
 echo '-------------------------------------------------'
 
 cd slackware64-current
+XTEMPLIST=$(mktemp -p /tmp -t pbmakeisolist.XXXXXX)
+find -L . -type d | grep "\./package" | egrep -v 'packages[^/]*($|/(ardour|audacity|compat32|openshot|Mozilla|Httpfs|frameworks|audiveris|tesseract4|Steam)$)'|sed 's/^\./../g' > $XTEMPLIST
 
-# Copied from isolinux/README.TXT in the slackware64-current repository.
+# Copied then adapted from isolinux/README.TXT in the
+# slackware64-current repository.
 
 set -e
 xorriso -as mkisofs -iso-level 3 \
@@ -45,13 +48,13 @@ xorriso -as mkisofs -iso-level 3 \
     -no-emul-boot -boot-load-size 4 -boot-info-table \
     -isohybrid-mbr /usr/share/syslinux/isohdpfx.bin \
     -eltorito-alt-boot -e isolinux/efiboot.img \
-    -no-emul-boot -isohybrid-gpt-basdat -m 'source' \
-    -volid "SlackDVD" -output "../$NAMEISO" \
-    -m Bumblebee-SlackBuilds.tgz -graft-points . \
+    -no-emul-boot -isohybrid-gpt-basdat -m source \
+    -m Bumblebee-SlackBuilds.tgz -exclude-list $XTEMPLIST \
+    -volid "SlackDVD" -output "../$NAMEISO" -graft-points . \
     bumblebee/Crazybee/Bumblebee-SlackBuilds.tgz=../../Crazybee/Bumblebee-SlackBuilds.tgz \
-    bumblebee/=../bumblebee \
-    current/=../current packages/=../packages \
+    bumblebee/=../bumblebee current/=../current packages/=../packages \
     packages2/=../packages2 packages3/=../packages3 packages4/=../packages4 \
     divers/=../../divers pbslacks/=../../pbslacks \
     perso/=../../perso gpgkeys/=../gpgkeys
+rm -f $XTEMPLIST
 cd ..
