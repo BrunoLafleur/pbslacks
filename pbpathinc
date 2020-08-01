@@ -89,6 +89,7 @@ VBOXDOC="$VBOXREP/UserManual.pdf"
 
 SLACKALIEN="$SLACKMIR/people/alien/slackbuilds"
 SLACKALIEN2="$SLACKMIR/people/alien-kde/current/latest/x86_64/deps"
+SLACKALIEN3="$SLACKMIR/people/alien/sbrepos/current/x86_64"
 SLACKALIENSRC2="$SLACKMIR/people/alien-kde/source/latest/deps"
 
 # Links for localized Mozilla Firefox and Thunderbird.
