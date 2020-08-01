@@ -28,6 +28,7 @@ mv -f GPG-KEY gpgkeys/GPG-KEY-slackbuilds-alien
 
 (
     cd packages
+    xgetpac p7zip "$SLACKALIEN3/p7zip" 10
     for i in cabextract jack2 musescore openjdk boost-compat wine ;do
 	xgetpac "$i" "$SLACKALIEN/$i/pkg64/current" 10
     done

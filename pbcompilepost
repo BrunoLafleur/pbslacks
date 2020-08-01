@@ -173,7 +173,9 @@ if [ $ISOPENSHOT -eq 1 ] ;then
 	xmakepac packages/openshot $i
     done
     (
-	export CMAKE_BUILD_PARALLEL_LEVEL=8
+	XNPROC=$(nproc)
+	export CMAKE_BUILD_PARALLEL_LEVEL=$XNPROC
+	export MAKEFLAGS="-j$XNPROC"
 	xmakepac packages/openshot Blender
     )
     xhookopenshot
