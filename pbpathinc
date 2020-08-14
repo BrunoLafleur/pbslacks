@@ -25,13 +25,14 @@ PATHSFML="https://www.sfml-dev.org/files/SFML-2.5.1-sources.zip"
 PATHWXGTK3="https://github.com/wxWidgets/wxWidgets/archive/v3.0.4/wxWidgets-3.0.4.tar.gz"
 PATHVBAM="https://github.com/visualboyadvance-m/visualboyadvance-m/archive/v2.1.4/visualboyadvance-m-2.1.4.tar.gz"
 PATHFBIDA="https://www.kraxel.org/releases/fbida/fbida-2.14.tar.gz"
-PATHOPENCV="https://github.com/opencv/opencv/archive/4.1.1/opencv-4.1.1.tar.gz"
-PATHOPENCVBIS="https://github.com/opencv/opencv_contrib/archive/4.1.1/opencv_contrib-4.1.1.tar.gz"
+PATHOPENCV="https://github.com/opencv/opencv/archive/4.4.0/opencv-4.4.0.tar.gz"
+PATHOPENCVBIS="https://github.com/opencv/opencv_contrib/archive/4.4.0/opencv_contrib-4.4.0.tar.gz"
 PATHDISCORD="https://discordapp.com/api/download?platform=linux&format=tar.gz"
 PATHVLCYOUTUBE="https://raw.githubusercontent.com/videolan/vlc/master/share/lua/playlist/youtube.lua"
 PATHMLT="https://github.com/mltframework/mlt/archive/v6.20.0.tar.gz"
 PATHLIBCACA="http://caca.zoy.org/files/libcaca/libcaca-0.99.beta19.tar.gz"
 PATHLIBWEBP="https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-1.1.0.tar.gz"
+PATHEIGEN3='https://gitlab.com/libeigen/eigen/-/archive/3.3.7/eigen-3.3.7.tar.bz2'
 
 # Path which are in package.info file inside the package.
 # TODO : Should be updated from those PATH or the SlackBuilds from SBo updated.

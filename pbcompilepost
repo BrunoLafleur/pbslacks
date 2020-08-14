@@ -248,7 +248,7 @@ if [ $ISPAC4 -eq 1 ] ;then
 	export WXCONF=/usr/lib64/wx/config/gtk3-unicode-static-3.0
 	xmakepac packages4 vbam
     )
-    for i in xrdp xorgxrdp SFML fbida kaffeine opencv gradle \
+    for i in xrdp xorgxrdp SFML fbida kaffeine eigen3 opencv gradle \
 		  signal-desktop vokoscreen audiveris zoom-linux opera ;do
 	xmakepac packages4 $i
     done

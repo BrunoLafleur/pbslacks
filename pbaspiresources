@@ -77,9 +77,10 @@ fi
     xgetsrc xrdp "$PATHXRDP"
     xgetsrc xorgxrdp "$PATHXORGXRDP"
     xgetsrc SFML "$PATHSFML"
-    xgetsrc wxGTK3 "$PATHWXGTK3"
     xgetsrc vbam "$PATHVBAM"
     xgetsrc fbida "$PATHFBIDA"
+    # The one of Slackware is too old for Opencv 4.4.0.
+    xgetsrc eigen3 "$PATHEIGEN3"
     xgetsrc opencv "$PATHOPENCV"
     xgetsrc opencv "$PATHOPENCVBIS"
     for i in kaffeine gradle audiveris signal-desktop vokoscreen zoom-linux \
