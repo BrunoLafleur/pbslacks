@@ -37,7 +37,7 @@ mv -f GPG-KEY gpgkeys/GPG-KEY-x32-ponce
     (
 	cd openshot
 	for i in python3-pyzmq libopenshot libopenshot-audio httplib2 zeromq \
-			       unittest-cpp ;do
+			       unittest-cpp frei0r ;do
 	    xgetpac "$i" "$SLACKPONCE" 3
 	done
     )

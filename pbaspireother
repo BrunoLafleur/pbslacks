@@ -38,7 +38,7 @@ mv -f GPG-KEY gpgkeys/GPG-KEY-x32-slackel
     [ ! -d openshot ] && mkdir openshot
     (
 	cd openshot
-	for i in frei0r-plugins libvdpau-va-gl openshot ;do
+	for i in libvdpau-va-gl openshot ;do
 	    xgetpac "$i" "$SLACKDJ" 5
 	done
     )
