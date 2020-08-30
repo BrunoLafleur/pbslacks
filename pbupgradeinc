@@ -6,6 +6,8 @@
 
 xhookopenshot () {
     rm -rf packages/python-pillow
+    rm -f packages/openshot/frei0r-plugins-1.4-x86_64-2dj.*
+    removepkg frei0r-plugins
 }
 
 xhookpac1 () {
