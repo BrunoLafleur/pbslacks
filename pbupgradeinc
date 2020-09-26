@@ -12,7 +12,7 @@ xhookopenshot () {
 
 xhookpac1 () {
     # Post actions for packages
-    upgradepkg --reinstall slackware64-current/slackware64/ap/linuxdoc-tools-*.t?z
+    upgradepkg --reinstall slackware64/ap/linuxdoc-tools-*.t?z
     echo 'Nothing to do'
 }
 
