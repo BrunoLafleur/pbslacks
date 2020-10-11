@@ -81,9 +81,9 @@ SLACKKDEFW="$SLACKMIR/people/alien-kde/current/latest/x86_64/kde/frameworks"
 # GParted Live iso and VirtualBox for Windows.
 
 GPARTEDISO="https://downloads.sourceforge.net/gparted/gparted-live-1.1.0-1-amd64.iso"
-VBOXREP='https://download.virtualbox.org/virtualbox/6.1.10/'
-VBOXARCH="$VBOXREP/VirtualBox-6.1.10-138449-Win.exe"
-VBOXEXT="$VBOXREP/Oracle_VM_VirtualBox_Extension_Pack-6.1.10.vbox-extpack"
+VBOXREP='https://download.virtualbox.org/virtualbox/6.1.14/'
+VBOXARCH="$VBOXREP/VirtualBox-6.1.14-140239-Win.exe"
+VBOXEXT="$VBOXREP/Oracle_VM_VirtualBox_Extension_Pack-6.1.14.vbox-extpack"
 VBOXDOC="$VBOXREP/UserManual.pdf"
 
 # Alien Bob list of repositories.
