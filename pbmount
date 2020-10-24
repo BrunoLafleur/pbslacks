@@ -49,5 +49,5 @@ fi
 if [ "$MNTDIR" != '' ] ;then
     emygt "Look at \$MNTDIR"
     mygt "unmount with :"
-    echo "> pbunmountiso $XLOOP"
+    echo "> pbunmount $XLOOP"
 fi
