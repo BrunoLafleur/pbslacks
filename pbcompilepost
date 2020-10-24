@@ -168,21 +168,18 @@ xmakepac () {
 
 # ===========================================================
 rm -f /usr/lib64/lib*.la
+XNPROC=$(nproc)
+export CMAKE_BUILD_PARALLEL_LEVEL=$XNPROC
+export MAKEFLAGS="-j$XNPROC"
 # ===========================================================
 
 if [ $ISOPENSHOT -eq 1 ] ;then
     # python2-* for openshot 1.4, openshot_qt => openshot 2.5
     for i in python2-mlt python2-libcaca python2-libwebp python-pillow6 \
 			 python3-certifi openshot_qt lxml inkscape \
-			 pybind11 openimageio opencolorio numpy3 tbb ;do
+			 pybind11 openimageio opencolorio numpy3 tbb Blender ;do
 	xmakepac packages/openshot $i
     done
-    (
-	XNPROC=$(nproc)
-	export CMAKE_BUILD_PARALLEL_LEVEL=$XNPROC
-	export MAKEFLAGS="-j$XNPROC"
-	xmakepac packages/openshot Blender
-    )
     xhookopenshot
 fi
 
