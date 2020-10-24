@@ -114,16 +114,16 @@ xmaster () {
     defitem=$1;shift
     xsel1=$1;shift;xsel2=$1;shift;xsel3=$1;shift;xsel4=$1;shift;xsel5=$1;shift
     xsel6=$1;shift;xsel7=$1;shift;xsel8=$1;shift;xsel9=$1;shift;xsel10=$1;shift
-    xsel11=$1;shift;xsel12=$1;shift;xsel13=$1;shift;xsel14=$1;shift
-    xsel15=$1;shift;xsel16=$1;shift;xsel17=$1;shift;xsel18=$1;shift
-    xsel19=$1;shift;xsel20=$1;shift;xsel21=$1;shift;xsel22=$1;shift
-    xsel23=$1;shift;xsel24=$1
+    xselpi=$1;shift;xsel11=$1;shift;xsel12=$1;shift;xsel13=$1;shift
+    xsel14=$1;shift;xsel15=$1;shift;xsel16=$1;shift;xsel17=$1;shift
+    xsel18=$1;shift;xsel19=$1;shift;xsel20=$1;shift;xselrp=$1;shift
+    xsel21=$1;shift;xsel22=$1;shift;xsel23=$1;shift;xsel24=$1
     pactit=$(mygt 'Main menu')
     pactit="pbupgrade: $pactit"
     dialog --colors --backtitle 'pbupgrade' --title "$pactit" \
 	--default-item $defitem --defaultno \
 	--separate-output --item-help --help-button --help-status --checklist \
-	"$(mygt 'Choose your actions below after you have launch the \Zbpbaspire*\ZB script')" 0 100 24 \
+	"$(mygt 'Choose your actions below after you have launch the \Zbpbaspire*\ZB script')" 0 100 26 \
 	system "$(mygt 'Sync/Update system to the last fetched current Slackware')" $xsel1 system \
 	systemnet "$(mygt 'Sync/Update system to the last current Slackware on the internet')" $xsel2 systemnet \
 	compat32 "$(mygt 'Install/Update the 32 bits compatible mode')" $xsel3 compat32 \
@@ -134,6 +134,7 @@ xmaster () {
 	packages4 "$(mygt 'Install/Update the packages4 set of software')" $xsel8 packages4 \
 	frameworks "$(mygt 'Install/Update the KDE5 frameworks libraries')" $xsel9 frameworks \
 	openshot "$(mygt 'Install/Update the Openshot software')" $xsel10 openshot \
+	pitivi "$(mygt 'Install/Update the Pitivi software')" $xselpi pitivi \
 	audacity "$(mygt 'Install/Update the Audacity software')" $xsel11 audacity \
 	ardour "$(mygt 'Install/Update the Ardour software')" $xsel12 ardour \
 	tesseract4 "$(mygt 'Install/Update the Tesseract version 4 software')" $xsel13 tesseract4 \
@@ -144,6 +145,7 @@ xmaster () {
 	recreatepackages4 "$(mygt 'Compile again the packages4 set of software')" $xsel18 recreatepackages4 \
 	recreatechromium "$(mygt 'Compile again the Chromium software')" $xsel19 recreatechromium \
 	recreateopenshot "$(mygt 'Compile again the Openshot software')" $xsel20 recreateopenshot \
+	recreatepitivi "$(mygt 'Compile again the Pitivi software')" $xselrp recreatepitivi \
 	recreateaudacity "$(mygt 'Compile again the Audacity software')" $xsel21 recreateaudacity \
 	recreateardour "$(mygt 'Compile again the Ardour software')" $xsel22 recreateardour \
 	recreatebumblebee "$(mygt 'Compile again Bumblebee packages.')" $xsel23 recreatebumblebee \
@@ -161,8 +163,9 @@ xpacaide () {
 }
 
 xsel="$XUPSYSTEM off $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST \
-$XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST off $XUPPOST \
-$XUPPOST $XUPPOST $XUPPOST off $XUPPOST $XUPPOST $XUPPOST off off"
+$XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST \
+off $XUPPOST $XUPPOST $XUPPOST $XUPPOST off $XUPPOST $XUPPOST $XUPPOST \
+$XUPPOST off off"
 ditem=system
 bclaide=1
 
@@ -173,11 +176,11 @@ while [ $bclaide -eq 1 ] ;do
 	xitem="$(cat $XTEMPOUT|grep '^HELP'|cut -d ' ' -f2)"
 	xsel=
 	for i in system systemnet compat32 mozilla packages packages2 packages3 \
-			packages4 frameworks openshot audacity ardour tesseract4 \
-			bumblebee recreatepackages recreatepackages2 \
+			packages4 frameworks openshot pitivi audacity ardour \
+			tesseract4 bumblebee recreatepackages recreatepackages2 \
 			recreatepackages3 recreatepackages4 recreatechromium \
-			recreateopenshot recreateaudacity recreateardour \
-			recreatebumblebee bootload ;do
+			recreateopenshot recreatepitivi recreateaudacity \
+			recreateardour recreatebumblebee bootload ;do
 	  if [ $(grep "^$i$" "$XTEMPOUT"|wc -l) -eq 1 ] ;then
 	      xsel="$xsel on"
 	  else
@@ -199,6 +202,8 @@ while [ $bclaide -eq 1 ] ;do
 	    xpacaide packages4/frameworks
 	elif [ "$xitem" = openshot ] ;then
 	    xpacaide packages/openshot
+	elif [ "$xitem" = pitivi ] ;then
+	    xpacaide packages/pitivi
 	elif [ "$xitem" = audacity ] ;then
 	    xpacaide packages4/audacity
 	elif [ "$xitem" = ardour ] ;then
@@ -210,7 +215,7 @@ while [ $bclaide -eq 1 ] ;do
 	elif [ "$(echo "$xitem"|cut -c1-16)" = recreatepackages ] ;then
 	    pacaide=$(mygt 'Redo the packages which are here in sources form.\nIf not already done on this machine or another.\n')
 	    jtem="$(echo "$xitem"|cut -c9-)"
-	    find -L $jtem -type d|cut -d '/' -f1-2|sort -u|egrep -v "$jtem$|chromium|openshot|audacity|ardour|tesseract|frameworks|Httpfs|32|Mozilla|Steam|compat32|openshot" > $XTEMPMES
+	    find -L $jtem -type d|cut -d '/' -f1-2|sort -u|egrep -v "$jtem$|chromium|openshot|pitivi|audacity|ardour|tesseract|frameworks|Httpfs|32|Mozilla|Steam|compat32" > $XTEMPMES
 	    while read j;test "$j" != "" ;do
 		pacaide="${pacaide}\n$j"
 	    done < $XTEMPMES
@@ -219,6 +224,8 @@ while [ $bclaide -eq 1 ] ;do
 	    pacaide=$(mygt 'Redo the Chromium navigator which are here in sources form.\nIf not already done on this machine or another.\nIt is a very long process (some hours).\nIt is usefull for Opera having the libffmeg.so library with the h264 support.')
 	elif [ "$xitem" = recreateopenshot ] ;then
 	    pacaide=$(mygt 'Redo the openshot packages which are here in sources form.\nIf not already done on this machine or another.')
+	elif [ "$xitem" = recreatepitivi ] ;then
+	    pacaide=$(mygt 'Redo the pitivi packages which are here in sources form.\nIf not already done on this machine or another.')
 	elif [ "$xitem" = recreateaudacity ] ;then
 	    pacaide=$(mygt 'Redo the audacity packages which are here in sources form.\nIf not already done on this machine or another.')
 	elif [ "$xitem" = recreateardour ] ;then
@@ -245,6 +252,7 @@ ISPACK3="$(cat $XTEMPOUT|grep '^packages3$'|wc -l)"
 ISPACK4="$(cat $XTEMPOUT|grep '^packages4$'|wc -l)"
 ISFRAME="$(cat $XTEMPOUT|grep '^frameworks$'|wc -l)"
 ISOPENSHOT="$(cat $XTEMPOUT|grep '^openshot$'|wc -l)"
+ISPITIVI="$(cat $XTEMPOUT|grep '^pitivi$'|wc -l)"
 ISAUDACITY="$(cat $XTEMPOUT|grep '^audacity$'|wc -l)"
 ISARDOUR="$(cat $XTEMPOUT|grep '^ardour$'|wc -l)"
 ISTESS="$(cat $XTEMPOUT|grep '^tesseract4$'|wc -l)"
@@ -261,6 +269,8 @@ ISRECRE="$(cat $XTEMPOUT|grep '^recreatechromium$'|wc -l)"
 [ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -ischromium"
 ISRECRE="$(cat $XTEMPOUT|grep '^recreateopenshot$'|wc -l)"
 [ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -isopenshot"
+ISRECRE="$(cat $XTEMPOUT|grep '^recreatepitivi$'|wc -l)"
+[ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -ispitivi"
 ISRECRE="$(cat $XTEMPOUT|grep '^recreateaudacity$'|wc -l)"
 [ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -isaudacity"
 ISRECRE="$(cat $XTEMPOUT|grep '^recreateardour$'|wc -l)"
@@ -330,6 +340,13 @@ if [ $XEND -eq 0 ] ;then
 	    xhookopenshot
 	fi
 	mygt "Upgrade openshot done." >> $XTEMPMES
+    fi
+    if [ $ISPITIVI -eq 1 ] ;then
+	if [ $XTEST -ne 1 ] ;then
+	    upgradedir packages/pitivi
+	    xhookpitivi
+	fi
+	mygt "Upgrade pitivi done." >> $XTEMPMES
     fi
     if [ $ISAUDACITY -eq 1 ] ;then
 	if [ $XTEST -ne 1 ] ;then

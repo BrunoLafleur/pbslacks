@@ -5,18 +5,24 @@
 # License : See the LICENSE file in this repository.
 
 xhookopenshot () {
+    # Post actions for openshot
     rm -rf packages/python-pillow
     rm -f packages/openshot/frei0r-plugins-1.4-x86_64-2dj.*
     removepkg frei0r-plugins
 }
 
-xhookpac1 () {
-    # Post actions for packages
-    upgradepkg --reinstall slackware64/ap/linuxdoc-tools-*.t?z
+xhookpitivi () {
+    # Post actions for pitivi
     echo 'Nothing to do'
 }
 
+xhookpac1 () {
+    # Post actions for packages
+    upgradepkg --reinstall slackware64/ap/linuxdoc-tools-*.t?z
+}
+
 xhookpac2 () {
+    # Post actions for packages2
     cp packages2/youtube.lua /usr/lib64/vlc/lua/playlist
     rm -f /usr/lib64/vlc/lua/playlist/youtube.luac
 }
@@ -34,7 +40,8 @@ xhookpac4 () {
 	    ln -sf /usr/lib64/chromium/libffmpeg.so /usr/lib64/opera
 	fi
 	if [ -d /usr/lib64/opera-beta ] ;then
-	    mv -f /usr/lib64/opera-beta/libffmpeg.so /usr/lib64/opera-beta/libffmpeg.so.bak
+	    mv -f /usr/lib64/opera-beta/libffmpeg.so \
+	       /usr/lib64/opera-beta/libffmpeg.so.bak
 	    ln -sf /usr/lib64/chromium/libffmpeg.so /usr/lib64/opera-beta
 	fi
     fi
