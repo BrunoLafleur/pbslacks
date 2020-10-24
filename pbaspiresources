@@ -45,7 +45,7 @@ fi
 	for i in blas lapack scipy3 gst-python3 python3-dateutil python3-six \
 		      python3-cycler python3-kiwisolver python3-pyparsing \
 		      python3-tornado pytz python3-matplotlib \
-		      gstreamer-editing-services pitivi ;do
+		      gstreamer-editing-services gsound pitivi ;do
 	    xgetsbosrc "$i"
 	done
     )
