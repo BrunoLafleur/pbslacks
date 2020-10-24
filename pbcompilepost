@@ -184,7 +184,11 @@ if [ $ISOPENSHOT -eq 1 ] ;then
 fi
 
 if [ $ISPITIVI -eq 1 ] ;then
-    for i in pitivi ;do
+    for i in blas lapack scipy3 python3-dateutil python3-six python3-cycler \
+			      python3-kiwisolver python3-pyparsing \
+			      python3-tornado pytz python3-matplotlib \
+			      gstreamer-editing-services gst-python3 gsound \
+			      pitivi ;do
 	xmakepac packages/pitivi $i
     done
     xhookpitivi
