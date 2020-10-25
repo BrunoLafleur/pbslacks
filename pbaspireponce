@@ -71,7 +71,7 @@ xpurgeindex packages3
 ############################################
 (
     cd packages4
-    for i in hdf5 numpy gst-plugins-bad ;do
+    for i in hdf5 numpy ;do
 	xgetpac "$i" "$SLACKPONCE" 3
     done
 
