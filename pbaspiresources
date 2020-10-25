@@ -36,7 +36,7 @@ fi
 	xgetsrc python2-libwebp "$PATHLIBWEBP"
 	# python-pillow6 : re-add python2.7 support for openshot.
 	# Pillow 7 from current Slackware drop support of python2.
-	rm -f python-pillow-[0-9]*.t?z
+	rm -f python-pillow-[0-9]*.t?z*
 	xgetsrc python-pillow6 "$PATHPYTHONPIL"
     )
     [ ! -d pitivi ] && mkdir pitivi
@@ -45,10 +45,11 @@ fi
 	for i in blas lapack scipy3 gst-python3 python3-dateutil python3-six \
 		      python3-cycler python3-kiwisolver python3-pyparsing \
 		      python3-tornado pytz python3-matplotlib \
-		      gstreamer-editing-services gsound pitivi ;do
+		      gstreamer-editing-services gsound libpeas pitivi ;do
 	    xgetsbosrc "$i"
 	done
     )
+    xgetsbosrc gst-plugins-bad
     xgetsrc openal-soft "$PATHOPENAL"
     xgetsrc libtxc_dxtn "$PATHLIBTXC_DXTN"
     xgetsrc libgaminggear "$PATHLIBGAMINGGEAR"

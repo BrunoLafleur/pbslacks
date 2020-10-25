@@ -188,14 +188,16 @@ if [ $ISPITIVI -eq 1 ] ;then
 			      python3-kiwisolver python3-pyparsing \
 			      python3-tornado pytz python3-matplotlib \
 			      gstreamer-editing-services gst-python3 gsound \
-			      pitivi ;do
+			      libpeas pitivi ;do
 	xmakepac packages/pitivi $i
     done
     xhookpitivi
 fi
 
 if [ $ISPAC1 -eq 1 ] ;then
-    for i in openal-soft libtxc_dxtn libgaminggear acpibrightness ;do
+    rm -f packages4/gst-plugins-bad-[0-9]*ponce.t?z*
+    for i in openal-soft libtxc_dxtn libgaminggear acpibrightness \
+			 gst-plugins-bad ;do
 	xmakepac packages $i
     done
 
