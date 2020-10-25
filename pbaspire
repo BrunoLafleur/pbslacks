@@ -228,45 +228,45 @@ if [ "$COREATTR" != '' ] ;then
     [ $XTEST -ne 1 ] && "$PBNAME"core $COREATTR $XTEMPCHK
 fi
 
-[ $ISCORE -eq 1 ] && emygt "Get/Upgrade core system done : \Z3\${PBNAME}core\Zn." >> $XTEMPMES
-[ $ISMULTI -eq 1 ] && emygt "Get/Upgrade multilib compat 32 bits mode done : \Z3\${PBNAME}core\Zn." \
+[ $ISCORE -eq 1 ] && emygt "Get/Update core system done : \Z3\${PBNAME}core\Zn." >> $XTEMPMES
+[ $ISMULTI -eq 1 ] && emygt "Get/Update multilib compat 32 bits mode done : \Z3\${PBNAME}core\Zn." \
 	>> $XTEMPMES
-[ $ISFRAMEW -eq 1 ] && emygt "Get/Upgrade framewoks libraries KDE5 done : \Z3\${PBNAME}core\Zn." \
+[ $ISFRAMEW -eq 1 ] && emygt "Get/Update framewoks libraries KDE5 done : \Z3\${PBNAME}core\Zn." \
 	>> $XTEMPMES
-[ $ISGPARTED -eq 1 ] && emygt "Get/Upgrade gparted live iso done : \Z3\${PBNAME}core\Zn." \
+[ $ISGPARTED -eq 1 ] && emygt "Get/Update gparted live iso done : \Z3\${PBNAME}core\Zn." \
 	>> $XTEMPMES
-[ $ISVBOX -eq 1 ] && emygt "Get/Upgrade VirtualBox installer done : \Z3\${PBNAME}core\Zn." \
+[ $ISVBOX -eq 1 ] && emygt "Get/Update VirtualBox installer done : \Z3\${PBNAME}core\Zn." \
 	>> $XTEMPMES
 [ $ISCLEAN -eq 1 ] && emygt "Local repository cleaned : \Z3\${PBNAME}core\Zn." >> $XTEMPMES
 
 if [ $ISALIEN -eq 1 ] ;then
     [ $XTEST -ne 1 ] && "$PBNAME"alien
-    emygt "Get/Upgrade Alien Bob packages done : \Z3\${PBNAME}alien\Zn." \
+    emygt "Get/Update Alien Bob packages done : \Z3\${PBNAME}alien\Zn." \
 	>> $XTEMPMES
 fi
 if [ $ISPONCE -eq 1 ] ;then
     [ $XTEST -ne 1 ] && "$PBNAME"ponce
-    emygt "Get/Upgrade Ponce packages done : \Z3\${PBNAME}ponce\Zn." >> $XTEMPMES
+    emygt "Get/Update Ponce packages done : \Z3\${PBNAME}ponce\Zn." >> $XTEMPMES
 fi
 if [ $ISSLONLY -eq 1 ] ;then
     [ $XTEST -ne 1 ] && "$PBNAME"slonly
-    emygt "Get/Upgrade Slackonly packages done : \Z3\${PBNAME}slonly\Zn." \
+    emygt "Get/Update Slackonly packages done : \Z3\${PBNAME}slonly\Zn." \
 	>> $XTEMPMES
 fi
 if [ $ISOTHER -eq 1 ] ;then
     [ $XTEST -ne 1 ] && "$PBNAME"other
-    emygt "Get/Upgrade Conraid and Slackel binary packages done : \Z3\${PBNAME}other\Zn." \
+    emygt "Get/Update Conraid and Slackel binary packages done : \Z3\${PBNAME}other\Zn." \
 	>> $XTEMPMES
 fi
 if [ $ISSOURCES -eq 1 ] ;then
     [ $XTEST -ne 1 ] && "$PBNAME"sources
-    emygt "Get/Upgrade other source packages done : \Z3\${PBNAME}sources\Zn." \
+    emygt "Get/Update other source packages done : \Z3\${PBNAME}sources\Zn." \
 	>> $XTEMPMES
 fi
 if [ $ISMOZ -eq 1 ] ;then
     XLANG=$(echo $LANG|cut -d '.' -f1|cut -d '_' -f1)
     [ $XTEST -ne 1 ] && "$PBNAME"moz -lang "$XLANG"
-    emygt "Get/Upgrade Firefox and Thunderbird for \$XLANG language done : \Z3\${PBNAME}mozilla\Zn." \
+    emygt "Get/Update Firefox and Thunderbird for \$XLANG language done : \Z3\${PBNAME}mozilla\Zn." \
 	>> $XTEMPMES
 fi
 if [ $ISCHECK -eq 1 ] ;then
