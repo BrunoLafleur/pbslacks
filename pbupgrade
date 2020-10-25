@@ -123,7 +123,7 @@ xmaster () {
     dialog --colors --backtitle 'pbupgrade' --title "$pactit" \
 	--default-item $defitem --defaultno \
 	--separate-output --item-help --help-button --help-status --checklist \
-	"$(mygt 'Choose your actions below after you have launch the \Zbpbaspire*\ZB script')" 0 100 26 \
+	"$(mygt 'Choose your actions below after you have launch the \Zbpbaspire*\ZB script')" 0 110 26 \
 	system "$(mygt 'Sync/Upgrade system to the last fetched current Slackware')" $xsel1 system \
 	systemnet "$(mygt 'Sync/Upgrade system to the last current Slackware on the internet')" $xsel2 systemnet \
 	compat32 "$(mygt 'Install/Upgrade the 32 bits compatible mode')" $xsel3 compat32 \
