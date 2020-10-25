@@ -16,7 +16,7 @@ xhelp () {
     echo
     echo '  > cd .../Slackware-x64-date'
     echo 'or> cd /run/media/$USER/USBSLACKINS/SlackDVD'
-    echo '  > pbslacks/pbupgrade [-new (no system update)]'
+    echo '  > pbslacks/pbupgrade [-new (no system upgrade)]'
     echo '       [-test (test only, no actions)] [-help|-h] [-nodial]'
     echo '       [-post (actions to do preferably after a postinstall reboot)]'
 }
@@ -124,21 +124,21 @@ xmaster () {
 	--default-item $defitem --defaultno \
 	--separate-output --item-help --help-button --help-status --checklist \
 	"$(mygt 'Choose your actions below after you have launch the \Zbpbaspire*\ZB script')" 0 100 26 \
-	system "$(mygt 'Sync/Update system to the last fetched current Slackware')" $xsel1 system \
-	systemnet "$(mygt 'Sync/Update system to the last current Slackware on the internet')" $xsel2 systemnet \
-	compat32 "$(mygt 'Install/Update the 32 bits compatible mode')" $xsel3 compat32 \
-	mozilla "$(mygt 'Install/Update the Firefox and Thunderbird softwares')" $xsel4 mozilla \
-	packages "$(mygt 'Install/Update the packages set of software')" $xsel5 packages \
-	packages2 "$(mygt 'Install/Update the packages2 set of software')" $xsel6 packages2 \
-	packages3 "$(mygt 'Install/Update the packages3 set of software')" $xsel7 packages3 \
-	packages4 "$(mygt 'Install/Update the packages4 set of software')" $xsel8 packages4 \
-	frameworks "$(mygt 'Install/Update the KDE5 frameworks libraries')" $xsel9 frameworks \
-	openshot "$(mygt 'Install/Update the Openshot software')" $xsel10 openshot \
-	pitivi "$(mygt 'Install/Update the Pitivi software')" $xselpi pitivi \
-	audacity "$(mygt 'Install/Update the Audacity software')" $xsel11 audacity \
-	ardour "$(mygt 'Install/Update the Ardour software')" $xsel12 ardour \
-	tesseract4 "$(mygt 'Install/Update the Tesseract version 4 software')" $xsel13 tesseract4 \
-	bumblebee "$(mygt 'Install/Update the Bumblebee support of your second NVIDIA graphic card')" $xsel14 bumblebee \
+	system "$(mygt 'Sync/Upgrade system to the last fetched current Slackware')" $xsel1 system \
+	systemnet "$(mygt 'Sync/Upgrade system to the last current Slackware on the internet')" $xsel2 systemnet \
+	compat32 "$(mygt 'Install/Upgrade the 32 bits compatible mode')" $xsel3 compat32 \
+	mozilla "$(mygt 'Install/Upgrade the Firefox and Thunderbird softwares')" $xsel4 mozilla \
+	packages "$(mygt 'Install/Upgrade the packages set of software')" $xsel5 packages \
+	packages2 "$(mygt 'Install/Upgrade the packages2 set of software')" $xsel6 packages2 \
+	packages3 "$(mygt 'Install/Upgrade the packages3 set of software')" $xsel7 packages3 \
+	packages4 "$(mygt 'Install/Upgrade the packages4 set of software')" $xsel8 packages4 \
+	frameworks "$(mygt 'Install/Upgrade the KDE5 frameworks libraries')" $xsel9 frameworks \
+	openshot "$(mygt 'Install/Upgrade the Openshot software')" $xsel10 openshot \
+	pitivi "$(mygt 'Install/Upgrade the Pitivi software')" $xselpi pitivi \
+	audacity "$(mygt 'Install/Upgrade the Audacity software')" $xsel11 audacity \
+	ardour "$(mygt 'Install/Upgrade the Ardour software')" $xsel12 ardour \
+	tesseract4 "$(mygt 'Install/Upgrade the Tesseract version 4 software')" $xsel13 tesseract4 \
+	bumblebee "$(mygt 'Install/Upgrade the Bumblebee support of your second NVIDIA graphic card')" $xsel14 bumblebee \
 	recreatepackages "$(mygt 'Compile again the packages set of software')" $xsel15 recreatepackages \
 	recreatepackages2 "$(mygt 'Compile again the packages2 set of software')" $xsel16 recreatepackages2 \
 	recreatepackages3 "$(mygt 'Compile again the packages3 set of software')" $xsel17 recreatepackages3 \
@@ -154,7 +154,7 @@ xmaster () {
 
 xpacaide () {
     packages="$1"
-    pacaide="Update the $packages set of tools :"
+    pacaide="Upgrade the $packages set of tools :"
     ls -1 "$packages/"*.t?z > $XTEMPMES
     while read j;test "$j" != "" ;do
 	pacaide="${pacaide}\n$j"
@@ -233,7 +233,7 @@ while [ $bclaide -eq 1 ] ;do
 	elif [ "$xitem" = recreatebumblebee ] ;then
 	    pacaide=$(mygt 'Redo the Bumblebee packages.\nIf not already done on this machine or another.\nYou should reboot after upgrading system packages and before doing this action else the Bumblebee packages wont built.')
 	elif [ "$xitem" = bootload ] ;then
-	    pacaide=$(mygt "Upgrade your boot loader only if you update your system and not the bootloader.") 
+	    pacaide=$(mygt "Upgrade your boot loader only if you upgrade your system and not the bootloader.") 
 	fi
 	dialog --colors --backtitle 'pbupgrade' --title "$xitem" \
 	    --msgbox "$pacaide" 20 90
@@ -280,7 +280,7 @@ ISBOOTLOAD="$(cat $XTEMPOUT|grep '^bootload$'|wc -l)"
 
 if [ $ISSYSTEM -eq 1 -o $ISSYSNET -eq 1 ] ;then
     if [ $XTEST -ne 1 ] ;then
-	updatesys
+	upgradesys
     else
 	mygt "Upgrade system done." >> $XTEMPMES
     fi
@@ -430,21 +430,21 @@ if [ $ISSYSTEM -eq 1 -o $ISBOOTLOAD -eq 1 ] ;then
     xitem=$(cat $XTEMPOUT)
 
     xmes1 () {
-	mygt "\ZbThe boot loader was not updated.\ZB\nIf lilo is installed, launch : \Z3/sbin/lilo\Zn\nIf Grub is installed, launch : \Z3grub-mkconfig -o /boot/grub/grub.cfg\Zn\nIf Syslinux is installed, launch : \Z3syslinux BOOTDEVICE\Zn\nIf Boot UEFI ELILO is installed, do :\n  \Z3cp /boot/vmlinuz /boot/initrd.gz /boot/efi/EFI/Slackware\Zn\n\n\ZbOr rerun your other favorite bootloader install procedure before rebooting.\ZB"
+	mygt "\ZbThe boot loader was not upgraded.\ZB\nIf lilo is installed, launch : \Z3/sbin/lilo\Zn\nIf Grub is installed, launch : \Z3grub-mkconfig -o /boot/grub/grub.cfg\Zn\nIf Syslinux is installed, launch : \Z3syslinux BOOTDEVICE\Zn\nIf Boot UEFI ELILO is installed, do :\n  \Z3cp /boot/vmlinuz /boot/initrd.gz /boot/efi/EFI/Slackware\Zn\n\n\ZbOr rerun your other favorite bootloader install procedure before rebooting.\ZB"
     }
 
     if [ "$xitem" = elilo -a -d /boot/efi/EFI/Slackware ] ;then
-	mygt "Elilo updated : Files vmlinuz et initrd.gz copied in \Z3/boot/efi/EFI/Slackware\Zn" >> $XTEMPMES
+	mygt "Elilo upgraded : Files vmlinuz et initrd.gz copied in \Z3/boot/efi/EFI/Slackware\Zn" >> $XTEMPMES
 	if [ $XTEST -ne 1 ] ;then
 	    cp /boot/vmlinuz /boot/initrd.gz /boot/efi/EFI/Slackware
 	fi
     elif [ "$xitem" = grub -a -f /boot/grub/grub.cfg ] ;then
-	mygt "Grub updated : \Z3grub-mkconfig\Zn relaunched.\n\Z1Look if there are error messages below\Zn." >> $XTEMPMES
+	mygt "Grub upgraded : \Z3grub-mkconfig\Zn relaunched.\n\Z1Look if there are error messages below\Zn." >> $XTEMPMES
 	if [ $XTEST -ne 1 ] ;then
 	    grub-mkconfig -o /boot/grub/grub.cfg 2>> $XTEMPMES
 	fi
     elif [ "$xitem" = lilo -a -f /etc/lilo.conf ] ;then
-	mygt "Lilo updated with \Z3/sbin/lilo\Zn.\n\Z1Look if there are error messages below\Zn." >> $XTEMPMES
+	mygt "Lilo upgraded with \Z3/sbin/lilo\Zn.\n\Z1Look if there are error messages below\Zn." >> $XTEMPMES
 	if [ $XTEST -ne 1 ] ;then
 	    /sbin/lilo 2>> $XTEMPMES
 	fi
@@ -463,7 +463,7 @@ if [ $ISSYSTEM -eq 1 -o $ISBOOTLOAD -eq 1 ] ;then
 fi
 
 if [ "$XNEW" != 'yes' ] ;then
-    XBOOTMES=$(mygt ' (\Z1be sure to have updated the bootloader before\Zn)')
+    XBOOTMES=$(mygt ' (\Z1be sure to have upgraded the bootloader before\Zn)')
 else
     XBOOTMES=
 fi

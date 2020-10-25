@@ -29,7 +29,7 @@ upgradedir () {
 }
 
 # Upgrade the Slackware current system.
-updatesys () {
+upgradesys () {
     cp pbslacks/Slackpkg/blacklist /etc/slackpkg
     if [ $ISSYSTEM -eq 1 ] ;then
 	cat pbslacks/Slackpkg/slackpkg.conf | \
