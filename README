@@ -1,7 +1,9 @@
 Author and copyright : Pierre Brochard
 Mail of the author : pierre.brochard.1982@m4x.org
-Web site of the author : https://dir.logicielnarcisse.fr or https://dir.logiciel.cc
-License : See the LICENSE file in this repository or the header of individual files.
+Web site of the author : https://dir.logicielnarcisse.fr or
+                         https://dir.logiciel.cc
+License : See the LICENSE file in this repository or the header of individual
+files.
 
 Those are some scripts which download the latest Linux Slackware current
 Intel 64 bits distribution and my preferred add-ons packages.
@@ -70,7 +72,7 @@ This script has a dialog menu which permits to choose packages to add.
 It can also launch some other scripts from this project.
 
 =================================================================
-For updating one installed Slackware current to the latest
+For updating a cloned Slackware current repository to the latest.
 Download again (only the differences as we do with wget -N)
 on a fresh or existant USB or central/local repository :
 
@@ -106,30 +108,33 @@ The screen tool is used for the pbupgrade script.
 If your console or X-Window terminal breaks, you can recover it with
   > screen -r from another console as long as your machine is alive.
 
-The sets of add-ons packages are consistants. They include the necessary dependencies
-as long as you have installed the whole official Slackware current with the
-help of the pb* scripts or by hand.
-In particular desktop environments or multimedia softwares are very dependant of a lot of
-packages which should be present on your system.
+The sets of add-ons packages are consistants. They include the necessary
+dependencies as long as you have installed the whole official Slackware
+current with the help of the pb* scripts or by hand.
+In particular desktop environments or multimedia softwares are very dependant
+of a lot of packages which should be present on your system.
 
-I have put some python2 packages of mine because the current Slackware tends to remove
-the Python 2 bindings. In particular, the Openshot 1.4 version I use needs them.
+I have put some python2 packages of mine because the current Slackware tends to
+remove,the Python 2 bindings. In particular, the Openshot 1.4 version I use
+needs them.
 
-It is better to update your clone of this project before downloading and installing
-the latest current Slackware. I may have done some little patches or adjustement.
+It is better to update your clone of this project before downloading and
+installing the latest current Slackware. I may have done some little patches or
+adjustement.
 =================================================================
 
 There is some MS Windows .bat files and tricks in the windows subdirectory.
-See also the doc/SLACKWARE.txt text file which explain the dual-boot install by hand
-(the same you can do with the pbsclacks/pbsetup master script).
+See also the doc/SLACKWARE.txt text file which explain the dual-boot install by
+hand (the same you can do with the pbsclacks/pbsetup master script).
 
-They are useful and have been tested with windows 7 to 10 for dual-boot installations
-with MS Windows and Linux.
+They are useful and have been tested with windows 7 to 10 for dual-boot
+installations with MS Windows and Linux.
 
 Note that it can be a way for a lot of non geeks people to promote Linux.
-It reassure people even if the won't ever use the MS Windows installed of their computer.
+It reassure people even if the won't ever use the MS Windows installed of their
+computer.
 
 =================================================================
 
 I have tested with Slackware current of july 2019, aout 2019, december 2019,
-january 2020, ... The last one I synchronize is dated 5 june 2020.
+january 2020, ... The last one I synchronize is dated 11 october 2020.

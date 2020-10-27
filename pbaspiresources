@@ -27,8 +27,8 @@ fi
     [ ! -d openshot ] && mkdir openshot
     (
 	cd openshot
-	for i in python3-certifi openshot_qt lxml inkscape opencolorio \
-				 pybind11 openimageio numpy3 tbb Blender ;do
+	for i in openshot_qt lxml inkscape opencolorio pybind11 openimageio \
+			     numpy3 tbb Blender ;do
 	    xgetsbosrc "$i"
 	done
 	xgetsrc python2-mlt "$PATHMLT"
@@ -42,7 +42,7 @@ fi
     [ ! -d pitivi ] && mkdir pitivi
     (
 	cd pitivi
-	for i in blas lapack scipy3 gst-python3 python3-dateutil python3-six \
+	for i in blas lapack scipy3 gst-python3 python3-dateutil \
 		      python3-cycler python3-kiwisolver python3-pyparsing \
 		      python3-tornado pytz python3-matplotlib \
 		      gstreamer-editing-services gsound libpeas pitivi ;do

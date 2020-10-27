@@ -176,15 +176,15 @@ export MAKEFLAGS="-j$XNPROC"
 if [ $ISOPENSHOT -eq 1 ] ;then
     # python2-* for openshot 1.4, openshot_qt => openshot 2.5
     for i in python2-mlt python2-libcaca python2-libwebp python-pillow6 \
-			 python3-certifi openshot_qt lxml inkscape \
-			 pybind11 openimageio opencolorio numpy3 tbb Blender ;do
+			 openshot_qt lxml inkscape pybind11 openimageio \
+			 opencolorio numpy3 tbb Blender ;do
 	xmakepac packages/openshot $i
     done
     xhookopenshot
 fi
 
 if [ $ISPITIVI -eq 1 ] ;then
-    for i in blas lapack scipy3 python3-dateutil python3-six python3-cycler \
+    for i in blas lapack scipy3 python3-dateutil python3-cycler \
 			      python3-kiwisolver python3-pyparsing \
 			      python3-tornado pytz python3-matplotlib \
 			      gstreamer-editing-services gst-python3 gsound \
