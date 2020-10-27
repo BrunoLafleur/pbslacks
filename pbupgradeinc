@@ -8,12 +8,19 @@ xhookopenshot () {
     # Post actions for openshot
     rm -rf packages/python-pillow
     rm -f packages/openshot/frei0r-plugins-1.4-x86_64-2dj.*
+    rm -rf packages/openshot/python3-certifi
+    rm -f packages/openshot/python3-certifi-2019.6.16-x86_64-1_SBo.*
     removepkg frei0r-plugins
+    removepkg python3-certifi
+    upgradepkg --reinstall slackware64/l/python-certifi-*.t?z
 }
 
 xhookpitivi () {
     # Post actions for pitivi
-    echo 'Nothing to do'
+    rm -rf packages/pitivi/python3-six
+    rm -f packages/pitivi/python3-six-2019.6.16-x86_64-1_SBo.*
+    removepkg python3-six
+    upgradepkg --reinstall slackware64/l/python-six-*.t?z
 }
 
 xhookpac1 () {
