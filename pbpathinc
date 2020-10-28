@@ -55,7 +55,7 @@ PATHPYTHON3CERTIFY="https://pypi.python.org/packages/source/c/certifi/certifi-20
 # "graphics/inkscape.tar.gz'
 PATHINKSCAPE='https://inkscape.org/gallery/item/13330/inkscape-0.92.4.tar.bz2'
 # "graphics/Blender.tar.gz'
-PATHBLENDER='https://download.blender.org/source/blender-2.82a.tar.xz'
+PATHBLENDER='https://download.blender.org/source/blender-2.83.8.tar.xz'
 # "graphics/openimageio.tar.gz'
 PATHOPENIMAGEIO='https://github.com/OpenImageIO/oiio/archive/Release-2.0.13/oiio-Release-2.0.13.tar.gz'
 # "graphics/opencolorio.tar.gz'
@@ -63,12 +63,12 @@ PATHOPENCOLORIO='https://github.com/imageworks/OpenColorIO/archive/v1.1.1/OpenCo
 # "python/pybind11.tar.gz'
 PATHPYBIND11='https://github.com/pybind/pybind11/archive/v2.5.0/pybind11-2.5.0.tar.gz'
 # "development/numpy3.tar.gz'
-PATHNUMPY3='https://github.com/numpy/numpy/releases/download/v1.14.3/numpy-1.14.3.tar.gz'
+PATHNUMPY3='https://github.com/numpy/numpy/releases/download/v1.19.2/numpy-1.19.2.tar.gz'
 # "libraries/tbb.tar.gz'
 PATHTBB='https://github.com/oneapi-src/oneTBB/archive/2020_U2/tbb-2020_U2.tar.gz'
 # "python/lxml.tar.gz'
 PATHLXML='https://pypi.io/packages/source/l/lxml/lxml-4.4.1.tar.gz'
-PATHOPERA='https://get.geo.opera.com/pub/opera-beta/70.0.3728.8/linux/opera-beta_70.0.3728.8_amd64.deb'
+PATHOPERA='https://get.geo.opera.com/pub/opera-beta/72.0.3815.133/linux/opera-beta_72.0.3815.133_amd64.deb'
 
 # List of aspire links.
 # explicit mirror chosen here.
