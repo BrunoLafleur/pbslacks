@@ -29,7 +29,7 @@ fi
 
 MYPWD=$(pwd)
 HOMESLACK="$MYPWD"
-HOMEMOZ=/usr/lib64
+HOMEMOZ="$XLIBDIR"
 
 FFVERSION=$(ls "$HOMESLACK/packages/Mozilla/firefox-"*"esr.tar.bz2" 2> /dev/null)
 THVERSION=$(ls "$HOMESLACK/packages/Mozilla/thunderbird-"*".tar.bz2" 2> /dev/null)

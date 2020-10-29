@@ -68,7 +68,7 @@ xpurgeindex packages2
 (
     cd packages3
     for i in calibre ;do
-	xgetpac "$i" "$SLACKALIEN/$i/pkg64/current" 10
+	xgetsrcpac0 "$i" "$SLACKALIEN/$i/build" 9
     done
 )
 xpurgeindex packages3

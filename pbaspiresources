@@ -80,6 +80,7 @@ fi
     xgetsrc pyicu "$PATHPYICU"
     xgetsrc gramps "$PATHGRAMPS"
     xgetsbosrc goocanvas2
+    xgetsbosrc msgpack-python
 )
 
 ############################################
