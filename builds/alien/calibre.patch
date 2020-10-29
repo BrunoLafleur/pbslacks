@@ -1,5 +1,5 @@
 --- calibre.SlackBuild.save	2020-10-29 09:50:59.000000000 +0100
-+++ calibre.SlackBuild	2020-10-29 21:57:08.000000000 +0100
++++ calibre.SlackBuild	2020-10-29 23:16:45.000000000 +0100
 @@ -140,24 +140,24 @@
  #
  # -----------------------------------------------------------------------------
@@ -1164,7 +1164,7 @@
    OVERRIDE_CFLAGS="$CFLAGS $SLKCFLAGS" \
    LANG='en_US.UTF-8' python2 setup.py build \
      2>&1 | tee $OUTPUT/make-${PRGNAM}.log
-@@ -1880,20 +1900,38 @@
+@@ -1880,19 +1900,20 @@
    # Install the lot:
    XDG_DATA_DIRS="$PKG/usr/share" \
    XDG_UTILS_INSTALL_MODE="system" \
@@ -1178,32 +1178,16 @@
      --staging-libdir=$PKG/usr/lib${LIBDIRSUFFIX} \
      2>&1 | tee $OUTPUT/install-$PRGNAM.log
  
-   # The bash completion files need to be in /etc :
-   [ -d $PKG/usr/etc ] && mv $PKG/usr/etc $PKG/
+-  # The bash completion files need to be in /etc :
+-  [ -d $PKG/usr/etc ] && mv $PKG/usr/etc $PKG/
++  # Add python path for calibre :
++  sed -i "s=import sys, os=import sys, os\n\nsys.path.insert(0,'/usr/lib64/calibre/lib/python2.7/site-packages')=" $PKG/usr/bin/calibre
  
-+  mkdir -p $PKG/etc/profile.d
-+  cat <<EOF > $PKG/etc/calibre.sh
-+if [ -z \$PYTHONPATH ] ;then
-+  export PYTHONPATH=$XPYSITE
-+else
-+  export PYTHONPATH=\${PYTHONPATH}:$XPYSITE
-+fi
-+EOF
-+    cat <<EOF > $PKG/etc/calibre.csh
-+if ( \$\?PYTHONPATH ) then
-+  setenv PYTHONPATH \${PYTHONPATH}:$XPYSITE
-+else
-+  setenv PYTHONPATH $XPYSITE
-+endif
-+EOF
-+    chmod a+x $PKG/etc/calibre.*sh
-+    
    # Add man pages:
    mkdir -p ${PKG}/usr/man
    cp -a man-pages/* ${PKG}/usr/man/
  
-   # This does not belong in a package - use 'removepkg' instead:
-@@ -1954,48 +1992,48 @@
+@@ -1954,48 +1975,48 @@
  #
  
  if [ "$BUILD_PYTHONMODS" = "YES" ]; then
@@ -1264,7 +1248,7 @@
  
  if [ "$BUILD_MTP" = "YES" ]; then
    # No sufficiently new libmtp was found so we need to supply it ourself.
-@@ -2004,14 +2042,14 @@
+@@ -2004,14 +2025,14 @@
      # No tarball containing pre-compiled libraries was found.
      # We need to build libmptp ourself.
      
@@ -1281,7 +1265,7 @@
  
  if [ "$BUILD_MAGICK" = "YES" ]; then
    # We want to have an internal version of ImageMagick to be less dependent
-@@ -2021,14 +2059,14 @@
+@@ -2021,14 +2042,14 @@
      # No tarball containing pre-compiled libraries was found.
      # We need to build Magick ourself.
      
@@ -1298,7 +1282,7 @@
  
  if [ "$BUILD_QT" = "YES" ]; then
    # No sufficiently new Qt was found so we need to supply it ourself.
-@@ -2037,17 +2075,17 @@
+@@ -2037,17 +2058,17 @@
      # No tarball containing pre-compiled libraries was found.
      # We need to build Qt ourself.
      
@@ -1319,7 +1303,7 @@
  
  if [ "$BUILD_PYTHON" = "YES" ]; then
    # No python2.7 was found on the computer so we need to supply it ourself.
-@@ -2056,21 +2094,21 @@
+@@ -2056,21 +2077,21 @@
      # No tarball containing pre-compiled python libraries was found.
      # We need to build python2.7 ourself.
      
@@ -1347,7 +1331,7 @@
  if [ "$BUILD_PYTHONMODS" = "YES" ]; then
    # The python2.7 modules need to be compiled into the package:
  
-@@ -2078,109 +2116,111 @@
+@@ -2078,109 +2099,111 @@
      # No tarball containing pre-compiled python libraries was found.
      # We need to build python2.7 modules ourself.
      
@@ -1496,7 +1480,7 @@
  fi
  
  if [ "$BUILD_PYTHON" = "YES" -o "$BUILD_PYTHONMODS" = "YES" -o "$BUILD_QT" = "YES" -o "$BUILD_MTP" = "YES" ]; then
-@@ -2188,33 +2228,33 @@
+@@ -2188,33 +2211,33 @@
    # into a tarball which we can re-use in a future build (so that we do not
    # have to recompile them every time).
    # If you want to make use of this, then just copy the resulting tarball
@@ -1534,7 +1518,7 @@
    #path=`readlink -e $0`
    #base=`dirname $path`
    #export PATH=$base/bin:$PATH
-@@ -2223,26 +2263,26 @@
+@@ -2223,26 +2246,26 @@
  
    # We need to tell calibre to use the internal python:
    for FILE in $PKG/usr/bin/* ; do
@@ -1566,7 +1550,7 @@
  # Create a doinst.sh:
  mkdir -p $PKG/install
  cat <<EOT >> $PKG/install/doinst.sh
-@@ -2263,12 +2303,12 @@
+@@ -2263,12 +2286,12 @@
  mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
  # First, the calibre documentation files:
  cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION || true
@@ -1581,7 +1565,7 @@
  cp -a $PATCHDIR $PKG/usr/doc/$PRGNAM-$VERSION
  # And finally, add this SlackBuild script:
  cat $SRCDIR/$(basename $0) > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
-@@ -2281,11 +2321,11 @@
+@@ -2281,11 +2304,11 @@
    for i in $(find $PKG/usr/man -type l -name "*.?") ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
  fi
  
