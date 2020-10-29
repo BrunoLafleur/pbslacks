@@ -51,6 +51,7 @@ MYPROG=$(basename "$0")
 PBMYPROG="pbslacks/$MYPROG"
 MYPWD=$(pwd)
 PBDIRPROG="$(cd $(dirname $0); pwd)";cd "$MYPWD"
+XLIBDIR=/usr/lib64
 
 # Function last prefix file.
 xlast () {

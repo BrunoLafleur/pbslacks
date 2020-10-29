@@ -30,33 +30,33 @@ xhookpac1 () {
 
 xhookpac2 () {
     # Post actions for packages2
-    cp packages2/youtube.lua /usr/lib64/vlc/lua/playlist
-    rm -f /usr/lib64/vlc/lua/playlist/youtube.luac
+    cp packages2/youtube.lua $XLIBDIR/vlc/lua/playlist
+    rm -f $XLIBDIR/vlc/lua/playlist/youtube.luac
 }
 
 xhookpac3 () {
     # Post actions for packages3
-    echo 'Nothing to do'
+    rm -f calibre-4.15.0-x86_64-1alien.txz.*
 }
 
 xhookpac4 () {
     # For H264 and DRM support for Opera.
-    if [ -f /usr/lib64/chromium/libffmpeg.so ] ;then
-	if [ -d /usr/lib64/opera ] ;then
-	    mv -f /usr/lib64/opera/libffmpeg.so /usr/lib64/opera/libffmpeg.so.bak
-	    ln -sf /usr/lib64/chromium/libffmpeg.so /usr/lib64/opera
+    if [ -f $XLIBDIR/chromium/libffmpeg.so ] ;then
+	if [ -d $XLIBDIR/opera ] ;then
+	    mv -f $XLIBDIR/opera/libffmpeg.so $XLIBDIR/opera/libffmpeg.so.bak
+	    ln -sf $XLIBDIR/chromium/libffmpeg.so $XLIBDIR/opera
 	fi
-	if [ -d /usr/lib64/opera-beta ] ;then
-	    mv -f /usr/lib64/opera-beta/libffmpeg.so \
-	       /usr/lib64/opera-beta/libffmpeg.so.bak
-	    ln -sf /usr/lib64/chromium/libffmpeg.so /usr/lib64/opera-beta
+	if [ -d $XLIBDIR/opera-beta ] ;then
+	    mv -f $XLIBDIR/opera-beta/libffmpeg.so \
+	       $XLIBDIR/opera-beta/libffmpeg.so.bak
+	    ln -sf $XLIBDIR/chromium/libffmpeg.so $XLIBDIR/opera-beta
 	fi
     fi
-    if [ -f /usr/lib64/chromium/libwidevinecdm.so ] ;then
-	[ -d /usr/lib64/opera ] && \
-	    ln -sf /usr/lib64/chromium/libwidevinecdm.so /usr/lib64/opera
-	[ -d /usr/lib64/opera-beta ] && \
-	    ln -sf /usr/lib64/chromium/libwidevinecdm.so /usr/lib64/opera-beta
+    if [ -f $XLIBDIR/chromium/libwidevinecdm.so ] ;then
+	[ -d $XLIBDIR/opera ] && \
+	    ln -sf $XLIBDIR/chromium/libwidevinecdm.so $XLIBDIR/opera
+	[ -d $XLIBDIR/opera-beta ] && \
+	    ln -sf $XLIBDIR/chromium/libwidevinecdm.so $XLIBDIR/opera-beta
     fi
 }
 

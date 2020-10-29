@@ -1,0 +1,1596 @@
+--- calibre.SlackBuild.save	2020-10-29 09:50:59.000000000 +0100
++++ calibre.SlackBuild	2020-10-29 21:57:08.000000000 +0100
+@@ -140,24 +140,24 @@
+ #
+ # -----------------------------------------------------------------------------
+ 
+ PRGNAM=calibre
+ SRCNAM=calibre
+-VERSION=${VERSION:-4.15.0}
++VERSION=${VERSION:-4.23.0}
+ BUILD=${BUILD:-1}
+ NUMJOBS=${NUMJOBS:-" -j$(nproc) "}
+ TAG=${TAG:-alien}
+ 
+ DOCS="LICENSE* Changelog* COPYRIGHT README*"
+ 
+ PYTHON=$(python2 -c 'import sys; print (sys.version.split( )[0])')
+ SLACKVER=${SLACKVER:-$(cat /etc/slackware-version |cut -d' ' -f2)}
+ 
+-REQUIRED_QT="5.13.1"
++REQUIRED_QT="5.15.1"
+ 
+ # Only used in case we need to build our own Qt:
+-INT_QT=5.13.2
++INT_QT=5.15.1
+ 
+ REQUIRED_MTP="1.1.16"
+ 
+ # Only used in case we need to build our own libmtp:
+ INT_MTP=1.1.17
+@@ -200,14 +200,14 @@
+ INT_NETIFACES=0.10.9
+ INT_PILLOW=6.2.0
+ INT_PSUTIL=5.6.2
+ INT_PYCRYPTO=2.6.1
+ INT_PYGMENTS=2.3.1
+-INT_PYQT5=5.13.2
+-INT_PYQTWEBENG=5.13.2
++INT_PYQT5=5.15.1
++INT_PYQTWEBENG=5.15.1
+ INT_REGEX=2019.04.14
+-INT_SIP=4.19.20
++INT_SIP=4.19.24
+ INT_SIX=1.12.0
+ INT_SOUPSIEVE=1.9.1
+ INT_SQLITE=3310100
+ INT_UNRARDLL=0.1.3
+ INT_WEBENC=0.5.1
+@@ -308,15 +308,16 @@
+ 
+   SOURCE[8]="$SRCDIR/sources/mechanize-${INT_MECHANIZE}.tar.gz"
+   SRCURL[8]="https://github.com/python-mechanize/mechanize/archive/v${INT_MECHANIZE}.tar.gz"
+ 
+   SOURCE[9]="$SRCDIR/sources/PyQt5-${INT_PYQT5}.tar.gz"
+-  SRCURL[9]="https://www.riverbankcomputing.com/static/Downloads/PyQt5/${INT_PYQT5}/PyQt5-${INT_PYQT5}.tar.gz"
++  #SRCURL[9]="https://www.riverbankcomputing.com/static/Downloads/PyQt5/${INT_PYQT5}/PyQt5-${INT_PYQT5}.tar.gz"
++  SRCURL[9]="https://files.pythonhosted.org/packages/1d/31/896dc3dfb6c81c70164019a6cbba6ab037e3af7653d9ca60ccc874ee4c27/PyQt5-${INT_PYQT5}.tar.gz"
+ 
+   SOURCE[10]="$SRCDIR/sources/sip-${INT_SIP}.tar.gz"
+   SRCURL[10]="https://www.riverbankcomputing.com/static/Downloads/sip/${INT_SIP}/sip-${INT_SIP}.tar.gz"
+-
++  
+   SOURCE[11]="$SRCDIR/sources/dbus-python-${INT_DBUSPYTHON}.tar.gz"
+   SRCURL[11]="http://dbus.freedesktop.org/releases/dbus-python/dbus-python-${INT_DBUSPYTHON}.tar.gz"
+ 
+   SOURCE[12]="$SRCDIR/sources/pycrypto-${INT_PYCRYPTO}.tar.gz"
+   SRCURL[12]="http://ftp.dlitz.net/pub/dlitz/crypto/pycrypto/pycrypto-${INT_PYCRYPTO}.tar.gz"
+@@ -378,12 +379,13 @@
+ 
+   SOURCE[31]="$SRCDIR/sources/chardet-${INT_CHARDET}.tar.gz"
+   SRCURL[31]="https://pypi.io/packages/source/c/chardet/chardet-${INT_CHARDET}.tar.gz"
+ 
+   SOURCE[32]="$SRCDIR/sources/PyQtWebEngine-${INT_PYQTWEBENG}.tar.gz"
+-  SRCURL[32]="https://www.riverbankcomputing.com/static/Downloads/PyQtWebEngine/${INT_PYQTWEBENG}/PyQtWebEngine-${INT_PYQTWEBENG}.tar.gz"
+-
++  #SRCURL[32]="https://www.riverbankcomputing.com/static/Downloads/PyQtWebEngine/${INT_PYQTWEBENG}/PyQtWebEngine-${INT_PYQTWEBENG}.tar.gz"
++  SRCURL[32]="https://files.pythonhosted.org/packages/6f/8a/b7c05d582764a92b031f3f2575faf61a43da76218578bf1f9720d63241b6/PyQtWebEngine-${INT_PYQTWEBENG}.tar.gz"
++  
+   SOURCE[33]="$SRCDIR/sources/unrarsrc-${INT_UNRARSRC}.tar.gz"
+   SRCURL[33]="http://www.rarlab.com/rar/unrarsrc-${INT_UNRARSRC}.tar.gz"
+ 
+   SOURCE[34]="$SRCDIR/sources/hunspell-${INT_HUNSPELL}.tar.gz"
+   SRCURL[34]="https://github.com/hunspell/hunspell/archive/v${INT_HUNSPELL}.tar.gz"
+@@ -480,10 +482,19 @@
+ case "$ARCH" in
+     arm*)    TARGET=$ARCH-slackware-linux-gnueabi ;;
+     *)       TARGET=$ARCH-slackware-linux ;;
+ esac
+ 
++# Allow the package builder to override BUILD_PYQT5:
++if [ -z "$BUILD_PYQT5" ]; then
++    if [ -d /usr/lib${LIBDIRSUFFIX}/python${REQUIRED_PYTHON}/site-packages/PyQt5-${INT_PYQT5}.dist-info ] ;then
++	BUILD_PYQT5="NO"
++    else
++	BUILD_PYQT5="YES"
++    fi
++fi
++
+ # Exit the script on errors:
+ set -e
+ trap 'echo "$0 FAILED at line ${LINENO}" | tee $OUTPUT/error-${PRGNAM}.log' ERR
+ # Catch unitialized variables:
+ set -u
+@@ -540,21 +551,23 @@
+ 
+ echo "++"
+ echo "|| $PRGNAM-$VERSION"
+ echo "++"
+ 
++HOMECALIBRE=/usr/lib${LIBDIRSUFFIX}/calibre
++
+ cd $TMP/tmp-$PRGNAM
+ 
+ if [ "$P1" != "--oldbuild" ]; then
+   if [ "$BUILD_PYTHON" = "YES" -o "$BUILD_PYTHONMODS" = "YES" -o "$BUILD_MTP" = "YES" -o  "$BUILD_QT" = "YES" -o "$BUILD_MAGICK" = "YES" ]; then
+     # Sanity check:
+     # In case we need to build an internal set of python interpreter plus
+     # support modules, then you must not compile this package when calibre
+     # is already installed!
+-    if [ -d /usr/lib${LIBDIRSUFFIX}/calibre/lib ]; then
++    if [ -d $HOMECALIBRE/lib ]; then
+       echo ""
+-      echo "** You have calibre installed in /usr/lib${LIBDIRSUFFIX}/calibre"
++      echo "** You have calibre installed in $HOMECALIBRE"
+       echo "** Compiling this package means you have to remove the existing"
+       echo "** calibre installation first, it conflicts with the compilation!"
+       echo ""
+       exit 1
+     fi
+@@ -598,24 +611,24 @@
+   mkdir -p build
+   cd build
+     meson .. \
+       -Denable-docs=false \
+       -Denable-wayland=false \
+-      --prefix=/usr/lib${LIBDIRSUFFIX}/calibre \
+-      --libdir=/usr/lib${LIBDIRSUFFIX}/calibre/lib \
++      --prefix=$HOMECALIBRE \
++      --libdir=$HOMECALIBRE/lib \
+       2>&1 | tee $OUTPUT/configure-${PRGNAM}_${MOD}.log
+   cd -
+   # Build and install:
+   ninja -C build \
+     2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+   DESTDIR=$PKG meson install -C build \
+     2>&1 | tee $OUTPUT/install-${PRGNAM}_${MOD}.log
+ 
+   # Add documentation:
+-  mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD}
++  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+   cp -a LICENSE NEWS PACKAGING README* \
+-    $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD} || true
++    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+ 
+ } # End make_xkbcommon
+ 
+ 
+ #
+@@ -633,11 +646,11 @@
+ 
+   # If we build our own Qt5, unset the QT-related environment variables,
+   # so that a pre-existing Qt5 will not be picked up and create errors later:
+   unset QTDIR
+   unset QT5DIR
+-  NEWPATH="/usr/lib${LIBDIRSUFFIX}/calibre/bin"
++  NEWPATH="$HOMECALIBRE/bin"
+   for elem in $(echo $PATH | cut -d: --output-delimiter=' ' -f1-) ; do
+     if ! $(echo "$elem"| grep -q /qt) ; then
+       NEWPATH="$NEWPATH:$elem"
+     fi
+   done
+@@ -681,11 +694,11 @@
+   export LD_LIBRARY_PATH="${QTDIR}/qtbase/lib:${QTDIR}/qttools/lib"
+   export QT_PLUGIN_PATH="${QTDIR}/qtbase/plugins"
+   ./configure -v \
+     -confirm-license \
+     -opensource \
+-    -prefix /usr/lib${LIBDIRSUFFIX}/calibre \
++    -prefix $HOMECALIBRE \
+     -system-libpng \
+     -system-libjpeg \
+     -system-zlib \
+     -system-sqlite \
+     -plugin-sql-sqlite \
+@@ -729,13 +742,13 @@
+     2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+   make install INSTALL_ROOT=$PKG \
+     2>&1 | tee $OUTPUT/install-${PRGNAM}_${MOD}.log
+ 
+   # Add documentation:
+-  mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD}
++  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+   cp -a LICENSE* README* \
+-    $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD} || true
++    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+ 
+ } # End make_qt5
+ 
+ 
+ #
+@@ -748,19 +761,19 @@
+ 
+   cd $TMP/tmp-$PRGNAM/libmtp-${INT_MTP}
+ 
+   CFLAGS="$SLKCFLAGS" \
+   ./configure \
+-    --prefix=/usr/lib${LIBDIRSUFFIX}/calibre \
++    --prefix=$HOMECALIBRE \
+     --disable-static
+ 
+   # Build and install:
+   make $NUMJOBS || make || exit 1
+   make install DESTDIR=$PKG || exit 1
+ 
+   # Guess someone didn't have enough to drink:
+-  ( cd $PKG/usr/lib${LIBDIRSUFFIX}/calibre/bin
++  ( cd $PKG$HOMECALIBRE/bin
+     rm -f mtp-sendtr mtp-sendfile mtp-newfolder mtp-getfile mtp-delfile
+     ln -s mtp-connect mtp-sendtr
+     ln -s mtp-connect mtp-sendfile
+     ln -s mtp-connect mtp-newfolder
+     ln -s mtp-connect mtp-getfile
+@@ -769,13 +782,13 @@
+ 
+   # No need for this in the calibre package:
+   rm -rf $PKG/lib $PKG/usr/lib/udev
+ 
+   # Add documentation:
+-  mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD}
++  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+   cp -a README* \
+-    $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD} || true
++    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+ 
+ } # End make_libmtp
+ 
+ 
+ #
+@@ -788,11 +801,11 @@
+ 
+   cd $TMP/tmp-$PRGNAM/ImageMagick-${INT_MAGICK}
+ 
+   LDFLAGS="" CFLAGS="" CXXFLAGS="" \
+   ./configure \
+-    --prefix=/usr/lib${LIBDIRSUFFIX}/calibre \
++    --prefix=$HOMECALIBRE \
+     --enable-shared \
+     --disable-static \
+     --disable-openmp \
+     --without-modules \
+     --without-frozenpaths \
+@@ -819,16 +832,16 @@
+     2>&1 | tee -a $OUTPUT/install-${PRGNAM}_${MOD}.log
+ 
+   # .la files in libdir should be removed.
+   # Other .la files should be left alone, as ImageMagick uses them internally
+   # to locate modules.
+-  rm -f $PKG/usr/lib${LIBDIRSUFFIX}/calibre/lib/*.la
++  rm -f $PKG$HOMECALIBRE/lib/*.la
+ 
+   # Add documentation:
+-  mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD}
++  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+   cp -a AUTHORS LICENSE NEWS NOTICE README* \
+-    $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD} || true
++    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+ 
+ } # End make_magick
+ 
+ #
+ # Build python 2.7:
+@@ -837,11 +850,11 @@
+ 
+   local MOD="python"
+   echo -e "\n**  $MOD  **\n"
+ 
+   local BRANCH_VERSION=$(echo $INT_PYTHON | cut -f 1,2 -d . )
+-  local SITEPK=/usr/lib${LIBDIRSUFFIX}/calibre/lib/python${BRANCH_VERSION}/site-packages
++  local SITEPK="$XPYSITE"
+ 
+   cd $TMP/tmp-$PRGNAM/Python-${INT_PYTHON}
+ 
+   if [ "$P1" != "--oldbuild" ]; then
+     cat $PATCHDIR/python.readline.set_pre_input_hook.diff \
+@@ -851,16 +864,16 @@
+ 
+   # We are going to install python inside the calibre package.
+   # This requires some changes to the standard build:
+   # Creating the 'lib' directory below is needed! We are going to use rpath
+   # so that we can run python from this non-standard path:
+-  mkdir -p /usr/lib${LIBDIRSUFFIX}/calibre/lib
++  mkdir -p $HOMECALIBRE/lib
+ 
+-  LDFLAGS="-Wl,-rpath /usr/lib${LIBDIRSUFFIX}/calibre/lib" \
++  LDFLAGS="-Wl,-rpath $HOMECALIBRE/lib" \
+   ./configure \
+-    --prefix=/usr/lib${LIBDIRSUFFIX}/calibre \
+-    --bindir=/usr/lib${LIBDIRSUFFIX}/calibre \
++    --prefix=$HOMECALIBRE \
++    --bindir=$HOMECALIBRE \
+     --with-threads \
+     --enable-ipv6 \
+     --enable-shared \
+     --enable-unicode=ucs4 \
+     --build=$TARGET \
+@@ -872,19 +885,24 @@
+   # We'll install the python-tools under site-packages:
+   mkdir -p $SITEPK
+   cp -a Tools/* $SITEPK/
+ 
+   # No need for man pages now:
+-  rm -rf $PKG/usr/lib${LIBDIRSUFFIX}/calibre/share/man
++  rm -rf $PKG$HOMECALIBRE/share/man
+ 
+   # Add documentation:
+-  mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD}
++  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+   cp -a LICENSE README \
+-    $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD} || true
++    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+ 
+ } # End make_python
+ 
++XPYVER=$(echo $INT_PYTHON | cut -f 1,2 -d . )
++XPYPREFIX="$HOMECALIBRE"
++XPYSITE="$XPYPREFIX/lib/python${XPYVER}/site-packages"
++XINSTALLPY="--prefix=$XPYPREFIX --install-lib=$XPYSITE"
++
+ #
+ # Build pyseuptools:
+ #
+ make_setuptools() {
+ 
+@@ -893,17 +911,17 @@
+ 
+   cd $TMP/tmp-$PRGNAM/setuptools-${INT_SETUPTOOLS}
+   rm -f setuptools/*.exe
+ 
+   # Compile and install
+-  python2 setup.py install --root=$PKG \
++  python2 setup.py install --root=$PKG $XINSTALLPY \
+     2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+ 
+   # Add documentation:
+-  mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD}
++  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+   cp -a *.rst \
+-    $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD} || true
++    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+ 
+ } # End make_setuptools
+ 
+ 
+ make_dnspython() {
+@@ -912,17 +930,17 @@
+   echo -e "\n**  ${MOD}  **\n"
+ 
+   cd $TMP/tmp-$PRGNAM/dnspython-${INT_DNSPYTHON}
+ 
+   # Compile and install
+-  python2 setup.py install --root=$PKG \
++  python2 setup.py install --root=$PKG $XINSTALLPY \
+     2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+ 
+   # Add documentation:
+-  mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD}
++  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+   cp -a LICENSE README* \
+-    $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD} || true
++    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+ 
+ } # End make_dnspython
+ 
+ #
+ # Build css-parser:
+@@ -938,17 +956,17 @@
+   sed -i -e 's/\r//' $( find . -type f -exec file "{}" ";" | \
+     grep CRLF | cut -f1 -d: ) \
+     || true
+ 
+   # Compile and install
+-  python2 setup.py install --root=$PKG \
++  python2 setup.py install --root=$PKG $XINSTALLPY \
+     2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+ 
+   # Add documentation:
+-  mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD}
++  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+   cp -a README* \
+-    $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD} || true
++    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+ 
+ } # End make_cssparser
+ 
+ #
+ # Build dateutil:
+@@ -959,17 +977,17 @@
+   echo -e "\n**  $MOD  **\n"
+ 
+   cd $TMP/tmp-$PRGNAM/python-dateutil-${INT_DATEUTIL}
+ 
+   # Compile and install
+-  python2 setup.py install --root=$PKG \
++  python2 setup.py install --root=$PKG $XINSTALLPY \
+     2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+ 
+   # Add documentation:
+-  mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD}
++  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+   cp -a LICENSE NEWS \
+-    $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD} || true
++    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+ 
+ } # End make_dateutil
+ 
+ #
+ # Build imaging (this package is called "python-pillow" in Slackware):
+@@ -984,17 +1002,17 @@
+   # Installation path for headers:
+   PYTHONINC=$( python2 -c 'from distutils.sysconfig import *;print (get_python_inc())' )
+ 
+   # Compile and install
+   CFLAGS="$SLKCFLAGS" \
+-  python2 setup.py install --root $PKG \
++  python2 setup.py install --root $PKG $XINSTALLPY \
+     2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+ 
+   # Add documentation:
+-  mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD}
++  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+   cp -a CHANGES* LICENSE README* RELEASING* \
+-    $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD} || true
++    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+ 
+ } # End make_pillow
+ 
+ #
+ # Build lxml:
+@@ -1005,17 +1023,17 @@
+   echo -e "\n**  $MOD  **\n"
+ 
+   cd $TMP/tmp-$PRGNAM/lxml-${INT_LXML}
+ 
+   # Compile and install
+-  python2 setup.py install --root=$PKG \
++  python2 setup.py install --root=$PKG $XINSTALLPY \
+     2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+ 
+   # Add documentation:
+-  mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD}
++  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+   cp -a *.txt doc/licenses \
+-    $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD} || true
++    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+ 
+ } # End make_lxml
+ 
+ #
+ # Build mechanize:
+@@ -1027,17 +1045,17 @@
+ 
+   cd $TMP/tmp-$PRGNAM/mechanize-${INT_MECHANIZE}
+ 
+   # Compile and install
+   export CFLAGS="$SLKCFLAGS"
+-  python2 setup.py install --root=$PKG \
++  python2 setup.py install --root=$PKG $XINSTALLPY \
+     2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+ 
+   # Add documentation:
+-  mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD}
++  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+   cp -a *.txt \
+-    $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD} || true
++    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+ 
+ } # End make_mechanize
+ 
+ #
+ # Build sip:
+@@ -1069,13 +1087,13 @@
+     2>&1 | tee -a $OUTPUT/configure-${PRGNAM}_${MOD}.log
+   make $NUMJOBS || make 2>&1 | tee -a $OUTPUT/make-${PRGNAM}_${MOD}.log
+   make install DESTDIR=$PKG 2>&1 | tee -a $OUTPUT/install-${PRGNAM}_${MOD}.log
+ 
+   # Add documentation:
+-  mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD}
++  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+   cp -a LICENSE* NEWS README \
+-    $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD} || true
++    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+ 
+ } # End make_sip
+ 
+ #
+ # Build dbus-python:
+@@ -1086,28 +1104,28 @@
+   echo -e "\n**  $MOD  **\n"
+ 
+   cd $TMP/tmp-$PRGNAM/dbus-python-${INT_DBUSPYTHON}
+ 
+   LDFLAGS="" \
+-  LD_LIBRARY_PATH="/usr/lib${LIBDIRSUFFIX}/calibre/lib" \
++  LD_LIBRARY_PATH="$HOMECALIBRE/lib" \
+   PYTHON_INCLUDES="$SLK_PYTHON_INCLUDES" \
+   PYTHON_LIBS="$SLK_PYTHON_LIBS" \
+   ./configure \
+-    --prefix=/usr/lib${LIBDIRSUFFIX}/calibre \
++    --prefix=$HOMECALIBRE \
+     --enable-shared=yes \
+     --enable-static=no \
+     --build=$TARGET \
+     --host=$TARGET \
+     2>&1 | tee $OUTPUT/configure-${PRGNAM}_${MOD}.log
+ 
+   make 2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+   make install DESTDIR=$PKG 2>&1 | tee -a $OUTPUT/make-${PRGNAM}_${MOD}.log
+ 
+   # Add documentation:
+-  mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD}
++  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+   cp -a AUTHORS COPYING* INSTALL NEWS README* \
+-    $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD} || true
++    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+ 
+ } # End make_dbuspython
+ 
+ #
+ # Build python-pygments:
+@@ -1119,17 +1137,17 @@
+ 
+   cd $TMP/tmp-$PRGNAM/Pygments-${INT_PYGMENTS}
+ 
+   # Compile and install
+   export CFLAGS="$SLKCFLAGS"
+-  python2 setup.py install --root=$PKG \
++  python2 setup.py install --root=$PKG $XINSTALLPY \
+     2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+ 
+   # Add documentation:
+-  mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD}
++  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+   cp -a AUTHORS CHANGES LICENSE README* TODO \
+-    $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD} || true
++    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+ 
+ } # End make_pygments
+ 
+ 
+ #
+@@ -1153,11 +1171,11 @@
+ 
+   if [ "${BUILD_QT}" = "NO" ]; then
+     export QTDIR=/usr/lib${LIBDIRSUFFIX}/qt5
+   else
+     unset QT5DIR
+-    export QTDIR=/usr/lib${LIBDIRSUFFIX}/calibre
++    export QTDIR=$HOMECALIBRE
+   fi
+ 
+   export CFLAGS="$SLKCFLAGS"
+   export CXXFLAGS="$SLKCFLAGS"
+ 
+@@ -1180,13 +1198,13 @@
+     # Remove ugly bits that threaten to overwrite a system file:
+     rm -rf $PKG/usr/lib${LIBDIRSUFFIX}/qt5
+   fi
+ 
+   # Add documentation:
+-  mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD}
++  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+   cp -a LICENSE* NEWS \
+-    $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD} || true
++    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+ 
+ } # End make_pyqt5
+ 
+ 
+ #
+@@ -1201,11 +1219,11 @@
+ 
+   if [ "${BUILD_QT}" = "NO" ]; then
+     export QTDIR=/usr/lib${LIBDIRSUFFIX}/qt5
+   else
+     unset QT5DIR
+-    export QTDIR=/usr/lib${LIBDIRSUFFIX}/calibre
++    export QTDIR=$HOMECALIBRE
+   fi
+ 
+   export CFLAGS="$SLKCFLAGS"
+   export CXXFLAGS="$SLKCFLAGS"
+ 
+@@ -1222,13 +1240,13 @@
+     # Remove ugly bits that threaten to overwrite a system file:
+     rm -rf $PKG/usr/lib${LIBDIRSUFFIX}/qt5
+   fi
+ 
+   # Add documentation:
+-  mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD}
++  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+   cp -a LICENSE* NEWS \
+-    $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD} || true
++    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+ 
+ } # End make_pyqtwebengine
+ 
+ 
+ #
+@@ -1241,17 +1259,17 @@
+ 
+   cd $TMP/tmp-$PRGNAM/pycrypto-${INT_PYCRYPTO}
+ 
+   # Compile and install
+   export CFLAGS="$SLKCFLAGS"
+-  python2 setup.py install --root=$PKG \
++  python2 setup.py install --root=$PKG $XINSTALLPY \
+     2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+ 
+   # Add documentation:
+-  mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD}
++  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+   cp -a ACKS ChangeLog COPYRIGHT README TODO Doc \
+-    $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD} || true
++    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+ 
+ } # End make_pycrypto
+ 
+ #
+ # Build netifaces:
+@@ -1262,19 +1280,19 @@
+   echo -e "\n**  $MOD  **\n"
+ 
+   cd $TMP/tmp-$PRGNAM/netifaces-${INT_NETIFACES}
+ 
+   # Compile and install
+-  export CFLAGS="-I/usr/lib${LIBDIRSUFFIX}/calibre/include"
+-  python2 setup.py install --root=$PKG \
++  export CFLAGS="-I$HOMECALIBRE/include"
++  python2 setup.py install --root=$PKG $XINSTALLPY \
+     2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+   unset CFLAGS
+ 
+   # Add documentation:
+-  mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD}
++  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+   cp -a LICENSE README* \
+-    $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD} || true
++    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+ 
+ } # End make_netifaces
+ 
+ 
+ #
+@@ -1291,17 +1309,17 @@
+   # statically into the module:
+   ln -s ../sqlite-amalgamation-${INT_SQLITE} sqlite3
+ 
+   # Compile and install
+   export CFLAGS="$SLKCFLAGS"
+-  python2 setup.py install --root=$PKG \
++  python2 setup.py install --root=$PKG $XINSTALLPY \
+     2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+ 
+   # Add documentation:
+-  mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD}
++  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+   cp -a PKG-INFO \
+-    $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD} || true
++    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+ 
+ } # End make_apsw
+ 
+ 
+ #
+@@ -1314,17 +1332,17 @@
+ 
+   cd $TMP/tmp-$PRGNAM/psutil*-${INT_PSUTIL}
+ 
+   # Compile and install
+   export CFLAGS="$SLKCFLAGS"
+-  python2 setup.py install --root=$PKG \
++  python2 setup.py install --root=$PKG $XINSTALLPY \
+     2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+ 
+   # Add documentation:
+-  mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD}
++  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+   cp -a CREDITS HISTORY* INSTALL* LICENSE README* \
+-    $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD} || true
++    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+ 
+ } # End make_psutil
+ 
+ #
+ # Build optipng:
+@@ -1343,13 +1361,13 @@
+   mkdir -p $PKG/usr/bin
+   install -v -m0755 src/optipng/optipng $PKG/usr/bin/optipng-calibre \
+     2>&1 | tee -a $OUTPUT/make-${PRGNAM}_${MOD}.log
+ 
+   # Add documentation:
+-  mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD}
++  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+   cp -a AUTHORS.txt LICENSE.txt README.tx* \
+-    $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD} || true
++    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+ 
+ } # End make_optipng
+ 
+ 
+ #
+@@ -1371,18 +1389,18 @@
+     2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+   make -f makefile unrar lib CXXFLAGS="$SLKCFLAGS" \
+     2>&1 | tee -a $OUTPUT/make-${PRGNAM}_${MOD}.log
+ 
+   # Manually install binaries:
+-  install -D -m 755 unrar $PKG/usr/lib${LIBDIRSUFFIX}/calibre/bin/unrar
+-  install -D -m 755 ../libunrar/libunrar.so $PKG/usr/lib${LIBDIRSUFFIX}/calibre/lib/libunrar.so
+-  install -D -m 644 dll.hpp $PKG/usr/lib${LIBDIRSUFFIX}/calibre/include/unrar/dll.hpp
++  install -D -m 755 unrar $PKG$HOMECALIBRE/bin/unrar
++  install -D -m 755 ../libunrar/libunrar.so $PKG$HOMECALIBRE/lib/libunrar.so
++  install -D -m 644 dll.hpp $PKG$HOMECALIBRE/include/unrar/dll.hpp
+ 
+   # Add documentation:
+-  mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD}
++  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+   cp -a acknow.txt license.txt readme.txt \
+-    $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD} || true
++    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+ 
+ } # End make_unrarsrc
+ 
+ 
+ #
+@@ -1399,11 +1417,11 @@
+     2>&1 | tee $OUTPUT/configure-${PRGNAM}_${MOD}.log
+ 
+   CFLAGS="$SLKCFLAGS" \
+   CXXFLAGS="$SLKCFLAGS" \
+   ./configure \
+-    --prefix=/usr/lib${LIBDIRSUFFIX}/calibre \
++    --prefix=$HOMECALIBRE \
+     --disable-static \
+     --with-readline \
+     --build=$TARGET \
+     2>&1 | tee $OUTPUT/configure-${PRGNAM}_${MOD}.log
+ 
+@@ -1412,13 +1430,13 @@
+     2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+   make install DESTDIR=$PKG \
+     2>&1 | tee $OUTPUT/install-${PRGNAM}_${MOD}.log
+ 
+   # Add documentation:
+-  mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD}
++  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+   cp -a ABOUT-NLS AUTHORS* BUGS COPYING* ChangeLog* NEWS README* THANKS TODO \
+-    $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD} || true
++    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+ 
+ } # End make_hunspell
+ 
+ 
+ #
+@@ -1430,26 +1448,26 @@
+   echo -e "\n**  $MOD  **\n"
+ 
+   cd $TMP/tmp-$PRGNAM/hyphen-${INT_HYPHEN}
+ 
+   LDFLAGS="" \
+-  LD_LIBRARY_PATH="/usr/lib${LIBDIRSUFFIX}/calibre/lib" \
++  LD_LIBRARY_PATH="$HOMECALIBRE/lib" \
+   ./configure \
+-    --prefix=/usr/lib${LIBDIRSUFFIX}/calibre \
++    --prefix=$HOMECALIBRE \
+     --enable-shared=yes \
+     --enable-static=no \
+     --build=$TARGET \
+     --host=$TARGET \
+     2>&1 | tee $OUTPUT/configure-${PRGNAM}_${MOD}.log
+ 
+   make 2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+   make install DESTDIR=$PKG 2>&1 | tee -a $OUTPUT/make-${PRGNAM}_${MOD}.log
+ 
+   # Add documentation:
+-  mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD}
++  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+   cp -a AUTHORS COPYIN* ChangeLog INSTALL NEWS READM* THANKS TODO \
+-    $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD} || true
++    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+ 
+ } # End make_hyphen
+ 
+ 
+ #
+@@ -1462,17 +1480,17 @@
+ 
+   cd $TMP/tmp-$PRGNAM/regex-${INT_REGEX}
+ 
+   # Compile and install
+   export CFLAGS="$SLKCFLAGS"
+-  python2 setup.py install --root=$PKG --optimize=1 \
+-    2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
++  python2 setup.py install --root=$PKG --optimize=1 $XINSTALLPY \
++	  2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+ 
+   # Add documentation:
+-  mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD}
++  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+   cp -a docs/Features.html docs/Features.rst docs/UnicodeProperties.txt \
+-    $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD} || true
++    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+ 
+ } # End make_regex
+ 
+ 
+ #
+@@ -1485,17 +1503,17 @@
+ 
+   cd $TMP/tmp-$PRGNAM/msgpack-${INT_MSGPACK}
+ 
+   # Compile and install
+   export CFLAGS="$SLKCFLAGS"
+-  python2 setup.py install --root=$PKG --optimize=1 \
+-    2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
++  python2 setup.py install --root=$PKG --optimize=1 $XINSTALLPY \
++	  2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+ 
+   # Add documentation:
+-  mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD}
++  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+   cp -a COPYING* README* \
+-    $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD} || true
++    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+ 
+ } # End make_msgpack
+ 
+ 
+ #
+@@ -1508,17 +1526,17 @@
+ 
+   cd $TMP/tmp-$PRGNAM/six-${INT_SIX}
+ 
+   # Compile and install
+   export CFLAGS="$SLKCFLAGS"
+-  python2 setup.py install --root=$PKG --optimize=1 \
+-    2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
++  python2 setup.py install --root=$PKG --optimize=1 $XINSTALLPY \
++	  2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+ 
+   # Add documentation:
+-  mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD}
++  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+   cp -a CHANGES LICENSE* README* \
+-    $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD} || true
++    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+ 
+ } # End make_six
+ 
+ 
+ #
+@@ -1531,17 +1549,17 @@
+ 
+   cd $TMP/tmp-$PRGNAM/enum34-${INT_ENUM34}
+ 
+   # Compile and install
+   export CFLAGS="$SLKCFLAGS"
+-  python2 setup.py install --root=$PKG --optimize=1 \
+-    2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
++  python2 setup.py install --root=$PKG --optimize=1 $XINSTALLPY \
++	  2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+ 
+   # Add documentation:
+-  mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD}
++  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+   cp -a PKG-INFO enum/LICENSE enum/README \
+-    $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD} || true
++    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+ 
+ } # End make_enum34
+ 
+ 
+ #
+@@ -1554,17 +1572,17 @@
+ 
+   cd $TMP/tmp-$PRGNAM/webencodings-${INT_WEBENC}
+ 
+   # Compile and install
+   export CFLAGS="$SLKCFLAGS"
+-  python2 setup.py install --root=$PKG --optimize=1 \
+-    2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
++  python2 setup.py install --root=$PKG --optimize=1 $XINSTALLPY \
++	  2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+ 
+   # Add documentation:
+-  mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD}
++  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+   cp -a README* \
+-    $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD} || true
++    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+ 
+ } # End make_webenc
+ 
+ 
+ #
+@@ -1577,17 +1595,17 @@
+ 
+   cd $TMP/tmp-$PRGNAM/html5lib-${INT_HTML5LIB}
+ 
+   # Compile and install
+   export CFLAGS="$SLKCFLAGS"
+-  python2 setup.py install --root=$PKG --optimize=1 \
+-    2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
++  python2 setup.py install --root=$PKG --optimize=1 $XINSTALLPY \
++	  2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+ 
+   # Add documentation:
+-  mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD}
++  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+   cp -a LICENSE* README* *.rst requirements.txt \
+-    $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD} || true
++    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+ 
+ } # End make_html5lib
+ 
+ 
+ #
+@@ -1600,17 +1618,17 @@
+ 
+   cd $TMP/tmp-$PRGNAM/html5-parser-${INT_HTML5PARSER}
+ 
+   # Compile and install
+   export CFLAGS="$SLKCFLAGS"
+-  python2 setup.py install --root=$PKG --optimize=1 \
+-    2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
++  python2 setup.py install --root=$PKG --optimize=1 $XINSTALLPY \
++	  2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+ 
+   # Add documentation:
+-  mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD}
++  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+   cp -a LICENSE* README* \
+-    $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD} || true
++    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+ 
+ } # End make_html5parser
+ 
+ 
+ #
+@@ -1622,18 +1640,18 @@
+   echo -e "\n**  $MOD  **\n"
+ 
+   cd $TMP/tmp-$PRGNAM/unrardll-${INT_UNRARDLL}
+ 
+   # Compile and install
+-  export CFLAGS="$SLKCFLAGS -I/usr/lib${LIBDIRSUFFIX}/calibre/include"
+-  python2 setup.py install --root=$PKG --optimize=1 \
+-    2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
++  export CFLAGS="$SLKCFLAGS -I$HOMECALIBRE/include"
++  python2 setup.py install --root=$PKG --optimize=1 $XINSTALLPY \
++	  2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+ 
+   # Add documentation:
+-  mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD}
++  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+   cp -a LICENSE* README* \
+-    $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD} || true
++    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+ 
+ } # End make_unrardll
+ 
+ 
+ make_feedparser() {
+@@ -1643,17 +1661,17 @@
+ 
+   cd $TMP/tmp-$PRGNAM/feedparser-${INT_FEEDPARSER}
+ 
+   # Compile and install
+   export CFLAGS="$SLKCFLAGS"
+-  python2 setup.py install --root=$PKG --optimize=1 \
+-    2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
++  python2 setup.py install --root=$PKG --optimize=1 $XINSTALLPY \
++	  2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+ 
+   # Add documentation:
+-  mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD}
++  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+   cp -a LICENSE* NEWS README* \
+-    $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD} || true
++    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+ 
+ } # End make_feedparser
+ 
+ 
+ make_Markdown() {
+@@ -1663,17 +1681,17 @@
+ 
+   cd $TMP/tmp-$PRGNAM/Markdown-${INT_MARKDOWN}
+ 
+   # Compile and install
+   export CFLAGS="$SLKCFLAGS"
+-  python2 setup.py install --root=$PKG --optimize=1 \
+-    2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
++  python2 setup.py install --root=$PKG --optimize=1 $XINSTALLPY \
++	  2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+ 
+   # Add documentation:
+-  mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD}
++  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+   cp -a *.md \
+-    $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD} || true
++    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+ 
+ } # End make_Markdown
+ 
+ 
+ make_beautifulsoup() {
+@@ -1682,17 +1700,17 @@
+   echo -e "\n**  $MOD  **\n"
+ 
+   cd $TMP/tmp-$PRGNAM/beautifulsoup4-${INT_BEAUTIFULSOUP}
+ 
+   # Compile and install:
+-  python2 setup.py install --root=$PKG \
++  python2 setup.py install --root=$PKG $XINSTALLPY \
+     2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+ 
+   # Add documentation:
+-  mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD}
++  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+   cp -a *.txt LICENSE README.md \
+-    $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD} || true
++    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+ 
+ } # End make_beautifulsoup
+ 
+ 
+ make_bflc() {
+@@ -1701,11 +1719,13 @@
+   echo -e "\n**  $MOD  **\n"
+ 
+   # First, define the backports namespace:
+   (
+     local BRANCH_VERSION=$(echo $INT_PYTHON | cut -f 1,2 -d . )
+-    cd $PKG/usr/lib${LIBDIRSUFFIX}/calibre/lib/python${BRANCH_VERSION}/site-packages
++    CALPYTH=$PKG$HOMECALIBRE/lib/python${BRANCH_VERSION}/site-packages
++    mkdir -p $CALPYTH
++    cd $CALPYTH
+     mkdir -p backports
+     cd backports
+     cat << EOF > __init__.py
+ from pkgutil import extend_path
+ __path__ = extend_path(__path__, __name__)
+@@ -1730,17 +1750,17 @@
+   cd $TMP/tmp-$PRGNAM/soupsieve-${INT_SOUPSIEVE}
+ 
+   # Compile and install:
+   python2 setup.py build \
+     2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+-  python2 setup.py install --root=$PKG --optimize=1 \
+-    2>&1 | tee -a $OUTPUT/make-${PRGNAM}_${MOD}.log
++  python2 setup.py install --root=$PKG --optimize=1 $XINSTALLPY \
++	  2>&1 | tee -a $OUTPUT/make-${PRGNAM}_${MOD}.log
+ 
+   # Add documentation:
+-  mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD}
++  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+   cp -a *.md \
+-    $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD} || true
++    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+ 
+ } # End make_soupsieve
+ 
+ 
+ make_html2text() {
+@@ -1749,17 +1769,17 @@
+   echo -e "\n**  $MOD  **\n"
+ 
+   cd $TMP/tmp-$PRGNAM/html2text-${INT_HTML2TEXT}
+ 
+   # Compile and install:
+-  python2 setup.py install --root=$PKG \
++  python2 setup.py install --root=$PKG $XINSTALLPY \
+     2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+ 
+   # Add documentation:
+-  mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD}
++  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+   cp -a *.rst COPYING README.md \
+-    $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD} || true
++    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+ 
+ } # End make_html2text
+ 
+ 
+ make_chardet() {
+@@ -1768,17 +1788,17 @@
+   echo -e "\n**  $MOD  **\n"
+ 
+   cd $TMP/tmp-$PRGNAM/chardet-${INT_CHARDET}
+ 
+   # Compile and install:
+-  python2 setup.py install --root=$PKG \
++  python2 setup.py install --root=$PKG $XINSTALLPY \
+     2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+ 
+   # Add documentation:
+-  mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD}
++  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+   cp -a *.rst LICENSE \
+-    $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD} || true
++    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+ 
+ } # End make_chardet
+ 
+ 
+ make_podofo() {
+@@ -1798,11 +1818,11 @@
+   cd build
+     cmake \
+       -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \
+       -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS" \
+       -DFREETYPE_INCLUDE_DIR=/usr/include/freetype2 \
+-      -DCMAKE_INSTALL_PREFIX=/usr/lib${LIBDIRSUFFIX}/calibre \
++      -DCMAKE_INSTALL_PREFIX=$HOMECALIBRE \
+       -DPODOFO_BUILD_STATIC:BOOL=0 \
+       -DPODOFO_BUILD_SHARED:BOOL=1 \
+       -DPODOFO_USE_VISIBILITY:BOOL=1 \
+       -DCMAKE_CXX_STANDARD:STRING=11 \
+       -DWANT_BOOST:BOOL=0 \
+@@ -1810,14 +1830,14 @@
+     make $NUMJOBS 2>&1 | tee $OUTPUT/make-${PRGNAM}.log
+     make DESTDIR=$PKG install 2>&1 | tee $OUTPUT/install-${PRGNAM}.log
+   cd - 1>/dev/null
+ 
+   # Add documentation:
+-  mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD}
++  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+   cp -a AUTHORS ChangeLog CODING* CONTRIBUTIONS* COPYING* \
+     FAQ* INSTALL README* TODO \
+-    $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/${MOD} || true
++    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+ 
+ } # End make_podofo
+ 
+ 
+ 
+@@ -1861,14 +1881,14 @@
+       -i setup/install.py 
+ 
+   # Cut out the DOS crap:
+   sed -i -e 's/\r//' src/calibre/web/feeds/recipes/*
+ 
+-  export HUNSPELL_INC_DIR="/usr/lib${LIBDIRSUFFIX}/calibre/include/hunspell" \
+-  export HUNSPELL_LIB_DIR="/usr/lib${LIBDIRSUFFIX}/calibre/lib" \
+-  export PODOFO_INC_DIR="/usr/lib${LIBDIRSUFFIX}/calibre/include/podofo" \
+-  export PODOFO_LIB_DIR="/usr/lib${LIBDIRSUFFIX}/calibre/lib" \
++  export HUNSPELL_INC_DIR="$HOMECALIBRE/include/hunspell" \
++  export HUNSPELL_LIB_DIR="$HOMECALIBRE/lib" \
++  export PODOFO_INC_DIR="$HOMECALIBRE/include/podofo" \
++  export PODOFO_LIB_DIR="$HOMECALIBRE/lib" \
+ 
+   OVERRIDE_LDFLAGS="$LDFLAGS $SLKLDFLAGS" \
+   OVERRIDE_CFLAGS="$CFLAGS $SLKCFLAGS" \
+   LANG='en_US.UTF-8' python2 setup.py build \
+     2>&1 | tee $OUTPUT/make-${PRGNAM}.log
+@@ -1880,20 +1900,38 @@
+   # Install the lot:
+   XDG_DATA_DIRS="$PKG/usr/share" \
+   XDG_UTILS_INSTALL_MODE="system" \
+   LIBPATH=/usr/lib${LIBDIRSUFFIX} \
+   LANG='en_US.UTF-8' \
++  PYTHONPATH="$XPYSITE" \
+   python2 setup.py install \
+     --prefix=/usr \
+     --libdir=/usr/lib${LIBDIRSUFFIX} \
+     --staging-root=$PKG/usr \
+     --staging-libdir=$PKG/usr/lib${LIBDIRSUFFIX} \
+     2>&1 | tee $OUTPUT/install-$PRGNAM.log
+ 
+   # The bash completion files need to be in /etc :
+   [ -d $PKG/usr/etc ] && mv $PKG/usr/etc $PKG/
+ 
++  mkdir -p $PKG/etc/profile.d
++  cat <<EOF > $PKG/etc/calibre.sh
++if [ -z \$PYTHONPATH ] ;then
++  export PYTHONPATH=$XPYSITE
++else
++  export PYTHONPATH=\${PYTHONPATH}:$XPYSITE
++fi
++EOF
++    cat <<EOF > $PKG/etc/calibre.csh
++if ( \$\?PYTHONPATH ) then
++  setenv PYTHONPATH \${PYTHONPATH}:$XPYSITE
++else
++  setenv PYTHONPATH $XPYSITE
++endif
++EOF
++    chmod a+x $PKG/etc/calibre.*sh
++    
+   # Add man pages:
+   mkdir -p ${PKG}/usr/man
+   cp -a man-pages/* ${PKG}/usr/man/
+ 
+   # This does not belong in a package - use 'removepkg' instead:
+@@ -1954,48 +1992,48 @@
+ #
+ 
+ if [ "$BUILD_PYTHONMODS" = "YES" ]; then
+   # Not part of Slackware or too old, and need it:
+   make_hunspell
+-  rsync -a $PKG/usr/lib${LIBDIRSUFFIX}/calibre/ /usr/lib${LIBDIRSUFFIX}/calibre/
++  rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+ 
+   make_optipng
+-  rsync -a $PKG/usr/lib${LIBDIRSUFFIX}/calibre/ /usr/lib${LIBDIRSUFFIX}/calibre/
++  rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+ 
+   make_podofo
+-  rsync -a $PKG/usr/lib${LIBDIRSUFFIX}/calibre/ /usr/lib${LIBDIRSUFFIX}/calibre/
++  rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+ 
+   make_hyphen
+-  rsync -a $PKG/usr/lib${LIBDIRSUFFIX}/calibre/ /usr/lib${LIBDIRSUFFIX}/calibre/
++  rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+ 
+   make_unrarsrc
+-  rsync -a $PKG/usr/lib${LIBDIRSUFFIX}/calibre/ /usr/lib${LIBDIRSUFFIX}/calibre/
++  rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+   # End - not part of Slackware
+ fi
+ 
+ # Compilation of the optional software:
+ if [ "$BUILD_PYTHON" = "YES" -o "$BUILD_PYTHONMODS" = "YES" -o "$BUILD_QT" = "YES" -o "$BUILD_MTP" = "YES" -o "$BUILD_MAGICK" = "YES" ]; then
+   if  [ -f $SRCDIR/${PRGNAM}_pythondeps-${SLACKVER}-${ARCH}.tar.bz2 ]; then
+     # We unwrap the tarball of compiled python internal libraries instead of
+     # having to build them - this saves a _lot_ of compile time:
+-    mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/calibre
+-    ( cd $PKG/usr/lib${LIBDIRSUFFIX}/calibre
++    mkdir -p $PKG$HOMECALIBRE
++    ( cd $PKG$HOMECALIBRE
+       echo "**  Extracting dependencies tarball... **"
+       tar -jxf $SRCDIR/${PRGNAM}_pythondeps-${SLACKVER}-${ARCH}.tar.bz2
+       # We also need a copy in the filesystem root!
+-      rsync -a $PKG/usr/lib${LIBDIRSUFFIX}/calibre /usr/lib${LIBDIRSUFFIX}/
++      rsync -a $PKG$HOMECALIBRE /usr/lib${LIBDIRSUFFIX}/
+     )
+   fi
+ 
+   # Ensure that our non-standard python2.7 is found and used:
+   echo "** Configuring build environment for preferring internal libraries **"
+-  export PATH="/usr/lib${LIBDIRSUFFIX}/calibre:/usr/lib${LIBDIRSUFFIX}/calibre/bin:$PATH"
+-  export PKG_CONFIG_PATH="/usr/lib${LIBDIRSUFFIX}/calibre/lib/pkgconfig:$PKG_CONFIG_PATH"
+-  export LDFLAGS="-Wl,-rpath /usr/lib${LIBDIRSUFFIX}/calibre/lib -L/usr/lib${LIBDIRSUFFIX}/calibre/lib"
++  export PATH="$HOMECALIBRE:$HOMECALIBRE/bin:$PATH"
++  export PKG_CONFIG_PATH="$HOMECALIBRE/lib/pkgconfig:$PKG_CONFIG_PATH"
++  export LDFLAGS="-Wl,-rpath $HOMECALIBRE/lib -L$HOMECALIBRE/lib"
+ 
+   # In order to prevent a gcc error if we have to compile libmtp:
+-  mkdir -p /usr/lib${LIBDIRSUFFIX}/calibre/lib
++  mkdir -p $HOMECALIBRE/lib
+ 
+ fi
+ 
+ if [ "$BUILD_MTP" = "YES" ]; then
+   # No sufficiently new libmtp was found so we need to supply it ourself.
+@@ -2004,14 +2042,14 @@
+     # No tarball containing pre-compiled libraries was found.
+     # We need to build libmptp ourself.
+     
+     # After each part is built we will sync to here because in the end, calibre
+     # will wipe the origin and we will have to sync it all back:
+-    mkdir -p /usr/lib${LIBDIRSUFFIX}/calibre
++    mkdir -p $HOMECALIBRE
+ 
+     make_mtp
+-    rsync -a $PKG/usr/lib${LIBDIRSUFFIX}/calibre/ /usr/lib${LIBDIRSUFFIX}/calibre/
++    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+   fi
+ fi
+ 
+ if [ "$BUILD_MAGICK" = "YES" ]; then
+   # We want to have an internal version of ImageMagick to be less dependent
+@@ -2021,14 +2059,14 @@
+     # No tarball containing pre-compiled libraries was found.
+     # We need to build Magick ourself.
+     
+     # After each part is built we will sync to here because in the end, calibre
+     # will wipe the origin and we will have to sync it all back:
+-    mkdir -p /usr/lib${LIBDIRSUFFIX}/calibre
++    mkdir -p $HOMECALIBRE
+ 
+     make_magick
+-    rsync -a $PKG/usr/lib${LIBDIRSUFFIX}/calibre/ /usr/lib${LIBDIRSUFFIX}/calibre/
++    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+   fi
+ fi
+ 
+ if [ "$BUILD_QT" = "YES" ]; then
+   # No sufficiently new Qt was found so we need to supply it ourself.
+@@ -2037,17 +2075,17 @@
+     # No tarball containing pre-compiled libraries was found.
+     # We need to build Qt ourself.
+     
+     # After each part is built we will sync to here because in the end, calibre
+     # will wipe the origin and we will have to sync it all back:
+-    mkdir -p /usr/lib${LIBDIRSUFFIX}/calibre
++    mkdir -p $HOMECALIBRE
+ 
+     make_xkbcommon
+-    rsync -a $PKG/usr/lib${LIBDIRSUFFIX}/calibre/ /usr/lib${LIBDIRSUFFIX}/calibre/
++    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+ 
+     make_qt5
+-    rsync -a $PKG/usr/lib${LIBDIRSUFFIX}/calibre/ /usr/lib${LIBDIRSUFFIX}/calibre/
++    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+   fi
+ fi
+ 
+ if [ "$BUILD_PYTHON" = "YES" ]; then
+   # No python2.7 was found on the computer so we need to supply it ourself.
+@@ -2056,21 +2094,21 @@
+     # No tarball containing pre-compiled python libraries was found.
+     # We need to build python2.7 ourself.
+     
+     # After each part is built we will sync to here because in the end, calibre
+     # will wipe the origin and we will have to sync it all back:
+-    mkdir -p /usr/lib${LIBDIRSUFFIX}/calibre
++    mkdir -p $HOMECALIBRE
+ 
+     make_python
+-    rsync -a $PKG/usr/lib${LIBDIRSUFFIX}/calibre/ /usr/lib${LIBDIRSUFFIX}/calibre/
++    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+   fi
+ 
+-  SLK_PYTHON_INCLUDES="-I/usr/lib${LIBDIRSUFFIX}/calibre/include/python${REQUIRED_PYTHON}"
+-  SLK_PYTHON_LIBS="-L/usr/lib${LIBDIRSUFFIX}/calibre/lib -lpython${REQUIRED_PYTHON}"
++  SLK_PYTHON_INCLUDES="-I$HOMECALIBRE/include/python${REQUIRED_PYTHON}"
++  SLK_PYTHON_LIBS="-L$HOMECALIBRE/lib -lpython${REQUIRED_PYTHON}"
+ else
+-  SLK_PYTHON_INCLUDES="-I/usr/lib${LIBDIRSUFFIX}/calibre/include/python${REQUIRED_PYTHON} $(python2 -c 'from distutils.sysconfig import *;print (get_python_inc())')"
+-  SLK_PYTHON_LIBS="-L/usr/lib${LIBDIRSUFFIX}/calibre/lib -lpython${REQUIRED_PYTHON} $(python2 -c 'from distutils.sysconfig import *;print (get_python_lib())')"
++  SLK_PYTHON_INCLUDES="-I$HOMECALIBRE/include/python${REQUIRED_PYTHON} $(python2 -c 'from distutils.sysconfig import *;print (get_python_inc())')"
++  SLK_PYTHON_LIBS="-L$HOMECALIBRE/lib -lpython${REQUIRED_PYTHON} $(python2 -c 'from distutils.sysconfig import *;print (get_python_lib())')"
+ fi
+ 
+ if [ "$BUILD_PYTHONMODS" = "YES" ]; then
+   # The python2.7 modules need to be compiled into the package:
+ 
+@@ -2078,109 +2116,111 @@
+     # No tarball containing pre-compiled python libraries was found.
+     # We need to build python2.7 modules ourself.
+     
+     # After each part is built we will sync to here because in the end, calibre
+     # will wipe the origin and we will have to sync it all back:
+-    mkdir -p /usr/lib${LIBDIRSUFFIX}/calibre
++    mkdir -p $HOMECALIBRE
+ 
+     ## Ensure that all our binaries and libraries are found and used:
+-    #export PATH="/usr/lib${LIBDIRSUFFIX}/calibre:/usr/lib${LIBDIRSUFFIX}/calibre/bin:$PATH"
+-    #export PKG_CONFIG_PATH="/usr/lib${LIBDIRSUFFIX}/calibre/lib/pkgconfig:$PKG_CONFIG_PATH"
+-    #export LDFLAGS="-Wl,-rpath /usr/lib${LIBDIRSUFFIX}/calibre/lib -L/usr/lib${LIBDIRSUFFIX}/calibre/lib"
++    #export PATH="$HOMECALIBRE:$HOMECALIBRE/bin:$PATH"
++    #export PKG_CONFIG_PATH="$HOMECALIBRE/lib/pkgconfig:$PKG_CONFIG_PATH"
++    #export LDFLAGS="-Wl,-rpath $HOMECALIBRE/lib -L$HOMECALIBRE/lib"
+ 
+     make_setuptools
+-    rsync -a $PKG/usr/lib${LIBDIRSUFFIX}/calibre/ /usr/lib${LIBDIRSUFFIX}/calibre/
++    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+ 
+     make_unrardll
+-    rsync -a $PKG/usr/lib${LIBDIRSUFFIX}/calibre/ /usr/lib${LIBDIRSUFFIX}/calibre/
++    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+ 
+     make_pillow
+-    rsync -a $PKG/usr/lib${LIBDIRSUFFIX}/calibre/ /usr/lib${LIBDIRSUFFIX}/calibre/
++    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+ 
+     make_apsw || exit 1
+-    rsync -a $PKG/usr/lib${LIBDIRSUFFIX}/calibre/ /usr/lib${LIBDIRSUFFIX}/calibre/
++    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+ 
+     make_beautifulsoup
+-    rsync -a $PKG/usr/lib${LIBDIRSUFFIX}/calibre/ /usr/lib${LIBDIRSUFFIX}/calibre/
++    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+ 
+     make_bflc
+-    rsync -a $PKG/usr/lib${LIBDIRSUFFIX}/calibre/ /usr/lib${LIBDIRSUFFIX}/calibre/
++    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+ 
+     make_soupsieve
+-    rsync -a $PKG/usr/lib${LIBDIRSUFFIX}/calibre/ /usr/lib${LIBDIRSUFFIX}/calibre/
++    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+ 
+     make_dnspython
+-    rsync -a $PKG/usr/lib${LIBDIRSUFFIX}/calibre/ /usr/lib${LIBDIRSUFFIX}/calibre/
++    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+ 
+     make_cssparser
+-    rsync -a $PKG/usr/lib${LIBDIRSUFFIX}/calibre/ /usr/lib${LIBDIRSUFFIX}/calibre/
++    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+ 
+     make_dateutil
+-    rsync -a $PKG/usr/lib${LIBDIRSUFFIX}/calibre/ /usr/lib${LIBDIRSUFFIX}/calibre/
++    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+ 
+     make_lxml
+-    rsync -a $PKG/usr/lib${LIBDIRSUFFIX}/calibre/ /usr/lib${LIBDIRSUFFIX}/calibre/
++    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+ 
+     make_mechanize
+-    rsync -a $PKG/usr/lib${LIBDIRSUFFIX}/calibre/ /usr/lib${LIBDIRSUFFIX}/calibre/
++    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+ 
+     make_pycrypto
+-    rsync -a $PKG/usr/lib${LIBDIRSUFFIX}/calibre/ /usr/lib${LIBDIRSUFFIX}/calibre/
++    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+ 
+     make_netifaces
+-    rsync -a $PKG/usr/lib${LIBDIRSUFFIX}/calibre/ /usr/lib${LIBDIRSUFFIX}/calibre/
++    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+ 
+     make_dbuspython
+-    rsync -a $PKG/usr/lib${LIBDIRSUFFIX}/calibre/ /usr/lib${LIBDIRSUFFIX}/calibre/
++    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+ 
+     make_psutil
+-    rsync -a $PKG/usr/lib${LIBDIRSUFFIX}/calibre/ /usr/lib${LIBDIRSUFFIX}/calibre/
++    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+ 
+     make_pygments
+-    rsync -a $PKG/usr/lib${LIBDIRSUFFIX}/calibre/ /usr/lib${LIBDIRSUFFIX}/calibre/
++    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+ 
+     make_enum34
+-    rsync -a $PKG/usr/lib${LIBDIRSUFFIX}/calibre/ /usr/lib${LIBDIRSUFFIX}/calibre/
++    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+ 
+     make_sip
+-    rsync -a $PKG/usr/lib${LIBDIRSUFFIX}/calibre/ /usr/lib${LIBDIRSUFFIX}/calibre/
+-
+-    make_pyqt5
+-    rsync -a $PKG/usr/lib${LIBDIRSUFFIX}/calibre/ /usr/lib${LIBDIRSUFFIX}/calibre/
++    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+ 
++    if [ "$BUILD_PYQT5" = 'YES' ] ;then
++	make_pyqt5
++	rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
++    fi
++    
+     make_pyqtwebengine
+-    rsync -a $PKG/usr/lib${LIBDIRSUFFIX}/calibre/ /usr/lib${LIBDIRSUFFIX}/calibre/
++    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+ 
+     make_regex
+-    rsync -a $PKG/usr/lib${LIBDIRSUFFIX}/calibre/ /usr/lib${LIBDIRSUFFIX}/calibre/
++    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+ 
+     make_msgpack
+-    rsync -a $PKG/usr/lib${LIBDIRSUFFIX}/calibre/ /usr/lib${LIBDIRSUFFIX}/calibre/
++    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+ 
+     make_six
+-    rsync -a $PKG/usr/lib${LIBDIRSUFFIX}/calibre/ /usr/lib${LIBDIRSUFFIX}/calibre/
++    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+ 
+     make_webenc
+-    rsync -a $PKG/usr/lib${LIBDIRSUFFIX}/calibre/ /usr/lib${LIBDIRSUFFIX}/calibre/
++    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+ 
+     make_html5lib
+-    rsync -a $PKG/usr/lib${LIBDIRSUFFIX}/calibre/ /usr/lib${LIBDIRSUFFIX}/calibre/
++    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+ 
+     make_html5parser
+-    rsync -a $PKG/usr/lib${LIBDIRSUFFIX}/calibre/ /usr/lib${LIBDIRSUFFIX}/calibre/
++    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+ 
+     make_feedparser
+-    rsync -a $PKG/usr/lib${LIBDIRSUFFIX}/calibre/ /usr/lib${LIBDIRSUFFIX}/calibre/
++    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+ 
+     make_Markdown
+-    rsync -a $PKG/usr/lib${LIBDIRSUFFIX}/calibre/ /usr/lib${LIBDIRSUFFIX}/calibre/
++    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+ 
+     make_html2text
+-    rsync -a $PKG/usr/lib${LIBDIRSUFFIX}/calibre/ /usr/lib${LIBDIRSUFFIX}/calibre/
++    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+ 
+     make_chardet
+-    rsync -a $PKG/usr/lib${LIBDIRSUFFIX}/calibre/ /usr/lib${LIBDIRSUFFIX}/calibre/
++    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+ 
+   fi
+ fi
+ 
+ if [ "$BUILD_PYTHON" = "YES" -o "$BUILD_PYTHONMODS" = "YES" -o "$BUILD_QT" = "YES" -o "$BUILD_MTP" = "YES" ]; then
+@@ -2188,33 +2228,33 @@
+   # into a tarball which we can re-use in a future build (so that we do not
+   # have to recompile them every time).
+   # If you want to make use of this, then just copy the resulting tarball
+   # into the same directory as this SlackBuild script:
+   if  [ ! -f $SRCDIR/${PRGNAM}_pythondeps-${SLACKVER}-${ARCH}.tar.bz2 ]; then
+-    ( cd $PKG/usr/lib${LIBDIRSUFFIX}/calibre
++    ( cd $PKG$HOMECALIBRE
+       echo "**"
+       echo "** Creating dependencies tarball $OUTPUT/${PRGNAM}_pythondeps-${SLACKVER}-${ARCH}.tar.bz2"
+       echo "** Move this file to $SRCDIR for future compilation speedups."
+       echo "**"
+       tar -jcf $OUTPUT/${PRGNAM}_pythondeps-${SLACKVER}-${ARCH}.tar.bz2 .
+     )
+   fi
+ fi
+ 
+ # We need to point calibre's compilation at our custom headers:
+-export CFLAGS="-I/usr/lib${LIBDIRSUFFIX}/calibre/include"
++export CFLAGS="-I$HOMECALIBRE/include"
+ 
+ # The main course - compile calibre:
+ make_calibre
+ 
+ if [ "$BUILD_PYTHON" = "YES" ]; then
+ 
+   # Compiling calibre will have wiped all previously compiled python stuff,
+   # so we need to put it back into the package, and then it can go:
+-  rsync -a /usr/lib${LIBDIRSUFFIX}/calibre/ $PKG/usr/lib${LIBDIRSUFFIX}/calibre/
++  rsync -a $HOMECALIBRE/ $PKG$HOMECALIBRE/
+   # Wait with with the removal until after byte-compiling:
+-  #rm -rf /usr/lib${LIBDIRSUFFIX}/calibre
++  #rm -rf $HOMECALIBRE
+ 
+   ##!/bin/sh
+   #path=`readlink -e $0`
+   #base=`dirname $path`
+   #export PATH=$base/bin:$PATH
+@@ -2223,26 +2263,26 @@
+ 
+   # We need to tell calibre to use the internal python:
+   for FILE in $PKG/usr/bin/* ; do
+    if ! file $FILE | grep -q ELF ; then
+     sed -i \
+-     -e "s,^#!/usr/bin/env .*$,#!/usr/lib${LIBDIRSUFFIX}/calibre/python2," \
++     -e "s,^#!/usr/bin/env .*$,#!$HOMECALIBRE/python2," \
+      $FILE
+    fi
+   done
+ 
+   # This is not needed in the package:
+-  rm -rf $PKG/usr/lib${LIBDIRSUFFIX}/calibre/{bin,lib/pkgconfig,lib/python*/test,share,usr/man}
++  rm -rf $PKG$HOMECALIBRE/{bin,lib/pkgconfig,lib/python*/test,share,usr/man}
+ 
+   # Compiling bytecode makes Calibre startup much faster:
+   set +e
+-  /usr/lib${LIBDIRSUFFIX}/calibre/python2 -m compileall -d '/' ${PKG}/usr/lib${LIBDIRSUFFIX}/calibre/ || true
+-  /usr/lib${LIBDIRSUFFIX}/calibre/python2 -OO -m compileall -d '/' ${PKG}/usr/lib${LIBDIRSUFFIX}/calibre/ || true
++  $HOMECALIBRE/python2 -m compileall -d '/' ${PKG}$HOMECALIBRE/ || true
++  $HOMECALIBRE/python2 -OO -m compileall -d '/' ${PKG}$HOMECALIBRE/ || true
+   set -e
+ 
+   # Now we can remove these from the filesystem:
+-  rm -rf /usr/lib${LIBDIRSUFFIX}/calibre
++  rm -rf $HOMECALIBRE
+ fi
+ 
+ # Create a doinst.sh:
+ mkdir -p $PKG/install
+ cat <<EOT >> $PKG/install/doinst.sh
+@@ -2263,12 +2303,12 @@
+ mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
+ # First, the calibre documentation files:
+ cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION || true
+ if [ "$BUILD_PYTHON" = "YES" -o "$BUILD_PYTHONMODS" = "YES" ]; then
+   # Add documentation (mainly licenses) of the internal python deps:
+-  mv $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc/internaldeps/* $PKG/usr/doc/$PRGNAM-$VERSION/ || true
+-  rm -rf $PKG/usr/lib${LIBDIRSUFFIX}/calibre/doc
++  mv $PKG$HOMECALIBRE/doc/internaldeps/* $PKG/usr/doc/$PRGNAM-$VERSION/ || true
++  rm -rf $PKG$HOMECALIBRE/doc
+ fi
+ # Add all the patches we used to build this package:
+ cp -a $PATCHDIR $PKG/usr/doc/$PRGNAM-$VERSION
+ # And finally, add this SlackBuild script:
+ cat $SRCDIR/$(basename $0) > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
+@@ -2281,11 +2321,11 @@
+   for i in $(find $PKG/usr/man -type l -name "*.?") ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
+ fi
+ 
+ if [ "$BUILD_QT" = "YES" ]; then
+   # If we built our own Qt then this can be removed from the package:
+-  rm -rf $PKG/usr/lib${LIBDIRSUFFIX}/calibre/{demos,doc,examples,tests}
++  rm -rf $PKG$HOMECALIBRE/{demos,doc,examples,tests}
+ fi
+ 
+ # Don't ship .la files:
+ rm -f $PKG/{,usr/}lib${LIBDIRSUFFIX}/*.la
+ 
