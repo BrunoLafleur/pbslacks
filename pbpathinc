@@ -72,11 +72,14 @@ PATHOPERA='https://get.geo.opera.com/pub/opera-beta/72.0.3815.133/linux/opera-be
 
 # List of aspire links.
 # explicit mirror chosen here.
-SLACKMIR='http://nephtys.lip6.fr/pub/linux/distributions/slackware'
+SLACKDIR='/pub/linux/distributions/slackware'
+SLACKMIR="http://nephtys.lip6.fr$SLACKDIR"
 
 SLACKKEYS='https://mirrors.slackware.com/slackware'
 SLACKMULTI="$SLACKMIR/people/alien/multilib/current"
-SLACKKDEFW="$SLACKMIR/people/alien-kde/current/latest/x86_64/kde/frameworks"
+SLACK_KDE_FW="$SLACKMIR/people/alien-kde/current/latest/x86_64/kde/frameworks"
+SLACK_KDE_SRC="$SLACKMIR/people/alien-kde/source/latest/kde"
+SLACK_KDE_SRCDIR="$SLACKDIR/people/alien-kde/source/latest/kde"
 
 # GParted Live iso and VirtualBox for Windows.
 

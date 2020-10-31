@@ -71,6 +71,8 @@ mkdir -p packages/Mozilla
 [ ! -d packages2 ] && mkdir packages2
 [ ! -d packages3 ] && mkdir packages3
 [ ! -d packages4 ] && mkdir packages4
+[ ! -d kde5 ] && mkdir kde5
+[ -d packages4/frameworks -a ! -d kde5/frameworks ] && mv packages4/frameworks kde5
 [ ! -d gpgkeys ] && mkdir gpgkeys
 [ ! -d bumblebee ] && mkdir bumblebee
 [ ! -d bumblebee/Crazybee ] && mkdir bumblebee/Crazybee
