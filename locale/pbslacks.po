@@ -218,47 +218,47 @@ msgid ""
 "Launch this script in the directory including packages, packages2 et al."
 msgstr ""
 
-#: pbaspirecore:111
+#: pbaspirecore:111 pbaspirecore:113
 msgid "Slackware current copied."
 msgstr ""
 
-#: pbaspirecore:113
+#: pbaspirecore:113 pbaspirecore:115
 msgid "Slackware current not copied."
 msgstr ""
 
-#: pbaspirecore:138
+#: pbaspirecore:138 pbaspirecore:141
 msgid "Slackware multilib copied."
 msgstr ""
 
-#: pbaspirecore:140
+#: pbaspirecore:140 pbaspirecore:143
 msgid "Slackware multilib not copied."
 msgstr ""
 
-#: pbaspirecore:167
+#: pbaspirecore:167 pbaspirecore:176
 msgid "Alien Bob KDE5 frameworks copied."
 msgstr ""
 
-#: pbaspirecore:169
+#: pbaspirecore:169 pbaspirecore:178
 msgid "Alien Bob KDE5 frameworks not copied."
 msgstr ""
 
-#: pbaspirecore:196
+#: pbaspirecore:196 pbaspirecore:223
 msgid "Check GPG signatures :"
 msgstr ""
 
-#: pbaspirecore:220
+#: pbaspirecore:220 pbaspirecore:247
 msgid "GParted copied."
 msgstr ""
 
-#: pbaspirecore:222 pbaspirecore:228
+#: pbaspirecore:222 pbaspirecore:228 pbaspirecore:249 pbaspirecore:255
 msgid "GParted not copied."
 msgstr ""
 
-#: pbaspirecore:251
+#: pbaspirecore:251 pbaspirecore:278
 msgid "VirtualBox copied."
 msgstr ""
 
-#: pbaspirecore:253 pbaspirecore:259
+#: pbaspirecore:253 pbaspirecore:259 pbaspirecore:280 pbaspirecore:286
 msgid "VirtualBox not copied."
 msgstr ""
 
@@ -304,15 +304,15 @@ msgid ""
 "machine, this script is not useful.\\nPress a touch for continue or abort."
 msgstr ""
 
-#: pbcompilepost:116 pbcompilepost:145
+#: pbcompilepost:116 pbcompilepost:145 pbcompilepost:118 pbcompilepost:148
 msgid "Correct this error and relaunch this script."
 msgstr ""
 
-#: pbcompilepost:296
+#: pbcompilepost:296 pbcompilepost:308
 msgid "Upgrade packages* done."
 msgstr ""
 
-#: pbinclude:68
+#: pbinclude:68 pbinclude:69
 #, sh-format
 msgid "Delete : $j"
 msgstr ""
@@ -1033,4 +1033,12 @@ msgstr ""
 
 #: pbupgradesys:67
 msgid "Upgrade system not done."
+msgstr ""
+
+#: pbaspirecore:185
+msgid "Alien Bob KDE5 scripts copied."
+msgstr ""
+
+#: pbaspirecore:191
+msgid "KDE5 frameworks sources copied."
 msgstr ""

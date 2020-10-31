@@ -36,6 +36,7 @@ echo '-------------------------------------------------'
 cd slackware64-current
 XTEMPLIST=$(mktemp -p /tmp -t pbmakeisolist.XXXXXX)
 find -L . -type d | grep "\./package" | egrep -v 'packages[^/]*($|/(ardour|audacity|compat32|openshot|pitivi|Mozilla|Httpfs|frameworks|audiveris|tesseract4|Steam)$)'|sed 's/^\./../g' > $XTEMPLIST
+find -L . -type d | grep "\./kde5" | egrep -v 'kde5[^/]($|/(frameworks|deps)$)'|sed 's/^\./../g' >> $XTEMPLIST
 
 # Copied then adapted from isolinux/README.TXT in the
 # slackware64-current repository.
