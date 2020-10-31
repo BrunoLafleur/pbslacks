@@ -72,6 +72,7 @@ upgradesys () {
         xupmainpac "qt5-webkit-[0-9]" t?z alien l
         xupmainpac "PyQt-[0-9]" t?z alien l
 	xupmainpac "PyQt5-[0-9]" t?z alien l
+	removepkg qt5-speech
 	myconfig
 	mygt "Upgrade system done." >> $XTEMPMES
     fi

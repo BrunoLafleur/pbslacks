@@ -66,9 +66,7 @@ myrget () {
     else
 	accept="-R *\?C=?;O=?"
     fi
-    set -x
     wget $accept -N -nv -np -nH --cut-dirs=$prof -r "$gpath/"
-    set +x
     [ -d "$pack" ] && find "$pack" -name 'index.html*' -exec rm -f {} \;
 }
 
@@ -158,6 +156,8 @@ if [ $ISFRAMEW -eq 1 -o $ISPURGE -eq 1 ] ;then
     [ ! -d kde5 ] && mkdir kde5
     (
 	cd kde5
+	# Get frameworks packages (obsolete because we get the sources
+	# and recompile with pbcompilepost).
 	[ $ISFRAMEW -eq 1 ] && myrget 10 "$SLACK_KDE_FW" frameworks
 	# Nettoyage des doublons
 	echo '------------------------------------'
@@ -181,13 +181,21 @@ if [ $ISFRAMEW -eq 1 -o $ISPURGE -eq 1 ] ;then
 	fi
 	echo '------------------------------------'
 	# Get sources
-	[ $ISFRAMEW -eq 1 ] && myrget 8 "$SLACK_KDE_SRC" kde \
+	mkdir -p source;cd source
+	[ $ISFRAMEW -eq 1 ] && myrget 9 "$SLACK_KDE_SRC" . \
 				      "-X $SLACK_KDE_SRCDIR/src"
+	mygt "Alien Bob KDE5 scripts copied."
 	echo '------------------------------------'
-	if [ -d kde ] ;then
-	    mv kde source
-	    cd source;mkdir -p src/frameworks
-	fi
+	mkdir -p src/frameworks;cd src/frameworks
+	myrget 3 "$KDE5_FW_SRC" .
+	cd ..;mkdir -p plasma-extra;cd plasma-extra
+       	myrget 3 "$KDE5_PLASMAEX_SRC1" .
+	mygt "KDE5 frameworks sources copied."
+	echo '------------------------------------'
+	# Get packages deps used by frameworks
+	cd ../../..
+	mkdir -p deps;cd deps
+	xgetpac qrencode "$SLACKALIEN2" 10
 	echo '------------------------------------'
     )
     if [ -d slackware64-current ] ;then
