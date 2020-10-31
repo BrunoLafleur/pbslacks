@@ -235,47 +235,47 @@ msgid ""
 msgstr ""
 "Script à lancer dans le répertoire contenant packages, packages2 et al."
 
-#: pbaspirecore:111
+#: pbaspirecore:111 pbaspirecore:113
 msgid "Slackware current copied."
 msgstr "Copie Slackware current faite."
 
-#: pbaspirecore:113
+#: pbaspirecore:113 pbaspirecore:115
 msgid "Slackware current not copied."
 msgstr "Copie Slackware current non faite."
 
-#: pbaspirecore:138
+#: pbaspirecore:138 pbaspirecore:141
 msgid "Slackware multilib copied."
 msgstr "Copie Slackware multilib faite."
 
-#: pbaspirecore:140
+#: pbaspirecore:140 pbaspirecore:143
 msgid "Slackware multilib not copied."
 msgstr "Copie Slackware multilib non faite."
 
-#: pbaspirecore:167
+#: pbaspirecore:167 pbaspirecore:176
 msgid "Alien Bob KDE5 frameworks copied."
 msgstr "Copie alien KDE5 frameworks faite."
 
-#: pbaspirecore:169
+#: pbaspirecore:169 pbaspirecore:178
 msgid "Alien Bob KDE5 frameworks not copied."
 msgstr "Copie alien KDE5 frameworks non faite."
 
-#: pbaspirecore:196
+#: pbaspirecore:196 pbaspirecore:223
 msgid "Check GPG signatures :"
 msgstr "Vérification des signatures GPG :"
 
-#: pbaspirecore:220
+#: pbaspirecore:220 pbaspirecore:247
 msgid "GParted copied."
 msgstr "Copie GParted faite."
 
-#: pbaspirecore:222 pbaspirecore:228
+#: pbaspirecore:222 pbaspirecore:228 pbaspirecore:249 pbaspirecore:255
 msgid "GParted not copied."
 msgstr "Copie GParted non faite."
 
-#: pbaspirecore:251
+#: pbaspirecore:251 pbaspirecore:278
 msgid "VirtualBox copied."
 msgstr "Copie VirtualBox faite."
 
-#: pbaspirecore:253 pbaspirecore:259
+#: pbaspirecore:253 pbaspirecore:259 pbaspirecore:280 pbaspirecore:286
 msgid "VirtualBox not copied."
 msgstr "Copie VirtualBox non faite."
 
@@ -329,15 +329,15 @@ msgstr ""
 "déjà fait sur une machine a jour, il n'est pas utile de relancer ce script."
 "\\nAppuyer sur une touche pour continuer sinon CTRLc pour arrêter"
 
-#: pbcompilepost:116 pbcompilepost:145
+#: pbcompilepost:116 pbcompilepost:145 pbcompilepost:118 pbcompilepost:148
 msgid "Correct this error and relaunch this script."
 msgstr "Erreur à corriger puis relancer ce script."
 
-#: pbcompilepost:296
+#: pbcompilepost:296 pbcompilepost:308
 msgid "Upgrade packages* done."
 msgstr "Mise à jour de packages* faite."
 
-#: pbinclude:68
+#: pbinclude:68 pbinclude:69
 #, sh-format
 msgid "Delete : $j"
 msgstr "Effacement : $j"
@@ -1171,157 +1171,10 @@ msgstr "Arrêt : voir les erreurs précédentes."
 msgid "Upgrade system not done."
 msgstr "Mise à jour du système non faite."
 
-#, sh-format
-#~ msgid "Get/Upgrade core system done : \\Z3${PBNAME}core\\Zn."
-#~ msgstr "Coeur du système obtenu ou mis à jour : \\Z3${PBNAME}core\\Zn."
+#: pbaspirecore:185
+msgid "Alien Bob KDE5 scripts copied."
+msgstr "Copie des scripts pour KDE5 d'Alien Bob faite."
 
-#, sh-format
-#~ msgid ""
-#~ "Get/Upgrade multilib compat 32 bits mode done : \\Z3${PBNAME}core\\Zn."
-#~ msgstr ""
-#~ "Mode de compatibilié 32 bits obtenu ou mis à jour : \\Z3${PBNAME}core\\Zn."
-
-#, sh-format
-#~ msgid "Get/Upgrade framewoks libraries KDE5 done : \\Z3${PBNAME}core\\Zn."
-#~ msgstr ""
-#~ "librairies frameworks de KDE5 obtenues ou mises à jour : \\Z3${PBNAME}core"
-#~ "\\Zn."
-
-#, sh-format
-#~ msgid "Get/Upgrade gparted live iso done : \\Z3${PBNAME}core\\Zn."
-#~ msgstr ""
-#~ "Image iso GParted live obtenue ou mise à jour : \\Z3${PBNAME}core\\Zn."
-
-#, sh-format
-#~ msgid "Get/Upgrade VirtualBox installer done : \\Z3${PBNAME}core\\Zn."
-#~ msgstr "Installeur VirtualBox obtenu ou mis à jour : \\Z3${PBNAME}core\\Zn."
-
-#, sh-format
-#~ msgid "Get/Upgrade Alien Bob packages done : \\Z3${PBNAME}alien\\Zn."
-#~ msgstr "Paquets d'Alien Bob obtenus ou mis à jour : \\Z3${PBNAME}alien\\Zn."
-
-#, sh-format
-#~ msgid "Get/Upgrade Ponce packages done : \\Z3${PBNAME}ponce\\Zn."
-#~ msgstr "Paquets de Ponce obtenus ou mis à jour : \\Z3${PBNAME}ponce\\Zn."
-
-#, sh-format
-#~ msgid "Get/Upgrade Slackonly packages done : \\Z3${PBNAME}slonly\\Zn."
-#~ msgstr ""
-#~ "Paquets de Slackonly obtenus ou mis à jour : \\Z3${PBNAME}slonly\\Zn."
-
-#, sh-format
-#~ msgid ""
-#~ "Get/Upgrade Conraid and Slackel binary packages done : \\Z3${PBNAME}other"
-#~ "\\Zn."
-#~ msgstr ""
-#~ "Autres paquets binaires de Conraid et Slackel obtenus ou mis à jour : "
-#~ "\\Z3${PBNAME}other\\Zn."
-
-#, sh-format
-#~ msgid "Get/Upgrade other source packages done : \\Z3${PBNAME}sources\\Zn."
-#~ msgstr ""
-#~ "Autres paquets sources obtenus ou mis à jour : \\Z3${PBNAME}sources\\Zn."
-
-#, sh-format
-#~ msgid ""
-#~ "Get/Upgrade Firefox and Thunderbird for $XLANG language done : "
-#~ "\\Z3${PBNAME}mozilla\\Zn."
-#~ msgstr ""
-#~ "Obtention ou mise à jour de Firefox et Thunderbird pour le langage $XLANG "
-#~ "faite : \\Z3${PBNAME}mozilla\\Zn."
-
-#~ msgid "Sync/Update system to the last fetched current Slackware"
-#~ msgstr "Synchroniser avec la copie locale de la dernière Slackware current"
-
-#~ msgid "Sync/Update system to the last current Slackware on the internet"
-#~ msgstr "Synchroniser avec la dernière Slackware current sur internet"
-
-#~ msgid "Install/Update the 32 bits compatible mode"
-#~ msgstr "Mettez à jour le mode de compatibilité 32 bits"
-
-#~ msgid "Install/Update the Firefox and Thunderbird softwares"
-#~ msgstr "Obtenir/mettre à jour Firefox et Thunderbird"
-
-#~ msgid "Install/Update the packages set of software"
-#~ msgstr "Obtenir/mettre à jour les logiciels de packages"
-
-#~ msgid "Install/Update the packages2 set of software"
-#~ msgstr "Obtenir/mettre à jour les logiciels de packages2"
-
-#~ msgid "Install/Update the packages3 set of software"
-#~ msgstr "Obtenir/mettre à jour les logiciels de packages3"
-
-#~ msgid "Install/Update the packages4 set of software"
-#~ msgstr "Obtenir/mettre à jour les logiciels de packages4"
-
-#~ msgid "Install/Update the KDE5 frameworks libraries"
-#~ msgstr "Obtenir/mettre à jour les librairies frameworks de KDE5"
-
-#~ msgid "Install/Update the Openshot software"
-#~ msgstr "Obtenir/mettre à jour le logiciel Openshot"
-
-#~ msgid "Install/Update the Audacity software"
-#~ msgstr "Obtenir/mettre à jour Audacity"
-
-#~ msgid "Install/Update the Ardour software"
-#~ msgstr "Obtenir/mettre à jour Ardour"
-
-#~ msgid "Install/Update the Tesseract version 4 software"
-#~ msgstr "Obtenir/mettre à jour Tesseract version 4"
-
-#~ msgid ""
-#~ "Install/Update the Bumblebee support of your second NVIDIA graphic card"
-#~ msgstr ""
-#~ "Obtenir/mettre à jour le support de votre 2ième carte graphique NVIDIA"
-
-#~ msgid ""
-#~ "Upgrade your boot loader only if you update your system and not the "
-#~ "bootloader."
-#~ msgstr ""
-#~ "Mettez à jour votre gestionnaire de démarrage seulement si vous avez mis "
-#~ "à jour votre système et pas le gestionnaire de démarrage."
-
-#~ msgid ""
-#~ "\\ZbThe boot loader was not updated.\\ZB\\nIf lilo is installed, launch : "
-#~ "\\Z3/sbin/lilo\\Zn\\nIf Grub is installed, launch : \\Z3grub-mkconfig -o /"
-#~ "boot/grub/grub.cfg\\Zn\\nIf Syslinux is installed, launch : \\Z3syslinux "
-#~ "BOOTDEVICE\\Zn\\nIf Boot UEFI ELILO is installed, do :\\n  \\Z3cp /boot/"
-#~ "vmlinuz /boot/initrd.gz /boot/efi/EFI/Slackware\\Zn\\n\\n\\ZbOr rerun "
-#~ "your other favorite bootloader install procedure before rebooting.\\ZB"
-#~ msgstr ""
-#~ "\\ZbLe gestionnaire de démarrage n'a pas été mis à jour.\\ZB\\nSi lilo "
-#~ "est installé, lancez : \\Z3/sbin/lilo\\Zn\\nSi Grub est installé, "
-#~ "lancez : \\Z3grub-mkconfig -o /boot/grub/grub.cfg\\Zn\\nSi Syslinux est "
-#~ "installé, lancez : \\Z3syslinux BOOTDEVICE\\Zn\\nSi le gestionnaire UEFI "
-#~ "ELILO est installé, faîtes :\\n  \\Z3cp /boot/vmlinuz /boot/initrd.gz /"
-#~ "boot/efi/EFI/Slackware\\Zn\\n\\n\\ZbOu relancez votre autre gestionnaire "
-#~ "de démarrage favori avant de redémarrer votre machine.\\ZB"
-
-#~ msgid ""
-#~ "Elilo updated : Files vmlinuz et initrd.gz copied in \\Z3/boot/efi/EFI/"
-#~ "Slackware\\Zn"
-#~ msgstr ""
-#~ "Elilo mis à jour : Fichiers vmlinuz et initrd.gz copiés dans \\Z3/boot/"
-#~ "efi/EFI/Slackware\\Zn"
-
-#~ msgid ""
-#~ "Grub updated : \\Z3grub-mkconfig\\Zn relaunched.\\n\\Z1Look if there are "
-#~ "error messages below\\Zn."
-#~ msgstr ""
-#~ "Grub mis à jour : \\Z3grub-mkconfig\\Zn relancé.\\n\\Z1Regardez s'il y a "
-#~ "des messages d'erreurs ci-dessous\\Zn."
-
-#~ msgid ""
-#~ "Lilo updated with \\Z3/sbin/lilo\\Zn.\\n\\Z1Look if there are error "
-#~ "messages below\\Zn."
-#~ msgstr ""
-#~ "Lilo mis à jour avec \\Z3/sbin/lilo\\Zn.\\n\\Z1Regardez s'il y a des "
-#~ "messages d'erreurs ci-dessous\\Zn."
-
-#~ msgid " (\\Z1be sure to have updated the bootloader before\\Zn)"
-#~ msgstr ""
-#~ " (\\Z1vérifiez que vous avez mis à jour votre gestionnaire de démarrage "
-#~ "avant de redémarrer\\Zn)"
-
-#~ msgid "Install/Update the Pitivi software"
-#~ msgstr "Obtenir/mettre à jour Pitivi"
+#: pbaspirecore:191
+msgid "KDE5 frameworks sources copied."
+msgstr "Copie des sources de KDE5 frameworks faite."
