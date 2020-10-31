@@ -62,11 +62,13 @@ myrget () {
     pack="$3"
     accept="$4"
     if [ -n "$accept" ] ;then
-	accept="-A $accept"
+	accept="$accept"
     else
 	accept="-R *\?C=?;O=?"
     fi
+    set -x
     wget $accept -N -nv -np -nH --cut-dirs=$prof -r "$gpath/"
+    set +x
     [ -d "$pack" ] && find "$pack" -name 'index.html*' -exec rm -f {} \;
 }
 
@@ -85,13 +87,14 @@ if [ $ISCORE -eq 1 -o $ISPURGE -eq 1 ] ;then
     if [ -d slackware64-current ] ;then
 	(
 	    cd slackware64-current
-	    find . -name '*.t?z'|grep -v '^./source/'|while read i;test "$i" != "" ;do
-		pack=$(echo $i|sed 's@-[0-9].*$@@')
-		echo -n .
-		xpurgepac "$pack-[0-9]" txt
-		xpurgepac "$pack-[0-9]" t?z
-		xpurgepac "$pack-[0-9]" asc
-	    done
+	    find . -name '*.t?z'|grep -v '^./source/'|\
+		while read i;test "$i" != "" ;do
+		    pack=$(echo $i|sed 's@-[0-9].*$@@')
+		    echo -n .
+		    xpurgepac "$pack-[0-9]" txt
+		    xpurgepac "$pack-[0-9]" t?z
+		    xpurgepac "$pack-[0-9]" asc
+		done
 	    find source -name '*.tar.?z'|while read i;test "$i" != "" ;do
 		pack=$(echo $i|sed 's@-[0-9].*$@@')
 		echo -n .
@@ -106,6 +109,7 @@ if [ $ISCORE -eq 1 -o $ISPURGE -eq 1 ] ;then
 	    ln -sf ../bumblebee .
 	    ln -sf ../divers .
 	    ln -sf ../packages* .
+	    ln -sf ../kde5 .
 	    ln -sf ../gpgkeys .
 	)
 	mygt "Slackware current copied."
@@ -125,36 +129,8 @@ if [ $ISMULTI -eq 1 -o $ISPURGE -eq 1 ] ;then
     if [ -d current ] ;then
 	(
 	    cd current
-	    find . -name '*.t?z'|grep -v '^./source/'|while read i;test "$i" != "" ;do
-		pack=$(echo $i|sed 's@-[0-9].*$@@')
-		xpurgepac "$pack-[0-9]" lst
-		xpurgepac "$pack-[0-9]" meta
-		xpurgepac "$pack-[0-9]" txt
-		xpurgepac "$pack-[0-9]" t?z
-		xpurgepac "$pack-[0-9]" asc
-		xpurgepac "$pack-[0-9]" md5
-	    done
-	)
-	mygt "Slackware multilib copied."
-    else
-	mygt "Slackware multilib not copied."
-    fi
-    echo '------------------------------------'
-fi
-
-# Frameworks KDE5 Alien Bob
-if [ $ISFRAMEW -eq 1 -o $ISPURGE -eq 1 ] ;then
-    [ ! -d packages4 ] && mkdir packages4
-    (
-	cd packages4
-	[ $ISFRAMEW -eq 1 ] && myrget 10 "$SLACKKDEFW" frameworks
-
-	# Nettoyage des doublons
-	echo '------------------------------------'
-	if [ -d frameworks ] ;then
-	    (
-		cd frameworks
-		find . -name '*.t?z'|grep -v '^./source/'|while read i;test "$i" != "" ;do
+	    find . -name '*.t?z'|grep -v '^./source/'|\
+		while read i;test "$i" != "" ;do
 		    pack=$(echo $i|sed 's@-[0-9].*$@@')
 		    xpurgepac "$pack-[0-9]" lst
 		    xpurgepac "$pack-[0-9]" meta
@@ -163,13 +139,63 @@ if [ $ISFRAMEW -eq 1 -o $ISPURGE -eq 1 ] ;then
 		    xpurgepac "$pack-[0-9]" asc
 		    xpurgepac "$pack-[0-9]" md5
 		done
+	)
+	mygt "Slackware multilib copied."
+    else
+	mygt "Slackware multilib not copied."
+    fi
+    if [ -d slackware64-current ] ;then
+	(
+	    cd slackware64-current
+	    ln -sf ../current .
+	)
+    fi
+    echo '------------------------------------'
+fi
+
+# Frameworks KDE5 Alien Bob
+if [ $ISFRAMEW -eq 1 -o $ISPURGE -eq 1 ] ;then
+    [ ! -d kde5 ] && mkdir kde5
+    (
+	cd kde5
+	[ $ISFRAMEW -eq 1 ] && myrget 10 "$SLACK_KDE_FW" frameworks
+	# Nettoyage des doublons
+	echo '------------------------------------'
+	if [ -d frameworks ] ;then
+	    (
+		cd frameworks
+		find . -name '*.t?z'|grep -v '^./source/'|\
+		    while read i;test "$i" != "" ;do
+			pack=$(echo $i|sed 's@-[0-9].*$@@')
+			xpurgepac "$pack-[0-9]" lst
+			xpurgepac "$pack-[0-9]" meta
+			xpurgepac "$pack-[0-9]" txt
+			xpurgepac "$pack-[0-9]" t?z
+			xpurgepac "$pack-[0-9]" asc
+			xpurgepac "$pack-[0-9]" md5
+		    done
 	    )
 	    mygt "Alien Bob KDE5 frameworks copied."
 	else
 	    mygt "Alien Bob KDE5 frameworks not copied."
 	fi
 	echo '------------------------------------'
+	# Get sources
+	[ $ISFRAMEW -eq 1 ] && myrget 8 "$SLACK_KDE_SRC" kde \
+				      "-X $SLACK_KDE_SRCDIR/src"
+	echo '------------------------------------'
+	if [ -d kde ] ;then
+	    mv kde source
+	    cd source;mkdir -p src/frameworks
+	fi
+	echo '------------------------------------'
     )
+    if [ -d slackware64-current ] ;then
+	(
+	    cd slackware64-current
+	    ln -sf ../kde5 .
+	)
+    fi
 fi
 
 if [ $ISCHECK -eq 1 ] ;then

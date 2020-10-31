@@ -199,7 +199,7 @@ while [ $bclaide -eq 1 ] ;do
 	elif [ "$(echo "$xitem"|cut -c1-8)" = packages ] ;then
 	    xpacaide "$xitem"
 	elif [ "$xitem" = frameworks ] ;then
-	    xpacaide packages4/frameworks
+	    xpacaide kde5/frameworks
 	elif [ "$xitem" = openshot ] ;then
 	    xpacaide packages/openshot
 	elif [ "$xitem" = pitivi ] ;then
@@ -330,7 +330,7 @@ if [ $XEND -eq 0 ] ;then
     fi
     if [ $ISFRAME -eq 1 ] ;then
 	if [ $XTEST -ne 1 ] ;then
-	    upgradedir packages4/frameworks
+	    upgradedir kde5/frameworks
 	fi
 	mygt "Upgrade frameworks done." >> $XTEMPMES
     fi
