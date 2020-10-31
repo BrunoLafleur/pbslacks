@@ -36,6 +36,7 @@ ISOPENSHOT=0
 ISPITIVI=0
 ISAUDACITY=0
 ISARDOUR=0
+ISFRAMEW=0
 
 while [ $# -ge 1 ] ;do
     MYARG="$1"
@@ -65,6 +66,8 @@ while [ $# -ge 1 ] ;do
 	ISAUDACITY=1;ISALL=0
     elif [ "$MYARG" = "-isardour" ] ;then
 	ISARDOUR=1;ISALL=0
+    elif [ "$MYARG" = "-isframew" ] ;then
+	ISFRAMEW=1;ISALL=0
     elif [ "$MYARG" = "-help" -o "$MYARG" = "-h" ] ;then
 	xhelp
 	exit 0
@@ -123,6 +126,7 @@ xmakealienpac () {
 	cp "/tmp/${pac}-"[0-9m]*.t?z "$dest"
 	cp "/tmp/${pac}-"[0-9m]*.t?z.* "$dest"
 	chown ${MYUSER}.$MYGROUP "$dest/${pac}"-[0-9m]*.t?z
+	chown ${MYUSER}.$MYGROUP "$dest/${pac}"-[0-9m]*.t?z.*
 	chown -R ${MYUSER}.$MYGROUP "$dest/$pac"
 	xpurgetmp "$pac"
 	xpurgepac "$dest/$pac-[0-9m]" t?z
@@ -267,6 +271,25 @@ if [ $ISPAC3 -eq 1 ] ;then
     export BUILD_PYTHONMODS=YES
     xmakealienpac packages3 calibre
     xhookpac3
+fi
+
+if [ $ISFRAMEW -eq 1 ] ;then
+    (
+	# Sources are get from the Web by pbaspirecore called par pbsetup.
+	cd kde5/source
+	mv patch/krunner.patch patch/krunner.patch.old
+	# Next we create and install the packages.
+	export CLEANUP=no;sh kde.SlackBuild plasma-extra:plasma-wayland-protocols
+	export CLEANUP=no;sh kde.SlackBuild frameworks
+	cd ..
+	[ ! -d frameworks ] && mkdir frameworks
+	[ ! -d plasma-extra ] && mkdir plasma-extra
+	# We keep the packages in kde5. For other computer installs they can
+	# be installed directly.
+	cd frameworks;rm -f *
+	cp /tmp/kde_build/*.t?z .
+	mv plasma-wayland-protocols-*.t?z ../plasma-extra
+    )
 fi
 
 if [ $ISPAC4 -eq 1 ] ;then
