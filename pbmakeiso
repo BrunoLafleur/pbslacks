@@ -54,7 +54,7 @@ xorriso -as mkisofs -iso-level 3 \
     bumblebee/Crazybee/Bumblebee-SlackBuilds.tgz=../../Crazybee/Bumblebee-SlackBuilds.tgz \
     bumblebee/=../bumblebee current/=../current packages/=../packages \
     packages2/=../packages2 packages3/=../packages3 packages4/=../packages4 \
-    divers/=../../divers pbslacks/=../../pbslacks \
+    kde5/=../kde5 divers/=../../divers pbslacks/=../../pbslacks \
     perso/=../../perso gpgkeys/=../gpgkeys
 rm -f $XTEMPLIST
 cd ..
