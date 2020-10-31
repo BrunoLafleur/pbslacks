@@ -1,5 +1,5 @@
 --- calibre.SlackBuild.save	2020-10-29 09:50:59.000000000 +0100
-+++ calibre.SlackBuild	2020-10-29 23:16:45.000000000 +0100
++++ calibre.SlackBuild	2020-10-31 22:28:10.000000000 +0100
 @@ -140,24 +140,24 @@
  #
  # -----------------------------------------------------------------------------
@@ -1181,7 +1181,7 @@
 -  # The bash completion files need to be in /etc :
 -  [ -d $PKG/usr/etc ] && mv $PKG/usr/etc $PKG/
 +  # Add python path for calibre :
-+  sed -i "s=import sys, os=import sys, os\n\nsys.path.insert(0,'/usr/lib64/calibre/lib/python2.7/site-packages')=" $PKG/usr/bin/calibre
++  sed -i "s=import sys, os=import sys, os\n\nsys.path.insert(0,'/usr/lib64/calibre/lib/python2.7/site-packages')\nos.environ['PYTHONPATH'] \= '/usr/lib64/calibre/lib/python2.7/site-packages'=" $PKG/usr/bin/calibre
  
    # Add man pages:
    mkdir -p ${PKG}/usr/man
