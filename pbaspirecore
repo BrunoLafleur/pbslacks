@@ -158,7 +158,7 @@ if [ $ISFRAMEW -eq 1 -o $ISPURGE -eq 1 ] ;then
 	cd kde5
 	# Get frameworks packages (obsolete because we get the sources
 	# and recompile with pbcompilepost).
-	[ $ISFRAMEW -eq 1 ] && myrget 10 "$SLACK_KDE_FW" frameworks
+	# [ $ISFRAMEW -eq 1 ] && myrget 10 "$SLACK_KDE_FW" frameworks
 	# Nettoyage des doublons
 	echo '------------------------------------'
 	if [ -d frameworks ] ;then
