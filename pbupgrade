@@ -116,14 +116,14 @@ xmaster () {
     xsel6=$1;shift;xsel7=$1;shift;xsel8=$1;shift;xsel9=$1;shift;xsel10=$1;shift
     xselpi=$1;shift;xsel11=$1;shift;xsel12=$1;shift;xsel13=$1;shift
     xsel14=$1;shift;xsel15=$1;shift;xsel16=$1;shift;xsel17=$1;shift
-    xsel18=$1;shift;xsel19=$1;shift;xsel20=$1;shift;xselrp=$1;shift
-    xsel21=$1;shift;xsel22=$1;shift;xsel23=$1;shift;xsel24=$1
+    xsel18=$1;shift;xselfw=$1;shift;xsel19=$1;shift;xsel20=$1;shift
+    xselrp=$1;shift;xsel21=$1;shift;xsel22=$1;shift;xsel23=$1;shift;xsel24=$1
     pactit=$(mygt 'Main menu')
     pactit="pbupgrade: $pactit"
     dialog --colors --backtitle 'pbupgrade' --title "$pactit" \
 	--default-item $defitem --defaultno \
 	--separate-output --item-help --help-button --help-status --checklist \
-	"$(mygt 'Choose your actions below after you have launch the \Zbpbaspire*\ZB script')" 0 110 26 \
+	"$(mygt 'Choose your actions below after you have launch the \Zbpbaspire*\ZB script')" 0 110 27 \
 	system "$(mygt 'Sync/Upgrade system to the last fetched current Slackware')" $xsel1 system \
 	systemnet "$(mygt 'Sync/Upgrade system to the last current Slackware on the internet')" $xsel2 systemnet \
 	compat32 "$(mygt 'Install/Upgrade the 32 bits compatible mode')" $xsel3 compat32 \
@@ -143,6 +143,7 @@ xmaster () {
 	recreatepackages2 "$(mygt 'Compile again the packages2 set of software')" $xsel16 recreatepackages2 \
 	recreatepackages3 "$(mygt 'Compile again the packages3 set of software')" $xsel17 recreatepackages3 \
 	recreatepackages4 "$(mygt 'Compile again the packages4 set of software')" $xsel18 recreatepackages4 \
+	recreateframeworks "$(mygt 'Compile again the KDE5 frameworks set of software')" $xselfw recreateframeworks \
 	recreatechromium "$(mygt 'Compile again the Chromium software')" $xsel19 recreatechromium \
 	recreateopenshot "$(mygt 'Compile again the Openshot software')" $xsel20 recreateopenshot \
 	recreatepitivi "$(mygt 'Compile again the Pitivi software')" $xselrp recreatepitivi \
@@ -164,7 +165,7 @@ xpacaide () {
 
 xsel="$XUPSYSTEM off $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST \
 $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST \
-off $XUPPOST $XUPPOST $XUPPOST $XUPPOST off $XUPPOST $XUPPOST $XUPPOST \
+off $XUPPOST $XUPPOST $XUPPOST $XUPPOST $XUPPOST off $XUPPOST $XUPPOST $XUPPOST \
 $XUPPOST off off"
 ditem=system
 bclaide=1
@@ -178,8 +179,8 @@ while [ $bclaide -eq 1 ] ;do
 	for i in system systemnet compat32 mozilla packages packages2 packages3 \
 			packages4 frameworks openshot pitivi audacity ardour \
 			tesseract4 bumblebee recreatepackages recreatepackages2 \
-			recreatepackages3 recreatepackages4 recreatechromium \
-			recreateopenshot recreatepitivi recreateaudacity \
+			recreatepackages3 recreatepackages4 recreateframeworks \
+			recreatechromium recreateopenshot recreatepitivi recreateaudacity \
 			recreateardour recreatebumblebee bootload ;do
 	  if [ $(grep "^$i$" "$XTEMPOUT"|wc -l) -eq 1 ] ;then
 	      xsel="$xsel on"
@@ -220,6 +221,8 @@ while [ $bclaide -eq 1 ] ;do
 		pacaide="${pacaide}\n$j"
 	    done < $XTEMPMES
 	    rm -f $XTEMPMES
+	elif [ "$xitem" = recreateframeworks ] ;then
+	    pacaide=$(mygt 'Redo the KDE5 frameworks set of packages.\nIf not already done on this machine or another.')
 	elif [ "$xitem" = recreatechromium ] ;then
 	    pacaide=$(mygt 'Redo the Chromium navigator which are here in sources form.\nIf not already done on this machine or another.\nIt is a very long process (some hours).\nIt is usefull for Opera having the libffmeg.so library with the h264 support.')
 	elif [ "$xitem" = recreateopenshot ] ;then
@@ -265,6 +268,8 @@ ISRECRE="$(cat $XTEMPOUT|grep '^recreatepackages3$'|wc -l)"
 [ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -ispac3"
 ISRECRE="$(cat $XTEMPOUT|grep '^recreatepackages4$'|wc -l)"
 [ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -ispac4"
+ISRECRE="$(cat $XTEMPOUT|grep '^recreateframeworks$'|wc -l)"
+[ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -isframew"
 ISRECRE="$(cat $XTEMPOUT|grep '^recreatechromium$'|wc -l)"
 [ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -ischromium"
 ISRECRE="$(cat $XTEMPOUT|grep '^recreateopenshot$'|wc -l)"
