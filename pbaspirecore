@@ -196,6 +196,7 @@ if [ $ISFRAMEW -eq 1 -o $ISPURGE -eq 1 ] ;then
 	cd ../../..
 	mkdir -p deps;cd deps
 	xgetpac qrencode "$SLACKALIEN2" 10
+	xgetpac phonon "$SLACKALIEN2" 10
 	echo '------------------------------------'
     )
     if [ -d slackware64-current ] ;then

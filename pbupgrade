@@ -250,7 +250,7 @@ ISPACK="$(cat $XTEMPOUT|grep '^packages$'|wc -l)"
 ISPACK2="$(cat $XTEMPOUT|grep '^packages2$'|wc -l)"
 ISPACK3="$(cat $XTEMPOUT|grep '^packages3$'|wc -l)"
 ISPACK4="$(cat $XTEMPOUT|grep '^packages4$'|wc -l)"
-ISFRAME="$(cat $XTEMPOUT|grep '^frameworks$'|wc -l)"
+ISFRAMEW="$(cat $XTEMPOUT|grep '^frameworks$'|wc -l)"
 ISOPENSHOT="$(cat $XTEMPOUT|grep '^openshot$'|wc -l)"
 ISPITIVI="$(cat $XTEMPOUT|grep '^pitivi$'|wc -l)"
 ISAUDACITY="$(cat $XTEMPOUT|grep '^audacity$'|wc -l)"
@@ -328,8 +328,9 @@ if [ $XEND -eq 0 ] ;then
 	fi
 	mygt "Upgrade packages4 done." >> $XTEMPMES
     fi
-    if [ $ISFRAME -eq 1 ] ;then
+    if [ $ISFRAMEW -eq 1 ] ;then
 	if [ $XTEST -ne 1 ] ;then
+	    upgradedir kde5/deps
 	    upgradedir kde5/frameworks
 	fi
 	mygt "Upgrade frameworks done." >> $XTEMPMES
