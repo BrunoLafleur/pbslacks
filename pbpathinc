@@ -81,7 +81,7 @@ SLACK_KDE_FW="$SLACKMIR/people/alien-kde/current/latest/x86_64/kde/frameworks"
 SLACK_KDE_SRC="$SLACKMIR/people/alien-kde/source/latest/kde"
 SLACK_KDE_SRCDIR="$SLACKDIR/people/alien-kde/source/latest/kde"
 KDE5_FW_SRC='https://download.kde.org/stable/frameworks/5.75'
-KDE5_PLASMAEX_SRC1='https://download.kde.org/stable/plasma-wayland-protocols/1.1.0'
+KDE5_PLASMAEX_SRC1='https://download.kde.org/stable/plasma-wayland-protocols/1.1.1'
 
 # GParted Live iso and VirtualBox for Windows.
 
