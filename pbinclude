@@ -71,3 +71,16 @@ xpurgepac () {
 	fi
     done
 }
+
+xpurgesrc () {
+    SUFPACK="$1"
+    shift
+    SUFS="$@"
+    find . -name '*'$SUFPACK | while read i;test "$i" != "" ;do
+	pack=$(echo $i|sed 's@-[0-9].*$@@')
+	xpurgepac "$pack-[0-9]" $SUFPACK
+	for j in $SUFS ; do
+	    xpurgepac "$pack-[0-9]" ${SUFPACK}.$j
+	done
+    done
+}

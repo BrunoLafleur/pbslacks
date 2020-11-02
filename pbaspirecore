@@ -188,8 +188,10 @@ if [ $ISFRAMEW -eq 1 -o $ISPURGE -eq 1 ] ;then
 	echo '------------------------------------'
 	mkdir -p src/frameworks;cd src/frameworks
 	myrget 3 "$KDE5_FW_SRC" .
+	xpurgesrc 'tar.?z' sig;xpurgesrc 'zip'
 	cd ..;mkdir -p plasma-extra;cd plasma-extra
        	myrget 3 "$KDE5_PLASMAEX_SRC1" .
+	xpurgesrc 'tar.?z' sig
 	mygt "KDE5 frameworks sources copied."
 	echo '------------------------------------'
 	# Get packages deps used by frameworks
@@ -197,6 +199,7 @@ if [ $ISFRAMEW -eq 1 -o $ISPURGE -eq 1 ] ;then
 	mkdir -p deps;cd deps
 	xgetpac qrencode "$SLACKALIEN2" 10
 	xgetpac phonon "$SLACKALIEN2" 10
+	xpurgesrc 'tar.?z' asc md5
 	echo '------------------------------------'
     )
     if [ -d slackware64-current ] ;then
