@@ -1,0 +1,15 @@
+--- glibc.SlackBuild.old	2020-11-06 12:01:16.000000000 +0100
++++ glibc.SlackBuild	2020-11-06 12:02:06.000000000 +0100
+@@ -254,10 +254,12 @@
+     --enable-kernel=2.6.32 \
+     --with-headers=/usr/include \
+     --enable-add-ons \
+     --enable-profile \
+     $DISABLE_NSCD \
++    --enable-obsolete-nsl \
++    --enable-obsolete-rpc \
+     --infodir=/usr/info \
+     --mandir=/usr/man \
+     --with-tls \
+     --with-__thread \
+     --without-cvs \
