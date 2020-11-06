@@ -250,16 +250,19 @@ if [ $ISPAC1 -eq 1 ] ;then
     # For reenabling --enable-obsolete-nsl and --enable-obsolete-rpc which
     # I need. Recompile the multilib version.
     # Else use the tirpc lib (/usr/include/tirpc, libtirpc).
-    cp -a source/l/glibc/* packages/glibc
-    (
-	cd packages/glibc
-	cp glibc-multilib.SlackBuild glibc.SlackBuild
-    )
-    xmakealienpac packages glibc
-    for i in glibc-i18n glibc-profile glibc-solibs ;do
-	xcleanpac $i packages
-        upgradepkg --install-new --reinstall packages/${i}-[0-9m]*.t?z
-    done
+    if [ $(ls /var/log/packages/glibc-[0-9]*_multilib-x86_64-*alien \
+	      2> /dev/null|wc -l) -eq 1 ] ;then
+	cp -a source/l/glibc/* packages/glibc
+	(
+	    cd packages/glibc
+	    cp glibc-multilib.SlackBuild glibc.SlackBuild
+	)
+	xmakealienpac packages glibc
+	for i in glibc-i18n glibc-profile glibc-solibs ;do
+	    xcleanpac $i packages
+            upgradepkg --install-new --reinstall packages/${i}-[0-9m]*.t?z
+	done
+    fi
     xhookpac1
 fi
 
