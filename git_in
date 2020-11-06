@@ -18,6 +18,13 @@
 # git checkout master
 # git archive -o ../kmplayer-0.11.5b.tar 0.11.5b --prefix=kmplayer-0.11.5b/
 
+# Pour changer un commit (auteur ou autre)
+# git log (choisissez le ou les commits
+# git rebase -i edc6befbb08f74d9cab19703e8d31037695d36ba
+# Remplacez pick par edit sur ces commits.
+# git commit --amend --reset-author --no-edit
+# git rebase --continue
+
 SAVEPROD=..
 REMPNAME=$(basename "$0")
 
