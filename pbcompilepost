@@ -249,6 +249,7 @@ if [ $ISPAC1 -eq 1 ] ;then
     )
     # For reenabling --enable-obsolete-nsl and --enable-obsolete-rpc which
     # I need. Recompile the multilib version.
+    # Else use the tirpc lib (/usr/include/tirpc, libtirpc).
     cp -a source/l/glibc/* packages/glibc
     (
 	cd packages/glibc
