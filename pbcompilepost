@@ -95,11 +95,20 @@ read c
 
 xpurgetmp () {
     ppac="$1"
-    rm -f /tmp/"${ppac}-"*.t?z
-    rm -rf /tmp/"${ppac}-"*
-    rm -rf /tmp/*/"${ppac}-"*
+    rm -f /tmp/"${ppac}-"[0-9m]*.t?z
+    rm -rf /tmp/"${ppac}-"[0-9m]*
+    rm -rf /tmp/*/"${ppac}-"[0-9m]*
     rm -rf /tmp/package-"$ppac"
     rm -rf /tmp/*/package-"$ppac"
+}
+
+xcleanpac() {
+    pac="$1"
+    dest="$2"
+    cp "/tmp/${pac}-"[0-9m]*.t?z* "$dest"
+    chown ${MYUSER}.$MYGROUP "$dest/${pac}"-[0-9m]*.t?z*
+    xpurgetmp "$pac"
+    xpurgepac "$dest/$pac-[0-9m]" t?z
 }
 
 xmakealienpac () {
@@ -123,13 +132,8 @@ xmakealienpac () {
 	    fi
 	)
 	[ $? -ne 0 ] && exit 1
-	cp "/tmp/${pac}-"[0-9m]*.t?z "$dest"
-	cp "/tmp/${pac}-"[0-9m]*.t?z.* "$dest"
-	chown ${MYUSER}.$MYGROUP "$dest/${pac}"-[0-9m]*.t?z
-	chown ${MYUSER}.$MYGROUP "$dest/${pac}"-[0-9m]*.t?z.*
+	xcleanpac "$pac" "$dest"
 	chown -R ${MYUSER}.$MYGROUP "$dest/$pac"
-	xpurgetmp "$pac"
-	xpurgepac "$dest/$pac-[0-9m]" t?z
 	# Upgrade packages.
         upgradepkg --install-new --reinstall "$dest/${pac}"-[0-9m]*.t?z
     fi
@@ -159,10 +163,7 @@ xmakepac () {
 	    fi
 	)
 	[ $? -ne 0 ] && exit 1
-	cp /tmp/${XPAC}-[0-9m]*.t?z $XDIR
-	chown ${MYUSER}.$MYGROUP $XDIR/${XPAC}-[0-9m]*.t?z
-	xpurgetmp $XPAC
-	xpurgepac "$XDIR/$XPAC-[0-9m]" t?z
+	xcleanpac "$XPAC" "$XDIR"
 	if [ "$XSUB" != '' ] ;then
             mv $XDIR/${XPAC}-[0-9m]*i486*.t?z $XDIR/$XSUB
 	fi
@@ -246,6 +247,18 @@ if [ $ISPAC1 -eq 1 ] ;then
 	export AAC=yes
 	xmakealienpac source/l ffmpeg packages
     )
+    # For reenabling --enable-obsolete-nsl and --enable-obsolete-rpc which
+    # I need. Recompile the multilib version.
+    cp -a source/l/glibc/* packages/glibc
+    (
+	cd packages/glibc
+	cp glibc-multilib.SlackBuild glibc.SlackBuild
+    )
+    xmakealienpac packages glibc
+    for i in glibc-i18n glibc-profile glibc-solibs ;do
+	xcleanpac $i packages
+        upgradepkg --install-new --reinstall packages/${i}-[0-9m]*.t?z
+    done
     xhookpac1
 fi
 

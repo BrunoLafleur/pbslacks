@@ -77,6 +77,7 @@ SLACKMIR="http://nephtys.lip6.fr$SLACKDIR"
 
 SLACKKEYS='https://mirrors.slackware.com/slackware'
 SLACKMULTI="$SLACKMIR/people/alien/multilib/current"
+SLACKMULTI_SRC="$SLACKMIR/people/alien/multilib/source/current"
 SLACK_KDE_FW="$SLACKMIR/people/alien-kde/current/latest/x86_64/kde/frameworks"
 SLACK_KDE_SRC="$SLACKMIR/people/alien-kde/source/latest/kde"
 SLACK_KDE_SRCDIR="$SLACKDIR/people/alien-kde/source/latest/kde"
