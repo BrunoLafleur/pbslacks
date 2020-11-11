@@ -34,6 +34,7 @@
 #
 xf86-video-nouveau
 # This one will blacklist all SBo packages:
+[0-9]+_vtown_[0-9]+
 [0-9]+_SBo
 [0-9]+_SBocompat32
 [0-9]+_PB
