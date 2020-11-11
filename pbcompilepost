@@ -31,6 +31,7 @@ ISPAC1=0
 ISPAC2=0
 ISPAC3=0
 ISPAC4=0
+ISCALIBRE=0
 ISCHROMIUM=0
 ISOPENSHOT=0
 ISPITIVI=0
@@ -60,6 +61,8 @@ while [ $# -ge 1 ] ;do
 	ISCHROMIUM=1;ISALL=0
     elif [ "$MYARG" = "-isopenshot" ] ;then
 	ISOPENSHOT=1;ISALL=0
+    elif [ "$MYARG" = "-iscalibre" ] ;then
+	ISCALIBRE=1;ISALL=0
     elif [ "$MYARG" = "-ispitivi" ] ;then
 	ISPITIVI=1;ISALL=0
     elif [ "$MYARG" = "-isaudacity" ] ;then
@@ -80,6 +83,7 @@ if [ $ISALL -eq 1 ] ;then
     ISPAC2=1
     ISPAC3=1
     ISPAC4=1
+    ISCALIBRE=1
     ISCHROMIUM=1
     ISOPENSHOT=1
     ISPITIVI=1
@@ -181,27 +185,6 @@ export CMAKE_BUILD_PARALLEL_LEVEL=$XNPROC
 export MAKEFLAGS="-j$XNPROC"
 # ===========================================================
 
-if [ $ISOPENSHOT -eq 1 ] ;then
-    # python2-* for openshot 1.4, openshot_qt => openshot 2.5
-    for i in python2-mlt python2-libcaca python2-libwebp python-pillow6 \
-			 openshot_qt lxml inkscape pybind11 openimageio \
-			 opencolorio numpy3 tbb Blender ;do
-	xmakepac packages/openshot $i
-    done
-    xhookopenshot
-fi
-
-if [ $ISPITIVI -eq 1 ] ;then
-    for i in blas lapack scipy3 python3-dateutil python3-cycler \
-			      python3-kiwisolver python3-pyparsing \
-			      python3-tornado pytz python3-matplotlib \
-			      gstreamer-editing-services gst-python3 gsound \
-			      libpeas pitivi ;do
-	xmakepac packages/pitivi $i
-    done
-    xhookpitivi
-fi
-
 if [ $ISPAC1 -eq 1 ] ;then
     rm -f packages4/gst-plugins-bad-[0-9]*ponce.t?z*
     for i in openal-soft libtxc_dxtn libgaminggear acpibrightness \
@@ -266,6 +249,27 @@ if [ $ISPAC1 -eq 1 ] ;then
     xhookpac1
 fi
 
+if [ $ISOPENSHOT -eq 1 ] ;then
+    # python2-* for openshot 1.4, openshot_qt => openshot 2.5
+    for i in python2-mlt python2-libcaca python2-libwebp python-pillow6 \
+			 openshot_qt lxml inkscape pybind11 openimageio \
+			 opencolorio numpy3 tbb Blender ;do
+	xmakepac packages/openshot $i
+    done
+    xhookopenshot
+fi
+
+if [ $ISPITIVI -eq 1 ] ;then
+    for i in blas lapack scipy3 python3-dateutil python3-cycler \
+			      python3-kiwisolver python3-pyparsing \
+			      python3-tornado pytz python3-matplotlib \
+			      gstreamer-editing-services gst-python3 gsound \
+			      libpeas pitivi ;do
+	xmakepac packages/pitivi $i
+    done
+    xhookpitivi
+fi
+
 if [ $ISPAC2 -eq 1 ] ;then    
     # More 64 bits packages
     for i in roccat-tools kmplayer denemo guile2.2 ;do
@@ -278,6 +282,9 @@ if [ $ISPAC3 -eq 1 ] ;then
     for i in bsddb3 db53 pyicu gramps goocanvas2 msgpack-python ;do
 	xmakepac packages3 $i
     done
+fi
+
+if [ $ISCALIBRE -eq 1 ] ;then    
     # Cleaning old Calibre or aborted package generation.
     removepkg calibre
     rm -f /tmp/calibre_pythondeps-*.tar.bz2
