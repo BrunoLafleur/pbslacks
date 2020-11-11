@@ -300,6 +300,7 @@ if [ $ISFRAMEW -eq 1 ] ;then
 	    mv patch/plasma-wayland-protocols.patch \
 	       patch/plasma-wayland-protocols.patch.old
 	# Next we create and install the packages.
+	export BUILD=1alien
 	export CLEANUP=no;sh kde.SlackBuild plasma-extra:plasma-wayland-protocols
 	export CLEANUP=no;sh kde.SlackBuild frameworks
 	cd ..
