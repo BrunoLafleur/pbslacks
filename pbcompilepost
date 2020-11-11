@@ -282,6 +282,7 @@ if [ $ISPAC3 -eq 1 ] ;then
     for i in bsddb3 db53 pyicu gramps goocanvas2 msgpack-python ;do
 	xmakepac packages3 $i
     done
+    xhookpac3
 fi
 
 if [ $ISCALIBRE -eq 1 ] ;then    
@@ -294,7 +295,7 @@ if [ $ISCALIBRE -eq 1 ] ;then
     upgradepkg --reinstall slackware64/l/PyQt5-*.t?z
     export BUILD_PYTHONMODS=YES
     xmakealienpac packages3 calibre
-    xhookpac3
+    xhookcalibre
 fi
 
 if [ $ISFRAMEW -eq 1 ] ;then
@@ -320,7 +321,7 @@ if [ $ISFRAMEW -eq 1 ] ;then
 	chown ${MYUSER}.$MYGROUP *.t?z
 	xpurgesrc 't?z'
 	mv plasma-wayland-protocols-*.t?z ../plasma-extra
-	rm -rf /tmp/kde_build
+	#rm -rf /tmp/kde_build
     )
 fi
 

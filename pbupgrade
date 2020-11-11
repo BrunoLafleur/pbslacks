@@ -167,8 +167,8 @@ xpacaide () {
 
 xsel="$XUPSYSTEM off $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST \
 $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST \
-off $XUPPOST $XUPPOST $XUPPOST off $XUPPOST $XUPPOST off $XUPPOST $XUPPOST $XUPPOST \
-$XUPPOST off off"
+off $XUPPOST $XUPPOST $XUPPOST off $XUPPOST $XUPPOST off $XUPPOST $XUPPOST \
+$XUPPOST $XUPPOST off off"
 ditem=system
 bclaide=1
 
@@ -181,9 +181,10 @@ while [ $bclaide -eq 1 ] ;do
 	for i in system systemnet compat32 mozilla packages packages2 packages3 \
 			packages4 frameworks openshot pitivi audacity ardour \
 			tesseract4 bumblebee recreatepackages recreatepackages2 \
-			recreatepackages3 recreatecalibre recreatepackages4 recreateframeworks \
-			recreatechromium recreateopenshot recreatepitivi recreateaudacity \
-			recreateardour recreatebumblebee bootload ;do
+			recreatepackages3 recreatecalibre recreatepackages4 \
+			recreateframeworks recreatechromium recreateopenshot \
+			recreatepitivi recreateaudacity recreateardour \
+			recreatebumblebee bootload ;do
 	  if [ $(grep "^$i$" "$XTEMPOUT"|wc -l) -eq 1 ] ;then
 	      xsel="$xsel on"
 	  else
