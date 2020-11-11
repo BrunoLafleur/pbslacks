@@ -36,6 +36,11 @@ xhookpac2 () {
 
 xhookpac3 () {
     # Post actions for packages3
+    echo "none" > /dev/null
+}
+
+xhookcalibre () {
+    # Post actions for packages3
     rm -f calibre-4.15.0-x86_64-1alien.txz.*
 }
 
