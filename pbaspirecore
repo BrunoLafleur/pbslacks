@@ -152,38 +152,17 @@ if [ $ISMULTI -eq 1 -o $ISPURGE -eq 1 ] ;then
 fi
 
 # Frameworks KDE5 Alien Bob
-if [ $ISFRAMEW -eq 1 -o $ISPURGE -eq 1 ] ;then
+if [ $ISFRAMEW -eq 1 ] ;then
     [ ! -d kde5 ] && mkdir kde5
     (
 	cd kde5
-	# Get frameworks packages (obsolete because we get the sources
-	# and recompile with pbcompilepost).
-	# [ $ISFRAMEW -eq 1 ] && myrget 10 "$SLACK_KDE_FW" frameworks
-	# Nettoyage des doublons
-	echo '------------------------------------'
-	if [ -d frameworks ] ;then
-	    (
-		cd frameworks
-		find . -name '*.t?z'|grep -v '^./source/'|\
-		    while read i;test "$i" != "" ;do
-			pack=$(echo $i|sed 's@-[0-9].*$@@')
-			xpurgepac "$pack-[0-9]" lst
-			xpurgepac "$pack-[0-9]" meta
-			xpurgepac "$pack-[0-9]" txt
-			xpurgepac "$pack-[0-9]" t?z
-			xpurgepac "$pack-[0-9]" asc
-			xpurgepac "$pack-[0-9]" md5
-		    done
-	    )
-	    mygt "Alien Bob KDE5 frameworks copied."
-	else
-	    mygt "Alien Bob KDE5 frameworks not copied."
-	fi
+	[ ! -d frameworks ] && mkdir frameworks
 	echo '------------------------------------'
 	# Get sources
-	mkdir -p source;cd source
-	[ $ISFRAMEW -eq 1 ] && myrget 9 "$SLACK_KDE_SRC" . \
-				      "-X $SLACK_KDE_SRCDIR/src"
+	tar xvfz ../pbslacks/builds/alien/ktown.tar.gz
+	cd source
+	#[ $ISFRAMEW -eq 1 ] && myrget 9 "$SLACK_KDE_SRC" . \
+	    #			      "-X $SLACK_KDE_SRCDIR/src"
 	mygt "Alien Bob KDE5 scripts copied."
 	echo '------------------------------------'
 	mkdir -p src/frameworks;cd src/frameworks
@@ -239,7 +218,8 @@ if [ $ISCHECK -eq 1 ] ;then
 	export LANG=C
 	find . -type f -name 'GPG-KEY*' -exec gpg --import {} \; >> $XTEMPCHK
 	find . -type f -name '*.asc' -exec gpg --verify -q {} \; 2>&1 | \
-	    egrep -i 'gpg: assuming signed data in |gpg: bad signature' >> $XTEMPCHK
+	    egrep -i 'gpg: assuming signed data in |gpg: bad signature' \
+		  >> $XTEMPCHK
     )
 fi
 
