@@ -28,7 +28,7 @@ fi
     (
 	cd openshot
 	for i in openshot_qt lxml inkscape opencolorio pybind11 openimageio \
-			     numpy3 tbb Blender ;do
+			     numpy3 tbb Blender libopenshot ;do
 	    xgetsbosrc "$i"
 	done
 	xgetsrc python2-mlt "$PATHMLT"
