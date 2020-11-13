@@ -38,6 +38,9 @@ mv -f GPG-KEY gpgkeys/GPG-KEY-x32-slackel
     [ ! -d openshot ] && mkdir openshot
     (
 	cd openshot
+	for i in dos2unix double-conversion potrace gdl graphicsmagick ;do
+	    xgetpac "$i" "$SLACKCF/$i" 3
+	done
 	for i in libvdpau-va-gl openshot ;do
 	    xgetpac "$i" "$SLACKDJ" 5
 	done

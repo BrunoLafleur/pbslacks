@@ -10,6 +10,7 @@ xhookopenshot () {
     rm -f packages/openshot/frei0r-plugins-1.4-x86_64-2dj.*
     rm -rf packages/openshot/python3-certifi
     rm -f packages/openshot/python3-certifi-2019.6.16-x86_64-1_SBo.*
+    rm -f packages/openshot/libopenshot-0.2.5-x86_64-1ponce.*
     removepkg frei0r-plugins
     removepkg python3-certifi
     upgradepkg --reinstall slackware64/l/python-certifi-*.t?z
