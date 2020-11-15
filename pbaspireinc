@@ -90,10 +90,13 @@ xgetsrc () {
 xgetsbosrc () {
     name="$1"
     nocontentdisp="$2"
-    tar xfz "$PBDIRPROG/builds/sbo/${name}.tar.gz" $name/${name}.info
-    path=$(cat $name/${name}.info | fgrep DOWNLOAD_x86_64|cut -d '=' -f2|cut -d '"' -f2)
-    [ -z "$path" ] && path=$(cat $name/${name}.info | fgrep DOWNLOAD|cut -d '=' -f2|cut -d '"' -f2)
-    rm -f $name/${name}.info
+    info="$name/${name}.info"
+    tar xfz "$PBDIRPROG/builds/sbo/${name}.tar.gz" $info
+    # Get all links in DOWNLOAD= and DOWNLOAD_x86_64=
+    # Works with multi-lines ending with '\'
+    path=$(cat $info| tr '\n' '\f'|sed 's/ \\\f/ /g'|tr '\f' '\n' | \
+	       fgrep DOWNLOAD|cut -d '=' -f2|cut -d '"' -f2|tr '\n' ' ')
+    rm -f $info
     for i in $path ; do
 	xgetsrc $name "$i"
     done
