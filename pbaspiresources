@@ -65,8 +65,8 @@ fi
     # Guile 2.2 supprime en janvier. Utile a denemo.
     xgetsrc guile2.2 "$PATHGUILE22"
     # Discord just being put here. No packages done for now.
-    xgeturl "$PATHDISCORD"
-    xpurgepac discord tar.gz
+    xgetsrc discord "$PATHDISCORD"
+    #xpurgepac discord tar.gz
     # Update Youtube LUA file for VLC.
     xgeturl "$PATHVLCYOUTUBE"
 )
