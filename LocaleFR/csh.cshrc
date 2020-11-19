@@ -11,4 +11,5 @@ endif
 alias cdl 'cd \!*;ls'
 alias ll 'ls -l \!*'
 alias lt 'ls -lt \!*'
+alias lnew 'ls -lt \!*| head -20'
 alias h history
