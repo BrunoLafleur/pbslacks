@@ -7,3 +7,11 @@ cdl () {
     else cd ;fi
     ls
 }
+
+lnew () {
+    if [ ! -z "$1" ] ;then
+	ls -lt "$1"| head -20
+    else
+	ls -lt| head -20
+    fi
+}
