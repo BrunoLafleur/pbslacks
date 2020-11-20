@@ -86,7 +86,7 @@ KDE5_PLASMAEX_SRC1='https://download.kde.org/stable/plasma-wayland-protocols/1.1
 
 # GParted Live iso and VirtualBox for Windows.
 
-GPARTEDISO="https://downloads.sourceforge.net/gparted/gparted-live-1.1.0-1-amd64.iso"
+GPARTEDISO="https://downloads.sourceforge.net/gparted/gparted-live-1.1.0-6-amd64.iso"
 VBOXREP='https://download.virtualbox.org/virtualbox/6.1.16/'
 VBOXARCH="$VBOXREP/VirtualBox-6.1.16-140961-Win.exe"
 VBOXEXT="$VBOXREP/Oracle_VM_VirtualBox_Extension_Pack-6.1.16.vbox-extpack"
