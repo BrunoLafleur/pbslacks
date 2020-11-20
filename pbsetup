@@ -268,8 +268,7 @@ fi
 
 # Install refind
 if [ $ISREFIND -eq 1 ] ;then
-    if [ $XTEST -eq 0 -a -d /boot/efi/EFI/Slackware \
-		-a ! -d /boot/efi/EFI/refind ] ;then
+    if [ $XTEST -eq 0 -a -d /boot/efi/EFI/Slackware ] ;then
 	xrefind=$(xlast /usr/share/refind-0)/install.sh
 	if [ $UID -eq 0 ]; then
 	    $xrefind 2>> $XTEMPRES
@@ -282,7 +281,7 @@ if [ $ISREFIND -eq 1 ] ;then
 	if [ ! -d /boot/efi/EFI/Slackware ] ;then
 	    mygt "refind not installed because elilo is not." >> $XTEMPMES
 	elif [ -d /boot/efi/EFI/refind ] ;then
-	    mygt "refind already installed." >> $XTEMPMES
+	    mygt "refind installed." >> $XTEMPMES
 	else
 	    mygt "refind installed." >> $XTEMPMES
 	fi
