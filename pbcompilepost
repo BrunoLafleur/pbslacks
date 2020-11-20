@@ -170,6 +170,7 @@ xmakepac () {
 	xcleanpac "$XPAC" "$XDIR"
 	if [ "$XSUB" != '' ] ;then
             mv $XDIR/${XPAC}-[0-9m]*i486*.t?z $XDIR/$XSUB
+	    xpurgepac "$XDIR/$XSUB/$XPAC-[0-9m]" t?z
 	fi
     fi
     if [ "$XSUB" = '' ] ;then
