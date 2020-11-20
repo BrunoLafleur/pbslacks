@@ -302,11 +302,6 @@ if [ $ISFRAMEW -eq 1 ] ;then
     (
 	# Sources are get from the Web by pbaspirecore called par pbsetup.
 	cd kde5/source
-	[ -f patch/krunner.patch ] && \
-	    mv patch/krunner.patch patch/krunner.patch.old
-	[ -f patch/plasma-wayland-protocols.patch ] && \
-	    mv patch/plasma-wayland-protocols.patch \
-	       patch/plasma-wayland-protocols.patch.old
 	# Next we create and install the packages.
 	export BUILD=1alien
 	export CLEANUP=no;sh kde.SlackBuild plasma-extra:plasma-wayland-protocols
