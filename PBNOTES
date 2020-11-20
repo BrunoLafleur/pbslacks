@@ -1,4 +1,0 @@
-cd source
-mv patch/krunner.patch patch/krunner.patch.old
-export CLEANUP=no;sh kde.SlackBuild plasma-extra:plasma-wayland-protocols
-export CLEANUP=no;sh kde.SlackBuild frameworks
