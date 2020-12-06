@@ -5,6 +5,8 @@ Web site of the author : https://dir.logicielnarcisse.fr or
 License : See the LICENSE file in this repository or the header of individual
 files.
 
+This tool has been write in totality by the above author.
+
 Those are some scripts which download the latest Linux Slackware current
 Intel 64 bits distribution and my preferred add-ons packages.
 
@@ -23,9 +25,10 @@ For a fresh install from a USB stick do :
 like bash (on Linux or MS Windows or ...) and the wget program.
 -with internet acces.
 -in a newly created repository like Slackware-x64-date in the same directory
-as pbslacks.
+as pbslacks (pbsetup create it).
 -if there is an old Slackware-x64-date in the same parent directory, the
-add-on packages are copied and not fetched again if there were not upgraded.
+distribution and the add-on packages are copied and not fetched again if there
+were not upgraded.
 
  > pbslacks/pbsetup # Choose aspire in the displayed menu
    ----------------          ------
@@ -118,16 +121,17 @@ I have put some python2 packages of mine because the current Slackware tends to
 remove,the Python 2 bindings. In particular, the Openshot 1.4 version I use
 needs them.
 
-It is better to update your clone of this project before downloading and
+It is better to update your clone of this pbslacks project before downloading and
 installing the latest current Slackware. I may have done some little patches or
 adjustement.
+
 =================================================================
 
 There is some MS Windows .bat files and tricks in the windows subdirectory.
 See also the doc/SLACKWARE.txt text file which explain the dual-boot install by
 hand (the same you can do with the pbsclacks/pbsetup master script).
 
-They are useful and have been tested with windows 7 to 10 for dual-boot
+They are useful and have been tested with MS Windows 7 to 10 for dual-boot
 installations with MS Windows and Linux.
 
 Note that it can be a way for a lot of non geeks people to promote Linux.
@@ -137,4 +141,4 @@ computer.
 =================================================================
 
 I have tested with Slackware current of july 2019, aout 2019, december 2019,
-january 2020, ... The last one I synchronize is dated 11 november 2020.
+january 2020, ... The last one I synchronize is dated 20 november 2020.

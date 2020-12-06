@@ -1,0 +1,152 @@
+Droits d'auteur et copyright : Pierre Brochard
+Courriel de l'auteur : pierre.brochard.1982@m4x.org
+site web de l'auteur : https://dir.logicielnarcisse.fr or
+                       https://dir.logiciel.cc
+License : Voir le fichier LICENSE de ce répertoire ou les entêtes des fichiers.
+
+Cet outil a été entièrement écrit et conçu par l'auteur ci-dessus.
+
+Cet outil est constitué de plusieur scripts qui téléchargent la dernière
+distribution Linux Slackware current et mes paquets additionnels préférés.
+
+Ils mettent aussi à jour une Slackware current déjà installée.
+
+Une image iso de la distribution recopiée peut aussi être réalisée.
+Elle inclut la Slackware téléchargée et tous les paquets additionnels.
+Elle peut être mise sur une clé USB ou un DVD ROM double fac (environ 8Go).
+
+On peut aussi fabriquer une clé USB multi-boot avec la Slackware installable
+et la distribution live GParted qui permet de gérer les partitions de vos disques
+durs.
+
+=================================================================
+Pour une nouvelle installation faire :
+-sur un ordinateur fonctionnel avec un interprèteur de commandes comme bash
+(sous Linux ou MS-Windows ou ...) et le programme wget.
+-avec un accès internet.
+-dans un nouveau répertoire comme Slackware-x64-date dans le même répertorie
+que pbslacks (pbsetup le crée automatiquement).
+-si un répertoire de la forme Slackware-x64-date existe au même niveau que
+pbslack, la distribution et les paquets additionnels sont mis à jour.
+
+ > pbslacks/pbsetup # Choisissez aspire dans le menu affiché
+   ----------------              ------
+ou> XDATE=`date '+%Y%m%d'`
+  > mkdir Slackware-x64-$XDATE
+  > cd Slackware-x64-$XDATE
+  > ../pbslacks/pbaspire
+
+Ce script a un menu écrit avec l'outil dilog qui permet de choisir les familles
+de paquets à obtenir.
+Il peut aussi lancer d'autres scripts de ce projet.
+
+Ensuite on peut faire une clé USB (de 16 Go ou plus) en tant que superutilisateur
+(root - pbsetup demandera le mot de passe de root), avec le répertoire que l'on
+vient de télécharger ou mettre à jour :
+
+  > pbslacks/pbsetup # Choisissez makeusb dans le menu affiché
+    ----------------              -------
+ou> pbslacks/pbmakeusb
+
+Vous pouvez aussi fabriquer une image iso comme utilisateur normal :
+  > pbslacks/pbsetup # Choisissez makeiso dans le menu affiché
+    ----------------              -------
+ou> pbslacks/pbmakeiso
+
+Vous pouvez mettre cette image sur une clé USB (comme superutilisateur root
+ou un utilisateur du groupe plugdev) :
+  > pbslacks/pbmakeiso2usb
+ou> pbslacks/pbmakeusb -iso image_slackware.iso
+
+Les images iso générées nécessitent un DVD ROM double couche pour être gravée
+avec votre logiciel graveur favori. Ces images peuvent démarrer votre ordinateur
+et permettrent l'installation de la distribution Linux Slackware current
+avec mes paquets additionnels favoris.
+
+-----------------------------------------------------------------
+Ensuite vous pouvez installer la Slackware current avec la nouvelle clé USB
+et redémarrer sur elle (voir SLACKWARE.txt)
+
+Faire sur la clé USB ou sur la copie ramenée plus haut dans Slackware-x64-$XDATE
+comme superutilisateur root (pbsetup demandera le mot de passe de root) :
+  > pbslacks/pbsetup # Choisissez upgrade dans le menu affiché
+    ----------------              -------
+ou> pbslacks/pbupgrade -new
+
+Ce script a un menu qui permet de choisir les paquets à ajouter.
+Il permet aussi de lancer d'autres scripts de ce projet.
+
+=================================================================
+Pour mettre à jour une Slackware current déjà aspirée vers la denière version
+officielle :
+Téléchargez les différences en relançant pbaspire (seules les différences seront
+téléchargées) sur une clé USB ou un répertoire existant :
+
+  > pbslacks/pbsetup # Choisissez aspire dans le menu affiché
+    ----------------              ------
+ou> ../pbslacks/pbaspire
+
+Ce script a un menu qui permet de choisir les catégories de paquets à mettre à
+jour.
+
+-----------------------------------------------------------------
+Sur la Slackware current à mettre à jour, lancez les scripts suivants à partir
+d'une clé USB ou un répertoire central (du type Slackware-x64-$XDATE vu plus
+haut).
+
+  > pbslacks/pbsetup # Choisissez upgrade dans le menu affiché
+    ----------------              -------
+ou> pbsclacks/upgrade
+
+Ce script a un menu qui permet de choisir les catégories de paquets à mettre à
+jour.
+
+=================================================================
+
+Ces scripts utilisent slackpkg, wget et udisks2.
+
+Les liens Web utilisés pour le script pbaspire sont dans le fichier pbpathinc.
+                                      --------
+Modifiez le si vous voulez un autre serveur mirroir ou changer les versions des
+paquets.
+
+L'outil screen est utilisé dans le script pbupgrade.
+        ------                            ---------
+Si votre console disparait pour une raison ou une autre, vous pouvez la
+récupérer avec
+  > screen -r
+d'une autre console tant que votre machine reste en marche (ne la redémarrez pas
+avant la fin de la mise à jour).
+
+Les ensembles de paquets additionnels sont consistants. Ils incluent toutes
+les dépendances nécessaires sir vous avez installé la Slackware en entier
+comme recommandé lors du processus d'installation avce l'aide de pbslacks ou
+à la main.
+Les logiciels multimédias ou les environnements de bureau sont en particulier
+tràs dépendants de nombreux paquets qui doivent être présents sur votre système.
+
+J'ai mis un certain nombre de paquets pour python2 car la Slackware current à
+tendance à les enlever. Openshot 1.4 les utilise ainsi que d'autres logiciels.
+
+Il est préferable de mettre à jour pbslacks avant de l'utiliser. Je le maintiens
+à jour en foncion des évolutions de la Slackware current.
+=================================================================
+
+Il y a quelques fichiers .bat pour MS Windows et quelques trucs dans le
+sous-répertoire windows.
+Vous pouvez aussi regarder doc/SLACKWARE.txt qui explique la problématique d'une
+installation mixte MS Windiw / Linux (dual-bot) à la main (ce que vous pouvez
+faire avec pbslacks).
+
+Ces fichiers .bat aident pour une installation mixte (dual-boot) et ont été
+testés avec MS Windows 7 à 10.
+
+Notons qu'un installation mixte est un moyen de promouvoir Linux pour les non
+spécialistes.
+Il est rassurant de conserver MS Windows même si on finit par ne jamais s'en
+servir.
+
+=================================================================
+
+J'ai testé ces scripts sur la distribution Linux Slackware current à partir de
+juillet 2019, jusqu'à maintenant.
