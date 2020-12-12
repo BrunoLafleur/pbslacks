@@ -10,6 +10,11 @@ This tool has been written in totality by the above author.
 Those are some scripts which download the latest Linux Slackware current
 Intel 64 bits distribution and my preferred add-ons packages.
 
+Those scripts have not been tested on the latest Slackware current since
+the merge of KDE5 packages. I didn't have time to test on one of my
+machines and I am reluctant to do so because I don't like KDE5 which has
+changed important thinks for end users in the configuration of the desktop.
+
 They also upgrade an already installed current Slackware.
 
 An iso image can also be done which include the resulting downloaded
