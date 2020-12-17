@@ -91,7 +91,7 @@ xgetsbosrc () {
     name="$1"
     nocontentdisp="$2"
     info="$name/${name}.info"
-    tar xfz "$PBDIRPROG/builds/sbo/${name}.tar.gz" $info
+    tar xfz "$PBDIRPROG/builds/sbo/${name}.tar.gz" "$info"
     # Get all links in DOWNLOAD= and DOWNLOAD_x86_64=
     # Works with multi-lines ending with '\'
     path=$(cat $info| tr '\n' '\f'|sed 's/ \\\f/ /g'|tr '\f' '\n' | \
