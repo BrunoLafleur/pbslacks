@@ -19,7 +19,7 @@ xhookopenshot () {
 xhookpitivi () {
     # Post actions for pitivi
     rm -rf packages/pitivi/python3-six
-    rm -f packages/pitivi/python3-six-2019.6.16-x86_64-1_SBo.*
+    rm -f packages/pitivi/python3-six-*-x86_64-1_SBo.*
     removepkg python3-six
     upgradepkg --reinstall slackware64/l/python-six-*.t?z
 }

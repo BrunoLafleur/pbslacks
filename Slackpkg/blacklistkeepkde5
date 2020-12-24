@@ -15,23 +15,14 @@
 # below 
 #
 # Waiting for LTS NVIDIA driver
-kernel-generic
-kernel-generic-smp
-kernel-huge
-kernel-huge-smp
-kernel-modules
-kernel-modules-smp
-kernel-source
+#kernel-generic
+#kernel-generic-smp
+#kernel-huge
+#kernel-huge-smp
+#kernel-modules
+#kernel-modules-smp
+#kernel-source
 
-# For keeping kdm et qt4.
-ConsoleKit2
-qca
-libdbusmenu-qt
-# For keeping KDE4
-kde.*
-4.14.3
-akonadi
-amarok
 # phonon kde4 renomme phonon4qt4.
 phonon4qt4
 phonon-gstreamer

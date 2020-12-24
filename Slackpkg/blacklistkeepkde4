@@ -32,7 +32,7 @@ kde.*
 4.14.3
 akonadi
 amarok
-# phonon kde4 renommer phonon4qt4.
+# phonon kde4 renomme phonon4qt4.
 phonon4qt4
 phonon-gstreamer
 
