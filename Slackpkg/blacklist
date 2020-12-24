@@ -14,13 +14,14 @@
 # run "lilo" after upgrade). If you think the same, uncomment the lines
 # below 
 #
-#kernel-generic
-#kernel-generic-smp
-#kernel-huge
-#kernel-huge-smp
-#kernel-modules
-#kernel-modules-smp
-#kernel-source
+# Waiting for LTS NVIDIA driver
+kernel-generic
+kernel-generic-smp
+kernel-huge
+kernel-huge-smp
+kernel-modules
+kernel-modules-smp
+kernel-source
 
 # For keeping kdm et qt4.
 ConsoleKit2
@@ -33,6 +34,7 @@ akonadi
 amarok
 # phonon a renommer en phonon4qt5. On garde l'ancien phonon et phonon-gstreamer
 phonon
+phonon-gstreamer
 
 #
 # aaa_elflibs should NOT be blacklisted!
