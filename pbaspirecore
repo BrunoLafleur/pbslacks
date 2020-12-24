@@ -180,9 +180,7 @@ if [ $ISFRAMEW -eq 1 ] ;then
 	xgetpac qrencode "$SLACKALIEN2" 10
 	xgetpac phonon "$SLACKALIEN2" 10
 	xpurgesrc 'tar.?z' asc md5
-	mv phonon-*-1alien.txz phonon4qt5-*-1alien.txz
-	mv phonon-*-1alien.txz.asc phonon4qt5-*-1alien.txz.asc
-	mv phonon-*-1alien.txz.md5 phonon4qt5-*-1alien.txz.md5
+	rm -f phonon4qt5-*
 	echo '------------------------------------'
     )
     if [ -d slackware64-current ] ;then

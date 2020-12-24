@@ -28,10 +28,7 @@ xhookpac1 () {
     # Post actions for packages
     upgradepkg --reinstall slackware64/ap/linuxdoc-tools-*.t?z
     upgradepkg --reinstall packages/glibc-*alien.t?z
-    XPHONON=$(ls slackware64/l/phonon-4.11.*.t?z)
-    XNEWPHONON=$(basename $XPHONON|sed 's/phonon-/phonon4qt5/')
-    cp "$XPHONON" "packages/$XNEWPHONON"
-    ugradepkg --install-new "packages/$XNEWPHONON"
+    removepkg phonon4qt5
     removepkg OpenAL
     removepkg OpenAL-compat32
     rm -f packages/openal-soft-1.*_SBo.tgz
