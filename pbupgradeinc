@@ -27,6 +27,7 @@ xhookpitivi () {
 xhookpac1 () {
     # Post actions for packages
     upgradepkg --reinstall slackware64/ap/linuxdoc-tools-*.t?z
+    upgradepkg --reinstall packages/glibc-*alien.t?z
     removepkg OpenAL
     removepkg OpenAL-compat32
     rm -f packages/openal-soft-1.*_SBo.tgz
