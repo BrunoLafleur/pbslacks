@@ -22,7 +22,11 @@
 #kernel-modules-smp
 #kernel-source
 
-# For keeping KDE4 for now.
+# For keeping kdm et qt4.
+ConsoleKit2
+qca
+libdbusmenu-qt
+# For keeping KDE4
 kde.*
 4.14.3
 akonadi
