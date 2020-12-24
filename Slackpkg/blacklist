@@ -22,6 +22,14 @@
 #kernel-modules-smp
 #kernel-source
 
+# For keeping KDE4 for now.
+kde.*
+4.14.3
+akonadi
+amarok
+# phonon a renommer en phonon4qt5. On garde l'ancien phonon et phonon-gstreamer
+phonon
+
 #
 # aaa_elflibs should NOT be blacklisted!
 #
