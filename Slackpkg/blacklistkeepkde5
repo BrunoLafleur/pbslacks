@@ -26,6 +26,10 @@
 # phonon kde4 renomme phonon4qt4.
 phonon4qt4
 phonon-gstreamer
+PyQt
+qt
+qt-gstreamer
+qtscriptgenerator
 
 #
 # aaa_elflibs should NOT be blacklisted!
@@ -59,3 +63,4 @@ db53
 guile2.2
 python-pillow6
 eigen3
+frei0r-plugins
