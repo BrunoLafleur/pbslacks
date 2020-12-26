@@ -46,7 +46,7 @@ trap 'echo "*** Ctrl-C caught -- aborting operations ***"; cleanup; exit 1' 2 14
 
 CORE=$(mygt 'Get/Update versus officiel Slackware')
 MULTI=$(mygt 'Get/Update multilib compat 32 bits mode')
-FRAMEW=$(mygt 'Get/Update frameworks libraries of KDE5')
+FRAMEW=$(mygt 'Get/Update KDE4 and KDE5 frameworks libraries')
 GPARTED=$(mygt 'Get/Update GParted live iso')
 VBOX=$(mygt 'Get/Update VirtualBox installer')
 ALIEN=$(mygt 'Get/Update some Alien Bob binary packages')
@@ -144,7 +144,11 @@ xmaster () {
     fi
 }
 
-xsel="on on on on on on on on on on on off off"
+# If you have full KDE5 or you want KDE4 + KDE5 Frameworks.
+xframe=on
+[ $(ls /var/log/packages/plasma-desktop-*[0-9]* 2> /dev/null|wc -l) -ge 1 ] && xframe=off
+# Preselect sets.
+xsel="on on $xframe on on on on on on on on off off"
 ditem=core
 bclaide=1
 
@@ -167,7 +171,7 @@ while [ $bclaide -eq 1 ] ;do
 	elif [ "$xitem" = multi ] ;then
 	    pacaide=$(mygt 'Get or update the multilib of Alien Bob which is a 32 bits compatibility set of packages.')
 	elif [ "$xitem" = framew ] ;then
-	    pacaide=$(mygt 'Get or update the frameworks libraries of Kde5 offered by Alien Bob.')
+	    pacaide=$(mygt 'Get or update the KDE4 and KDE5 frameworks libraries.')
 	elif [ "$xitem" = gparted ] ;then
 	    pacaide=$(mygt 'Get or update the GParted live ISO.')
 	elif [ "$xitem" = vbox ] ;then
@@ -231,7 +235,7 @@ fi
 [ $ISCORE -eq 1 ] && emygt "Get/Update core system done : \Z3\${PBNAME}core\Zn." >> $XTEMPMES
 [ $ISMULTI -eq 1 ] && emygt "Get/Update multilib compat 32 bits mode done : \Z3\${PBNAME}core\Zn." \
 	>> $XTEMPMES
-[ $ISFRAMEW -eq 1 ] && emygt "Get/Update framewoks libraries KDE5 done : \Z3\${PBNAME}core\Zn." \
+[ $ISFRAMEW -eq 1 ] && emygt "Get/Update KDE4 and KDE5 frameworks libraries done : \Z3\${PBNAME}core\Zn." \
 	>> $XTEMPMES
 [ $ISGPARTED -eq 1 ] && emygt "Get/Update gparted live iso done : \Z3\${PBNAME}core\Zn." \
 	>> $XTEMPMES

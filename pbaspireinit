@@ -63,17 +63,26 @@ if [ ! -h divers ] ; then
     fi
 fi
 
+[ ! -d gpgkeys ] && mkdir gpgkeys
 [ ! -d packages ] && mkdir packages
-mkdir -p packages/32
-mkdir -p packages/compat32
-mkdir -p packages/Mozilla
-
+[ ! -d packages/32 ] && mkdir packages/32
+[ ! -d packages/compat32 ] && mkdir packages/compat32
+[ ! -d packages/Mozilla ] && mkdir packages/Mozilla
 [ ! -d packages2 ] && mkdir packages2
 [ ! -d packages3 ] && mkdir packages3
 [ ! -d packages4 ] && mkdir packages4
+
+# For KDE4 and KDE5 Frameworks.
+# Don't use the kde set of packages of the official last Slackware current.
+[ ! -d kde4 ] && mkdir kde4
+[ ! -d kde4/deps ] && mkdir kde4/deps
+[ ! -d kde4/kde ] && mkdir kde4/kde
+[ ! -d kde4/source ] && mkdir kde4/source
 [ ! -d kde5 ] && mkdir kde5
 [ -d packages4/frameworks -a ! -d kde5/frameworks ] && mv packages4/frameworks kde5
-[ ! -d gpgkeys ] && mkdir gpgkeys
+[ ! -d kde5/frameworks ] && mkdir kde5/frameworks
+
+# Bumblebee for Slackware => Crazybee.
 [ ! -d bumblebee ] && mkdir bumblebee
 [ ! -d bumblebee/Crazybee ] && mkdir bumblebee/Crazybee
 

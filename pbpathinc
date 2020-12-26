@@ -78,12 +78,15 @@ SLACKMIR="http://nephtys.lip6.fr$SLACKDIR"
 SLACKKEYS='https://mirrors.slackware.com/slackware'
 SLACKMULTI="$SLACKMIR/people/alien/multilib/current"
 SLACKMULTI_SRC="$SLACKMIR/people/alien/multilib/source/current"
-SLACK_KDE_FW="$SLACKMIR/people/alien-kde/current/latest/x86_64/kde/frameworks"
-SLACK_KDE_SRC="$SLACKMIR/people/alien-kde/source/latest/kde"
-SLACK_KDE_SRCDIR="$SLACKDIR/people/alien-kde/source/latest/kde"
+
+# KDE4 et KDE5 Frameworks.
+KDE4_SRC='https://download.kde.org/Attic/4.14.3/src'
+KDE4_CALLIGRA='https://download.kde.org/Attic/calligra-2.9.11'
+#SLACK_KDE_FW="$SLACKMIR/people/alien-kde/current/latest/x86_64/kde/frameworks"
+#SLACK_KDE_SRC="$SLACKMIR/people/alien-kde/source/latest/kde"
+#SLACK_KDE_SRCDIR="$SLACKDIR/people/alien-kde/source/latest/kde"
 KDE5_FW_SRC='https://download.kde.org/stable/frameworks/5.76'
 KDE5_PLASMAEX_SRC1='https://download.kde.org/stable/plasma-wayland-protocols/1.1.1'
-KDE4_SRC='https://download.kde.org/Attic/4.14.3/src'
 
 # GParted Live iso and VirtualBox for Windows.
 
