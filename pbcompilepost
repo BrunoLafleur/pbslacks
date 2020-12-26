@@ -300,24 +300,38 @@ if [ $ISCALIBRE -eq 1 ] ;then
 fi
 
 if [ $ISFRAMEW -eq 1 ] ;then
-    export BUILD=1PB;export CLEANUP=no
+    export BUILD=1PB
     (
 	cd kde4/source/kde
 	sh kde.SlackBuild
     )
     (
+	cd kde4/kde
+	for i in $(ls ../source/kde/modules) ;do
+	    [ -d "/tmp/kde_build/$i" ] && cp "/tmp/kde_build/$i/"*.t?z .
+	done
+	cp /tmp/kde_build/*.t?z .
+	chown ${MYUSER}.$MYGROUP *.t?z
+	xpurgesrc 't?z'
+	rm -rf /tmp/kde_build
+    )
+    (
 	cd kde4/source/kdei/calligra-l10n
 	sh calligra-l10n.SlackBuild
+	cd ../../../kde
+	cp /tmp/kde_build/*.t?z .
+	chown ${MYUSER}.$MYGROUP *.t?z
+	rm -rf /tmp/kde_build
     )
     (
 	cd kde4/source/kdei/kde-l10n
 	sh kde-l10n.SlackBuild
-    )
-	cd kde4/kde
+	cd ../../../kde
 	cp /tmp/kde_build/*.t?z .
 	chown ${MYUSER}.$MYGROUP *.t?z
-	xpurgesrc 't?z'
+	rm -rf /tmp/kde_build
     )
+    exit 0
     (
 	# Sources are get from the Web by pbaspirecore called par pbsetup.
 	cd kde5/source
