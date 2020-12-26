@@ -172,6 +172,7 @@ if [ $ISFRAMEW -eq 1 ] ;then
 		myrget 2 "$KDE4_CALLIGRA" .
 		xgeturl "$KDE4_KSCREEN"
 		xgeturl "$KDE4_LIBKTORRENT"
+		xgeturl "$KDE4_KTORRENT"
 		xpurgesrc 'tar.?z'
 	    )
 	)
