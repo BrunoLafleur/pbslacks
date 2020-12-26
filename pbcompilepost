@@ -300,11 +300,14 @@ if [ $ISCALIBRE -eq 1 ] ;then
 fi
 
 if [ $ISFRAMEW -eq 1 ] ;then
-    export BUILD=1PB
+    export BUILD=1PB;export EXIT_ON_FAIL=yes
     (
 	cd kde4/source/kde
 	sh kde.SlackBuild
+	#sh kde.SlackBuild kdebase:kde-baseapps
+	#sh kde.SlackBuild kdelibs,kdebase:nepomuk-core,kdepimlibs,kdebase,kdesdk,extragear:libkscreen,kdegraphics,kdebindings,kdebase:kde-workspace,kdeaccessibility,kdeutils,kdelibs,kdemultimedia,extragear:libktorrent,kdenetwork,oxygen-icons,kdeadmin,kdeartwork,kdegames,kdetoys,kdepim,kdepim-runtime,kdenetwork:kopete,kdeedu,kdewebdev,kdebase:kde-baseapps,kdeplasma-addons,polkit-kde,extragear
     )
+    ERR=$?
     (
 	cd kde4/kde
 	for i in $(ls ../source/kde/modules) ;do
@@ -313,25 +316,29 @@ if [ $ISFRAMEW -eq 1 ] ;then
 	cp /tmp/kde_build/*.t?z .
 	chown ${MYUSER}.$MYGROUP *.t?z
 	xpurgesrc 't?z'
-	rm -rf /tmp/kde_build
+	#rm -rf /tmp/kde_build
     )
+    [ $ERR -ne 0 ] && exit 1
     (
 	cd kde4/source/kdei/calligra-l10n
 	sh calligra-l10n.SlackBuild
+	ERR=$?
 	cd ../../../kde
 	cp /tmp/kde_build/*.t?z .
 	chown ${MYUSER}.$MYGROUP *.t?z
 	rm -rf /tmp/kde_build
     )
+    [ $ERR -ne 0 ] && exit 1
     (
 	cd kde4/source/kdei/kde-l10n
 	sh kde-l10n.SlackBuild
+	ERR=$?
 	cd ../../../kde
 	cp /tmp/kde_build/*.t?z .
 	chown ${MYUSER}.$MYGROUP *.t?z
 	rm -rf /tmp/kde_build
     )
-    exit 0
+    [ $ERR -ne 0 ] && exit 1
     (
 	# Sources are get from the Web by pbaspirecore called par pbsetup.
 	cd kde5/source
