@@ -205,7 +205,7 @@ msgstr ""
 msgid "GPG signatures checked :"
 msgstr ""
 
-#: pbaspire:286 pbsetup:306 pbupgrade:412 pbupgrade:421
+#: pbaspire:286 pbsetup:306 pbupgrade:421
 msgid "No action was demanded. Exit."
 msgstr ""
 
@@ -235,32 +235,34 @@ msgstr ""
 msgid "Slackware multilib not copied."
 msgstr ""
 
-#: pbaspirecore:161 pbaspirecore:182 pbaspirecore:187 pbaspirecore:191
+#: pbaspirecore:161
+msgid "Alien Bob KDE4 scripts copied."
+msgstr ""
+
+#: pbaspirecore:191
 msgid "Alien Bob KDE5 scripts copied."
 msgstr ""
 
-#: pbaspirecore:196 pbaspirecore:201 pbaspirecore:205
+#: pbaspirecore:205
 msgid "KDE5 frameworks sources copied."
 msgstr ""
 
-#: pbaspirecore:236 pbaspirecore:243 pbaspirecore:247
+#: pbaspirecore:247
 msgid "Check GPG signatures :"
 msgstr ""
 
-#: pbaspirecore:261 pbaspirecore:268 pbaspirecore:272
+#: pbaspirecore:272
 msgid "GParted copied."
 msgstr ""
 
-#: pbaspirecore:263 pbaspirecore:269 pbaspirecore:270 pbaspirecore:276
 #: pbaspirecore:274 pbaspirecore:280
 msgid "GParted not copied."
 msgstr ""
 
-#: pbaspirecore:292 pbaspirecore:299 pbaspirecore:303
+#: pbaspirecore:303
 msgid "VirtualBox copied."
 msgstr ""
 
-#: pbaspirecore:294 pbaspirecore:300 pbaspirecore:301 pbaspirecore:307
 #: pbaspirecore:305 pbaspirecore:311
 msgid "VirtualBox not copied."
 msgstr ""
@@ -311,7 +313,7 @@ msgstr ""
 msgid "Correct this error and relaunch this script."
 msgstr ""
 
-#: pbcompilepost:361 pbcompilepost:380 pbcompilepost:403
+#: pbcompilepost:403
 msgid "Upgrade packages* done."
 msgstr ""
 
@@ -768,51 +770,51 @@ msgstr ""
 msgid "Upgrade boot loader."
 msgstr ""
 
-#: pbupgrade:196 pbupgrade:205
+#: pbupgrade:205
 msgid ""
 "Upgrade your Slackware system with the last current fetched.\\nUses Slackpkg."
 msgstr ""
 
-#: pbupgrade:198 pbupgrade:207
+#: pbupgrade:207
 msgid ""
 "Upgrade your Slackware system with the last current on the internet.\\nUses "
 "Slackpkg."
 msgstr ""
 
-#: pbupgrade:200 pbupgrade:209
+#: pbupgrade:209
 msgid "Upgrade the Alien Bob 32 bits compatible mode."
 msgstr ""
 
-#: pbupgrade:202 pbupgrade:211
+#: pbupgrade:211
 msgid ""
 "Upgrade the Firefox and Thunderbird products.\\nThey should be downloaded "
 "and put in the packages/Mozilla directory before."
 msgstr ""
 
-#: pbupgrade:221 pbupgrade:230
+#: pbupgrade:230
 msgid ""
 "Upgrade your Bumblebee packages if they are in sync with the upgraded "
 "Slackware.\\nDone on another machine for exemple."
 msgstr ""
 
-#: pbupgrade:223 pbupgrade:232
+#: pbupgrade:232
 msgid ""
 "Redo the packages which are here in sources form.\\nIf not already done on "
 "this machine or another.\\n"
 msgstr ""
 
-#: pbupgrade:231 pbupgrade:240
+#: pbupgrade:240
 msgid ""
 "Redo the Calibre package.\\nIf not already done on this machine or another."
 msgstr ""
 
-#: pbupgrade:233 pbupgrade:242
+#: pbupgrade:242
 msgid ""
 "Redo KDE4 and KDE5 frameworks set of packages.\\nIf not already done on this "
 "machine or another."
 msgstr ""
 
-#: pbupgrade:235 pbupgrade:244
+#: pbupgrade:244
 msgid ""
 "Redo the Chromium navigator which are here in sources form.\\nIf not already "
 "done on this machine or another.\\nIt is a very long process (some hours)."
@@ -820,117 +822,117 @@ msgid ""
 "support."
 msgstr ""
 
-#: pbupgrade:237 pbupgrade:246
+#: pbupgrade:246
 msgid ""
 "Redo the openshot packages which are here in sources form.\\nIf not already "
 "done on this machine or another."
 msgstr ""
 
-#: pbupgrade:239 pbupgrade:248
+#: pbupgrade:248
 msgid ""
 "Redo the pitivi packages which are here in sources form.\\nIf not already "
 "done on this machine or another."
 msgstr ""
 
-#: pbupgrade:241 pbupgrade:250
+#: pbupgrade:250
 msgid ""
 "Redo the audacity packages which are here in sources form.\\nIf not already "
 "done on this machine or another."
 msgstr ""
 
-#: pbupgrade:243 pbupgrade:252
+#: pbupgrade:252
 msgid ""
 "Redo the ardour packages which are here in sources form.\\nIf not already "
 "done on this machine or another."
 msgstr ""
 
-#: pbupgrade:245 pbupgrade:254
+#: pbupgrade:254
 msgid ""
 "Redo the Bumblebee packages.\\nIf not already done on this machine or "
 "another.\\nYou should reboot after upgrading system packages and before "
 "doing this action else the Bumblebee packages wont built."
 msgstr ""
 
-#: pbupgrade:247 pbupgrade:256
+#: pbupgrade:256
 msgid ""
 "Upgrade your boot loader only if you upgrade your system and not the "
 "bootloader."
 msgstr ""
 
-#: pbupgrade:300 pbupgradesys:77 pbupgrade:309
+#: pbupgrade:309 pbupgradesys:77
 msgid "Upgrade system done."
 msgstr ""
 
-#: pbupgrade:309 pbupgrade:318
+#: pbupgrade:318
 msgid "Upgrade Alien Bob multilib done."
 msgstr ""
 
-#: pbupgrade:315 pbupgrade:324
+#: pbupgrade:324
 msgid "Upgrade Mozilla done."
 msgstr ""
 
-#: pbupgrade:323 pbupgrade:332
+#: pbupgrade:332
 msgid "Upgrade packages done."
 msgstr ""
 
-#: pbupgrade:330 pbupgrade:339
+#: pbupgrade:339
 msgid "Upgrade packages2 done."
 msgstr ""
 
-#: pbupgrade:337 pbupgrade:346
+#: pbupgrade:346
 msgid "Upgrade packages3 done."
 msgstr ""
 
-#: pbupgrade:344 pbupgrade:353
+#: pbupgrade:353
 msgid "Upgrade packages4 done."
 msgstr ""
 
-#: pbupgrade:353 pbupgrade:362
+#: pbupgrade:362
 msgid "Upgrade KDE4 and KDE5 frameworks done."
 msgstr ""
 
-#: pbupgrade:360 pbupgrade:369
+#: pbupgrade:369
 msgid "Upgrade openshot done."
 msgstr ""
 
-#: pbupgrade:367 pbupgrade:376
+#: pbupgrade:376
 msgid "Upgrade pitivi done."
 msgstr ""
 
-#: pbupgrade:373 pbupgrade:382
+#: pbupgrade:382
 msgid "Upgrade audacity done."
 msgstr ""
 
-#: pbupgrade:379 pbupgrade:388
+#: pbupgrade:388
 msgid "Upgrade ardour done."
 msgstr ""
 
-#: pbupgrade:386 pbupgrade:395
+#: pbupgrade:395
 msgid "Upgrade tesseract4 done."
 msgstr ""
 
-#: pbupgrade:392 pbupgrade:401
+#: pbupgrade:401
 msgid "Upgrade Bumblebee done."
 msgstr ""
 
-#: pbupgrade:398 pbupgrade:407
+#: pbupgrade:407
 msgid "Recreate source packages done."
 msgstr ""
 
-#: pbupgrade:404 pbupgrade:413
+#: pbupgrade:413
 msgid ""
 "Recreate source Bumblebee done. Reboot your computer for Bumblebee to work."
 msgstr ""
 
-#: pbupgrade:407 pbupgrade:416
+#: pbupgrade:416
 msgid "Updating bootloader asked."
 msgstr ""
 
-#: pbupgrade:437 pbupgrade:446
+#: pbupgrade:446
 msgid "Bootloader menu"
 msgstr ""
 
-#: pbupgrade:438 pbupgrade:447
+#: pbupgrade:447
 msgid ""
 "We have detected the bootloader below. Cancel if it is not true.\\nIn this "
 "last case, you should recreate the config of your bootloader before reboot. "
@@ -938,11 +940,11 @@ msgid ""
 "rerun the install of your bootloader."
 msgstr ""
 
-#: pbupgrade:439 pbupgrade:448
+#: pbupgrade:448
 msgid "No bootloader detected. Reconfigure your bootloader before reboot."
 msgstr ""
 
-#: pbupgrade:451 pbupgrade:460
+#: pbupgrade:460
 msgid ""
 "\\ZbThe boot loader was not upgraded.\\ZB\\nIf lilo is installed, launch : "
 "\\Z3/sbin/lilo\\Zn\\nIf Grub is installed, launch : \\Z3grub-mkconfig -o /"
@@ -952,35 +954,35 @@ msgid ""
 "other favorite bootloader install procedure before rebooting.\\ZB"
 msgstr ""
 
-#: pbupgrade:455 pbupgrade:464
+#: pbupgrade:464
 msgid ""
 "Elilo upgraded : Files vmlinuz et initrd.gz copied in \\Z3/boot/efi/EFI/"
 "Slackware\\Zn"
 msgstr ""
 
-#: pbupgrade:460 pbupgrade:469
+#: pbupgrade:469
 msgid ""
 "Grub upgraded : \\Z3grub-mkconfig\\Zn relaunched.\\n\\Z1Look if there are "
 "error messages below\\Zn."
 msgstr ""
 
-#: pbupgrade:465 pbupgrade:474
+#: pbupgrade:474
 msgid ""
 "Lilo upgraded with \\Z3/sbin/lilo\\Zn.\\n\\Z1Look if there are error "
 "messages below\\Zn."
 msgstr ""
 
-#: pbupgrade:470 pbupgrade:479
+#: pbupgrade:479
 msgid ""
 "Look at \\Z3/syslinux.cfg\\Zn and rerun \\Z3syslinux\\Zn on your boot "
 "partition if some path have changed."
 msgstr ""
 
-#: pbupgrade:484 pbupgrade:493
+#: pbupgrade:493
 msgid " (\\Z1be sure to have upgraded the bootloader before\\Zn)"
 msgstr ""
 
-#: pbupgrade:490 pbupgrade:499
+#: pbupgrade:499
 #, sh-format
 msgid ""
 "Reboot the host${XBOOTMES}.\\n\\n\\ZbThen do if not already done on an "
@@ -1051,8 +1053,4 @@ msgstr ""
 
 #: pbupgradesys:67
 msgid "Upgrade system not done."
-msgstr ""
-
-#: pbaspirecore:161
-msgid "Alien Bob KDE4 scripts copied."
 msgstr ""
