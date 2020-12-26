@@ -33,18 +33,16 @@ qt-gstreamer
 qtscriptgenerator
 raptor
 rqsqal
+
 # For keeping KDE4
 kde.*
 4.14.3
-5.76.0
 akonadi
 amarok
 attica
 automoc4
 baloo5
 bluedevil
-calligra
-calligra-.*
 # cgmanager rc.6 et rc.S ?
 cgmanager
 frameworkintegration
@@ -81,7 +79,15 @@ scim-.*
 skanlite
 soprano
 strigi
-# phonon kde4 renomme phonon4qt4.
+
+# KDE4 extragear
+calligra
+calligra-.*
+
+# Frameworks KDE5 standalone
+5.76.0
+
+# packages. phonon kde4 renomme phonon4qt4.
 phonon4qt4
 phonon-gstreamer
 

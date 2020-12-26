@@ -133,7 +133,7 @@ xmaster () {
 	packages2 "$(mygt 'Install/Upgrade the packages2 set of software')" $xsel6 packages2 \
 	packages3 "$(mygt 'Install/Upgrade the packages3 set of software')" $xsel7 packages3 \
 	packages4 "$(mygt 'Install/Upgrade the packages4 set of software')" $xsel8 packages4 \
-	frameworks "$(mygt 'Install/Upgrade the KDE5 frameworks libraries')" $xsel9 frameworks \
+	frameworks "$(mygt 'Install/Upgrade KDE4 and the KDE5 frameworks libraries')" $xsel9 frameworks \
 	openshot "$(mygt 'Install/Upgrade the Openshot software')" $xsel10 openshot \
 	pitivi "$(mygt 'Install/Upgrade the Pitivi software')" $xselpi pitivi \
 	audacity "$(mygt 'Install/Upgrade the Audacity software')" $xsel11 audacity \
@@ -145,7 +145,7 @@ xmaster () {
 	recreatepackages3 "$(mygt 'Compile again the packages3 set of software')" $xsel17 recreatepackages3 \
 	recreatecalibre "$(mygt 'Compile again the Calibre software')" $xselca recreatecalibre \
 	recreatepackages4 "$(mygt 'Compile again the packages4 set of software')" $xsel18 recreatepackages4 \
-	recreateframeworks "$(mygt 'Compile again the KDE5 frameworks set of software')" $xselfw recreateframeworks \
+	recreateframeworks "$(mygt 'Compile again KDE4 and the KDE5 frameworks set of software')" $xselfw recreateframeworks \
 	recreatechromium "$(mygt 'Compile again the Chromium software')" $xsel19 recreatechromium \
 	recreateopenshot "$(mygt 'Compile again the Openshot software')" $xsel20 recreateopenshot \
 	recreatepitivi "$(mygt 'Compile again the Pitivi software')" $xselrp recreatepitivi \
@@ -158,6 +158,15 @@ xmaster () {
 xpacaide () {
     packages="$1"
     pacaide="Upgrade the $packages set of tools :"
+    ls -1 "$packages/"*.t?z > $XTEMPMES
+    while read j;test "$j" != "" ;do
+	pacaide="${pacaide}\n$j"
+    done < $XTEMPMES
+    rm -f $XTEMPMES
+}
+
+xpacaide_add () {
+    packages="$1"
     ls -1 "$packages/"*.t?z > $XTEMPMES
     while read j;test "$j" != "" ;do
 	pacaide="${pacaide}\n$j"
@@ -203,7 +212,10 @@ while [ $bclaide -eq 1 ] ;do
 	elif [ "$(echo "$xitem"|cut -c1-8)" = packages ] ;then
 	    xpacaide "$xitem"
 	elif [ "$xitem" = frameworks ] ;then
-	    xpacaide kde5/frameworks
+	    xpacaide kde4/kde
+	    xpacaide_add kde4/deps
+	    xpacaide_add kde5/frameworks
+	    xpacaide_add kde5/deps
 	elif [ "$xitem" = openshot ] ;then
 	    xpacaide packages/openshot
 	elif [ "$xitem" = pitivi ] ;then
@@ -227,7 +239,7 @@ while [ $bclaide -eq 1 ] ;do
 	elif [ "$xitem" = recreatecalibre ] ;then
 	    pacaide=$(mygt 'Redo the Calibre package.\nIf not already done on this machine or another.')
 	elif [ "$xitem" = recreateframeworks ] ;then
-	    pacaide=$(mygt 'Redo the KDE5 frameworks set of packages.\nIf not already done on this machine or another.')
+	    pacaide=$(mygt 'Redo KDE4 and KDE5 frameworks set of packages.\nIf not already done on this machine or another.')
 	elif [ "$xitem" = recreatechromium ] ;then
 	    pacaide=$(mygt 'Redo the Chromium navigator which are here in sources form.\nIf not already done on this machine or another.\nIt is a very long process (some hours).\nIt is usefull for Opera having the libffmeg.so library with the h264 support.')
 	elif [ "$xitem" = recreateopenshot ] ;then
@@ -342,10 +354,12 @@ if [ $XEND -eq 0 ] ;then
     fi
     if [ $ISFRAMEW -eq 1 ] ;then
 	if [ $XTEST -ne 1 ] ;then
+	    upgradedir kde4/deps
+	    upgradedir kde4/kde
 	    upgradedir kde5/deps
 	    upgradedir kde5/frameworks
 	fi
-	mygt "Upgrade frameworks done." >> $XTEMPMES
+	mygt "Upgrade KDE4 and KDE5 frameworks done." >> $XTEMPMES
     fi
     if [ $ISOPENSHOT -eq 1 ] ;then
 	if [ $XTEST -ne 1 ] ;then

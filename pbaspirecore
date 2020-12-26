@@ -152,40 +152,68 @@ if [ $ISMULTI -eq 1 -o $ISPURGE -eq 1 ] ;then
     echo '------------------------------------'
 fi
 
-# Frameworks KDE5 Alien Bob
+# KDE4 + Frameworks KDE5
 if [ $ISFRAMEW -eq 1 ] ;then
-    [ ! -d kde5 ] && mkdir kde5
+    (
+	cd kde4/source
+	echo '------------------------------------'
+	tar xvfz ../../pbslacks/builds/sbo/kde4.tar.gz
+	mygt "Alien Bob KDE5 scripts copied."
+	(
+	    cd kde;[ ! -d src ] && mkdir src;cd src
+	    myrget 3 "$KDE4_SRC" .
+	    xpurgesrc 'tar.?z' sig;xpurgesrc 'zip'
+	    (
+		[ ! -d extragear ] && mkdir extragear;cd extragear
+		myrget 2 "$KDE4_CALLIGRA" .
+		xpurgesrc 'tar.?z'
+	    )
+	)
+	echo '------------------------------------'
+	(
+	    cd kdei/kde-l10n;ln -sf ../../kde/src/kde-l10n/* .
+	)
+	(
+	    cd kdei/calligra-l10n;ln -sf ../../kde/src/extragear/calligra-l10n/* .
+	)
+	echo '------------------------------------'
+    )
     (
 	cd kde5
 	[ ! -d frameworks ] && mkdir frameworks
 	echo '------------------------------------'
 	# Get sources
 	tar xvfz ../pbslacks/builds/alien/ktown.tar.gz
-	cd source
-	#[ $ISFRAMEW -eq 1 ] && myrget 9 "$SLACK_KDE_SRC" . \
-	    #			      "-X $SLACK_KDE_SRCDIR/src"
 	mygt "Alien Bob KDE5 scripts copied."
 	echo '------------------------------------'
-	mkdir -p src/frameworks;cd src/frameworks
-	myrget 3 "$KDE5_FW_SRC" .
-	xpurgesrc 'tar.?z' sig;xpurgesrc 'zip'
-	cd ..;mkdir -p plasma-extra;cd plasma-extra
-       	myrget 3 "$KDE5_PLASMAEX_SRC1" .
-	xpurgesrc 'tar.?z' sig
+	(
+	    cd source;mkdir -p src/frameworks;cd src/frameworks
+	    myrget 3 "$KDE5_FW_SRC" .
+	    xpurgesrc 'tar.?z' sig;xpurgesrc 'zip'
+	)
+	echo '------------------------------------'
+	(
+	    cd source;mkdir -p src/plasma-extra;cd src/plasma-extra
+       	    myrget 3 "$KDE5_PLASMAEX_SRC1" .
+	    xpurgesrc 'tar.?z' sig
+	)
+	echo '------------------------------------'
 	mygt "KDE5 frameworks sources copied."
 	echo '------------------------------------'
 	# Get packages deps used by frameworks
-	cd ../../..
-	mkdir -p deps;cd deps
-	xgetpac qrencode "$SLACKALIEN2" 10
-	xgetpac phonon "$SLACKALIEN2" 10
-	xpurgesrc 'tar.?z' asc md5
-	rm -f phonon4qt5-*
+	(
+	    mkdir -p deps;cd deps
+	    xgetpac qrencode "$SLACKALIEN2" 10
+	    xgetpac phonon "$SLACKALIEN2" 10
+	    xpurgesrc 'tar.?z' asc md5
+	    rm -f phonon4qt5-*
+	)
 	echo '------------------------------------'
     )
     if [ -d slackware64-current ] ;then
 	(
 	    cd slackware64-current
+	    ln -sf ../kde4 .
 	    ln -sf ../kde5 .
 	)
     fi
