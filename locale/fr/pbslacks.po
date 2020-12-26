@@ -250,31 +250,33 @@ msgstr "Copie Slackware multilib faite."
 msgid "Slackware multilib not copied."
 msgstr "Copie Slackware multilib non faite."
 
-#: pbaspirecore:161 pbaspirecore:182 pbaspirecore:187
+#: pbaspirecore:161 pbaspirecore:182 pbaspirecore:187 pbaspirecore:191
 msgid "Alien Bob KDE5 scripts copied."
 msgstr "Copie des scripts pour KDE5 d'Alien Bob faite."
 
-#: pbaspirecore:196 pbaspirecore:201
+#: pbaspirecore:196 pbaspirecore:201 pbaspirecore:205
 msgid "KDE5 frameworks sources copied."
 msgstr "Copie des sources de KDE5 frameworks faite."
 
-#: pbaspirecore:236 pbaspirecore:243
+#: pbaspirecore:236 pbaspirecore:243 pbaspirecore:247
 msgid "Check GPG signatures :"
 msgstr "Vérification des signatures GPG :"
 
-#: pbaspirecore:261 pbaspirecore:268
+#: pbaspirecore:261 pbaspirecore:268 pbaspirecore:272
 msgid "GParted copied."
 msgstr "Copie GParted faite."
 
 #: pbaspirecore:263 pbaspirecore:269 pbaspirecore:270 pbaspirecore:276
+#: pbaspirecore:274 pbaspirecore:280
 msgid "GParted not copied."
 msgstr "Copie GParted non faite."
 
-#: pbaspirecore:292 pbaspirecore:299
+#: pbaspirecore:292 pbaspirecore:299 pbaspirecore:303
 msgid "VirtualBox copied."
 msgstr "Copie VirtualBox faite."
 
 #: pbaspirecore:294 pbaspirecore:300 pbaspirecore:301 pbaspirecore:307
+#: pbaspirecore:305 pbaspirecore:311
 msgid "VirtualBox not copied."
 msgstr "Copie VirtualBox non faite."
 
@@ -332,7 +334,7 @@ msgstr ""
 msgid "Correct this error and relaunch this script."
 msgstr "Erreur à corriger puis relancer ce script."
 
-#: pbcompilepost:361 pbcompilepost:380
+#: pbcompilepost:361 pbcompilepost:380 pbcompilepost:403
 msgid "Upgrade packages* done."
 msgstr "Mise à jour de packages* faite."
 
@@ -1188,3 +1190,7 @@ msgstr "Arrêt : voir les erreurs précédentes."
 #: pbupgradesys:67
 msgid "Upgrade system not done."
 msgstr "Mise à jour du système non faite."
+
+#: pbaspirecore:161
+msgid "Alien Bob KDE4 scripts copied."
+msgstr "Copie des scripts pour KDE4 d'Alien Bob faite."
