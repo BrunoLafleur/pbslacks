@@ -87,6 +87,7 @@ KDE4_LIBKTORRENT='https://github.com/KDE/libktorrent/archive/v1.3.1.tar.gz'
 KDE4_KTORRENT='https://github.com/KDE/ktorrent/archive/v4.3.1.tar.gz'
 KDE4_CALLIGRA='https://download.kde.org/Attic/calligra-2.9.11'
 KDE4_APPS='https://download.kde.org/Attic/applications/17.08.3/src'
+KDE4_WORKSPACE='https://download.kde.org/Attic/applications/15.08.0/src/kde-workspace-4.11.22.tar.xz'
 #SLACK_KDE_FW="$SLACKMIR/people/alien-kde/current/latest/x86_64/kde/frameworks"
 #SLACK_KDE_SRC="$SLACKMIR/people/alien-kde/source/latest/kde"
 #SLACK_KDE_SRCDIR="$SLACKDIR/people/alien-kde/source/latest/kde"

@@ -166,6 +166,7 @@ if [ $ISFRAMEW -eq 1 ] ;then
 	    xgeturl "$KDE4_KACTIVITIES"
 	    xgeturl "$KDE4_APPS/kdelibs-4.14.38.tar.xz"
 	    xgeturl "$KDE4_APPS/kdelibs-4.14.38.tar.xz.sig"
+	    xgeturl "$KDE4_WORKSPACE"
 	    xpurgesrc 'tar.?z' sig;xpurgesrc 'zip'
 	    (
 		[ ! -d extragear ] && mkdir extragear;cd extragear
