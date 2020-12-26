@@ -170,6 +170,8 @@ if [ $ISFRAMEW -eq 1 ] ;then
 	    (
 		[ ! -d extragear ] && mkdir extragear;cd extragear
 		myrget 2 "$KDE4_CALLIGRA" .
+		xgeturl "$KDE4_KSCREEN"
+		xgeturl "$KDE4_LIBKTORRENT"
 		xpurgesrc 'tar.?z'
 	    )
 	)
