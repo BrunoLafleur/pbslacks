@@ -162,7 +162,6 @@ if [ $ISFRAMEW -eq 1 ] ;then
 	(
 	    cd kde;[ ! -d src ] && mkdir src;cd src
 	    myrget 3 "$KDE4_SRC" .
-	    xpurgesrc 'tar.?z' sig;xpurgesrc 'zip'
 	    xgeturl "$KDE4_KACTIVITIES"
 	    xgeturl "$KDE4_APPS/kdelibs-4.14.38.tar.xz"
 	    xgeturl "$KDE4_APPS/kdelibs-4.14.38.tar.xz.sig"
@@ -171,10 +170,39 @@ if [ $ISFRAMEW -eq 1 ] ;then
 	    (
 		[ ! -d extragear ] && mkdir extragear;cd extragear
 		myrget 2 "$KDE4_CALLIGRA" .
-		xgeturl "$KDE4_KSCREEN"
+		xgeturl "$KDE4_LIBKSCREEN"
 		xgeturl "$KDE4_LIBKTORRENT"
 		xgeturl "$KDE4_KTORRENT"
-		xpurgesrc 'tar.?z'
+		xgeturl "$KDE4_AMAROK"
+		xgeturl "${KDE4_AMAROK}.sig"
+		xgeturl "$KDE4_BLUEDEVIL"
+		xgeturl "$KDE4_K3B"
+		xgeturl "$KDE4_KAUDIOCREATOR"
+		xgeturl "$KDE4_KDECONNECT"
+		xgeturl "$KDE4_KDEVPYTHON"
+		xgeturl "$KDE4_KDEVELOP"
+		xgeturl "${KDE4_KDEVELOP}.sig"
+		xgeturl "$KDE4_KDEVELOPPHP"
+		xgeturl "${KDE4_KDEVELOPPHP}.sig"
+		xgeturl "$KDE4_KDEVELOPPHPDOCS"
+		xgeturl "${KDE4_KDEVELOPPHPDOCS}.sig"
+		xgeturl "$KDE4_KDEVPLATFORM"
+		xgeturl "${KDE4_KDEVPLATFORM}.sig"
+		xgeturl "$KDE4_KIOMTP"
+		xgeturl "$KDE4_KPLAYER"
+		xgeturl "$KDE4_KSCREEN"
+		xgeturl "$KDE4_KWEBKITPART"
+		xgeturl "$KDE4_LIBMMQT"
+		xgeturl "$KDE4_LIBNMQT"
+		mv networkmanager-qt-0.9.8.4.tar.xz libnm-qt-0.9.8.4.tar.xz
+		xgeturl "$KDE4_OXYGENGTK2"
+		xgeturl "$KDE4_PARTITIONMANAGER"
+		xgeturl "$KDE4_PLASMANM"
+		xgeturl "$KDE4_SKANLITE"
+		xgeturl "$KDE4_WICDKDE"
+		xgeturl "$KDE4_KDEVELOPPGQT"
+		xpurgesrc 'tar.?z' sig
+		cp ../../../../../pbslacks/builds/sbo/polkit-kde-* .
 	    )
 	)
 	echo '------------------------------------'
