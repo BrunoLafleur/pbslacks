@@ -164,7 +164,6 @@ if [ $ISFRAMEW -eq 1 ] ;then
 	    myrget 3 "$KDE4_SRC" .
 	    xgeturl "$KDE4_KACTIVITIES"
 	    xgeturl "$KDE4_APPS/kdelibs-4.14.38.tar.xz"
-	    xgeturl "$KDE4_APPS/kdelibs-4.14.38.tar.xz.sig"
 	    xgeturl "$KDE4_WORKSPACE"
 	    xpurgesrc 'tar.?z' sig;xpurgesrc 'zip'
 	    (
@@ -174,20 +173,15 @@ if [ $ISFRAMEW -eq 1 ] ;then
 		xgeturl "$KDE4_LIBKTORRENT"
 		xgeturl "$KDE4_KTORRENT"
 		xgeturl "$KDE4_AMAROK"
-		xgeturl "${KDE4_AMAROK}.sig"
 		xgeturl "$KDE4_BLUEDEVIL"
 		xgeturl "$KDE4_K3B"
 		xgeturl "$KDE4_KAUDIOCREATOR"
 		xgeturl "$KDE4_KDECONNECT"
 		xgeturl "$KDE4_KDEVPYTHON"
 		xgeturl "$KDE4_KDEVELOP"
-		xgeturl "${KDE4_KDEVELOP}.sig"
 		xgeturl "$KDE4_KDEVELOPPHP"
-		xgeturl "${KDE4_KDEVELOPPHP}.sig"
 		xgeturl "$KDE4_KDEVELOPPHPDOCS"
-		xgeturl "${KDE4_KDEVELOPPHPDOCS}.sig"
 		xgeturl "$KDE4_KDEVPLATFORM"
-		xgeturl "${KDE4_KDEVPLATFORM}.sig"
 		xgeturl "$KDE4_KIOMTP"
 		xgeturl "$KDE4_KPLAYER"
 		xgeturl "$KDE4_KSCREEN"
