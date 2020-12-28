@@ -51,10 +51,15 @@ xhookcalibre () {
     rm -f calibre-4.15.0-x86_64-1alien.txz.*
 }
 
-xhookframew () {
-    # Post actions for framew
+xhookkde4 () {
+    # Post actions for kde4
     # Reput the current one. It has been modified by deps for compilation.
     upgradepkg --reinstall slackware64/l/sip-*.txz
+}
+
+xhookframew () {
+    # Post actions for framew
+    echo "none" > /dev/null
 }
 
 xhookpac4 () {
