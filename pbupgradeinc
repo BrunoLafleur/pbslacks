@@ -51,6 +51,12 @@ xhookcalibre () {
     rm -f calibre-4.15.0-x86_64-1alien.txz.*
 }
 
+xhookframew () {
+    # Post actions for framew
+    # Reput the current one. It has been modified by deps for compilation.
+    upgradepkg --reinstall slackware64/l/sip-*.txz
+}
+
 xhookpac4 () {
     # For H264 and DRM support for Opera.
     if [ -f $XLIBDIR/chromium/libffmpeg.so ] ;then

@@ -358,6 +358,7 @@ if [ $XEND -eq 0 ] ;then
 	    upgradedir kde4/kde
 	    upgradedir kde5/deps
 	    upgradedir kde5/frameworks
+	    xhookframew
 	fi
 	mygt "Upgrade KDE4 and KDE5 frameworks done." >> $XTEMPMES
     fi
