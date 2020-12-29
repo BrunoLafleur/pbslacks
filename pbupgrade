@@ -176,8 +176,11 @@ xpacaide_add () {
     rm -f $XTEMPMES
 }
 
+xframe=$XUPNOPOST
+[ $(ls /var/log/packages/plasma-desktop-*[0-9]* 2> /dev/null|wc -l) -ge 1 ] && \
+    xframe=off
 xsel="$XUPSYSTEM off $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST \
-$XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST \
+$XUPNOPOST $xframe $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST \
 off $XUPPOST $XUPPOST $XUPPOST off $XUPPOST off off off off \
 $XUPPOST $XUPPOST $XUPPOST $XUPPOST off off"
 ditem=system
