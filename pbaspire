@@ -146,7 +146,8 @@ xmaster () {
 
 # If you have full KDE5 or you want KDE4 + KDE5 Frameworks.
 xframe=on
-[ $(ls /var/log/packages/plasma-desktop-*[0-9]* 2> /dev/null|wc -l) -ge 1 ] && xframe=off
+[ $(ls /var/log/packages/plasma-desktop-*[0-9]* 2> /dev/null|wc -l) -ge 1 ] && \
+    xframe=off
 # Preselect sets.
 xsel="on on $xframe on on on on on on on on off off"
 ditem=core
