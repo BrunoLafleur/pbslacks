@@ -175,6 +175,7 @@ if [ $ISFRAMEW -eq 1 ] ;then
 		xgeturl "$KDE4_AMAROK"
 		xgeturl "$KDE4_BLUEDEVIL"
 		xgeturl "$KDE4_K3B"
+		mv k3b-2.0.3a.tar.xz k3b-2.0.3.tar.xz
 		xgeturl "$KDE4_KAUDIOCREATOR"
 		xgeturl "$KDE4_KDECONNECT"
 		xgeturl "$KDE4_KDEVPYTHON"
@@ -187,6 +188,7 @@ if [ $ISFRAMEW -eq 1 ] ;then
 		xgeturl "$KDE4_KSCREEN"
 		xgeturl "$KDE4_KWEBKITPART"
 		xgeturl "$KDE4_LIBMMQT"
+		mv libmm-qt-1.0.1-1.tar.xz libmm-qt-1.0.1.tar.xz
 		xgeturl "$KDE4_LIBNMQT"
 		mv networkmanager-qt-0.9.8.4.tar.xz libnm-qt-0.9.8.4.tar.xz
 		xgeturl "$KDE4_OXYGENGTK2"

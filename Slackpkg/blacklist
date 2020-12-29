@@ -32,57 +32,50 @@ qt
 qt-gstreamer
 qtscriptgenerator
 raptor
-rqsqal
+rasqal
+qjson
+redland
+scim
+scim-*
+orage
+pm-utils
+libbluedevil
+glade3
+liblastfm
+qimageblitz
+soprano
+strigi
+gtk-xfce-engine
+attica
+automoc4
+akonadi
+# cgmanager rc.6 et rc.S ?
+cgmanager
 
 # For keeping KDE4
 kde.*
 4.14.3
-akonadi
-amarok
-attica
-automoc4
-baloo5
-bluedevil
-# cgmanager rc.6 et rc.S ?
-cgmanager
-frameworkintegration
-glade3
-gtk-xfce-engine
-k3b
-kactivities
-kactivities-.*
+
+# KDE4 extragear
 kaudiocreator
-kbookmarks
-kcmutils
-kdav
+amarok
+bluedevil
+k3b
+skanlite
+oxygen-gtk2
 kio-mtp
+libkscreen
+libktorrent
+libmm-qt
+libnm-qt
 kplayer
 kscreen
 ktorrent
-kwebkitpart
-libbluedevil
-libkscreen
-libktorrent
-liblastfm
-libmm-qt
-libnm-qt
-orage
-oxygen-gtk2
 partitionmanager
 plasma-nm
-pm-utils
-qimageblitz
-qjson
-redland
-scim
-scim-.*
-skanlite
-soprano
-strigi
-
-# KDE4 extragear
 calligra
 calligra-.*
+kwebkitpart
 
 # Frameworks KDE5 standalone
 5.76.0
