@@ -190,7 +190,6 @@ if [ $ISFRAMEW -eq 1 ] ;then
 		xgeturl "$KDE4_LIBMMQT"
 		mv libmm-qt-1.0.1-1.tar.xz libmm-qt-1.0.1.tar.xz
 		xgeturl "$KDE4_LIBNMQT"
-		mv networkmanager-qt-0.9.8.4.tar.xz libnm-qt-0.9.8.4.tar.xz
 		xgeturl "$KDE4_OXYGENGTK2"
 		xgeturl "$KDE4_PARTITIONMANAGER"
 		xgeturl "$KDE4_PLASMANM"
