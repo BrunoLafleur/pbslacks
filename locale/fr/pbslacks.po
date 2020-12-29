@@ -87,11 +87,11 @@ msgstr "Menu principal"
 msgid "Choose your actions below"
 msgstr "Choisissez vos actions ci-dessous"
 
-#: pbaspire:170
+#: pbaspire:170 pbaspire:171
 msgid "Get or update the officiel lastest current Slackware."
 msgstr "Synchroniser avec la copie locale de la dernière Slackware current"
 
-#: pbaspire:172
+#: pbaspire:172 pbaspire:173
 msgid ""
 "Get or update the multilib of Alien Bob which is a 32 bits compatibility set "
 "of packages."
@@ -99,62 +99,62 @@ msgstr ""
 "Obtenir ou mettre à jour les paquets multilib d'Alien Bob qui est un jeu de "
 "paquets assurant un mode de compatibilité 32 bits."
 
-#: pbaspire:174
+#: pbaspire:174 pbaspire:175
 msgid "Get or update the KDE4 and KDE5 frameworks libraries."
 msgstr "Installer/mettre à jour KDE4 et les librairies frameworks de KDE5"
 
-#: pbaspire:176
+#: pbaspire:176 pbaspire:177
 msgid "Get or update the GParted live ISO."
 msgstr "Obtenir ou mettre à jour l'image ISO GParted live"
 
-#: pbaspire:178
+#: pbaspire:178 pbaspire:179
 msgid "Get or update the VirtualBox installer and extensions."
 msgstr ""
 
-#: pbaspire:180
+#: pbaspire:180 pbaspire:181
 msgid "Get or update some Alien Bob binary packages."
 msgstr "Obtenir ou mettre à jour des paquets binaires d'Alien Bob"
 
-#: pbaspire:182
+#: pbaspire:182 pbaspire:183
 msgid "Get or update some Ponce binary packages."
 msgstr "Obtenir ou mettre à jour des paquets binaires de Ponce"
 
-#: pbaspire:184
+#: pbaspire:184 pbaspire:185
 msgid "Get or update some Slackonly binary packages."
 msgstr "Obtenir ou mettre à jour des paquets inaires de Slackonly"
 
-#: pbaspire:186
+#: pbaspire:186 pbaspire:187
 msgid "Get or update some Conraid and Slackel binary packages."
 msgstr "Obtenir ou mettre à jour des paquets binaires de Conraid et Slackel"
 
-#: pbaspire:188
+#: pbaspire:188 pbaspire:189
 msgid "Get or update some other source packages."
 msgstr "Obtenir ou mettre à jour d'autres paquets sources"
 
-#: pbaspire:190
+#: pbaspire:190 pbaspire:191
 msgid "Get or update Firefox and Thunderbird."
 msgstr "Obtenir ou mettre à jour Firefox et Thunderbird"
 
-#: pbaspire:192
+#: pbaspire:192 pbaspire:193
 msgid "Check the GPG signatures of the downloaded packages."
 msgstr "Vérifiez les signatures GPG des paquets téléchargés."
 
-#: pbaspire:194
+#: pbaspire:194 pbaspire:195
 msgid "Clean the local repository from old packages or source files."
 msgstr "On enlève les anciennes versions de la copie locale du système."
 
-#: pbaspire:235
+#: pbaspire:235 pbaspire:236
 #, sh-format
 msgid "Get/Update core system done : \\Z3${PBNAME}core\\Zn."
 msgstr "Coeur du système obtenu ou mis à jour : \\Z3${PBNAME}core\\Zn."
 
-#: pbaspire:236
+#: pbaspire:236 pbaspire:237
 #, sh-format
 msgid "Get/Update multilib compat 32 bits mode done : \\Z3${PBNAME}core\\Zn."
 msgstr ""
 "Mode de compatibilié 32 bits obtenu ou mis à jour : \\Z3${PBNAME}core\\Zn."
 
-#: pbaspire:238
+#: pbaspire:238 pbaspire:239
 #, sh-format
 msgid ""
 "Get/Update KDE4 and KDE5 frameworks libraries done : \\Z3${PBNAME}core\\Zn."
@@ -162,37 +162,37 @@ msgstr ""
 "KDE4 et librairies frameworks de KDE5 obtenues ou mises à jour : "
 "\\Z3${PBNAME}core\\Zn."
 
-#: pbaspire:240
+#: pbaspire:240 pbaspire:241
 #, sh-format
 msgid "Get/Update gparted live iso done : \\Z3${PBNAME}core\\Zn."
 msgstr "Image iso GParted live obtenue ou mise à jour : \\Z3${PBNAME}core\\Zn."
 
-#: pbaspire:242
+#: pbaspire:242 pbaspire:243
 #, sh-format
 msgid "Get/Update VirtualBox installer done : \\Z3${PBNAME}core\\Zn."
 msgstr "Installeur VirtualBox obtenu ou mis à jour : \\Z3${PBNAME}core\\Zn."
 
-#: pbaspire:244
+#: pbaspire:244 pbaspire:245
 #, sh-format
 msgid "Local repository cleaned : \\Z3${PBNAME}core\\Zn."
 msgstr "Copie locale du système nettoyée : \\Z3${PBNAME}core\\Zn."
 
-#: pbaspire:248
+#: pbaspire:248 pbaspire:249
 #, sh-format
 msgid "Get/Update Alien Bob packages done : \\Z3${PBNAME}alien\\Zn."
 msgstr "Paquets d'Alien Bob obtenus ou mis à jour : \\Z3${PBNAME}alien\\Zn."
 
-#: pbaspire:253
+#: pbaspire:253 pbaspire:254
 #, sh-format
 msgid "Get/Update Ponce packages done : \\Z3${PBNAME}ponce\\Zn."
 msgstr "Paquets de Ponce obtenus ou mis à jour : \\Z3${PBNAME}ponce\\Zn."
 
-#: pbaspire:257
+#: pbaspire:257 pbaspire:258
 #, sh-format
 msgid "Get/Update Slackonly packages done : \\Z3${PBNAME}slonly\\Zn."
 msgstr "Paquets de Slackonly obtenus ou mis à jour : \\Z3${PBNAME}slonly\\Zn."
 
-#: pbaspire:262
+#: pbaspire:262 pbaspire:263
 #, sh-format
 msgid ""
 "Get/Update Conraid and Slackel binary packages done : \\Z3${PBNAME}other\\Zn."
@@ -200,13 +200,13 @@ msgstr ""
 "Autres paquets binaires de Conraid et Slackel obtenus ou mis à jour : "
 "\\Z3${PBNAME}other\\Zn."
 
-#: pbaspire:267
+#: pbaspire:267 pbaspire:268
 #, sh-format
 msgid "Get/Update other source packages done : \\Z3${PBNAME}sources\\Zn."
 msgstr ""
 "Autres paquets sources obtenus ou mis à jour : \\Z3${PBNAME}sources\\Zn."
 
-#: pbaspire:273
+#: pbaspire:273 pbaspire:274
 #, sh-format
 msgid ""
 "Get/Update Firefox and Thunderbird for $XLANG language done : \\Z3${PBNAME}"
@@ -215,15 +215,15 @@ msgstr ""
 "Obtention ou mise à jour de Firefox et Thunderbird pour le langage $XLANG "
 "faite : \\Z3${PBNAME}mozilla\\Zn."
 
-#: pbaspire:277
+#: pbaspire:277 pbaspire:278
 msgid "GPG signatures checked :"
 msgstr "Signatures GPG vérifiées :"
 
-#: pbaspire:286 pbsetup:306 pbupgrade:434
+#: pbaspire:286 pbsetup:306 pbupgrade:434 pbaspire:287 pbupgrade:437
 msgid "No action was demanded. Exit."
 msgstr "Aucune action demandée. Sortie."
 
-#: pbaspire:289 pbsetup:310 pbupgrade:83
+#: pbaspire:289 pbsetup:310 pbupgrade:83 pbaspire:290
 msgid "Actions which were done"
 msgstr "Actions réalisées"
 
@@ -254,31 +254,31 @@ msgstr "Copie Slackware multilib non faite."
 msgid "Alien Bob KDE4 scripts copied."
 msgstr "Copie des scripts pour KDE4 d'Alien Bob faite."
 
-#: pbaspirecore:223
+#: pbaspirecore:223 pbaspirecore:218
 msgid "Alien Bob KDE5 scripts copied."
 msgstr "Copie des scripts pour KDE5 d'Alien Bob faite."
 
-#: pbaspirecore:237
+#: pbaspirecore:237 pbaspirecore:232
 msgid "KDE5 frameworks sources copied."
 msgstr "Copie des sources de KDE5 frameworks faite."
 
-#: pbaspirecore:279
+#: pbaspirecore:279 pbaspirecore:274
 msgid "Check GPG signatures :"
 msgstr "Vérification des signatures GPG :"
 
-#: pbaspirecore:304
+#: pbaspirecore:304 pbaspirecore:299
 msgid "GParted copied."
 msgstr "Copie GParted faite."
 
-#: pbaspirecore:306 pbaspirecore:312
+#: pbaspirecore:306 pbaspirecore:312 pbaspirecore:301 pbaspirecore:307
 msgid "GParted not copied."
 msgstr "Copie GParted non faite."
 
-#: pbaspirecore:335
+#: pbaspirecore:335 pbaspirecore:330
 msgid "VirtualBox copied."
 msgstr "Copie VirtualBox faite."
 
-#: pbaspirecore:337 pbaspirecore:343
+#: pbaspirecore:337 pbaspirecore:343 pbaspirecore:332 pbaspirecore:338
 msgid "VirtualBox not copied."
 msgstr "Copie VirtualBox non faite."
 
@@ -336,7 +336,7 @@ msgstr ""
 msgid "Correct this error and relaunch this script."
 msgstr "Erreur à corriger puis relancer ce script."
 
-#: pbcompilepost:443
+#: pbcompilepost:443 pbcompilepost:447
 msgid "Upgrade packages* done."
 msgstr "Mise à jour de packages* faite."
 
@@ -838,14 +838,14 @@ msgstr "Compiler à nouveau les paquets Bummblebee."
 msgid "Upgrade boot loader."
 msgstr "Mettre à jour le gestionnaire de démarrage"
 
-#: pbupgrade:208
+#: pbupgrade:208 pbupgrade:211
 msgid ""
 "Upgrade your Slackware system with the last current fetched.\\nUses Slackpkg."
 msgstr ""
 "Mettez à jour votre système Slackware avec la dernière current ramenée."
 "\\nUtilise Slackpkg."
 
-#: pbupgrade:210
+#: pbupgrade:210 pbupgrade:213
 msgid ""
 "Upgrade your Slackware system with the last current on the internet.\\nUses "
 "Slackpkg."
@@ -853,11 +853,11 @@ msgstr ""
 "Mettez à jour votre système Slackware avec la dernière current sur internet."
 "\\nUtilise Slackpkg."
 
-#: pbupgrade:212
+#: pbupgrade:212 pbupgrade:215
 msgid "Upgrade the Alien Bob 32 bits compatible mode."
 msgstr "Mettez à jour le mode de compatibilté 32 bits (multilib) d'Alien Bob."
 
-#: pbupgrade:214
+#: pbupgrade:214 pbupgrade:217
 msgid ""
 "Upgrade the Firefox and Thunderbird products.\\nThey should be downloaded "
 "and put in the packages/Mozilla directory before."
@@ -865,7 +865,7 @@ msgstr ""
 "Mettez à jour Firefox et Thunderbird\\nIls doivent avoir été aspirés "
 "préalablement."
 
-#: pbupgrade:233
+#: pbupgrade:233 pbupgrade:236
 msgid ""
 "Upgrade your Bumblebee packages if they are in sync with the upgraded "
 "Slackware.\\nDone on another machine for exemple."
@@ -873,7 +873,7 @@ msgstr ""
 "Mettez à jour les paquets Bumblebee s'ils ont été recompilés avec la "
 "dernière Slackware installée.\\nFait sur une autre machine par exemple."
 
-#: pbupgrade:235
+#: pbupgrade:235 pbupgrade:238
 msgid ""
 "Redo the packages which are here in sources form.\\nIf not already done on "
 "this machine or another.\\n"
@@ -881,14 +881,14 @@ msgstr ""
 "Recompilez les paquets qui sont ici sous forme source.\\nSi non fait sur "
 "cette machine ou une autre.\\n"
 
-#: pbupgrade:243
+#: pbupgrade:243 pbupgrade:246
 msgid ""
 "Redo the Calibre package.\\nIf not already done on this machine or another."
 msgstr ""
 "Recompilez le paquet Calibre qui est ici sous forme source.\\nSi non fait "
 "sur cette machine ou une autre.\\n"
 
-#: pbupgrade:245
+#: pbupgrade:245 pbupgrade:248
 msgid ""
 "Redo dependencies for KDE4 set of packages.\\nIf not already done on this "
 "machine or another."
@@ -896,14 +896,14 @@ msgstr ""
 "Recompilez les dépendences de KDE4 qui sont ici sous forme source.\\nSi non "
 "déjà fait sur cette machine ou une autre.\\n"
 
-#: pbupgrade:247
+#: pbupgrade:247 pbupgrade:250
 msgid ""
 "Redo KDE4 set of packages.\\nIf not already done on this machine or another."
 msgstr ""
 "Recompilez les paquets de KDE4 qui sont ici sous forme source.\\nSi non déjà "
 "fait sur cette machine ou une autre.\\n"
 
-#: pbupgrade:249
+#: pbupgrade:249 pbupgrade:252
 msgid ""
 "Redo KDE5 frameworks set of packages.\\nIf not already done on this machine "
 "or another."
@@ -911,7 +911,7 @@ msgstr ""
 "Recompilez les paquets de l'ensemble KDE5 frameworks qui sont ici sous forme "
 "source.\\nSi non déjà fait sur cette machine ou une autre.\\n"
 
-#: pbupgrade:251
+#: pbupgrade:251 pbupgrade:254
 msgid ""
 "Redo the Chromium navigator which are here in sources form.\\nIf not already "
 "done on this machine or another.\\nIt is a very long process (some hours)."
@@ -923,7 +923,7 @@ msgstr ""
 "heures).\\nC'est utile pour qu'Opera ait la librairie libffmpeg.so avec le "
 "support du h264."
 
-#: pbupgrade:253
+#: pbupgrade:253 pbupgrade:256
 msgid ""
 "Redo the openshot packages which are here in sources form.\\nIf not already "
 "done on this machine or another."
@@ -931,7 +931,7 @@ msgstr ""
 "Recompilez les paquets d'Openshot qui sont ici sous forme source.\\nSi non "
 "fait sur cette machine ou une autre."
 
-#: pbupgrade:255
+#: pbupgrade:255 pbupgrade:258
 msgid ""
 "Redo the pitivi packages which are here in sources form.\\nIf not already "
 "done on this machine or another."
@@ -939,7 +939,7 @@ msgstr ""
 "Recompilez les paquets pitivi qui sont ici sous forme source.\\nSi non fait "
 "sur cette machine ou une autre.\\n"
 
-#: pbupgrade:257
+#: pbupgrade:257 pbupgrade:260
 msgid ""
 "Redo the audacity packages which are here in sources form.\\nIf not already "
 "done on this machine or another."
@@ -947,7 +947,7 @@ msgstr ""
 "Recompilez les paquets d'Audacity qui sont ici sous forme source.\\nSi non "
 "fait sur cette machine ou une autre."
 
-#: pbupgrade:259
+#: pbupgrade:259 pbupgrade:262
 msgid ""
 "Redo the ardour packages which are here in sources form.\\nIf not already "
 "done on this machine or another."
@@ -955,7 +955,7 @@ msgstr ""
 "Recompilez les paquets d'Ardour qui sont ici sous forme source.\\nSi non "
 "fait sur cette machine ou une autre."
 
-#: pbupgrade:261
+#: pbupgrade:261 pbupgrade:264
 msgid ""
 "Redo the Bumblebee packages.\\nIf not already done on this machine or "
 "another.\\nYou should reboot after upgrading system packages and before "
@@ -965,7 +965,7 @@ msgstr ""
 "autre.\\nVous devez redémarrer après mise à jour des paquets systèmes avant "
 "cette action sinon les paquets Bumblebee ne se reconstruiront pas."
 
-#: pbupgrade:263
+#: pbupgrade:263 pbupgrade:266
 msgid ""
 "Upgrade your boot loader only if you upgrade your system and not the "
 "bootloader."
@@ -973,80 +973,80 @@ msgstr ""
 "Mettez à jour votre gestionnaire de démarrage seulement si vous avez mis à "
 "jour votre système et pas le gestionnaire de démarrage."
 
-#: pbupgrade:320 pbupgradesys:77
+#: pbupgrade:320 pbupgradesys:77 pbupgrade:323
 msgid "Upgrade system done."
 msgstr "Mise à jour du système faite."
 
-#: pbupgrade:329
+#: pbupgrade:329 pbupgrade:332
 msgid "Upgrade Alien Bob multilib done."
 msgstr "Mise à jour multilib d'Alien Bob faite."
 
-#: pbupgrade:335
+#: pbupgrade:335 pbupgrade:338
 msgid "Upgrade Mozilla done."
 msgstr "Mise à jour Mozilla faite."
 
-#: pbupgrade:343
+#: pbupgrade:343 pbupgrade:346
 msgid "Upgrade packages done."
 msgstr "Mise à jour de packages faite."
 
-#: pbupgrade:350
+#: pbupgrade:350 pbupgrade:353
 msgid "Upgrade packages2 done."
 msgstr "Mise à jour de packages2 faite."
 
-#: pbupgrade:357
+#: pbupgrade:357 pbupgrade:360
 msgid "Upgrade packages3 done."
 msgstr "Mise à jour de packages3 faite."
 
-#: pbupgrade:364
+#: pbupgrade:364 pbupgrade:367
 msgid "Upgrade packages4 done."
 msgstr "Mise à jour de packages4 faite."
 
-#: pbupgrade:375
+#: pbupgrade:375 pbupgrade:378
 msgid "Upgrade KDE4 and KDE5 frameworks done."
 msgstr "Mise à jour de KDE4 et KDE5 frameworks faite."
 
-#: pbupgrade:382
+#: pbupgrade:382 pbupgrade:385
 msgid "Upgrade openshot done."
 msgstr "Mise à jour de Openshot faite."
 
-#: pbupgrade:389
+#: pbupgrade:389 pbupgrade:392
 msgid "Upgrade pitivi done."
 msgstr "Mise à jour de Pitivi faite."
 
-#: pbupgrade:395
+#: pbupgrade:395 pbupgrade:398
 msgid "Upgrade audacity done."
 msgstr "Mise à jour d'audacity faite."
 
-#: pbupgrade:401
+#: pbupgrade:401 pbupgrade:404
 msgid "Upgrade ardour done."
 msgstr "Mise à jour de ardour faite."
 
-#: pbupgrade:408
+#: pbupgrade:408 pbupgrade:411
 msgid "Upgrade tesseract4 done."
 msgstr "Mise à jour de tesseract4 faite."
 
-#: pbupgrade:414
+#: pbupgrade:414 pbupgrade:417
 msgid "Upgrade Bumblebee done."
 msgstr "Mise à jour de Bumblebee faite."
 
-#: pbupgrade:420
+#: pbupgrade:420 pbupgrade:423
 msgid "Recreate source packages done."
 msgstr "Paquets sources recréés."
 
-#: pbupgrade:426
+#: pbupgrade:426 pbupgrade:429
 msgid ""
 "Recreate source Bumblebee done. Reboot your computer for Bumblebee to work."
 msgstr "Bumblebee recréé à partir des sources. Redémarrez la machine."
 
-#: pbupgrade:429
+#: pbupgrade:429 pbupgrade:432
 msgid "Updating bootloader asked."
 msgstr "La mise à jour du gestionnaire de démarrage a été demandée."
 
-#: pbupgrade:459
+#: pbupgrade:459 pbupgrade:462
 msgid "Bootloader menu"
 msgstr "Menu gestionnaire de démarrage"
 
-#: pbupgrade:460
+#: pbupgrade:460 pbupgrade:463
 msgid ""
 "We have detected the bootloader below. Cancel if it is not true.\\nIn this "
 "last case, you should recreate the config of your bootloader before reboot. "
@@ -1059,11 +1059,11 @@ msgstr ""
 "démarrer d'un autre média comme un DVD ou une clé USB et relancez "
 "l'installation de votre gestionnaire."
 
-#: pbupgrade:461
+#: pbupgrade:461 pbupgrade:464
 msgid "No bootloader detected. Reconfigure your bootloader before reboot."
 msgstr "Aucun gestionnaire de démarrage détecté. Mettez le vôtre à jour."
 
-#: pbupgrade:473
+#: pbupgrade:473 pbupgrade:476
 msgid ""
 "\\ZbThe boot loader was not upgraded.\\ZB\\nIf lilo is installed, launch : "
 "\\Z3/sbin/lilo\\Zn\\nIf Grub is installed, launch : \\Z3grub-mkconfig -o /"
@@ -1080,7 +1080,7 @@ msgstr ""
 "Slackware\\Zn\\n\\n\\ZbOu relancez votre autre gestionnaire de démarrage "
 "favori avant de redémarrer votre machine.\\ZB"
 
-#: pbupgrade:477
+#: pbupgrade:477 pbupgrade:480
 msgid ""
 "Elilo upgraded : Files vmlinuz et initrd.gz copied in \\Z3/boot/efi/EFI/"
 "Slackware\\Zn"
@@ -1088,7 +1088,7 @@ msgstr ""
 "Elilo mis à jour : Fichiers vmlinuz et initrd.gz copiés dans \\Z3/boot/efi/"
 "EFI/Slackware\\Zn"
 
-#: pbupgrade:482
+#: pbupgrade:482 pbupgrade:485
 msgid ""
 "Grub upgraded : \\Z3grub-mkconfig\\Zn relaunched.\\n\\Z1Look if there are "
 "error messages below\\Zn."
@@ -1096,7 +1096,7 @@ msgstr ""
 "Grub mis à jour : \\Z3grub-mkconfig\\Zn relancé.\\n\\Z1Regardez s'il y a des "
 "messages d'erreurs ci-dessous\\Zn."
 
-#: pbupgrade:487
+#: pbupgrade:487 pbupgrade:490
 msgid ""
 "Lilo upgraded with \\Z3/sbin/lilo\\Zn.\\n\\Z1Look if there are error "
 "messages below\\Zn."
@@ -1104,7 +1104,7 @@ msgstr ""
 "Lilo mis à jour avec \\Z3/sbin/lilo\\Zn.\\n\\Z1Regardez s'il y a des "
 "messages d'erreurs ci-dessous\\Zn."
 
-#: pbupgrade:492
+#: pbupgrade:492 pbupgrade:495
 msgid ""
 "Look at \\Z3/syslinux.cfg\\Zn and rerun \\Z3syslinux\\Zn on your boot "
 "partition if some path have changed."
@@ -1112,13 +1112,13 @@ msgstr ""
 "Regardez \\Z3/syslinux.cfg\\Zn et relancez \\Z3syslinux\\Zn sur votre "
 "partition de démarrage si certains chemins ont changé."
 
-#: pbupgrade:506
+#: pbupgrade:506 pbupgrade:509
 msgid " (\\Z1be sure to have upgraded the bootloader before\\Zn)"
 msgstr ""
 " (\\Z1vérifiez que vous avez mis à jour votre gestionnaire de démarrage "
 "avant de redémarrer\\Zn)"
 
-#: pbupgrade:512
+#: pbupgrade:512 pbupgrade:515
 #, sh-format
 msgid ""
 "Reboot the host${XBOOTMES}.\\n\\n\\ZbThen do if not already done on an "
