@@ -1,0 +1,6 @@
+#! /bin/sh
+
+jackd -d alsa -d hw:1 &
+qjackctl &
+jamulus
+killall jackd
