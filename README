@@ -9,16 +9,6 @@ This tool has been written in totality by the above author.
 
 Those are some scripts which download the latest Linux Slackware current
 Intel 64 bits distribution and my preferred add-ons packages.
-
-Those scripts have not been tested on the latest Slackware current (after
-20 november 2020) since the merge of KDE5 packages, the move to elogind,
-gcc 10 and now kernel 5.10 for which LTS NVIDIA drivers are not there.
-I have inhibited ugrade towards KDE5 in Slackpkg.
-I will test the new gcc 10 which needs some -fcommon in some packages.
-I will reenable KDE5 it after testing about usage and look.
-I don't like KDE5 which has changed important thinks for end users in the
-configuration, functions and look of the desktop.
-
 They also upgrade an already installed current Slackware.
 
 An iso image can also be done which include the resulting downloaded
@@ -27,6 +17,18 @@ It can be put on a USB stick or a double layer DVD Rom.
 
 It can be a multi-boot USB stick with the installable Slackware and
 the GParted live iso.
+
+=================================================================
+Those scripts have not been tested on the latest Slackware current (after
+20 november 2020) since the merge of KDE5 packages, the move to elogind,
+gcc 10 and now kernel 5.10 for which LTS NVIDIA drivers are not there.
+I have inhibited ugrade towards KDE5 in Slackpkg.
+I will test the new gcc 10 which needs some -fcommon in some packages.
+I will reenable KDE5 it after testing about usage and look.
+I don't like KDE5 which has changed important thinks for end users in the
+configuration, functions and look of the desktop.
+I will also offer the choce to keep KDE4. I have almost finished making
+the scripts and patches for that.
 
 =================================================================
 For a fresh install from a USB stick do :
