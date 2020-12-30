@@ -103,7 +103,6 @@ KDE4_KPLAYER='https://download.kde.org/stable/kplayer/0.7.2/src/kplayer-0.7.2.ta
 KDE4_KSCREEN='https://download.kde.org/stable/kscreen/1.0.2.1/src/kscreen-1.0.2.1.tar.xz'
 KDE4_KWEBKITPART='https://github.com/KDE/kwebkitpart/archive/v1.3.4.tar.gz'
 KDE4_LIBMMQT='https://download.kde.org/unstable/modemmanager-qt/1.0.1/src/libmm-qt-1.0.1-1.tar.xz'
-KDE4_LIBNMQT='https://download.kde.org/unstable/networkmanager-qt/0.9.8.4/src/networkmanager-qt-0.9.8.4.tar.xz'
 KDE4_OXYGENGTK2='https://download.kde.org/stable/oxygen-gtk2/1.4.6/src/oxygen-gtk2-1.4.6.tar.bz2'
 KDE4_PARTITIONMANAGER='https://download.kde.org/stable/partitionmanager/1.1.1/src/partitionmanager-1.1.1.tar.xz'
 KDE4_PLASMANM='https://download.kde.org/stable/plasma-nm/plasma-nm-0.9.3.6.tar.xz'
