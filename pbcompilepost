@@ -336,8 +336,6 @@ if [ $ISKDE4 -eq 1 ] ;then
     )
     (
 	cd kde4/source/kde
-	#sh kde.SlackBuild extragear:kaudiocreator
-	#unset EXIT_ON_FAIL
 	sh kde.SlackBuild
 	#sh kde.SlackBuild kdelibs kdebase:nepomuk-core kdepimlibs kdebase kdesdk extragear:libkscreen kdegraphics kdebindings kdebase:kde-workspace kdeaccessibility kdeutils kdelibs kdemultimedia extragear:libktorrent kdenetwork oxygen-icons kdeadmin kdeartwork kdegames kdetoys kdepim kdepim-runtime kdenetwork:kopete kdeedu kdewebdev kdebase:kde-baseapps kdeplasma-addons polkit-kde extragear
 	[ $? -ne 0 ] && exit 1
@@ -351,9 +349,9 @@ if [ $ISKDE4 -eq 1 ] ;then
 	cp /tmp/kde_build/*.t?z .
 	chown ${MYUSER}.$MYGROUP *.t?z
 	xpurgesrc 't?z'
-	#rm -rf /tmp/kde_build
     )
     if [ $ERR -eq 0 ] ;then
+	rm -rf /tmp/kde_build
 	(
 	    cd kde4/source/kdei/calligra-l10n
 	    sh calligra-l10n.SlackBuild
@@ -361,12 +359,12 @@ if [ $ISKDE4 -eq 1 ] ;then
 	    cd ../../../kde
 	    cp /tmp/kde_build/*.t?z .
 	    chown ${MYUSER}.$MYGROUP *.t?z
-	    rm -rf /tmp/kde_build
 	    [ $ERR -ne 0 ] && exit 1
 	)
 	ERR=$?
     fi
     if [ $ERR -eq 0 ] ;then
+	rm -rf /tmp/kde_build
 	(
 	    cd kde4/source/kdei/kde-l10n
 	    sh kde-l10n.SlackBuild
@@ -374,10 +372,12 @@ if [ $ISKDE4 -eq 1 ] ;then
 	    cd ../../../kde
 	    cp /tmp/kde_build/*.t?z .
 	    chown ${MYUSER}.$MYGROUP *.t?z
-	    rm -rf /tmp/kde_build
 	    [ $ERR -ne 0 ] && exit 1
 	)
 	ERR=$?
+    fi
+    if [ $ERR -eq 0 ] ;then
+	rm -rf /tmp/kde_build
     fi
     xhookkde4
 fi
