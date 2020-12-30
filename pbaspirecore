@@ -176,7 +176,6 @@ if [ $ISFRAMEW -eq 1 ] ;then
 		xgeturl "$KDE4_BLUEDEVIL"
 		xgeturl "$KDE4_K3B"
 		mv k3b-2.0.3a.tar.xz k3b-2.0.3.tar.xz
-		xgeturl "$KDE4_KAUDIOCREATOR"
 		xgeturl "$KDE4_KDECONNECT"
 		xgeturl "$KDE4_KDEVPYTHON"
 		xgeturl "$KDE4_KDEVELOP"
@@ -198,6 +197,7 @@ if [ $ISFRAMEW -eq 1 ] ;then
 		xpurgesrc 'tar.?z' sig
 		cp ../../../../../pbslacks/builds/sbo/polkit-kde-* .
 		cp ../../../../../pbslacks/builds/sbo/libnm-qt-* .
+		cp ../../../../../pbslacks/builds/sbo/kaudiocreator-* .
 	    )
 	)
 	echo '------------------------------------'
