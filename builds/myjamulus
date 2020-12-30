@@ -1,6 +1,11 @@
 #! /bin/sh
 
-jackd -d alsa -d hw:1 &
+NUM=1
+[ $# -eq 1 ] && NUM=$1
+
+cat /proc/asound/cards
+echo "Device $NUM chosen"
+jackd -d alsa -d hw:$NUM &
 qjackctl &
 jamulus
 killall jackd
