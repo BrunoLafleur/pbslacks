@@ -25,6 +25,10 @@ kernel-source
 
 # For keeping kdm et qt4.
 ConsoleKit2
+pm-utils
+# cgmanager rc.6 et rc.S ?
+cgmanager
+# NetworkManager compile avec elogind au lieu de ConsoleKit2
 qca
 libdbusmenu-qt
 PyQt
@@ -38,7 +42,6 @@ redland
 scim
 scim-*
 orage
-pm-utils
 libbluedevil
 glade3
 liblastfm
@@ -49,8 +52,6 @@ gtk-xfce-engine
 attica
 automoc4
 akonadi
-# cgmanager rc.6 et rc.S ?
-cgmanager
 
 # For keeping KDE4
 kde.*
