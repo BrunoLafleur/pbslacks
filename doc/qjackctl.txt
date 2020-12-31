@@ -1,3 +1,6 @@
+# Liste des cartes sons
+cat /proc/asound/cards
+
 # Options apres la sortie.
 pacmd suspend false
 

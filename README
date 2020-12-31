@@ -27,8 +27,8 @@ I will test the new gcc 10 which needs some -fcommon in some packages.
 I will reenable KDE5 it after testing about usage and look.
 I don't like KDE5 which has changed important thinks for end users in the
 configuration, functions and look of the desktop.
-I will also offer the choce to keep KDE4. I have almost finished making
-the scripts and patches for that.
+I will also offer the choice to keep KDE4. I have almost finished making
+the scripts and patches for recreate all those packages.
 
 =================================================================
 For a fresh install from a USB stick do :
