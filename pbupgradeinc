@@ -32,9 +32,6 @@ xhookpac1 () {
     removepkg OpenAL
     removepkg OpenAL-compat32
     rm -f packages/openal-soft-1.*_SBo.tgz
-    cp pbslacks/builds/myjamulus /usr/bin
-    chown root.root /usr/bin/myjamulus
-    chmod 755 /usr/bin/myjamulus
 }
 
 xhookpac2 () {
