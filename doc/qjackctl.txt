@@ -1,0 +1,41 @@
+# Options apres la sortie.
+pacmd suspend false
+
+# Parametres avances prefix serveur.
+jackd
+
+Installation :
+-------------
+Installer qjackctl, jamulus avec les paquets de votre distribution.
+Sinon recompilez les sources.
+Mettre un paquet sur votre distribution Linux du genre pulseaudio-jack ou pulseaudio-module-jack
+pulseaudio devrait le charger tout seul.
+
+Ne pas lancer jackd avant sinon qjackctl ne l'arrêtera pas correctement pour
+le relancer avec de nouvelles options (il fera croire que si).
+
+qjackctl :
+----------
+Choisir alsa + la carte son dans les réglages de qjackctl.
+Mettre Fréquence à 48000 Hz, Echantillons 128 et Périodes à 2.
+Options après la sortie: pacmd suspend false
+Lancer jack avec Démarrer dans qjackctl.
+A la fin de la session Jamulus, il vaut mieux arrêter jackd avec qjackctl pour
+les autres applications.
+
+Micro :
+--------
+Un enregistreur comme le Zoom H4N pro peut servir de carte son + micro avec
+une latence plus faible que la carte de l'ordinateur.
+Et les micros sont assez bons.
+Il faut régler a 48000 Hz sur le Zoom avec le menu qui se lance en branchant
+le Zoom sur le port USB de l'ordinateur. Brancher le Zoom éteint, il s'allume
+tout seul avec un menu.
+brancher le casque sur le zoom. Sinon il faudra faire un réseau avec
+qjackctl. 
+
+Enregistrer la session Jamulus :
+------------------------
+Audacity peut enregistrer la source Jamulus.
+En haut à gauche, choisir jack. A côté Jamulus. A côté 2 canaux. A côté
+Jamulus encore. Et le bouton enregistrer en rouge.
