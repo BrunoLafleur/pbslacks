@@ -15,14 +15,15 @@
 # below 
 #
 # Waiting for LTS NVIDIA driver
-#kernel-generic
-#kernel-generic-smp
-#kernel-huge
-#kernel-huge-smp
-#kernel-modules
-#kernel-modules-smp
-#kernel-source
+kernel-generic
+kernel-generic-smp
+kernel-huge
+kernel-huge-smp
+kernel-modules
+kernel-modules-smp
+kernel-source
 
+# We keep qt4 aside qt5.
 # phonon kde4 renomme phonon4qt4.
 phonon4qt4
 phonon-gstreamer
