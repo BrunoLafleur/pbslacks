@@ -63,6 +63,10 @@ xpurgeindex packages
     for i in guile1.8 ;do
 	xgetpac "$i" "$SLACKDJ" 5
     done
+    # For Lutris (game manager)
+    for i in gnome-desktop webkitgtk libseccomp ;do
+	xgetpac "$i" "$SLACKDL" 4
+    done
 )
 xpurgeindex packages2
 

@@ -143,6 +143,9 @@ SLACKDJ32="http://www.slackel.gr/repo/i486/current/slackel/extra"
 SLACKDJPAR="http://www.slackel.gr/repo/x86_64/current"
 SLACKDJPAR32="http://www.slackel.gr/repo/i486/current"
 
+# Links for Gnome from SAXA.
+SLACKDL="http://www.droplinegnome.org/files/3.36/x86_64/testing"
+
 # Links for binary packages from Ponce.
 
 SLACKPONCE="http://ponce.cc/slackware/slackware64-current/packages"
