@@ -293,7 +293,7 @@ fi
 
 if [ $ISPAC2 -eq 1 ] ;then    
     # More 64 bits packages
-    for i in roccat-tools kmplayer denemo guile2.2 discord lutris ;do
+    for i in roccat-tools kmplayer denemo guile2.2 discord PyYAML lutris ;do
 	xmakepac packages2 $i
     done
     xhookpac2
