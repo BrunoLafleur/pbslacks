@@ -23,39 +23,41 @@ kernel-modules
 kernel-modules-smp
 kernel-source
 
+# NetworkManager est compile avec elogind au lieu de ConsoleKit2
 # For keeping kdm et qt4.
 ConsoleKit2
 pm-utils
 # cgmanager rc.6 et rc.S ?
 cgmanager
-# NetworkManager compile avec elogind au lieu de ConsoleKit2
-qca
-libdbusmenu-qt
 PyQt
+automoc4
+libbluedevil
+liblastfm
+qca
+qimageblitz
+qjson
 qt
 qt-gstreamer
 qtscriptgenerator
-raptor
+libdbusmenu-qt
+raptor2
 rasqal
-qjson
 redland
-scim
-scim-*
-orage
-libbluedevil
-glade3
-liblastfm
-qimageblitz
 soprano
 strigi
+# Other (are they needed ?)
+orage
+glade3
 gtk-xfce-engine
 attica
-automoc4
 akonadi
+scim
+scim-*
 
 # For keeping KDE4
 kde.*
 4.14.3
+kactivities
 
 # KDE4 extragear
 kaudiocreator

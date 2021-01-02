@@ -54,8 +54,6 @@ fi
     xgetsrc libtxc_dxtn "$PATHLIBTXC_DXTN"
     xgetsrc libgaminggear "$PATHLIBGAMINGGEAR"
     xlocalsrcpac acpibrightness ""
-    xlocalsrcpac phonon4qt4 "phonon-4.8.3.tar.xz"
-    xlocalsrcpac phonon-gstreamer "phonon-backend-gstreamer-4.8.2.tar.xz"
 )
 
 ############################################
