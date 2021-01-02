@@ -208,8 +208,7 @@ export MAKEFLAGS="-j$XNPROC"
 
 if [ $ISPAC1 -eq 1 ] ;then
     rm -f packages4/gst-plugins-bad-[0-9]*ponce.t?z*
-    for i in phonon4qt4 phonon-gstreamer libtxc_dxtn libgaminggear \
-		    acpibrightness gst-plugins-bad ;do
+    for i in libtxc_dxtn libgaminggear acpibrightness gst-plugins-bad ;do
 	xmakepac packages $i
     done
 
@@ -325,6 +324,9 @@ if [ $ISKDE4DEPS -eq 1 ] ;then
     xmakekdedep exiv2 exiv221
     xmakekdedep sip sip422
     xmakekdedep eigen3 eigen32
+    for i in phonon4qt4 phonon-gstreamer ;do
+	xmakepac kde4/source $i
+    done
 fi
 
 if [ $ISKDE4 -eq 1 ] ;then
@@ -336,7 +338,7 @@ if [ $ISKDE4 -eq 1 ] ;then
     )
     (
 	cd kde4/source/kde
-	sh kde.SlackBuild
+	sh kde.SlackBuild extragear:libktorrent kdenetwork oxygen-icons kdeadmin kdeartwork kdegames kdetoys kdepim kdepim-runtime kdenetwork:kopete kdeedu kdewebdev kdebase:kde-baseapps kdeplasma-addons polkit-kde extragear > /tmp/KDE.log
 	#sh kde.SlackBuild kdelibs kdebase:nepomuk-core kdepimlibs kdebase kdesdk extragear:libkscreen kdegraphics kdebindings kdebase:kde-workspace kdeaccessibility kdeutils kdelibs kdemultimedia extragear:libktorrent kdenetwork oxygen-icons kdeadmin kdeartwork kdegames kdetoys kdepim kdepim-runtime kdenetwork:kopete kdeedu kdewebdev kdebase:kde-baseapps kdeplasma-addons polkit-kde extragear
 	[ $? -ne 0 ] && exit 1
     )
