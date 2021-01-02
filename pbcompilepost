@@ -324,8 +324,9 @@ if [ $ISKDE4DEPS -eq 1 ] ;then
     xmakekdedep exiv2 exiv221
     xmakekdedep sip sip422
     xmakekdedep eigen3 eigen32
+    xmakekdedep grantlee grantlee051
     for i in phonon4qt4 phonon-gstreamer ;do
-	xmakepac kde4/source $i
+	xmakepac kde4/deps $i
     done
 fi
 
@@ -338,7 +339,9 @@ if [ $ISKDE4 -eq 1 ] ;then
     )
     (
 	cd kde4/source/kde
-	sh kde.SlackBuild extragear:libktorrent kdenetwork oxygen-icons kdeadmin kdeartwork kdegames kdetoys kdepim kdepim-runtime kdenetwork:kopete kdeedu kdewebdev kdebase:kde-baseapps kdeplasma-addons polkit-kde extragear > /tmp/KDE.log
+	sh kde.SlackBuild
+	# Inhiber libqalculate
+	#sh kde.SlackBuild kdeedu:cantor kdewebdev kdebase:kde-baseapps kdeplasma-addons polkit-kde extragear > /tmp/KDE.log
 	#sh kde.SlackBuild kdelibs kdebase:nepomuk-core kdepimlibs kdebase kdesdk extragear:libkscreen kdegraphics kdebindings kdebase:kde-workspace kdeaccessibility kdeutils kdelibs kdemultimedia extragear:libktorrent kdenetwork oxygen-icons kdeadmin kdeartwork kdegames kdetoys kdepim kdepim-runtime kdenetwork:kopete kdeedu kdewebdev kdebase:kde-baseapps kdeplasma-addons polkit-kde extragear
 	[ $? -ne 0 ] && exit 1
     )
