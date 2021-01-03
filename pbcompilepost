@@ -187,11 +187,12 @@ xmakepac () {
 xmakekdedep () {
     XSRC="$1"
     XPAC="$2"
+    XCAT="$3"
     if [ $RECOMP -eq 1 ] ;then
 	(
 	    cd kde4/source/$XSRC
 	    sh ./${XSRC}.SlackBuild
-	    cd ../../deps
+	    cd ../../$XCAT
 	    cp /tmp/${XPAC}-[0-9]*-x86_64-*.txz .
 	    upgradepkg --install-new --reinstall ${XPAC}-[0-9]*-x86_64-*.txz
 	    chown ${MYUSER}.$MYGROUP ${XPAC}-[0-9]*-x86_64-*.t?z
@@ -320,14 +321,21 @@ fi
 
 if [ $ISKDE4DEPS -eq 1 ] ;then
     export BUILD=1PB;export EXIT_ON_FAIL=yes
-    xmakekdedep LibRaw LibRaw18
-    xmakekdedep exiv2 exiv221
-    xmakekdedep sip sip422
-    xmakekdedep eigen3 eigen32
-    xmakekdedep grantlee grantlee051
-    for i in phonon4qt4 phonon-gstreamer ;do
-	xmakepac kde4/deps $i
-    done
+
+    # Packages which has been replaced.
+    # So I have modified them to not collide with the new ones.
+    # KDE4 have been made aware of those modifications.
+    xmakekdedep LibRaw LibRaw18 deps
+    xmakekdedep exiv2 exiv221 deps
+    xmakekdedep sip sip422 deps
+    xmakekdedep eigen3 eigen32 deps
+    xmakekdedep grantlee grantlee051 deps
+    xmakekdedep phonon4qt4 phonon4qt4 deps
+    xmakekdedep phonon-gstreamer phonon-gstreamer deps
+    xmakekdedep polkit-qt-1 polkit-qt4-1 deps
+
+    # I have to re-add suppressed packages.
+    # List is inside pbslacks/Slackpkg/blacklistkeepkde4
 fi
 
 if [ $ISKDE4 -eq 1 ] ;then
@@ -340,12 +348,11 @@ if [ $ISKDE4 -eq 1 ] ;then
     (
 	cd kde4/source/kde
 	sh kde.SlackBuild
-	# Inhiber libqalculate
-	#sh kde.SlackBuild kdeedu:cantor kdewebdev kdebase:kde-baseapps kdeplasma-addons polkit-kde extragear > /tmp/KDE.log
 	#sh kde.SlackBuild kdelibs kdebase:nepomuk-core kdepimlibs kdebase kdesdk extragear:libkscreen kdegraphics kdebindings kdebase:kde-workspace kdeaccessibility kdeutils kdelibs kdemultimedia extragear:libktorrent kdenetwork oxygen-icons kdeadmin kdeartwork kdegames kdetoys kdepim kdepim-runtime kdenetwork:kopete kdeedu kdewebdev kdebase:kde-baseapps kdeplasma-addons polkit-kde extragear
-	[ $? -ne 0 ] && exit 1
+	exit $?
     )
     ERR=$?
+    echo "Return code from SlackBuild : $ERR"
     (
 	cd kde4/kde
 	for i in $(ls ../source/kde/modules) ;do
@@ -364,7 +371,7 @@ if [ $ISKDE4 -eq 1 ] ;then
 	    cd ../../../kde
 	    cp /tmp/kde_build/*.t?z .
 	    chown ${MYUSER}.$MYGROUP *.t?z
-	    [ $ERR -ne 0 ] && exit 1
+	    exit $?
 	)
 	ERR=$?
     fi
@@ -377,7 +384,7 @@ if [ $ISKDE4 -eq 1 ] ;then
 	    cd ../../../kde
 	    cp /tmp/kde_build/*.t?z .
 	    chown ${MYUSER}.$MYGROUP *.t?z
-	    [ $ERR -ne 0 ] && exit 1
+	    exit $?
 	)
 	ERR=$?
     fi

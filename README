@@ -19,16 +19,9 @@ It can be a multi-boot USB stick with the installable Slackware and
 the GParted live iso.
 
 =================================================================
-Those scripts have not been tested on the latest Slackware current (after
-20 november 2020) since the merge of KDE5 packages, the move to elogind,
-gcc 10 and now kernel 5.10 for which LTS NVIDIA drivers are not there.
-I have inhibited ugrade towards KDE5 in Slackpkg.
-I will test the new gcc 10 which needs some -fcommon in some packages.
-I will reenable KDE5 it after testing about usage and look.
-I don't like KDE5 which has changed important thinks for end users in the
-configuration, functions and look of the desktop.
-I will also offer the choice to keep KDE4. I have almost finished making
-the scripts and patches for recreate all those packages.
+I have added the choice between KDE5 from the latest current Slackware
+and KDE4 with KDE5 Frameworks which I have modified for compiling and running
+with the latest current Slackware.
 
 =================================================================
 For a fresh install from a USB stick do :
@@ -152,4 +145,4 @@ computer.
 =================================================================
 
 I have tested with Slackware current of july 2019, aout 2019, december 2019,
-january 2020, ... The last one I synchronize is dated 20 november 2020.
+january 2020, ... The last one I synchronize is dated 31 december 2020.
