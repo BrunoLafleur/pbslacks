@@ -157,9 +157,6 @@ if [ $ISFRAMEW -eq 1 ] ;then
     (
 	cd kde4/source
 	echo '------------------------------------'
-	xlocalsrcpac phonon4qt4 "phonon-4.8.3.tar.xz"
-	xlocalsrcpac phonon-gstreamer "phonon-backend-gstreamer-4.8.2.tar.xz"
-	echo '------------------------------------'
 	tar xvfz ../../pbslacks/builds/sbo/kde4.tar.gz
 	mygt "Alien Bob KDE4 scripts copied."
 	(
