@@ -333,6 +333,7 @@ if [ $ISKDE4DEPS -eq 1 ] ;then
     xmakekdedep phonon4qt4 phonon4qt4 deps
     xmakekdedep phonon-gstreamer phonon-gstreamer deps
     xmakekdedep polkit-qt-1 polkit-qt4-1 deps
+    xmakekdedep qca qca213 deps
 
     # I have to re-add suppressed packages.
     # List is inside pbslacks/Slackpkg/blacklistkeepkde4
