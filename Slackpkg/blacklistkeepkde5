@@ -23,7 +23,7 @@ kernel-modules
 kernel-modules-smp
 kernel-source
 
-# We keep qt4 aside qt5.
+# We keep qt4 aside qt5 if we have them.
 # phonon kde4 renomme phonon4qt4.
 phonon4qt4
 phonon-gstreamer
