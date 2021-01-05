@@ -25,7 +25,6 @@ kernel-source
 
 # NetworkManager est compile avec elogind au lieu de ConsoleKit2
 # For keeping kdm et qt4.
-qca
 ConsoleKit2
 pm-utils
 # cgmanager rc.6 et rc.S ?
