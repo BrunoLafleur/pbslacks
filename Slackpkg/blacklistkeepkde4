@@ -82,9 +82,16 @@ kwebkitpart
 # Frameworks KDE5 standalone
 5.76.0
 
-# packages. phonon kde4 renomme phonon4qt4.
+# packages renommes. phonon kde4 renomme phonon4qt4.
 phonon4qt4
 phonon-gstreamer
+LibRaw18
+grantlee051
+qca213
+eigen32
+sip422
+exiv221
+polkit-qt4-1
 
 #
 # aaa_elflibs should NOT be blacklisted!
