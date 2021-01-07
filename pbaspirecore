@@ -160,6 +160,22 @@ if [ $ISFRAMEW -eq 1 ] ;then
 	tar xvfz ../../pbslacks/builds/sbo/kde4.tar.gz
 	mygt "Alien Bob KDE4 scripts copied."
 	(
+	    cd other/qt
+	    xgeturl "$KDE4OTHER_QT"
+	    cd qtwebkit
+	    xgeturl "$KDE4OTHER_QTWEBKIT"
+	    cd ../../PyQt
+	    xgeturl "$KDE4OTHER_PYQT"
+	    cd ../scim-tables
+	    xgeturl "$KDE4OTHER_SCIMTABLES"
+	    cd ../scim-pinyin
+	    xgeturl "$KDE4OTHER_SCIMPINYIN"
+	    cd ../soprano
+	    xgeturl "$KDE4OTHER_SOPRANO"
+	    cd ../glade3
+	    xgeturl "$KDE4OTHER_GLADE3"
+	)
+	(
 	    cd kde;[ ! -d src ] && mkdir src;cd src
 	    myrget 3 "$KDE4_SRC" .
 	    xgeturl "$KDE4_KACTIVITIES"

@@ -188,11 +188,14 @@ xmakekdedep () {
     XSRC="$1"
     XPAC="$2"
     XCAT="$3"
+    XSUB="$4"
     if [ $RECOMP -eq 1 ] ;then
 	(
-	    cd kde4/source/$XCAT/$XSRC
-	    sh ./${XSRC}.SlackBuild
-	    cd ../../../$XCAT
+	    (
+		cd kde4/source/$XCAT/$XSUB/$XSRC
+		sh ./${XSRC}.SlackBuild
+	    )
+	    cd kde4;mkdir -p $XCAT;cd $XCAT
 	    cp /tmp/${XPAC}-[0-9]*-x86_64-*.txz .
 	    upgradepkg --install-new --reinstall ${XPAC}-[0-9]*-x86_64-*.txz
 	    chown ${MYUSER}.$MYGROUP ${XPAC}-[0-9]*-x86_64-*.t?z
@@ -337,6 +340,16 @@ if [ $ISKDE4DEPS -eq 1 ] ;then
 
     # I have to re-add suppressed packages.
     # List is inside pbslacks/Slackpkg/blacklistkeepkde4
+    for i in ConsoleKit2 akonadi automoc4 glade3 libbluedevil liblastfm \
+			 pm-utils qjson qt-gstreamer raptor2 redland \
+			 scim-input-pad scim-pinyin soprano PyQt attica \
+			 cgmanager gtk-xfce-engine libdbusmenu-qt orage \
+			 qimageblitz qt qtscriptgenerator rasqal \
+			 scim scim-anthy scim-hangul scim-m17n scim-tables \
+			 strigi ;do
+	xmakekdedep $i $i other
+    done
+    xmakekdedep qtwebkit qtwebkit other qt
 fi
 
 if [ $ISKDE4 -eq 1 ] ;then
