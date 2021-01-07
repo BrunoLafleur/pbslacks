@@ -80,6 +80,13 @@ SLACKMULTI="$SLACKMIR/people/alien/multilib/current"
 SLACKMULTI_SRC="$SLACKMIR/people/alien/multilib/source/current"
 
 # KDE4 et KDE5 Frameworks.
+KDE4OTHER_SCIMTABLES='https://sourceforge.net/projects/scim/files/scim-tables/0.5.14/scim-tables-0.5.14.1.tar.gz/download'
+KDE4OTHER_SCIMPINYIN='https://sourceforge.net/projects/scim/files/scim-pinyin/0.5.92/scim-pinyin-0.5.92.tar.xz/download'
+KDE4OTHER_SOPRANO='https://sourceforge.net/projects/soprano/files/Soprano/2.9.4/soprano-2.9.4.tar.bz2/download'
+KDE4OTHER_GLADE3='https://download.gnome.org/sources/glade3/3.8/glade3-3.8.6.tar.xz'
+KDE4OTHER_QT='https://download.qt.io/archive/qt/4.8/4.8.7/qt-everywhere-opensource-src-4.8.7.tar.gz'
+KDE4OTHER_QTWEBKIT='http://download.kde.org/stable/qtwebkit-2.3/2.3.4/src/qtwebkit-2.3.4.tar.gz'
+KDE4OTHER_PYQT='https://www.riverbankcomputing.com/static/Downloads/PyQt4/4.12.3/PyQt4_gpl_x11-4.12.3.tar.gz'
 KDE4_SRC='https://download.kde.org/Attic/4.14.3/src'
 KDE4_KACTIVITIES='https://download.kde.org/Attic/4.13.3/src/kactivities-4.13.3.tar.xz'
 KDE4_LIBKSCREEN='https://download.kde.org/stable/libkscreen/1.0.5/src/libkscreen-1.0.5.tar.xz'
