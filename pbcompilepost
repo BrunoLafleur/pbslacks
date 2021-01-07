@@ -190,9 +190,9 @@ xmakekdedep () {
     XCAT="$3"
     if [ $RECOMP -eq 1 ] ;then
 	(
-	    cd kde4/source/$XSRC
+	    cd kde4/source/$XCAT/$XSRC
 	    sh ./${XSRC}.SlackBuild
-	    cd ../../$XCAT
+	    cd ../../../$XCAT
 	    cp /tmp/${XPAC}-[0-9]*-x86_64-*.txz .
 	    upgradepkg --install-new --reinstall ${XPAC}-[0-9]*-x86_64-*.txz
 	    chown ${MYUSER}.$MYGROUP ${XPAC}-[0-9]*-x86_64-*.t?z
