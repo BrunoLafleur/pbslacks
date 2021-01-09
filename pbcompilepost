@@ -257,6 +257,7 @@ if [ $ISPAC1 -eq 1 ] ;then
     # For reenabling --enable-obsolete-nsl and --enable-obsolete-rpc which
     # I need. Recompile the multilib version.
     # Else use the tirpc lib (/usr/include/tirpc, libtirpc).
+    if 0 ;then
     if [ $(ls /var/log/packages/glibc-[0-9]*_multilib-x86_64-*alien \
 	      2> /dev/null|wc -l) -eq 1 ] ;then
 	cp -a source/l/glibc/* packages/glibc
@@ -269,6 +270,7 @@ if [ $ISPAC1 -eq 1 ] ;then
 	    xcleanpac $i packages
             upgradepkg --install-new --reinstall packages/${i}-[0-9m]*.t?z
 	done
+    fi
     fi
     xhookpac1
 fi
@@ -384,7 +386,8 @@ if [ $ISKDE4 -eq 1 ] ;then
 	    ERR=$?
 	    cd ../../../kde
 	    cp /tmp/kde_build/*.t?z .
-	    chown ${MYUSER}.$MYGROUP *.t?z
+	    upgradepkg --install-new --reinstall calligra-l10n-*.txz
+	    chown ${MYUSER}.$MYGROUP calligra-l10n-*.t?z
 	    exit $?
 	)
 	ERR=$?
@@ -397,7 +400,8 @@ if [ $ISKDE4 -eq 1 ] ;then
 	    ERR=$?
 	    cd ../../../kde
 	    cp /tmp/kde_build/*.t?z .
-	    chown ${MYUSER}.$MYGROUP *.t?z
+	    upgradepkg --install-new --reinstall kde-l10n-*.txz
+	    chown ${MYUSER}.$MYGROUP kde-l10n-*.t?z
 	    exit $?
 	)
 	ERR=$?

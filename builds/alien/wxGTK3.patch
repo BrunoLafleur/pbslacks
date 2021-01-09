@@ -1,0 +1,14 @@
+--- wxGTK3.SlackBuild.old	2021-01-09 16:27:22.000000000 +0100
++++ wxGTK3.SlackBuild	2021-01-09 16:28:20.000000000 +0100
+@@ -179,10 +179,11 @@
+   --enable-mediactrl \
+   --enable-plugins \
+   --enable-unicode \
+   --with-gtk=3 \
+   --with-opengl \
++  --disable-webkit \
+   --program-prefix= \
+   --program-suffix= \
+   --build=$TARGET \
+   2>&1 | tee $OUTPUT/configure-${PRGNAM}.log
+ make $NUMJOBS 2>&1 | tee $OUTPUT/make-${PRGNAM}.log
