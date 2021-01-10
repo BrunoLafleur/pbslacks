@@ -342,7 +342,7 @@ if [ $ISKDE4DEPS -eq 1 ] ;then
 
     # I have to re-add suppressed packages.
     # List is inside pbslacks/Slackpkg/blacklistkeepkde4
-    for i in ConsoleKit2 akonadi automoc4 glade3 libbluedevil liblastfm \
+    for i in akonadi automoc4 glade3 libbluedevil liblastfm \
 			 pm-utils qjson qt-gstreamer raptor2 redland \
 			 scim-input-pad scim-pinyin soprano PyQt attica \
 			 cgmanager gtk-xfce-engine libdbusmenu-qt orage \
