@@ -1,5 +1,5 @@
 --- calibre.SlackBuild.save	2020-10-29 09:50:59.000000000 +0100
-+++ calibre.SlackBuild	2020-10-31 22:28:10.000000000 +0100
++++ calibre.SlackBuild	2021-01-11 22:05:18.000000000 +0100
 @@ -140,24 +140,24 @@
  #
  # -----------------------------------------------------------------------------
@@ -18,11 +18,11 @@
  SLACKVER=${SLACKVER:-$(cat /etc/slackware-version |cut -d' ' -f2)}
  
 -REQUIRED_QT="5.13.1"
-+REQUIRED_QT="5.15.1"
++REQUIRED_QT="5.15.2"
  
  # Only used in case we need to build our own Qt:
 -INT_QT=5.13.2
-+INT_QT=5.15.1
++INT_QT=5.15.2
  
  REQUIRED_MTP="1.1.16"
  
@@ -36,8 +36,8 @@
  INT_PYGMENTS=2.3.1
 -INT_PYQT5=5.13.2
 -INT_PYQTWEBENG=5.13.2
-+INT_PYQT5=5.15.1
-+INT_PYQTWEBENG=5.15.1
++INT_PYQT5=5.15.2
++INT_PYQTWEBENG=5.15.2
  INT_REGEX=2019.04.14
 -INT_SIP=4.19.20
 +INT_SIP=4.19.24
@@ -54,7 +54,7 @@
    SOURCE[9]="$SRCDIR/sources/PyQt5-${INT_PYQT5}.tar.gz"
 -  SRCURL[9]="https://www.riverbankcomputing.com/static/Downloads/PyQt5/${INT_PYQT5}/PyQt5-${INT_PYQT5}.tar.gz"
 +  #SRCURL[9]="https://www.riverbankcomputing.com/static/Downloads/PyQt5/${INT_PYQT5}/PyQt5-${INT_PYQT5}.tar.gz"
-+  SRCURL[9]="https://files.pythonhosted.org/packages/1d/31/896dc3dfb6c81c70164019a6cbba6ab037e3af7653d9ca60ccc874ee4c27/PyQt5-${INT_PYQT5}.tar.gz"
++  SRCURL[9]="https://files.pythonhosted.org/packages/28/6c/640e3f5c734c296a7193079a86842a789edb7988dca39eab44579088a1d1/PyQt5-${INT_PYQT5}.tar.gz"
  
    SOURCE[10]="$SRCDIR/sources/sip-${INT_SIP}.tar.gz"
    SRCURL[10]="https://www.riverbankcomputing.com/static/Downloads/sip/${INT_SIP}/sip-${INT_SIP}.tar.gz"
@@ -74,7 +74,7 @@
 -  SRCURL[32]="https://www.riverbankcomputing.com/static/Downloads/PyQtWebEngine/${INT_PYQTWEBENG}/PyQtWebEngine-${INT_PYQTWEBENG}.tar.gz"
 -
 +  #SRCURL[32]="https://www.riverbankcomputing.com/static/Downloads/PyQtWebEngine/${INT_PYQTWEBENG}/PyQtWebEngine-${INT_PYQTWEBENG}.tar.gz"
-+  SRCURL[32]="https://files.pythonhosted.org/packages/6f/8a/b7c05d582764a92b031f3f2575faf61a43da76218578bf1f9720d63241b6/PyQtWebEngine-${INT_PYQTWEBENG}.tar.gz"
++  SRCURL[32]="https://files.pythonhosted.org/packages/36/43/bd66139dc1b3abeaf4c79ee19de9eed9376f394113525de00494086a3773/PyQtWebEngine-${INT_PYQTWEBENG}.tar.gz"
 +  
    SOURCE[33]="$SRCDIR/sources/unrarsrc-${INT_UNRARSRC}.tar.gz"
    SRCURL[33]="http://www.rarlab.com/rar/unrarsrc-${INT_UNRARSRC}.tar.gz"
