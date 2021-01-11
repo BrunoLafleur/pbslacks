@@ -34,6 +34,7 @@ fi
 	xgetsrc python2-mlt "$PATHMLT"
 	xgetsrc python2-libcaca "$PATHLIBCACA"
 	xgetsrc python2-libwebp "$PATHLIBWEBP"
+	xgetsrc openshot "$PATHOPENSHOT"
 	# python-pillow6 : re-add python2.7 support for openshot.
 	# Pillow 7 from current Slackware drop support of python2.
 	rm -f python-pillow-[0-9]*.t?z*
