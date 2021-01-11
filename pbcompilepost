@@ -133,7 +133,7 @@ xmakealienpac () {
 	    LLPATCH="$(pwd)/pbslacks/builds/alien/${pac}.patch"
 	    cd "${XDIR}/$pac"
 	    [ -f "$LLPATCH" ] && cat "$LLPATCH"|patch -f -p0
-	    chown ${MYUSER}.$MYGROUP *
+	    chown -R ${MYUSER}.$MYGROUP *
 	    # build
 	    sh "./${pac}.SlackBuild"
 	    if [ $? -ne 0 ] ;then
@@ -320,6 +320,8 @@ if [ $ISCALIBRE -eq 1 ] ;then
     ln -s /usr/bin/sip2 /usr/bin/sip
     upgradepkg --reinstall slackware64/l/PyQt5-*.t?z
     export BUILD_PYTHONMODS=YES
+    export CFLAGS='-DU_DEFINE_FALSE_AND_TRUE=1'
+    cp "$(pwd)/pbslacks/builds/alien/calibre_icu.patch" packages3/calibre/patches
     xmakealienpac packages3 calibre
     xhookcalibre
 fi
