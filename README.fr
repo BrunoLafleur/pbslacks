@@ -20,6 +20,18 @@ et la distribution live GParted qui permet de gérer les partitions de vos disqu
 durs.
 
 =================================================================
+J'ai ajouté le choix entre KDE5 de la dernière Slackware current et KDE4 avec le
+framework KDE5 que j'ai modifié pour qu'il compile et tourne sur cette dernière
+Slackware current.
+
+Le choix dépend de ce que vous avez installé initiallement.
+Pour changer vous devez enlevez celle qui est installé (l'ensemble kde avec
+éventuellement kdei) et installer l'autre. Après celle les mises à jour se feront
+avec celle qui est installée.
+
+Ce KDE4 est compilé avec elogind comme le reste de la dernière Slackware current.
+
+=================================================================
 Pour une nouvelle installation faire :
 -sur un ordinateur fonctionnel avec un interprèteur de commandes comme bash
 (sous Linux ou MS-Windows ou ...) et le programme wget.
