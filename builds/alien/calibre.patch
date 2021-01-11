@@ -1,5 +1,5 @@
 --- calibre.SlackBuild.save	2020-10-29 09:50:59.000000000 +0100
-+++ calibre.SlackBuild	2021-01-11 22:05:18.000000000 +0100
++++ calibre.SlackBuild	2021-01-11 23:21:35.000000000 +0100
 @@ -140,24 +140,24 @@
  #
  # -----------------------------------------------------------------------------
@@ -1145,7 +1145,20 @@
  
  
  
-@@ -1861,14 +1881,14 @@
+@@ -1829,10 +1849,12 @@
+ 
+   echo -e "\n**  calibre  **\n"
+ 
+   touch $OUTPUT/patch-$PRGNAM.log
+   cd $TMP/tmp-$PRGNAM/${SRCNAM}-${VERSION}
++  cat $PATCHDIR/calibre_icu.patch | patch -p1 --verbose 2>&1 | \
++      tee $OUTPUT/patch-${PRGNAM}.log
+ 
+   if [ "$P1" != "--oldbuild" ]; then
+     # This dropping of privilege is unneccessary and breaks the SlackBuild:
+     sed -i -e "s:if os.geteuid() == 0:if False and os.geteuid() == 0:" \
+       setup/install.py
+@@ -1861,14 +1883,14 @@
        -i setup/install.py 
  
    # Cut out the DOS crap:
@@ -1164,7 +1177,7 @@
    OVERRIDE_CFLAGS="$CFLAGS $SLKCFLAGS" \
    LANG='en_US.UTF-8' python2 setup.py build \
      2>&1 | tee $OUTPUT/make-${PRGNAM}.log
-@@ -1880,19 +1900,20 @@
+@@ -1880,19 +1902,20 @@
    # Install the lot:
    XDG_DATA_DIRS="$PKG/usr/share" \
    XDG_UTILS_INSTALL_MODE="system" \
@@ -1187,7 +1200,7 @@
    mkdir -p ${PKG}/usr/man
    cp -a man-pages/* ${PKG}/usr/man/
  
-@@ -1954,48 +1975,48 @@
+@@ -1954,48 +1977,48 @@
  #
  
  if [ "$BUILD_PYTHONMODS" = "YES" ]; then
@@ -1248,7 +1261,7 @@
  
  if [ "$BUILD_MTP" = "YES" ]; then
    # No sufficiently new libmtp was found so we need to supply it ourself.
-@@ -2004,14 +2025,14 @@
+@@ -2004,14 +2027,14 @@
      # No tarball containing pre-compiled libraries was found.
      # We need to build libmptp ourself.
      
@@ -1265,7 +1278,7 @@
  
  if [ "$BUILD_MAGICK" = "YES" ]; then
    # We want to have an internal version of ImageMagick to be less dependent
-@@ -2021,14 +2042,14 @@
+@@ -2021,14 +2044,14 @@
      # No tarball containing pre-compiled libraries was found.
      # We need to build Magick ourself.
      
@@ -1282,7 +1295,7 @@
  
  if [ "$BUILD_QT" = "YES" ]; then
    # No sufficiently new Qt was found so we need to supply it ourself.
-@@ -2037,17 +2058,17 @@
+@@ -2037,17 +2060,17 @@
      # No tarball containing pre-compiled libraries was found.
      # We need to build Qt ourself.
      
@@ -1303,7 +1316,7 @@
  
  if [ "$BUILD_PYTHON" = "YES" ]; then
    # No python2.7 was found on the computer so we need to supply it ourself.
-@@ -2056,21 +2077,21 @@
+@@ -2056,21 +2079,21 @@
      # No tarball containing pre-compiled python libraries was found.
      # We need to build python2.7 ourself.
      
@@ -1331,7 +1344,7 @@
  if [ "$BUILD_PYTHONMODS" = "YES" ]; then
    # The python2.7 modules need to be compiled into the package:
  
-@@ -2078,109 +2099,111 @@
+@@ -2078,109 +2101,111 @@
      # No tarball containing pre-compiled python libraries was found.
      # We need to build python2.7 modules ourself.
      
@@ -1480,7 +1493,7 @@
  fi
  
  if [ "$BUILD_PYTHON" = "YES" -o "$BUILD_PYTHONMODS" = "YES" -o "$BUILD_QT" = "YES" -o "$BUILD_MTP" = "YES" ]; then
-@@ -2188,33 +2211,33 @@
+@@ -2188,33 +2213,33 @@
    # into a tarball which we can re-use in a future build (so that we do not
    # have to recompile them every time).
    # If you want to make use of this, then just copy the resulting tarball
@@ -1518,7 +1531,7 @@
    #path=`readlink -e $0`
    #base=`dirname $path`
    #export PATH=$base/bin:$PATH
-@@ -2223,26 +2246,26 @@
+@@ -2223,26 +2248,26 @@
  
    # We need to tell calibre to use the internal python:
    for FILE in $PKG/usr/bin/* ; do
@@ -1550,7 +1563,7 @@
  # Create a doinst.sh:
  mkdir -p $PKG/install
  cat <<EOT >> $PKG/install/doinst.sh
-@@ -2263,12 +2286,12 @@
+@@ -2263,12 +2288,12 @@
  mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
  # First, the calibre documentation files:
  cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION || true
@@ -1565,7 +1578,7 @@
  cp -a $PATCHDIR $PKG/usr/doc/$PRGNAM-$VERSION
  # And finally, add this SlackBuild script:
  cat $SRCDIR/$(basename $0) > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
-@@ -2281,11 +2304,11 @@
+@@ -2281,11 +2306,11 @@
    for i in $(find $PKG/usr/man -type l -name "*.?") ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
  fi
  
