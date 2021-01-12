@@ -194,12 +194,19 @@ xmakekdedep () {
 	    (
 		cd kde4/source/$XCAT/$XSUB/$XSRC
 		sh ./${XSRC}.SlackBuild
+		if [ $? -ne 0 ] ;then
+		    mygt 'Correct this error and relaunch this script.'
+		    cd ..;chown -R ${MYUSER}.$MYGROUP $XPAC
+		    exit 1
+		fi
 	    )
+	    [ $? -ne 0 ] && exit 1
 	    cd kde4;mkdir -p $XCAT;cd $XCAT
 	    cp /tmp/${XPAC}-[0-9]*-x86_64-*.txz .
 	    upgradepkg --install-new --reinstall ${XPAC}-[0-9]*-x86_64-*.txz
 	    chown ${MYUSER}.$MYGROUP ${XPAC}-[0-9]*-x86_64-*.t?z
 	)
+	[ $? -ne 0 ] && exit 1
     fi
 }
 
@@ -353,7 +360,6 @@ if [ $ISKDE4DEPS -eq 1 ] ;then
 			 strigi ;do
 	xmakekdedep $i $i other
     done
-    xmakekdedep qtwebkit qtwebkit other qt
 fi
 
 if [ $ISKDE4 -eq 1 ] ;then
