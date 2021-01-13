@@ -38,7 +38,6 @@ qjson
 qt
 qt-gstreamer
 qtscriptgenerator
-libdbusmenu-qt
 raptor2
 rasqal
 redland
@@ -92,6 +91,7 @@ eigen32
 sip422
 exiv221
 polkit-qt4-1
+libdbusmenu-qt
 
 #
 # aaa_elflibs should NOT be blacklisted!
