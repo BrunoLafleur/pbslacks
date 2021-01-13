@@ -53,8 +53,8 @@ xlocalsrcpac () {
     [ ! -d "$name" ] && mkdir "$name"
     cp -u "$PBDIRPROG/builds/sbo/${name}.tar.gz" "$name"
     if [ "$path" != '' ] ;then
-      	emygt "Local copy of pbslacks/builds/sbo/\$path to \$name"
-    	cp "$PBDIRPROG/builds/sbo/$path" "$name"
+      	emygt "Local copy of pbslacks/builds/src/\$path to \$name"
+    	cp "$PBDIRPROG/builds/src/$path" "$name"
     fi
 }
 
