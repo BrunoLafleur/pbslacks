@@ -12,9 +12,12 @@ XDIR="$(dirname $0)"
 
 xhelp () {
     mygt 'Launch this script in the directory including packages, packages2 et al.'
+    echo
+    echo '> ../pbslacks/$MYPROG'
 }
 
-if [ ! -d packages ] ;then
+if [ ! -d packages -o \
+       ( "$0" != "../pbslacks/$MYPROG" -a "$0" != "pbslacks/$MYPROG" ) ] ;then
     xhelp
     exit 1
 fi

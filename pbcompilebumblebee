@@ -14,9 +14,12 @@ fi
 
 xhelp () {
     mygt 'Launch this script in the directory including bumblebee.'
+    echo
+    echo '> ../pbslacks/$MYPROG'
 }
 
-if [ ! -d bumblebee ] ;then
+if [ ! -d bumblebee -o \
+       ( "$0" != "../pbslacks/$MYPROG" -a "$0" != "pbslacks/$MYPROG" ) ] ;then
     pwd;xhelp
     exit 1
 fi

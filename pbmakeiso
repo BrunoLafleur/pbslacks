@@ -7,12 +7,13 @@
 . "$(dirname $0)/pbinclude"
 
 xhelp () {
-    mygt 'Launch this script in the directory including slackware64-current.'
+    mygt 'Launch this script in the directory including slackware64-current..'
     echo
-    echo '> pbslacks/pbmakeiso'
+    echo '> ../pbslacks/$MYPROG'
 }
 
-if [ ! -d slackware64-current ] ;then
+if [ ! -d slackware64-current -o \
+       ( "$0" != "../pbslacks/$MYPROG" -a "$0" != "pbslacks/$MYPROG" ) ] ;then
     xhelp
     exit 1
 fi
