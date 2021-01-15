@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: pbaspire:10
+#: pbaspire:10 pbaspirecore:16
 msgid ""
 "Launch this script in a new directory.\\nor in a directory which contains "
 "slackware64-current.\\n\\npbslacks should be side by side of this current "
@@ -234,51 +234,51 @@ msgid ""
 msgstr ""
 "Script à lancer dans le répertoire contenant packages, packages2 et al."
 
-#: pbaspirecore:113
+#: pbaspirecore:113 pbaspirecore:129
 msgid "Slackware current copied."
 msgstr "Copie Slackware current faite."
 
-#: pbaspirecore:115
+#: pbaspirecore:115 pbaspirecore:131
 msgid "Slackware current not copied."
 msgstr "Copie Slackware current non faite."
 
-#: pbaspirecore:142
+#: pbaspirecore:142 pbaspirecore:158
 msgid "Slackware multilib copied."
 msgstr "Copie Slackware multilib faite."
 
-#: pbaspirecore:144
+#: pbaspirecore:144 pbaspirecore:160
 msgid "Slackware multilib not copied."
 msgstr "Copie Slackware multilib non faite."
 
-#: pbaspirecore:161
+#: pbaspirecore:161 pbaspirecore:177
 msgid "Alien Bob KDE4 scripts copied."
 msgstr "Copie des scripts pour KDE4 d'Alien Bob faite."
 
-#: pbaspirecore:266
+#: pbaspirecore:266 pbaspirecore:282
 msgid "Alien Bob KDE5 scripts copied."
 msgstr "Copie des scripts pour KDE5 d'Alien Bob faite."
 
-#: pbaspirecore:280
+#: pbaspirecore:280 pbaspirecore:296
 msgid "KDE5 frameworks sources copied."
 msgstr "Copie des sources de KDE5 frameworks faite."
 
-#: pbaspirecore:322
+#: pbaspirecore:322 pbaspirecore:338
 msgid "Check GPG signatures :"
 msgstr "Vérification des signatures GPG :"
 
-#: pbaspirecore:347
+#: pbaspirecore:347 pbaspirecore:363
 msgid "GParted copied."
 msgstr "Copie GParted faite."
 
-#: pbaspirecore:349 pbaspirecore:355
+#: pbaspirecore:349 pbaspirecore:355 pbaspirecore:365 pbaspirecore:371
 msgid "GParted not copied."
 msgstr "Copie GParted non faite."
 
-#: pbaspirecore:378
+#: pbaspirecore:378 pbaspirecore:394
 msgid "VirtualBox copied."
 msgstr "Copie VirtualBox faite."
 
-#: pbaspirecore:380 pbaspirecore:386
+#: pbaspirecore:380 pbaspirecore:386 pbaspirecore:396 pbaspirecore:402
 msgid "VirtualBox not copied."
 msgstr "Copie VirtualBox non faite."
 

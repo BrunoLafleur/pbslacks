@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: pbaspire:10
+#: pbaspire:10 pbaspirecore:16
 msgid ""
 "Launch this script in a new directory.\\nor in a directory which contains "
 "slackware64-current.\\n\\npbslacks should be side by side of this current "
@@ -219,51 +219,51 @@ msgid ""
 "Launch this script in the directory including packages, packages2 et al."
 msgstr ""
 
-#: pbaspirecore:113
+#: pbaspirecore:113 pbaspirecore:129
 msgid "Slackware current copied."
 msgstr ""
 
-#: pbaspirecore:115
+#: pbaspirecore:115 pbaspirecore:131
 msgid "Slackware current not copied."
 msgstr ""
 
-#: pbaspirecore:142
+#: pbaspirecore:142 pbaspirecore:158
 msgid "Slackware multilib copied."
 msgstr ""
 
-#: pbaspirecore:144
+#: pbaspirecore:144 pbaspirecore:160
 msgid "Slackware multilib not copied."
 msgstr ""
 
-#: pbaspirecore:161
+#: pbaspirecore:161 pbaspirecore:177
 msgid "Alien Bob KDE4 scripts copied."
 msgstr ""
 
-#: pbaspirecore:266
+#: pbaspirecore:266 pbaspirecore:282
 msgid "Alien Bob KDE5 scripts copied."
 msgstr ""
 
-#: pbaspirecore:280
+#: pbaspirecore:280 pbaspirecore:296
 msgid "KDE5 frameworks sources copied."
 msgstr ""
 
-#: pbaspirecore:322
+#: pbaspirecore:322 pbaspirecore:338
 msgid "Check GPG signatures :"
 msgstr ""
 
-#: pbaspirecore:347
+#: pbaspirecore:347 pbaspirecore:363
 msgid "GParted copied."
 msgstr ""
 
-#: pbaspirecore:349 pbaspirecore:355
+#: pbaspirecore:349 pbaspirecore:355 pbaspirecore:365 pbaspirecore:371
 msgid "GParted not copied."
 msgstr ""
 
-#: pbaspirecore:378
+#: pbaspirecore:378 pbaspirecore:394
 msgid "VirtualBox copied."
 msgstr ""
 
-#: pbaspirecore:380 pbaspirecore:386
+#: pbaspirecore:380 pbaspirecore:386 pbaspirecore:396 pbaspirecore:402
 msgid "VirtualBox not copied."
 msgstr ""
 

@@ -12,6 +12,13 @@ XDIR="$(dirname $0)"
 . "$XDIR/pbaspireinc"
 . "$XDIR/pbpathinc"
 
+xhelp () {
+    mygt 'Launch this script in a new directory.\nor in a directory which contains slackware64-current.\n\npbslacks should be side by side of this current directory.'|sed 's@\\n@\n@g'
+    echo
+    echo '> ../pbslacks/pbaspirecore [-core] [-multi] [-framew] [-gparted]'
+    echo '>                 [-vnox] [-purge] [-check] [-help|-h]'
+}
+
 if [ $# -eq 0 ] ;then
     ISCORE=1
     ISMULTI=1
@@ -47,9 +54,17 @@ while [ $# -ge 1 ] ;do
     elif [ "$MYARG" = "-check" ] ;then
 	ISCHECK=1
 	XTEMPCHK="$2"
+    elif [ "$MYARG" = "-help" -o "$MYARG" = "-h" ] ;then
+	xhelp
+	exit 0
     fi
     shift
 done
+
+if [ "$0" != "../pbslacks/$MYPROG" -a "$0" != "pbslacks/$MYPROG" ] ;then
+    xhelp
+    exit 1
+fi
 
 MYPWD=$(pwd)
 export HOMESLACK="$MYPWD"

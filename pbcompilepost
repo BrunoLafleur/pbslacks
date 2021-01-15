@@ -16,9 +16,12 @@ fi
 
 xhelp () {
     mygt 'Launch this script in the directory including packages, packages2 et al.'
+    echo
+    echo '> ../pbslacks/$MYPROG'
 }
 
-if [ ! -d packages -o ! -d packages2 -o ! -d packages3 -o ! -d packages4 ] ;then
+if [ ! -d packages -o ! -d packages2 -o ! -d packages3 -o ! -d packages4 -o \
+       ( "$0" != "../pbslacks/$MYPROG" -a "$0" != "pbslacks/$MYPROG" ) ] ;then
     xhelp
     exit 1
 fi

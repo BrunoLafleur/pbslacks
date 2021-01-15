@@ -25,9 +25,16 @@
 xhelp () {
     mygt '  Launch this script in the directory including slackware64-current and which\ncontains pbslacks.'|sed 's@\\n@\n@g'
     echo
-    echo '> pbslacks/pbmakeusb [-iso slack.iso] [-gpart gparted.iso] [-vbox version] [-noudisks2]'
-    echo '                     [-noslack (no packages copy on the stick)]'
+    echo '> pbslacks/pbmakeusb [-iso slack.iso] [-gpart gparted.iso]'
+    echo '>                    [-vbox version] [-noudisks2]'
+    echo '>                    [-noslack (no packages copy on the stick)]'
 }
+
+if [ ! -d slackware64-current -o \
+       ( "$0" != "../pbslacks/$MYPROG" -a "$0" != "pbslacks/$MYPROG" ) ] ;then
+    xhelp
+    exit 1
+fi
 
 MYPWD=$(pwd)
 ISO=0
