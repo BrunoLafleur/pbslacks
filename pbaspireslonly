@@ -17,7 +17,7 @@ xhelp () {
 }
 
 if [ ! -d packages -o \
-       ( "$0" != "../pbslacks/$MYPROG" -a "$0" != "pbslacks/$MYPROG" ) ] ;then
+       \( "$0" != "../pbslacks/$MYPROG" -a "$0" != "pbslacks/$MYPROG" \) ] ;then
     xhelp
     exit 1
 fi
