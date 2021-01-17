@@ -7,7 +7,7 @@
 . "$(dirname $0)/pbinclude"
 
 xhelp () {
-    mygt 'Launch this script in the directory including slackware64-current..'
+    mygt 'Launch this script in the directory including slackware64-current.'
     echo
     echo '> ../pbslacks/$MYPROG'
 }

@@ -234,51 +234,51 @@ msgid ""
 msgstr ""
 "Script à lancer dans le répertoire contenant packages, packages2 et al."
 
-#: pbaspirecore:113 pbaspirecore:129
+#: pbaspirecore:128
 msgid "Slackware current copied."
 msgstr "Copie Slackware current faite."
 
-#: pbaspirecore:115 pbaspirecore:131
+#: pbaspirecore:130
 msgid "Slackware current not copied."
 msgstr "Copie Slackware current non faite."
 
-#: pbaspirecore:142 pbaspirecore:158
+#: pbaspirecore:157
 msgid "Slackware multilib copied."
 msgstr "Copie Slackware multilib faite."
 
-#: pbaspirecore:144 pbaspirecore:160
+#: pbaspirecore:159
 msgid "Slackware multilib not copied."
 msgstr "Copie Slackware multilib non faite."
 
-#: pbaspirecore:161 pbaspirecore:177
+#: pbaspirecore:176
 msgid "Alien Bob KDE4 scripts copied."
 msgstr "Copie des scripts pour KDE4 d'Alien Bob faite."
 
-#: pbaspirecore:266 pbaspirecore:282
+#: pbaspirecore:266
 msgid "Alien Bob KDE5 scripts copied."
 msgstr "Copie des scripts pour KDE5 d'Alien Bob faite."
 
-#: pbaspirecore:280 pbaspirecore:296
+#: pbaspirecore:280
 msgid "KDE5 frameworks sources copied."
 msgstr "Copie des sources de KDE5 frameworks faite."
 
-#: pbaspirecore:322 pbaspirecore:338
+#: pbaspirecore:322
 msgid "Check GPG signatures :"
 msgstr "Vérification des signatures GPG :"
 
-#: pbaspirecore:347 pbaspirecore:363
+#: pbaspirecore:347
 msgid "GParted copied."
 msgstr "Copie GParted faite."
 
-#: pbaspirecore:349 pbaspirecore:355 pbaspirecore:365 pbaspirecore:371
+#: pbaspirecore:349 pbaspirecore:355
 msgid "GParted not copied."
 msgstr "Copie GParted non faite."
 
-#: pbaspirecore:378 pbaspirecore:394
+#: pbaspirecore:378
 msgid "VirtualBox copied."
 msgstr "Copie VirtualBox faite."
 
-#: pbaspirecore:380 pbaspirecore:386 pbaspirecore:396 pbaspirecore:402
+#: pbaspirecore:380 pbaspirecore:386
 msgid "VirtualBox not copied."
 msgstr "Copie VirtualBox non faite."
 
@@ -309,7 +309,7 @@ msgstr "Ce script doit être lancé root."
 msgid "Launch this script in the directory including bumblebee."
 msgstr "Script à lancer dans le répertoire contenant bumblebee."
 
-#: pbcompilebumblebee:46
+#: pbcompilebumblebee:49
 msgid ""
 "Redo the Bumblebee Slackware packages.\\nIf already done on an upgraded host "
 "use the packages already generated with upgradebumblebee."
@@ -318,12 +318,12 @@ msgstr ""
 "machine a jour, ne pas refaire et utilisez directement les paquets générés "
 "avec upgradebumblebee."
 
-#: pbcompilepost:13 pbmakeusb:157 pbstophib:27 pbupgrade:87
+#: pbcompilepost:13 pbmakeusb:164 pbstophib:27 pbupgrade:87
 #: pbupgradebumblebee:10 pbupgrademoz:10
 msgid "This script must be done as root. Exit."
 msgstr "Ce script doit être lancé root. On sort."
 
-#: pbcompilepost:100
+#: pbcompilepost:103
 msgid ""
 "Only after a system update and reboot.\\nIf already done on this or another "
 "machine, this script is not useful.\\nPress a touch for continue or abort."
@@ -332,11 +332,11 @@ msgstr ""
 "déjà fait sur une machine a jour, il n'est pas utile de relancer ce script."
 "\\nAppuyer sur une touche pour continuer sinon CTRLc pour arrêter"
 
-#: pbcompilepost:140 pbcompilepost:165 pbcompilepost:198
+#: pbcompilepost:143 pbcompilepost:168 pbcompilepost:201
 msgid "Correct this error and relaunch this script."
 msgstr "Erreur à corriger puis relancer ce script."
 
-#: pbcompilepost:486
+#: pbcompilepost:489
 msgid "Upgrade packages* done."
 msgstr "Mise à jour de packages* faite."
 
@@ -352,7 +352,7 @@ msgid ""
 msgstr ""
 "Script à lancer dans le répertoire contenant slackware64-current et pbslacks."
 
-#: pbmakeusb:74
+#: pbmakeusb:81
 msgid ""
 "Give the name of an ISO Slackware file or nothing if the Slackware is on the "
 "current directory :"
@@ -360,43 +360,43 @@ msgstr ""
 "Donnez le nom d'une image ISO Slackware ou rien\\nsi la Slackware est dans "
 "le répertoire courant."
 
-#: pbmakeusb:77
+#: pbmakeusb:84
 msgid "ISO Slackware file"
 msgstr "image ISO Slackware"
 
-#: pbmakeusb:78
+#: pbmakeusb:85
 msgid "current directory"
 msgstr "répertoire courant"
 
-#: pbmakeusb:99
+#: pbmakeusb:106
 msgid "Give the name of an ISO GParted file or nothing :"
 msgstr "Donnez le nom d'une image ISO GParted ou rien."
 
-#: pbmakeusb:102
+#: pbmakeusb:109
 msgid "ISO GParted file"
 msgstr "Image ISO GParted"
 
-#: pbmakeusb:103
+#: pbmakeusb:110
 msgid "no GParted Live"
 msgstr "pas d'image ISO GParted Live"
 
-#: pbmakeusb:125
+#: pbmakeusb:132
 msgid "Give the name of a VirtualBox installer or nothing :"
 msgstr "Donnez le nom d'une archive d'installation de VirtualBox ou rien."
 
-#: pbmakeusb:128
+#: pbmakeusb:135
 msgid "VirtualBox archive"
 msgstr "Archive d'installation de VirtualBox"
 
-#: pbmakeusb:129
+#: pbmakeusb:136
 msgid "no VirtualBox archive"
 msgstr "Pas d'archive d'installation de VirtualBox"
 
-#: pbmakeusb:193
+#: pbmakeusb:200
 msgid "Directory not mounted.\\nIs your ISO file a Slackware image ?"
 msgstr "Répertoire non monté.\\nVotre image ISO est-elle une image Slackware ?"
 
-#: pbmakeusb:196
+#: pbmakeusb:203
 #, sh-format
 msgid ""
 "For the iso $IMGISO :\\n  The loop device is : $XLOOP\\n  The mount dir is : "
@@ -405,66 +405,66 @@ msgstr ""
 "Pour l'image iso $IMGISO :\\n  le périphérique est : $XLOOP\\n  Le point de "
 "maontage est : $REPO"
 
-#: pbmakeusb:198
+#: pbmakeusb:205
 msgid "Iso mounted status"
 msgstr "Infos Iso."
 
-#: pbmakeusb:202
+#: pbmakeusb:209
 msgid "Directory status"
 msgstr "Infos sur le répertoire"
 
-#: pbmakeusb:205
+#: pbmakeusb:212
 msgid "Directory slackware64-current not found."
 msgstr "Répertoire slackware64-current non trouvé."
 
-#: pbmakeusb:209
+#: pbmakeusb:216
 msgid "Directory pbslacks not found."
 msgstr "Répertoire pbslacks  non trouvé"
 
-#: pbmakeusb:212
+#: pbmakeusb:219
 msgid "Directory slackware64-current found."
 msgstr "Répertoire slackware64-current trouvé."
 
-#: pbmakeusb:237
+#: pbmakeusb:244
 msgid "Grab the USB stick."
 msgstr "On cherche la clé USB."
 
-#: pbmakeusb:240
+#: pbmakeusb:247
 msgid "Put your writable USB stick on an USB port and press OK or Enter."
 msgstr ""
 "Mettez votre clé USB inscriptible dans un port USB et appuyez sur Accepter "
 "ou Entrée."
 
-#: pbmakeusb:243
+#: pbmakeusb:250
 #, sh-format
 msgid "It will be erased and replaced by a ${DUAL}boot media :"
 msgstr "Elle sera effacée et remplacé par un media ${DUAL}boot :"
 
-#: pbmakeusb:244
+#: pbmakeusb:251
 msgid "  -with a Slackware installation media"
 msgstr "  -avec une image d'installation de Slackware"
 
-#: pbmakeusb:246
+#: pbmakeusb:253
 msgid "  -with a GParted Live media"
 msgstr "  -avec une image GParted Live"
 
-#: pbmakeusb:249
+#: pbmakeusb:256
 msgid "  -with a VirtualBox installer"
 msgstr "  -avec une archive d'installation de VirtualBox"
 
-#: pbmakeusb:271
+#: pbmakeusb:278
 msgid "Confirm USB stick."
 msgstr "Confirmation de la clé USB trouvée."
 
-#: pbmakeusb:272
+#: pbmakeusb:279
 msgid "USB stick not found."
 msgstr "Clé USB non trouvée."
 
-#: pbmakeusb:289
+#: pbmakeusb:296
 msgid "Do the USB stick"
 msgstr "On fabrique la clé USB."
 
-#: pbmakeusb:290
+#: pbmakeusb:297
 #, sh-format
 msgid ""
 "The device name for your writable erasable USB stick is \\Z1$MYDEVNAME\\Zn."
@@ -473,34 +473,34 @@ msgstr ""
 "Le nom de périphérique pour votre clé USB à écrire est \\Z1$MYDEVNAME\\Zn."
 "\\nEst-ce correct ?"
 
-#: pbmakeusb:294
+#: pbmakeusb:301
 msgid "no"
 msgstr "non"
 
-#: pbmakeusb:295
+#: pbmakeusb:302
 msgid "yes"
 msgstr "oui"
 
-#: pbmakeusb:296
+#: pbmakeusb:303
 msgid "yes and no format"
 msgstr "oui et pas de formattage"
 
-#: pbmakeusb:297
+#: pbmakeusb:304
 msgid "yes and no format and no packages copy"
 msgstr "oui et pas de formattage et pas de copie de paquets"
 
-#: pbmakeusb:298
+#: pbmakeusb:305
 msgid "yes and no packages copy"
 msgstr "oui et pas de copie de paquets"
 
-#: pbmakeusb:299
+#: pbmakeusb:306
 msgid ""
 "\\Z1Look at your USB stick device below. It will be autodetected later.\\Zn"
 msgstr ""
 "\\Z1Regardez le nom de périphérique de votre clé USB ci-dessous. Il sera "
 "détecté automatiquement plus tard.\\Zn"
 
-#: pbmakeusb:314
+#: pbmakeusb:321
 msgid ""
 "y(es), n(o), a (yes and noformat), b (yes and no format and no packages "
 "copy), c (yes and no packages copy) :"
@@ -1165,12 +1165,12 @@ msgstr ""
 "Script a lancer dans le répertoire contenant slackware64-current fraichement "
 "aspiré."
 
-#: pbmakeiso:30
+#: pbmakeiso:31
 #, sh-format
 msgid "The ISO image will be created with $NAMEISO name."
 msgstr "L'image ISO sera créée avec le nom $NAMEISO."
 
-#: pbmakeiso:33
+#: pbmakeiso:34
 #, sh-format
 msgid ""
 "If not too big for your recorder which should use double layer media,\\nthe "

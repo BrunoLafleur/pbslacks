@@ -176,17 +176,13 @@ if [ $ISFRAMEW -eq 1 ] ;then
 	mygt "Alien Bob KDE4 scripts copied."
 	(
 	    cd deps
+	    for i in LibRaw exiv2 grantlee libdbusmenu-qt polkit-qt-1 qca sip ;do
+		cp ../../../pbslacks/builds/src/${i}-[0-9]* $i
+	    done
 	    cp ../../../pbslacks/builds/src/phonon-backend-gstreamer-* \
 	       phonon-gstreamer
-	    cp ../../../pbslacks/builds/src/LibRaw-* LibRaw
 	    cp ../../../pbslacks/builds/src/eigen-* eigen3
-	    cp ../../../pbslacks/builds/src/exiv2-* exiv2
-	    cp ../../../pbslacks/builds/src/grantlee-* grantlee
-	    cp ../../../pbslacks/builds/src/libdbusmenu-qt-* libdbusmenu-qt
 	    cp ../../../pbslacks/builds/src/phonon-* phonon4qt4
-	    cp ../../../pbslacks/builds/src/polkit-qt-1-* polkit-qt-1
-	    cp ../../../pbslacks/builds/src/qca-* qca
-	    cp ../../../pbslacks/builds/src/sip-* sip
 	)
 	(
 	    cd other/qt
@@ -204,23 +200,12 @@ if [ $ISFRAMEW -eq 1 ] ;then
 	    cd ../glade3
 	    xgeturl "$KDE4OTHER_GLADE3"
 	    cd ..
-	    cp ../../../pbslacks/builds/src/orage-* orage
-	    cp ../../../pbslacks/builds/src/raptor2-* raptor2
-	    cp ../../../pbslacks/builds/src/rasqal-* rasqal
-	    cp ../../../pbslacks/builds/src/redland-* redland
-	    cp ../../../pbslacks/builds/src/scim-[0-9]* scim
-	    cp ../../../pbslacks/builds/src/scim-anthy-[0-9]* scim-anthy
-	    cp ../../../pbslacks/builds/src/scim-hangul-[0-9]* scim-hangul
-	    cp ../../../pbslacks/builds/src/scim-input-pad-[0-9]* scim-input-pad
-	    cp ../../../pbslacks/builds/src/scim-m17n-[0-9]* scim-m17n
-	    cp ../../../pbslacks/builds/src/strigi-[0-9]* strigi
-	    cp ../../../pbslacks/builds/src/akonadi-[0-9]* akonadi
-	    cp ../../../pbslacks/builds/src/cgmanager-[0-9]* cgmanager
-	    cp ../../../pbslacks/builds/src/gtk-xfce-engine-[0-9]* gtk-xfce-engine
-	    cp ../../../pbslacks/builds/src/liblastfm-[0-9]* liblastfm
-	    cp ../../../pbslacks/builds/src/pm-utils-[0-9]* pm-utils
-	    cp ../../../pbslacks/builds/src/qt-gstreamer-[0-9]* qt-gstreamer
-	    cp ../../../pbslacks/builds/src/qtscriptgenerator-* qtscriptgenerator
+	    for i in orage raptor2 rasqal redland scim scim-anthy scim-hangul \
+			   scim-input-pad scim-m17n strigi akonadi cgmanager \
+			   gtk-xfce-engine liblastfm pm-utils qt-gstreamer \
+			   qtscriptgenerator ;do
+		cp ../../../pbslacks/builds/src/${i}-[0-9]* $i
+	    done
 	)
 	(
 	    cd kde;[ ! -d src ] && mkdir src;cd src
@@ -258,9 +243,9 @@ if [ $ISFRAMEW -eq 1 ] ;then
 		xgeturl "$KDE4_WICDKDE"
 		xgeturl "$KDE4_KDEVELOPPGQT"
 		xpurgesrc 'tar.?z' sig
-		cp ../../../../../pbslacks/builds/src/polkit-kde-* .
-		cp ../../../../../pbslacks/builds/src/libnm-qt-* .
-		cp ../../../../../pbslacks/builds/src/kaudiocreator-* .
+		for i in polkit-kde libnm-qt kaudiocreator ;do
+		    cp ../../../../../pbslacks/builds/src/${i}-[0-9]* .
+		done
 	    )
 	)
 	echo '------------------------------------'

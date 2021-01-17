@@ -219,51 +219,51 @@ msgid ""
 "Launch this script in the directory including packages, packages2 et al."
 msgstr ""
 
-#: pbaspirecore:113 pbaspirecore:129
+#: pbaspirecore:128
 msgid "Slackware current copied."
 msgstr ""
 
-#: pbaspirecore:115 pbaspirecore:131
+#: pbaspirecore:130
 msgid "Slackware current not copied."
 msgstr ""
 
-#: pbaspirecore:142 pbaspirecore:158
+#: pbaspirecore:157
 msgid "Slackware multilib copied."
 msgstr ""
 
-#: pbaspirecore:144 pbaspirecore:160
+#: pbaspirecore:159
 msgid "Slackware multilib not copied."
 msgstr ""
 
-#: pbaspirecore:161 pbaspirecore:177
+#: pbaspirecore:176
 msgid "Alien Bob KDE4 scripts copied."
 msgstr ""
 
-#: pbaspirecore:266 pbaspirecore:282
+#: pbaspirecore:266
 msgid "Alien Bob KDE5 scripts copied."
 msgstr ""
 
-#: pbaspirecore:280 pbaspirecore:296
+#: pbaspirecore:280
 msgid "KDE5 frameworks sources copied."
 msgstr ""
 
-#: pbaspirecore:322 pbaspirecore:338
+#: pbaspirecore:322
 msgid "Check GPG signatures :"
 msgstr ""
 
-#: pbaspirecore:347 pbaspirecore:363
+#: pbaspirecore:347
 msgid "GParted copied."
 msgstr ""
 
-#: pbaspirecore:349 pbaspirecore:355 pbaspirecore:365 pbaspirecore:371
+#: pbaspirecore:349 pbaspirecore:355
 msgid "GParted not copied."
 msgstr ""
 
-#: pbaspirecore:378 pbaspirecore:394
+#: pbaspirecore:378
 msgid "VirtualBox copied."
 msgstr ""
 
-#: pbaspirecore:380 pbaspirecore:386 pbaspirecore:396 pbaspirecore:402
+#: pbaspirecore:380 pbaspirecore:386
 msgid "VirtualBox not copied."
 msgstr ""
 
@@ -292,28 +292,28 @@ msgstr ""
 msgid "Launch this script in the directory including bumblebee."
 msgstr ""
 
-#: pbcompilebumblebee:46
+#: pbcompilebumblebee:49
 msgid ""
 "Redo the Bumblebee Slackware packages.\\nIf already done on an upgraded host "
 "use the packages already generated with upgradebumblebee."
 msgstr ""
 
-#: pbcompilepost:13 pbmakeusb:157 pbstophib:27 pbupgrade:87
+#: pbcompilepost:13 pbmakeusb:164 pbstophib:27 pbupgrade:87
 #: pbupgradebumblebee:10 pbupgrademoz:10
 msgid "This script must be done as root. Exit."
 msgstr ""
 
-#: pbcompilepost:100
+#: pbcompilepost:103
 msgid ""
 "Only after a system update and reboot.\\nIf already done on this or another "
 "machine, this script is not useful.\\nPress a touch for continue or abort."
 msgstr ""
 
-#: pbcompilepost:140 pbcompilepost:165 pbcompilepost:198
+#: pbcompilepost:143 pbcompilepost:168 pbcompilepost:201
 msgid "Correct this error and relaunch this script."
 msgstr ""
 
-#: pbcompilepost:486
+#: pbcompilepost:489
 msgid "Upgrade packages* done."
 msgstr ""
 
@@ -328,145 +328,145 @@ msgid ""
 "\\ncontains pbslacks."
 msgstr ""
 
-#: pbmakeusb:74
+#: pbmakeusb:81
 msgid ""
 "Give the name of an ISO Slackware file or nothing if the Slackware is on the "
 "current directory :"
 msgstr ""
 
-#: pbmakeusb:77
+#: pbmakeusb:84
 msgid "ISO Slackware file"
 msgstr ""
 
-#: pbmakeusb:78
+#: pbmakeusb:85
 msgid "current directory"
 msgstr ""
 
-#: pbmakeusb:99
+#: pbmakeusb:106
 msgid "Give the name of an ISO GParted file or nothing :"
 msgstr ""
 
-#: pbmakeusb:102
+#: pbmakeusb:109
 msgid "ISO GParted file"
 msgstr ""
 
-#: pbmakeusb:103
+#: pbmakeusb:110
 msgid "no GParted Live"
 msgstr ""
 
-#: pbmakeusb:125
+#: pbmakeusb:132
 msgid "Give the name of a VirtualBox installer or nothing :"
 msgstr ""
 
-#: pbmakeusb:128
+#: pbmakeusb:135
 msgid "VirtualBox archive"
 msgstr ""
 
-#: pbmakeusb:129
+#: pbmakeusb:136
 msgid "no VirtualBox archive"
 msgstr ""
 
-#: pbmakeusb:193
+#: pbmakeusb:200
 msgid "Directory not mounted.\\nIs your ISO file a Slackware image ?"
 msgstr ""
 
-#: pbmakeusb:196
+#: pbmakeusb:203
 #, sh-format
 msgid ""
 "For the iso $IMGISO :\\n  The loop device is : $XLOOP\\n  The mount dir is : "
 "$REPO"
 msgstr ""
 
-#: pbmakeusb:198
+#: pbmakeusb:205
 msgid "Iso mounted status"
 msgstr ""
 
-#: pbmakeusb:202
+#: pbmakeusb:209
 msgid "Directory status"
 msgstr ""
 
-#: pbmakeusb:205
+#: pbmakeusb:212
 msgid "Directory slackware64-current not found."
 msgstr ""
 
-#: pbmakeusb:209
+#: pbmakeusb:216
 msgid "Directory pbslacks not found."
 msgstr ""
 
-#: pbmakeusb:212
+#: pbmakeusb:219
 msgid "Directory slackware64-current found."
 msgstr ""
 
-#: pbmakeusb:237
+#: pbmakeusb:244
 msgid "Grab the USB stick."
 msgstr ""
 
-#: pbmakeusb:240
+#: pbmakeusb:247
 msgid "Put your writable USB stick on an USB port and press OK or Enter."
 msgstr ""
 
-#: pbmakeusb:243
+#: pbmakeusb:250
 #, sh-format
 msgid "It will be erased and replaced by a ${DUAL}boot media :"
 msgstr ""
 
-#: pbmakeusb:244
+#: pbmakeusb:251
 msgid "  -with a Slackware installation media"
 msgstr ""
 
-#: pbmakeusb:246
+#: pbmakeusb:253
 msgid "  -with a GParted Live media"
 msgstr ""
 
-#: pbmakeusb:249
+#: pbmakeusb:256
 msgid "  -with a VirtualBox installer"
 msgstr ""
 
-#: pbmakeusb:271
+#: pbmakeusb:278
 msgid "Confirm USB stick."
 msgstr ""
 
-#: pbmakeusb:272
+#: pbmakeusb:279
 msgid "USB stick not found."
 msgstr ""
 
-#: pbmakeusb:289
+#: pbmakeusb:296
 msgid "Do the USB stick"
 msgstr ""
 
-#: pbmakeusb:290
+#: pbmakeusb:297
 #, sh-format
 msgid ""
 "The device name for your writable erasable USB stick is \\Z1$MYDEVNAME\\Zn."
 "\\nIs this correct ?"
 msgstr ""
 
-#: pbmakeusb:294
+#: pbmakeusb:301
 msgid "no"
 msgstr ""
 
-#: pbmakeusb:295
+#: pbmakeusb:302
 msgid "yes"
 msgstr ""
 
-#: pbmakeusb:296
+#: pbmakeusb:303
 msgid "yes and no format"
 msgstr ""
 
-#: pbmakeusb:297
+#: pbmakeusb:304
 msgid "yes and no format and no packages copy"
 msgstr ""
 
-#: pbmakeusb:298
+#: pbmakeusb:305
 msgid "yes and no packages copy"
 msgstr ""
 
-#: pbmakeusb:299
+#: pbmakeusb:306
 msgid ""
 "\\Z1Look at your USB stick device below. It will be autodetected later.\\Zn"
 msgstr ""
 
-#: pbmakeusb:314
+#: pbmakeusb:321
 msgid ""
 "y(es), n(o), a (yes and noformat), b (yes and no format and no packages "
 "copy), c (yes and no packages copy) :"
@@ -1033,12 +1033,12 @@ msgstr ""
 msgid "Launch this script in the directory including slackware64-current."
 msgstr ""
 
-#: pbmakeiso:30
+#: pbmakeiso:31
 #, sh-format
 msgid "The ISO image will be created with $NAMEISO name."
 msgstr ""
 
-#: pbmakeiso:33
+#: pbmakeiso:34
 #, sh-format
 msgid ""
 "If not too big for your recorder which should use double layer media,\\nthe "
