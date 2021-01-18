@@ -222,7 +222,8 @@ export MAKEFLAGS="-j$XNPROC"
 
 if [ $ISPAC1 -eq 1 ] ;then
     rm -f packages4/gst-plugins-bad-[0-9]*ponce.t?z*
-    for i in libtxc_dxtn libgaminggear acpibrightness gst-plugins-bad ;do
+    for i in libtxc_dxtn libgaminggear acpibrightness gst-plugins-bad \
+			 hplip-plugin ;do
 	xmakepac packages $i
     done
 
