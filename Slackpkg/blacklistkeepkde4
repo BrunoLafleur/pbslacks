@@ -15,13 +15,13 @@
 # below 
 #
 # Waiting for LTS NVIDIA driver
-kernel-generic
-kernel-generic-smp
-kernel-huge
-kernel-huge-smp
-kernel-modules
-kernel-modules-smp
-kernel-source
+#kernel-generic
+#kernel-generic-smp
+#kernel-huge
+#kernel-huge-smp
+#kernel-modules
+#kernel-modules-smp
+#kernel-source
 
 # NetworkManager est compile avec elogind au lieu de ConsoleKit2
 # For keeping kdm et qt4.
@@ -91,7 +91,11 @@ eigen32
 sip422
 exiv221
 polkit-qt4-1
-libdbusmenu-qt
+libdbusmenu-qt4
+
+gnome-desktop
+libseccomp
+webkitgtk
 
 #
 # aaa_elflibs should NOT be blacklisted!
