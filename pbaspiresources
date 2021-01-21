@@ -59,6 +59,7 @@ fi
     xgetsrc libtxc_dxtn "$PATHLIBTXC_DXTN"
     xgetsrc libgaminggear "$PATHLIBGAMINGGEAR"
     xlocalsrcpac acpibrightness ""
+    xlocalsrcpac dawconfig ""
 )
 
 ############################################
