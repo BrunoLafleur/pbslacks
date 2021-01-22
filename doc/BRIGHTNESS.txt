@@ -1,9 +1,8 @@
 Voir ACPI.txt
 
-Et avec le kernel 5.10 et le DELL M4800 :
-Use i915.enable_dpcd_backlight=0 as boot parameter to fix backlight problem. 
+acpi_backlight=video comme parametre de boot restaure backlight sur mon DELL M4800
+=> dans elilo.conf :
+        append="root=/dev/sda1 vga=normal threadirqs acpi_backlight=video ro"
 
-Peut etre mis dans elilo.conf :
+Pour d'autres machines :
         append="root=/dev/sda1 vga=normal threadirqs i915.enable_dpcd_backlight=0 ro"
-
-ou dans Grub.
