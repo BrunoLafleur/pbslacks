@@ -1,0 +1,9 @@
+Voir ACPI.txt
+
+Et avec le kernel 5.10 et le DELL M4800 :
+Use i915.enable_dpcd_backlight=0 as boot parameter to fix backlight problem. 
+
+Peut etre mis dans elilo.conf :
+        append="root=/dev/sda1 vga=normal threadirqs i915.enable_dpcd_backlight=0 ro"
+
+ou dans Grub.

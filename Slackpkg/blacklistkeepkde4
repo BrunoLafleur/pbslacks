@@ -93,10 +93,6 @@ exiv221
 polkit-qt4-1
 libdbusmenu-qt4
 
-gnome-desktop
-libseccomp
-webkitgtk
-
 #
 # aaa_elflibs should NOT be blacklisted!
 #
@@ -130,3 +126,6 @@ guile2.2
 python-pillow6
 eigen3
 frei0r-plugins
+gnome-desktop
+libseccomp
+webkitgtk
