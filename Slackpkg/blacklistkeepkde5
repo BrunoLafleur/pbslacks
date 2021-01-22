@@ -65,3 +65,6 @@ guile2.2
 python-pillow6
 eigen3
 frei0r-plugins
+gnome-desktop
+libseccomp
+webkitgtk
