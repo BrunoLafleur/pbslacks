@@ -1,8 +1,17 @@
 Voir ACPI.txt
 
+Avec le driver modesetting pour Xorg :
+-------------------------------------
+On a juste les touches si on a mis les controles dans /etc/acpi.
 acpi_backlight=video comme parametre de boot restaure backlight sur mon DELL M4800
 => dans elilo.conf :
         append="root=/dev/sda1 vga=normal threadirqs acpi_backlight=video ro"
 
+Sinon pour avoir le driver Intel Xorg :
+---------------------------------------
+On enleve acpi_backlight=video et on force le driver avec :
+> cp LocaleFR/20-video.conf /etc/X11/xorg.conf.d
+
 Pour d'autres machines :
         append="root=/dev/sda1 vga=normal threadirqs i915.enable_dpcd_backlight=0 ro"
+        append="root=/dev/sda1 vga=normal threadirqs i915.enable_dpcd_backlight=1 ro"
