@@ -1,6 +1,6 @@
 Voir optimisations dans doc/DAW.txt
 
-Fichiers de configs mis dans builds/daw
+Fichiers de configs mis dans le paquet packages/dawconfig
 
 Liste des cartes sons
 > cat /proc/asound/cards
