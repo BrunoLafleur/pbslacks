@@ -58,6 +58,8 @@ fi
     xgetsrc openal-soft "$PATHOPENAL"
     xgetsrc libtxc_dxtn "$PATHLIBTXC_DXTN"
     xgetsrc libgaminggear "$PATHLIBGAMINGGEAR"
+    rm -f acpibrightness-[0-9]*-x86_64-*.t?z*
+    rm -f dawconfig-[0-9]*-*.tgz*
     xlocalsrcpac acpibrightness ""
     xlocalsrcpac dawconfig ""
 )
