@@ -33,6 +33,7 @@ PATHMLT="https://github.com/mltframework/mlt/archive/v6.20.0.tar.gz"
 PATHLIBCACA="http://caca.zoy.org/files/libcaca/libcaca-0.99.beta19.tar.gz"
 PATHLIBWEBP="https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-1.1.0.tar.gz"
 PATHEIGEN3='https://gitlab.com/libeigen/eigen/-/archive/3.3.7/eigen-3.3.7.tar.bz2'
+PATHPAJACKCON='https://github.com/brummer10/pajackconnect/archive/master.tar.gz'
 
 # Path which are in package.info file inside the package.
 # TODO : Should be updated from those PATH or the SlackBuilds from SBo updated.
