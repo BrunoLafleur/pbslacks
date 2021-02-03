@@ -25,6 +25,9 @@ xgetpac () {
     xpurgepac "$pac-[0-9]" t?z.asc
     xpurgepac "$pac-[0-9]" t?z.md5
     xpurgepac "$pac-[0-9]" t?z.sha256
+    xpurgepac "$pac-[0-9]" lst
+    xpurgepac "$pac-[0-9]" meta
+    xpurgepac "$pac-[0-9]" txt
 }
 
 # Get the original tarball with the slack build scripts.
