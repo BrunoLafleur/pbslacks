@@ -55,6 +55,8 @@ upgradesys () {
     slackpkg upgrade slackpkg
     slackpkg new-config
     slackpkg upgrade glibc-solibs
+    # Upgrade glibc-solibs for multilib.
+    upgradepkg --reinstall --install-new current/glibc-solibs-*.t?z
     slackpkg upgrade pkgtools
     slackpkg upgrade tar
     slackpkg upgrade xz

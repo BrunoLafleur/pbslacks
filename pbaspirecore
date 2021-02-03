@@ -102,14 +102,14 @@ if [ $ISCORE -eq 1 -o $ISPURGE -eq 1 ] ;then
 	    cd slackware64-current
 	    find . -name '*.t?z'|grep -v '^./source/'|\
 		while read i;test "$i" != "" ;do
-		    pack=$(echo $i|sed 's@-[0-9\.]*-.*$@@')
+		    pack=$(echo $i|sed 's@-[0-9\.][^-]*-[^-]*-[^-]*$@@')
 		    echo -n .
 		    xpurgepac "$pack-[0-9]" txt
 		    xpurgepac "$pack-[0-9]" t?z
 		    xpurgepac "$pack-[0-9]" asc
 		done
 	    find source -name '*.tar.?z'|while read i;test "$i" != "" ;do
-		pack=$(echo $i|sed 's@-[0-9\.]*-.*$@@')
+		pack=$(echo $i|sed 's@-[0-9\.].*$@@')
 		echo -n .
 		xpurgepac "$pack-[0-9]" tar.?z
 		xpurgepac "$pack-[0-9]" tar.*sig*
@@ -144,7 +144,7 @@ if [ $ISMULTI -eq 1 -o $ISPURGE -eq 1 ] ;then
 	    cd current
 	    find . -name '*.t?z'|grep -v '^./source/'|\
 		while read i;test "$i" != "" ;do
-		    pack=$(echo $i|sed 's@-[0-9\.]*-.*$@@')
+		    pack=$(echo $i|sed 's@-[0-9\.][^-]*-[^-]*-[^-]*$@@')
 		    echo -n .
 		    xpurgepac "$pack-[0-9]" lst
 		    xpurgepac "$pack-[0-9]" meta
