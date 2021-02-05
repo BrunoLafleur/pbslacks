@@ -53,6 +53,7 @@ upgradesys () {
     slackpkg update
     echo "upgrade base";echo '------------'
     slackpkg upgrade slackpkg
+    slackpkg update
     slackpkg new-config
     slackpkg upgrade glibc-solibs
     # Upgrade glibc-solibs for multilib.

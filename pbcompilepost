@@ -42,6 +42,7 @@ ISAUDACITY=0
 ISARDOUR=0
 ISKDE4DEPS=0
 ISKDE4=0
+ISKDE4I=0
 ISFRAMEW=0
 
 while [ $# -ge 1 ] ;do
@@ -78,6 +79,8 @@ while [ $# -ge 1 ] ;do
 	ISKDE4DEPS=1;ISALL=0
     elif [ "$MYARG" = "-iskde4" ] ;then
 	ISKDE4=1;ISALL=0
+    elif [ "$MYARG" = "-iskde4i" ] ;then
+	ISKDE4I=1;ISALL=0
     elif [ "$MYARG" = "-isframew" ] ;then
 	ISFRAMEW=1;ISALL=0
     elif [ "$MYARG" = "-help" -o "$MYARG" = "-h" ] ;then
@@ -339,8 +342,7 @@ if [ $ISCALIBRE -eq 1 ] ;then
 fi
 
 if [ $ISKDE4DEPS -eq 1 ] ;then
-    export BUILD=1PB;export EXIT_ON_FAIL=yes
-
+    export BUILD=1PB
     # Packages which has been replaced.
     # So I have modified them to not collide with the new ones.
     # KDE4 have been made aware of those modifications.
@@ -377,7 +379,13 @@ if [ $ISKDE4 -eq 1 ] ;then
     )
     (
 	cd kde4/source/kde
-	sh kde.SlackBuild
+	# If we have ConsoleKit we inhibit for compilation.
+	# After update, we could suppress it.
+	if [ -d /usr/include/ConsoleKit ] ;then
+	    rm -rf /usr/include/ConsoleKit.save
+	    mv -f /usr/include/ConsoleKit /usr/include/ConsoleKit.save
+	fi
+	sh kde.SlackBuild kdebase:kde-workspace
 	#sh kde.SlackBuild kdelibs kdebase:nepomuk-core kdepimlibs kdebase kdesdk extragear:libkscreen kdegraphics kdebindings kdebase:kde-workspace kdeaccessibility kdeutils kdelibs kdemultimedia extragear:libktorrent kdenetwork oxygen-icons kdeadmin kdeartwork kdegames kdetoys kdepim kdepim-runtime kdenetwork:kopete kdeedu kdewebdev kdebase:kde-baseapps kdeplasma-addons polkit-kde extragear
 	exit $?
     )
@@ -392,20 +400,30 @@ if [ $ISKDE4 -eq 1 ] ;then
 	chown ${MYUSER}.$MYGROUP *.t?z
 	xpurgesrc 't?z'
     )
+    if [ -d /usr/include/ConsoleKit.save ] ;then
+	mv -f /usr/include/ConsoleKit.save /usr/include/ConsoleKit
+    fi
+    xhookkde4
     if [ $ERR -eq 0 ] ;then
 	rm -rf /tmp/kde_build
-	(
-	    cd kde4/source/kdei/calligra-l10n
-	    sh calligra-l10n.SlackBuild
-	    ERR=$?
-	    cd ../../../kde
-	    cp /tmp/kde_build/*.t?z .
-	    upgradepkg --install-new --reinstall calligra-l10n-*.txz
-	    chown ${MYUSER}.$MYGROUP calligra-l10n-*.t?z
-	    exit $?
-	)
-	ERR=$?
+    else
+	exit 1
     fi
+fi
+
+if [ $ISKDE4I -eq 1 ] ;then
+    export BUILD=1PB;export EXIT_ON_FAIL=yes
+    (
+	cd kde4/source/kdei/calligra-l10n
+	sh calligra-l10n.SlackBuild
+	ERR=$?
+	cd ../../../kde
+	cp /tmp/kde_build/*.t?z .
+	upgradepkg --install-new --reinstall calligra-l10n-*.txz
+	chown ${MYUSER}.$MYGROUP calligra-l10n-*.t?z
+	exit $?
+    )
+    ERR=$?
     if [ $ERR -eq 0 ] ;then
 	rm -rf /tmp/kde_build
 	(
@@ -423,7 +441,6 @@ if [ $ISKDE4 -eq 1 ] ;then
     if [ $ERR -eq 0 ] ;then
 	rm -rf /tmp/kde_build
     fi
-    xhookkde4
 fi
 
 if [ $ISFRAMEW -eq 1 ] ;then

@@ -205,7 +205,7 @@ msgstr ""
 msgid "GPG signatures checked :"
 msgstr ""
 
-#: pbaspire:287 pbsetup:306 pbupgrade:439
+#: pbaspire:287 pbsetup:306 pbupgrade:439 pbupgrade:444
 msgid "No action was demanded. Exit."
 msgstr ""
 
@@ -272,7 +272,7 @@ msgstr ""
 msgid "Package $pac :"
 msgstr ""
 
-#: pbaspireinc:56
+#: pbaspireinc:56 pbaspireinc:59
 #, sh-format
 msgid "Local copy of pbslacks/builds/src/$path to $name"
 msgstr ""
@@ -292,7 +292,7 @@ msgstr ""
 msgid "Launch this script in the directory including bumblebee."
 msgstr ""
 
-#: pbcompilebumblebee:49
+#: pbcompilebumblebee:49 pbcompilebumblebee:48
 msgid ""
 "Redo the Bumblebee Slackware packages.\\nIf already done on an upgraded host "
 "use the packages already generated with upgradebumblebee."
@@ -303,17 +303,18 @@ msgstr ""
 msgid "This script must be done as root. Exit."
 msgstr ""
 
-#: pbcompilepost:103
+#: pbcompilepost:103 pbcompilepost:106
 msgid ""
 "Only after a system update and reboot.\\nIf already done on this or another "
 "machine, this script is not useful.\\nPress a touch for continue or abort."
 msgstr ""
 
-#: pbcompilepost:143 pbcompilepost:168 pbcompilepost:201
+#: pbcompilepost:143 pbcompilepost:168 pbcompilepost:201 pbcompilepost:146
+#: pbcompilepost:171 pbcompilepost:204
 msgid "Correct this error and relaunch this script."
 msgstr ""
 
-#: pbcompilepost:489
+#: pbcompilepost:489 pbcompilepost:508
 msgid "Upgrade packages* done."
 msgstr ""
 
@@ -746,94 +747,94 @@ msgstr ""
 msgid "Compile again KDE4 set of software"
 msgstr ""
 
-#: pbupgrade:150
+#: pbupgrade:150 pbupgrade:151
 msgid "Compile again KDE5 frameworks set of software"
 msgstr ""
 
-#: pbupgrade:151
+#: pbupgrade:151 pbupgrade:152
 msgid "Compile again the Chromium software"
 msgstr ""
 
-#: pbupgrade:152
+#: pbupgrade:152 pbupgrade:153
 msgid "Compile again the Openshot software"
 msgstr ""
 
-#: pbupgrade:153
+#: pbupgrade:153 pbupgrade:154
 msgid "Compile again the Pitivi software"
 msgstr ""
 
-#: pbupgrade:154
+#: pbupgrade:154 pbupgrade:155
 msgid "Compile again the Audacity software"
 msgstr ""
 
-#: pbupgrade:155
+#: pbupgrade:155 pbupgrade:156
 msgid "Compile again the Ardour software"
 msgstr ""
 
-#: pbupgrade:156
+#: pbupgrade:156 pbupgrade:157
 msgid "Compile again Bumblebee packages."
 msgstr ""
 
-#: pbupgrade:157
+#: pbupgrade:157 pbupgrade:158
 msgid "Upgrade boot loader."
 msgstr ""
 
-#: pbupgrade:211
+#: pbupgrade:211 pbupgrade:212
 msgid ""
 "Upgrade your Slackware system with the last current fetched.\\nUses Slackpkg."
 msgstr ""
 
-#: pbupgrade:213
+#: pbupgrade:213 pbupgrade:214
 msgid ""
 "Upgrade your Slackware system with the last current on the internet.\\nUses "
 "Slackpkg."
 msgstr ""
 
-#: pbupgrade:215
+#: pbupgrade:215 pbupgrade:216
 msgid "Upgrade the Alien Bob 32 bits compatible mode."
 msgstr ""
 
-#: pbupgrade:217
+#: pbupgrade:217 pbupgrade:218
 msgid ""
 "Upgrade the Firefox and Thunderbird products.\\nThey should be downloaded "
 "and put in the packages/Mozilla directory before."
 msgstr ""
 
-#: pbupgrade:237
+#: pbupgrade:237 pbupgrade:238
 msgid ""
 "Upgrade your Bumblebee packages if they are in sync with the upgraded "
 "Slackware.\\nDone on another machine for exemple."
 msgstr ""
 
-#: pbupgrade:239
+#: pbupgrade:239 pbupgrade:240
 msgid ""
 "Redo the packages which are here in sources form.\\nIf not already done on "
 "this machine or another.\\n"
 msgstr ""
 
-#: pbupgrade:247
+#: pbupgrade:247 pbupgrade:248
 msgid ""
 "Redo the Calibre package.\\nIf not already done on this machine or another."
 msgstr ""
 
-#: pbupgrade:249
+#: pbupgrade:249 pbupgrade:250
 msgid ""
 "Redo dependencies for KDE4 set of packages.\\nIf not already done on this "
 "machine or another."
 msgstr ""
 
-#: pbupgrade:251
+#: pbupgrade:251 pbupgrade:252
 msgid ""
 "Redo KDE4 set of packages.\\nIf not already done on this machine or another."
 msgstr ""
 
-#: pbupgrade:253
+#: pbupgrade:253 pbupgrade:256
 msgid ""
 "Redo KDE5 frameworks set of packages.\\nIf not already done on this machine "
 "or another."
 msgstr ""
 
-#: pbupgrade:255
+#: pbupgrade:255 pbupgrade:258
 msgid ""
 "Redo the Chromium navigator which are here in sources form.\\nIf not already "
 "done on this machine or another.\\nIt is a very long process (some hours)."
@@ -841,117 +842,117 @@ msgid ""
 "support."
 msgstr ""
 
-#: pbupgrade:257
+#: pbupgrade:257 pbupgrade:260
 msgid ""
 "Redo the openshot packages which are here in sources form.\\nIf not already "
 "done on this machine or another."
 msgstr ""
 
-#: pbupgrade:259
+#: pbupgrade:259 pbupgrade:262
 msgid ""
 "Redo the pitivi packages which are here in sources form.\\nIf not already "
 "done on this machine or another."
 msgstr ""
 
-#: pbupgrade:261
+#: pbupgrade:261 pbupgrade:264
 msgid ""
 "Redo the audacity packages which are here in sources form.\\nIf not already "
 "done on this machine or another."
 msgstr ""
 
-#: pbupgrade:263
+#: pbupgrade:263 pbupgrade:266
 msgid ""
 "Redo the ardour packages which are here in sources form.\\nIf not already "
 "done on this machine or another."
 msgstr ""
 
-#: pbupgrade:265
+#: pbupgrade:265 pbupgrade:268
 msgid ""
 "Redo the Bumblebee packages.\\nIf not already done on this machine or "
 "another.\\nYou should reboot after upgrading system packages and before "
 "doing this action else the Bumblebee packages wont built."
 msgstr ""
 
-#: pbupgrade:267
+#: pbupgrade:267 pbupgrade:270
 msgid ""
 "Upgrade your boot loader only if you upgrade your system and not the "
 "bootloader."
 msgstr ""
 
-#: pbupgrade:324 pbupgradesys:83
+#: pbupgrade:324 pbupgradesys:83 pbupgrade:329 pbupgradesys:86
 msgid "Upgrade system done."
 msgstr ""
 
-#: pbupgrade:333
+#: pbupgrade:333 pbupgrade:338
 msgid "Upgrade Alien Bob multilib done."
 msgstr ""
 
-#: pbupgrade:339
+#: pbupgrade:339 pbupgrade:344
 msgid "Upgrade Mozilla done."
 msgstr ""
 
-#: pbupgrade:347
+#: pbupgrade:347 pbupgrade:352
 msgid "Upgrade packages done."
 msgstr ""
 
-#: pbupgrade:354
+#: pbupgrade:354 pbupgrade:359
 msgid "Upgrade packages2 done."
 msgstr ""
 
-#: pbupgrade:361
+#: pbupgrade:361 pbupgrade:366
 msgid "Upgrade packages3 done."
 msgstr ""
 
-#: pbupgrade:368
+#: pbupgrade:368 pbupgrade:373
 msgid "Upgrade packages4 done."
 msgstr ""
 
-#: pbupgrade:380
+#: pbupgrade:380 pbupgrade:385
 msgid "Upgrade KDE4 and KDE5 frameworks done."
 msgstr ""
 
-#: pbupgrade:387
+#: pbupgrade:387 pbupgrade:392
 msgid "Upgrade openshot done."
 msgstr ""
 
-#: pbupgrade:394
+#: pbupgrade:394 pbupgrade:399
 msgid "Upgrade pitivi done."
 msgstr ""
 
-#: pbupgrade:400
+#: pbupgrade:400 pbupgrade:405
 msgid "Upgrade audacity done."
 msgstr ""
 
-#: pbupgrade:406
+#: pbupgrade:406 pbupgrade:411
 msgid "Upgrade ardour done."
 msgstr ""
 
-#: pbupgrade:413
+#: pbupgrade:413 pbupgrade:418
 msgid "Upgrade tesseract4 done."
 msgstr ""
 
-#: pbupgrade:419
+#: pbupgrade:419 pbupgrade:424
 msgid "Upgrade Bumblebee done."
 msgstr ""
 
-#: pbupgrade:425
+#: pbupgrade:425 pbupgrade:430
 msgid "Recreate source packages done."
 msgstr ""
 
-#: pbupgrade:431
+#: pbupgrade:431 pbupgrade:436
 msgid ""
 "Recreate source Bumblebee done. Reboot your computer for Bumblebee to work."
 msgstr ""
 
-#: pbupgrade:434
+#: pbupgrade:434 pbupgrade:439
 msgid "Updating bootloader asked."
 msgstr ""
 
-#: pbupgrade:464
+#: pbupgrade:464 pbupgrade:469
 msgid "Bootloader menu"
 msgstr ""
 
-#: pbupgrade:465
+#: pbupgrade:465 pbupgrade:470
 msgid ""
 "We have detected the bootloader below. Cancel if it is not true.\\nIn this "
 "last case, you should recreate the config of your bootloader before reboot. "
@@ -959,11 +960,11 @@ msgid ""
 "rerun the install of your bootloader."
 msgstr ""
 
-#: pbupgrade:466
+#: pbupgrade:466 pbupgrade:471
 msgid "No bootloader detected. Reconfigure your bootloader before reboot."
 msgstr ""
 
-#: pbupgrade:478
+#: pbupgrade:478 pbupgrade:483
 msgid ""
 "\\ZbThe boot loader was not upgraded.\\ZB\\nIf lilo is installed, launch : "
 "\\Z3/sbin/lilo\\Zn\\nIf Grub is installed, launch : \\Z3grub-mkconfig -o /"
@@ -973,35 +974,35 @@ msgid ""
 "other favorite bootloader install procedure before rebooting.\\ZB"
 msgstr ""
 
-#: pbupgrade:482
+#: pbupgrade:482 pbupgrade:487
 msgid ""
 "Elilo upgraded : Files vmlinuz et initrd.gz copied in \\Z3/boot/efi/EFI/"
 "Slackware\\Zn"
 msgstr ""
 
-#: pbupgrade:487
+#: pbupgrade:487 pbupgrade:492
 msgid ""
 "Grub upgraded : \\Z3grub-mkconfig\\Zn relaunched.\\n\\Z1Look if there are "
 "error messages below\\Zn."
 msgstr ""
 
-#: pbupgrade:492
+#: pbupgrade:492 pbupgrade:497
 msgid ""
 "Lilo upgraded with \\Z3/sbin/lilo\\Zn.\\n\\Z1Look if there are error "
 "messages below\\Zn."
 msgstr ""
 
-#: pbupgrade:497
+#: pbupgrade:497 pbupgrade:502
 msgid ""
 "Look at \\Z3/syslinux.cfg\\Zn and rerun \\Z3syslinux\\Zn on your boot "
 "partition if some path have changed."
 msgstr ""
 
-#: pbupgrade:511
+#: pbupgrade:511 pbupgrade:516
 msgid " (\\Z1be sure to have upgraded the bootloader before\\Zn)"
 msgstr ""
 
-#: pbupgrade:517
+#: pbupgrade:517 pbupgrade:522
 #, sh-format
 msgid ""
 "Reboot the host${XBOOTMES}.\\n\\n\\ZbThen do if not already done on an "
@@ -1066,10 +1067,20 @@ msgstr ""
 msgid "Your device name is $MYDEVNAME. Is this correct ? y(es) or n(o) :"
 msgstr ""
 
-#: pbupgradesys:72
+#: pbupgradesys:72 pbupgradesys:75
 msgid "Abort : see previous errors."
 msgstr ""
 
-#: pbupgradesys:73
+#: pbupgradesys:73 pbupgradesys:76
 msgid "Upgrade system not done."
+msgstr ""
+
+#: pbupgrade:150
+msgid "Compile again languages for KDE4 set of software"
+msgstr ""
+
+#: pbupgrade:254
+msgid ""
+"Redo languages for KDE4 set of packages.\\nIf not already done on this "
+"machine or another."
 msgstr ""
