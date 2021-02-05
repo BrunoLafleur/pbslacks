@@ -9,7 +9,5 @@ echo Utile une fois les drivers SATA AHCI charges en mode sans echec pour repass
 echo -------------------------------------------------------------------------
 
 bcdedit /deletevalue {current} safeboot
-echo Vous pouvez maintenant redemarrer la machine et aller dans le BIOS
-echo pour le mettre en mode SATA AHCI.
-echo La commande setnormalmode permettra ensuite de remettre le mode normal.
+echo Vous pouvez maintenant redemarrer la machine pour retrouver le mode normal.
 pause
