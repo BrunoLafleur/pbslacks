@@ -26,9 +26,11 @@ with the latest current Slackware.
 The choice depends on what you have installed on the first place.
 To switch you neeed to remove the one you installed (kde set of packages
 and kdei eventually) and install the other. After that the upgrades will be
-with the on that is installed.
+with the one that is installed.
 
-This KDE4 is compiled with elogind as the rest of the latest current Slackware.
+This KDE4 and its dependencies is compiled with elogind as the rest of the
+latest current Slackware.
+I have modified it to compile with that latest Slackware.
 
 =================================================================
 For a fresh install from a USB stick do :
@@ -152,4 +154,4 @@ computer.
 =================================================================
 
 I have tested with Slackware current of july 2019, aout 2019, december 2019,
-january 2020, ... The last one I synchronize is dated 31 january 2021.
+january 2020, ... The last one I synchronize is dated 3 february 2021.
