@@ -16,9 +16,9 @@ SLACKMULTI_SRC="$SLACKMIR/people/alien/multilib/source/current"
 # GParted Live iso and VirtualBox for Windows.
 
 GPARTEDISO="https://downloads.sourceforge.net/gparted/gparted-live-1.1.0-6-amd64.iso"
-VBOXREP='https://download.virtualbox.org/virtualbox/6.1.16/'
-VBOXARCH="$VBOXREP/VirtualBox-6.1.16-140961-Win.exe"
-VBOXEXT="$VBOXREP/Oracle_VM_VirtualBox_Extension_Pack-6.1.16.vbox-extpack"
+VBOXREP='https://download.virtualbox.org/virtualbox/6.1.18/'
+VBOXARCH="$VBOXREP/VirtualBox-6.1.18-142142-Win.exe"
+VBOXEXT="$VBOXREP/Oracle_VM_VirtualBox_Extension_Pack-6.1.18.vbox-extpack"
 VBOXDOC="$VBOXREP/UserManual.pdf"
 
 # Alien Bob list of repositories.
