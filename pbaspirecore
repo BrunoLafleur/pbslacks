@@ -15,13 +15,14 @@ XDIR="$(dirname $0)"
 xhelp () {
     mygt 'Launch this script in a new directory.\nor in a directory which contains slackware64-current.\n\npbslacks should be side by side of this current directory.'|sed 's@\\n@\n@g'
     echo
-    echo '> ../pbslacks/pbaspirecore [-core] [-multi] [-framew] [-gparted]'
-    echo '>                 [-vnox] [-purge] [-check] [-help|-h]'
+    echo '> ../pbslacks/pbaspirecore [-core] [-multi] [-kde4] [-framew]'
+    echo '>                 [-gparted] [-vnox] [-purge] [-check] [-help|-h]'
 }
 
 if [ $# -eq 0 ] ;then
     ISCORE=1
     ISMULTI=1
+    ISKDE4=1
     ISFRAMEW=1
     ISGPARTED=1
     ISVBOX=1
@@ -30,6 +31,7 @@ if [ $# -eq 0 ] ;then
 else
     ISCORE=0
     ISMULTI=0
+    ISKDE4=0
     ISFRAMEW=0
     ISGPARTED=0
     ISVBOX=0
@@ -43,6 +45,8 @@ while [ $# -ge 1 ] ;do
 	ISCORE=1
     elif [ "$MYARG" = "-multi" ] ;then
 	ISMULTI=1
+    elif [ "$MYARG" = "-kde4" ] ;then
+	ISKDE4=1
     elif [ "$MYARG" = "-framew" ] ;then
 	ISFRAMEW=1
     elif [ "$MYARG" = "-gparted" ] ;then
@@ -167,8 +171,8 @@ if [ $ISMULTI -eq 1 -o $ISPURGE -eq 1 ] ;then
     echo '------------------------------------'
 fi
 
-# KDE4 + Frameworks KDE5
-if [ $ISFRAMEW -eq 1 ] ;then
+# KDE4
+if [ $ISKDE4 -eq 1 ] ;then
     (
 	cd kde4/source
 	echo '------------------------------------'
@@ -182,7 +186,7 @@ if [ $ISFRAMEW -eq 1 ] ;then
 	    cp ../../../pbslacks/builds/src/phonon-backend-gstreamer-* \
 	       phonon-gstreamer
 	    cp ../../../pbslacks/builds/src/eigen-* eigen3
-	    cp ../../../pbslacks/builds/src/phonon-* phonon4qt4
+	    cp ../../../pbslacks/builds/src/phonon-[0-9]* phonon4qt4
 	)
 	(
 	    cd other/qt
@@ -257,6 +261,16 @@ if [ $ISFRAMEW -eq 1 ] ;then
 	)
 	echo '------------------------------------'
     )
+    if [ -d slackware64-current ] ;then
+	(
+	    cd slackware64-current
+	    ln -sf ../kde4 .
+	)
+    fi
+fi
+
+# Frameworks KDE5
+if [ $ISFRAMEW -eq 1 ] ;then
     (
 	cd kde5
 	[ ! -d frameworks ] && mkdir frameworks
@@ -292,7 +306,6 @@ if [ $ISFRAMEW -eq 1 ] ;then
     if [ -d slackware64-current ] ;then
 	(
 	    cd slackware64-current
-	    ln -sf ../kde4 .
 	    ln -sf ../kde5 .
 	)
     fi

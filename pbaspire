@@ -46,7 +46,8 @@ trap 'echo "*** Ctrl-C caught -- aborting operations ***"; cleanup; exit 1' 2 14
 
 CORE=$(mygt 'Get/Update versus officiel Slackware')
 MULTI=$(mygt 'Get/Update multilib compat 32 bits mode')
-FRAMEW=$(mygt 'Get/Update KDE4 and KDE5 frameworks libraries')
+KDE4=$(mygt 'Get/Update KDE4')
+FRAMEW=$(mygt 'Get/Update KDE5 frameworks libraries')
 GPARTED=$(mygt 'Get/Update GParted live iso')
 VBOX=$(mygt 'Get/Update VirtualBox installer')
 ALIEN=$(mygt 'Get/Update some Alien Bob binary packages')
@@ -60,17 +61,18 @@ CLEAN=$(mygt 'Clean the local repository from old packages versions')
 
 xmaster () {
     defitem=$1;shift
-    xsel1=$1;shift;xsel2=$1;shift;xsel3=$1;shift;xsel4=$1;shift;xsel5=$1;shift
-    xsel6=$1;shift;xsel7=$1;shift;xsel8=$1;shift;xsel9=$1;shift;xsel10=$1;shift
-    xsel11=$1;shift;xsel12=$1;shift;xsel13=$1
+    xsel1=$1;shift;xsel2=$1;shift;xkde4=$1;shift;xsel3=$1;shift;xsel4=$1;shift
+    xsel5=$1;shift;xsel6=$1;shift;xsel7=$1;shift;xsel8=$1;shift;xsel9=$1;shift
+    xsel10=$1;shift;xsel11=$1;shift;xsel12=$1;shift;xsel13=$1
     pactit=$(mygt 'Main menu');pactit="pbaspire: $pactit"
     pactxt=$(mygt 'Choose your actions below')
     if [ $ISDIAL -eq 1 ] ;then
 	dialog --colors --backtitle 'pbaspire' --title "$pactit" \
 	    --default-item $defitem --defaultno --separate-output --item-help \
-	    --help-button --help-status --checklist "$pactxt" 0 100 13 \
+	    --help-button --help-status --checklist "$pactxt" 0 100 14 \
 	    core "$CORE" $xsel1 core \
 	    multi "$MULTI" $xsel2 multi \
+	    kde4 "$KDE4" $xkde4 kde4 \
 	    framew "$FRAMEW" $xsel3 framew \
 	    gparted "$GPARTED" $xsel4 gparted \
 	    vbox "$VBOX" $xsel5 vbox \
@@ -92,6 +94,8 @@ xmaster () {
 	    if [ "$c" = "y" ] ;then echo "HELP core" 1>&2;return;fi
 	    echo "HELP multi (y or n) :";read c
 	    if [ "$c" = "y" ] ;then echo "HELP multi" 1>&2;return;fi
+	    echo "HELP kde4 (y or n) :";read c
+	    if [ "$c" = "y" ] ;then echo "HELP kde4" 1>&2;return;fi
 	    echo "HELP framew (y or n) :";read c
 	    if [ "$c" = "y" ] ;then echo "HELP framew" 1>&2;return;fi
 	    echo "HELP gparted (y or n) :";read c
@@ -119,6 +123,8 @@ xmaster () {
 	[ "$c" = "y" ] && echo "core" 1>&2
 	echo "$MULTI (y or n) :";read c
 	[ "$c" = "y" ] && echo "multi" 1>&2
+	echo "$KDE4 (y or n) :";read c
+	[ "$c" = "y" ] && echo "kde4" 1>&2
 	echo "$FRAMEW (y or n) :";read c
 	[ "$c" = "y" ] && echo "framew" 1>&2
 	echo "$GPARTED (y or n) :";read c
@@ -149,7 +155,7 @@ xframe=on
 [ $(ls /var/log/packages/plasma-desktop-*[0-9]* 2> /dev/null|wc -l) -ge 1 ] && \
     xframe=off
 # Preselect sets.
-xsel="on on $xframe on on on on on on on on off off"
+xsel="on on $xframe $xframe on on on on on on on on off off"
 ditem=core
 bclaide=1
 
@@ -159,7 +165,8 @@ while [ $bclaide -eq 1 ] ;do
     if [ $bclaide -eq 1 ] ;then
 	xitem="$(cat $XTEMPOUT|grep '^HELP'|cut -d ' ' -f2)"
 	xsel=
-	for i in core multi framew gparted vbox alien ponce slonly other sources mozilla check clean ;do
+	for i in core multi kde4 framew gparted vbox alien ponce slonly other \
+		      sources mozilla check clean ;do
 	  if [ $(grep "^$i$" "$XTEMPOUT"|wc -l) -eq 1 ] ;then
 	      xsel="$xsel on"
 	  else
@@ -171,8 +178,10 @@ while [ $bclaide -eq 1 ] ;do
 	    pacaide=$(mygt 'Get or update the officiel lastest current Slackware.')
 	elif [ "$xitem" = multi ] ;then
 	    pacaide=$(mygt 'Get or update the multilib of Alien Bob which is a 32 bits compatibility set of packages.')
+	elif [ "$xitem" = kde4 ] ;then
+	    pacaide=$(mygt 'Get or update the KDE4 set of packages.')
 	elif [ "$xitem" = framew ] ;then
-	    pacaide=$(mygt 'Get or update the KDE4 and KDE5 frameworks libraries.')
+	    pacaide=$(mygt 'Get or update the KDE5 frameworks libraries.')
 	elif [ "$xitem" = gparted ] ;then
 	    pacaide=$(mygt 'Get or update the GParted live ISO.')
 	elif [ "$xitem" = vbox ] ;then
@@ -208,6 +217,7 @@ done
 
 ISCORE="$(cat $XTEMPOUT|grep '^core$'|wc -l)"
 ISMULTI="$(cat $XTEMPOUT|grep '^multi$'|wc -l)"
+ISKDE4="$(cat $XTEMPOUT|grep '^kde4$'|wc -l)"
 ISFRAMEW="$(cat $XTEMPOUT|grep '^framew$'|wc -l)"
 ISGPARTED="$(cat $XTEMPOUT|grep '^gparted$'|wc -l)"
 ISVBOX="$(cat $XTEMPOUT|grep '^vbox$'|wc -l)"
@@ -223,6 +233,7 @@ ISCLEAN="$(cat $XTEMPOUT|grep '^clean$'|wc -l)"
 COREATTR=
 [ $ISCORE -eq 1 ] && COREATTR="$COREATTR -core"
 [ $ISMULTI -eq 1 ] && COREATTR="$COREATTR -multi"
+[ $ISKDE4 -eq 1 ] && COREATTR="$COREATTR -kde4"
 [ $ISFRAMEW -eq 1 ] && COREATTR="$COREATTR -framew"
 [ $ISGPARTED -eq 1 ] && COREATTR="$COREATTR -gparted"
 [ $ISVBOX -eq 1 ] && COREATTR="$COREATTR -vbox"
@@ -233,16 +244,20 @@ if [ "$COREATTR" != '' ] ;then
     [ $XTEST -ne 1 ] && "$PBNAME"core $COREATTR $XTEMPCHK
 fi
 
-[ $ISCORE -eq 1 ] && emygt "Get/Update core system done : \Z3\${PBNAME}core\Zn." >> $XTEMPMES
+[ $ISCORE -eq 1 ] && emygt "Get/Update core system done : \Z3\${PBNAME}core\Zn." \
+			   >> $XTEMPMES
 [ $ISMULTI -eq 1 ] && emygt "Get/Update multilib compat 32 bits mode done : \Z3\${PBNAME}core\Zn." \
-	>> $XTEMPMES
-[ $ISFRAMEW -eq 1 ] && emygt "Get/Update KDE4 and KDE5 frameworks libraries done : \Z3\${PBNAME}core\Zn." \
-	>> $XTEMPMES
+			    >> $XTEMPMES
+[ $ISKDE4 -eq 1 ] && emygt "Get/Update KDE4 packages done : \Z3\${PBNAME}core\Zn." \
+			     >> $XTEMPMES
+[ $ISFRAMEW -eq 1 ] && emygt "Get/Update KDE5 frameworks libraries done : \Z3\${PBNAME}core\Zn." \
+			     >> $XTEMPMES
 [ $ISGPARTED -eq 1 ] && emygt "Get/Update gparted live iso done : \Z3\${PBNAME}core\Zn." \
-	>> $XTEMPMES
+			      >> $XTEMPMES
 [ $ISVBOX -eq 1 ] && emygt "Get/Update VirtualBox installer done : \Z3\${PBNAME}core\Zn." \
-	>> $XTEMPMES
-[ $ISCLEAN -eq 1 ] && emygt "Local repository cleaned : \Z3\${PBNAME}core\Zn." >> $XTEMPMES
+			   >> $XTEMPMES
+[ $ISCLEAN -eq 1 ] && emygt "Local repository cleaned : \Z3\${PBNAME}core\Zn." \
+			    >> $XTEMPMES
 
 if [ $ISALIEN -eq 1 ] ;then
     [ $XTEST -ne 1 ] && "$PBNAME"alien
