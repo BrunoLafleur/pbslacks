@@ -55,11 +55,12 @@ rm -rf $HOMEBUMBLE
     if [ ! -f Bumblebee-SlackBuilds.tgz ] ;then
 	git clone https://github.com/BrunoLafleur/Bumblebee-SlackBuilds.git
 	cd Bumblebee-SlackBuilds
-	./git_in
     else
 	cd Bumblebee-SlackBuilds
-	git pull
+	git pull origin
     fi
+    ./git_in
+    chown -R ${MYUSER}.$MYGROUP .
 )
 
 
