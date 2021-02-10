@@ -1,1 +1,8 @@
 jamulus -s -F -T
+
+# A tester : proxytunnel => A lancer cote client en mode demon qui ecoute
+# localhost:portjamulus
+# Cote serveur : lancer un serveur Jamulus et mettre dans Apache les droits
+# pour CONNECT sur le port Jamulus.
+# Tester proxytunnel Mac et Windows. Pour Linux faire eventuellement une version
+# avec httpio.
