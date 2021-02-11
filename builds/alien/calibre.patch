@@ -1,5 +1,5 @@
 --- calibre.SlackBuild.save	2020-10-29 09:50:59.000000000 +0100
-+++ calibre.SlackBuild	2021-01-11 23:21:35.000000000 +0100
++++ calibre.SlackBuild	2021-02-11 19:26:55.000000000 +0100
 @@ -140,24 +140,24 @@
  #
  # -----------------------------------------------------------------------------
@@ -1493,7 +1493,7 @@
  fi
  
  if [ "$BUILD_PYTHON" = "YES" -o "$BUILD_PYTHONMODS" = "YES" -o "$BUILD_QT" = "YES" -o "$BUILD_MTP" = "YES" ]; then
-@@ -2188,33 +2213,33 @@
+@@ -2188,61 +2213,58 @@
    # into a tarball which we can re-use in a future build (so that we do not
    # have to recompile them every time).
    # If you want to make use of this, then just copy the resulting tarball
@@ -1517,53 +1517,77 @@
  # The main course - compile calibre:
  make_calibre
  
- if [ "$BUILD_PYTHON" = "YES" ]; then
- 
-   # Compiling calibre will have wiped all previously compiled python stuff,
-   # so we need to put it back into the package, and then it can go:
+-if [ "$BUILD_PYTHON" = "YES" ]; then
+-
+-  # Compiling calibre will have wiped all previously compiled python stuff,
+-  # so we need to put it back into the package, and then it can go:
 -  rsync -a /usr/lib${LIBDIRSUFFIX}/calibre/ $PKG/usr/lib${LIBDIRSUFFIX}/calibre/
-+  rsync -a $HOMECALIBRE/ $PKG$HOMECALIBRE/
-   # Wait with with the removal until after byte-compiling:
+-  # Wait with with the removal until after byte-compiling:
 -  #rm -rf /usr/lib${LIBDIRSUFFIX}/calibre
-+  #rm -rf $HOMECALIBRE
- 
-   ##!/bin/sh
-   #path=`readlink -e $0`
-   #base=`dirname $path`
-   #export PATH=$base/bin:$PATH
-@@ -2223,26 +2248,26 @@
- 
-   # We need to tell calibre to use the internal python:
-   for FILE in $PKG/usr/bin/* ; do
-    if ! file $FILE | grep -q ELF ; then
-     sed -i \
+-
+-  ##!/bin/sh
+-  #path=`readlink -e $0`
+-  #base=`dirname $path`
+-  #export PATH=$base/bin:$PATH
+-  #export LD_LIBRARY_PATH=$base/lib:$LD_LIBRARY_PATH
+-  #$base/bin/calibre "$@"
+-
+-  # We need to tell calibre to use the internal python:
+-  for FILE in $PKG/usr/bin/* ; do
+-   if ! file $FILE | grep -q ELF ; then
+-    sed -i \
 -     -e "s,^#!/usr/bin/env .*$,#!/usr/lib${LIBDIRSUFFIX}/calibre/python2," \
-+     -e "s,^#!/usr/bin/env .*$,#!$HOMECALIBRE/python2," \
-      $FILE
-    fi
-   done
- 
-   # This is not needed in the package:
+-     $FILE
+-   fi
+-  done
+-
+-  # This is not needed in the package:
 -  rm -rf $PKG/usr/lib${LIBDIRSUFFIX}/calibre/{bin,lib/pkgconfig,lib/python*/test,share,usr/man}
-+  rm -rf $PKG$HOMECALIBRE/{bin,lib/pkgconfig,lib/python*/test,share,usr/man}
++if [ "$BUILD_PYTHON" = 'YES' -o "$BUILD_PYTHONMODS" = 'YES' ]; then
++    # Compiling calibre will have wiped all previously compiled python stuff,
++    # so we need to put it back into the package, and then it can go:
++    rsync -a $HOMECALIBRE/ $PKG$HOMECALIBRE/
++
++    if [ "$BUILD_PYTHON" = "YES" ]; then
++	# We need to tell calibre to use the internal python:
++	for FILE in $PKG/usr/bin/* ; do
++	    if ! file $FILE | grep -q ELF ; then
++		sed -i \
++		    -e "s,^#!/usr/bin/env .*$,#!$HOMECALIBRE/python2," \
++		    $FILE
++	    fi
++	done
++    fi
  
-   # Compiling bytecode makes Calibre startup much faster:
-   set +e
+-  # Compiling bytecode makes Calibre startup much faster:
+-  set +e
 -  /usr/lib${LIBDIRSUFFIX}/calibre/python2 -m compileall -d '/' ${PKG}/usr/lib${LIBDIRSUFFIX}/calibre/ || true
 -  /usr/lib${LIBDIRSUFFIX}/calibre/python2 -OO -m compileall -d '/' ${PKG}/usr/lib${LIBDIRSUFFIX}/calibre/ || true
-+  $HOMECALIBRE/python2 -m compileall -d '/' ${PKG}$HOMECALIBRE/ || true
-+  $HOMECALIBRE/python2 -OO -m compileall -d '/' ${PKG}$HOMECALIBRE/ || true
-   set -e
+-  set -e
++    # This is not needed in the package:
++    rm -rf $PKG$HOMECALIBRE/{bin,lib/pkgconfig,lib/python*/test,share,usr/man}
  
-   # Now we can remove these from the filesystem:
+-  # Now we can remove these from the filesystem:
 -  rm -rf /usr/lib${LIBDIRSUFFIX}/calibre
-+  rm -rf $HOMECALIBRE
++    # Compiling bytecode makes Calibre startup much faster:
++    set +e
++    if [ "$BUILD_PYTHON" = "YES" ]; then
++	$HOMECALIBRE/python2 -m compileall -d '/' ${PKG}$HOMECALIBRE/ || true
++	$HOMECALIBRE/python2 -OO -m compileall -d '/' ${PKG}$HOMECALIBRE/ || true
++    else
++	python2 -m compileall -d '/' ${PKG}$HOMECALIBRE/ || true
++	python2 -OO -m compileall -d '/' ${PKG}$HOMECALIBRE/ || true
++    fi
++    set -e
++    
++    # Now we can remove these from the filesystem:
++    rm -rf $HOMECALIBRE
  fi
  
  # Create a doinst.sh:
  mkdir -p $PKG/install
  cat <<EOT >> $PKG/install/doinst.sh
-@@ -2263,12 +2288,12 @@
+@@ -2263,12 +2285,12 @@
  mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
  # First, the calibre documentation files:
  cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION || true
@@ -1578,7 +1602,7 @@
  cp -a $PATCHDIR $PKG/usr/doc/$PRGNAM-$VERSION
  # And finally, add this SlackBuild script:
  cat $SRCDIR/$(basename $0) > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
-@@ -2281,11 +2306,11 @@
+@@ -2281,11 +2303,11 @@
    for i in $(find $PKG/usr/man -type l -name "*.?") ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
  fi
  
