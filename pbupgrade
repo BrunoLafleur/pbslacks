@@ -332,6 +332,8 @@ fi
 if [ $XEND -eq 0 ] ;then
     if [ $ISCOMPAT -eq 1 ] ;then
 	if [ $XTEST -ne 1 ] ;then
+	    [ $(ls current/aaa_glibc-solibs-*.t?z 2> /dev/null|wc -l) -gt 0 ] && \
+		rm -f current/glibc-solibs-*
 	    upgradepkg --reinstall --install-new current/*.t?z
 	    upgradepkg --install-new current/slackware64-compat32/*/*.t?z
 	fi
