@@ -49,10 +49,12 @@ glade3
 gtk-xfce-engine
 attica
 akonadi
+akonadi-*
 scim
 scim-*
 
 # For keeping KDE4
+kde/
 kde.*
 4.14.3
 kactivities
@@ -79,7 +81,7 @@ calligra-.*
 kwebkitpart
 
 # Frameworks KDE5 standalone
-5.76.0
+5.78.0
 
 # packages renommes. phonon kde4 renomme phonon4qt4.
 phonon4qt4
