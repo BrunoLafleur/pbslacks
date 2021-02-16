@@ -15,12 +15,9 @@
 # below 
 #
 # Waiting for LTS NVIDIA driver
-#kernel-generic
-#kernel-generic-smp
-#kernel-huge
-#kernel-huge-smp
-#kernel-modules
-#kernel-modules-smp
+#kernel-generic.*
+#kernel-huge.*
+#kernel-modules.*
 #kernel-source
 
 # We keep qt4 aside qt5 if we have them.
