@@ -15,12 +15,9 @@
 # below 
 #
 # Waiting for LTS NVIDIA driver
-#kernel-generic
-#kernel-generic-smp
-#kernel-huge
-#kernel-huge-smp
-#kernel-modules
-#kernel-modules-smp
+#kernel-generic.*
+#kernel-huge.*
+#kernel-modules.*
 #kernel-source
 
 # NetworkManager est compile avec elogind au lieu de ConsoleKit2
@@ -48,16 +45,17 @@ orage
 glade3
 gtk-xfce-engine
 attica
-akonadi
-akonadi-*
-scim
-scim-*
+akonadi.*
+scim.*
 
 # For keeping KDE4
 kde/
 kde.*
 4.14.3
 kactivities
+polkit-kde-agent-1
+polkit-kde-kcmodules-1
+wicd-kde
 
 # KDE4 extragear
 kaudiocreator
@@ -82,6 +80,7 @@ kwebkitpart
 
 # Frameworks KDE5 standalone
 5.78.0
+plasma-wayland-protocols
 
 # packages renommes. phonon kde4 renomme phonon4qt4.
 phonon4qt4
