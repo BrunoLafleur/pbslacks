@@ -1,0 +1,5 @@
+gnome-desktop, webkitgtk, & libseccomp
+pyyaml pour python3
+http://www.droplinegnome.org/files/3.36/x86_64/testing/gnome-desktop-3.36.6-x86_64-1dl.txz
+http://www.droplinegnome.org/files/3.36/x86_64/testing/webkitgtk-2.28.4-x86_64-1dl.txz
+http://www.droplinegnome.org/files/3.36/x86_64/testing/libseccomp-2.4.2-x86_64-1dl.txz

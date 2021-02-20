@@ -69,6 +69,7 @@ fi
     cd packages2
     xgetsbosrc roccat-tools
     xgetsbosrc PyYAML
+    xgetsbosrc lutris
     xlocalsrcpac kmplayer "kmplayer_0.11.5b.tar.bz2"
     xgetsrc denemo "$PATHDENEMO"
     # Guile 2.2 supprime en janvier. Utile a denemo.
