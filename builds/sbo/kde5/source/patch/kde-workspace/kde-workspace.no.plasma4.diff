@@ -1,0 +1,41 @@
+--- kde-workspace-4.11.16/CMakeLists.txt.orig   2015-01-29 19:49:17.000000000 +0100
++++ kde-workspace-4.11.16/CMakeLists.txt        2015-02-05 22:15:27.261461332 +0100
+@@ -219,22 +219,22 @@
+    macro_optional_add_subdirectory( systemsettings )
+ endif(${KDE_PLATFORM_PROFILE} STREQUAL "Desktop")
+ 
+-# core apps
+-if(NOT WIN32)
+-   macro_optional_add_subdirectory( kcheckpass )
+-   macro_optional_add_subdirectory( kwin )
+-   macro_optional_add_subdirectory( ksmserver )
+-
+-   find_package(JPEG REQUIRED)
+-   find_package(PNG REQUIRED)
+-   macro_optional_add_subdirectory( ksplash )
+-
+-   macro_optional_add_subdirectory( powerdevil )
+-   macro_optional_add_subdirectory( qguiplatformplugin_kde )
+-   if (NOT CMAKE_SYSTEM_NAME MATCHES Darwin)
+-      macro_optional_add_subdirectory( ksysguard )
+-   endif (NOT CMAKE_SYSTEM_NAME MATCHES Darwin)
+-endif(NOT WIN32)
++## core apps
++#if(NOT WIN32)
++#   macro_optional_add_subdirectory( kcheckpass )
++#   macro_optional_add_subdirectory( kwin )
++#   macro_optional_add_subdirectory( ksmserver )
++#
++#   find_package(JPEG REQUIRED)
++#   find_package(PNG REQUIRED)
++#   macro_optional_add_subdirectory( ksplash )
++#
++#   macro_optional_add_subdirectory( powerdevil )
++#   macro_optional_add_subdirectory( qguiplatformplugin_kde )
++#   if (NOT CMAKE_SYSTEM_NAME MATCHES Darwin)
++#      macro_optional_add_subdirectory( ksysguard )
++#   endif (NOT CMAKE_SYSTEM_NAME MATCHES Darwin)
++#endif(NOT WIN32)
+ 
+ if(${KDE_PLATFORM_PROFILE} STREQUAL "Desktop")
+    macro_optional_add_subdirectory(kcontrol)

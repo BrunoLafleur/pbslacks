@@ -1,0 +1,9 @@
+# Move the polkit dbus configuration files to the proper place:
+mv $PKG/etc/kde/dbus-1 $PKG/etc/
+# All these files conflict with the baloo5 package which also contains them:
+rm $PKG/usr/bin/*
+rm $PKG/usr/share/dbus-1/interfaces/org.kde.baloo.file.indexer.xml
+rm -r $PKG/usr/share/icons
+# Do not autostart the baloo 4 service:
+rm -r $PKG/usr/share/autostart
+

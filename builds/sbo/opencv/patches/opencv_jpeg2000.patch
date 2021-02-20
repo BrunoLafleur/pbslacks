@@ -1,0 +1,20 @@
+--- modules/imgcodecs/src/grfmt_jpeg2000.cpp.orig	2020-08-13 21:57:38.683558226 +0200
++++ modules/imgcodecs/src/grfmt_jpeg2000.cpp	2020-08-13 21:58:17.458351398 +0200
+@@ -378,7 +378,7 @@
+ 
+     for( y = 0; y < yend - ystart; )
+     {
+-        jas_seqent_t* pix_row = &jas_matrix_get( buffer, y / ystep, 0 );
++        jas_seqent_t* pix_row = jas_matrix_getref( buffer, y / ystep, 0 );
+         uchar* dst = data + (y - yoffset) * step - xoffset;
+ 
+         if( xstep == 1 )
+@@ -444,7 +444,7 @@
+ 
+     for( y = 0; y < yend - ystart; )
+     {
+-        jas_seqent_t* pix_row = &jas_matrix_get( buffer, y / ystep, 0 );
++        jas_seqent_t* pix_row = jas_matrix_getref( buffer, y / ystep, 0 );
+         ushort* dst = data + (y - yoffset) * step - xoffset;
+ 
+         if( xstep == 1 )

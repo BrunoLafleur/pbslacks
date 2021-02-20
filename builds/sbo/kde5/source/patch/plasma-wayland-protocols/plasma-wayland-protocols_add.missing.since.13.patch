@@ -1,0 +1,60 @@
+From 404ae95bc6c2e0a06f09bdcc81bedabcd5c720de Mon Sep 17 00:00:00 2001
+From: Aleix Pol <aleixpol@kde.org>
+Date: Mon, 27 Jul 2020 15:19:56 +0200
+Subject: [PATCH] plasma-window-management: add missing since
+
+---
+ src/protocols/plasma-window-management.xml | 20 ++++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
+
+diff --git a/src/protocols/plasma-window-management.xml b/src/protocols/plasma-window-management.xml
+index e2fe6303..40e1252f 100644
+--- a/src/protocols/plasma-window-management.xml
++++ b/src/protocols/plasma-window-management.xml
+@@ -6,7 +6,7 @@
+     SPDX-License-Identifier: LGPL-2.1-or-later
+   ]]></copyright>
+ 
+-  <interface name="org_kde_plasma_window_management" version="12">
++  <interface name="org_kde_plasma_window_management" version="13">
+     <description summary="application windows management">
+       This interface manages application windows.
+       It provides requests to show and hide the desktop and emits
+@@ -78,14 +78,6 @@
+       <arg name="id" type="uint" summary="Deprecated: internal window Id"/>
+     </event>
+ 
+-    <event name="window_with_uuid">
+-      <description summary="notify the client that a window was mapped">
+-        This event will be sent immediately after a window is mapped.
+-      </description>
+-      <arg name="id" type="uint" summary="Deprecated: internal window Id"/>
+-      <arg name="uuid" type="string" summary="internal window uuid"/>
+-    </event>
+-
+     <event name="stacking_order_changed" since="11">
+       <description summary="notify the client when stacking order changed">
+         This event will be sent when stacking order changed and on bind
+@@ -99,9 +91,17 @@
+       </description>
+       <arg name="uuids" type="string" summary="internal windows id ;-separated"/>
+     </event>
++
++    <event name="window_with_uuid" since="13">
++      <description summary="notify the client that a window was mapped">
++        This event will be sent immediately after a window is mapped.
++      </description>
++      <arg name="id" type="uint" summary="Deprecated: internal window Id"/>
++      <arg name="uuid" type="string" summary="internal window uuid"/>
++    </event>
+   </interface>
+ 
+-  <interface name="org_kde_plasma_window" version="12">
++  <interface name="org_kde_plasma_window" version="13">
+     <description summary="interface to control application windows">
+       Manages and control an application window.
+ 
+-- 
+GitLab
+
+

@@ -1,0 +1,21 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+   |-----handy-ruler------------------------------------------------------|
+python2-mlt: mlt (Open source multimedia framework)
+python2-mlt: binding for python version 2
+python2-mlt:
+python2-mlt: MLT is an open source multimedia framework, designed and developed
+python2-mlt: for television broadcasting. It provides a toolkit for broadcasters,
+python2-mlt: video editors, media players, transcoders, web streamers and many
+python2-mlt: more types of applications. The functionality of the system is
+python2-mlt: provided via an assortment of ready to use tools, XML authoring
+python2-mlt: components, and an extensible plug-in based API.
+python2-mlt:
+python2-mlt: See also: http://www.mltframework.org/
+python2-mlt:
+

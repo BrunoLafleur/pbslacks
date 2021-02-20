@@ -1,0 +1,12 @@
+diff -r -u kmplayer-0.11.5b/CMakeLists.txt kmplayer-0.11.5bnew/CMakeLists.txt
+--- kmplayer-0.11.5b/CMakeLists.txt	2016-07-10 17:17:28.000000000 +0200
++++ kmplayer-0.11.5bnew/CMakeLists.txt	2020-01-04 17:48:50.000000000 +0100
+@@ -67,6 +67,8 @@
+ add_subdirectory(icons)
+ #add_subdirectory(doc)
+ add_subdirectory(data)
++add_subdirectory(po)
++add_subdirectory(doc)
+ 
+ #include(MacroOptionalAddSubdirectory)
+ #macro_optional_add_subdirectory(po)

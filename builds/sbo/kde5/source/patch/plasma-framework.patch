@@ -1,0 +1,3 @@
+# Password is asked twice when connecting to a new WiFi network, 
+# KDEBUG 423093; fixed in Frameworks 5.72 and Plasma 5.20.
+#cat $CWD/patch/plasma-framework/plasma-framework_KDEBUG_423093.patch | patch -p1 --verbose || { touch ${SLACK_KDE_BUILD_DIR}/${PKGNAME}.failed ; continue ; }

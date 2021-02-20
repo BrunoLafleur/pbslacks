@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+        |-----handy-ruler------------------------------------------------------|
+sddm-qt5: sddm-qt5 (QML based X11 display manager)
+sddm-qt5:
+sddm-qt5: SDDM is a modern display manager for X11 aiming to be fast, simple and
+sddm-qt5: beautiful. It uses modern technologies like QtQuick, which in turn
+sddm-qt5: gives the designer the ability to create smooth, animated user
+sddm-qt5: interfaces. SDDM is extremely themeable. There are a few sample themes
+sddm-qt5: distributed with SDDM. They can be used as a starting point for new
+sddm-qt5: themes.
+sddm-qt5:
+sddm-qt5: Homepage: https://github.com/sddm/
+sddm-qt5:

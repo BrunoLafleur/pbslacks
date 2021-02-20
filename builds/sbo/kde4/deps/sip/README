@@ -1,0 +1,2 @@
+sip 4.19.22 is necessary for pykde4.
+We can reinstall the current sip after compilation.

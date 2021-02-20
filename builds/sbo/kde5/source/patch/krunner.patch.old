@@ -1,0 +1,4 @@
+# KDEBUG 423003: prevent crash when at least PIM Contacts plugin is enabled.
+# Fixed in Frameworks 5.73.
+cat $CWD/patch/krunner/krunner_KDEBUG_423003.patch | patch -p1 --verbose || { touch ${SLACK_KDE_BUILD_DIR}/${PKGNAME}.failed ; continue ; }
+

@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+        |-----handy-ruler------------------------------------------------------|
+kscreen2: kscreen2 (KDE screen management)
+kscreen2:
+kscreen2: KScreen is the new screen management software for KDE Plasma
+kscreen2: Workspaces which tries to be as magic and automatic as possible for
+kscreen2: users with basic needs and easy to configure for those who want
+kscreen2: special setups. 
+kscreen2:
+kscreen2: For more information, visit:
+kscreen2:   http://community.kde.org/Solid/Projects/ScreenManagement
+kscreen2:
+kscreen2:

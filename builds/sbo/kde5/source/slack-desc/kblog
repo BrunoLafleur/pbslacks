@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+     |-----handy-ruler------------------------------------------------------|
+kblog: kblog (blogging library for KDE)
+kblog:
+kblog: KBlog is a library for calling functions on Blogger 1.0, MetaWeblog,
+kblog: MovableType and GData compatible blogs. It calls the APIs using
+kblog: KXmlRpcClient and Syndication. It supports asynchronous sending and
+kblog: fetching of posts and, if supported on the server, multimedia files.
+kblog: Almost every modern blogging web application that provides an XML data
+kblog: interface supports one of the APIs mentioned above.
+kblog:
+kblog:
+kblog:
