@@ -21,8 +21,8 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 # This script builds Qt, packages it without WebKit, upgrades the machine to
-# a WebKit-less Qt, builds a WebKit package, merges the two packages, and
-# finally upgrades the machine to a combined package.
+# a WebKit-less Qt, builds a WebKit package, merges the two packages.
+# Then you will have to (re)install the new package.
 #
 # New version from Pierre Brochard (pierre.brochard.1982@m4x.org)
 
@@ -132,10 +132,3 @@ mkdir -p $PKG
 
 # Remove intermediate qtwebkit package:
 rm -f $OUTPUT/${WEBKITNAM}-${WEBKITVERSION}-${ARCH}-${WEBKITBUILD}${WEBKITTAG}${WEBKITTAG}.$PKGTYPE
-
-# Upgrade system to the combined Qt/WebKit package:
-/sbin/upgradepkg --reinstall --install-new \
-		 $OUTPUT/${PKGNAM}-${QTVERSION}-${ARCH}-${QTBUILD}${QTTAG}.$PKGTYPE
-
-# Done.
-
