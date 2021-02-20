@@ -217,7 +217,7 @@ msgstr ""
 msgid "GPG signatures checked :"
 msgstr ""
 
-#: pbaspire:302 pbsetup:306 pbupgrade:444
+#: pbaspire:302 pbsetup:306 pbupgrade:446
 msgid "No action was demanded. Exit."
 msgstr ""
 
@@ -284,7 +284,7 @@ msgstr ""
 msgid "Package $pac :"
 msgstr ""
 
-#: pbaspireinc:59
+#: pbaspireinc:60
 #, sh-format
 msgid "Local copy of pbslacks/builds/src/$path to $name"
 msgstr ""
@@ -321,11 +321,11 @@ msgid ""
 "machine, this script is not useful.\\nPress a touch for continue or abort."
 msgstr ""
 
-#: pbcompilepost:146 pbcompilepost:171 pbcompilepost:204
+#: pbcompilepost:146 pbcompilepost:167 pbcompilepost:195
 msgid "Correct this error and relaunch this script."
 msgstr ""
 
-#: pbcompilepost:508
+#: pbcompilepost:499
 msgid "Upgrade packages* done."
 msgstr ""
 
@@ -900,80 +900,80 @@ msgid ""
 "bootloader."
 msgstr ""
 
-#: pbupgrade:329 pbupgradesys:86
+#: pbupgrade:329 pbupgradesys:106
 msgid "Upgrade system done."
 msgstr ""
 
-#: pbupgrade:338
+#: pbupgrade:340
 msgid "Upgrade Alien Bob multilib done."
 msgstr ""
 
-#: pbupgrade:344
+#: pbupgrade:346
 msgid "Upgrade Mozilla done."
 msgstr ""
 
-#: pbupgrade:352
+#: pbupgrade:354
 msgid "Upgrade packages done."
 msgstr ""
 
-#: pbupgrade:359
+#: pbupgrade:361
 msgid "Upgrade packages2 done."
 msgstr ""
 
-#: pbupgrade:366
+#: pbupgrade:368
 msgid "Upgrade packages3 done."
 msgstr ""
 
-#: pbupgrade:373
+#: pbupgrade:375
 msgid "Upgrade packages4 done."
 msgstr ""
 
-#: pbupgrade:385
+#: pbupgrade:387
 msgid "Upgrade KDE4 and KDE5 frameworks done."
 msgstr ""
 
-#: pbupgrade:392
+#: pbupgrade:394
 msgid "Upgrade openshot done."
 msgstr ""
 
-#: pbupgrade:399
+#: pbupgrade:401
 msgid "Upgrade pitivi done."
 msgstr ""
 
-#: pbupgrade:405
+#: pbupgrade:407
 msgid "Upgrade audacity done."
 msgstr ""
 
-#: pbupgrade:411
+#: pbupgrade:413
 msgid "Upgrade ardour done."
 msgstr ""
 
-#: pbupgrade:418
+#: pbupgrade:420
 msgid "Upgrade tesseract4 done."
 msgstr ""
 
-#: pbupgrade:424
+#: pbupgrade:426
 msgid "Upgrade Bumblebee done."
 msgstr ""
 
-#: pbupgrade:430
+#: pbupgrade:432
 msgid "Recreate source packages done."
 msgstr ""
 
-#: pbupgrade:436
+#: pbupgrade:438
 msgid ""
 "Recreate source Bumblebee done. Reboot your computer for Bumblebee to work."
 msgstr ""
 
-#: pbupgrade:439
+#: pbupgrade:441
 msgid "Updating bootloader asked."
 msgstr ""
 
-#: pbupgrade:469
+#: pbupgrade:471
 msgid "Bootloader menu"
 msgstr ""
 
-#: pbupgrade:470
+#: pbupgrade:472
 msgid ""
 "We have detected the bootloader below. Cancel if it is not true.\\nIn this "
 "last case, you should recreate the config of your bootloader before reboot. "
@@ -981,11 +981,11 @@ msgid ""
 "rerun the install of your bootloader."
 msgstr ""
 
-#: pbupgrade:471
+#: pbupgrade:473
 msgid "No bootloader detected. Reconfigure your bootloader before reboot."
 msgstr ""
 
-#: pbupgrade:483
+#: pbupgrade:485
 msgid ""
 "\\ZbThe boot loader was not upgraded.\\ZB\\nIf lilo is installed, launch : "
 "\\Z3/sbin/lilo\\Zn\\nIf Grub is installed, launch : \\Z3grub-mkconfig -o /"
@@ -995,35 +995,35 @@ msgid ""
 "other favorite bootloader install procedure before rebooting.\\ZB"
 msgstr ""
 
-#: pbupgrade:487
+#: pbupgrade:489
 msgid ""
 "Elilo upgraded : Files vmlinuz et initrd.gz copied in \\Z3/boot/efi/EFI/"
 "Slackware\\Zn"
 msgstr ""
 
-#: pbupgrade:492
+#: pbupgrade:494
 msgid ""
 "Grub upgraded : \\Z3grub-mkconfig\\Zn relaunched.\\n\\Z1Look if there are "
 "error messages below\\Zn."
 msgstr ""
 
-#: pbupgrade:497
+#: pbupgrade:499
 msgid ""
 "Lilo upgraded with \\Z3/sbin/lilo\\Zn.\\n\\Z1Look if there are error "
 "messages below\\Zn."
 msgstr ""
 
-#: pbupgrade:502
+#: pbupgrade:504
 msgid ""
 "Look at \\Z3/syslinux.cfg\\Zn and rerun \\Z3syslinux\\Zn on your boot "
 "partition if some path have changed."
 msgstr ""
 
-#: pbupgrade:516
+#: pbupgrade:518
 msgid " (\\Z1be sure to have upgraded the bootloader before\\Zn)"
 msgstr ""
 
-#: pbupgrade:522
+#: pbupgrade:524
 #, sh-format
 msgid ""
 "Reboot the host${XBOOTMES}.\\n\\n\\ZbThen do if not already done on an "
@@ -1088,10 +1088,10 @@ msgstr ""
 msgid "Your device name is $MYDEVNAME. Is this correct ? y(es) or n(o) :"
 msgstr ""
 
-#: pbupgradesys:75
+#: pbupgradesys:95
 msgid "Abort : see previous errors."
 msgstr ""
 
-#: pbupgradesys:76
+#: pbupgradesys:96
 msgid "Upgrade system not done."
 msgstr ""
