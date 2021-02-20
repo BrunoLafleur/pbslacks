@@ -86,7 +86,7 @@ fi
     xgetsrc bsddb3 "$PATHBSDDB3"
     xgetsrc db53 "$PATHDB53"
     xgetsrc db53 "$PATHDB53BIS"
-    xgetsrc pyicu "$PATHPYICU"
+    xgetsbosrc pyicu
     xgetsrc gramps "$PATHGRAMPS"
     xgetsbosrc goocanvas2
     xgetsbosrc msgpack-python
