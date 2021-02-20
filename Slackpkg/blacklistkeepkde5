@@ -15,8 +15,11 @@
 # below 
 #
 # Waiting for LTS NVIDIA driver
+#kernel-generic
 #kernel-generic.*
+#kernel-huge
 #kernel-huge.*
+#kernel-modules
 #kernel-modules.*
 #kernel-source
 

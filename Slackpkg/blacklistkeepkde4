@@ -15,8 +15,11 @@
 # below 
 #
 # Waiting for LTS NVIDIA driver
+#kernel-generic
 #kernel-generic.*
+#kernel-huge
 #kernel-huge.*
+#kernel-modules
 #kernel-modules.*
 #kernel-source
 
@@ -45,11 +48,14 @@ orage
 glade3
 gtk-xfce-engine
 attica
+akonadi
 akonadi.*
+scim
 scim.*
 
 # For keeping KDE4
 kde/
+kde
 kde.*
 4.14.3
 kactivities
