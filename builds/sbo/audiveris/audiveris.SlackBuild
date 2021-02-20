@@ -34,6 +34,7 @@ TAG=${TAG:-_SBo}
 
 AUDIVERIS_HOME=/usr/share/audiveris
 TESS3_HOME=/usr/share/tesseract-ocr/tessdata
+URL_TRAINEDDATA='https://github.com/tesseract-ocr/tessdata/raw/3.04.00/'
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/SBo}
@@ -45,12 +46,10 @@ set -e
 rm -rf $PKG
 mkdir -p $TMP $PKG/$AUDIVERIS_HOME $OUTPUT $PKG/usr/bin
 mkdir -p $PKG/$TESS3_HOME
-cd ..
 for i in fra eng ita deu ;do
-  [ ! -f $i.traineddata ] && wget -N -nv --content-disposition 'https://github.com/tesseract-ocr/tessdata/raw/3.04.00/$i.traineddata'
+    [ ! -f $i.traineddata ] && \
+	wget -N -nv --content-disposition "$URL_TRAINEDDATA/$i.traineddata"
 done
-cd $CWD
-ln -sf ../*.traineddata .
 cd $TMP
 rm -rf ${PRGNAM}-$VERSION
 unzip $CWD/${PRGNAM}-$VERSION.zip
