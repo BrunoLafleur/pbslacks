@@ -1,0 +1,45 @@
+diff --git a/Makefile b/Makefile
+index 29870d7..1e267e7 100644
+--- a/Makefile
++++ b/Makefile
+@@ -65,6 +65,7 @@ all: all-yes
+ 
+ include $(SRC_PATH)/tools/Makefile
+ include $(SRC_PATH)/ffbuild/common.mak
++include $(SRC_PATH)/ffbuild/libffmpeg.mak
+ 
+ FF_EXTRALIBS := $(FFEXTRALIBS)
+ FF_DEP_LIBS  := $(DEP_LIBS)
+diff --git a/ffbuild/libffmpeg.mak b/ffbuild/libffmpeg.mak
+new file mode 100644
+index 0000000..992cf3c
+--- /dev/null
++++ b/ffbuild/libffmpeg.mak
+@@ -0,0 +1,27 @@
++LIBFFMPEG = $(SLIBPREF)ffmpeg$(SLIBSUF)
++LIBFFMPEG_LINK = $(LD) -shared -Wl,-soname,$(LIBFFMPEG) -Wl,-Bsymbolic -Wl,-z,now -Wl,-z,relro -Wl,-z,defs -Wl,--gc-sections $(LDFLAGS) $(LDLIBFLAGS) -o $(LIBFFMPEG)
++
++ifeq ($(CONFIG_SHARED),yes)
++LIBFFMPEG_DEPS = libavcodec/$(SLIBPREF)avcodec$(SLIBSUF) libavformat/$(SLIBPREF)avformat$(SLIBSUF) libavutil/$(SLIBPREF)avutil$(SLIBSUF)
++else
++LIBFFMPEG_DEPS = libavcodec/$(LIBPREF)avcodec$(LIBSUF) libavformat/$(LIBPREF)avformat$(LIBSUF) libavutil/$(LIBPREF)avutil$(LIBSUF) libswresample/$(LIBPREF)swresample$(LIBSUF)
++endif
++
++$(LIBFFMPEG): $(LIBFFMPEG_DEPS)
++ifeq ($(CONFIG_SHARED),yes)
++	$(LIBFFMPEG_LINK) -Wl,--no-as-needed -lavcodec -lavformat -lavutil
++else
++	$(LIBFFMPEG_LINK) -Wl,--whole-archive $^ -Wl,--no-whole-archive $(EXTRALIBS-avcodec) $(EXTRALIBS-avformat) $(EXTRALIBS-avutil) $(EXTRALIBS-swresample)
++endif
++
++libffmpeg: $(LIBFFMPEG)
++
++install-libffmpeg: $(LIBFFMPEG)
++	$(Q)mkdir -p "$(SHLIBDIR)/ffmpeg"
++	$(INSTALL) -m 755 $< "$(SHLIBDIR)/ffmpeg/$<"
++	$(STRIP) "$(SHLIBDIR)/ffmpeg/$<"
++
++uninstall-libffmpeg:
++	$(RM) "$(SHLIBDIR)/ffmpeg/$(LIBFFMPEG)"
++
++.PHONY: libffmpeg install-libffmpeg uninstall-libffmpeg

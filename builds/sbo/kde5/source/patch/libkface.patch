@@ -1,0 +1,2 @@
+# Compile libkface against opencv 3.2:
+cat $CWD/patch/libkface/libkface_opencv3.patch | patch -p1 --verbose || { touch ${SLACK_KDE_BUILD_DIR}/${PKGNAME}.failed ; continue ; }

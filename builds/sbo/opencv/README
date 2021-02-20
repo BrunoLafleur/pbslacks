@@ -1,0 +1,3 @@
+Pour avoir le bindings Python 2.7 installer numpy et 
+    -DBUILD_PYTHON_SUPPORT=ON -DBUILD_EXAMPLES=ON
+au SlackBuild

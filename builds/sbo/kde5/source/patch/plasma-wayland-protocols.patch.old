@@ -1,0 +1,2 @@
+# Add the missing 'since="13"' to event name "window_with_uuid":
+cat $CWD/patch/plasma-wayland-protocols/plasma-wayland-protocols_add.missing.since.13.patch | patch -p1 --verbose || { touch ${SLACK_KDE_BUILD_DIR}/${PKGNAME}.failed ; continue ; }

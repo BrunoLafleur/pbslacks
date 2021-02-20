@@ -162,19 +162,11 @@ xmakepac () {
     if [ $RECOMP -eq 1 ] ;then
 	(
 	    cd ${XDIR}/$XPAC
-	    tar xvfz ${XPAC}.t*gz
-	    if [ -d "$XPAC" ] ;then
-		(
-		    cd $XPAC;ln -sf ../* .;rm -f $XPAC ${XPAC}.tar.gz
-		    ./${XPAC}.SlackBuild
-		    if [ $? -ne 0 ] ;then
-			mygt 'Correct this error and relaunch this script.'
-			cd ..;chown -R ${MYUSER}.$MYGROUP $XPAC
-			exit 1
-		    fi
-		)
-		[ $? -ne 0 ] && exit 1
-		rm -rf $XPAC
+	    ./${XPAC}.SlackBuild
+	    if [ $? -ne 0 ] ;then
+		mygt 'Correct this error and relaunch this script.'
+		cd ..;chown -R ${MYUSER}.$MYGROUP $XPAC
+		exit 1
 	    fi
 	)
 	[ $? -ne 0 ] && exit 1

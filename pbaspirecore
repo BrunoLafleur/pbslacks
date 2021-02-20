@@ -176,7 +176,7 @@ if [ $ISKDE4 -eq 1 ] ;then
     (
 	cd kde4/source
 	echo '------------------------------------'
-	tar xvfz ../../pbslacks/builds/sbo/kde4.tar.gz
+	cp -a ../../pbslacks/builds/sbo/kde4/* .
 	mygt "Alien Bob KDE4 scripts copied."
 	(
 	    cd deps
@@ -276,7 +276,7 @@ if [ $ISFRAMEW -eq 1 ] ;then
 	[ ! -d frameworks ] && mkdir frameworks
 	echo '------------------------------------'
 	# Get sources
-	tar xvfz ../pbslacks/builds/alien/ktown.tar.gz
+	cp -a ../pbslacks/builds/sbo/kde5/* .
 	mygt "Alien Bob KDE5 scripts copied."
 	echo '------------------------------------'
 	(

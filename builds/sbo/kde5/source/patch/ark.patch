@@ -1,0 +1,5 @@
+# Fix a compilation issue in 18.04.0:
+#cat $CWD/patch/ark/ark_include_memory.patch | patch -p1 --verbose || { touch ${SLACK_KDE_BUILD_DIR}/${PKGNAME}.failed ; continue ; }
+
+# Fix for CVE-2020-16116:
+cat $CWD/patch/ark/ark_cve-2020-16116.patch | patch -p1 --verbose || { touch ${SLACK_KDE_BUILD_DIR}/${PKGNAME}.failed ; continue ; }

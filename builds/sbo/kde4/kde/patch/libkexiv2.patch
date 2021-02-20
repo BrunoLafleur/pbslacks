@@ -1,0 +1,1 @@
+zcat $CWD/patch/libkexiv2/exiv2_27.patch.gz | patch -p1 --verbose || { touch ${SLACK_KDE_BUILD_DIR}/${PKGNAME}.failed ; continue ; }

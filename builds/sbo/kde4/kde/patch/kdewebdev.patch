@@ -1,0 +1,4 @@
+zcat $CWD/patch/kdewebdev/include-tidy.patch.gz \
+  | sed -e "s#/tmp/package-kdewebdev#${SLACK_KDE_BUILD_DIR}/${PKGNAME}/package-kdewebdev#" \
+  | patch -p0 --verbose \
+  || { touch ${SLACK_KDE_BUILD_DIR}/${PKGNAME}.failed ; continue ; }

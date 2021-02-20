@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description. Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in. You must make
+# exactly 11 lines for the formatting to be correct. It's also customary to
+# leave one space after the ':'.
+
+             |-----handy-ruler------------------------------------------------------|
+python-pillow6: python-pillow (Python Imaging Library) version 6.2.2 for python 2
+python-pillow6:
+python-pillow6: The Python Imaging Library (PIL) adds image processing capabilities
+python-pillow6: to your Python environment. This library provides extensive file
+python-pillow6: format support, an efficient internal representation, and powerful
+python-pillow6: image processing capabilities.
+python-pillow6:
+python-pillow6: PIL is used by the scanning component of HPLIP.
+python-pillow6:
+python-pillow6: Homepage: https://python-pillow.github.io/
+python-pillow6:

@@ -1,0 +1,37 @@
+Extrait de :
+https://alien.slackbook.org/blog/tag/pulseaudio/
+
+threadirqs =>
+------------
+    If you use lilo, open “/etc/lilo.conf” in an editor and add “threadirqs” to the value of the “append=” keyword, and re-run ‘lilo’.
+    If you use elilo, open /boot/efi/EFI/Slackware/elilo.conf and add “threadirqs” to the value of the “append = ” keyword
+    If you are using Grub, then open “/etc/default/grub” in an editor and add “threadirqs” to the (probably empty) value for “GRUB_CMDLINE_LINUX_DEFAULT”. Then re-generate your Grub configuration.
+
+CPU frequency scaling ne connait pas le DSP =>
+--------------
+echo 'SCALING_GOVERNOR=performance' >> /etc/default/cpufreq
+et reboot.
+
+/etc/security/limits.d/rt_audio.conf =>
+---------------
+# Real-Time Priority allowed for user in the 'audio' group:
+# Use 'unlimited' with care,a misbehaving application can
+# lock up your system. Try reserving half your physical memory:
+#@audio - memlock 2097152
+@audio - memlock unlimited
+@audio - rtprio 95
+
+/etc/udev/rules.d/40-timer-permissions.rules =>
+------------------------------------
+KERNEL=="rtc0", GROUP="audio"
+KERNEL=="hpet", GROUP="audio"
+
+/etc/sysctl.d/daw.conf =>
+----------------------
+dev.hpet.max-user-freq = 3072
+fs.inotify.max_user_watches = 524288
+vm.swappiness = 10
+
+----------------------
+pactl list short sinks
+pactl set-default-sink alsa_output.usb-Focusrite_Scarlett_2i4_USB-00.analog-surround-40

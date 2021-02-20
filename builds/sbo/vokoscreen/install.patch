@@ -1,0 +1,164 @@
+Seulement dans vokoscreenNG-3.0.3.new/src: .qmake.stash
+Seulement dans vokoscreenNG-3.0.3.new/src: Makefile
+Seulement dans vokoscreenNG-3.0.3.new/src: QvkAudioPulse.o
+Seulement dans vokoscreenNG-3.0.3.new/src: QvkCameraController.o
+Seulement dans vokoscreenNG-3.0.3.new/src: QvkCameraWatcher.o
+Seulement dans vokoscreenNG-3.0.3.new/src: QvkCameraWindow.o
+Seulement dans vokoscreenNG-3.0.3.new/src: QvkCountdown.o
+Seulement dans vokoscreenNG-3.0.3.new/src: QvkDownloader.o
+Seulement dans vokoscreenNG-3.0.3.new/src: QvkGlobalShortcut.o
+Seulement dans vokoscreenNG-3.0.3.new/src: QvkHelp.o
+Seulement dans vokoscreenNG-3.0.3.new/src: QvkInformation.o
+Seulement dans vokoscreenNG-3.0.3.new/src: QvkLicenses.o
+Seulement dans vokoscreenNG-3.0.3.new/src: QvkLimitDiskFreeSpace.o
+Seulement dans vokoscreenNG-3.0.3.new/src: QvkLoadExtension.o
+Seulement dans vokoscreenNG-3.0.3.new/src: QvkLocale.o
+Seulement dans vokoscreenNG-3.0.3.new/src: QvkLog.o
+Seulement dans vokoscreenNG-3.0.3.new/src: QvkLogController.o
+Seulement dans vokoscreenNG-3.0.3.new/src: QvkMagnifier.o
+Seulement dans vokoscreenNG-3.0.3.new/src: QvkMagnifierController.o
+Seulement dans vokoscreenNG-3.0.3.new/src: QvkPlayer.o
+Seulement dans vokoscreenNG-3.0.3.new/src: QvkPulseGstr.o
+Seulement dans vokoscreenNG-3.0.3.new/src: QvkRegionButtonArrow.o
+Seulement dans vokoscreenNG-3.0.3.new/src: QvkRegionChoise.o
+Seulement dans vokoscreenNG-3.0.3.new/src: QvkScreenManager.o
+Seulement dans vokoscreenNG-3.0.3.new/src: QvkSettings.o
+Seulement dans vokoscreenNG-3.0.3.new/src: QvkSpezialSlider.o
+Seulement dans vokoscreenNG-3.0.3.new/src: QvkSystray.o
+Seulement dans vokoscreenNG-3.0.3.new/src: QvkSystrayAlternative.o
+Seulement dans vokoscreenNG-3.0.3.new/src: QvkTheme.o
+Seulement dans vokoscreenNG-3.0.3.new/src: QvkVersion.o
+Seulement dans vokoscreenNG-3.0.3.new/src: QvkWatcherPlug.o
+Seulement dans vokoscreenNG-3.0.3.new/src: QvkWinInfo.o
+Seulement dans vokoscreenNG-3.0.3.new/src: camerasettingsdialog.o
+Seulement dans vokoscreenNG-3.0.3.new/src: global.o
+Seulement dans vokoscreenNG-3.0.3.new/src/language: ca.qm
+Seulement dans vokoscreenNG-3.0.3.new/src/language: cs_CZ.qm
+Seulement dans vokoscreenNG-3.0.3.new/src/language: de_AT.qm
+Seulement dans vokoscreenNG-3.0.3.new/src/language: de_CH.qm
+Seulement dans vokoscreenNG-3.0.3.new/src/language: de_DE.qm
+Seulement dans vokoscreenNG-3.0.3.new/src/language: es.qm
+Seulement dans vokoscreenNG-3.0.3.new/src/language: es_MX.qm
+Seulement dans vokoscreenNG-3.0.3.new/src/language: fi_FI.qm
+Seulement dans vokoscreenNG-3.0.3.new/src/language: fr_FR.qm
+Seulement dans vokoscreenNG-3.0.3.new/src/language: hu.qm
+Seulement dans vokoscreenNG-3.0.3.new/src/language: id.qm
+Seulement dans vokoscreenNG-3.0.3.new/src/language: it_IT.qm
+Seulement dans vokoscreenNG-3.0.3.new/src/language: lt.qm
+Seulement dans vokoscreenNG-3.0.3.new/src/language: nl_NL.qm
+Seulement dans vokoscreenNG-3.0.3.new/src/language: no.qm
+Seulement dans vokoscreenNG-3.0.3.new/src/language: pt.qm
+Seulement dans vokoscreenNG-3.0.3.new/src/language: ru.qm
+Seulement dans vokoscreenNG-3.0.3.new/src/language: sk_SK.qm
+Seulement dans vokoscreenNG-3.0.3.new/src/language: sv_SE.qm
+Seulement dans vokoscreenNG-3.0.3.new/src/language: tr_TR.qm
+Seulement dans vokoscreenNG-3.0.3.new/src/language: uk_UA.qm
+Seulement dans vokoscreenNG-3.0.3.new/src/language: zh_CN.qm
+Seulement dans vokoscreenNG-3.0.3.new/src/language: zh_TW.qm
+Seulement dans vokoscreenNG-3.0.3.new/src: main.o
+Seulement dans vokoscreenNG-3.0.3.new/src: mainwindow.o
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkAudioPulse.cpp
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkAudioPulse.o
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkCameraController.cpp
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkCameraController.o
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkCameraWatcher.cpp
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkCameraWatcher.o
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkCameraWindow.cpp
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkCameraWindow.o
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkCountdown.cpp
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkCountdown.o
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkDownloader.cpp
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkDownloader.o
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkGlobalShortcut.cpp
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkGlobalShortcut.o
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkHelp.cpp
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkHelp.o
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkInformation.cpp
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkInformation.o
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkLicenses.cpp
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkLicenses.o
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkLimitDiskFreeSpace.cpp
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkLimitDiskFreeSpace.o
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkLoadExtension.cpp
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkLoadExtension.o
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkLocale.cpp
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkLocale.o
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkLog.cpp
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkLog.o
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkLogController.cpp
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkLogController.o
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkMagnifier.cpp
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkMagnifier.o
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkMagnifierController.cpp
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkMagnifierController.o
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkPlayer.cpp
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkPlayer.o
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkPlayerVideoSurface.cpp
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkPlayerVideoSurface.o
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkPulseGstr.cpp
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkPulseGstr.o
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkRegionButtonArrow.cpp
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkRegionButtonArrow.o
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkRegionChoise.cpp
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkRegionChoise.o
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkScreenManager.cpp
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkScreenManager.o
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkSettings.cpp
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkSettings.o
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkSpezialSlider.cpp
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkSpezialSlider.o
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkSystray.cpp
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkSystray.o
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkSystrayAlternative.cpp
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkSystrayAlternative.o
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkTheme.cpp
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkTheme.o
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkVersion.cpp
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkVersion.o
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkVideoSurface.cpp
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkVideoSurface.o
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkWatcherPlug.cpp
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkWatcherPlug.o
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkWinInfo.cpp
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_QvkWinInfo.o
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_camerasettingsdialog.cpp
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_camerasettingsdialog.o
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_mainwindow.cpp
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_mainwindow.o
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_predefs.h
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_qglobalshortcut.cpp
+Seulement dans vokoscreenNG-3.0.3.new/src: moc_qglobalshortcut.o
+Seulement dans vokoscreenNG-3.0.3.new/src: qglobalshortcut.o
+Seulement dans vokoscreenNG-3.0.3.new/src: qrc_screencast.cpp
+Seulement dans vokoscreenNG-3.0.3.new/src: qrc_screencast.o
+Seulement dans vokoscreenNG-3.0.3.new/src: ui_camerasettingsdialog.h
+Seulement dans vokoscreenNG-3.0.3.new/src: ui_formMainWindow.h
+Seulement dans vokoscreenNG-3.0.3.new/src: ui_help.h
+Seulement dans vokoscreenNG-3.0.3.new/src: ui_licenses.h
+Seulement dans vokoscreenNG-3.0.3.new/src: ui_player.h
+Seulement dans vokoscreenNG-3.0.3.new/src: vokoscreenNG
+diff -ru vokoscreenNG-3.0.3/src/vokoscreenNG.pro vokoscreenNG-3.0.3.new/src/vokoscreenNG.pro
+--- vokoscreenNG-3.0.3/src/vokoscreenNG.pro	2020-03-31 09:20:05.000000000 +0200
++++ vokoscreenNG-3.0.3.new/src/vokoscreenNG.pro	2020-04-21 23:41:35.026755843 +0200
+@@ -65,6 +65,21 @@
+ }
+   else: message(No translation files in project)
+ 
++unix:!macx {
++	isEmpty(PREFIX) {
++		PREFIX = /usr
++	}
++
++	target.path = $${PREFIX}/bin
++
++	icon.path = $${PREFIX}/share/pixmaps
++	icon.files = applications/vokoscreenNG.png
++
++	desktop.path = $${PREFIX}/share/applications
++	desktop.files = applications/vokoscreenNG.desktop
++
++	INSTALLS += target icon desktop
++}
+ 
+ # Clean target
+ QMAKE_CLEAN += $$TARGET */*~

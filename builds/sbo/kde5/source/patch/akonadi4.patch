@@ -1,0 +1,3 @@
+# Backport a patch from git master since there will not be another
+# official akonadi release after the current 1.13:
+cat $CWD/patch/akonadi4/akonadi_dont-leak-old-external-payload-files.patch | patch -p1 --verbose || { touch ${SLACK_KDE_BUILD_DIR}/${PKGNAME}.failed ; continue ; }

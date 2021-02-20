@@ -1,0 +1,4 @@
+# Fix compilation against sip-4.19:
+cat $CWD/patch/pykde4/0001-use-LIB_PYTHON-realpath.patch | patch -p1 --verbose || { touch ${SLACK_KDE_BUILD_DIR}/${PKGNAME}.failed ; continue ; }
+cat $CWD/patch/pykde4/0002-Add-some-missing-link-libraries.patch | patch -p1 --verbose || { touch ${SLACK_KDE_BUILD_DIR}/${PKGNAME}.failed ; continue ; }
+cat $CWD/patch/pykde4/0003-Fix-build-with-sip-4.19.patch | patch -p1 --verbose || { touch ${SLACK_KDE_BUILD_DIR}/${PKGNAME}.failed ; continue ; }

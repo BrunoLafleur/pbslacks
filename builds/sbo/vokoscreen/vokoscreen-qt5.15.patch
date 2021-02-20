@@ -1,0 +1,11 @@
+diff -ru vokoscreenNG-3.0.4/src/region/QvkRegionButtonArrow.cpp vokoscreenNG-3.0.4.new/src/region/QvkRegionButtonArrow.cpp
+--- vokoscreenNG-3.0.4/src/region/QvkRegionButtonArrow.cpp	2020-04-29 18:11:07.000000000 +0200
++++ vokoscreenNG-3.0.4.new/src/region/QvkRegionButtonArrow.cpp	2020-06-05 21:59:23.000000000 +0200
+@@ -20,6 +20,7 @@
+  * --End_License--
+  */
+ 
++#include <QPainterPath>
+ #include "QvkRegionButtonArrow.h"
+ 
+ QvkRegionButtonArrow::QvkRegionButtonArrow()
