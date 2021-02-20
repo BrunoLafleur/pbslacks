@@ -165,7 +165,6 @@ xmakepac () {
 	    ./${XPAC}.SlackBuild
 	    if [ $? -ne 0 ] ;then
 		mygt 'Correct this error and relaunch this script.'
-		cd ..;chown -R ${MYUSER}.$MYGROUP $XPAC
 		exit 1
 	    fi
 	)

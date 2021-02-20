@@ -54,7 +54,7 @@ xlocalsrcpac () {
     name="$1"
     path="$2"
     [ ! -d "$name" ] && mkdir "$name"
-    cp -au "$PBDIRPROG/builds/sbo/$name/*" "$name"
+    cp -au "$PBDIRPROG/builds/sbo/$name/"* "$name"
     rm -f "$name/${name}.tar.gz"
     if [ "$path" != '' ] ;then
       	emygt "Local copy of pbslacks/builds/src/\$path to \$name"
@@ -78,7 +78,7 @@ xgetsrc () {
     mv ../"$name-[0-9]"* . 2> /dev/null
     mv ../"$name" . 2> /dev/null
     [ ! -d "$name" ] && mkdir "$name"
-    cp -au "$PBDIRPROG/builds/sbo/$name/*" "$name"
+    cp -au "$PBDIRPROG/builds/sbo/$name/"* "$name"
     rm -f "$name/${name}.tar.gz"
     (
 	cd "$name"
