@@ -115,7 +115,7 @@ mkdir -p $PKG
 ( cd $PKG
   /sbin/explodepkg $OUTPUT/${WEBKITNAM}-${WEBKITVERSION}-${ARCH}-${WEBKITBUILD}${WEBKITTAG}.$PKGTYPE
   /sbin/explodepkg $OUTPUT/${PKGNAM}-${QTVERSION}-${ARCH}-${QTBUILD}${QTTAG}.$PKGTYPE
-  cat $OUTPUT/package-qtwebkit/install/doinst.sh | grep '^(' >> install/doinst.sh
+  cat $TMP/package-qtwebkit/install/doinst.sh | grep '^(' >> install/doinst.sh
   mv usr/doc/qtwebkit-* usr/doc/${PKGNAM}-*
   # Remove rpaths:
   for file in $(find . | xargs file | grep -e "executable" -e "shared object" | \
