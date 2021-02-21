@@ -85,26 +85,28 @@ TMP=${TMP:-/tmp/SBo}
 PKG=$TMP/package-${PKGNAM}
 OUTPUT=${OUTPUT:-/tmp}
 
+QTNAM="$OUTPUT/${PKGNAM}-${QTVERSION}-${ARCH}-${QTBUILD}${QTTAG}.$PKGTYPE"
+QTWEBKITNAM="$OUTPUT/${WEBKITNAM}-${WEBKITVERSION}-${ARCH}-${WEBKITBUILD}${WEBKITTAG}.$PKGTYPE"
+
 # Build Qt and package it without WebKit:
-if [ ! -f "$OUTPUT/${PKGNAM}-${QTVERSION}-${ARCH}-${QTBUILD}${QTTAG}.$PKGTYPE" ] ;then
+if [ ! -f "$QTNAM" ] ;then
     sh ./qt-nowebkit.SlackBuild
-    if [ ! -r $OUTPUT/${PKGNAM}-${QTVERSION}-${ARCH}-${QTBUILD}${QTTAG}.$PKGTYPE ]; then
+    if [ ! -r "$QTNAM" ]; then
 	echo "FATAL:  Failed to build Qt package without WebKit."
 	exit 1
     fi
 fi
 
 # Upgrade system to Qt (without WebKit):
-/sbin/upgradepkg --reinstall --install-new \
-		 $OUTPUT/${PKGNAM}-${QTVERSION}-${ARCH}-${QTBUILD}${QTTAG}.$PKGTYPE
+/sbin/upgradepkg --reinstall --install-new "$QTNAM"
 
 # Build standalone WebKit package (qtwebkit):
-rm -f $OUTPUT/${WEBKITNAM}-${WEBKITVERSION}-${ARCH}-${WEBKITBUILD}${WEBKITTAG}.$PKGTYPE
+rm -f "$QTWEBKITNAM"
 (
     cd qtwebkit
     sh ./qtwebkit.SlackBuild
 )
-if [ ! -r $OUTPUT/${WEBKITNAM}-${WEBKITVERSION}-${ARCH}-${WEBKITBUILD}${WEBKITTAG}.$PKGTYPE ]; then
+if [ ! -r "$QTWEBKITNAM" ]; then
   echo "FATAL:  Failed to build QtWebKit standalone package."
   exit 1
 fi
@@ -113,8 +115,8 @@ fi
 rm -rf $PKG
 mkdir -p $PKG
 ( cd $PKG
-  /sbin/explodepkg $OUTPUT/${WEBKITNAM}-${WEBKITVERSION}-${ARCH}-${WEBKITBUILD}${WEBKITTAG}.$PKGTYPE
-  /sbin/explodepkg $OUTPUT/${PKGNAM}-${QTVERSION}-${ARCH}-${QTBUILD}${QTTAG}.$PKGTYPE
+  /sbin/explodepkg "$QTWEBKITNAM"
+  /sbin/explodepkg "$QTNAM"
   cat $TMP/package-qtwebkit/install/doinst.sh | grep '^(' >> install/doinst.sh
   mv usr/doc/qtwebkit-* usr/doc/${PKGNAM}-*
   # Remove rpaths:
@@ -127,8 +129,8 @@ mkdir -p $PKG
   # Don't ship .la files:
   rm -f usr/lib${LIBDIRSUFFIX}/*.la
   rm -f usr/lib${LIBDIRSUFFIX}/qt/lib/*.la
-  /sbin/makepkg -l y -c n ../${PKGNAM}-${QTVERSION}-${ARCH}-${QTBUILD}${QTTAG}.$PKGTYPE
+  /sbin/makepkg -l y -c n "$QTNAM"
 )
 
 # Remove intermediate qtwebkit package:
-rm -f $OUTPUT/${WEBKITNAM}-${WEBKITVERSION}-${ARCH}-${WEBKITBUILD}${WEBKITTAG}${WEBKITTAG}.$PKGTYPE
+rm -f "$QTWEBKITNAM"
