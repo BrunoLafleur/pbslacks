@@ -1,6 +1,18 @@
 Qt is a complete and well-developed object-oriented framework for
 developing graphical user interface (GUI) applications using C++.
-This script packages version 4.x, parallel-installable with qt5.
+This script packages version 4.x together with qtwebkit,
+parallel-installable with qt5.
+
+WebKit is an open source web browser engine. WebKit's HTML and
+JavaScript code began as a branch of the KHTML and KJS libraries from
+KDE. As part of KDE framework KHTML was based on Qt but during their
+porting efforts Apple's engineers made WebKit toolkit independent.
+QtWebKit is a project aiming at porting this fabulous engine back
+to Qt.
+
+This dual bundled package is necessary for the compilation of KDE4 which
+don't finish without qtwebkit. Also at runtime, missing qtwebkit libs stop
+KDE4 from working.
 
 From the original SlackBuild script which works well for KDE4 compilation and
 other packages which depends on QT4 :
