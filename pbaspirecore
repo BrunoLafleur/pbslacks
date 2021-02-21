@@ -191,9 +191,8 @@ if [ $ISKDE4 -eq 1 ] ;then
 	(
 	    cd other/qt
 	    xgeturl "$KDE4OTHER_QT"
-	    cd qtwebkit
 	    xgeturl "$KDE4OTHER_QTWEBKIT"
-	    cd ../../PyQt
+	    cd ../PyQt
 	    xgeturl "$KDE4OTHER_PYQT"
 	    cd ../scim-tables
 	    xgeturl "$KDE4OTHER_SCIMTABLES"
