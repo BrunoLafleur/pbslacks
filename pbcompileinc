@@ -1,0 +1,23 @@
+#! /bin/sh
+
+# Auteur : Pierre Brochard (pierre.brochard.1982@m4x.org)
+# Date : 2019
+# License : See the LICENSE file in this repository.
+
+xpurgetmp () {
+    ppac="$1"
+    rm -f /tmp/"${ppac}-"[0-9m]*.t?z
+    rm -rf /tmp/"${ppac}-"[0-9m]*
+    rm -rf /tmp/*/"${ppac}-"[0-9m]*
+    rm -rf /tmp/package-"$ppac"
+    rm -rf /tmp/*/package-"$ppac"
+}
+
+xcleanpac() {
+    pac="$1"
+    dest="$2"
+    cp "/tmp/${pac}-"[0-9m]*.t?z* "$dest"
+    chown ${MYUSER}.$MYGROUP "$dest/${pac}"-[0-9m]*.t?z*
+    xpurgetmp "$pac"
+    xpurgepac "$dest/$pac-[0-9m]" t?z
+}

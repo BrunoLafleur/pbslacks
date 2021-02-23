@@ -276,6 +276,8 @@ done
 
 XEND=0
 OPTRECRE=
+OPTRECREKDE4=
+
 ISSYSTEM="$(cat $XTEMPOUT|grep '^system$'|wc -l)"
 ISSYSNET="$(cat $XTEMPOUT|grep '^systemnet$'|wc -l)"
 ISCOMPAT="$(cat $XTEMPOUT|grep '^compat32$'|wc -l)"
@@ -291,6 +293,7 @@ ISAUDACITY="$(cat $XTEMPOUT|grep '^audacity$'|wc -l)"
 ISARDOUR="$(cat $XTEMPOUT|grep '^ardour$'|wc -l)"
 ISTESS="$(cat $XTEMPOUT|grep '^tesseract4$'|wc -l)"
 ISBUMBLE="$(cat $XTEMPOUT|grep '^bumblebee$'|wc -l)"
+
 ISRECRE="$(cat $XTEMPOUT|grep '^recreatepackages$'|wc -l)"
 [ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -ispac1"
 ISRECRE="$(cat $XTEMPOUT|grep '^recreatepackages2$'|wc -l)"
@@ -301,12 +304,6 @@ ISRECRE="$(cat $XTEMPOUT|grep '^recreatecalibre$'|wc -l)"
 [ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -iscalibre"
 ISRECRE="$(cat $XTEMPOUT|grep '^recreatepackages4$'|wc -l)"
 [ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -ispac4"
-ISRECRE="$(cat $XTEMPOUT|grep '^recreatekde4deps$'|wc -l)"
-[ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -iskde4deps"
-ISRECRE="$(cat $XTEMPOUT|grep '^recreatekde4$'|wc -l)"
-[ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -iskde4"
-ISRECRE="$(cat $XTEMPOUT|grep '^recreatekde4depsi$'|wc -l)"
-[ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -iskde4depsi"
 ISRECRE="$(cat $XTEMPOUT|grep '^recreateframeworks$'|wc -l)"
 [ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -isframew"
 ISRECRE="$(cat $XTEMPOUT|grep '^recreatechromium$'|wc -l)"
@@ -319,6 +316,14 @@ ISRECRE="$(cat $XTEMPOUT|grep '^recreateaudacity$'|wc -l)"
 [ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -isaudacity"
 ISRECRE="$(cat $XTEMPOUT|grep '^recreateardour$'|wc -l)"
 [ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -isardour"
+
+ISRECRE="$(cat $XTEMPOUT|grep '^recreatekde4deps$'|wc -l)"
+[ $ISRECRE -eq 1 ] && OPTRECREKDE4="$OPTRECREKDE4 -iskde4deps"
+ISRECRE="$(cat $XTEMPOUT|grep '^recreatekde4$'|wc -l)"
+[ $ISRECRE -eq 1 ] && OPTRECREKDE4="$OPTRECREKDE4 -iskde4"
+ISRECRE="$(cat $XTEMPOUT|grep '^recreatekde4depsi$'|wc -l)"
+[ $ISRECRE -eq 1 ] && OPTRECREKDE4="$OPTRECREKDE4 -iskde4depsi"
+
 ISRECREBUMBLE="$(cat $XTEMPOUT|grep '^recreatebumblebee$'|wc -l)"
 ISBOOTLOAD="$(cat $XTEMPOUT|grep '^bootload$'|wc -l)"
 
@@ -430,6 +435,12 @@ if [ $XEND -eq 0 ] ;then
 	    $HOMESLACK/pbslacks/pbcompilepost -u $MYUSER -g $MYGROUP $OPTRECRE
 	fi
 	mygt "Recreate source packages done." >> $XTEMPMES
+    fi
+    if [ "$OPTRECREKDE4" != '' ] ;then
+	if [ $XTEST -ne 1 ] ;then
+	    $HOMESLACK/pbslacks/pbcompilekde4 -u $MYUSER -g $MYGROUP $OPTRECREKDE4
+	fi
+	mygt "Recreate source kde4 packages done." >> $XTEMPMES
     fi
     if [ $ISRECREBUMBLE -eq 1 ] ;then
 	if [ $XTEST -ne 1 ] ;then

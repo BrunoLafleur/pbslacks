@@ -275,7 +275,8 @@ if [ $ISFRAMEW -eq 1 ] ;then
 	[ ! -d frameworks ] && mkdir frameworks
 	echo '------------------------------------'
 	# Get sources
-	cp -a ../pbslacks/builds/sbo/kde5/* .
+	[ ! -d source ] && mkdir source
+	cp -a ../pbslacks/builds/sbo/kde5/* source
 	mygt "Alien Bob KDE5 scripts copied."
 	echo '------------------------------------'
 	(

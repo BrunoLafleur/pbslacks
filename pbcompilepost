@@ -8,6 +8,7 @@
 
 . "$(dirname $0)/pbinclude"
 . "$(dirname $0)/pbupgradeinc"
+. "$(dirname $0)/pbcompileinc"
 
 if [ ! $UID = 0 ]; then
     mygt 'This script must be done as root. Exit.'
@@ -40,9 +41,6 @@ ISOPENSHOT=0
 ISPITIVI=0
 ISAUDACITY=0
 ISARDOUR=0
-ISKDE4DEPS=0
-ISKDE4=0
-ISKDE4I=0
 ISFRAMEW=0
 
 while [ $# -ge 1 ] ;do
@@ -75,12 +73,6 @@ while [ $# -ge 1 ] ;do
 	ISAUDACITY=1;ISALL=0
     elif [ "$MYARG" = "-isardour" ] ;then
 	ISARDOUR=1;ISALL=0
-    elif [ "$MYARG" = "-iskde4deps" ] ;then
-	ISKDE4DEPS=1;ISALL=0
-    elif [ "$MYARG" = "-iskde4" ] ;then
-	ISKDE4=1;ISALL=0
-    elif [ "$MYARG" = "-iskde4i" ] ;then
-	ISKDE4I=1;ISALL=0
     elif [ "$MYARG" = "-isframew" ] ;then
 	ISFRAMEW=1;ISALL=0
     elif [ "$MYARG" = "-help" -o "$MYARG" = "-h" ] ;then
@@ -101,6 +93,7 @@ if [ $ISALL -eq 1 ] ;then
     ISPITIVI=1
     ISAUDACITY=1
     ISARDOUR=1
+    ISFRAMEW=1
 fi
 
 mygt 'Only after a system update and reboot.\nIf already done on this or another machine, this script is not useful.\nPress a touch for continue or abort.'|sed 's@\\n@\n@g'
@@ -108,24 +101,6 @@ read c
 
 # ===========================================================
 # Some helper functions.
-
-xpurgetmp () {
-    ppac="$1"
-    rm -f /tmp/"${ppac}-"[0-9m]*.t?z
-    rm -rf /tmp/"${ppac}-"[0-9m]*
-    rm -rf /tmp/*/"${ppac}-"[0-9m]*
-    rm -rf /tmp/package-"$ppac"
-    rm -rf /tmp/*/package-"$ppac"
-}
-
-xcleanpac() {
-    pac="$1"
-    dest="$2"
-    cp "/tmp/${pac}-"[0-9m]*.t?z* "$dest"
-    chown ${MYUSER}.$MYGROUP "$dest/${pac}"-[0-9m]*.t?z*
-    xpurgetmp "$pac"
-    xpurgepac "$dest/$pac-[0-9m]" t?z
-}
 
 xmakealienpac () {
     XDIR="$1"
@@ -178,33 +153,6 @@ xmakepac () {
     if [ "$XSUB" = '' ] ;then
 	upgradepkg --install-new --reinstall $XDIR/${XPAC}-[0-9m]*.t?z
 	rm -f $XLIBDIR/lib*.la
-    fi
-}
-
-xmakekdedep () {
-    XSRC="$1"
-    XPAC="$2"
-    XCAT="$3"
-    XSUB="$4"
-    if [ $RECOMP -eq 1 ] ;then
-	(
-	    (
-		cd kde4/source/$XCAT/$XSUB/$XSRC
-		sh ./${XSRC}.SlackBuild
-		if [ $? -ne 0 ] ;then
-		    mygt 'Correct this error and relaunch this script.'
-		    cd ..;chown -R ${MYUSER}.$MYGROUP $XPAC
-		    exit 1
-		fi
-	    )
-	    [ $? -ne 0 ] && exit 1
-	    cd kde4;mkdir -p $XCAT;cd $XCAT
-	    cp /tmp/${XPAC}-[0-9]*-x86_64-*.txz .
-	    upgradepkg --install-new --reinstall ${XPAC}-[0-9]*-x86_64-*.txz
-	    chown ${MYUSER}.$MYGROUP ${XPAC}-[0-9]*-x86_64-*.t?z
-	    xpurgetmp "$XSRC";xpurgetmp "$XPAC"
-	)
-	[ $? -ne 0 ] && exit 1
     fi
 }
 
@@ -331,107 +279,6 @@ if [ $ISCALIBRE -eq 1 ] ;then
     cp "$(pwd)/pbslacks/builds/alien/calibre_icu.patch" packages3/calibre/patches
     xmakealienpac packages3 calibre
     xhookcalibre
-fi
-
-if [ $ISKDE4DEPS -eq 1 ] ;then
-    export BUILD=1PB;export TAG=
-    # Packages which has been replaced.
-    # So I have modified them to not collide with the new ones.
-    # KDE4 have been made aware of those modifications.
-    xmakekdedep LibRaw LibRaw18 deps
-    xmakekdedep exiv2 exiv221 deps
-    xmakekdedep sip sip422 deps
-    xmakekdedep eigen3 eigen32 deps
-    xmakekdedep grantlee grantlee051 deps
-    xmakekdedep phonon4qt4 phonon4qt4 deps
-    xmakekdedep phonon-gstreamer phonon-gstreamer deps
-    xmakekdedep polkit-qt-1 polkit-qt4-1 deps
-    xmakekdedep qca qca213 deps
-    xmakekdedep libdbusmenu-qt libdbusmenu-qt4 deps
-
-    # I have to re-add suppressed packages.
-    # List is inside pbslacks/Slackpkg/blacklistkeepkde4
-    for i in akonadi automoc4 glade3 libbluedevil liblastfm \
-			 pm-utils qjson qt-gstreamer raptor2 redland \
-			 scim-input-pad scim-pinyin soprano PyQt attica \
-			 cgmanager gtk-xfce-engine orage qimageblitz qt \
-			 qtscriptgenerator rasqal scim scim-anthy scim-hangul \
-			 scim-m17n scim-tables strigi ;do
-	xmakekdedep $i $i other
-    done
-fi
-
-if [ $ISKDE4 -eq 1 ] ;then
-    export BUILD=1PB;export EXIT_ON_FAIL=yes
-    (
-	# Pour pykde4
-	cd kde4/deps
-	upgradepkg --install-new --reinstall sip422-[0-9]*-x86_64-*.txz
-    )
-    (
-	cd kde4/source/kde
-	# If we have ConsoleKit we inhibit for compilation.
-	# After update, we could suppress it.
-	if [ -d /usr/include/ConsoleKit ] ;then
-	    rm -rf /usr/include/ConsoleKit.save
-	    mv -f /usr/include/ConsoleKit /usr/include/ConsoleKit.save
-	fi
-	sh kde.SlackBuild
-	#sh kde.SlackBuild kdelibs kdebase:nepomuk-core kdepimlibs kdebase kdesdk extragear:libkscreen kdegraphics kdebindings kdebase:kde-workspace kdeaccessibility kdeutils kdelibs kdemultimedia extragear:libktorrent kdenetwork oxygen-icons kdeadmin kdeartwork kdegames kdetoys kdepim kdepim-runtime kdenetwork:kopete kdeedu kdewebdev kdebase:kde-baseapps kdeplasma-addons polkit-kde extragear
-	exit $?
-    )
-    ERR=$?
-    echo "Return code from SlackBuild : $ERR"
-    (
-	cd kde4/kde
-	for i in $(ls ../source/kde/modules) ;do
-	    [ -d "/tmp/kde_build/$i" ] && cp "/tmp/kde_build/$i/"*.t?z .
-	done
-	cp /tmp/kde_build/*.t?z .
-	chown ${MYUSER}.$MYGROUP *.t?z
-	xpurgesrc 't?z'
-    )
-    if [ -d /usr/include/ConsoleKit.save ] ;then
-	mv -f /usr/include/ConsoleKit.save /usr/include/ConsoleKit
-    fi
-    xhookkde4
-    if [ $ERR -eq 0 ] ;then
-	rm -rf /tmp/kde_build
-    else
-	exit 1
-    fi
-fi
-
-if [ $ISKDE4I -eq 1 ] ;then
-    export BUILD=1PB;export EXIT_ON_FAIL=yes
-    (
-	cd kde4/source/kdei/calligra-l10n
-	sh calligra-l10n.SlackBuild
-	ERR=$?
-	cd ../../../kde
-	cp /tmp/kde_build/*.t?z .
-	upgradepkg --install-new --reinstall calligra-l10n-*.txz
-	chown ${MYUSER}.$MYGROUP calligra-l10n-*.t?z
-	exit $?
-    )
-    ERR=$?
-    if [ $ERR -eq 0 ] ;then
-	rm -rf /tmp/kde_build
-	(
-	    cd kde4/source/kdei/kde-l10n
-	    sh kde-l10n.SlackBuild
-	    ERR=$?
-	    cd ../../../kde
-	    cp /tmp/kde_build/*.t?z .
-	    upgradepkg --install-new --reinstall kde-l10n-*.txz
-	    chown ${MYUSER}.$MYGROUP kde-l10n-*.t?z
-	    exit $?
-	)
-	ERR=$?
-    fi
-    if [ $ERR -eq 0 ] ;then
-	rm -rf /tmp/kde_build
-    fi
 fi
 
 if [ $ISFRAMEW -eq 1 ] ;then
