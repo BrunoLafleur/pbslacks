@@ -12,6 +12,22 @@ xpurgeindex () {
     rm -f "$dir/"*"/robots.txt"*
 }
 
+# Function for getting packages.
+myrget () {
+    # TODO : calculate prof with gpath
+    prof=$1
+    gpath="$2"
+    pack="$3"
+    accept="$4"
+    if [ -n "$accept" ] ;then
+	accept="$accept"
+    else
+	accept="-R *\?C=?;O=?"
+    fi
+    wget $accept -N -nv -np -nH --cut-dirs=$prof -r "$gpath/"
+    [ -d "$pack" ] && find "$pack" -name 'index.html*' -exec rm -f {} \;
+}
+
 # Get new version of a package in a repository.
 xgetpac () {
     pac="$1"

@@ -233,7 +233,6 @@ ISCLEAN="$(cat $XTEMPOUT|grep '^clean$'|wc -l)"
 COREATTR=
 [ $ISCORE -eq 1 ] && COREATTR="$COREATTR -core"
 [ $ISMULTI -eq 1 ] && COREATTR="$COREATTR -multi"
-[ $ISKDE4 -eq 1 ] && COREATTR="$COREATTR -kde4"
 [ $ISFRAMEW -eq 1 ] && COREATTR="$COREATTR -framew"
 [ $ISGPARTED -eq 1 ] && COREATTR="$COREATTR -gparted"
 [ $ISVBOX -eq 1 ] && COREATTR="$COREATTR -vbox"
@@ -248,8 +247,6 @@ fi
 			   >> $XTEMPMES
 [ $ISMULTI -eq 1 ] && emygt "Get/Update multilib compat 32 bits mode done : \Z3\${PBNAME}core\Zn." \
 			    >> $XTEMPMES
-[ $ISKDE4 -eq 1 ] && emygt "Get/Update KDE4 packages done : \Z3\${PBNAME}core\Zn." \
-			     >> $XTEMPMES
 [ $ISFRAMEW -eq 1 ] && emygt "Get/Update KDE5 frameworks libraries done : \Z3\${PBNAME}core\Zn." \
 			     >> $XTEMPMES
 [ $ISGPARTED -eq 1 ] && emygt "Get/Update gparted live iso done : \Z3\${PBNAME}core\Zn." \
@@ -259,6 +256,11 @@ fi
 [ $ISCLEAN -eq 1 ] && emygt "Local repository cleaned : \Z3\${PBNAME}core\Zn." \
 			    >> $XTEMPMES
 
+if [ $ISAKDE4 -eq 1 ] ;then
+    [ $XTEST -ne 1 ] && "$PBNAME"kde4
+    emygt "Get/Update KDE4 packages done : \Z3\${PBNAME}kde4\Zn." \
+	>> $XTEMPMES
+fi
 if [ $ISALIEN -eq 1 ] ;then
     [ $XTEST -ne 1 ] && "$PBNAME"alien
     emygt "Get/Update Alien Bob packages done : \Z3\${PBNAME}alien\Zn." \

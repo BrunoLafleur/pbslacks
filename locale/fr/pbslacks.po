@@ -151,60 +151,60 @@ msgstr "Vérifiez les signatures GPG des paquets téléchargés."
 msgid "Clean the local repository from old packages or source files."
 msgstr "On enlève les anciennes versions de la copie locale du système."
 
-#: pbaspire:247
+#: pbaspire:246
 #, sh-format
 msgid "Get/Update core system done : \\Z3${PBNAME}core\\Zn."
 msgstr "Coeur du système obtenu ou mis à jour : \\Z3${PBNAME}core\\Zn."
 
-#: pbaspire:249
+#: pbaspire:248
 #, sh-format
 msgid "Get/Update multilib compat 32 bits mode done : \\Z3${PBNAME}core\\Zn."
 msgstr ""
 "Mode de compatibilié 32 bits obtenu ou mis à jour : \\Z3${PBNAME}core\\Zn."
 
-#: pbaspire:251
-#, sh-format
-msgid "Get/Update KDE4 packages done : \\Z3${PBNAME}core\\Zn."
-msgstr "Paquets de KDE4 obtenus ou mis à jour : \\Z3${PBNAME}ponce\\Zn."
-
-#: pbaspire:253
+#: pbaspire:250
 #, sh-format
 msgid "Get/Update KDE5 frameworks libraries done : \\Z3${PBNAME}core\\Zn."
 msgstr ""
 "Librairies frameworks de KDE5 obtenues ou mises à jour : \\Z3${PBNAME}core"
 "\\Zn."
 
-#: pbaspire:255
+#: pbaspire:252
 #, sh-format
 msgid "Get/Update gparted live iso done : \\Z3${PBNAME}core\\Zn."
 msgstr "Image iso GParted live obtenue ou mise à jour : \\Z3${PBNAME}core\\Zn."
 
-#: pbaspire:257
+#: pbaspire:254
 #, sh-format
 msgid "Get/Update VirtualBox installer done : \\Z3${PBNAME}core\\Zn."
 msgstr "Installeur VirtualBox obtenu ou mis à jour : \\Z3${PBNAME}core\\Zn."
 
-#: pbaspire:259
+#: pbaspire:256
 #, sh-format
 msgid "Local repository cleaned : \\Z3${PBNAME}core\\Zn."
 msgstr "Copie locale du système nettoyée : \\Z3${PBNAME}core\\Zn."
 
-#: pbaspire:264
+#: pbaspire:261
+#, sh-format
+msgid "Get/Update KDE4 packages done : \\Z3${PBNAME}kde4\\Zn."
+msgstr "Paquets de KDE4 obtenus ou mis à jour : \\Z3${PBNAME}kde4\\Zn."
+
+#: pbaspire:266
 #, sh-format
 msgid "Get/Update Alien Bob packages done : \\Z3${PBNAME}alien\\Zn."
 msgstr "Paquets d'Alien Bob obtenus ou mis à jour : \\Z3${PBNAME}alien\\Zn."
 
-#: pbaspire:269
+#: pbaspire:271
 #, sh-format
 msgid "Get/Update Ponce packages done : \\Z3${PBNAME}ponce\\Zn."
 msgstr "Paquets de Ponce obtenus ou mis à jour : \\Z3${PBNAME}ponce\\Zn."
 
-#: pbaspire:273
+#: pbaspire:275
 #, sh-format
 msgid "Get/Update Slackonly packages done : \\Z3${PBNAME}slonly\\Zn."
 msgstr "Paquets de Slackonly obtenus ou mis à jour : \\Z3${PBNAME}slonly\\Zn."
 
-#: pbaspire:278
+#: pbaspire:280
 #, sh-format
 msgid ""
 "Get/Update Conraid and Slackel binary packages done : \\Z3${PBNAME}other\\Zn."
@@ -212,13 +212,13 @@ msgstr ""
 "Autres paquets binaires de Conraid et Slackel obtenus ou mis à jour : "
 "\\Z3${PBNAME}other\\Zn."
 
-#: pbaspire:283
+#: pbaspire:285
 #, sh-format
 msgid "Get/Update other source packages done : \\Z3${PBNAME}sources\\Zn."
 msgstr ""
 "Autres paquets sources obtenus ou mis à jour : \\Z3${PBNAME}sources\\Zn."
 
-#: pbaspire:289
+#: pbaspire:291
 #, sh-format
 msgid ""
 "Get/Update Firefox and Thunderbird for $XLANG language done : \\Z3${PBNAME}"
@@ -227,15 +227,15 @@ msgstr ""
 "Obtention ou mise à jour de Firefox et Thunderbird pour le langage $XLANG "
 "faite : \\Z3${PBNAME}mozilla\\Zn."
 
-#: pbaspire:293
+#: pbaspire:295
 msgid "GPG signatures checked :"
 msgstr "Signatures GPG vérifiées :"
 
-#: pbaspire:302 pbsetup:306 pbupgrade:457
+#: pbaspire:304 pbsetup:306 pbupgrade:457
 msgid "No action was demanded. Exit."
 msgstr "Aucune action demandée. Sortie."
 
-#: pbaspire:305 pbsetup:310 pbupgrade:83
+#: pbaspire:307 pbsetup:310 pbupgrade:83
 msgid "Actions which were done"
 msgstr "Actions réalisées"
 
@@ -246,60 +246,56 @@ msgid ""
 msgstr ""
 "Script à lancer dans le répertoire contenant packages, packages2 et al."
 
-#: pbaspirecore:132
+#: pbaspirecore:112
 msgid "Slackware current copied."
 msgstr "Copie Slackware current faite."
 
-#: pbaspirecore:134
+#: pbaspirecore:114
 msgid "Slackware current not copied."
 msgstr "Copie Slackware current non faite."
 
-#: pbaspirecore:161
+#: pbaspirecore:141
 msgid "Slackware multilib copied."
 msgstr "Copie Slackware multilib faite."
 
-#: pbaspirecore:163
+#: pbaspirecore:143
 msgid "Slackware multilib not copied."
 msgstr "Copie Slackware multilib non faite."
 
-#: pbaspirecore:180
-msgid "Alien Bob KDE4 scripts copied."
-msgstr "Copie des scripts pour KDE4 d'Alien Bob faite."
-
-#: pbaspirecore:280
+#: pbaspirecore:163
 msgid "Alien Bob KDE5 scripts copied."
 msgstr "Copie des scripts pour KDE5 d'Alien Bob faite."
 
-#: pbaspirecore:294
+#: pbaspirecore:177
 msgid "KDE5 frameworks sources copied."
 msgstr "Copie des sources de KDE5 frameworks faite."
 
-#: pbaspirecore:335
+#: pbaspirecore:218
 msgid "Check GPG signatures :"
 msgstr "Vérification des signatures GPG :"
 
-#: pbaspirecore:360
+#: pbaspirecore:243
 msgid "GParted copied."
 msgstr "Copie GParted faite."
 
-#: pbaspirecore:362 pbaspirecore:368
+#: pbaspirecore:245 pbaspirecore:251
 msgid "GParted not copied."
 msgstr "Copie GParted non faite."
 
-#: pbaspirecore:391
+#: pbaspirecore:274
 msgid "VirtualBox copied."
 msgstr "Copie VirtualBox faite."
 
-#: pbaspirecore:393 pbaspirecore:399
+#: pbaspirecore:276 pbaspirecore:282
 msgid "VirtualBox not copied."
 msgstr "Copie VirtualBox non faite."
 
-#: pbaspireinc:21
+#: pbaspireinc:37
 #, sh-format
 msgid "Package $pac :"
 msgstr "Paquet $pac :"
 
-#: pbaspireinc:60
+#: pbaspireinc:76
 #, sh-format
 msgid "Local copy of pbslacks/builds/src/$path to $name"
 msgstr "Copie locale de pbslacks/builds/src/$path vers $name"
