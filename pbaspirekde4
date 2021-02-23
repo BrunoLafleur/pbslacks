@@ -42,15 +42,15 @@ export HOMESLACK="$MYPWD"
     echo '------------------------------------'
     cp -a ../../pbslacks/builds/sbo/kde4/* .
     mygt "Alien Bob KDE4 scripts copied."
+    LOCALSRC=../../../pbslacks/builds/src
     (
 	cd deps
 	for i in LibRaw exiv2 grantlee libdbusmenu-qt polkit-qt-1 qca sip ;do
-	    cp ../../../pbslacks/builds/src/${i}-[0-9]* $i
+	    cp $LOCALSRC/${i}-[0-9]* $i
 	done
-	cp ../../../pbslacks/builds/src/phonon-backend-gstreamer-* \
-	   phonon-gstreamer
-	cp ../../../pbslacks/builds/src/eigen-* eigen3
-	cp ../../../pbslacks/builds/src/phonon-[0-9]* phonon4qt4
+	cp $LOCALSRC/phonon-backend-gstreamer-* phonon-gstreamer
+	cp $LOCALSRC/eigen-* eigen3
+	cp $LOCALSRC/phonon-[0-9]* phonon4qt4
     )
     (
 	cd other/qt
@@ -71,7 +71,7 @@ export HOMESLACK="$MYPWD"
 		       scim-input-pad scim-m17n strigi akonadi cgmanager \
 		       gtk-xfce-engine liblastfm pm-utils qt-gstreamer \
 		       qtscriptgenerator ;do
-	    cp ../../../pbslacks/builds/src/${i}-[0-9]* $i
+	    cp $LOCALSRC/${i}-[0-9]* $i
 	done
     )
     (
@@ -111,7 +111,7 @@ export HOMESLACK="$MYPWD"
 	    xgeturl "$KDE4_KDEVELOPPGQT"
 	    xpurgesrc 'tar.?z' sig
 	    for i in polkit-kde libnm-qt kaudiocreator ;do
-		cp ../../../../../pbslacks/builds/src/${i}-[0-9]* .
+		cp ../../$LOCALSRC/${i}-[0-9]* .
 	    done
 	)
     )
