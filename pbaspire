@@ -256,7 +256,7 @@ fi
 [ $ISCLEAN -eq 1 ] && emygt "Local repository cleaned : \Z3\${PBNAME}core\Zn." \
 			    >> $XTEMPMES
 
-if [ $ISAKDE4 -eq 1 ] ;then
+if [ $ISKDE4 -eq 1 ] ;then
     [ $XTEST -ne 1 ] && "$PBNAME"kde4
     emygt "Get/Update KDE4 packages done : \Z3\${PBNAME}kde4\Zn." \
 	>> $XTEMPMES
