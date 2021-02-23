@@ -145,83 +145,83 @@ msgstr ""
 msgid "Clean the local repository from old packages or source files."
 msgstr ""
 
-#: pbaspire:247
+#: pbaspire:246
 #, sh-format
 msgid "Get/Update core system done : \\Z3${PBNAME}core\\Zn."
 msgstr ""
 
-#: pbaspire:249
+#: pbaspire:248
 #, sh-format
 msgid "Get/Update multilib compat 32 bits mode done : \\Z3${PBNAME}core\\Zn."
 msgstr ""
 
-#: pbaspire:251
-#, sh-format
-msgid "Get/Update KDE4 packages done : \\Z3${PBNAME}core\\Zn."
-msgstr ""
-
-#: pbaspire:253
+#: pbaspire:250
 #, sh-format
 msgid "Get/Update KDE5 frameworks libraries done : \\Z3${PBNAME}core\\Zn."
 msgstr ""
 
-#: pbaspire:255
+#: pbaspire:252
 #, sh-format
 msgid "Get/Update gparted live iso done : \\Z3${PBNAME}core\\Zn."
 msgstr ""
 
-#: pbaspire:257
+#: pbaspire:254
 #, sh-format
 msgid "Get/Update VirtualBox installer done : \\Z3${PBNAME}core\\Zn."
 msgstr ""
 
-#: pbaspire:259
+#: pbaspire:256
 #, sh-format
 msgid "Local repository cleaned : \\Z3${PBNAME}core\\Zn."
 msgstr ""
 
-#: pbaspire:264
+#: pbaspire:261
+#, sh-format
+msgid "Get/Update KDE4 packages done : \\Z3${PBNAME}kde4\\Zn."
+msgstr ""
+
+#: pbaspire:266
 #, sh-format
 msgid "Get/Update Alien Bob packages done : \\Z3${PBNAME}alien\\Zn."
 msgstr ""
 
-#: pbaspire:269
+#: pbaspire:271
 #, sh-format
 msgid "Get/Update Ponce packages done : \\Z3${PBNAME}ponce\\Zn."
 msgstr ""
 
-#: pbaspire:273
+#: pbaspire:275
 #, sh-format
 msgid "Get/Update Slackonly packages done : \\Z3${PBNAME}slonly\\Zn."
 msgstr ""
 
-#: pbaspire:278
+#: pbaspire:280
 #, sh-format
 msgid ""
 "Get/Update Conraid and Slackel binary packages done : \\Z3${PBNAME}other\\Zn."
 msgstr ""
 
-#: pbaspire:283
+#: pbaspire:285
 #, sh-format
 msgid "Get/Update other source packages done : \\Z3${PBNAME}sources\\Zn."
 msgstr ""
 
-#: pbaspire:289
+#: pbaspire:291
 #, sh-format
 msgid ""
 "Get/Update Firefox and Thunderbird for $XLANG language done : \\Z3${PBNAME}"
 "mozilla\\Zn."
 msgstr ""
 
-#: pbaspire:293
+#: pbaspire:295
 msgid "GPG signatures checked :"
 msgstr ""
 
-#: pbaspire:302 pbsetup:306 pbupgrade:457
+#: pbaspire:304 pbsetup:306 pbupgrade:457
 msgid "No action was demanded. Exit."
 msgstr ""
 
-#: pbaspire:305 pbsetup:310 pbupgrade:83
+#: pbaspire:307 pbsetup:310 pbupgrade:83
 msgid "Actions which were done"
 msgstr ""
 
@@ -231,60 +231,56 @@ msgid ""
 "Launch this script in the directory including packages, packages2 et al."
 msgstr ""
 
-#: pbaspirecore:132
+#: pbaspirecore:112
 msgid "Slackware current copied."
 msgstr ""
 
-#: pbaspirecore:134
+#: pbaspirecore:114
 msgid "Slackware current not copied."
 msgstr ""
 
-#: pbaspirecore:161
+#: pbaspirecore:141
 msgid "Slackware multilib copied."
 msgstr ""
 
-#: pbaspirecore:163
+#: pbaspirecore:143
 msgid "Slackware multilib not copied."
 msgstr ""
 
-#: pbaspirecore:180
-msgid "Alien Bob KDE4 scripts copied."
-msgstr ""
-
-#: pbaspirecore:280
+#: pbaspirecore:163
 msgid "Alien Bob KDE5 scripts copied."
 msgstr ""
 
-#: pbaspirecore:294
+#: pbaspirecore:177
 msgid "KDE5 frameworks sources copied."
 msgstr ""
 
-#: pbaspirecore:335
+#: pbaspirecore:218
 msgid "Check GPG signatures :"
 msgstr ""
 
-#: pbaspirecore:360
+#: pbaspirecore:243
 msgid "GParted copied."
 msgstr ""
 
-#: pbaspirecore:362 pbaspirecore:368
+#: pbaspirecore:245 pbaspirecore:251
 msgid "GParted not copied."
 msgstr ""
 
-#: pbaspirecore:391
+#: pbaspirecore:274
 msgid "VirtualBox copied."
 msgstr ""
 
-#: pbaspirecore:393 pbaspirecore:399
+#: pbaspirecore:276 pbaspirecore:282
 msgid "VirtualBox not copied."
 msgstr ""
 
-#: pbaspireinc:21
+#: pbaspireinc:37
 #, sh-format
 msgid "Package $pac :"
 msgstr ""
 
-#: pbaspireinc:60
+#: pbaspireinc:76
 #, sh-format
 msgid "Local copy of pbslacks/builds/src/$path to $name"
 msgstr ""

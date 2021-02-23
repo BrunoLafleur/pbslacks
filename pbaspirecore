@@ -15,14 +15,13 @@ XDIR="$(dirname $0)"
 xhelp () {
     mygt 'Launch this script in a new directory.\nor in a directory which contains slackware64-current.\n\npbslacks should be side by side of this current directory.'|sed 's@\\n@\n@g'
     echo
-    echo '> ../pbslacks/pbaspirecore [-core] [-multi] [-kde4] [-framew]'
+    echo '> ../pbslacks/pbaspirecore [-core] [-multi] [-framew]'
     echo '>                 [-gparted] [-vnox] [-purge] [-check] [-help|-h]'
 }
 
 if [ $# -eq 0 ] ;then
     ISCORE=1
     ISMULTI=1
-    ISKDE4=1
     ISFRAMEW=1
     ISGPARTED=1
     ISVBOX=1
@@ -31,7 +30,6 @@ if [ $# -eq 0 ] ;then
 else
     ISCORE=0
     ISMULTI=0
-    ISKDE4=0
     ISFRAMEW=0
     ISGPARTED=0
     ISVBOX=0
@@ -45,8 +43,6 @@ while [ $# -ge 1 ] ;do
 	ISCORE=1
     elif [ "$MYARG" = "-multi" ] ;then
 	ISMULTI=1
-    elif [ "$MYARG" = "-kde4" ] ;then
-	ISKDE4=1
     elif [ "$MYARG" = "-framew" ] ;then
 	ISFRAMEW=1
     elif [ "$MYARG" = "-gparted" ] ;then
@@ -72,22 +68,6 @@ fi
 
 MYPWD=$(pwd)
 export HOMESLACK="$MYPWD"
-
-# Function for getting packages.
-myrget () {
-    # TODO : calculate prof with gpath
-    prof=$1
-    gpath="$2"
-    pack="$3"
-    accept="$4"
-    if [ -n "$accept" ] ;then
-	accept="$accept"
-    else
-	accept="-R *\?C=?;O=?"
-    fi
-    wget $accept -N -nv -np -nH --cut-dirs=$prof -r "$gpath/"
-    [ -d "$pack" ] && find "$pack" -name 'index.html*' -exec rm -f {} \;
-}
 
 # Can be the USB stick.
 CDIR=$(basename $MYPWD)
@@ -169,103 +149,6 @@ if [ $ISMULTI -eq 1 -o $ISPURGE -eq 1 ] ;then
 	)
     fi
     echo '------------------------------------'
-fi
-
-# KDE4
-if [ $ISKDE4 -eq 1 ] ;then
-    (
-	cd kde4/source
-	echo '------------------------------------'
-	cp -a ../../pbslacks/builds/sbo/kde4/* .
-	mygt "Alien Bob KDE4 scripts copied."
-	(
-	    cd deps
-	    for i in LibRaw exiv2 grantlee libdbusmenu-qt polkit-qt-1 qca sip ;do
-		cp ../../../pbslacks/builds/src/${i}-[0-9]* $i
-	    done
-	    cp ../../../pbslacks/builds/src/phonon-backend-gstreamer-* \
-	       phonon-gstreamer
-	    cp ../../../pbslacks/builds/src/eigen-* eigen3
-	    cp ../../../pbslacks/builds/src/phonon-[0-9]* phonon4qt4
-	)
-	(
-	    cd other/qt
-	    xgeturl "$KDE4OTHER_QT"
-	    xgeturl "$KDE4OTHER_QTWEBKIT"
-	    cd ../PyQt
-	    xgeturl "$KDE4OTHER_PYQT"
-	    cd ../scim-tables
-	    xgeturl "$KDE4OTHER_SCIMTABLES"
-	    cd ../scim-pinyin
-	    xgeturl "$KDE4OTHER_SCIMPINYIN"
-	    cd ../soprano
-	    xgeturl "$KDE4OTHER_SOPRANO"
-	    cd ../glade3
-	    xgeturl "$KDE4OTHER_GLADE3"
-	    cd ..
-	    for i in orage raptor2 rasqal redland scim scim-anthy scim-hangul \
-			   scim-input-pad scim-m17n strigi akonadi cgmanager \
-			   gtk-xfce-engine liblastfm pm-utils qt-gstreamer \
-			   qtscriptgenerator ;do
-		cp ../../../pbslacks/builds/src/${i}-[0-9]* $i
-	    done
-	)
-	(
-	    cd kde;[ ! -d src ] && mkdir src;cd src
-	    myrget 3 "$KDE4_SRC" .
-	    xgeturl "$KDE4_KACTIVITIES"
-	    xgeturl "$KDE4_APPS/kdelibs-4.14.38.tar.xz"
-	    xgeturl "$KDE4_WORKSPACE"
-	    xpurgesrc 'tar.?z' sig;xpurgesrc 'zip'
-	    (
-		[ ! -d extragear ] && mkdir extragear;cd extragear
-		myrget 2 "$KDE4_CALLIGRA" .
-		xgeturl "$KDE4_LIBKSCREEN"
-		xgeturl "$KDE4_LIBKTORRENT"
-		xgeturl "$KDE4_KTORRENT"
-		xgeturl "$KDE4_AMAROK"
-		xgeturl "$KDE4_BLUEDEVIL"
-		xgeturl "$KDE4_K3B"
-		mv k3b-2.0.3a.tar.xz k3b-2.0.3.tar.xz
-		xgeturl "$KDE4_KDECONNECT"
-		xgeturl "$KDE4_KDEVPYTHON"
-		xgeturl "$KDE4_KDEVELOP"
-		xgeturl "$KDE4_KDEVELOPPHP"
-		xgeturl "$KDE4_KDEVELOPPHPDOCS"
-		xgeturl "$KDE4_KDEVPLATFORM"
-		xgeturl "$KDE4_KIOMTP"
-		xgeturl "$KDE4_KPLAYER"
-		xgeturl "$KDE4_KSCREEN"
-		xgeturl "$KDE4_KWEBKITPART"
-		xgeturl "$KDE4_LIBMMQT"
-		mv libmm-qt-1.0.1-1.tar.xz libmm-qt-1.0.1.tar.xz
-		xgeturl "$KDE4_OXYGENGTK2"
-		xgeturl "$KDE4_PARTITIONMANAGER"
-		xgeturl "$KDE4_PLASMANM"
-		xgeturl "$KDE4_SKANLITE"
-		xgeturl "$KDE4_WICDKDE"
-		xgeturl "$KDE4_KDEVELOPPGQT"
-		xpurgesrc 'tar.?z' sig
-		for i in polkit-kde libnm-qt kaudiocreator ;do
-		    cp ../../../../../pbslacks/builds/src/${i}-[0-9]* .
-		done
-	    )
-	)
-	echo '------------------------------------'
-	(
-	    cd kdei/kde-l10n;ln -sf ../../kde/src/kde-l10n/* .
-	)
-	(
-	    cd kdei/calligra-l10n;ln -sf ../../kde/src/extragear/calligra-l10n/* .
-	)
-	echo '------------------------------------'
-    )
-    if [ -d slackware64-current ] ;then
-	(
-	    cd slackware64-current
-	    ln -sf ../kde4 .
-	)
-    fi
 fi
 
 # Frameworks KDE5
