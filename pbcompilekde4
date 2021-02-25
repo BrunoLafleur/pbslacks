@@ -106,6 +106,8 @@ export PKGTYPE=txz
 
 if [ $ISKDE4DEPS -eq 1 ] ;then
     export BUILD=1PB;export TAG=
+    xmakekdedep qt qt other
+    exit 0
     # Packages which has been replaced.
     # So I have modified them to not collide with the new ones.
     # KDE4 have been made aware of those modifications.
