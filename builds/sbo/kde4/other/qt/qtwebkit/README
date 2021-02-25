@@ -4,3 +4,5 @@ KDE. As part of KDE framework KHTML was based on Qt but during their
 porting efforts Apple's engineers made WebKit toolkit independent.
 QtWebKit is a project aiming at porting this fabulous engine back
 to Qt.
+
+qtwebkit depends on qt.
