@@ -54,8 +54,8 @@ export HOMESLACK="$MYPWD"
     )
     (
 	cd other/qt
-	xgeturl "$KDE4OTHER_QT"
-	xgeturl "$KDE4OTHER_QTWEBKIT"
+	(cd qt;xgeturl "$KDE4OTHER_QT")
+	(cd qtwebkit;xgeturl "$KDE4OTHER_QTWEBKIT")
 	cd ../PyQt
 	xgeturl "$KDE4OTHER_PYQT"
 	cd ../scim-tables
