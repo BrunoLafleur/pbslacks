@@ -28,6 +28,7 @@
 #   ./KDE.SlackBuild kdeedu:marble
 #   ./KDE.SlackBuild kdebindings:perlqt,perlkde
 
+TAG=${TAG:-_SBo}
 
 CLEANUP=${CLEANUP:-"yes"} # clean up build directory after successful build.
 PRECHECK=${PRECHECK:-"no"} # don't let the script check the available sources.
@@ -247,9 +248,9 @@ build_mod_pkg () {
       # Instead, a list of packages to be built will be output.
       if [ ! -z "$PRINT_PACKAGE_NAME" ]; then
         if [ -r $CWD/build/${PKGNAME} ]; then
-          MODBUILD=$(cat $CWD/build/${PKGNAME})
+          MODBUILD=$(cat $CWD/build/${PKGNAME})$TAG
         else
-          MODBUILD=$BUILD
+          MODBUILD=$BUILD$TAG
         fi
         if [ "$PKGNAME" = "kde-runtime" -o "$PKGNAME" = "kmix" ]; then
           # If this package is being built for ALSA (no PulseAudio), use the _alsa $TAG:
@@ -353,9 +354,9 @@ build_mod_pkg () {
           touch $PKG/install/slack-desc-missing
         fi
         if [ -r $CWD/build/${PKGNAME} ]; then
-          MODBUILD=$(cat $CWD/build/${PKGNAME})
+          MODBUILD=$(cat $CWD/build/${PKGNAME})$TAG
         else
-          MODBUILD=$BUILD
+          MODBUILD=$BUILD$TAG
         fi
         if [ "$PKGNAME" = "kde-runtime" -o "$PKGNAME" = "kmix" ]; then
           # If this package is being built for ALSA (no PulseAudio), use the _alsa $TAG:
@@ -364,7 +365,7 @@ build_mod_pkg () {
           fi
         fi
         if [ -r $CWD/makepkg/${PKGNAME} ]; then
-          BUILD=$MODBUILD . $CWD/makepkg/${PKGNAME}
+          TAG=$TAG BUILD=$MODBUILD . $CWD/makepkg/${PKGNAME}
         else
           /sbin/makepkg -l y -c n ${SLACK_KDE_BUILD_DIR}/${kde_module}/${PKGNAME}-$(echo $MODULAR_PACKAGE_VERSION |tr - _)-${PKGARCH}-${MODBUILD}.txz
         fi
