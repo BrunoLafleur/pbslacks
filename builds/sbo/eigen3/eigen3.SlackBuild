@@ -26,6 +26,7 @@ cd $(dirname $0) ; CWD=$(pwd)
 PKGNAM=eigen
 VERSION=3.3.7
 BUILD=${BUILD:-1}
+TAG=${TAG:-_SBo}
 
 # Automatically determine the architecture we're building on:
 MARCH=$( uname -m )
@@ -43,7 +44,7 @@ fi
 # the name of the created package would be, and then exit. This information
 # could be useful to other scripts.
 if [ ! -z "${PRINT_PACKAGE_NAME}" ]; then
-  echo "${PKGNAM}3-$VERSION-$ARCH-$BUILD.txz"
+  echo "${PKGNAM}3-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}"
   exit 0
 fi
 
@@ -105,5 +106,5 @@ mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 
 cd $PKG
-/sbin/makepkg -l y -c n $TMP/eigen3-$VERSION-$ARCH-$BUILD.txz
+/sbin/makepkg -l y -c n $TMP/eigen3-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
