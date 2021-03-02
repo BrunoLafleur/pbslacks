@@ -24,7 +24,7 @@
 
 PRGNAM=msgpack-python
 SRCNAM=$(echo $PRGNAM | cut -c1-7)
-VERSION=${VERSION:-0.6.1}
+VERSION=${VERSION:-0.6.2}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 

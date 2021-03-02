@@ -25,6 +25,7 @@ cd $(dirname $0) ; CWD=$(pwd)
 PKGNAM=guile
 VERSION=${VERSION:-$(echo $PKGNAM-*.tar.?z | rev | cut -f 3- -d . | cut -f 1 -d - | rev)}
 BUILD=${BUILD:-1}
+TAG=${TAG:-_SBo}
 
 # Automatically determine the architecture we're building on:
 if [ -z "$ARCH" ]; then
@@ -40,7 +41,7 @@ fi
 # the name of the created package would be, and then exit. This information
 # could be useful to other scripts.
 if [ ! -z "${PRINT_PACKAGE_NAME}" ]; then
-  echo "$PKGNAM-$VERSION-$ARCH-$BUILD.txz"
+  echo "$PKGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}"
   exit 0
 fi
 
@@ -146,5 +147,5 @@ mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 
 cd $PKG
-/sbin/makepkg -l y -c n $TMP/guile2.2-$VERSION-$ARCH-$BUILD.txz
+/sbin/makepkg -l y -c n $TMP/guile2.2-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
