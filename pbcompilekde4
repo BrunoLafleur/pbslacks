@@ -133,7 +133,7 @@ if [ $ISKDE4DEPS -eq 1 ] ;then
 fi
 
 if [ $ISKDE4 -eq 1 ] ;then
-    export BUILD=1PB;export EXIT_ON_FAIL=yes
+    export BUILD=1;export TAG=_PB;export EXIT_ON_FAIL=yes
     (
 	# Pour pykde4
 	cd kde4/deps
