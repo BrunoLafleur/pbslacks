@@ -1,0 +1,26 @@
+--- ffmpeg.SlackBuild.old	2021-03-10 22:43:28.000000000 +0100
++++ ffmpeg.SlackBuild	2021-03-10 22:43:41.000000000 +0100
+@@ -147,10 +147,11 @@
+ opengl=""     ; [ "${OPENGL:-yes}" != "no" ]      && opengl="--enable-opengl"
+ openjpeg=""   ; [ "${JP2:-yes}" != "no" ]         && openjpeg="--enable-libopenjpeg"
+ pulse=""      ; [ "${PULSEAUDIO:-yes}" != "no" ]  && pulse="--enable-libpulse"
+ samba=""      ; [ "${SAMBA:-yes}" != "no" ]       && samba="--enable-libsmbclient"
+ wavpack=""    ; [ "${WAVPACK:-yes}" != "no" ]     && wavpack="--enable-libwavpack"
++aom=""    ; [ "${AOM:-yes}" != "no" ]     && wavpack="--enable-libaom"
+ 
+ # No default patent encumbered features:
+ aac=""        ; [ "${AAC:-no}" = "no" ]           && aac="--disable-encoder=aac"
+ 
+ rm -rf $PKG
+@@ -239,10 +240,11 @@
+   $pulse \
+   $rubberband \
+   $samba \
+   $ssl \
+   $tesseract \
++  $aom \
+   $wavpack || exit 1
+ 
+ make $NUMJOBS || make || exit 1
+ make install DESTDIR=$PKG || exit 1
+ make install-man DESTDIR=$PKG || exit 1
