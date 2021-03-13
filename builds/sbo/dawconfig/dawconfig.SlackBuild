@@ -48,6 +48,7 @@ cp -a $CWD/rt_audio.conf $PKG/etc/security/limits.d
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a $CWD/DAW.txt $CWD/QJACKCTL.txt $PKG/usr/doc/$PRGNAM-$VERSION
 
+# For Pulseaudio with Jack.
 PAJACKCON=pajackconnect-master.tar.gz
 
 if [ -f "$PAJACKCON" ] ;then
@@ -61,6 +62,14 @@ if [ -f "$PAJACKCON" ] ;then
 	   $PKG/usr/doc/$PRGNAM-$VERSION/JACKPA.txt
 	cd ..;rm -rf $PRGNAM
     )
+fi
+
+# For Opus sound stream in a mp4 conteneur with MPlayer.
+MPLAYERCODECS=$(ls -t /usr/doc/MPlayer-*/codecs.conf-sample 2> /dev/null|head -1)
+
+if [ "$MPLAYERCODECS" != '' ] ;then
+    mkdir -p $PKG/etc/mplayer
+    cat "$MPLAYERCODECS" $CWD/opusmp4.conf > $PKG/etc/mplayer/codecs.conf
 fi
 
 mkdir -p $PKG/install
