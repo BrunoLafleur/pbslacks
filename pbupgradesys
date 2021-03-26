@@ -55,13 +55,13 @@ upgradesys () {
     slackpkg upgrade slackpkg
     slackpkg update
     slackpkg new-config
-    XCURDIRA=slackware64-current/slackware64/a
+    XCURDIRA=slackware64/a
     if [ $(ls $XCURDIRA/aaa_glibc-solibs-*.t?z 2> /dev/null|wc -l) -gt 0 ] ;then
 	(
 	    cd $XCURDIRA
-	    PAC1=$(lt -t aaa_glibc-solibs-*.t?z|head -1)
-	    PAC2=$(lt -t aaa_libraries-*.t?z|head -1)
 	    if [ $(ls /var/log/packages/glibc-solibs-*.t?z|wc -l) -gt 0 ] ;then
+		PAC1=$(lt -t aaa_glibc-solibs-*.t?z|head -1)
+		PAC2=$(lt -t aaa_libraries-*.t?z|head -1)
 		upgradepkg glibc-solibs%$PAC1
 		upgradepkg aaa_elflibs%$PAC2
 	    else
