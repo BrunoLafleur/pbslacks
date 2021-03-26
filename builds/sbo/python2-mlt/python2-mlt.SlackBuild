@@ -149,4 +149,4 @@ cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 # Build the package:
 cd $PKG
-makepkg -l y -c n $TMP/${PKGNAM}-${VERSION}-${ARCH}-${BUILD}$TAG.${PKGTYPE:-txz}"
+makepkg -l y -c n "$TMP/${PKGNAM}-${VERSION}-${ARCH}-${BUILD}$TAG.${PKGTYPE:-txz}"
