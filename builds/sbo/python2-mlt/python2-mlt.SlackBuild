@@ -29,7 +29,8 @@ cd $(dirname $0) ; CWD=$(pwd)
 PKGNAM=python2-mlt
 SRCNAM=mlt
 VERSION=${VERSION:-6.20.0}
-BUILD=${BUILD:-1_PB}
+BUILD=${BUILD:-1}
+TAG=${TAG-_SBo}
 
 PYTHONSITEPKG=$(python -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")
 
@@ -51,7 +52,7 @@ fi
 # the name of the created package would be, and then exit. This information
 # could be useful to other scripts.
 if [ ! -z "${PRINT_PACKAGE_NAME}" ]; then
-  echo "$PKGNAM-${VERSION}-${ARCH}-${BUILD}.txz"
+  echo "$PKGNAM-${VERSION}-${ARCH}-${BUILD}$TAG.${PKGTYPE:-txz}"
   exit 0
 fi
 
@@ -148,4 +149,4 @@ cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 # Build the package:
 cd $PKG
-makepkg -l y -c n $TMP/${PKGNAM}-${VERSION}-${ARCH}-${BUILD}.txz
+makepkg -l y -c n $TMP/${PKGNAM}-${VERSION}-${ARCH}-${BUILD}$TAG.${PKGTYPE:-txz}"

@@ -162,6 +162,7 @@ XNPROC=$(nproc)
 export CMAKE_BUILD_PARALLEL_LEVEL=$XNPROC
 export MAKEFLAGS="-j$XNPROC"
 export PKGTYPE=txz
+export TAG=_PB
 # ===========================================================
 
 if [ $ISPAC1 -eq 1 ] ;then
