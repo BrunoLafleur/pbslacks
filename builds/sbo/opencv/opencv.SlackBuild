@@ -26,7 +26,8 @@ cd $(dirname $0) ; CWD=$(pwd)
 
 PKGNAM=opencv
 VERSION=${VERSION:-4.4.0}
-BUILD=${BUILD:-1_PB}
+BUILD=${BUILD:-1}
+TAG=${TAG-_SBo}
 
 NUMJOBS=${NUMJOBS:-" -j$(expr $(nproc) + 1) "}
 
@@ -45,7 +46,7 @@ fi
 # the name of the created package would be, and then exit. This information
 # could be useful to other scripts.
 if [ ! -z "${PRINT_PACKAGE_NAME}" ]; then
-  echo "$PKGNAM-${VERSION}-${ARCH}-${BUILD}.txz"
+  echo "$PKGNAM-${VERSION}-${ARCH}-${BUILD}$TAG.${PKGTYPE:-txz}"
   exit 0
 fi
 
@@ -148,5 +149,5 @@ mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 
 cd $PKG
-/sbin/makepkg -l y -c n $TMP/$PKGNAM-$VERSION-$ARCH-$BUILD.txz
+/sbin/makepkg -l y -c n $TMP/$PKGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-txz}
 
