@@ -176,7 +176,7 @@ if [ $ISPAC1 -eq 1 ] ;then
     (
 	rm -f packages*/*-3alien*.t?z
 	rm -f packages/32/*-3alien*.t?z
-	export BUILD=3alien
+	export BUILD=1PB
 	xmakealienpac packages mlt
     )
 
