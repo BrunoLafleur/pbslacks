@@ -37,29 +37,41 @@ upgradesys () {
 	cp pbslacks/Slackpkg/blacklistkeepkde5 /etc/slackpkg/blacklist
     [ $xframe = 'on' ] && \
 	cp pbslacks/Slackpkg/blacklistkeepkde4 /etc/slackpkg/blacklist
+    SLPKGCONF=pbslacks/Slackpkg/slackpkg.conf
+    [ "$(slackpkg |grep version|cut -d ' ' -f4|cut -c 1-3)" = '2.8' ] \
+	&& SLPKGCONF=pbslacks/Slackpkg/slackpkg.conf.83
     if [ $ISSYSTEM -eq 1 ] ;then
-	cat pbslacks/Slackpkg/slackpkg.conf | \
-	    sed "s@CHECKGPG=on@CHECKGPG=off@" \
-		> /etc/slackpkg/slackpkg.conf
+	cat $SLPKGCONF | sed "s@CHECKGPG=on@CHECKGPG=off@" \
+			     > /etc/slackpkg/slackpkg.conf
 	cat pbslacks/Slackpkg/mirrors | sed "s@HOMESLACK@${HOMESLACK}@" \
 					    > /etc/slackpkg/mirrors
     else
-	cp pbslacks/Slackpkg/slackpkg.conf /etc/slackpkg
+	cp $SLPKGCONF /etc/slackpkg
 	cat pbslacks/Slackpkg/mirrors | \
 	    sed "s@^.*HOMESLACK.*\$@${SLACKMIR}@" > /etc/slackpkg/mirrors
     fi
     echo "update";echo '------------'
     slackpkg update gpg
     slackpkg update
-    echo "upgrade base";echo '------------'
+    echo "upgrade slackpkg";echo '------------'
     slackpkg upgrade slackpkg
+    SLPKGCONF=pbslacks/Slackpkg/slackpkg.conf
+    [ "$(slackpkg |grep version|cut -d ' ' -f4|cut -c 1-3)" = '2.8' ] \
+	&& SLPKGCONF=pbslacks/Slackpkg/slackpkg.conf.83
+    if [ $ISSYSTEM -eq 1 ] ;then
+	cat $SLPKGCONF | sed "s@CHECKGPG=on@CHECKGPG=off@" \
+			     > /etc/slackpkg/slackpkg.conf
+    else
+	cp $SLPKGCONF /etc/slackpkg
+    fi
+    echo "upgrade base";echo '------------'
     slackpkg update
     slackpkg new-config
     XCURDIRA=slackware64/a
     if [ $(ls $XCURDIRA/aaa_glibc-solibs-*.t?z 2> /dev/null|wc -l) -gt 0 ] ;then
 	(
 	    cd $XCURDIRA
-	    if [ $(ls /var/log/packages/glibc-solibs-*.t?z|wc -l) -gt 0 ] ;then
+	    if [ $(ls /var/log/packages/glibc-solibs-*|wc -l) -gt 0 ] ;then
 		PAC1=$(lt -t aaa_glibc-solibs-*.t?z|head -1)
 		PAC2=$(lt -t aaa_libraries-*.t?z|head -1)
 		upgradepkg glibc-solibs%$PAC1
