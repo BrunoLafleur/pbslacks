@@ -3,20 +3,11 @@ developing graphical user interface (GUI) applications using C++.
 This script packages version 4.x together with qtwebkit,
 parallel-installable with qt5.
 
-WebKit is an open source web browser engine. WebKit's HTML and
-JavaScript code began as a branch of the KHTML and KJS libraries from
-KDE. As part of KDE framework KHTML was based on Qt but during their
-porting efforts Apple's engineers made WebKit toolkit independent.
-QtWebKit is a project aiming at porting this fabulous engine back
-to Qt.
-
-This dual bundled package is necessary for the compilation of KDE4 which
-don't finish without qtwebkit. Also at runtime, missing qtwebkit libs stop
-KDE4 from working.
-
 From the original SlackBuild script which works well for KDE4 compilation and
 other packages which depends on QT4 :
   All other distros I checked build with -no-webkit. But this has the downside of
   breaking the build when QtWebKit is present on the build system and some things
   (assistant for one) are built without support for QtWebKit. So let's go with
   -webkit and remove the built files later from the package. -HW
+
+Uses 2000 Mo on /tmp or $TMP to compile.

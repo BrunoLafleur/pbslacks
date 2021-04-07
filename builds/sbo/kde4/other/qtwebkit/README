@@ -6,3 +6,5 @@ QtWebKit is a project aiming at porting this fabulous engine back
 to Qt.
 
 qtwebkit depends on qt.
+
+Uses 8OO Mo on /tmp or $TMP to compile.

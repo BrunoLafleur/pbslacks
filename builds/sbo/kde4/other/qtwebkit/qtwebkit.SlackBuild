@@ -23,12 +23,13 @@
 #
 # Derived from the main qt SlackBuild
 #
-# New version from Pierre Brochard (pierre.brochard.1982@m4x.org)
+# 2021 : New version from Pierre Brochard (pierre.brochard.1982@m4x.org)
 
 cd $(dirname $0) ; CWD=$(pwd)
 
 PKGNAM=qtwebkit
-VERSION=$(ls qtwebkit-*.tar.?z* | rev | cut -f 3- -d . | cut -f 1 -d - | rev)
+SRCNAM=qtwebkit
+VERSION=$(ls $SRCNAM-*.tar.?z* | rev | cut -f 3- -d . | cut -f 1 -d - | rev)
 BUILD=${BUILD:-1}
 TAG=${TAG-_SBo}
 
@@ -87,10 +88,10 @@ OUTPUT=${OUTPUT:-/tmp}
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
-rm -rf qtwebkit-$VERSION
-mkdir qtwebkit-$VERSION
-cd qtwebkit-$VERSION || exit 1
-tar xvf $CWD/qtwebkit-$VERSION.tar.?z
+rm -rf $SRCNAM-$VERSION
+mkdir $SRCNAM-$VERSION
+cd $SRCNAM-$VERSION || exit 1
+tar xvf $CWD/$SRCNAM-$VERSION.tar.?z
 
 # Patch to fix compiling with gcc5:
 zcat $CWD/patches/qtwebkit.putByIndexBeyondVectorLengthWithArrayStorage.diff.gz | patch -p1 --verbose || exit 1
