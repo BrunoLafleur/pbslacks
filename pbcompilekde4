@@ -125,7 +125,7 @@ if [ $ISKDE4DEPS -eq 1 ] ;then
     for i in akonadi automoc4 glade3 libbluedevil liblastfm \
 			 pm-utils qjson qt-gstreamer raptor2 redland \
 			 scim-input-pad scim-pinyin soprano PyQt attica \
-			 cgmanager gtk-xfce-engine orage qimageblitz qt \
+			 cgmanager gtk-xfce-engine orage qimageblitz qt qtwebkit \
 			 qtscriptgenerator rasqal scim scim-anthy scim-hangul \
 			 scim-m17n scim-tables strigi ;do
 	xmakekdedep $i $i other
