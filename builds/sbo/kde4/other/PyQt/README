@@ -1,0 +1,3 @@
+PyQt is a set of Python bindings for The Qt Company's Qt application framework.
+
+Requires qt, qtwebkit
