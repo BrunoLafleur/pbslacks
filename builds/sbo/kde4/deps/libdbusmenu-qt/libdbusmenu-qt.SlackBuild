@@ -21,6 +21,8 @@
 # OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+# Modified by Pierre Brochard (pierre.brochard.1982@m4x.org)
+
 cd $(dirname $0) ; CWD=$(pwd)
 
 # Pull this package from git due to some copyright related
@@ -34,6 +36,7 @@ PKGNAM=libdbusmenu-qt4
 SRCNAM=libdbusmenu-qt
 VERSION=${VERSION:-$(echo $SRCNAM-*.tar.?z* | rev | cut -f 3- -d . | cut -f 1 -d - | rev)}
 BUILD=${BUILD:-3}
+TAG=${TAG-_SBo}
 
 NUMJOBS=${NUMJOBS:-" -j$(expr $(nproc) + 1) "}
 
@@ -53,7 +56,7 @@ fi
 # the name of the created package would be, and then exit. This information
 # could be useful to other scripts.
 if [ ! -z "${PRINT_PACKAGE_NAME}" ]; then
-  echo "$PKGNAM-$VERSION-$ARCH-$BUILD.txz"
+  echo "$PKGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-txz}"
   exit 0
 fi
 
@@ -73,9 +76,10 @@ fi
 
 TMP=${TMP:-/tmp}
 PKG=$TMP/package-$PKGNAM
+OUTPUT=${OUTPUT:-/tmp}
 
 rm -rf $PKG
-mkdir -p $TMP $PKG
+mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 rm -rf $SRCNAM-$VERSION
 tar xvf $CWD/$SRCNAM-$VERSION.tar.?z* || exit 1
@@ -118,4 +122,4 @@ mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 
 cd $PKG
-/sbin/makepkg -l y -c n $TMP/$PKGNAM-$VERSION-$ARCH-$BUILD.txz
+/sbin/makepkg -l y -c n $OUTPUT/$PKGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-txz}

@@ -21,6 +21,8 @@
 # OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+# Modified by Pierre Brochard (pierre.brochard.1982@m4x.org)
+
 cd $(dirname $0) ; CWD=$(pwd)
 
 PKGNAM=LibRaw18
@@ -28,6 +30,7 @@ SRCNAM=LibRaw
 VERSION=${VERSION:-0.18.12}
 DEMOSAIC=${DEMOSAIC:-0.18.8}
 BUILD=${BUILD:-1}
+TAG=${TAG-_SBo}
 
 NUMJOBS=${NUMJOBS:-" -j$(expr $(nproc) + 1) "}
 
@@ -47,7 +50,7 @@ fi
 # the name of the created package would be, and then exit. This information
 # could be useful to other scripts.
 if [ ! -z "${PRINT_PACKAGE_NAME}" ]; then
-  echo "$PKGNAM-$VERSION-$ARCH-$BUILD.txz"
+  echo "$PKGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-txz}"
   exit 0
 fi
 
@@ -75,9 +78,10 @@ esac
 
 TMP=${TMP:-/tmp}
 PKG=$TMP/package-$PKGNAM
+OUTPUT=${OUTPUT:-/tmp}
 
 rm -rf $PKG
-mkdir -p $TMP $PKG
+mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 rm -rf $PKGNAM-$VERSION-build
 mkdir $PKGNAM-$VERSION-build
@@ -137,5 +141,5 @@ mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 
 cd $PKG
-/sbin/makepkg -l y -c n $TMP/$PKGNAM-$VERSION-$ARCH-$BUILD.txz
+/sbin/makepkg -l y -c n $OUTPUT/$PKGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-txz}
 

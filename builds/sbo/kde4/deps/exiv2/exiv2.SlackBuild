@@ -22,14 +22,15 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 # Modified by Robby Workman <rworkman at slackware.com>
+# Modified by Pierre Brochard (pierre.brochard.1982@m4x.org)
 
 cd $(dirname $0) ; CWD=$(pwd)
 
 PKGNAM=exiv221
 SRCNAM=exiv2
 VERSION=${VERSION:-$(echo $SRCNAM-*.tar.?z* | rev | cut -f 3- -d . | cut -f 1 -d - | rev)}
-#VERSION=${VERSION:-$(echo $SRCNAM-*-trunk.tar.xz | rev | cut -f 3- -d . | cut -f 2 -d - | rev)}
 BUILD=${BUILD:-3}
+TAG=${TAG-_SBo}
 
 # Automatically determine the architecture we're building on:
 if [ -z "$ARCH" ]; then
@@ -45,12 +46,10 @@ fi
 # the name of the created package would be, and then exit. This information
 # could be useful to other scripts.
 if [ ! -z "${PRINT_PACKAGE_NAME}" ]; then
-  echo "$PKGNAM-$VERSION-$ARCH-$BUILD.txz"
+  echo "$PKGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-txz}"
   exit 0
 fi
 
-TMP=${TMP:-/tmp}
-PKG=$TMP/package-$PKGNAM
 NUMJOBS=${NUMJOBS:-" -j$(expr $(nproc) + 1) "}
 
 if [ "$ARCH" = "i586" ]; then
@@ -67,8 +66,12 @@ else
   LIBDIRSUFFIX=""
 fi
 
+TMP=${TMP:-/tmp}
+PKG=$TMP/package-$PKGNAM
+OUTPUT=${OUTPUT:-/tmp}
+
 rm -rf $PKG
-mkdir -p $TMP $PKG
+mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 rm -rf ${SRCNAM}-$VERSION
 tar xvf $CWD/$SRCNAM-$VERSION.tar.xz || exit 1
@@ -141,5 +144,5 @@ mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 
 cd $PKG
-/sbin/makepkg -l y -c n $TMP/$PKGNAM-$VERSION-$ARCH-$BUILD.txz
+/sbin/makepkg -l y -c n $OUTPUT/$PKGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-txz}
 
