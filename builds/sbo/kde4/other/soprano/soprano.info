@@ -1,0 +1,8 @@
+PRGNAM="soprano"
+VERSION="2.9.4"
+HOMEPAGE="https://sourceforge.net/projects/soprano/"
+DOWNLOAD="https://sourceforge.net/projects/soprano/files/Soprano/2.9.4/soprano-2.9.4.tar.bz2/download"
+MD5SUM="91413e5783efeee0beb747ea4c5c9ef0"
+REQUIRES=""
+MAINTAINER="Pierre Brochard"
+EMAIL="pierre.brochard.1982@m4x.org"
