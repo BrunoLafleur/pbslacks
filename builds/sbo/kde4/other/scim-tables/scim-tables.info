@@ -1,0 +1,8 @@
+PRGNAM="scim-tables"
+VERSION="0.5.14.1"
+HOMEPAGE="https://www.scim-im.org/"
+DOWNLOAD="https://sourceforge.net/projects/scim/files/scim-tables/0.5.14/scim-tables-0.5.14.1.tar.gz/download"
+MD5SUM="c2bb5f79c381cefb656ac8c8b3dc5b53"
+REQUIRES=""
+MAINTAINER="Pierre Brochard"
+EMAIL="pierre.brochard.1982@m4x.org"

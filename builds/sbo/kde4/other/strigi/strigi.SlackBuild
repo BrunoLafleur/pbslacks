@@ -22,12 +22,14 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 # Modified 2012 by Eric Hameleers <alien at slackware.com> for ARM port.
+# New version from Pierre Brochard (pierre.brochard.1982@m4x.org)
 
 cd $(dirname $0) ; CWD=$(pwd)
 
 PKGNAM=strigi
 VERSION=${VERSION:-0.7.8}
 BUILD=${BUILD:-4}
+TAG=${TAG-_SBo}
 
 NUMJOBS=${NUMJOBS:-" -j$(expr $(nproc) + 1) "}
 
@@ -47,7 +49,7 @@ fi
 # the name of the created package would be, and then exit. This information
 # could be useful to other scripts.
 if [ ! -z "${PRINT_PACKAGE_NAME}" ]; then
-  echo "$PKGNAM-$VERSION-$ARCH-$BUILD.txz"
+  echo "$PKGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-txz}"
   exit 0
 fi
 
@@ -70,19 +72,21 @@ fi
 
 TMP=${TMP:-/tmp}
 PKG=$TMP/package-$PKGNAM
+OUTPUT=${OUTPUT:-/tmp}
 
 rm -rf $PKG
-mkdir -p $TMP $PKG
+mkdir -p $TMP $PKG $OUTPUT
+
 cd $TMP
 rm -rf $PKGNAM-$VERSION
 tar xvf $CWD/$PKGNAM-$VERSION.tar.?z* || exit 1
 cd $PKGNAM-$VERSION || exit 1
 
 ( cd libstreamanalyzer
-zcat $CWD/libstreamanalyzer*.patch.gz | patch -p1 --verbose || exit 1
+zcat $CWD/patches/libstreamanalyzer*.patch.gz | patch -p1 --verbose || exit 1
 )
 ( cd libstreams
-zcat $CWD/libstreams*.patch.gz | patch -p1 --verbose || exit 1
+zcat $CWD/patches/libstreams*.patch.gz | patch -p1 --verbose || exit 1
 )
 echo "target_link_libraries(index2dump streamanalyzer clucene-shared)" >> libstreamanalyzer/plugins/indexers/clucenengindexer/indexdump/CMakeLists.txt
 
@@ -132,5 +136,5 @@ mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 
 cd $PKG
-/sbin/makepkg -l y -c n $TMP/$PKGNAM-$VERSION-$ARCH-$BUILD.txz
+/sbin/makepkg -l y -c n $OUTPUT/$PKGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-txz}
 

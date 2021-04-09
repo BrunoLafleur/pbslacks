@@ -1,0 +1,8 @@
+PRGNAM="scim-pinyin"
+VERSION="0.5.92"
+HOMEPAGE="https://www.scim-im.org/"
+DOWNLOAD="https://sourceforge.net/projects/scim/files/scim-pinyin/0.5.92/scim-pinyin-0.5.92.tar.xz/download"
+MD5SUM="53d436a737799e6f7af9a56bf51858b8"
+REQUIRES=""
+MAINTAINER="Pierre Brochard"
+EMAIL="pierre.brochard.1982@m4x.org"
