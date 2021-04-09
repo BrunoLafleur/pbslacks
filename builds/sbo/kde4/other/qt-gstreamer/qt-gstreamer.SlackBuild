@@ -21,11 +21,14 @@
 #  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+# New version from Pierre Brochard (pierre.brochard.1982@m4x.org)
+
 cd $(dirname $0) ; CWD=$(pwd)
 
 PKGNAM=qt-gstreamer
 VERSION=${VERSION:-1.2.0}
 BUILD=${BUILD:-2}
+TAG=${TAG-_SBo}
 
 NUMJOBS=${NUMJOBS:-" -j$(expr $(nproc) + 1) "}
 
@@ -45,7 +48,7 @@ fi
 # the name of the created package would be, and then exit. This information
 # could be useful to other scripts.
 if [ ! -z "${PRINT_PACKAGE_NAME}" ]; then
-  echo "$PKGNAM-$VERSION-$ARCH-$BUILD.txz"
+  echo "$PKGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-txz}"
   exit 0
 fi
 
@@ -68,9 +71,10 @@ fi
 
 TMP=${TMP:-/tmp}
 PKG=$TMP/package-$PKGNAM
+OUTPUT=${OUTPUT:-/tmp}
 
 rm -rf $PKG
-mkdir -p $TMP $PKG
+mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 rm -rf $PKGNAM-$VERSION
 tar xvf $CWD/$PKGNAM-$VERSION.tar.?z* || exit 1
@@ -85,8 +89,8 @@ find . \
 # Fix build with gstreamer-1.16.x. This is rather pointless since qt-gstreamer
 # is considered dead (in -current only artikulate uses it, and in Plasma 5
 # nothing does), but we'll queue a fix for the FTBFS anyway:
-zcat $CWD/qt-gstreamer.gstreamer-1.16.x.diff.gz | patch -p1 --verbose || exit 1
-zcat $CWD/qt-gstreamer-gcc10.patch.gz | patch -p1 --verbose || exit 1
+zcat $CWD/patches/qt-gstreamer.gstreamer-1.16.x.diff.gz | patch -p1 --verbose || exit 1
+zcat $CWD/patches/qt-gstreamer-gcc10.patch.gz | patch -p1 --verbose || exit 1
 
 mkdir -p build
 cd build
@@ -133,8 +137,8 @@ find $PKG | xargs file | grep -e "executable" -e "shared object" \
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
-zcat $CWD/doinst.sh.gz > $PKG/install/doinst.sh
+cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
-/sbin/makepkg -l y -c n $TMP/$PKGNAM-$VERSION-$ARCH-$BUILD.txz
+/sbin/makepkg -l y -c n $OUTPUT/$PKGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-txz}
 

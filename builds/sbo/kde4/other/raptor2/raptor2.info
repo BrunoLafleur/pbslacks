@@ -1,0 +1,8 @@
+PRGNAM="raptor2"
+VERSION="2.0.15"
+HOMEPAGE="https://github.com/dajobe/raptor"
+DOWNLOAD="https://github.com/BrunoLafleur/pbslacks/blob/master/builds/src/raptor2-2.0.15.tar.xz"
+MD5SUM="2f2e2e6e53cf961218d2d274d7358f40"
+REQUIRES=""
+MAINTAINER="Pierre Brochard"
+EMAIL="pierre.brochard.1982@m4x.org"
