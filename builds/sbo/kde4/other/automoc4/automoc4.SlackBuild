@@ -63,7 +63,7 @@ else
   LIBDIRSUFFIX=""
 fi
 
-TMP=${TMP:-/tmp}
+TMP=${TMP:-/tmp/SBo}
 PKG=$TMP/package-automoc4
 OUTPUT=${OUTPUT:-/tmp}
 

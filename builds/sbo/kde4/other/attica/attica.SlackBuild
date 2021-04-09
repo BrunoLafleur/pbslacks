@@ -69,7 +69,7 @@ else
   LIBDIRSUFFIX=""
 fi
 
-TMP=${TMP:-/tmp}
+TMP=${TMP:-/tmp/Sbo}
 PKG=$TMP/package-$PKGNAM
 OUTPUT=${OUTPUT:-/tmp}
 

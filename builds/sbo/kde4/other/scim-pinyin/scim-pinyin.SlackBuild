@@ -72,7 +72,7 @@ elif [ "$ARCH" = "x86_64" ]; then
   LIBDIRSUFFIX="64"
 fi
 
-TMP=${TMP:-/tmp}
+TMP=${TMP:-/tmp/SBo}
 PKG=$TMP/package-$PKGNAM
 OUTPUT=${OUTPUT:-/tmp}
 

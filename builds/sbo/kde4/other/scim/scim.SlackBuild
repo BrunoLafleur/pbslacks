@@ -79,7 +79,7 @@ fi
 
 NUMJOBS=${NUMJOBS:-" -j$(expr $(nproc) + 1) "}
 
-TMP=${TMP:-/tmp}
+TMP=${TMP:-/tmp/SBo}
 PKG=$TMP/package-$PKGNAM
 OUTPUT=${OUTPUT:-/tmp}
 
