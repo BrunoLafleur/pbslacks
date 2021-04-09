@@ -61,7 +61,7 @@ else
   LIBDIRSUFFIX=""
 fi
 
-TMP=${TMP:-/tmp}
+TMP=${TMP:-/tmp/SBo}
 PKG=$TMP/package-qimageblitz
 OUTPUT=${OUTPUT:-/tmp}
 
