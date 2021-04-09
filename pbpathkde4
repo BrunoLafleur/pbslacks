@@ -14,6 +14,8 @@ KDE4OTHER_GLADE3='https://download.gnome.org/sources/glade3/3.8/glade3-3.8.6.tar
 KDE4OTHER_QT='https://download.qt.io/archive/qt/4.8/4.8.7/qt-everywhere-opensource-src-4.8.7.tar.gz'
 KDE4OTHER_QTWEBKIT='https://download.kde.org/stable/qtwebkit-2.3/2.3.4/src/qtwebkit-2.3.4.tar.gz'
 KDE4OTHER_PYQT='https://www.riverbankcomputing.com/static/Downloads/PyQt4/4.12.3/PyQt4_gpl_x11-4.12.3.tar.gz'
+KDE4OTHER_QIMAGEBLITZ='https://download.kde.org/stable/qimageblitz/qimageblitz-0.0.6.tar.bz2'
+KDE4OTHER_AUTOMOC4='https://download.kde.org/stable/automoc4/0.9.88/automoc4-0.9.88.tar.bz2'
 
 KDE4_SRC='https://download.kde.org/Attic/4.14.3/src'
 KDE4_KACTIVITIES='https://download.kde.org/Attic/4.13.3/src/kactivities-4.13.3.tar.xz'

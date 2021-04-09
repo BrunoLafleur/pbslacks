@@ -1,0 +1,8 @@
+PRGNAM="akonadi"
+VERSION="1.13.0"
+HOMEPAGE="https://github.com/KDE/akonadi"
+DOWNLOAD="https://github.com/BrunoLafleur/pbslacks/blob/master/builds/src/akonadi-1.13.0.tar.bz2"
+MD5SUM="84eb2e471bd6bdfe54a2a2f1d858c07d"
+REQUIRES=""
+MAINTAINER="Pierre Brochard"
+EMAIL="pierre.brochard.1982@m4x.org"

@@ -1,0 +1,8 @@
+PRGNAM="cgmanager"
+VERSION="0.42"
+HOMEPAGE="https://github.com/lxc/cgmanager"
+DOWNLOAD="https://github.com/BrunoLafleur/pbslacks/blob/master/builds/src/cgmanager-0.42.tar.lz"
+MD5SUM="d00c3608fd87476d07ed65828227ebb4"
+REQUIRES=""
+MAINTAINER="Pierre Brochard"
+EMAIL="pierre.brochard.1982@m4x.org"

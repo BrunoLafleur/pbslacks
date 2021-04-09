@@ -23,11 +23,14 @@
 #  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+# New version from Pierre Brochard (pierre.brochard.1982@m4x.org)
+
 cd $(dirname $0) ; CWD=$(pwd)
 
 PKGNAM=akonadi
 VERSION=${VERSION:-$(echo $PKGNAM-*.tar.?z* | rev | cut -f 3- -d . | cut -f 1 -d - | rev)}
 BUILD=${BUILD:-16}
+TAG=${TAG-_SBo}
 
 NUMJOBS=${NUMJOBS:-" -j$(expr $(nproc) + 1) "}
 
@@ -47,7 +50,7 @@ fi
 # the name of the created package would be, and then exit. This information
 # could be useful to other scripts.
 if [ ! -z "${PRINT_PACKAGE_NAME}" ]; then
-  echo "$PKGNAM-$VERSION-$ARCH-$BUILD.txz"
+  echo "$PKGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-txz}"
   exit 0
 fi
 
@@ -70,9 +73,10 @@ fi
 
 TMP=${TMP:-/tmp}
 PKG=$TMP/package-$PKGNAM
+OUTPUT=${OUTPUT:-/tmp}
 
 rm -rf $PKG
-mkdir -p $TMP $PKG
+mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 rm -rf $PKGNAM-$VERSION
 tar xvf $CWD/$PKGNAM-$VERSION.tar.?z* || exit 1
@@ -85,10 +89,10 @@ find . \
  -exec chmod 644 {} \+
 
 # Update mysql configuration
-zcat $CWD/mysql-global.conf.patch.gz | patch -p1 --verbose || exit 1
+zcat $CWD/patches/mysql-global.conf.patch.gz | patch -p1 --verbose || exit 1
 
 # Work around problems with MariaDB 10.2
-zcat $CWD/akonadi-mariadb-10.2.patch.gz | patch -p1 --verbose || exit 1
+zcat $CWD/patches/akonadi-mariadb-10.2.patch.gz | patch -p1 --verbose || exit 1
 
 # If we do not specify the correct QT_PLUGINS_DIR, then the application
 # decides on using $QT4DIR/qt4/plugins instead.
@@ -123,8 +127,8 @@ find $PKG | xargs file | grep -e "executable" -e "shared object" \
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
-zcat $CWD/doinst.sh.gz > $PKG/install/doinst.sh
+cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
-/sbin/makepkg -l y -c n $TMP/$PKGNAM-$VERSION-$ARCH-$BUILD.txz
+/sbin/makepkg -l y -c n $OUTPUT/$PKGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-txz}
 
