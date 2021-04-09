@@ -75,7 +75,7 @@ export HOMESLACK="$MYPWD"
 	for i in orage raptor2 rasqal redland scim scim-anthy scim-hangul \
 		       scim-input-pad scim-m17n strigi akonadi cgmanager \
 		       gtk-xfce-engine liblastfm pm-utils qt-gstreamer \
-		       qtscriptgenerator attica ;do
+		       qtscriptgenerator attica libbluedevil qjson ;do
 	    cp $LOCALSRC/${i}-[0-9]* $i
 	done
     )
