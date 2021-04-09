@@ -67,11 +67,15 @@ export HOMESLACK="$MYPWD"
 	xgeturl "$KDE4OTHER_SOPRANO"
 	cd ../glade3
 	xgeturl "$KDE4OTHER_GLADE3"
+	cd ../qimageblitz
+	xgeturl "$KDE4OTHER_QIMAGEBLITZ"
+	cd ../automoc4
+	xgeturl "$KDE4OTHER_AUTOMOC4"
 	cd ..
 	for i in orage raptor2 rasqal redland scim scim-anthy scim-hangul \
 		       scim-input-pad scim-m17n strigi akonadi cgmanager \
 		       gtk-xfce-engine liblastfm pm-utils qt-gstreamer \
-		       qtscriptgenerator ;do
+		       qtscriptgenerator attica ;do
 	    cp $LOCALSRC/${i}-[0-9]* $i
 	done
     )

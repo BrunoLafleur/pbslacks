@@ -20,11 +20,14 @@
 #  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+# New version from Pierre Brochard (pierre.brochard.1982@m4x.org)
+
 cd $(dirname $0) ; CWD=$(pwd)
 
 PKGNAM=automoc4
 VERSION=${VERSION:-$(echo $PKGNAM-*.tar.?z* | rev | cut -f 3- -d . | cut -f 1 -d - | rev)}
 BUILD=${BUILD:-2}
+TAG=${TAG-_SBo}
 
 # Automatically determine the architecture we're building on:
 if [ -z "$ARCH" ]; then
@@ -40,14 +43,11 @@ fi
 # the name of the created package would be, and then exit. This information
 # could be useful to other scripts.
 if [ ! -z "${PRINT_PACKAGE_NAME}" ]; then
-  echo "$PKGNAM-$VERSION-$ARCH-$BUILD.txz"
+  echo "$PKGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-txz}"
   exit 0
 fi
 
 NUMJOBS=${NUMJOBS:-" -j$(expr $(nproc) + 1) "}
-
-TMP=${TMP:-/tmp}
-PKG=$TMP/package-automoc4
 
 if [ "$ARCH" = "i586" ]; then
   SLKCFLAGS="-O2 -march=i586 -mtune=i686"
@@ -63,8 +63,12 @@ else
   LIBDIRSUFFIX=""
 fi
 
+TMP=${TMP:-/tmp}
+PKG=$TMP/package-automoc4
+OUTPUT=${OUTPUT:-/tmp}
+
 rm -rf $PKG
-mkdir -p $TMP $PKG
+mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 tar xvf $CWD/automoc4-$VERSION.tar.?z* || exit 1
 cd automoc4-$VERSION || exit 1
@@ -95,5 +99,5 @@ mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 
 cd $PKG
-/sbin/makepkg -l y -c n $TMP/automoc4-$VERSION-$ARCH-$BUILD.txz
+/sbin/makepkg -l y -c n $OUTPUT/automoc4-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-txz}
 

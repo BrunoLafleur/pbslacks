@@ -1,0 +1,8 @@
+PRGNAM="attica"
+VERSION="0.4.2"
+HOMEPAGE="https://github.com/KDE/attica"
+DOWNLOAD="https://github.com/BrunoLafleur/pbslacks/blob/master/builds/src/attica-0.4.2.tar.bz2"
+MD5SUM="d62c5c9489a68432e8d990dde7680c24"
+REQUIRES=""
+MAINTAINER="Pierre Brochard"
+EMAIL="pierre.brochard.1982@m4x.org"

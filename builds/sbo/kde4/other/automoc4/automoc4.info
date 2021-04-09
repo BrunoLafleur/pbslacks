@@ -1,0 +1,8 @@
+PRGNAM="automoc4"
+VERSION="0.9.88"
+HOMEPAGE="https://github.com/KDE/automoc"
+DOWNLOAD="https://download.kde.org/stable/automoc4/0.9.88/automoc4-0.9.88.tar.bz2"
+MD5SUM=91bf517cb940109180ecd07bc90c69ec""
+REQUIRES=""
+MAINTAINER="Pierre Brochard"
+EMAIL="pierre.brochard.1982@m4x.org"
