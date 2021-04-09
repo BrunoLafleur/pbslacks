@@ -1,0 +1,8 @@
+PRGNAM="scim-hangul"
+VERSION="0.4.0"
+HOMEPAGE="https://www.scim-im.org/"
+DOWNLOAD="https://github.com/BrunoLafleur/pbslacks/blob/master/builds/src/scim-hangul-0.4.0.tar.xz"
+MD5SUM="ac985d16e03d9d181be9abb3df55fec5"
+REQUIRES=""
+MAINTAINER="Pierre Brochard"
+EMAIL="pierre.brochard.1982@m4x.org"
