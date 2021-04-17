@@ -173,11 +173,13 @@ if [ $ISPAC1 -eq 1 ] ;then
     done
 
     # mlt python3 recompiled with new libs.
+    # On recompile pour dependances jackrack, rubberband, swfdec.
     (
 	rm -f packages*/*-3alien*.t?z
 	rm -f packages/32/*-3alien*.t?z
 	export BUILD=1PB
-	xmakealienpac packages mlt
+	#xmakealienpac packages mlt
+	xmakealienpac source/l mlt packages
     )
 
     # 32 bits packages
@@ -236,9 +238,10 @@ fi
 
 if [ $ISOPENSHOT -eq 1 ] ;then
     # python2-* for openshot 1.4, openshot_qt => openshot 2.5
-    for i in python2-mlt python2-libcaca python2-libwebp python-pillow6 \
-			 libopenshot openshot_qt lxml inkscape pybind11 \
-			 openimageio opencolorio numpy3 tbb Blender openshot ;do
+    for i in gstreamer0 gst-plugins-base0 python2-mlt \
+			python2-libcaca python2-libwebp python-pillow6 \
+			libopenshot openshot_qt lxml inkscape pybind11 \
+			openimageio opencolorio numpy3 tbb Blender openshot ;do
 	xmakepac packages/openshot $i
     done
     xhookopenshot

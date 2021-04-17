@@ -41,9 +41,10 @@ mv -f GPG-KEY gpgkeys/GPG-KEY-slackbuilds-alien
 
     # MLT pour openshot.
     # On recompile pour dependances jackrack, rubberband, swfdec.
-    i=mlt
-    xgetsrcpac "$i" "$SLACKALIENSRC2/$i/" 9
-
+    #i=mlt
+    #xgetsrcpac "$i" "$SLACKALIENSRC2/$i/" 9
+    rm -f mlt-*;rm -rf mlt
+    
     # For reenabling --enable-obsolete-nsl and --enable-obsolete-rpc which
     # I need. Recompile the multilib version.
     i=glibc

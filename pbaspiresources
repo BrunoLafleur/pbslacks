@@ -34,6 +34,8 @@ fi
 			     numpy3 tbb Blender libopenshot ;do
 	    xgetsbosrc "$i"
 	done
+	xlocalsrcpac gstreamer0 "gstreamer-0.10.36.tar.xz"
+	xlocalsrcpac gst-plugins-base0 "gst-plugins-base-0.10.36.tar.xz"
 	xgetsrc python2-mlt "$PATHMLT"
 	xgetsrc python2-libcaca "$PATHLIBCACA"
 	xgetsrc python2-libwebp "$PATHLIBWEBP"
