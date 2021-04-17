@@ -1,6 +1,6 @@
---- audacity.SlackBuild.orig	2020-11-12 23:47:18.000000000 +0100
-+++ audacity.SlackBuild	2020-11-12 23:52:42.000000000 +0100
-@@ -288,10 +288,12 @@
+--- audacity.SlackBuild.orig	2021-03-19 19:51:25.000000000 +0100
++++ audacity.SlackBuild	2021-04-17 17:56:11.000000000 +0200
+@@ -282,10 +282,12 @@
      -Daudacity_use_soundtouch=local \
      -Daudacity_use_twolame=system \
      -Daudacity_use_vamp=system \
@@ -13,3 +13,16 @@
    make $NUMJOBS 2>&1 | tee $OUTPUT/make-${PRGNAM}.log
    make DESTDIR=$PKG install 2>&1 | tee $OUTPUT/install-${PRGNAM}.log
  cd -
+@@ -293,11 +295,11 @@
+ # Install libnyquist plugins and related files, this is broken since 2.4.0:
+ install -vDm 644 plug-ins/*.ny -t ${PKG}/usr/share/${PRGNAM}/plug-ins
+ install -vDm 644 nyquist/*.lsp -t ${PKG}/usr/share/${PRGNAM}/nyquist
+ 
+ # ldd complains if the shared libraries are not executable:
+-chmod 0755 ${PKG}/usr/lib${LIBDIRSUFFIX}/${PRGNAM}/*.so
++# chmod 0755 ${PKG}/usr/lib${LIBDIRSUFFIX}/${PRGNAM}/*.so
+ 
+ # Add 'X-DAW' category to the desktop file (for liveslak):
+ for DESKTOPF in $PKG/usr/share/applications/*.desktop ; do
+   if ! grep -q X-DAW $DESKTOPF ; then
+     sed -i $DESKTOPF \
