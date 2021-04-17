@@ -117,6 +117,7 @@ mozilla-thunderbird
 [0-9]+_SBo
 [0-9]+_SBocompat32
 [0-9]+_PB
+[0-9]+_PBcompat32
 [0-9]+PB
 [0-9]+_slonly
 [0-9]+_slonlycompat32
