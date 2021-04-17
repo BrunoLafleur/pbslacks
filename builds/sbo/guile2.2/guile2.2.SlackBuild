@@ -22,8 +22,9 @@
 
 cd $(dirname $0) ; CWD=$(pwd)
 
-PKGNAM=guile
-VERSION=${VERSION:-$(echo $PKGNAM-*.tar.?z | rev | cut -f 3- -d . | cut -f 1 -d - | rev)}
+PKGNAM=guile2.2
+SRCNAM=guile
+VERSION=${VERSION:-$(echo $SRCNAM-*.tar.?z | rev | cut -f 3- -d . | cut -f 1 -d - | rev)}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
@@ -47,10 +48,12 @@ fi
 
 NUMJOBS=${NUMJOBS:-" -j$(expr $(nproc) + 1) "}
 
-TMP=${TMP:-/tmp}
-PKG=$TMP/package-guile
+TMP=${TMP:-/tmp/SBo}
+PKG=$TMP/package-$SRCNAM
+OUTPUT=${OUTPUT:-/tmp}
+
 rm -rf $PKG
-mkdir -p $PKG/usr
+mkdir -p $PKG/usr $OUTPUT
 
 if [ "$ARCH" = "i586" ]; then
   SLKCFLAGS="-O2 -march=i586 -mtune=i686"
@@ -70,9 +73,9 @@ fi
 PATH=$(echo $PATH | sed "s|/usr/libexec/icecc/bin||g" | tr -s : | sed "s/^://g" | sed "s/:$//g")
 
 cd $TMP
-rm -rf guile-$VERSION
-tar xvf $CWD/guile-$VERSION.tar.?z || exit 1
-cd guile-$VERSION || exit 1
+rm -rf $SRCNAM-$VERSION
+tar xvf $CWD/$SRCNAM-$VERSION.tar.?z || exit 1
+cd $SRCNAM-$VERSION || exit 1
 
 chown -R root:root .
 find . \
@@ -137,15 +140,14 @@ if [ -d $PKG/usr/info ]; then
   )
 fi
 
-mkdir -p $PKG/usr/doc/guile-$VERSION
+mkdir -p $PKG/usr/doc/$SRCNAM-$VERSION
 cp -a \
   AUTHORS COPYING* FAQ GUILE-VERSION \
-  HACKING INSTALL LICENSE NEWS README* THANKS \
-  $PKG/usr/doc/guile-$VERSION
+  HACKING INSTALL LICENSE NEWS README* THANKS $PKG/usr/doc/$SRCNAM-$VERSION
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 
 cd $PKG
-/sbin/makepkg -l y -c n $TMP/guile2.2-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
+/sbin/makepkg -l y -c n $OUTPUT/$PKGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 

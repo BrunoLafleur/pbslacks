@@ -26,12 +26,9 @@
 PRGNAM=kmplayer
 VERSION=0.11.5b
 BUILD=${BUILD:-1}
-TAG=${TAG:-_PB}
+TAG=${TAG:-_SBo}
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/PB}
-PKG=$TMP/package-$PRGNAM
-OUTPUT=${OUTPUT:-/tmp}
 LIBDIRSUFFIX=
 
 if [ -z "$ARCH" ]; then
@@ -57,6 +54,10 @@ elif [ "$ARCH" = "x86_64" ]; then
 fi
 
 set -e
+
+TMP=${TMP:-/tmp/SBo}
+PKG=$TMP/package-$PRGNAM
+OUTPUT=${OUTPUT:-/tmp}
 
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT

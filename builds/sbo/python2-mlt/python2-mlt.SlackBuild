@@ -34,9 +34,6 @@ TAG=${TAG-_SBo}
 
 PYTHONSITEPKG=$(python -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")
 
-TMP=${TMP:-/tmp}
-PKG=$TMP/package-$PKGNAM
-
 # Automatically determine the architecture we're building on:
 if [ -z "$ARCH" ]; then
   case "$(uname -m)" in
@@ -79,8 +76,12 @@ case "$ARCH" in
     *)    TARGET=$ARCH-slackware-linux ;;
 esac
 
+TMP=${TMP:-/tmp/SBo}
+PKG=$TMP/package-$PKGNAM
+OUTPUT=${OUTPUT:-/tmp}
+
 rm -rf $PKG
-mkdir -p $TMP $PKG
+mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 rm -rf $SRCNAM-$VERSION
 tar xvf $CWD/$SRCNAM-$VERSION.tar.?z* || exit 1
@@ -146,4 +147,4 @@ cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 # Build the package:
 cd $PKG
-makepkg -l y -c n "$TMP/${PKGNAM}-${VERSION}-${ARCH}-${BUILD}$TAG.${PKGTYPE:-txz}"
+makepkg -l y -c n "$OUTPUT/${PKGNAM}-${VERSION}-${ARCH}-${BUILD}$TAG.${PKGTYPE:-txz}"

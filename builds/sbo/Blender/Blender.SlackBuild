@@ -22,12 +22,11 @@
 #  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-PRGNAM=Blender
+PKGNAM=Blender
+SRCNAM=blender
 VERSION=${VERSION:-2.83.8}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
-
-SRCNAM=blender
 
 BASE_VERSION=${BASE_VERSION:-$( echo $VERSION | sed -e 's/[^0-9.]*//g')}
 PYTHON_VERSION=$(python3 -c "import sys; print(sys.version[:3])")
@@ -40,10 +39,12 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
+if [ ! -z "${PRINT_PACKAGE_NAME}" ]; then
+  echo "$PKGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}"
+  exit 0
+fi
+
 CWD=$(pwd)
-TMP=${TMP:-/tmp/SBo}
-PKG=$TMP/package-$SRCNAM
-OUTPUT=${OUTPUT:-/tmp}
 
 if [ "$ARCH" = "i586" ]; then
   SLKCFLAGS="-O2 -march=i586 -mtune=i686"
@@ -70,6 +71,10 @@ if [ -d /usr/include/cuda ]; then
 fi
 
 set -e
+
+TMP=${TMP:-/tmp/SBo}
+PKG=$TMP/package-$SRCNAM
+OUTPUT=${OUTPUT:-/tmp}
 
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
@@ -143,14 +148,14 @@ mkdir -p $PKG/usr/man/man1
 find $PKG/usr/man -type f -exec gzip -9 {} \;
 for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
 
-mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-mv $PKG/usr/share/doc/$SRCNAM/*  $PKG/usr/doc/$PRGNAM-$VERSION/
+mkdir -p $PKG/usr/doc/$PKGNAM-$VERSION
+mv $PKG/usr/share/doc/$SRCNAM/*  $PKG/usr/doc/$PKGNAM-$VERSION/
 rm -rf $PKG/usr/share/doc
-cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
+cat $CWD/$PKGNAM.SlackBuild > $PKG/usr/doc/$PKGNAM-$VERSION/$PKGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
-/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
+/sbin/makepkg -l y -c n $OUTPUT/$PKGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}

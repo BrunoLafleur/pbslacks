@@ -65,11 +65,12 @@ else
   LIBDIRSUFFIX=""
 fi
 
-TMP=${TMP:-/tmp}
+TMP=${TMP:-/tmp/SBo}
 PKG=$TMP/package-$PKGNAM
+OUTPUT=${OUTPUT:-/tmp}
 
 rm -rf $PKG
-mkdir -p $PKG $TMP
+mkdir -p $PKG $TMP $OUTPUT
 cd $TMP
 rm -rf eigen-$VERSION
 tar xvf $CWD/eigen-$VERSION.tar.bz2 || exit 1
@@ -106,5 +107,5 @@ mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 
 cd $PKG
-/sbin/makepkg -l y -c n $TMP/eigen3-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
+/sbin/makepkg -l y -c n $OUTPUT/eigen3-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
 
