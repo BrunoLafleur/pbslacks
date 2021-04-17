@@ -47,8 +47,8 @@ mv -f GPG-KEY gpgkeys/GPG-KEY-slackbuilds-alien
     
     # For reenabling --enable-obsolete-nsl and --enable-obsolete-rpc which
     # I need. Recompile the multilib version.
-    i=glibc
-    xgetsrcpac "$i" "$SLACKMULTI_SRC/$i/" 9
+    #i=glibc
+    #xgetsrcpac "$i" "$SLACKMULTI_SRC/$i/" 9
 
     for i in steamclient ;do
 	xgetpac "$i" "$SLACKALIEN/$i/pkg/current" 10
