@@ -1,0 +1,27 @@
+--- ardour.SlackBuild.old	2021-04-17 18:22:53.000000000 +0200
++++ ardour.SlackBuild	2021-04-17 18:24:20.000000000 +0200
+@@ -138,20 +138,20 @@
+   esac
+   export ARCH
+ fi
+ # Set CFLAGS/CXXFLAGS and LIBDIRSUFFIX:
+ case "$ARCH" in
+-  i?86)      SLKCFLAGS="-O2 -march=${ARCH} -mtune=i686"
++  i?86)      SLKCFLAGS="-O2 -march=${ARCH} -mtune=i686 -fpermissive"
+              SLKLDFLAGS=""; LIBDIRSUFFIX=""
+              ;;
+-  x86_64)    SLKCFLAGS="-O2 -fPIC"
++  x86_64)    SLKCFLAGS="-O2 -fPIC -fpermissive"
+              SLKLDFLAGS="-L/usr/lib64"; LIBDIRSUFFIX="64"
+              ;;
+-  armv7hl)   SLKCFLAGS="-O2 -march=armv7-a -mfpu=vfpv3-d16"
++  armv7hl)   SLKCFLAGS="-O2 -march=armv7-a -mfpu=vfpv3-d16 -fpermissive"
+              SLKLDFLAGS=""; LIBDIRSUFFIX=""
+              ;;
+-  *)         SLKCFLAGS=${SLKCFLAGS:-"-O2"}
++  *)         SLKCFLAGS=${SLKCFLAGS:-"-O2 -fpermissive"}
+              SLKLDFLAGS=${SLKLDFLAGS:-""}; LIBDIRSUFFIX=${LIBDIRSUFFIX:-""}
+              ;;
+ esac
+ 
+ case "$ARCH" in
