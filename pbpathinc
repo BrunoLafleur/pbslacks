@@ -95,7 +95,7 @@ PATHROCCATTOOLS="http://downloads.sourceforge.net/roccat/roccat-tools-5.9.0.tar.
 PATHKAFFEINE="https://github.com/KDE/kaffeine/archive/master.zip"
 PATHGRADLE="https://services.gradle.org/distributions/gradle-6.2.2-all.zip"
 PATHAUDIVERIS="https://github.com/Audiveris/audiveris/archive/master.zip"
-PATHSIGNALDESKTOP="https://sourceforge.net/projects/slackbuildsdirectlinks/files/signal-desktop/signal-desktop_1.39.4_amd64.deb"
+PATHSIGNALDESKTOP="https://sourceforge.net/projects/slackbuildsdirectlinks/files/signal-desktop/signal-desktop_1.40.1_amd64.deb"
 PATHVOKOSCREEN="https://github.com/vkohaupt/vokoscreenNG/archive/3.0.3.tar.gz"
 PATHZOOM="https://zoom.us/client/latest/zoom_x86_64.tar.xz"
 PATHOPENSHOT='https://launchpad.net/openshot/1.4/1.4.3/+download/openshot-1.4.3.tar.gz'
@@ -124,5 +124,5 @@ PATHLXML='https://pypi.io/packages/source/l/lxml/lxml-4.4.1.tar.gz'
 PATHOPERA='https://get.geo.opera.com/pub/opera-beta/72.0.3815.133/linux/opera-beta_72.0.3815.133_amd64.deb'
 
 # KDE5 Frameworks.
-KDE5_FW_SRC='https://download.kde.org/stable/frameworks/5.78'
+KDE5_FW_SRC='https://download.kde.org/stable/frameworks/5.81'
 KDE5_PLASMAEX_SRC1='https://download.kde.org/stable/plasma-wayland-protocols/1.1.1'
