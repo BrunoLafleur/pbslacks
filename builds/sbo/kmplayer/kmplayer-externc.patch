@@ -1,0 +1,27 @@
+diff -ru5 kmplayer-0.11.5b/src/npplayer.cpp kmplayer-0.11.5b.new/src/npplayer.cpp
+--- kmplayer-0.11.5b/src/npplayer.cpp	2016-07-10 17:17:28.000000000 +0200
++++ kmplayer-0.11.5b.new/src/npplayer.cpp	2021-04-17 16:20:15.000000000 +0200
+@@ -19,11 +19,10 @@
+ /* gcc -o knpplayer `pkg-config --libs --cflags gtk+-x11-2.0` `pkg-config --libs --cflags dbus-glib-1` `pkg-config --libs --cflags gthread-2.0` npplayer.c
+ 
+ http://devedge-temp.mozilla.org/library/manuals/2002/plugin/1.0/
+ http://dbus.freedesktop.org/doc/dbus/libdbus-tutorial.html
+ */
+-extern "C" {
+ #include <unistd.h>
+ #include <string.h>
+ #include <stdio.h>
+ #include <stdarg.h>
+ #include <stdlib.h>
+@@ -34,10 +33,11 @@
+ #include <glib/gprintf.h>
+ #include <glib.h>
+ #include <gdk/gdkx.h>
+ #include <gtk/gtk.h>
+ 
++extern "C" {
+ #include <dbus/dbus-glib-lowlevel.h>
+ #define DBUS_API_SUBJECT_TO_CHANGE
+ #include <dbus/dbus.h>
+ #include <dbus/dbus-glib.h>
+ 

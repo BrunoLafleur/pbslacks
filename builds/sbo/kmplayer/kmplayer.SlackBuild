@@ -21,6 +21,8 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+# Pierre Brochard (pierre.brochard.1982@m4x.org)
+
 PRGNAM=kmplayer
 VERSION=0.11.5b
 BUILD=${BUILD:-1}
@@ -40,6 +42,11 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
+if [ ! -z "${PRINT_PACKAGE_NAME}" ]; then
+  echo "$PKGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-txz}"
+  exit 0
+fi
+
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -march=i486 -mtune=i686"
 elif [ "$ARCH" = "i686" ]; then
@@ -56,19 +63,10 @@ mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 rm -rf $PRGNAM-$VERSION
 tar -jxvf $CWD/${PRGNAM}_$VERSION.tar.bz2
-#tar -Jxvf $CWD/${PRGNAM}_${VERSION}-?.debian.tar.xz
 cd $PRGNAM-$VERSION
 tar xvfJ $CWD/kmplayer-pbadd.tar.xz
 cat $CWD/kmplayer-pb.patch | patch -p1
-#cat ../debian/patches/gcc5.diff | patch -p1
-#cat ../debian/patches/upstream_set-cmake_min_req-to-2.8.9-to-match-kdelibs4-policy-.patch | patch -p1
-#cat ../debian/patches/upstream_Fix-build-with-cmake-3.4.patch | patch -p1
-#chown -R root:root .
-#find . \
-# \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
-# -exec chmod 755 {} \; -o \
-# \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
-# -exec chmod 644 {} \;
+cat $CWD/kmplayer-externc.patch | patch -p1
 
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
@@ -104,4 +102,4 @@ mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 
 cd $PKG
-/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.tgz
+/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-txz}
