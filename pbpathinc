@@ -125,4 +125,4 @@ PATHOPERA='https://get.geo.opera.com/pub/opera-beta/72.0.3815.133/linux/opera-be
 
 # KDE5 Frameworks.
 KDE5_FW_SRC='https://download.kde.org/stable/frameworks/5.81'
-KDE5_PLASMAEX_SRC1='https://download.kde.org/stable/plasma-wayland-protocols/1.1.1'
+KDE5_PLASMA_WAYLAND='https://download.kde.org/stable/plasma-wayland-protocols/plasma-wayland-protocols-v1.2.1.tar.xz'

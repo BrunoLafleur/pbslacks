@@ -170,7 +170,8 @@ if [ $ISFRAMEW -eq 1 ] ;then
 	echo '------------------------------------'
 	(
 	    cd source;mkdir -p src/plasma-extra;cd src/plasma-extra
-       	    myrget 3 "$KDE5_PLASMAEX_SRC1" .
+       	    xgeturl "$KDE5_PLASMA_WAYLAND"
+	    xgeturl "$KDE5_PLASMA_WAYLAND.sig"
 	    xpurgesrc 'tar.?z' sig
 	)
 	echo '------------------------------------'

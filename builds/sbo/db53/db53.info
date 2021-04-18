@@ -1,0 +1,12 @@
+PRGNAM="db53"
+VERSION="5.3.28"
+HOMEPAGE="https://github.com/berkeleydb/libdb/tree/master"
+DOWNLOAD="http://deb.debian.org/debian/pool/main/d/db5.3/db5.3_5.3.28+dfsg1.orig.tar.xz \
+http://deb.debian.org/debian/pool/main/d/db5.3/db5.3_5.3.28+dfsg1-0.6.debian.tar.xz"
+MD5SUM="1dd7f0f45b985b661dc3c6edbd646d80 \
+d541fb2e44ba206541bc82803496b12b"
+DOWNLOAD_x86_64=""
+MD5SUM_x86_64=""
+REQUIRES=""
+MAINTAINER="Pierre Brochard"
+EMAIL="pierre.brochard.1982@m4x.org"
