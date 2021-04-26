@@ -47,34 +47,35 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
+WEBKITFLAGS="--no-force-sse2"
 if [ "$ARCH" = "i486" ]; then
-  SLKCFLAGS="-O2 -march=i486 -mtune=i686 -std=gnu++98 -fpermissive -fno-delete-null-pointer-checks"
+  SLKCFLAGS="-O2 -march=i486 -mtune=i686"
   LIBDIRSUFFIX=""
-  WEBKITFLAGS="--no-force-sse2"
 elif [ "$ARCH" = "i586" ]; then
-  SLKCFLAGS="-O2 -march=i586 -mtune=i686 -std=gnu++98 -fpermissive -fno-delete-null-pointer-checks"
+  SLKCFLAGS="-O2 -march=i586 -mtune=i686"
   LIBDIRSUFFIX=""
-  WEBKITFLAGS="--no-force-sse2"
 elif [ "$ARCH" = "s390" ]; then
-  SLKCFLAGS="-O2 -std=gnu++98 -fpermissive -fno-delete-null-pointer-checks"
+  SLKCFLAGS="-O2"
   LIBDIRSUFFIX=""
-  WEBKITFLAGS="--no-force-sse2"
 elif [ "$ARCH" = "x86_64" ]; then
-  SLKCFLAGS="-O2 -fPIC -std=gnu++98 -fpermissive -fno-delete-null-pointer-checks"
+  SLKCFLAGS="-O2 -fPIC"
   LIBDIRSUFFIX="64"
   WEBKITFLAGS=""
 elif [ "$ARCH" = "armv7hl" ]; then
   # To prevent "qatomic_armv6.h error: output number 2 not directly addressable"
   # More permanent solution is to patch gcc:
   # http://bazaar.launchpad.net/~linaro-toolchain-dev/gcc-linaro/4.6/revision/106731
-  SLKCFLAGS="-O2 -march=armv7-a -mfpu=vfpv3-d16 -fno-strict-volatile-bitfields -std=gnu++98 -fpermissive -fno-delete-null-pointer-checks"
+  SLKCFLAGS="-O2 -march=armv7-a -mfpu=vfpv3-d16 -fno-strict-volatile-bitfields"
   LIBDIRSUFFIX=""
-  WEBKITFLAGS="--no-force-sse2"
 else
-  SLKCFLAGS="-O2 -std=gnu++98 -fpermissive -fno-delete-null-pointer-checks"
+  SLKCFLAGS="-O2"
   LIBDIRSUFFIX=""
-  WEBKITFLAGS="--no-force-sse2"
 fi
+
+# Disable warnings to increase readability of the output and add flags to avoid
+# breaking builds with newer compilers
+WARNINGS="-Wno-expansion-to-defined -Wno-c++11-compat -Wno-class-memaccess -Wno-parentheses"
+SLKCFLAGS="$SLKCFLAGS -std=gnu++98 -fpermissive -fno-delete-null-pointer-checks $WARNINGS"
 
 case "$ARCH" in
     arm*) TARGET=$ARCH-slackware-linux-gnueabi ;;
@@ -94,9 +95,9 @@ cd $SRCNAM-$VERSION || exit 1
 tar xvf $CWD/$SRCNAM-$VERSION.tar.?z
 
 # Patch to fix compiling with gcc5:
-zcat $CWD/patches/qtwebkit.putByIndexBeyondVectorLengthWithArrayStorage.diff.gz | patch -p1 --verbose || exit 1
+cat $CWD/patches/qtwebkit.putByIndexBeyondVectorLengthWithArrayStorage.diff | patch -p1 --verbose || exit 1
 # Patch for Bison 3.7
-zcat $CWD/patches/qtwebkit-bison.patch.gz | patch -p1 --verbose || exit 1
+cat $CWD/patches/qtwebkit-bison.patch | patch -p1 --verbose || exit 1
 
 chown -R root:root .
 find . \
@@ -119,6 +120,9 @@ Tools/Scripts/build-webkit \
 # DEFINES+=HAVE_LIBWEBP=1
 
 make INSTALL_ROOT=$PKG -C WebKitBuild/Release install || exit 1
+
+# Remove the *.la files
+rm -f $PKG/usr/lib${LIBDIRSUFFIX}/qt/lib/*.la
 
 # libjscore is used internally.  Prevent a false dependency on this in the .pc files:
 sed -i "s,-ljscore,,g" $PKG/usr/lib${LIBDIRSUFFIX}/qt/lib/pkgconfig/*.pc

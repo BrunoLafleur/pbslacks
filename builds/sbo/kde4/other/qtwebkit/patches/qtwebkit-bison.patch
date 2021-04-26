@@ -1,0 +1,47 @@
+diff -ru5 qtwebkit-2.3.4old/Source/WebCore/css/makegrammar.pl qtwebkit-2.3.4/Source/WebCore/css/makegrammar.pl
+--- qtwebkit-2.3.4old/Source/WebCore/css/makegrammar.pl	2014-09-24 13:42:05.000000000 +0200
++++ qtwebkit-2.3.4/Source/WebCore/css/makegrammar.pl	2021-01-15 16:26:26.143592480 +0100
+@@ -71,25 +71,8 @@
+ 
+     exit if $preprocessOnly;
+ }
+ 
+ my $fileBase = File::Spec->join($outputDir, $filename);
+-system("$bison -d -p $symbolsPrefix $grammarFilePath -o $fileBase.cpp");
+-
+-open HEADER, ">$fileBase.h" or die;
+-print HEADER << "EOF";
+-#ifndef CSSGRAMMAR_H
+-#define CSSGRAMMAR_H
+-EOF
+-
+-open HPP, "<$fileBase.cpp.h" or open HPP, "<$fileBase.hpp" or die;
+-while (<HPP>) {
+-    print HEADER;
+-}
+-close HPP;
+-
+-print HEADER "#endif\n";
+-close HEADER;
+-
+-unlink("$fileBase.cpp.h");
+-unlink("$fileBase.hpp");
+-
++my @bisonCommand = ($bison, "--defines=$fileBase.h", "-p", $symbolsPrefix, $grammarFilePath, "-o", "$fileBase.cpp");
++push @bisonCommand, "--no-lines" if $^O eq "MSWin32"; # Work around bug in bison >= 3.0 on Windows where it puts backslashes into #line directives.
++system(@bisonCommand) == 0 or die;
+diff -ru5 qtwebkit-2.3.4old/Source/WebCore/xml/XPathGrammar.y qtwebkit-2.3.4/Source/WebCore/xml/XPathGrammar.y
+--- qtwebkit-2.3.4old/Source/WebCore/xml/XPathGrammar.y	2014-09-24 13:42:05.000000000 +0200
++++ qtwebkit-2.3.4/Source/WebCore/xml/XPathGrammar.y	2021-01-15 16:24:12.742509253 +0100
+@@ -51,10 +51,11 @@
+ 
+ %}
+ 
+ %pure_parser
+ %parse-param { WebCore::XPath::Parser* parser }
++%define api.header.include { "XPathGrammar.h" }
+ 
+ %union
+ {
+     Step::Axis axis;
+     Step::NodeTest* nodeTest;

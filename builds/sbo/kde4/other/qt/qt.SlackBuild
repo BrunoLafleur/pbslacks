@@ -121,55 +121,52 @@ if [ $ARCH = "i486" -o $ARCH = "i586" ]; then
   sed -i -e "s/QMAKE_CFLAGS_RELEASE        += -O2/QMAKE_CFLAGS_RELEASE        += $SLKCFLAGS/" mkspecs/common/gcc-base.conf || exit 1
 fi
 
-zcat $CWD/patches/qt-everywhere-opensource-src-4.8.5-uic_multilib.patch.gz | patch -p1 --verbose || exit 1
-zcat $CWD/patches/qt-everywhere-opensource-src-4.8.5-webcore_debuginfo.patch.gz | patch -p1 --verbose || exit 1
-zcat $CWD/patches/qt-cupsEnumDests.patch.gz | patch -p1 --verbose || exit 1
-zcat $CWD/patches/qt-prefer_adwaita_on_gnome.patch.gz | patch -p0 --verbose || exit 1
-#zcat $CWD/patches/qt-x11-opensource-src-4.5.1-enable_ft_lcdfilter.patch.gz | patch -p1 --verbose || exit 1
-zcat $CWD/patches/qt-everywhere-opensource-src-4.6.3-glib_eventloop_nullcheck.patch.gz | patch -p1 --verbose || exit 1
-zcat $CWD/patches/qt-everywhere-opensource-src-4.8.3-qdbusconnection_no_debug.patch.gz | patch -p1 --verbose || exit 1
-zcat $CWD/patches/qt-everywhere-opensource-src-4.8.1-linguist_qmake-qt4.patch.gz | patch -p1 --verbose || exit 1
-zcat $CWD/patches/qt-everywhere-opensource-src-4.8.1-qt3support_debuginfo.patch.gz | patch -p1 --verbose || exit 1
-zcat $CWD/patches/qt-everywhere-opensource-src-4.8.5-qt_plugin_path.patch.gz | patch -p1 --verbose || exit 1
-zcat $CWD/patches/qt-everywhere-opensource-src-4.8.4-qmake_pkgconfig_requires_private.patch.gz | patch -p1 --verbose || exit 1
-zcat $CWD/patches/qt-everywhere-opensource-src-4.8.7-firebird.patch.gz | patch -p1 --verbose || exit 1
-zcat $CWD/patches/qt-everywhere-opensource-src-4.8.7-QT_VERSION_CHECK.patch.gz | patch -p1 --verbose || exit 1
-zcat $CWD/patches/qt-x11-opensource-src-4.5.0-fix-qatomic-inline-asm.patch.gz | patch -p1 --verbose || exit 1
-zcat $CWD/patches/qt-everywhere-opensource-src-4.8.5-mysql_config.patch.gz | patch -p1 --verbose || exit 1
-zcat $CWD/patches/qt-everywhere-opensource-src-4.6.2-cups.patch.gz | patch -p1 --verbose || exit 1
-zcat $CWD/patches/qt-everywhere-opensource-src-4.8.7-mariadb.patch.gz | patch -p1 --verbose || exit 1
-zcat $CWD/patches/qt-everywhere-opensource-src-4.8.7-qmake_LFLAGS.patch.gz | patch -p1 --verbose || exit 1
-zcat $CWD/patches/qt-everywhere-opensource-src-4.8.5-QTBUG-14467.patch.gz | patch -p1 --verbose || exit 1
-zcat $CWD/patches/qt-everywhere-opensource-src-4.8.0-tp-qtreeview-kpackagekit-crash.patch.gz | patch -p1 --verbose || exit 1
-zcat $CWD/patches/qt-everywhere-opensource-src-4.8.6-s390.patch.gz | patch -p1 --verbose || exit 1
-zcat $CWD/patches/qt-everywhere-opensource-src-4.8.3-no_Werror.patch.gz | patch -p1 --verbose || exit 1
-zcat $CWD/patches/qt-everywhere-opensource-src-4.8.0-QTBUG-22037.patch.gz | patch -p1 --verbose || exit 1
-zcat $CWD/patches/qt-everywhere-opensource-src-4.8.5-QTBUG-21900.patch.gz | patch -p1 --verbose || exit 1
-zcat $CWD/patches/qt-everywhere-opensource-src-4.8.5-tds_no_strict_aliasing.patch.gz | patch -p1 --verbose || exit 1
-zcat $CWD/patches/qt-everywhere-opensource-src-4.8.0-s390-atomic.patch.gz | patch -p1 --verbose || exit 1
-zcat $CWD/patches/qt-everywhere-opensource-src-4.8.3-icu_no_debug.patch.gz | patch -p1 --verbose || exit 1
-zcat $CWD/patches/qt-everywhere-opensource-src-4.8.2--assistant-crash.patch.gz | patch -p1 --verbose || exit 1
-zcat $CWD/patches/qt-everywhere-opensource-src-4.8.5-QTBUG-4862.patch.gz | patch -p1 --verbose || exit 1
-zcat $CWD/patches/qt-4.8-poll.patch.gz | patch -p1 --verbose || exit 1
-zcat $CWD/patches/qt-everywhere-opensource-src-4.8.6-QTBUG-37380.patch.gz | patch -p1 --verbose || exit 1
-zcat $CWD/patches/qt-everywhere-opensource-src-4.8.6-QTBUG-34614.patch.gz | patch -p0 --verbose || exit 1
-zcat $CWD/patches/qt-everywhere-opensource-src-4.8.6-QTBUG-38585.patch.gz | patch -p0 --verbose || exit 1
-#zcat $CWD/patches/qt-everywhere-opensource-src-4.8.6-system-clucene.patch.gz | patch -p1 --verbose || exit 1
-zcat $CWD/patches/qt-everywhere-opensource-src-4.8.7-mips64.patch.gz | patch -p1 --verbose || exit 1
-zcat $CWD/patches/qt-everywhere-opensource-src-4.8.7-gcc6.patch.gz | patch -p1 --verbose || exit 1
-zcat $CWD/patches/qt-everywhere-opensource-src-4.8.7-alsa-1.1.patch.gz | patch -p1 --verbose || exit 1
-zcat $CWD/patches/qt-everywhere-opensource-src-4.8.7-openssl-1.1.patch.gz | patch -p1 --verbose || exit 1
-zcat $CWD/patches/qt-everywhere-opensource-src-4.8.7-gcc8_qtscript.patch.gz | patch -p1 --verbose || exit 1
-zcat $CWD/patches/qt-everywhere-opensource-src-4.8.5-qgtkstyle_disable_gtk_theme_check.patch.gz | patch -p1 --verbose || exit 1
-zcat $CWD/patches/qt-everywhere-opensource-src-4.8.6-QTBUG-22829.patch.gz | patch -p1 --verbose || exit 1
-zcat $CWD/patches/qt-aarch64.patch.gz | patch -p1 --verbose || exit 1
-zcat $CWD/patches/qt-everywhere-opensource-src-4.8.7-qforeach.patch.gz | patch -p1 --verbose || exit 1
-zcat $CWD/patches/qt-everywhere-opensource-src-4.8.7-crash-in-qppmhandler.patch.gz | patch -p1 --verbose || exit 1
-zcat $CWD/patches/qt-everywhere-opensource-src-4.8.5-QTBUG-35459.patch.gz | patch -p1 --verbose || exit 1
-zcat $CWD/patches/qt-everywhere-opensource-src-4.8.6-systemtrayicon.patch.gz | patch -p1 --verbose || exit 1
-#zcat $CWD/patches/qt-everywhere-opensource-src-4.8.0-tp-multilib-optflags.patch.gz | patch -p1 --verbose || exit 1
-zcat $CWD/patches/qt-everywhere-opensource-src-4.8.7-icu59.patch.gz | patch -p1 --verbose || exit 1
-zcat $CWD/patches/qt-4.8-disable-sslv3.patch.gz | patch -p1 --verbose || exit 1
+cat $CWD/patches/qt-everywhere-opensource-src-4.8.5-uic_multilib.patch | patch -p1 --verbose || exit 1
+cat $CWD/patches/qt-everywhere-opensource-src-4.8.5-webcore_debuginfo.patch | patch -p1 --verbose || exit 1
+cat $CWD/patches/qt-cupsEnumDests.patch | patch -p1 --verbose || exit 1
+cat $CWD/patches/qt-prefer_adwaita_on_gnome.patch | patch -p0 --verbose || exit 1
+cat $CWD/patches/qt-everywhere-opensource-src-4.6.3-glib_eventloop_nullcheck.patch | patch -p1 --verbose || exit 1
+cat $CWD/patches/qt-everywhere-opensource-src-4.8.3-qdbusconnection_no_debug.patch | patch -p1 --verbose || exit 1
+cat $CWD/patches/qt-everywhere-opensource-src-4.8.1-linguist_qmake-qt4.patch | patch -p1 --verbose || exit 1
+cat $CWD/patches/qt-everywhere-opensource-src-4.8.1-qt3support_debuginfo.patch | patch -p1 --verbose || exit 1
+cat $CWD/patches/qt-everywhere-opensource-src-4.8.5-qt_plugin_path.patch | patch -p1 --verbose || exit 1
+cat $CWD/patches/qt-everywhere-opensource-src-4.8.4-qmake_pkgconfig_requires_private.patch | patch -p1 --verbose || exit 1
+cat $CWD/patches/qt-everywhere-opensource-src-4.8.7-firebird.patch | patch -p1 --verbose || exit 1
+cat $CWD/patches/qt-everywhere-opensource-src-4.8.7-QT_VERSION_CHECK.patch | patch -p1 --verbose || exit 1
+cat $CWD/patches/qt-x11-opensource-src-4.5.0-fix-qatomic-inline-asm.patch | patch -p1 --verbose || exit 1
+cat $CWD/patches/qt-everywhere-opensource-src-4.8.5-mysql_config.patch | patch -p1 --verbose || exit 1
+cat $CWD/patches/qt-everywhere-opensource-src-4.6.2-cups.patch | patch -p1 --verbose || exit 1
+cat $CWD/patches/qt-everywhere-opensource-src-4.8.7-mariadb.patch | patch -p1 --verbose || exit 1
+cat $CWD/patches/qt-everywhere-opensource-src-4.8.7-qmake_LFLAGS.patch | patch -p1 --verbose || exit 1
+cat $CWD/patches/qt-everywhere-opensource-src-4.8.5-QTBUG-14467.patch | patch -p1 --verbose || exit 1
+cat $CWD/patches/qt-everywhere-opensource-src-4.8.0-tp-qtreeview-kpackagekit-crash.patch | patch -p1 --verbose || exit 1
+cat $CWD/patches/qt-everywhere-opensource-src-4.8.6-s390.patch | patch -p1 --verbose || exit 1
+cat $CWD/patches/qt-everywhere-opensource-src-4.8.3-no_Werror.patch | patch -p1 --verbose || exit 1
+cat $CWD/patches/qt-everywhere-opensource-src-4.8.0-QTBUG-22037.patch | patch -p1 --verbose || exit 1
+cat $CWD/patches/qt-everywhere-opensource-src-4.8.5-QTBUG-21900.patch | patch -p1 --verbose || exit 1
+cat $CWD/patches/qt-everywhere-opensource-src-4.8.5-tds_no_strict_aliasing.patch | patch -p1 --verbose || exit 1
+cat $CWD/patches/qt-everywhere-opensource-src-4.8.0-s390-atomic.patch | patch -p1 --verbose || exit 1
+cat $CWD/patches/qt-everywhere-opensource-src-4.8.3-icu_no_debug.patch | patch -p1 --verbose || exit 1
+cat $CWD/patches/qt-everywhere-opensource-src-4.8.2--assistant-crash.patch | patch -p1 --verbose || exit 1
+cat $CWD/patches/qt-everywhere-opensource-src-4.8.5-QTBUG-4862.patch | patch -p1 --verbose || exit 1
+cat $CWD/patches/qt-4.8-poll.patch | patch -p1 --verbose || exit 1
+cat $CWD/patches/qt-everywhere-opensource-src-4.8.6-QTBUG-37380.patch | patch -p1 --verbose || exit 1
+cat $CWD/patches/qt-everywhere-opensource-src-4.8.6-QTBUG-34614.patch | patch -p0 --verbose || exit 1
+cat $CWD/patches/qt-everywhere-opensource-src-4.8.6-QTBUG-38585.patch | patch -p0 --verbose || exit 1
+cat $CWD/patches/qt-everywhere-opensource-src-4.8.7-mips64.patch | patch -p1 --verbose || exit 1
+cat $CWD/patches/qt-everywhere-opensource-src-4.8.7-gcc6.patch | patch -p1 --verbose || exit 1
+cat $CWD/patches/qt-everywhere-opensource-src-4.8.7-alsa-1.1.patch | patch -p1 --verbose || exit 1
+cat $CWD/patches/qt-everywhere-opensource-src-4.8.7-openssl-1.1.patch | patch -p1 --verbose || exit 1
+cat $CWD/patches/qt-everywhere-opensource-src-4.8.7-gcc8_qtscript.patch | patch -p1 --verbose || exit 1
+cat $CWD/patches/qt-everywhere-opensource-src-4.8.5-qgtkstyle_disable_gtk_theme_check.patch | patch -p1 --verbose || exit 1
+cat $CWD/patches/qt-everywhere-opensource-src-4.8.6-QTBUG-22829.patch | patch -p1 --verbose || exit 1
+cat $CWD/patches/qt-aarch64.patch | patch -p1 --verbose || exit 1
+cat $CWD/patches/qt-everywhere-opensource-src-4.8.7-qforeach.patch | patch -p1 --verbose || exit 1
+cat $CWD/patches/qt-everywhere-opensource-src-4.8.7-crash-in-qppmhandler.patch | patch -p1 --verbose || exit 1
+cat $CWD/patches/qt-everywhere-opensource-src-4.8.5-QTBUG-35459.patch | patch -p1 --verbose || exit 1
+cat $CWD/patches/qt-everywhere-opensource-src-4.8.6-systemtrayicon.patch | patch -p1 --verbose || exit 1
+cat $CWD/patches/qt-everywhere-opensource-src-4.8.7-icu59.patch | patch -p1 --verbose || exit 1
+cat $CWD/patches/qt-4.8-disable-sslv3.patch | patch -p1 --verbose || exit 1
 
 # All other distros I checked build with -no-webkit. But this has the downside of
 # breaking the build when QtWebKit is present on the build system and some things
@@ -205,6 +202,9 @@ export OPENSOURCE_CXXFLAGS="$SLKCFLAGS -std=gnu++98 -fpermissive -fno-delete-nul
 make $NUMJOBS || make || exit 1
 make install INSTALL_ROOT=$PKG || exit 1
 
+# Remove the *.la files
+rm -f $PKG/usr/lib${LIBDIRSUFFIX}/qt/lib/*.la
+
 # dropping the just built WebKit since we replace it with an external one
 rm -f $PKG/usr/lib$LIBDIRSUFFIX/qt/lib/libQtWebKit*
 rm -f $PKG/usr/lib$LIBDIRSUFFIX/qt/lib/pkgconfig/QtWebKit.pc
@@ -235,12 +235,12 @@ Description: Qt Configuration
 Version: $VERSION
 EOF
 
-# libjscore is used internally.  Prevent a false dependency on this in the .la and .pc files:
-sed -i "s,-ljscore,,g" $PKG/usr/lib${LIBDIRSUFFIX}/qt/lib/*.la $PKG/usr/lib${LIBDIRSUFFIX}/qt/lib/pkgconfig/*.pc
-sed -i "s,-L../JavaScriptCore/release,,g" $PKG/usr/lib${LIBDIRSUFFIX}/qt/lib/*.la $PKG/usr/lib${LIBDIRSUFFIX}/qt/lib/pkgconfig/*.pc
+# libjscore is used internally.  Prevent a false dependency on this in the .pc files:
+sed -i "s,-ljscore,,g" $PKG/usr/lib${LIBDIRSUFFIX}/qt/lib/pkgconfig/*.pc
+sed -i "s,-L../JavaScriptCore/release,,g" $PKG/usr/lib${LIBDIRSUFFIX}/qt/lib/pkgconfig/*.pc
 
-# Make sure that .la, .pc, and .prl files use the correct $LIBDIRSUFFIX:
-sed -i "s,-L/usr/X11R6/lib ,-L/usr/X11R6/lib${LIBDIRSUFFIX} ,g" $PKG/usr/lib${LIBDIRSUFFIX}/qt/lib/*.la $PKG/usr/lib${LIBDIRSUFFIX}/qt/lib/pkgconfig/*.pc $PKG/usr/lib${LIBDIRSUFFIX}/qt/lib/*.prl
+# Make sure that .pc, and .prl files use the correct $LIBDIRSUFFIX:
+sed -i "s,-L/usr/X11R6/lib ,-L/usr/X11R6/lib${LIBDIRSUFFIX} ,g" $PKG/usr/lib${LIBDIRSUFFIX}/qt/lib/pkgconfig/*.pc $PKG/usr/lib${LIBDIRSUFFIX}/qt/lib/*.prl
 
 # Link the shared libraries into /usr/lib:
 ( cd $PKG/usr/lib${LIBDIRSUFFIX}
@@ -267,6 +267,8 @@ mkdir -p $PKG/usr/bin
   for file in * ; do
     ( cd $PKG/usr/bin ; ln -sf /usr/lib${LIBDIRSUFFIX}/qt/bin/$file . )
   done
+  cd $PKG/usr/bin;ln -sf /usr/lib${LIBDIRSUFFIX}/qt/bin/qmake qmake-qt4
+  rm -f $PKG/usr/bin/qmake
 )
 
 mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/pkgconfig
