@@ -18,6 +18,6 @@ if [ ! "$CPLUS_INCLUDE_PATH" = "" ]; then
 else
   CPLUS_INCLUDE_PATH=$QT4DIR/include
 fi
-PATH="$PATH:$QT4DIR/bin"
+#PATH="$PATH:$QT4DIR/bin"
 export QT4DIR
 export CPLUS_INCLUDE_PATH

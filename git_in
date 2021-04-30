@@ -58,7 +58,7 @@ git add .
 git add -u
 git commit -F $FVERSION
 git tag -f "$XTAG" HEAD
-git bundle create $XARCHIVE HEAD
+git bundle create $XARCHIVE HEAD --all
 
 echo "Creation archive tgz."
 echo "---------------------"

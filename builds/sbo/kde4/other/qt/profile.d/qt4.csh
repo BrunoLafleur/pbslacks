@@ -14,7 +14,7 @@ if ( ! $?QT4DIR ) then
         end
     endif
 endif
-set path = ( $path $QT4DIR/bin )
+#set path = ( $path $QT4DIR/bin )
 if ( $?CPLUS_INCLUDE_PATH ) then
     setenv CPLUS_INCLUDE_PATH $QT4DIR/include:$CPLUS_INCLUDE_PATH
 else
