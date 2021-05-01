@@ -252,15 +252,19 @@ sed -i "s,-L/usr/X11R6/lib ,-L/usr/X11R6/lib${LIBDIRSUFFIX} ,g" $PKG/usr/lib${LI
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
 
-# Add profile scripts
+# Add profile scripts.
+# There is links from qt4 or qt5 dirs to /usr/bin so we don't add them
+# to PATH.
 mkdir -p $PKG/etc/profile.d
 sed -e "s#usr/lib/#usr/lib${LIBDIRSUFFIX}/#g" $CWD/profile.d/qt4.sh \
   > $PKG/etc/profile.d/qt4.sh
 sed -e "s#usr/lib/#usr/lib${LIBDIRSUFFIX}/#g" $CWD/profile.d/qt4.csh \
-  > $PKG/etc/profile.d/qt4.csh
+    > $PKG/etc/profile.d/qt4.csh
+cp $CWD/profile.d/qt54.* $PKG/etc/profile.d
 chmod 0755 $PKG/etc/profile.d/*
 
-# Put a ton of links to more "normal" places.  I'd just use a prefix of /usr, but it
+# Put a ton of links to more "normal" places.
+# I'd just use a prefix of /usr, but it
 # creates a ton of new (and ambiguously named) /usr directories...
 mkdir -p $PKG/usr/bin
 ( cd $PKG/usr/lib${LIBDIRSUFFIX}/qt/bin
