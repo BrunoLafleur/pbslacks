@@ -27,75 +27,75 @@ msgstr ""
 "slackware64-current.\\n\\npbslacks devrait être à côté de ce répertoire "
 "courant."
 
-#: pbaspire:47
+#: pbaspire:51
 msgid "Get/Update versus officiel Slackware"
 msgstr "Obtenir/mettre à jour le dépot copie locale du site Slackware"
 
-#: pbaspire:48
+#: pbaspire:52
 msgid "Get/Update multilib compat 32 bits mode"
 msgstr "Obtenir/mettre à jour le mode de compatibilité 32 bits multilib"
 
-#: pbaspire:49
+#: pbaspire:53
 msgid "Get/Update KDE4"
 msgstr "Obtenir/mettre à jour KDE4"
 
-#: pbaspire:50
+#: pbaspire:54
 msgid "Get/Update KDE5 frameworks libraries"
 msgstr "Obtenir/mettre à jour les librairies frameworks de KDE5"
 
-#: pbaspire:51
+#: pbaspire:55
 msgid "Get/Update GParted live iso"
 msgstr "Obtenir/mettre à jour l'image iso GParted live"
 
-#: pbaspire:52
+#: pbaspire:56
 msgid "Get/Update VirtualBox installer"
 msgstr "Obtenir/mettre à jour VirtualBox"
 
-#: pbaspire:53
+#: pbaspire:57
 msgid "Get/Update some Alien Bob binary packages"
 msgstr "Obtenir/mettre à jour des paquets binaires d'Alien Bob"
 
-#: pbaspire:54
+#: pbaspire:58
 msgid "Get/Update some Ponce binary packages"
 msgstr "Obtenir/mettre à jour des paquets binaires de Ponce"
 
-#: pbaspire:55
+#: pbaspire:59
 msgid "Get/Update some Slackonly binary packages"
 msgstr "Obtenir/mettre à jour des paquets binaires de Slackonly"
 
-#: pbaspire:56
+#: pbaspire:60
 msgid "Get/Update some Conraid or Slackel binary packages"
 msgstr "Obtenir/mettre à jour des paquets binaires de Conraid et Slackel"
 
-#: pbaspire:57
+#: pbaspire:61
 msgid "Get/Update some other source packages"
 msgstr "Obtenir/mettre à jour d'autres paquets sources"
 
-#: pbaspire:58
+#: pbaspire:62
 msgid "Get/Update latest Firefox and Thunderbird"
 msgstr "Obtenir/mettre à jour Firefox et Thunderbird"
 
-#: pbaspire:59
+#: pbaspire:63
 msgid "Check GPG signatures"
 msgstr "Vérification des signatures GPG"
 
-#: pbaspire:60
+#: pbaspire:64
 msgid "Clean the local repository from old packages versions"
 msgstr "Nettoyage de la copie locale du système"
 
-#: pbaspire:67 pbsetup:114 pbupgrade:122
+#: pbaspire:71 pbsetup:130 pbupgrade:122
 msgid "Main menu"
 msgstr "Menu principal"
 
-#: pbaspire:68 pbsetup:115
+#: pbaspire:72 pbsetup:131
 msgid "Choose your actions below"
 msgstr "Choisissez vos actions ci-dessous"
 
-#: pbaspire:178
+#: pbaspire:182
 msgid "Get or update the officiel lastest current Slackware."
 msgstr "Synchroniser avec la copie locale de la dernière Slackware current"
 
-#: pbaspire:180
+#: pbaspire:184
 msgid ""
 "Get or update the multilib of Alien Bob which is a 32 bits compatibility set "
 "of packages."
@@ -103,108 +103,108 @@ msgstr ""
 "Obtenir ou mettre à jour les paquets multilib d'Alien Bob qui est un jeu de "
 "paquets assurant un mode de compatibilité 32 bits."
 
-#: pbaspire:182
+#: pbaspire:186
 msgid "Get or update the KDE4 set of packages."
 msgstr "Obtenir ou mettre à jour les paquets de KDE4."
 
-#: pbaspire:184
+#: pbaspire:188
 msgid "Get or update the KDE5 frameworks libraries."
 msgstr "Obtenir ou mettre à jour les librairies frameworks de KDE5"
 
-#: pbaspire:186
+#: pbaspire:190
 msgid "Get or update the GParted live ISO."
 msgstr "Obtenir ou mettre à jour l'image ISO GParted live"
 
-#: pbaspire:188
+#: pbaspire:192
 msgid "Get or update the VirtualBox installer and extensions."
 msgstr "Obtenir ou mettre à jour VirtualBox et ses extensions."
 
-#: pbaspire:190
+#: pbaspire:194
 msgid "Get or update some Alien Bob binary packages."
 msgstr "Obtenir ou mettre à jour des paquets binaires d'Alien Bob"
 
-#: pbaspire:192
+#: pbaspire:196
 msgid "Get or update some Ponce binary packages."
 msgstr "Obtenir ou mettre à jour des paquets binaires de Ponce"
 
-#: pbaspire:194
+#: pbaspire:198
 msgid "Get or update some Slackonly binary packages."
 msgstr "Obtenir ou mettre à jour des paquets inaires de Slackonly"
 
-#: pbaspire:196
+#: pbaspire:200
 msgid "Get or update some Conraid and Slackel binary packages."
 msgstr "Obtenir ou mettre à jour des paquets binaires de Conraid et Slackel"
 
-#: pbaspire:198
+#: pbaspire:202
 msgid "Get or update some other source packages."
 msgstr "Obtenir ou mettre à jour d'autres paquets sources"
 
-#: pbaspire:200
+#: pbaspire:204
 msgid "Get or update Firefox and Thunderbird."
 msgstr "Obtenir ou mettre à jour Firefox et Thunderbird"
 
-#: pbaspire:202
+#: pbaspire:206
 msgid "Check the GPG signatures of the downloaded packages."
 msgstr "Vérifiez les signatures GPG des paquets téléchargés."
 
-#: pbaspire:204
+#: pbaspire:208
 msgid "Clean the local repository from old packages or source files."
 msgstr "On enlève les anciennes versions de la copie locale du système."
 
-#: pbaspire:246
+#: pbaspire:257
 #, sh-format
 msgid "Get/Update core system done : \\Z3${PBNAME}core\\Zn."
 msgstr "Coeur du système obtenu ou mis à jour : \\Z3${PBNAME}core\\Zn."
 
-#: pbaspire:248
+#: pbaspire:259
 #, sh-format
 msgid "Get/Update multilib compat 32 bits mode done : \\Z3${PBNAME}core\\Zn."
 msgstr ""
 "Mode de compatibilié 32 bits obtenu ou mis à jour : \\Z3${PBNAME}core\\Zn."
 
-#: pbaspire:250
+#: pbaspire:261
 #, sh-format
 msgid "Get/Update KDE5 frameworks libraries done : \\Z3${PBNAME}core\\Zn."
 msgstr ""
 "Librairies frameworks de KDE5 obtenues ou mises à jour : \\Z3${PBNAME}core"
 "\\Zn."
 
-#: pbaspire:252
+#: pbaspire:263
 #, sh-format
 msgid "Get/Update gparted live iso done : \\Z3${PBNAME}core\\Zn."
 msgstr "Image iso GParted live obtenue ou mise à jour : \\Z3${PBNAME}core\\Zn."
 
-#: pbaspire:254
+#: pbaspire:265
 #, sh-format
 msgid "Get/Update VirtualBox installer done : \\Z3${PBNAME}core\\Zn."
 msgstr "Installeur VirtualBox obtenu ou mis à jour : \\Z3${PBNAME}core\\Zn."
 
-#: pbaspire:256
+#: pbaspire:267
 #, sh-format
 msgid "Local repository cleaned : \\Z3${PBNAME}core\\Zn."
 msgstr "Copie locale du système nettoyée : \\Z3${PBNAME}core\\Zn."
 
-#: pbaspire:261
+#: pbaspire:272
 #, sh-format
 msgid "Get/Update KDE4 packages done : \\Z3${PBNAME}kde4\\Zn."
 msgstr "Paquets de KDE4 obtenus ou mis à jour : \\Z3${PBNAME}kde4\\Zn."
 
-#: pbaspire:266
+#: pbaspire:277
 #, sh-format
 msgid "Get/Update Alien Bob packages done : \\Z3${PBNAME}alien\\Zn."
 msgstr "Paquets d'Alien Bob obtenus ou mis à jour : \\Z3${PBNAME}alien\\Zn."
 
-#: pbaspire:271
+#: pbaspire:282
 #, sh-format
 msgid "Get/Update Ponce packages done : \\Z3${PBNAME}ponce\\Zn."
 msgstr "Paquets de Ponce obtenus ou mis à jour : \\Z3${PBNAME}ponce\\Zn."
 
-#: pbaspire:275
+#: pbaspire:286
 #, sh-format
 msgid "Get/Update Slackonly packages done : \\Z3${PBNAME}slonly\\Zn."
 msgstr "Paquets de Slackonly obtenus ou mis à jour : \\Z3${PBNAME}slonly\\Zn."
 
-#: pbaspire:280
+#: pbaspire:291
 #, sh-format
 msgid ""
 "Get/Update Conraid and Slackel binary packages done : \\Z3${PBNAME}other\\Zn."
@@ -212,13 +212,13 @@ msgstr ""
 "Autres paquets binaires de Conraid et Slackel obtenus ou mis à jour : "
 "\\Z3${PBNAME}other\\Zn."
 
-#: pbaspire:285
+#: pbaspire:296
 #, sh-format
 msgid "Get/Update other source packages done : \\Z3${PBNAME}sources\\Zn."
 msgstr ""
 "Autres paquets sources obtenus ou mis à jour : \\Z3${PBNAME}sources\\Zn."
 
-#: pbaspire:291
+#: pbaspire:302
 #, sh-format
 msgid ""
 "Get/Update Firefox and Thunderbird for $XLANG language done : \\Z3${PBNAME}"
@@ -227,15 +227,15 @@ msgstr ""
 "Obtention ou mise à jour de Firefox et Thunderbird pour le langage $XLANG "
 "faite : \\Z3${PBNAME}mozilla\\Zn."
 
-#: pbaspire:295
+#: pbaspire:306
 msgid "GPG signatures checked :"
 msgstr "Signatures GPG vérifiées :"
 
-#: pbaspire:304 pbsetup:306 pbupgrade:460
+#: pbaspire:315 pbsetup:322 pbupgrade:460
 msgid "No action was demanded. Exit."
 msgstr "Aucune action demandée. Sortie."
 
-#: pbaspire:307 pbsetup:310 pbupgrade:83
+#: pbaspire:318 pbsetup:326 pbupgrade:83
 msgid "Actions which were done"
 msgstr "Actions réalisées"
 
@@ -246,11 +246,11 @@ msgid ""
 msgstr ""
 "Script à lancer dans le répertoire contenant packages, packages2 et al."
 
-#: pbaspirecore:112 pbaspirearm:95
+#: pbaspirecore:112 pbaspirearmcore:95
 msgid "Slackware current copied."
 msgstr "Copie Slackware current faite."
 
-#: pbaspirecore:114 pbaspirearm:97
+#: pbaspirecore:114 pbaspirearmcore:97
 msgid "Slackware current not copied."
 msgstr "Copie Slackware current non faite."
 
@@ -270,7 +270,7 @@ msgstr "Copie des scripts pour KDE5 d'Alien Bob faite."
 msgid "KDE5 frameworks sources copied."
 msgstr "Copie des sources de KDE5 frameworks faite."
 
-#: pbaspirecore:219 pbaspirearm:124
+#: pbaspirecore:219 pbaspirearmcore:124
 msgid "Check GPG signatures :"
 msgstr "Vérification des signatures GPG :"
 
@@ -552,39 +552,48 @@ msgstr "Choisissez votre répertoire de travail"
 msgid "Local repository $LASTSLACK found.\\nDo you want to work with it$YN ?"
 msgstr "Copie locale $LASTSLACK trouvée.\\nVoulez vous travailler avec$YN ?"
 
-#: pbsetup:102
+#: pbsetup:84
+msgid "Choose architecture of the machine"
+msgstr "Choisissez l'architecture de la machine"
+
+#: pbsetup:86
+#, sh-format
+msgid "Do you want x64 or else arm$YN ?"
+msgstr "Voulez-vous x64 ou sinon arm$YN ?"
+
+#: pbsetup:118
 msgid ""
 "Get/Update local repository versus officiel remote Slackware and add-on "
 "packages"
 msgstr ""
 "Obtenir/mettre à jour la copie locale du site Slackware avec ses ajouts"
 
-#: pbsetup:103
+#: pbsetup:119
 msgid ""
 "Sync/Update system to the last fetched current Slackware and add-on packages"
 msgstr "Synchroniser la copie locale avec le système courant"
 
-#: pbsetup:104
+#: pbsetup:120
 msgid "Compile some add-on packages from sources"
 msgstr "Compilez à nouveau certains paquets additionnels"
 
-#: pbsetup:105
+#: pbsetup:121
 msgid "Make a bootable USB stick for Slackware install."
 msgstr "Fabriquer une clé USB avec l'installateur de la Slackware"
 
-#: pbsetup:106
+#: pbsetup:122
 msgid "Make a bootable DVD ROM for Slackware install."
 msgstr "Fabriquer un DVD ROM de démarrage avec l'installeur de la Slackware"
 
-#: pbsetup:107
+#: pbsetup:123
 msgid "Install the refind boot manager for dual or more boot."
 msgstr "Installez le gestionnaire de démarrage refind si nécessaire."
 
-#: pbsetup:108
+#: pbsetup:124
 msgid "Stop the eventual hibernation of Windows."
 msgstr "Arrêter l'hibernation éventuelle de Windows."
 
-#: pbsetup:184
+#: pbsetup:200
 msgid ""
 "Do a local clone/update of the officiel Slackware and add-on packages."
 "\\nUses pbslacks/pbaspire."
@@ -592,16 +601,16 @@ msgstr ""
 "Obtenir/mettre à jour la copie locale du site Slackware avec ses ajouts"
 "\\nUtilise pbslacks/pbaspire."
 
-#: pbsetup:186
+#: pbsetup:202
 msgid "Upgrade the local system with the local clone."
 msgstr "Mise à jour du système local à l'aide du clone local"
 
-#: pbsetup:188
+#: pbsetup:204
 msgid "Compile some source packages after a fresh upgrade or install."
 msgstr ""
 "Compilez certains paquets sources après une mise à jour ou installation."
 
-#: pbsetup:190
+#: pbsetup:206
 msgid ""
 "Make a dual boot install USB stick with Slackware install and GParted Live "
 "which can boot on old bios or new UEFI bios computers."
@@ -609,7 +618,7 @@ msgstr ""
 "Fabriquer une clé USB de démarrage avec l'installeur de la Slackware et la "
 "GParted Live. Elle peut se lancer sur les anciens bios ou les bios UEFI."
 
-#: pbsetup:192
+#: pbsetup:208
 msgid ""
 "Make a boot install DVD ROM with Slackware install which can boot on old "
 "bios or new UEFI bios computers."
@@ -617,7 +626,7 @@ msgstr ""
 "Fabriquer un DVD ROM de démarrage avec l'installeur de la Slackware. Elle "
 "peut se lancer sur les anciens bios ou les bios UEFI."
 
-#: pbsetup:194
+#: pbsetup:210
 msgid ""
 "Setup the boot manager refind if you have set elilo in the installation of "
 "Slackware and you have other systems like MS Windows."
@@ -626,7 +635,7 @@ msgstr ""
 "l'installation de Slackware et avez plus d'un système installé comme MS "
 "Windows."
 
-#: pbsetup:196
+#: pbsetup:212
 msgid ""
 "Stop the hibernation of Windows in case it is active after modifying the "
 "disks partitions."
@@ -634,43 +643,43 @@ msgstr ""
 "Arrêter l'hibernation de Windows au cas où elle soit active après "
 "modification des partitions de disques."
 
-#: pbsetup:223
+#: pbsetup:239
 msgid "Clone done (full or partial depending on selected options)."
 msgstr "Copie faite (complète ou partielle selon options choisies)"
 
-#: pbsetup:234 pbsetup:246 pbsetup:276 pbsetup:298
+#: pbsetup:250 pbsetup:262 pbsetup:292 pbsetup:314
 msgid "Change to root."
 msgstr "Connection root."
 
-#: pbsetup:238
+#: pbsetup:254
 msgid "Upgrade done for selected set of packages."
 msgstr "Mise à jour du système courant pour les paquets choisis."
 
-#: pbsetup:250
+#: pbsetup:266
 msgid "USB stick created."
 msgstr "Clé USB créée"
 
-#: pbsetup:252
+#: pbsetup:268
 msgid "USB stick not created."
 msgstr "Clé USB non créée"
 
-#: pbsetup:261
+#: pbsetup:277
 msgid "\\Z3ISO DVD ROM created.\\Zn"
 msgstr "\\Z3ISO DVD ROM créé.\\Zn"
 
-#: pbsetup:263
+#: pbsetup:279
 msgid "\\Z3ISO DVD ROM not created.\\Zn"
 msgstr "\\Z3ISO DVD ROM non créé.\\Zn"
 
-#: pbsetup:282
+#: pbsetup:298
 msgid "refind not installed because elilo is not."
 msgstr "refind non installé car elilo ne l'est pas."
 
-#: pbsetup:284 pbsetup:286
+#: pbsetup:300 pbsetup:302
 msgid "refind installed."
 msgstr "refind installé."
 
-#: pbsetup:289
+#: pbsetup:305
 msgid "refind not installed."
 msgstr "refind non installé."
 
@@ -1240,7 +1249,7 @@ msgstr "Arrêt : voir les erreurs précédentes."
 msgid "Upgrade system not done."
 msgstr "Mise à jour du système non faite."
 
-#: pbaspirearm:16
+#: pbaspirearmcore:16
 msgid ""
 "Launch this script in a new directory.\\nor in a directory which contains "
 "slackwarearm-current.\\n\\npbslacks should be side by side of this current "
@@ -1250,10 +1259,10 @@ msgstr ""
 "slackwarearm-current.\\n\\npbslacks devrait être à côté de ce répertoire "
 "courant."
 
-#: pbaspirearm:149
+#: pbaspirearmcore:149
 msgid "Sarpi copied."
 msgstr "Copie Sarpi faite."
 
-#: pbaspirearm:151 pbaspirearm:157
+#: pbaspirearmcore:151 pbaspirearmcore:157
 msgid "Sarpi not copied."
 msgstr "Copie Sarpi non faite."

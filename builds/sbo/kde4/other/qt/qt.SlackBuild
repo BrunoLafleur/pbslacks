@@ -265,10 +265,8 @@ chmod 0755 $PKG/etc/profile.d/*
 mkdir -p $PKG/usr/bin
 ( cd $PKG/usr/lib${LIBDIRSUFFIX}/qt/bin
   for file in * ; do
-    ( cd $PKG/usr/bin ; ln -sf /usr/lib${LIBDIRSUFFIX}/qt/bin/$file . )
+    ( cd $PKG/usr/bin ; ln -sf /usr/lib${LIBDIRSUFFIX}/qt/bin/$file $file-qt4 )
   done
-  cd $PKG/usr/bin;ln -sf /usr/lib${LIBDIRSUFFIX}/qt/bin/qmake qmake-qt4
-  rm -f $PKG/usr/bin/qmake
 )
 
 mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/pkgconfig

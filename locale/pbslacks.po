@@ -23,205 +23,205 @@ msgid ""
 "directory."
 msgstr ""
 
-#: pbaspire:47
+#: pbaspire:51
 msgid "Get/Update versus officiel Slackware"
 msgstr ""
 
-#: pbaspire:48
+#: pbaspire:52
 msgid "Get/Update multilib compat 32 bits mode"
 msgstr ""
 
-#: pbaspire:49
+#: pbaspire:53
 msgid "Get/Update KDE4"
 msgstr ""
 
-#: pbaspire:50
+#: pbaspire:54
 msgid "Get/Update KDE5 frameworks libraries"
 msgstr ""
 
-#: pbaspire:51
+#: pbaspire:55
 msgid "Get/Update GParted live iso"
 msgstr ""
 
-#: pbaspire:52
+#: pbaspire:56
 msgid "Get/Update VirtualBox installer"
 msgstr ""
 
-#: pbaspire:53
+#: pbaspire:57
 msgid "Get/Update some Alien Bob binary packages"
 msgstr ""
 
-#: pbaspire:54
+#: pbaspire:58
 msgid "Get/Update some Ponce binary packages"
 msgstr ""
 
-#: pbaspire:55
+#: pbaspire:59
 msgid "Get/Update some Slackonly binary packages"
 msgstr ""
 
-#: pbaspire:56
+#: pbaspire:60
 msgid "Get/Update some Conraid or Slackel binary packages"
 msgstr ""
 
-#: pbaspire:57
+#: pbaspire:61
 msgid "Get/Update some other source packages"
 msgstr ""
 
-#: pbaspire:58
+#: pbaspire:62
 msgid "Get/Update latest Firefox and Thunderbird"
 msgstr ""
 
-#: pbaspire:59
+#: pbaspire:63
 msgid "Check GPG signatures"
 msgstr ""
 
-#: pbaspire:60
+#: pbaspire:64
 msgid "Clean the local repository from old packages versions"
 msgstr ""
 
-#: pbaspire:67 pbsetup:114 pbupgrade:122
+#: pbaspire:71 pbsetup:130 pbupgrade:122
 msgid "Main menu"
 msgstr ""
 
-#: pbaspire:68 pbsetup:115
+#: pbaspire:72 pbsetup:131
 msgid "Choose your actions below"
 msgstr ""
 
-#: pbaspire:178
+#: pbaspire:182
 msgid "Get or update the officiel lastest current Slackware."
 msgstr ""
 
-#: pbaspire:180
+#: pbaspire:184
 msgid ""
 "Get or update the multilib of Alien Bob which is a 32 bits compatibility set "
 "of packages."
 msgstr ""
 
-#: pbaspire:182
+#: pbaspire:186
 msgid "Get or update the KDE4 set of packages."
 msgstr ""
 
-#: pbaspire:184
+#: pbaspire:188
 msgid "Get or update the KDE5 frameworks libraries."
 msgstr ""
 
-#: pbaspire:186
+#: pbaspire:190
 msgid "Get or update the GParted live ISO."
 msgstr ""
 
-#: pbaspire:188
+#: pbaspire:192
 msgid "Get or update the VirtualBox installer and extensions."
 msgstr ""
 
-#: pbaspire:190
+#: pbaspire:194
 msgid "Get or update some Alien Bob binary packages."
 msgstr ""
 
-#: pbaspire:192
+#: pbaspire:196
 msgid "Get or update some Ponce binary packages."
 msgstr ""
 
-#: pbaspire:194
+#: pbaspire:198
 msgid "Get or update some Slackonly binary packages."
 msgstr ""
 
-#: pbaspire:196
+#: pbaspire:200
 msgid "Get or update some Conraid and Slackel binary packages."
 msgstr ""
 
-#: pbaspire:198
+#: pbaspire:202
 msgid "Get or update some other source packages."
 msgstr ""
 
-#: pbaspire:200
+#: pbaspire:204
 msgid "Get or update Firefox and Thunderbird."
 msgstr ""
 
-#: pbaspire:202
+#: pbaspire:206
 msgid "Check the GPG signatures of the downloaded packages."
 msgstr ""
 
-#: pbaspire:204
+#: pbaspire:208
 msgid "Clean the local repository from old packages or source files."
 msgstr ""
 
-#: pbaspire:246
+#: pbaspire:257
 #, sh-format
 msgid "Get/Update core system done : \\Z3${PBNAME}core\\Zn."
 msgstr ""
 
-#: pbaspire:248
+#: pbaspire:259
 #, sh-format
 msgid "Get/Update multilib compat 32 bits mode done : \\Z3${PBNAME}core\\Zn."
 msgstr ""
 
-#: pbaspire:250
+#: pbaspire:261
 #, sh-format
 msgid "Get/Update KDE5 frameworks libraries done : \\Z3${PBNAME}core\\Zn."
 msgstr ""
 
-#: pbaspire:252
+#: pbaspire:263
 #, sh-format
 msgid "Get/Update gparted live iso done : \\Z3${PBNAME}core\\Zn."
 msgstr ""
 
-#: pbaspire:254
+#: pbaspire:265
 #, sh-format
 msgid "Get/Update VirtualBox installer done : \\Z3${PBNAME}core\\Zn."
 msgstr ""
 
-#: pbaspire:256
+#: pbaspire:267
 #, sh-format
 msgid "Local repository cleaned : \\Z3${PBNAME}core\\Zn."
 msgstr ""
 
-#: pbaspire:261
+#: pbaspire:272
 #, sh-format
 msgid "Get/Update KDE4 packages done : \\Z3${PBNAME}kde4\\Zn."
 msgstr ""
 
-#: pbaspire:266
+#: pbaspire:277
 #, sh-format
 msgid "Get/Update Alien Bob packages done : \\Z3${PBNAME}alien\\Zn."
 msgstr ""
 
-#: pbaspire:271
+#: pbaspire:282
 #, sh-format
 msgid "Get/Update Ponce packages done : \\Z3${PBNAME}ponce\\Zn."
 msgstr ""
 
-#: pbaspire:275
+#: pbaspire:286
 #, sh-format
 msgid "Get/Update Slackonly packages done : \\Z3${PBNAME}slonly\\Zn."
 msgstr ""
 
-#: pbaspire:280
+#: pbaspire:291
 #, sh-format
 msgid ""
 "Get/Update Conraid and Slackel binary packages done : \\Z3${PBNAME}other\\Zn."
 msgstr ""
 
-#: pbaspire:285
+#: pbaspire:296
 #, sh-format
 msgid "Get/Update other source packages done : \\Z3${PBNAME}sources\\Zn."
 msgstr ""
 
-#: pbaspire:291
+#: pbaspire:302
 #, sh-format
 msgid ""
 "Get/Update Firefox and Thunderbird for $XLANG language done : \\Z3${PBNAME}"
 "mozilla\\Zn."
 msgstr ""
 
-#: pbaspire:295
+#: pbaspire:306
 msgid "GPG signatures checked :"
 msgstr ""
 
-#: pbaspire:304 pbsetup:306 pbupgrade:460
+#: pbaspire:315 pbsetup:322 pbupgrade:460
 msgid "No action was demanded. Exit."
 msgstr ""
 
-#: pbaspire:307 pbsetup:310 pbupgrade:83
+#: pbaspire:318 pbsetup:326 pbupgrade:83
 msgid "Actions which were done"
 msgstr ""
 
@@ -231,11 +231,11 @@ msgid ""
 "Launch this script in the directory including packages, packages2 et al."
 msgstr ""
 
-#: pbaspirecore:112 pbaspirearm:95
+#: pbaspirecore:112 pbaspirearmcore:95
 msgid "Slackware current copied."
 msgstr ""
 
-#: pbaspirecore:114 pbaspirearm:97
+#: pbaspirecore:114 pbaspirearmcore:97
 msgid "Slackware current not copied."
 msgstr ""
 
@@ -255,7 +255,7 @@ msgstr ""
 msgid "KDE5 frameworks sources copied."
 msgstr ""
 
-#: pbaspirecore:219 pbaspirearm:124
+#: pbaspirecore:219 pbaspirearmcore:124
 msgid "Check GPG signatures :"
 msgstr ""
 
@@ -513,112 +513,121 @@ msgstr ""
 msgid "Local repository $LASTSLACK found.\\nDo you want to work with it$YN ?"
 msgstr ""
 
-#: pbsetup:102
+#: pbsetup:84
+msgid "Choose architecture of the machine"
+msgstr ""
+
+#: pbsetup:86
+#, sh-format
+msgid "Do you want x64 or else arm$YN ?"
+msgstr ""
+
+#: pbsetup:118
 msgid ""
 "Get/Update local repository versus officiel remote Slackware and add-on "
 "packages"
 msgstr ""
 
-#: pbsetup:103
+#: pbsetup:119
 msgid ""
 "Sync/Update system to the last fetched current Slackware and add-on packages"
 msgstr ""
 
-#: pbsetup:104
+#: pbsetup:120
 msgid "Compile some add-on packages from sources"
 msgstr ""
 
-#: pbsetup:105
+#: pbsetup:121
 msgid "Make a bootable USB stick for Slackware install."
 msgstr ""
 
-#: pbsetup:106
+#: pbsetup:122
 msgid "Make a bootable DVD ROM for Slackware install."
 msgstr ""
 
-#: pbsetup:107
+#: pbsetup:123
 msgid "Install the refind boot manager for dual or more boot."
 msgstr ""
 
-#: pbsetup:108
+#: pbsetup:124
 msgid "Stop the eventual hibernation of Windows."
 msgstr ""
 
-#: pbsetup:184
+#: pbsetup:200
 msgid ""
 "Do a local clone/update of the officiel Slackware and add-on packages."
 "\\nUses pbslacks/pbaspire."
 msgstr ""
 
-#: pbsetup:186
+#: pbsetup:202
 msgid "Upgrade the local system with the local clone."
 msgstr ""
 
-#: pbsetup:188
+#: pbsetup:204
 msgid "Compile some source packages after a fresh upgrade or install."
 msgstr ""
 
-#: pbsetup:190
+#: pbsetup:206
 msgid ""
 "Make a dual boot install USB stick with Slackware install and GParted Live "
 "which can boot on old bios or new UEFI bios computers."
 msgstr ""
 
-#: pbsetup:192
+#: pbsetup:208
 msgid ""
 "Make a boot install DVD ROM with Slackware install which can boot on old "
 "bios or new UEFI bios computers."
 msgstr ""
 
-#: pbsetup:194
+#: pbsetup:210
 msgid ""
 "Setup the boot manager refind if you have set elilo in the installation of "
 "Slackware and you have other systems like MS Windows."
 msgstr ""
 
-#: pbsetup:196
+#: pbsetup:212
 msgid ""
 "Stop the hibernation of Windows in case it is active after modifying the "
 "disks partitions."
 msgstr ""
 
-#: pbsetup:223
+#: pbsetup:239
 msgid "Clone done (full or partial depending on selected options)."
 msgstr ""
 
-#: pbsetup:234 pbsetup:246 pbsetup:276 pbsetup:298
+#: pbsetup:250 pbsetup:262 pbsetup:292 pbsetup:314
 msgid "Change to root."
 msgstr ""
 
-#: pbsetup:238
+#: pbsetup:254
 msgid "Upgrade done for selected set of packages."
 msgstr ""
 
-#: pbsetup:250
+#: pbsetup:266
 msgid "USB stick created."
 msgstr ""
 
-#: pbsetup:252
+#: pbsetup:268
 msgid "USB stick not created."
 msgstr ""
 
-#: pbsetup:261
+#: pbsetup:277
 msgid "\\Z3ISO DVD ROM created.\\Zn"
 msgstr ""
 
-#: pbsetup:263
+#: pbsetup:279
 msgid "\\Z3ISO DVD ROM not created.\\Zn"
 msgstr ""
 
-#: pbsetup:282
+#: pbsetup:298
 msgid "refind not installed because elilo is not."
 msgstr ""
 
-#: pbsetup:284 pbsetup:286
+#: pbsetup:300 pbsetup:302
 msgid "refind installed."
 msgstr ""
 
-#: pbsetup:289
+#: pbsetup:305
 msgid "refind not installed."
 msgstr ""
 
@@ -1096,17 +1105,17 @@ msgstr ""
 msgid "Upgrade system not done."
 msgstr ""
 
-#: pbaspirearm:16
+#: pbaspirearmcore:16
 msgid ""
 "Launch this script in a new directory.\\nor in a directory which contains "
 "slackwarearm-current.\\n\\npbslacks should be side by side of this current "
 "directory."
 msgstr ""
 
-#: pbaspirearm:149
+#: pbaspirearmcore:149
 msgid "Sarpi copied."
 msgstr ""
 
-#: pbaspirearm:151 pbaspirearm:157
+#: pbaspirearmcore:151 pbaspirearmcore:157
 msgid "Sarpi not copied."
 msgstr ""

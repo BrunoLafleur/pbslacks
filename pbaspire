@@ -9,8 +9,10 @@
 xhelp () {
     mygt 'Launch this script in a new directory.\nor in a directory which contains slackware64-current.\n\npbslacks should be side by side of this current directory.'|sed 's@\\n@\n@g'
     echo
-    echo '> ../pbslacks/pbaspire [-test (test only, no actions)] [-help|-h] [-nodial]'
+    echo '> ../pbslacks/pbaspire [-test (test only, no actions)] [-help|-h] [-nodial] [x64|arm]'
 }
+
+PBARCH=x64
 
 while [ $# -ge 1 ] ;do
     MYARG="$1"
@@ -21,6 +23,8 @@ while [ $# -ge 1 ] ;do
     elif [ "$MYARG" = "-help" -o "$MYARG" = "-h" ] ;then
 	xhelp
 	exit 0
+    else
+	PBARCH="$MYARG"
     fi
     shift
 done
@@ -229,6 +233,13 @@ ISSOURCES="$(cat $XTEMPOUT|grep '^sources$'|wc -l)"
 ISMOZ="$(cat $XTEMPOUT|grep '^mozilla$'|wc -l)"
 ISCHECK="$(cat $XTEMPOUT|grep '^check$'|wc -l)"
 ISCLEAN="$(cat $XTEMPOUT|grep '^clean$'|wc -l)"
+[ $PBARCH = arm ] && ISALIEN=
+[ $PBARCH = arm ] && ISPONCE=
+[ $PBARCH = arm ] && ISSLONLY=
+[ $PBARCH = arm ] && ISOTHER=
+[ $PBARCH = arm ] && ISSOURCES=
+[ $PBARCH = arm ] && ISMOZ=
+RARCH=;[ $PBARCH = arm ] && RARCH=arm
 
 COREATTR=
 [ $ISCORE -eq 1 ] && COREATTR="$COREATTR -core"
@@ -240,7 +251,7 @@ COREATTR=
 [ $ISCLEAN -eq 1 ] && COREATTR="$COREATTR -purge"
 
 if [ "$COREATTR" != '' ] ;then
-    [ $XTEST -ne 1 ] && "$PBNAME"core $COREATTR $XTEMPCHK
+    [ $XTEST -ne 1 ] && "$PBNAME$RARCH"core $COREATTR $XTEMPCHK
 fi
 
 [ $ISCORE -eq 1 ] && emygt "Get/Update core system done : \Z3\${PBNAME}core\Zn." \
