@@ -39,7 +39,7 @@ fi
 # This project.
 [ ! -h pbslacks ] && ln -s ../pbslacks .
 
-# For putting iso images.amges.
+# For putting iso images.
 if [ ! -h Linuxiso ] ; then
     [ ! -d ../Linuxiso ] && mkdir ../Linuxiso
     ln -sf ../Linuxiso .

@@ -1,0 +1,25 @@
+#! /bin/sh
+
+# Auteur : Pierre Brochard (pierre.brochard.1982@m4x.org)
+# Date : 2019
+# License : See the LICENSE file in this repository.
+
+# List of aspire links.
+# explicit mirror chosen here.
+
+# At SARPi Project we have found the Kingston UHS-I U3 range of microSD cards
+# to be relatively inexpensive and 100% trouble-free while running Slackware ARM
+# on the Raspberry Pi. They are very reliable and extremely quick at reading and
+# writing data, out-performing most other microSD cards from PNY, Sandisk,
+# Samsung, etc.
+
+# xz -dc sarpi4-installer_slackcurrent_*.img.xz | dd of=[device] bs=65536
+
+# rsync -Prv --delete ftp.slackware.uk::slackwarearm/slackwarearm-current .
+
+SLACKARM='http://nephtys.lip6.fr/pub/linux/distributions/slackwarearm'
+SARPI='https://sarpi.penthux.net/index.php?p=rpi4getarmv7current'
+SARPIINSTALL='https://slackware.uk/sarpi/rpi4/current-armv7l/img/sarpi4-installer_slackcurrent_01May21_sp1.img.xz'
+RUFUS='https://rufus.ie/fr/'
+RUFUSEXE='https://github.com/pbatard/rufus/releases/download/v3.14/rufus-3.14.exe'
+TOUCHEGG='https://framagit.org/Desiderius77/multitouch-diskio-pi'

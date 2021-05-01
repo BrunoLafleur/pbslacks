@@ -1,0 +1,56 @@
+#! /bin/sh
+
+# Auteur : Pierre Brochard (pierre.brochard.1982@m4x.org)
+# Date : 2019
+# License : See the LICENSE file in this repository.
+
+test_oldslack () {
+    pac="$1"
+    par=$(dirname "$pac");cur=$(pwd);rcur=$par/$(basename "$cur")
+    last=$(ls -1td "$pac"[0-9]* 2> /dev/null |head -1)
+
+    if [ "$last" = "$rcur" ] ;then
+	if [ $(ls -1td "$pac"[0-9]* 2> /dev/null |wc -l) -eq 1 ] ;then
+	    echo
+	else
+	    ls -1td "$pac"[0-9]* 2> /dev/null |head -2|tail -1
+	fi
+    else
+	echo "$last"
+    fi
+}
+
+OLDSLACK=$(test_oldslack ../Slackware-arm-)
+
+if [ ! -d packages -a -d "$OLDSLACK" ] ;then
+    emygt "OLDSLACK = \$OLDSLACK\nCopies of \$OLDSLACK/packages* will be done.\nElse all add-on packages will be downloaded again."
+
+    if [ -d "$OLDSLACK/packages" ] ;then
+	cp -a "$OLDSLACK/packages"* .
+    fi
+fi
+
+# This project.
+[ ! -h pbslacks ] && ln -s ../pbslacks .
+
+# For putting iso images.
+if [ ! -h Linuxiso ] ; then
+    [ ! -d ../Linuxiso ] && mkdir ../Linuxiso
+    ln -sf ../Linuxiso .
+fi
+
+# Some specifics tunings.
+if [ ! -h perso ] ; then
+    if [ -d ../perso ] ;then
+        ln -sf ../perso .
+    else
+	[ ! -d perso ] && mkdir perso
+    fi
+fi
+
+[ ! -d gpgkeys ] && mkdir gpgkeys
+[ ! -d packages ] && mkdir packages
+[ ! -d packages/Mozilla ] && mkdir packages/Mozilla
+[ ! -d packages2 ] && mkdir packages2
+[ ! -d packages3 ] && mkdir packages3
+[ ! -d packages4 ] && mkdir packages4

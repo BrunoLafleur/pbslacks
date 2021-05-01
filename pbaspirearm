@@ -1,0 +1,159 @@
+#! /bin/sh
+
+# Auteur : Pierre Brochard (pierre.brochard.1982@m4x.org)
+# Date : 2019
+# License : See the LICENSE file in this repository.
+
+# can be done non root.
+
+XDIR="$(dirname $0)"
+. "$XDIR/pbaspirearminit"
+. "$XDIR/pbinclude"
+. "$XDIR/pbaspireinc"
+. "$XDIR/pbpatharm"
+
+xhelp () {
+    mygt 'Launch this script in a new directory.\nor in a directory which contains slackwarearm-current.\n\npbslacks should be side by side of this current directory.'|sed 's@\\n@\n@g'
+    echo
+    echo '> ../pbslacks/pbaspirearm [-core] [-sarpi] [-purge] [-check] [-help|-h]'
+}
+
+if [ $# -eq 0 ] ;then
+    ISCORE=1
+    ISCHECK=1
+    ISPURGE=1
+    ISSARPI=1
+else
+    ISCORE=0
+    ISCHECK=0
+    ISPURGE=0
+    ISSARPI=0
+fi
+
+while [ $# -ge 1 ] ;do
+    MYARG="$1"
+    if [ "$MYARG" = "-core" ] ;then
+	ISCORE=1
+    elif [ "$MYARG" = "-purge" ] ;then
+	ISPURGE=1
+    elif [ "$MYARG" = "-sarpi" ] ;then
+	ISSARPI=1
+    elif [ "$MYARG" = "-check" ] ;then
+	ISCHECK=1
+	XTEMPCHK="$2"
+    elif [ "$MYARG" = "-help" -o "$MYARG" = "-h" ] ;then
+	xhelp
+	exit 0
+    fi
+    shift
+done
+
+if [ "$0" != "../pbslacks/$MYPROG" -a "$0" != "pbslacks/$MYPROG" ] ;then
+    xhelp
+    exit 1
+fi
+
+MYPWD=$(pwd)
+export HOMESLACK="$MYPWD"
+
+# Can be the USB stick.
+CDIR=$(basename $MYPWD)
+ISSTICK=0;[ -d current -a "$CDIR" = slackwarearm-current ] && ISSTICK=1
+
+# The official current Slackware.
+if [ $ISCORE -eq 1 -o $ISPURGE -eq 1 ] ;then
+    [ $ISSTICK -eq 1 ] && cd ..
+    [ $ISCORE -eq 1 ] && myrget 4 "$SLACKARM/slackwarearm-current" \
+				slackwarearm-current
+
+# Nettoyage des doublons
+    echo '------------------------------------'
+    if [ -d slackwarearm-current ] ;then
+	(
+	    cd slackwarearm-current
+	    find . -name '*.t?z'|grep -v '^./source/'|\
+		while read i;test "$i" != "" ;do
+		    pack=$(echo $i|sed 's@-[0-9\.][^-]*-[^-]*-[^-]*$@@')
+		    echo -n .
+		    xpurgepac "$pack-[0-9]" txt
+		    xpurgepac "$pack-[0-9]" t?z
+		    xpurgepac "$pack-[0-9]" asc
+		done
+	    find source -name '*.tar.?z'|while read i;test "$i" != "" ;do
+		pack=$(echo $i|sed 's@-[0-9\.].*$@@')
+		echo -n .
+		xpurgepac "$pack-[0-9]" tar.?z
+		xpurgepac "$pack-[0-9]" tar.*sig*
+		xpurgepac "$pack-[0-9]" tar.*asc
+	    done
+	    echo
+	    ln -sf ../perso .
+	    ln -sf ../pbslacks .
+	    ln -sf ../packages* .
+	    ln -sf ../gpgkeys .
+	)
+	mygt "Slackware current copied."
+    else
+	mygt "Slackware current not copied."
+    fi
+    [ $ISSTICK -eq 1 ] && cd slackwarearm-current
+    echo '------------------------------------'
+fi
+
+if [ $ISCHECK -eq 1 ] ;then
+    [ $ISSTICK -eq 1 ] && cd ..
+    # Get GPG Keys from the original Slackware web site.
+    if [ -d slackwarearm-current ] ;then
+	(
+	    cd slackwarearm-current;rm -f GPG-KEY
+	    xgeturl "$SLACKKEYS/slackwarearm-current/GPG-KEY"
+	    ln -sf ../gpgkeys .
+	)
+    fi
+    find slackwarearm-current -name '*.asc'|while read i;test "$i" != "" ;do
+	(
+	    echo "$i";rm -f "$i";cd $(dirname "$i")
+	    xgeturl "$SLACKKEYS/$i"
+	)
+    done
+    [ $ISSTICK -eq 1 ] && cd slackwarearm-current
+
+    # Check with GPG signatures
+    # From :
+    # https://www.linuxquestions.org/questions/slackware-14/how-do-you-gpg-verify-all-of-your-rsync-slackware-directory-464782/#post2339282
+    mygt "Check GPG signatures :" >> $XTEMPCHK
+    (
+	export LANG=C
+	find . -type f -name 'GPG-KEY*' -exec gpg --import {} \; >> $XTEMPCHK
+	find . -type f -name '*.asc' -exec gpg --verify -q {} \; 2>&1 | \
+	    egrep -i 'gpg: assuming signed data in |gpg: bad signature' \
+		  >> $XTEMPCHK
+    )
+fi
+
+# Sarpi
+if [ $ISSARPI -eq 1 -o $ISPURGE -eq 1 ] ;then
+    LSARPIINSTALL=$(basename "$SARPIINSTALL")
+    if [ ! -f "../$LSARPIINSTALL" ] ;then
+	if [ ! -h sarpi ] ; then
+	    [ ! -d ../sarpi ] && mkdir ../sarpi
+	    ln -s ../sarpi .
+	fi
+	(
+	    cd sarpi
+	    if [ ! -f "$LSARPIINSTALL" ] ;then
+		[ $ISSARPI -eq 1 ] && xgeturl "$SARPIINSTALL"
+		xpurgepac "sarpi-installer_slackcurrent[0-9]" xz
+		echo '------------------------------------'
+		if [ -f "$LSARPIINSTALL" ] ;then
+		    mygt "Sarpi copied."
+		else
+		    mygt "Sarpi not copied."
+		fi
+		echo '------------------------------------'
+	    fi
+	)
+    else
+	mygt "Sarpi not copied."
+    fi
+fi
