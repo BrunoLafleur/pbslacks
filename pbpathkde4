@@ -16,6 +16,7 @@ KDE4OTHER_QTWEBKIT='https://download.kde.org/stable/qtwebkit-2.3/2.3.4/src/qtweb
 KDE4OTHER_PYQT='https://www.riverbankcomputing.com/static/Downloads/PyQt4/4.12.3/PyQt4_gpl_x11-4.12.3.tar.gz'
 KDE4OTHER_QIMAGEBLITZ='https://download.kde.org/stable/qimageblitz/qimageblitz-0.0.6.tar.bz2'
 KDE4OTHER_AUTOMOC4='https://download.kde.org/stable/automoc4/0.9.88/automoc4-0.9.88.tar.bz2'
+KDE4DEPS_POPPLER='https://poppler.freedesktop.org/poppler-21.04.0.tar.xz'
 
 KDE4_SRC='https://download.kde.org/Attic/4.14.3/src'
 KDE4_KACTIVITIES='https://download.kde.org/Attic/4.13.3/src/kactivities-4.13.3.tar.xz'
