@@ -119,7 +119,7 @@ if [ $ISKDE4DEPS -eq 1 ] ;then
     xmakekdedep polkit-qt-1 polkit-qt4-1 deps
     xmakekdedep qca qca213 deps
     xmakekdedep libdbusmenu-qt libdbusmenu-qt4 deps
-    xmakekdedep poppler poppler-qt4 deps
+    xmakekdedep poppler-qt4 poppler-qt4 deps
 
     # I have to re-add suppressed packages.
     # List is inside pbslacks/Slackpkg/blacklistkeepkde4
@@ -148,7 +148,7 @@ if [ $ISKDE4 -eq 1 ] ;then
 	    rm -rf /usr/include/ConsoleKit.save
 	    mv -f /usr/include/ConsoleKit /usr/include/ConsoleKit.save
 	fi
-	sh kde.SlackBuild
+	sh kde.SlackBuild kdegraphics:okular
 	#sh kde.SlackBuild kdegraphics:okular extragear:caligra
 	#sh kde.SlackBuild kdelibs kdebase:nepomuk-core kdepimlibs kdebase kdesdk extragear:libkscreen kdegraphics kdebindings kdebase:kde-workspace kdeaccessibility kdeutils kdelibs kdemultimedia extragear:libktorrent kdenetwork oxygen-icons kdeadmin kdeartwork kdegames kdetoys kdepim kdepim-runtime kdenetwork:kopete kdeedu kdewebdev kdebase:kde-baseapps kdeplasma-addons polkit-kde extragear
 	exit $?
