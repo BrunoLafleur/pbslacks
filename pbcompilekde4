@@ -77,8 +77,8 @@ xmakekdedep () {
     if [ $RECOMP -eq 1 ] ;then
 	(
 	    (
-		cd kde4/source/$XCAT/$XSUB/$XSRC
-		sh ./${XSRC}.SlackBuild
+		cd kde4/source/$XCAT/$XSUB/$XPAC
+		sh ./${XPAC}.SlackBuild
 		if [ $? -ne 0 ] ;then
 		    mygt 'Correct this error and relaunch this script.'
 		    cd ..;chown -R ${MYUSER}.$MYGROUP $XPAC
@@ -112,14 +112,14 @@ if [ $ISKDE4DEPS -eq 1 ] ;then
     xmakekdedep LibRaw LibRaw18 deps
     xmakekdedep exiv2 exiv221 deps
     xmakekdedep sip sip422 deps
-    xmakekdedep eigen3 eigen32 deps
+    xmakekdedep eigen eigen32 deps
     xmakekdedep grantlee grantlee051 deps
-    xmakekdedep phonon4qt4 phonon4qt4 deps
+    xmakekdedep phonon phonon4qt4 deps
     xmakekdedep phonon-gstreamer phonon-gstreamer deps
     xmakekdedep polkit-qt-1 polkit-qt4-1 deps
     xmakekdedep qca qca213 deps
     xmakekdedep libdbusmenu-qt libdbusmenu-qt4 deps
-    xmakekdedep poppler-qt4 poppler-qt4 deps
+    xmakekdedep poppler poppler-qt4 deps
 
     # I have to re-add suppressed packages.
     # List is inside pbslacks/Slackpkg/blacklistkeepkde4
@@ -148,7 +148,7 @@ if [ $ISKDE4 -eq 1 ] ;then
 	    rm -rf /usr/include/ConsoleKit.save
 	    mv -f /usr/include/ConsoleKit /usr/include/ConsoleKit.save
 	fi
-	sh kde.SlackBuild kdegraphics:okular
+	sh kde.SlackBuild # extragear:calligra
 	#sh kde.SlackBuild kdegraphics:okular extragear:caligra
 	#sh kde.SlackBuild kdelibs kdebase:nepomuk-core kdepimlibs kdebase kdesdk extragear:libkscreen kdegraphics kdebindings kdebase:kde-workspace kdeaccessibility kdeutils kdelibs kdemultimedia extragear:libktorrent kdenetwork oxygen-icons kdeadmin kdeartwork kdegames kdetoys kdepim kdepim-runtime kdenetwork:kopete kdeedu kdewebdev kdebase:kde-baseapps kdeplasma-addons polkit-kde extragear
 	exit $?
