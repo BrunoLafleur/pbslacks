@@ -1,5 +1,0 @@
-Pour installer le boot de l'installation :
-> cd sarpi
-> xz -dc sarpi4-installer_slackcurrent_*.img.xz | dd of=[device] bs=65536
-
-Copier la Slackware current arm sur un clé USB.
