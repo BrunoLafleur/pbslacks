@@ -1,0 +1,79 @@
+#! /bin/sh
+
+# Auteur : Pierre Brochard (pierre.brochard.1982@m4x.org)
+# Date : 2019
+# License : See the LICENSE file in this repository.
+
+# Recompilations a faire apres reboot.
+
+. "$(dirname $0)/pbinclude"
+. "$(dirname $0)/pbupgradeinc"
+. "$(dirname $0)/pbcompileinc"
+
+if [ ! $UID = 0 ]; then
+    mygt 'This script must be done as root. Exit.'
+    exit 1
+fi
+
+xhelp () {
+    mygt 'Launch this script in the directory including packages, packages2 et al.'
+    echo
+    echo '> pbslacks/$MYPROG'
+}
+
+if [ ! -d gdm -o '(' ! -h pbslacks -a ! -d pbslacks ')' ] ;then
+    xhelp
+    exit 1
+fi
+
+MYUSER=produits
+MYGROUP=users
+RECOMP=1
+ISALL=1
+ISGDM=0
+
+while [ $# -ge 1 ] ;do
+    MYARG="$1"
+    if [ "$MYARG" = "-u" ] ;then
+	shift
+	MYUSER="$1"
+    elif [ "$MYARG" = "-g" ] ;then
+	shift
+	MYGROUP="$1"
+    elif [ "$MYARG" = "-norecomp" ] ;then
+        RECOMP=0
+    elif [ "$MYARG" = "-isgdm" ] ;then
+	ISGDM=1;ISALL=0
+    elif [ "$MYARG" = "-help" -o "$MYARG" = "-h" ] ;then
+	xhelp
+	exit 0
+    fi
+    shift
+done
+
+if [ $ISALL -eq 1 ] ;then
+    ISGDM=1
+fi
+
+mygt 'Only after a system update and reboot.\nIf already done on this or another machine, this script is not useful.\nPress a touch for continue or abort.'|sed 's@\\n@\n@g'
+read c
+
+# ===========================================================
+# Some helper functions.
+
+# ===========================================================
+rm -f $XLIBDIR/lib*.la
+XNPROC=$(nproc)
+export CMAKE_BUILD_PARALLEL_LEVEL=$XNPROC
+export MAKEFLAGS="-j$XNPROC"
+export PKGTYPE=txz
+export TAG=_PB
+# ===========================================================
+
+if [ $ISGDM -eq 1 ] ;then
+    for i in libart_lgpl libgnomecanvas gdm ;do
+	xmakepac gdm $i
+    done
+fi
+
+mygt "Upgrade packages* done."

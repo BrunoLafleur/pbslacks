@@ -20,7 +20,7 @@ while [ $# -ge 1 ] ;do
 	xhelp
 	exit 0
     elif [ "$MYARG" = "all" ] ;then
-	XPROG="pbaspire pbaspirealien pbaspirecore pbaspireinc pbaspireinit pbaspiremoz pbaspireother pbaspireponce pbaspireslonly pbaspiresources pbcompilebumblebee pbcompilepost pbcompilekde4 pbinclude pblocale pbmakeusb pbmount pbsetup pbstophib pbunmount pbupgrade pbupgradebumblebee pbupgrademoz pbmakeiso pbmakeiso2usb pbupgradesys pbaspirearmcore pbpostinstallarm"
+	XPROG="pbaspire pbaspirealien pbaspirecore pbaspireinc pbaspireinit pbaspiremoz pbaspireother pbaspireponce pbaspireslonly pbaspiresources pbcompilebumblebee pbcompilepost pbcompilekde4 pbinclude pblocale pbmakeusb pbmount pbsetup pbstophib pbunmount pbupgrade pbupgradebumblebee pbupgrademoz pbmakeiso pbmakeiso2usb pbupgradesys pbaspirearmcore pbpostinstallarm pbaspiregdm pbcompilegdm"
     else
 	XPROG="$XPROG $MYARG"	
     fi

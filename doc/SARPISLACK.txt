@@ -14,6 +14,7 @@ cfdisk /dev/sda
   linux
 
 setup
+-----
 swap sur carte mmcblk0p2
 / sur carte /dev/mmcblk0p3
 /boot sur carte /dev/mmcblk0p1
@@ -22,6 +23,8 @@ install
 reseau avec NetworkManager
 Sortir du setup sans rebooter
 
+postinstall
+-----------
 ROOT=/mnt removepkg kernel_armv7 kernel-modules-armv7
 mount -t vfat /dev/mmcblk0p1 /mnt/boot 
 rm /mnt/boot/initrd.gz
@@ -37,3 +40,12 @@ disable_overscan=1 # Pour plein ecran et tactile correct.
 Configs :
 ---------
 LANG dans /etc/profile.d/lang.sh et lang.csh
+
+Firefox :
+---------
+Changez la langue dans Préférences => marche.
+Pour évitez que les sites vous prennent pour un téléphone :
+  about:config
+  Cherchez general.useragent.override
+  Mettez type String et mettez sans armv7 :
+    Mozilla/5.0 (X11; Linux; rv:78.0) Gecko/20100101 Firefox/78.0

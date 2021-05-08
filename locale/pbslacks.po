@@ -227,51 +227,53 @@ msgstr ""
 
 #: pbaspirealien:14 pbaspiremoz:13 pbaspireother:14 pbaspireponce:14
 #: pbaspireslonly:14 pbaspiresources:14 pbcompilepost:19 pbcompilekde4:19
+#: pbcompilegdm:19
 msgid ""
 "Launch this script in the directory including packages, packages2 et al."
 msgstr ""
 
-#: pbaspirecore:112 pbaspirearmcore:95 pbaspirearmcore:99
+#: pbaspirecore:112 pbaspirearmcore:95 pbaspirearmcore:99 pbaspirecore:104
 msgid "Slackware current copied."
 msgstr ""
 
-#: pbaspirecore:114 pbaspirearmcore:97 pbaspirearmcore:101
+#: pbaspirecore:114 pbaspirearmcore:97 pbaspirearmcore:101 pbaspirecore:106
 msgid "Slackware current not copied."
 msgstr ""
 
-#: pbaspirecore:141
+#: pbaspirecore:141 pbaspirecore:148
 msgid "Slackware multilib copied."
 msgstr ""
 
-#: pbaspirecore:143
+#: pbaspirecore:143 pbaspirecore:150
 msgid "Slackware multilib not copied."
 msgstr ""
 
-#: pbaspirecore:163 pbaspirearmcore:116
+#: pbaspirecore:163 pbaspirearmcore:116 pbaspirecore:170 pbaspirearmcore:124
 msgid "Alien Bob KDE5 scripts copied."
 msgstr ""
 
-#: pbaspirecore:178
+#: pbaspirecore:178 pbaspirecore:185
 msgid "KDE5 frameworks sources copied."
 msgstr ""
 
-#: pbaspirecore:219 pbaspirearmcore:124 pbaspirearmcore:157
+#: pbaspirecore:219 pbaspirearmcore:124 pbaspirearmcore:157 pbaspirecore:226
+#: pbaspirearmcore:165
 msgid "Check GPG signatures :"
 msgstr ""
 
-#: pbaspirecore:244
+#: pbaspirecore:244 pbaspirecore:251
 msgid "GParted copied."
 msgstr ""
 
-#: pbaspirecore:246 pbaspirecore:252
+#: pbaspirecore:246 pbaspirecore:252 pbaspirecore:253 pbaspirecore:259
 msgid "GParted not copied."
 msgstr ""
 
-#: pbaspirecore:275
+#: pbaspirecore:275 pbaspirecore:282
 msgid "VirtualBox copied."
 msgstr ""
 
-#: pbaspirecore:277 pbaspirecore:283
+#: pbaspirecore:277 pbaspirecore:283 pbaspirecore:284 pbaspirecore:290
 msgid "VirtualBox not copied."
 msgstr ""
 
@@ -307,11 +309,11 @@ msgid ""
 msgstr ""
 
 #: pbcompilepost:14 pbcompilekde4:14 pbmakeusb:164 pbstophib:27 pbupgrade:87
-#: pbupgradebumblebee:10 pbupgrademoz:10
+#: pbupgradebumblebee:10 pbupgrademoz:10 pbcompilegdm:14
 msgid "This script must be done as root. Exit."
 msgstr ""
 
-#: pbcompilepost:99 pbcompilekde4:66
+#: pbcompilepost:99 pbcompilekde4:66 pbcompilegdm:58
 msgid ""
 "Only after a system update and reboot.\\nIf already done on this or another "
 "machine, this script is not useful.\\nPress a touch for continue or abort."
@@ -321,7 +323,8 @@ msgstr ""
 msgid "Correct this error and relaunch this script."
 msgstr ""
 
-#: pbcompilepost:362 pbcompilekde4:208 pbcompilekde4:210
+#: pbcompilepost:362 pbcompilekde4:208 pbcompilekde4:210 pbcompilepost:308
+#: pbcompilegdm:79
 msgid "Upgrade packages* done."
 msgstr ""
 
@@ -1112,12 +1115,12 @@ msgid ""
 "directory."
 msgstr ""
 
-#: pbaspirearmcore:149 pbaspirearmcore:182
+#: pbaspirearmcore:149 pbaspirearmcore:182 pbaspirearmcore:190
 msgid "Sarpi copied."
 msgstr ""
 
 #: pbaspirearmcore:151 pbaspirearmcore:157 pbaspirearmcore:184
-#: pbaspirearmcore:190
+#: pbaspirearmcore:190 pbaspirearmcore:192 pbaspirearmcore:198
 msgid "Sarpi not copied."
 msgstr ""
 
@@ -1133,6 +1136,10 @@ msgstr ""
 msgid "Get/Update KDE5 frameworks libraries or some KDE5 applications"
 msgstr ""
 
-#: pbaspirearmcore:125
+#: pbaspirearmcore:125 pbaspirearmcore:133
 msgid "KDE5 applications sources copied."
+msgstr ""
+
+#: pbaspiregdm:15
+msgid "Launch this script in a directory which contains gdm."
 msgstr ""

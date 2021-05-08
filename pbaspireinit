@@ -80,6 +80,7 @@ fi
 [ ! -d kde4/kde ] && mkdir kde4/kde
 [ ! -d kde4/source ] && mkdir kde4/source
 [ ! -d kde5 ] && mkdir kde5
+[ ! -d gdm ] && mkdir gdm
 [ -d packages4/frameworks -a ! -d kde5/frameworks ] && mv packages4/frameworks kde5
 [ ! -d kde5/frameworks ] && mkdir kde5/frameworks
 

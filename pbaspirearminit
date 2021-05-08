@@ -56,3 +56,4 @@ fi
 [ ! -d packages4 ] && mkdir packages4
 [ ! -d kde5 ] && mkdir kde5
 [ ! -d kde5/applications ] && mkdir kde5/applications
+[ ! -d gdm ] && mkdir gdm

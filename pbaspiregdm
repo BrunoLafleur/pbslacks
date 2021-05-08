@@ -1,0 +1,51 @@
+#! /bin/sh
+
+# Auteur : Pierre Brochard (pierre.brochard.1982@m4x.org)
+# Date : 2019
+# License : See the LICENSE file in this repository.
+
+# can be done non root.
+
+XDIR="$(dirname $0)"
+. "$XDIR/pbaspireinit"
+. "$XDIR/pbinclude"
+. "$XDIR/pbaspireinc"
+
+xhelp () {
+    mygt 'Launch this script in a directory which contains gdm.'
+    echo
+    echo '> ../pbslacks/pbaspiregdm [-help|-h]'
+}
+
+while [ $# -ge 1 ] ;do
+    MYARG="$1"
+    if [ "$MYARG" = "-help" -o "$MYARG" = "-h" ] ;then
+	xhelp
+	exit 0
+    fi
+    shift
+done
+
+if [ ! -d gdm -o \
+       \( "$0" != "../pbslacks/$MYPROG" -a "$0" != "pbslacks/$MYPROG" \) ] ;then
+    xhelp
+    exit 1
+fi
+
+MYPWD=$(pwd)
+export HOMESLACK="$MYPWD"
+PBARCH="$(basename "$MYPWD"|cut -d '-' -f2)"
+
+# GDM
+(
+    cd gdm
+    xgetsbosrc libart_lgpl
+    xgetsbosrc libgnomecanvas
+    xgetsbosrc gdm
+)
+if [ -d slackware$PBARCH-current ] ;then
+    (
+	cd slackware$PBARCH-current
+	ln -sf ../gdm .
+    )
+fi

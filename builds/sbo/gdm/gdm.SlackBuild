@@ -1,0 +1,136 @@
+#!/bin/sh
+
+# Slackbuild Script for GDM
+#
+# Written by James Rich james@chowhouse.com
+#
+# Assumed to be in public domain per our submission guidelines
+# Modified by the SlackBuilds.org project
+# Modified by Frank Caraballo <fecaraballo{at}gmail{dot}com>
+
+PRGNAM=gdm
+VERSION=${VERSION:-2.20.10}
+BUILD=${BUILD:-1}
+TAG=${TAG:-_SBo}
+
+# Automatically determine the architecture we're building on:
+if [ -z "$ARCH" ]; then
+  case "$( uname -m )" in
+    i?86) export ARCH=i586 ;;
+    arm*) export ARCH=arm ;;
+    # Unless $ARCH is already set, use uname -m for all other archs:
+       *) export ARCH=$( uname -m ) ;;
+  esac
+fi
+
+CWD=$(pwd)
+TMP=${TMP:-/tmp/SBo}
+PKG=$TMP/package-$PRGNAM
+OUTPUT=${OUTPUT:-/tmp}
+
+if [ "$ARCH" = "i486" ]; then
+  SLKCFLAGS="-O2 -march=i486 -mtune=i686"
+  LIBDIRSUFFIX=""
+elif [ "$ARCH" = "i686" ]; then
+  SLKCFLAGS="-O2 -march=i686 -mtune=i686"
+  LIBDIRSUFFIX=""
+elif [ "$ARCH" = "x86_64" ]; then
+  SLKCFLAGS="-O2 -fPIC"
+  LIBDIRSUFFIX="64"
+fi
+
+set -e
+
+rm -rf $PKG
+mkdir -p $TMP $PKG $OUTPUT
+cd $TMP
+rm -rf $PRGNAM-$VERSION
+tar xvf $CWD/$PRGNAM-$VERSION.tar.bz2
+cd $PRGNAM-$VERSION
+
+patch -p1 < $CWD/gdm-2.20.10-numlockx.patch || exit 1
+patch -p1 < $CWD/gdm-2.20.11-crypt.diff || exit 1
+patch -p1 < $CWD/do_not_start_ssh-agent.diff || exit 1
+
+chown -R root:root .
+find . \
+ \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
+ -exec chmod 755 {} \; -o \
+ \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
+ -exec chmod 644 {} \;
+
+CFLAGS="$SLKCFLAGS" \
+CXXFLAGS="$SLKCFLAGS" \
+./configure \
+  --prefix=/usr \
+  --libdir=/usr/lib${LIBDIRSUFFIX} \
+  --sysconfdir=/etc/X11 \
+  --localstatedir=/var/lib \
+  --mandir=/usr/man \
+  --docdir=/usr/doc/$PRGNAM-$VERSION \
+  --disable-scrollkeeper \
+  --enable-console-helper=no \
+  --enable-static=no \
+  --enable-ipv6=yes \
+  --with-dmconfdir=/etc/X11/$PRGNAM \
+  --build=$ARCH-slackware-linux \
+  LDFLAGS="-lXau -lm"
+
+make SUSPEND_COMMAND=/usr/sbin/pm-suspend
+make SUSPEND_COMMAND=/usr/sbin/pm-suspend install-strip DESTDIR=$PKG
+
+# Install some simple session files designed to work with Slackware
+mkdir -p $PKG/etc/X11/$PRGNAM/Sessions
+cp -r $CWD/Sessions/* $PKG/etc/X11/$PRGNAM/Sessions
+chmod 0755 $PKG/etc/X11/$PRGNAM/Sessions/*
+
+# Make xfce the default session
+patch -d $PKG -p1 < $CWD/make_xfce_default_session.diff
+
+# Let's not clobber the a custom config
+mv $PKG/etc/X11/gdm/custom.conf $PKG/etc/X11/gdm/custom.conf.new
+
+# gnome should not be an option in the menu if it's not installed
+rm $PKG/usr/share/xsessions/gnome.desktop
+
+rm -rf $PKG/usr/share/omf
+rm -rf $PKG/usr/share/gnome
+(
+    cd $PKG/usr/share/gdm/themes
+    tar xvf $CWD/Shine.tar.gz
+    tar xvf $CWD/StairWay.tar.gz
+    tar xvf $CWD/Tentacles.tar.gz
+    tar xvf $CWD/SalixBlue.tar.gz
+    tar xvf $CWD/SalixLila.tar.gz
+)
+chown -R root:root $PKG/usr/share/gdm/themes
+
+sed -i "s/^Exec=.*/Exec=gksu gdmsetup/" $PKG/usr/share/gdm/applications/gdmsetup.desktop
+sed -i "/^TryExec/d" $PKG/usr/share/gdm/applications/gdmsetup.desktop
+sed -i "s|^#Greeter=\(.*\)|Greeter=/usr/libexec/gdmgreeter|" $PKG/usr/share/gdm/defaults.conf
+sed -i "s/^#DefaultSession=\(.*\)/DefaultSession=xfce.desktop/" $PKG/usr/share/gdm/defaults.conf
+sed -i "s/^#GtkTheme=\(.*\)/GtkTheme=Clearlooks-Phenix/" $PKG/usr/share/gdm/defaults.conf
+sed -i "s/^#GraphicalTheme=\(.*\)/GraphicalTheme=Slackel/" $PKG/usr/share/gdm/defaults.conf
+sed -i "s/^AllowRoot=\(.*\)/AllowRoot=false/" $PKG/usr/share/gdm/defaults.conf
+
+sed -i "s|exit 0|[ -x /etc/X11/gdm/Init/custom ] \&\& /etc/X11/gdm/Init/custom\n\nexit 0|" $PKG/etc/X11/gdm/Init/Default
+sed -i "s|exit 0|[ -x /etc/X11/gdm/PostSession/custom ] \&\& /etc/X11/gdm/PostSession/custom\n\nexit 0|" $PKG/etc/X11/gdm/PostSession/Default
+sed -i "s|exit 0|[ -x /etc/X11/gdm/PreSession/custom ] \&\& /etc/X11/gdm/PreSession/custom\n\nexit 0|" $PKG/etc/X11/gdm/PreSession/Default
+
+( cd $PKG/usr/man
+  find . -type f -exec gzip -9 {} \;
+  for i in $( find . -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
+)
+
+mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a \
+  AUTHORS ChangeLog COPYING INSTALL MAINTAINERS NEWS README* TODO docs/C/* \
+    $PKG/usr/doc/$PRGNAM-$VERSION
+cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
+
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+cat $CWD/doinst.sh > $PKG/install/doinst.sh
+
+cd $PKG
+/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}

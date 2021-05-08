@@ -25,3 +25,57 @@ xcleanpac() {
     xpurgepac "$dest/$pac-[0-9]" t?z
     xpurgepac "$dest/$pac-master" t?z
 }
+
+xmakealienpac () {
+    XDIR="$1"
+    pac="$2"
+    dest="$3"
+    [ -z "$dest" ] && dest="$XDIR"
+    if [ $RECOMP -eq 1 -a -d "${XDIR}/$pac" ] ;then
+	rm -rf /tmp/build/package-* /tmp/build/tmp-*
+	(
+	    # patch
+	    LLPATCH="$(pwd)/pbslacks/builds/alien/${pac}.patch"
+	    cd "${XDIR}/$pac"
+	    [ -f "$LLPATCH" ] && cat "$LLPATCH"|patch -f -p0
+	    chown -R ${MYUSER}.$MYGROUP *
+	    # build
+	    sh "./${pac}.SlackBuild"
+	    if [ $? -ne 0 ] ;then
+		mygt 'Correct this error and relaunch this script.'
+		exit 1
+	    fi
+	)
+	[ $? -ne 0 ] && exit 1
+	xcleanpac "$pac" "$dest"
+	chown -R ${MYUSER}.$MYGROUP "$dest/$pac"
+	# Upgrade packages.
+        upgradepkg --install-new --reinstall "$dest/${pac}"-[0-9m]*.t?z
+    fi
+}
+
+xmakepac () {
+    XDIR="$1"
+    XPAC="$2"
+    XSUB="$3"
+    if [ $RECOMP -eq 1 ] ;then
+	(
+	    cd ${XDIR}/$XPAC
+	    ./${XPAC}.SlackBuild
+	    if [ $? -ne 0 ] ;then
+		mygt 'Correct this error and relaunch this script.'
+		exit 1
+	    fi
+	)
+	[ $? -ne 0 ] && exit 1
+	xcleanpac "$XPAC" "$XDIR"
+	if [ "$XSUB" != '' ] ;then
+            mv $XDIR/${XPAC}-[0-9m]*i486*.t?z $XDIR/$XSUB
+	    xpurgepac "$XDIR/$XSUB/$XPAC-[0-9m]" t?z
+	fi
+    fi
+    if [ "$XSUB" = '' ] ;then
+	upgradepkg --install-new --reinstall $XDIR/${XPAC}-[0-9m]*.t?z
+	rm -f $XLIBDIR/lib*.la
+    fi
+}
