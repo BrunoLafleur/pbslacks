@@ -110,7 +110,7 @@ sed -i "/^TryExec/d" $PKG/usr/share/gdm/applications/gdmsetup.desktop
 sed -i "s|^#Greeter=\(.*\)|Greeter=/usr/libexec/gdmgreeter|" $PKG/usr/share/gdm/defaults.conf
 sed -i "s/^#DefaultSession=\(.*\)/DefaultSession=xfce.desktop/" $PKG/usr/share/gdm/defaults.conf
 sed -i "s/^#GtkTheme=\(.*\)/GtkTheme=Clearlooks-Phenix/" $PKG/usr/share/gdm/defaults.conf
-sed -i "s/^#GraphicalTheme=\(.*\)/GraphicalTheme=Slackel/" $PKG/usr/share/gdm/defaults.conf
+sed -i "s/^#GraphicalTheme=\(.*\)/GraphicalTheme=circles/" $PKG/usr/share/gdm/defaults.conf
 sed -i "s/^AllowRoot=\(.*\)/AllowRoot=false/" $PKG/usr/share/gdm/defaults.conf
 
 sed -i "s|exit 0|[ -x /etc/X11/gdm/Init/custom ] \&\& /etc/X11/gdm/Init/custom\n\nexit 0|" $PKG/etc/X11/gdm/Init/Default
