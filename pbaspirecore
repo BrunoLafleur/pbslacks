@@ -100,14 +100,6 @@ if [ $ISCORE -eq 1 -o $ISPURGE -eq 1 ] ;then
 		xpurgepac "$pack-[0-9]" tar.*asc
 	    done
 	    echo
-	    ln -sf ../current .
-	    ln -sf ../perso .
-	    ln -sf ../pbslacks .
-	    ln -sf ../bumblebee .
-	    ln -sf ../divers .
-	    ln -sf ../packages* .
-	    ln -sf ../kde5 .
-	    ln -sf ../gpgkeys .
 	)
 	mygt "Slackware current copied."
     else
@@ -116,6 +108,21 @@ if [ $ISCORE -eq 1 -o $ISPURGE -eq 1 ] ;then
     [ $ISSTICK -eq 1 ] && cd slackware64-current
     echo '------------------------------------'
 fi
+[ $ISSTICK -eq 1 ] && cd ..
+if [ -d slackware64-current ] ;then
+    (
+	cd slackware64-current
+	ln -sf ../current .
+	ln -sf ../perso .
+	ln -sf ../pbslacks .
+	ln -sf ../bumblebee .
+	ln -sf ../divers .
+	ln -sf ../packages* .
+	ln -sf ../kde5 .
+	ln -sf ../gpgkeys .
+    )
+fi
+[ $ISSTICK -eq 1 ] && cd slackware64-current
 
 # Multilib Alien Bob.
 if [ $ISMULTI -eq 1 -o $ISPURGE -eq 1 ] ;then

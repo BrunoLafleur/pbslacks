@@ -91,10 +91,6 @@ if [ $ISCORE -eq 1 -o $ISPURGE -eq 1 ] ;then
 		xpurgepac "$pack-[0-9]" tar.*asc
 	    done
 	    echo
-	    ln -sf ../perso .
-	    ln -sf ../pbslacks .
-	    ln -sf ../packages* .
-	    ln -sf ../gpgkeys .
 	)
 	mygt "Slackware current copied."
     else
@@ -103,6 +99,18 @@ if [ $ISCORE -eq 1 -o $ISPURGE -eq 1 ] ;then
     [ $ISSTICK -eq 1 ] && cd slackwarearm-current
     echo '------------------------------------'
 fi
+[ $ISSTICK -eq 1 ] && cd ..
+if [ -d slackwarearm-current ] ;then
+    (
+	cd slackwarearm-current
+	ln -sf ../perso .
+	ln -sf ../pbslacks .
+	ln -sf ../packages* .
+	ln -sf ../kde5 .
+	ln -sf ../gpgkeys .
+    )
+fi
+[ $ISSTICK -eq 1 ] && cd slackwarearm-current
 
 # Apps KDE5
 if [ $ISKDE5 -eq 1 ] ;then
