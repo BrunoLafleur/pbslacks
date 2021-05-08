@@ -51,7 +51,7 @@ trap 'echo "*** Ctrl-C caught -- aborting operations ***"; cleanup; exit 1' 2 14
 CORE=$(mygt 'Get/Update versus officiel Slackware')
 MULTI=$(mygt 'Get/Update multilib compat 32 bits mode')
 KDE4=$(mygt 'Get/Update KDE4')
-FRAMEW=$(mygt 'Get/Update KDE5 frameworks libraries')
+FRAMEW=$(mygt 'Get/Update KDE5 frameworks libraries or some KDE5 applications')
 GPARTED=$(mygt 'Get/Update GParted live iso')
 VBOX=$(mygt 'Get/Update VirtualBox installer')
 ALIEN=$(mygt 'Get/Update some Alien Bob binary packages')
@@ -158,8 +158,12 @@ xmaster () {
 xframe=on
 [ $(ls /var/log/packages/plasma-desktop-*[0-9]* 2> /dev/null|wc -l) -ge 1 ] && \
     xframe=off
+xother=on
+[ $PBARCH = arm ] && xother=off
+xkde4=$xframe
+[ $PBARCH = arm ] && xkde4=off
 # Preselect sets.
-xsel="on on $xframe $xframe on on on on on on on on off off"
+xsel="on $xother $xkde4 $xframe $xother $xother $xother $xother $xother $xother $xother $xother off off"
 ditem=core
 bclaide=1
 
@@ -233,18 +237,19 @@ ISSOURCES="$(cat $XTEMPOUT|grep '^sources$'|wc -l)"
 ISMOZ="$(cat $XTEMPOUT|grep '^mozilla$'|wc -l)"
 ISCHECK="$(cat $XTEMPOUT|grep '^check$'|wc -l)"
 ISCLEAN="$(cat $XTEMPOUT|grep '^clean$'|wc -l)"
-[ $PBARCH = arm ] && ISALIEN=
-[ $PBARCH = arm ] && ISPONCE=
-[ $PBARCH = arm ] && ISSLONLY=
-[ $PBARCH = arm ] && ISOTHER=
-[ $PBARCH = arm ] && ISSOURCES=
-[ $PBARCH = arm ] && ISMOZ=
+[ $PBARCH = arm ] && ISALIEN=0
+[ $PBARCH = arm ] && ISPONCE=0
+[ $PBARCH = arm ] && ISSLONLY=0
+[ $PBARCH = arm ] && ISOTHER=0
+[ $PBARCH = arm ] && ISSOURCES=0
+[ $PBARCH = arm ] && ISMOZ=0
 RARCH=;[ $PBARCH = arm ] && RARCH=arm
 
 COREATTR=
 [ $ISCORE -eq 1 ] && COREATTR="$COREATTR -core"
 [ $ISMULTI -eq 1 ] && COREATTR="$COREATTR -multi"
-[ $ISFRAMEW -eq 1 ] && COREATTR="$COREATTR -framew"
+[ $ISFRAMEW -eq 1 -a $PBARCH = arm ] && COREATTR="$COREATTR -kde5"
+[ $ISFRAMEW -eq 1 -a $PBARCH != arm ] && COREATTR="$COREATTR -framew"
 [ $ISGPARTED -eq 1 ] && COREATTR="$COREATTR -gparted"
 [ $ISVBOX -eq 1 ] && COREATTR="$COREATTR -vbox"
 [ $ISCHECK -eq 1 ] && COREATTR="$COREATTR -check"

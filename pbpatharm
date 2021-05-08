@@ -23,3 +23,7 @@ SARPIINSTALL='https://slackware.uk/sarpi/rpi4/current-armv7l/img/sarpi4-installe
 RUFUS='https://rufus.ie/fr/'
 RUFUSEXE='https://github.com/pbatard/rufus/releases/download/v3.14/rufus-3.14.exe'
 TOUCHEGG='https://framagit.org/Desiderius77/multitouch-diskio-pi'
+
+# KDE5
+
+SLACKKTUBERLING='https://download.kde.org/stable/release-service/21.04.0/src/ktuberling-21.04.0.tar.xz'

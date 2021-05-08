@@ -23,11 +23,13 @@ if [ $# -eq 0 ] ;then
     ISCHECK=1
     ISPURGE=1
     ISSARPI=1
+    ISKDE5=1
 else
     ISCORE=0
     ISCHECK=0
     ISPURGE=0
     ISSARPI=0
+    ISKDE5=0
 fi
 
 while [ $# -ge 1 ] ;do
@@ -38,6 +40,8 @@ while [ $# -ge 1 ] ;do
 	ISPURGE=1
     elif [ "$MYARG" = "-sarpi" ] ;then
 	ISSARPI=1
+    elif [ "$MYARG" = "-kde5" ] ;then
+	ISKDE5=1
     elif [ "$MYARG" = "-check" ] ;then
 	ISCHECK=1
 	XTEMPCHK="$2"
@@ -98,6 +102,35 @@ if [ $ISCORE -eq 1 -o $ISPURGE -eq 1 ] ;then
     fi
     [ $ISSTICK -eq 1 ] && cd slackwarearm-current
     echo '------------------------------------'
+fi
+
+# Apps KDE5
+if [ $ISKDE5 -eq 1 ] ;then
+    (
+	cd kde5
+	[ ! -d applications ] && mkdir applications
+	echo '------------------------------------'
+	# Get sources
+	[ ! -d source ] && mkdir source
+	cp -a ../pbslacks/builds/sbo/kde5/* source
+	mygt "Alien Bob KDE5 scripts copied."
+	echo '------------------------------------'
+	(
+	    cd source;mkdir -p src/applications;cd src/applications
+	    xgeturl "$SLACKKTUBERLING"
+	    xgeturl "$SLACKKTUBERLING.sig"
+	    xpurgesrc 'tar.?z' sig
+	)
+	echo '------------------------------------'
+	mygt "KDE5 applications sources copied."
+	echo '------------------------------------'
+    )
+    if [ -d slackware64-current ] ;then
+	(
+	    cd slackware64-current
+	    ln -sf ../kde5 .
+	)
+    fi
 fi
 
 if [ $ISCHECK -eq 1 ] ;then
