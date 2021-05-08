@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: pbaspire:10 pbaspirecore:16
+#: pbaspire:10 pbaspirecore:16 pbpostinstallarm:10
 msgid ""
 "Launch this script in a new directory.\\nor in a directory which contains "
 "slackware64-current.\\n\\npbslacks should be side by side of this current "
@@ -321,7 +321,7 @@ msgstr ""
 msgid "Correct this error and relaunch this script."
 msgstr ""
 
-#: pbcompilepost:362 pbcompilekde4:208
+#: pbcompilepost:362 pbcompilekde4:208 pbcompilekde4:210
 msgid "Upgrade packages* done."
 msgstr ""
 
@@ -1118,4 +1118,12 @@ msgstr ""
 
 #: pbaspirearmcore:151 pbaspirearmcore:157
 msgid "Sarpi not copied."
+msgstr ""
+
+#: pbpostinstallarm:40
+msgid "You can now reboot the computer."
+msgstr ""
+
+#: pbpostinstallarm:40
+msgid "You can now remove the USB stick and reboot the computer."
 msgstr ""

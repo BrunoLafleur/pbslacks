@@ -2,7 +2,7 @@ Pour installer le boot de l'installation sur la carte microsd :
 > cd sarpi
 > xz -dc sarpi4-installer_slackcurrent_*.img.xz | dd of=[device] bs=65536
 
-Copier la Slackware current arm sur une clé USB.
+Copier la Slackware current arm sur une clé USB externe.
 Carte microSD interne avec sarpi installé dessus.
 Clé USB interne pour /home.
 
@@ -33,3 +33,7 @@ reboot
 ----------------
 hdmi_drive=2 # Pour les hauts parleurs.
 disable_overscan=1 # Pour plein ecran et tactile correct.
+
+Configs :
+---------
+LANG dans /etc/profile.d/lang.sh et lang.csh

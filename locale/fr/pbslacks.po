@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: pbaspire:10 pbaspirecore:16
+#: pbaspire:10 pbaspirecore:16 pbpostinstallarm:10
 msgid ""
 "Launch this script in a new directory.\\nor in a directory which contains "
 "slackware64-current.\\n\\npbslacks should be side by side of this current "
@@ -344,7 +344,7 @@ msgstr ""
 msgid "Correct this error and relaunch this script."
 msgstr "Erreur à corriger puis relancer ce script."
 
-#: pbcompilepost:362 pbcompilekde4:208
+#: pbcompilepost:362 pbcompilekde4:208 pbcompilekde4:210
 msgid "Upgrade packages* done."
 msgstr "Mise à jour de packages* faite."
 
@@ -1266,3 +1266,11 @@ msgstr "Copie Sarpi faite."
 #: pbaspirearmcore:151 pbaspirearmcore:157
 msgid "Sarpi not copied."
 msgstr "Copie Sarpi non faite."
+
+#: pbpostinstallarm:40
+msgid "You can now reboot the computer."
+msgstr "Vous pouvez maintenant redémarrer l'ordinateur."
+
+#: pbpostinstallarm:40
+msgid "You can now remove the USB stick and reboot the computer."
+msgstr "Vous pouvez maintenant enlever la clé USB et redémarrer l'ordinateur."

@@ -1,0 +1,40 @@
+#! /bin/sh
+
+# Auteur : Pierre Brochard (pierre.brochard.1982@m4x.org)
+# Date : 2019
+# License : See the LICENSE file in this repository.
+
+. "$(dirname $0)/pbinclude"
+
+xhelp () {
+    mygt 'Launch this script in a new directory.\nor in a directory which contains slackware64-current.\n\npbslacks should be side by side of this current directory.'|sed 's@\\n@\n@g'
+    echo
+    echo '> ../pbslacks/pbpostinstallarm [-help|-h]'
+}
+
+while [ $# -ge 1 ] ;do
+    MYARG="$1"
+    if [ "$MYARG" = "-help" -o "$MYARG" = "-h" ] ;then
+	xhelp
+	exit 0
+    fi
+    shift
+done
+
+if [ $XTEST -ne 1 -a "$0" != "../pbslacks/$MYPROG" \
+    -a "$0" != "pbslacks/$MYPROG" ] ;then
+    xhelp
+    exit 1
+fi
+
+set +e
+
+if [ -d  /mnt/boot ] ;then
+    ROOT=/mnt removepkg kernel_armv7 kernel-modules-armv7
+    mount -t vfat /dev/mmcblk0p1 /mnt/boot 
+    rm /mnt/boot/initrd.gz
+    ROOT=/mnt installpkg /rpi-extra/kernel* /rpi-extra/sarpi*
+    umount /usb-stick # Enlevez la clé.
+fi
+
+mygt "You can now remove the USB stick and reboot the computer."
