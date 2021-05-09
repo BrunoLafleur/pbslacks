@@ -56,6 +56,7 @@ done
     elif  [ "$PBARCH" = arm ] ;then
 	xgetsbosrc thunderbird
 	xgetsbosrc libffi6
+	xgetsbosrc libevent6
 	xpurgepac 'thunderbird/thunderbird_' deb
     fi
 )
