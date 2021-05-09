@@ -39,195 +39,195 @@ msgstr ""
 msgid "Get/Update KDE5 frameworks libraries or some KDE5 applications"
 msgstr ""
 
-#: pbaspire:53
+#: pbaspire:53 pbaspire:54
 msgid "Get/Update GParted live iso"
 msgstr ""
 
-#: pbaspire:54
+#: pbaspire:54 pbaspire:55
 msgid "Get/Update VirtualBox installer"
 msgstr ""
 
-#: pbaspire:55
+#: pbaspire:55 pbaspire:56
 msgid "Get/Update some Alien Bob binary packages"
 msgstr ""
 
-#: pbaspire:56
+#: pbaspire:56 pbaspire:57
 msgid "Get/Update some Ponce binary packages"
 msgstr ""
 
-#: pbaspire:57
+#: pbaspire:57 pbaspire:58
 msgid "Get/Update some Slackonly binary packages"
 msgstr ""
 
-#: pbaspire:58
+#: pbaspire:58 pbaspire:59
 msgid "Get/Update some Conraid or Slackel binary packages"
 msgstr ""
 
-#: pbaspire:59
+#: pbaspire:59 pbaspire:60
 msgid "Get/Update some other source packages"
 msgstr ""
 
-#: pbaspire:60
+#: pbaspire:60 pbaspire:61
 msgid "Get/Update latest Firefox and Thunderbird"
 msgstr ""
 
-#: pbaspire:61
+#: pbaspire:61 pbaspire:62
 msgid "Check GPG signatures"
 msgstr ""
 
-#: pbaspire:62
+#: pbaspire:62 pbaspire:63
 msgid "Clean the local repository from old packages versions"
 msgstr ""
 
-#: pbaspire:69 pbsetup:129 pbupgrade:122
+#: pbaspire:69 pbsetup:129 pbupgrade:122 pbaspire:70
 msgid "Main menu"
 msgstr ""
 
-#: pbaspire:70 pbsetup:130
+#: pbaspire:70 pbsetup:130 pbaspire:71
 msgid "Choose your actions below"
 msgstr ""
 
-#: pbaspire:184
+#: pbaspire:184 pbaspire:190
 msgid "Get or update the officiel lastest current Slackware."
 msgstr ""
 
-#: pbaspire:186
+#: pbaspire:186 pbaspire:192
 msgid ""
 "Get or update the multilib of Alien Bob which is a 32 bits compatibility set "
 "of packages."
 msgstr ""
 
-#: pbaspire:188
+#: pbaspire:188 pbaspire:194
 msgid "Get or update the KDE4 set of packages."
 msgstr ""
 
-#: pbaspire:190
+#: pbaspire:190 pbaspire:196
 msgid "Get or update the KDE5 frameworks libraries."
 msgstr ""
 
-#: pbaspire:192
+#: pbaspire:192 pbaspire:200
 msgid "Get or update the GParted live ISO."
 msgstr ""
 
-#: pbaspire:194
+#: pbaspire:194 pbaspire:202
 msgid "Get or update the VirtualBox installer and extensions."
 msgstr ""
 
-#: pbaspire:196
+#: pbaspire:196 pbaspire:204
 msgid "Get or update some Alien Bob binary packages."
 msgstr ""
 
-#: pbaspire:198
+#: pbaspire:198 pbaspire:206
 msgid "Get or update some Ponce binary packages."
 msgstr ""
 
-#: pbaspire:200
+#: pbaspire:200 pbaspire:208
 msgid "Get or update some Slackonly binary packages."
 msgstr ""
 
-#: pbaspire:202
+#: pbaspire:202 pbaspire:210
 msgid "Get or update some Conraid and Slackel binary packages."
 msgstr ""
 
-#: pbaspire:204
+#: pbaspire:204 pbaspire:212
 msgid "Get or update some other source packages."
 msgstr ""
 
-#: pbaspire:206
+#: pbaspire:206 pbaspire:214
 msgid "Get or update Firefox and Thunderbird."
 msgstr ""
 
-#: pbaspire:208
+#: pbaspire:208 pbaspire:216
 msgid "Check the GPG signatures of the downloaded packages."
 msgstr ""
 
-#: pbaspire:210
+#: pbaspire:210 pbaspire:218
 msgid "Clean the local repository from old packages or source files."
 msgstr ""
 
-#: pbaspire:260
+#: pbaspire:260 pbaspire:268
 #, sh-format
 msgid "Get/Update core system done : \\Z3${PBNAME}core\\Zn."
 msgstr ""
 
-#: pbaspire:262
+#: pbaspire:262 pbaspire:270
 #, sh-format
 msgid "Get/Update multilib compat 32 bits mode done : \\Z3${PBNAME}core\\Zn."
 msgstr ""
 
-#: pbaspire:264
+#: pbaspire:264 pbaspire:272
 #, sh-format
 msgid "Get/Update KDE5 frameworks libraries done : \\Z3${PBNAME}core\\Zn."
 msgstr ""
 
-#: pbaspire:266
+#: pbaspire:266 pbaspire:274
 #, sh-format
 msgid "Get/Update gparted live iso done : \\Z3${PBNAME}core\\Zn."
 msgstr ""
 
-#: pbaspire:268
+#: pbaspire:268 pbaspire:276
 #, sh-format
 msgid "Get/Update VirtualBox installer done : \\Z3${PBNAME}core\\Zn."
 msgstr ""
 
-#: pbaspire:270
+#: pbaspire:270 pbaspire:278
 #, sh-format
 msgid "Local repository cleaned : \\Z3${PBNAME}core\\Zn."
 msgstr ""
 
-#: pbaspire:275
+#: pbaspire:275 pbaspire:288
 #, sh-format
 msgid "Get/Update KDE4 packages done : \\Z3${PBNAME}kde4\\Zn."
 msgstr ""
 
-#: pbaspire:280
+#: pbaspire:280 pbaspire:293
 #, sh-format
 msgid "Get/Update Alien Bob packages done : \\Z3${PBNAME}alien\\Zn."
 msgstr ""
 
-#: pbaspire:285
+#: pbaspire:285 pbaspire:298
 #, sh-format
 msgid "Get/Update Ponce packages done : \\Z3${PBNAME}ponce\\Zn."
 msgstr ""
 
-#: pbaspire:289
+#: pbaspire:289 pbaspire:302
 #, sh-format
 msgid "Get/Update Slackonly packages done : \\Z3${PBNAME}slonly\\Zn."
 msgstr ""
 
-#: pbaspire:294
+#: pbaspire:294 pbaspire:307
 #, sh-format
 msgid ""
 "Get/Update Conraid and Slackel binary packages done : \\Z3${PBNAME}other\\Zn."
 msgstr ""
 
-#: pbaspire:299
+#: pbaspire:299 pbaspire:312
 #, sh-format
 msgid "Get/Update other source packages done : \\Z3${PBNAME}sources\\Zn."
 msgstr ""
 
-#: pbaspire:305
+#: pbaspire:305 pbaspire:318
 #, sh-format
 msgid ""
 "Get/Update Firefox and Thunderbird for $XLANG language done : \\Z3${PBNAME}"
 "mozilla\\Zn."
 msgstr ""
 
-#: pbaspire:309
+#: pbaspire:309 pbaspire:322
 msgid "GPG signatures checked :"
 msgstr ""
 
-#: pbaspire:318 pbsetup:321 pbupgrade:460
+#: pbaspire:318 pbsetup:321 pbupgrade:460 pbaspire:331
 msgid "No action was demanded. Exit."
 msgstr ""
 
-#: pbaspire:321 pbsetup:325 pbupgrade:83
+#: pbaspire:321 pbsetup:325 pbupgrade:83 pbaspire:334
 msgid "Actions which were done"
 msgstr ""
 
 #: pbaspirealien:14 pbaspiremoz:13 pbaspireother:14 pbaspireponce:14
 #: pbaspireslonly:14 pbaspiresources:14 pbcompilepost:19 pbcompilekde4:19
-#: pbcompilegdm:19
+#: pbcompilegdm:19 pbaspiremoz:19
 msgid ""
 "Launch this script in the directory including packages, packages2 et al."
 msgstr ""
@@ -1137,6 +1137,19 @@ msgstr ""
 msgid "I don't see your install. Do the extra work by hand."
 msgstr ""
 
-#: pbaspiregdm:15
+#: pbaspiregdm:15 pbaspiregdm:21
 msgid "Launch this script in a directory which contains gdm."
+msgstr ""
+
+#: pbaspire:53
+msgid "Get/Update GDM desktop manager from Gnome 2"
+msgstr ""
+
+#: pbaspire:198
+msgid "Get or update the GDM desktop manager."
+msgstr ""
+
+#: pbaspire:283
+#, sh-format
+msgid "Get/Update GDM packages done : \\Z3${PBNAME}gdm\\Zn."
 msgstr ""

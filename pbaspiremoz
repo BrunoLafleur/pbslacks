@@ -55,6 +55,7 @@ done
 	xpurgepac 'thunderbird-' tar.bz2
     elif  [ "$PBARCH" = arm ] ;then
 	xgetsbosrc thunderbird
+	xgetsbosrc libffi6
 	xpurgepac 'thunderbird/thunderbird_' deb
     fi
 )

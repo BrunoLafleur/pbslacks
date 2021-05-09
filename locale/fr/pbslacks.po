@@ -44,59 +44,59 @@ msgid "Get/Update KDE5 frameworks libraries or some KDE5 applications"
 msgstr ""
 "Obtenir/mettre à jour les librairies frameworks ou des applications de KDE5"
 
-#: pbaspire:53
+#: pbaspire:53 pbaspire:54
 msgid "Get/Update GParted live iso"
 msgstr "Obtenir/mettre à jour l'image iso GParted live"
 
-#: pbaspire:54
+#: pbaspire:54 pbaspire:55
 msgid "Get/Update VirtualBox installer"
 msgstr "Obtenir/mettre à jour VirtualBox"
 
-#: pbaspire:55
+#: pbaspire:55 pbaspire:56
 msgid "Get/Update some Alien Bob binary packages"
 msgstr "Obtenir/mettre à jour des paquets binaires d'Alien Bob"
 
-#: pbaspire:56
+#: pbaspire:56 pbaspire:57
 msgid "Get/Update some Ponce binary packages"
 msgstr "Obtenir/mettre à jour des paquets binaires de Ponce"
 
-#: pbaspire:57
+#: pbaspire:57 pbaspire:58
 msgid "Get/Update some Slackonly binary packages"
 msgstr "Obtenir/mettre à jour des paquets binaires de Slackonly"
 
-#: pbaspire:58
+#: pbaspire:58 pbaspire:59
 msgid "Get/Update some Conraid or Slackel binary packages"
 msgstr "Obtenir/mettre à jour des paquets binaires de Conraid et Slackel"
 
-#: pbaspire:59
+#: pbaspire:59 pbaspire:60
 msgid "Get/Update some other source packages"
 msgstr "Obtenir/mettre à jour d'autres paquets sources"
 
-#: pbaspire:60
+#: pbaspire:60 pbaspire:61
 msgid "Get/Update latest Firefox and Thunderbird"
 msgstr "Obtenir/mettre à jour Firefox et Thunderbird"
 
-#: pbaspire:61
+#: pbaspire:61 pbaspire:62
 msgid "Check GPG signatures"
 msgstr "Vérification des signatures GPG"
 
-#: pbaspire:62
+#: pbaspire:62 pbaspire:63
 msgid "Clean the local repository from old packages versions"
 msgstr "Nettoyage de la copie locale du système"
 
-#: pbaspire:69 pbsetup:129 pbupgrade:122
+#: pbaspire:69 pbsetup:129 pbupgrade:122 pbaspire:70
 msgid "Main menu"
 msgstr "Menu principal"
 
-#: pbaspire:70 pbsetup:130
+#: pbaspire:70 pbsetup:130 pbaspire:71
 msgid "Choose your actions below"
 msgstr "Choisissez vos actions ci-dessous"
 
-#: pbaspire:184
+#: pbaspire:184 pbaspire:190
 msgid "Get or update the officiel lastest current Slackware."
 msgstr "Synchroniser avec la copie locale de la dernière Slackware current"
 
-#: pbaspire:186
+#: pbaspire:186 pbaspire:192
 msgid ""
 "Get or update the multilib of Alien Bob which is a 32 bits compatibility set "
 "of packages."
@@ -104,108 +104,108 @@ msgstr ""
 "Obtenir ou mettre à jour les paquets multilib d'Alien Bob qui est un jeu de "
 "paquets assurant un mode de compatibilité 32 bits."
 
-#: pbaspire:188
+#: pbaspire:188 pbaspire:194
 msgid "Get or update the KDE4 set of packages."
 msgstr "Obtenir ou mettre à jour les paquets de KDE4."
 
-#: pbaspire:190
+#: pbaspire:190 pbaspire:196
 msgid "Get or update the KDE5 frameworks libraries."
 msgstr "Obtenir ou mettre à jour les librairies frameworks de KDE5"
 
-#: pbaspire:192
+#: pbaspire:192 pbaspire:200
 msgid "Get or update the GParted live ISO."
 msgstr "Obtenir ou mettre à jour l'image ISO GParted live"
 
-#: pbaspire:194
+#: pbaspire:194 pbaspire:202
 msgid "Get or update the VirtualBox installer and extensions."
 msgstr "Obtenir ou mettre à jour VirtualBox et ses extensions."
 
-#: pbaspire:196
+#: pbaspire:196 pbaspire:204
 msgid "Get or update some Alien Bob binary packages."
 msgstr "Obtenir ou mettre à jour des paquets binaires d'Alien Bob"
 
-#: pbaspire:198
+#: pbaspire:198 pbaspire:206
 msgid "Get or update some Ponce binary packages."
 msgstr "Obtenir ou mettre à jour des paquets binaires de Ponce"
 
-#: pbaspire:200
+#: pbaspire:200 pbaspire:208
 msgid "Get or update some Slackonly binary packages."
 msgstr "Obtenir ou mettre à jour des paquets inaires de Slackonly"
 
-#: pbaspire:202
+#: pbaspire:202 pbaspire:210
 msgid "Get or update some Conraid and Slackel binary packages."
 msgstr "Obtenir ou mettre à jour des paquets binaires de Conraid et Slackel"
 
-#: pbaspire:204
+#: pbaspire:204 pbaspire:212
 msgid "Get or update some other source packages."
 msgstr "Obtenir ou mettre à jour d'autres paquets sources"
 
-#: pbaspire:206
+#: pbaspire:206 pbaspire:214
 msgid "Get or update Firefox and Thunderbird."
 msgstr "Obtenir ou mettre à jour Firefox et Thunderbird"
 
-#: pbaspire:208
+#: pbaspire:208 pbaspire:216
 msgid "Check the GPG signatures of the downloaded packages."
 msgstr "Vérifiez les signatures GPG des paquets téléchargés."
 
-#: pbaspire:210
+#: pbaspire:210 pbaspire:218
 msgid "Clean the local repository from old packages or source files."
 msgstr "On enlève les anciennes versions de la copie locale du système."
 
-#: pbaspire:260
+#: pbaspire:260 pbaspire:268
 #, sh-format
 msgid "Get/Update core system done : \\Z3${PBNAME}core\\Zn."
 msgstr "Coeur du système obtenu ou mis à jour : \\Z3${PBNAME}core\\Zn."
 
-#: pbaspire:262
+#: pbaspire:262 pbaspire:270
 #, sh-format
 msgid "Get/Update multilib compat 32 bits mode done : \\Z3${PBNAME}core\\Zn."
 msgstr ""
 "Mode de compatibilié 32 bits obtenu ou mis à jour : \\Z3${PBNAME}core\\Zn."
 
-#: pbaspire:264
+#: pbaspire:264 pbaspire:272
 #, sh-format
 msgid "Get/Update KDE5 frameworks libraries done : \\Z3${PBNAME}core\\Zn."
 msgstr ""
 "Librairies frameworks de KDE5 obtenues ou mises à jour : \\Z3${PBNAME}core"
 "\\Zn."
 
-#: pbaspire:266
+#: pbaspire:266 pbaspire:274
 #, sh-format
 msgid "Get/Update gparted live iso done : \\Z3${PBNAME}core\\Zn."
 msgstr "Image iso GParted live obtenue ou mise à jour : \\Z3${PBNAME}core\\Zn."
 
-#: pbaspire:268
+#: pbaspire:268 pbaspire:276
 #, sh-format
 msgid "Get/Update VirtualBox installer done : \\Z3${PBNAME}core\\Zn."
 msgstr "Installeur VirtualBox obtenu ou mis à jour : \\Z3${PBNAME}core\\Zn."
 
-#: pbaspire:270
+#: pbaspire:270 pbaspire:278
 #, sh-format
 msgid "Local repository cleaned : \\Z3${PBNAME}core\\Zn."
 msgstr "Copie locale du système nettoyée : \\Z3${PBNAME}core\\Zn."
 
-#: pbaspire:275
+#: pbaspire:275 pbaspire:288
 #, sh-format
 msgid "Get/Update KDE4 packages done : \\Z3${PBNAME}kde4\\Zn."
 msgstr "Paquets de KDE4 obtenus ou mis à jour : \\Z3${PBNAME}kde4\\Zn."
 
-#: pbaspire:280
+#: pbaspire:280 pbaspire:293
 #, sh-format
 msgid "Get/Update Alien Bob packages done : \\Z3${PBNAME}alien\\Zn."
 msgstr "Paquets d'Alien Bob obtenus ou mis à jour : \\Z3${PBNAME}alien\\Zn."
 
-#: pbaspire:285
+#: pbaspire:285 pbaspire:298
 #, sh-format
 msgid "Get/Update Ponce packages done : \\Z3${PBNAME}ponce\\Zn."
 msgstr "Paquets de Ponce obtenus ou mis à jour : \\Z3${PBNAME}ponce\\Zn."
 
-#: pbaspire:289
+#: pbaspire:289 pbaspire:302
 #, sh-format
 msgid "Get/Update Slackonly packages done : \\Z3${PBNAME}slonly\\Zn."
 msgstr "Paquets de Slackonly obtenus ou mis à jour : \\Z3${PBNAME}slonly\\Zn."
 
-#: pbaspire:294
+#: pbaspire:294 pbaspire:307
 #, sh-format
 msgid ""
 "Get/Update Conraid and Slackel binary packages done : \\Z3${PBNAME}other\\Zn."
@@ -213,13 +213,13 @@ msgstr ""
 "Autres paquets binaires de Conraid et Slackel obtenus ou mis à jour : "
 "\\Z3${PBNAME}other\\Zn."
 
-#: pbaspire:299
+#: pbaspire:299 pbaspire:312
 #, sh-format
 msgid "Get/Update other source packages done : \\Z3${PBNAME}sources\\Zn."
 msgstr ""
 "Autres paquets sources obtenus ou mis à jour : \\Z3${PBNAME}sources\\Zn."
 
-#: pbaspire:305
+#: pbaspire:305 pbaspire:318
 #, sh-format
 msgid ""
 "Get/Update Firefox and Thunderbird for $XLANG language done : \\Z3${PBNAME}"
@@ -228,21 +228,21 @@ msgstr ""
 "Obtention ou mise à jour de Firefox et Thunderbird pour le langage $XLANG "
 "faite : \\Z3${PBNAME}mozilla\\Zn."
 
-#: pbaspire:309
+#: pbaspire:309 pbaspire:322
 msgid "GPG signatures checked :"
 msgstr "Signatures GPG vérifiées :"
 
-#: pbaspire:318 pbsetup:321 pbupgrade:460
+#: pbaspire:318 pbsetup:321 pbupgrade:460 pbaspire:331
 msgid "No action was demanded. Exit."
 msgstr "Aucune action demandée. Sortie."
 
-#: pbaspire:321 pbsetup:325 pbupgrade:83
+#: pbaspire:321 pbsetup:325 pbupgrade:83 pbaspire:334
 msgid "Actions which were done"
 msgstr "Actions réalisées"
 
 #: pbaspirealien:14 pbaspiremoz:13 pbaspireother:14 pbaspireponce:14
 #: pbaspireslonly:14 pbaspiresources:14 pbcompilepost:19 pbcompilekde4:19
-#: pbcompilegdm:19
+#: pbcompilegdm:19 pbaspiremoz:19
 msgid ""
 "Launch this script in the directory including packages, packages2 et al."
 msgstr ""
@@ -1285,6 +1285,19 @@ msgstr "Démontez votre clé USB et enlevez la avant de redémarrer l'ordinateur
 msgid "I don't see your install. Do the extra work by hand."
 msgstr "Je ne vois pas votre installation. Faire les étapes finales à la main."
 
-#: pbaspiregdm:15
+#: pbaspiregdm:15 pbaspiregdm:21
 msgid "Launch this script in a directory which contains gdm."
 msgstr "Script à lancer dans le répertoire contenant gdm."
+
+#: pbaspire:53
+msgid "Get/Update GDM desktop manager from Gnome 2"
+msgstr "Obtenir/mettre à jour le gestionnaire de bureaux GDM de Gnome 2"
+
+#: pbaspire:198
+msgid "Get or update the GDM desktop manager."
+msgstr "Obtenir ou mettre à jour le gestionnaire de bureaux GDM."
+
+#: pbaspire:283
+#, sh-format
+msgid "Get/Update GDM packages done : \\Z3${PBNAME}gdm\\Zn."
+msgstr "Paquets de GDM obtenus ou mis à jour : \\Z3${PBNAME}gdm\\Zn."
