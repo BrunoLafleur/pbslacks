@@ -104,7 +104,6 @@ fi
 
 MYPWD=$(pwd)
 HOMESLACK="$MYPWD"
-PBARCH="$(basename "$MYPWD"|cut -d '-' -f2)"
 MYUSER=$(id -u -n)
 MYGROUP=$(id -g -n)
 
@@ -235,7 +234,7 @@ ISSTOPHIB=$(cat $XTEMPOUT|grep '^stophib$'|wc -l)
 
 # Aspire
 if [ $ISASPIRE -eq 1 ] ;then
-    "$PBSLACKSPWD/pbaspire" $PBTEST $PBDIAL $PBARCH
+    "$PBSLACKSPWD/pbaspire" $PBTEST $PBDIAL
     mygt "Clone done (full or partial depending on selected options)." \
 	>> $XTEMPMES
 fi

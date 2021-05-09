@@ -35,6 +35,7 @@ reboot
 /boot/config.txt
 ----------------
 hdmi_drive=2 # Pour les hauts parleurs.
+dtparam=audio=on
 disable_overscan=1 # Pour plein ecran et tactile correct.
 
 Configs :

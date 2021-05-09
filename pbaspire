@@ -12,8 +12,6 @@ xhelp () {
     echo '> ../pbslacks/pbaspire [-test (test only, no actions)] [-help|-h] [-nodial] [x64|arm]'
 }
 
-PBARCH=x64
-
 while [ $# -ge 1 ] ;do
     MYARG="$1"
     if [ "$MYARG" = "-test" ] ;then
@@ -23,8 +21,6 @@ while [ $# -ge 1 ] ;do
     elif [ "$MYARG" = "-help" -o "$MYARG" = "-h" ] ;then
 	xhelp
 	exit 0
-    else
-	PBARCH="$MYARG"
     fi
     shift
 done
@@ -36,6 +32,8 @@ if [ $XTEST -ne 1 -a "$0" != "../pbslacks/$MYPROG" \
 fi
 
 PBNAME=$0
+MYPWD=$(pwd)
+PBARCH="$(basename "$MYPWD"|cut -d '-' -f2)"
 XTEMPOUT=$(mktemp -p /tmp -t pbaspireout.XXXXXX)
 XTEMPMES=$(mktemp -p /tmp -t pbaspiremes.XXXXXX)
 XTEMPCHK=$(mktemp -p /tmp -t pbaspirechk.XXXXXX)

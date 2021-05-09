@@ -34,7 +34,12 @@ if [ -d  /mnt/boot ] ;then
     mount -t vfat /dev/mmcblk0p1 /mnt/boot 
     rm /mnt/boot/initrd.gz
     ROOT=/mnt installpkg /rpi-extra/kernel* /rpi-extra/sarpi*
-    umount /usb-stick # Enlevez la clé.
+    if [ $(ls /usb-stick | wc -l) -ne 0 ] ;then
+	umount /usb-stick # Remove the key.
+	mygt "You can now remove the USB stick and reboot the computer."
+    else
+	mygt "Unmount your USB stick and remove it before rebooting the computer."
+    fi
+else
+    mygt "I don't see your install. Do the extra work by hand."
 fi
-
-mygt "You can now remove the USB stick and reboot the computer."

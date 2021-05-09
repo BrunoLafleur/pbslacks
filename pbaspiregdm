@@ -33,7 +33,6 @@ if [ ! -d gdm -o \
 fi
 
 MYPWD=$(pwd)
-export HOMESLACK="$MYPWD"
 PBARCH="$(basename "$MYPWD"|cut -d '-' -f2)"
 
 # GDM
