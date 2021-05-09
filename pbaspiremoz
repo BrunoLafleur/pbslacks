@@ -5,7 +5,13 @@
 # License : See the LICENSE file in this repository.
 
 XDIR="$(dirname $0)"
-. "$XDIR/pbaspireinit"
+MYPWD=$(pwd)
+PBARCH="$(basename "$MYPWD"|cut -d '-' -f2)"
+if [ "$PBARCH" = x64 ] ;then
+    . "$XDIR/pbaspireinit"
+else
+    . "$XDIR/pbaspirearminit"
+fi
 . "$XDIR/pbinclude"
 . "$XDIR/pbaspireinc"
 
@@ -21,8 +27,6 @@ if [ ! -d packages -o \
     exit 1
 fi
 
-MYPWD=$(pwd)
-PBARCH="$(basename "$MYPWD"|cut -d '-' -f2)"
 XLANG=$(echo $LANG|cut -d '.' -f1|cut -d '_' -f1)
 
 while [ $# -ge 1 ] ;do
@@ -50,8 +54,7 @@ done
 	xgeturl "$XTHUNDERBIRD"
 	xpurgepac 'thunderbird-' tar.bz2
     elif  [ "$PBARCH" = arm ] ;then
-	. "$XDIR/pbpatharm"
-	xgeturl "$XARMTHUNDERBIRD"
-	xpurgepac 'thunderbird_' deb
+	xgetsbosrc thunderbird
+	xpurgepac 'thunderbird/thunderbird_' deb
     fi
 )

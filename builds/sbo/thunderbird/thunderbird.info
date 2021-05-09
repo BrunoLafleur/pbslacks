@@ -1,0 +1,8 @@
+PRGNAM="thunderbird"
+VERSION="78.8.0"
+HOMEPAGE="https://www.thunderbird.net"
+DOWNLOAD="http://security.debian.org/debian-security/pool/updates/main/t/thunderbird/thunderbird_78.8.0-1~deb10u1_armhf.deb"
+MD5SUM="bf1a95ed30649aba42862f06f0d19e0e"
+REQUIRES=""
+MAINTAINER="Pierre Brochard"
+EMAIL="pierre.brochard.1982@m4x.org"

@@ -7,7 +7,13 @@
 # can be done non root.
 
 XDIR="$(dirname $0)"
-. "$XDIR/pbaspireinit"
+MYPWD=$(pwd)
+PBARCH="$(basename "$MYPWD"|cut -d '-' -f2)"
+if [ "$PBARCH" = x64 ] ;then
+    . "$XDIR/pbaspireinit"
+else
+    . "$XDIR/pbaspirearminit"
+fi
 . "$XDIR/pbinclude"
 . "$XDIR/pbaspireinc"
 
@@ -31,9 +37,6 @@ if [ ! -d gdm -o \
     xhelp
     exit 1
 fi
-
-MYPWD=$(pwd)
-PBARCH="$(basename "$MYPWD"|cut -d '-' -f2)"
 
 # GDM
 (
