@@ -21,6 +21,8 @@ if [ ! -d packages -o \
     exit 1
 fi
 
+MYPWD=$(pwd)
+PBARCH="$(basename "$MYPWD"|cut -d '-' -f2)"
 XLANG=$(echo $LANG|cut -d '.' -f1|cut -d '_' -f1)
 
 while [ $# -ge 1 ] ;do
@@ -36,14 +38,20 @@ while [ $# -ge 1 ] ;do
 done
 
 # Depends on $XLANG
-. "$XDIR/pbpathinc"
 
 [ ! -d packages/Mozilla ] && mkdir packages/Mozilla
 (
     cd packages/Mozilla
-    xgeturl "$XFIREFOX"
-    xpurgepac 'firefox-' tar.bz2
+    if [ "$PBARCH" = x64 ] ;then
+	. "$XDIR/pbpathinc"
+	xgeturl "$XFIREFOX"
+	xpurgepac 'firefox-' tar.bz2
 
-    xgeturl "$XTHUNDERBIRD"
-    xpurgepac 'thunderbird-' tar.bz2
+	xgeturl "$XTHUNDERBIRD"
+	xpurgepac 'thunderbird-' tar.bz2
+    elif  [ "$PBARCH" = arm ] ;then
+	. "$XDIR/pbpatharm"
+	xgeturl "$XARMTHUNDERBIRD"
+	xpurgepac 'thunderbird_' deb
+    fi
 )

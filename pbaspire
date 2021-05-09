@@ -240,7 +240,6 @@ ISCLEAN="$(cat $XTEMPOUT|grep '^clean$'|wc -l)"
 [ $PBARCH = arm ] && ISSLONLY=0
 [ $PBARCH = arm ] && ISOTHER=0
 [ $PBARCH = arm ] && ISSOURCES=0
-[ $PBARCH = arm ] && ISMOZ=0
 RARCH=;[ $PBARCH = arm ] && RARCH=arm
 
 COREATTR=

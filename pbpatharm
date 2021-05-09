@@ -27,3 +27,7 @@ TOUCHEGG='https://framagit.org/Desiderius77/multitouch-diskio-pi'
 # KDE5
 
 SLACKKTUBERLING='https://download.kde.org/stable/release-service/21.04.0/src/ktuberling-21.04.0.tar.xz'
+
+# Autres
+
+XARMTHUNDERBIRD='http://security.debian.org/debian-security/pool/updates/main/t/thunderbird/thunderbird_78.8.0-1~deb10u1_armhf.deb'
