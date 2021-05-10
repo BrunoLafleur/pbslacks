@@ -94,14 +94,14 @@ xmaster () {
     defitem=$1;shift
     xsel15=$1;shift;xsel16=$1;shift;xsel17=$1;shift
     xselca=$1;shift;xsel18=$1;shift;xselkd=$1;shift;xselke=$1;shift
-    xselkei=$1;shift;xselfw=$1;shift;xsel19=$1;shift;xsel20=$1;shift
-    xselrp=$1;shift;xsel21=$1;shift;xsel22=$1;shift;xsel23=$1
+    xselkei=$1;shift;xselfw=$1;shift;xsegdm=$1;shift;xsel19=$1;shift
+    xsel20=$1;shift;xselrp=$1;shift;xsel21=$1;shift;xsel22=$1;shift;xsel23=$1
     pactit=$(mygt 'Main menu')
     pactit="pbcompile: $pactit"
     dialog --colors --backtitle 'pbcompile' --title "$pactit" \
 	--default-item $defitem --defaultno \
 	--separate-output --item-help --help-button --help-status --checklist \
-	"$(mygt 'Choose your actions below after you have launch the \Zbpbaspire*\ZB script')" 0 110 15 \
+	"$(mygt 'Choose your actions below after you have launch the \Zbpbaspire*\ZB script')" 0 110 16 \
 	recreatepackages "$(mygt 'Compile again the packages set of software')" $xsel15 recreatepackages \
 	recreatepackages2 "$(mygt 'Compile again the packages2 set of software')" $xsel16 recreatepackages2 \
 	recreatepackages3 "$(mygt 'Compile again the packages3 set of software')" $xsel17 recreatepackages3 \
@@ -111,6 +111,7 @@ xmaster () {
 	recreatekde4 "$(mygt 'Compile again KDE4 set of software')" $xselke recreatekde4 \
 	recreatekde4i "$(mygt 'Compile again languages for KDE4 set of software')" $xselkei recreatekde4i \
 	recreateframeworks "$(mygt 'Compile again KDE5 frameworks set of software')" $xselfw recreateframeworks \
+	recreategdm "$(mygt 'Compile again GDM desktop manager set of software')" $xsegdm recreategdm \
 	recreatechromium "$(mygt 'Compile again the Chromium software')" $xsel19 recreatechromium \
 	recreateopenshot "$(mygt 'Compile again the Openshot software')" $xsel20 recreateopenshot \
 	recreatepitivi "$(mygt 'Compile again the Pitivi software')" $xselrp recreatepitivi \
@@ -141,7 +142,7 @@ xpacaide_add () {
 xframe=$XUPNOPOST
 [ $(ls /var/log/packages/plasma-desktop-*[0-9]* 2> /dev/null|wc -l) -ge 1 ] && \
     xframe=off
-xsel="$XUPPOST $XUPPOST $XUPPOST off $XUPPOST off off off off off \
+xsel="$XUPPOST $XUPPOST $XUPPOST off $XUPPOST off off off off off off \
 $XUPPOST $XUPPOST $XUPPOST $XUPPOST off"
 ditem=recreatepackages
 bclaide=1
@@ -155,9 +156,9 @@ while [ $bclaide -eq 1 ] ;do
 	for i in recreatepackages recreatepackages2 \
 			recreatepackages3 recreatecalibre recreatepackages4 \
 			recreatekde4deps recreatekde4 recreatekde4i \
-			recreateframeworks recreatechromium recreateopenshot \
-			recreatepitivi recreateaudacity recreateardour \
-			recreatebumblebee ;do
+			recreateframeworks recreategdm recreatechromium \
+			recreateopenshot recreatepitivi recreateaudacity \
+			recreateardour recreatebumblebee ;do
 	  if [ $(grep "^$i$" "$XTEMPOUT"|wc -l) -eq 1 ] ;then
 	      xsel="$xsel on"
 	  else
@@ -183,6 +184,8 @@ while [ $bclaide -eq 1 ] ;do
 	    pacaide=$(mygt 'Redo languages for KDE4 set of packages.\nIf not already done on this machine or another.')
 	elif [ "$xitem" = recreateframeworks ] ;then
 	    pacaide=$(mygt 'Redo KDE5 frameworks set of packages.\nIf not already done on this machine or another.')
+	elif [ "$xitem" = recreategdm ] ;then
+	    pacaide=$(mygt 'Redo GDM set of packages.\nIf not already done on this machine or another.')
 	elif [ "$xitem" = recreatechromium ] ;then
 	    pacaide=$(mygt 'Redo the Chromium navigator which are here in sources form.\nIf not already done on this machine or another.\nIt is a very long process (some hours).\nIt is usefull for Opera having the libffmeg.so library with the h264 support.')
 	elif [ "$xitem" = recreateopenshot ] ;then
@@ -236,6 +239,7 @@ ISRECRE="$(cat $XTEMPOUT|grep '^recreatekde4depsi$'|wc -l)"
 [ $ISRECRE -eq 1 ] && OPTRECREKDE4="$OPTRECREKDE4 -iskde4depsi"
 
 ISRECREBUMBLE="$(cat $XTEMPOUT|grep '^recreatebumblebee$'|wc -l)"
+ISRECREGDM="$(cat $XTEMPOUT|grep '^recreategdm$'|wc -l)"
 
 if [ $XEND -eq 0 ] ;then
     if [ "$OPTRECRE" != '' ] ;then
@@ -255,6 +259,12 @@ if [ $XEND -eq 0 ] ;then
 	    $HOMESLACK/pbslacks/pbcompilebumblebee -u $MYUSER -g $MYGROUP
 	fi
 	mygt "Recreate source Bumblebee done. Reboot your computer for Bumblebee to work." >> $XTEMPMES
+    fi
+    if [ $ISRECREGDM -eq 1 ] ;then
+	if [ $XTEST -ne 1 ] ;then
+	    $HOMESLACK/pbslacks/pbcompilegdm -u $MYUSER -g $MYGROUP
+	fi
+	mygt "Recreate source GDM done." >> $XTEMPMES
     fi
 fi
 

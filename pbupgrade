@@ -62,8 +62,11 @@ fi
 if [ $XTEST -ne 1 ] ;then
     if [ -d slackware64-current ] ;then
 	cd slackware64-current
+    elif [ -d slackwarearm-current ] ;then
+	cd slackwarearm-current
     fi
-    if [ ! -d slackware64 -o '(' ! -h pbslacks -a ! -d pbslacks ')' ] ;then
+    if [ '(' ! -d slackware64 -a ! -d slackware ')' \
+	     -o '(' ! -h pbslacks -a ! -d pbslacks ')' ] ;then
 	mygt 'slackware64 or pbslacks not found.'> $XTEMPMES
 	xhelp >> $XTEMPMES
     fi
