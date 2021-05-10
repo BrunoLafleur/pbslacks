@@ -1,0 +1,286 @@
+#! /bin/sh
+
+# Auteur : Pierre Brochard (pierre.brochard.1982@m4x.org)
+# Date : 2019
+# License : See the LICENSE file in this repository.
+
+. "$(dirname $0)/pbinclude"
+. "$(dirname $0)/pbupgradeinc"
+. "$(dirname $0)/pbupgradesys"
+
+xhelp () {
+    mygt 'Launch this script in the directory including alreadey cloned slackware64 or slackware64-current.\nIt can be on the bootable slackware install USB stick.\npbslacks should also be there.'|sed 's@\\n@\n@g'
+    echo
+    echo '  > cd .../Slackware-x64-date'
+    echo 'or> cd /run/media/$USER/USBSLACKINS/SlackDVD'
+    echo '  > pbslacks/pbcompile [-test (test only, no actions)] [-help|-h] [-nodial]'
+}
+
+MYUSER=produits
+MYGROUP=users
+
+while [ $# -ge 1 ] ;do
+    MYARG="$1"
+    if [ "$MYARG" = "-nodial" ] ;then
+	ISDIAL=0
+    elif [ "$MYARG" = "-test" ] ;then
+	XTEST=1
+    elif [ "$MYARG" = "-u" ] ;then
+	shift
+	MYUSER="$1"
+    elif [ "$MYARG" = "-g" ] ;then
+	shift
+	MYGROUP="$1"
+    elif [ "$MYARG" = "-help" -o "$MYARG" = "-h" ] ;then
+	xhelp
+	exit 0
+    fi
+    shift
+done
+
+XTEMPOUT=$(mktemp -p /tmp -t pbcompileout.XXXXXX)
+XTEMPMES=$(mktemp -p /tmp -t pbcompilemes.XXXXXX)
+
+cleanup () {
+    rm -f $XTEMPOUT
+    rm -f $XTEMPMES
+}
+
+trap 'echo "*** Ctrl-C caught -- aborting operations ***"; cleanup; exit 1' 2 14 15 # trap Ctrl-C and kill
+
+if [ ! -d /boot ] ;then
+    mygt "Do the install of the Slackware Linux distribution before :\n-see the doc/SLACKWARE.txt file." |sed 's@\\n@\n@g' > $XTEMPMES
+fi
+
+if [ $XTEST -ne 1 ] ;then
+    if [ -d slackware64-current ] ;then
+	cd slackware64-current
+    elif [ -d slackwarearm-current ] ;then
+	cd slackwarearm-current
+    fi
+    if [ '(' ! -d slackware64 -a ! -d slackware ')' \
+	     -o '(' ! -h pbslacks -a ! -d pbslacks ')' ] ;then
+	mygt 'slackware64 or pbslacks not found.'> $XTEMPMES
+	xhelp >> $XTEMPMES
+    fi
+fi
+
+if [ -s "$XTEMPMES" ] ;then
+    dialog --colors --backtitle 'pbcompile' --title 'End messages' \
+	--msgbox "$(cat $XTEMPMES)" 20 85
+    cleanup
+    exit 1
+fi
+
+DACTION=$(mygt 'Actions which were done')
+
+if [ $XTEST -ne 1 ] ;then
+    if [ ! $UID = 0 ]; then
+        mygt 'This script must be done as root. Exit.' > $XTEMPMES
+        dialog --colors --backtitle 'pbcompile' --title "$DACTION" \
+	    --msgbox "$(cat $XTEMPMES)" 20 80
+	cleanup
+	exit 1
+    fi
+fi
+
+MYPWD=$(pwd)
+HOMESLACK="$MYPWD"
+
+XUPNOPOST=off
+XUPPOST=on
+
+xmaster () {
+    defitem=$1;shift
+    xsel15=$1;shift;xsel16=$1;shift;xsel17=$1;shift
+    xselca=$1;shift;xsel18=$1;shift;xselkd=$1;shift;xselke=$1;shift
+    xselkei=$1;shift;xselfw=$1;shift;xsel19=$1;shift;xsel20=$1;shift
+    xselrp=$1;shift;xsel21=$1;shift;xsel22=$1;shift;xsel23=$1
+    pactit=$(mygt 'Main menu')
+    pactit="pbcompile: $pactit"
+    dialog --colors --backtitle 'pbcompile' --title "$pactit" \
+	--default-item $defitem --defaultno \
+	--separate-output --item-help --help-button --help-status --checklist \
+	"$(mygt 'Choose your actions below after you have launch the \Zbpbaspire*\ZB script')" 0 110 15 \
+	recreatepackages "$(mygt 'Compile again the packages set of software')" $xsel15 recreatepackages \
+	recreatepackages2 "$(mygt 'Compile again the packages2 set of software')" $xsel16 recreatepackages2 \
+	recreatepackages3 "$(mygt 'Compile again the packages3 set of software')" $xsel17 recreatepackages3 \
+	recreatecalibre "$(mygt 'Compile again the Calibre software')" $xselca recreatecalibre \
+	recreatepackages4 "$(mygt 'Compile again the packages4 set of software')" $xsel18 recreatepackages4 \
+	recreatekde4deps "$(mygt 'Compile again dependencies for KDE4 set of software')" $xselkd recreatekde4deps \
+	recreatekde4 "$(mygt 'Compile again KDE4 set of software')" $xselke recreatekde4 \
+	recreatekde4i "$(mygt 'Compile again languages for KDE4 set of software')" $xselkei recreatekde4i \
+	recreateframeworks "$(mygt 'Compile again KDE5 frameworks set of software')" $xselfw recreateframeworks \
+	recreatechromium "$(mygt 'Compile again the Chromium software')" $xsel19 recreatechromium \
+	recreateopenshot "$(mygt 'Compile again the Openshot software')" $xsel20 recreateopenshot \
+	recreatepitivi "$(mygt 'Compile again the Pitivi software')" $xselrp recreatepitivi \
+	recreateaudacity "$(mygt 'Compile again the Audacity software')" $xsel21 recreateaudacity \
+	recreateardour "$(mygt 'Compile again the Ardour software')" $xsel22 recreateardour \
+	recreatebumblebee "$(mygt 'Compile again Bumblebee packages.')" $xsel23 recreatebumblebee
+}
+
+xpacaide () {
+    packages="$1"
+    pacaide="Upgrade the $packages set of tools :"
+    ls -1 "$packages/"*.t?z > $XTEMPMES
+    while read j;test "$j" != "" ;do
+	pacaide="${pacaide}\n$j"
+    done < $XTEMPMES
+    rm -f $XTEMPMES
+}
+
+xpacaide_add () {
+    packages="$1"
+    ls -1 "$packages/"*.t?z > $XTEMPMES
+    while read j;test "$j" != "" ;do
+	pacaide="${pacaide}\n$j"
+    done < $XTEMPMES
+    rm -f $XTEMPMES
+}
+
+xframe=$XUPNOPOST
+[ $(ls /var/log/packages/plasma-desktop-*[0-9]* 2> /dev/null|wc -l) -ge 1 ] && \
+    xframe=off
+xsel="$XUPPOST $XUPPOST $XUPPOST off $XUPPOST off off off off off \
+$XUPPOST $XUPPOST $XUPPOST $XUPPOST off"
+ditem=recreatepackages
+bclaide=1
+
+while [ $bclaide -eq 1 ] ;do
+    xmaster $ditem $xsel 2> $XTEMPOUT
+    bclaide=$(cat $XTEMPOUT|grep '^HELP'|wc -l)
+    if [ $bclaide -eq 1 ] ;then
+	xitem="$(cat $XTEMPOUT|grep '^HELP'|cut -d ' ' -f2)"
+	xsel=
+	for i in recreatepackages recreatepackages2 \
+			recreatepackages3 recreatecalibre recreatepackages4 \
+			recreatekde4deps recreatekde4 recreatekde4i \
+			recreateframeworks recreatechromium recreateopenshot \
+			recreatepitivi recreateaudacity recreateardour \
+			recreatebumblebee ;do
+	  if [ $(grep "^$i$" "$XTEMPOUT"|wc -l) -eq 1 ] ;then
+	      xsel="$xsel on"
+	  else
+	      xsel="$xsel off"
+	  fi
+	done
+	ditem=$xitem;bclaide=1;pacaide=
+	if [ "$(echo "$xitem"|cut -c1-16)" = recreatepackages ] ;then
+	    pacaide=$(mygt 'Redo the packages which are here in sources form.\nIf not already done on this machine or another.\n')
+	    jtem="$(echo "$xitem"|cut -c9-)"
+	    find -L $jtem -type d|cut -d '/' -f1-2|sort -u|egrep -v "$jtem$|chromium|openshot|pitivi|audacity|ardour|tesseract|frameworks|Httpfs|32|Mozilla|Steam|compat32" > $XTEMPMES
+	    while read j;test "$j" != "" ;do
+		pacaide="${pacaide}\n$j"
+	    done < $XTEMPMES
+	    rm -f $XTEMPMES
+	elif [ "$xitem" = recreatecalibre ] ;then
+	    pacaide=$(mygt 'Redo the Calibre package.\nIf not already done on this machine or another.')
+	elif [ "$xitem" = recreatekde4deps ] ;then
+	    pacaide=$(mygt 'Redo dependencies for KDE4 set of packages.\nIf not already done on this machine or another.')
+	elif [ "$xitem" = recreatekde4 ] ;then
+	    pacaide=$(mygt 'Redo KDE4 set of packages.\nIf not already done on this machine or another.')
+	elif [ "$xitem" = recreatekde4i ] ;then
+	    pacaide=$(mygt 'Redo languages for KDE4 set of packages.\nIf not already done on this machine or another.')
+	elif [ "$xitem" = recreateframeworks ] ;then
+	    pacaide=$(mygt 'Redo KDE5 frameworks set of packages.\nIf not already done on this machine or another.')
+	elif [ "$xitem" = recreatechromium ] ;then
+	    pacaide=$(mygt 'Redo the Chromium navigator which are here in sources form.\nIf not already done on this machine or another.\nIt is a very long process (some hours).\nIt is usefull for Opera having the libffmeg.so library with the h264 support.')
+	elif [ "$xitem" = recreateopenshot ] ;then
+	    pacaide=$(mygt 'Redo the openshot packages which are here in sources form.\nIf not already done on this machine or another.')
+	elif [ "$xitem" = recreatepitivi ] ;then
+	    pacaide=$(mygt 'Redo the pitivi packages which are here in sources form.\nIf not already done on this machine or another.')
+	elif [ "$xitem" = recreateaudacity ] ;then
+	    pacaide=$(mygt 'Redo the audacity packages which are here in sources form.\nIf not already done on this machine or another.')
+	elif [ "$xitem" = recreateardour ] ;then
+	    pacaide=$(mygt 'Redo the ardour packages which are here in sources form.\nIf not already done on this machine or another.')
+	elif [ "$xitem" = recreatebumblebee ] ;then
+	    pacaide=$(mygt 'Redo the Bumblebee packages.\nIf not already done on this machine or another.\nYou should reboot after upgrading system packages and before doing this action else the Bumblebee packages wont built.')
+	fi
+	dialog --colors --backtitle 'pbcompile' --title "$xitem" \
+	    --msgbox "$pacaide" 20 90
+    fi
+done
+
+XEND=0
+OPTRECRE=
+OPTRECREKDE4=
+
+ISRECRE="$(cat $XTEMPOUT|grep '^recreatepackages$'|wc -l)"
+[ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -ispac1"
+ISRECRE="$(cat $XTEMPOUT|grep '^recreatepackages2$'|wc -l)"
+[ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -ispac2"
+ISRECRE="$(cat $XTEMPOUT|grep '^recreatepackages3$'|wc -l)"
+[ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -ispac3"
+ISRECRE="$(cat $XTEMPOUT|grep '^recreatecalibre$'|wc -l)"
+[ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -iscalibre"
+ISRECRE="$(cat $XTEMPOUT|grep '^recreatepackages4$'|wc -l)"
+[ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -ispac4"
+ISRECRE="$(cat $XTEMPOUT|grep '^recreateframeworks$'|wc -l)"
+[ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -isframew"
+ISRECRE="$(cat $XTEMPOUT|grep '^recreatechromium$'|wc -l)"
+[ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -ischromium"
+ISRECRE="$(cat $XTEMPOUT|grep '^recreateopenshot$'|wc -l)"
+[ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -isopenshot"
+ISRECRE="$(cat $XTEMPOUT|grep '^recreatepitivi$'|wc -l)"
+[ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -ispitivi"
+ISRECRE="$(cat $XTEMPOUT|grep '^recreateaudacity$'|wc -l)"
+[ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -isaudacity"
+ISRECRE="$(cat $XTEMPOUT|grep '^recreateardour$'|wc -l)"
+[ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -isardour"
+
+ISRECRE="$(cat $XTEMPOUT|grep '^recreatekde4deps$'|wc -l)"
+[ $ISRECRE -eq 1 ] && OPTRECREKDE4="$OPTRECREKDE4 -iskde4deps"
+ISRECRE="$(cat $XTEMPOUT|grep '^recreatekde4$'|wc -l)"
+[ $ISRECRE -eq 1 ] && OPTRECREKDE4="$OPTRECREKDE4 -iskde4"
+ISRECRE="$(cat $XTEMPOUT|grep '^recreatekde4depsi$'|wc -l)"
+[ $ISRECRE -eq 1 ] && OPTRECREKDE4="$OPTRECREKDE4 -iskde4depsi"
+
+ISRECREBUMBLE="$(cat $XTEMPOUT|grep '^recreatebumblebee$'|wc -l)"
+
+if [ $XEND -eq 0 ] ;then
+    if [ "$OPTRECRE" != '' ] ;then
+	if [ $XTEST -ne 1 ] ;then
+	    $HOMESLACK/pbslacks/pbcompilepost -u $MYUSER -g $MYGROUP $OPTRECRE
+	fi
+	mygt "Recreate source packages done." >> $XTEMPMES
+    fi
+    if [ "$OPTRECREKDE4" != '' ] ;then
+	if [ $XTEST -ne 1 ] ;then
+	    $HOMESLACK/pbslacks/pbcompilekde4 -u $MYUSER -g $MYGROUP $OPTRECREKDE4
+	fi
+	mygt "Recreate source kde4 packages done." >> $XTEMPMES
+    fi
+    if [ $ISRECREBUMBLE -eq 1 ] ;then
+	if [ $XTEST -ne 1 ] ;then
+	    $HOMESLACK/pbslacks/pbcompilebumblebee -u $MYUSER -g $MYGROUP
+	fi
+	mygt "Recreate source Bumblebee done. Reboot your computer for Bumblebee to work." >> $XTEMPMES
+    fi
+fi
+
+if [ ! -f "$XTEMPMES" -o ! -s "$XTEMPMES" ] ;then
+    mygt "No action was demanded. Exit." > $XTEMPMES
+    XEND=1
+fi
+
+dialog --colors --backtitle 'pbcompile' --title "$DACTION" \
+       --msgbox "$(cat $XTEMPMES)" 20 80
+cleanup
+
+if [ $XEND -eq 1 ] ;then
+    exit 0
+fi
+
+XBOOTMES=
+
+xend () {
+    emygt "Reboot the host\${XBOOTMES}.\n\n\ZbThen do if not already done on an already upgraded target :\ZB\nSelect '\Z3recreate\Zn' in the above menu after launching this script again.\n or do> \Z3pbslacks/pbcompilepost\Zn\n\n\ZbIf your host is a dual graphic card laptop with a NVIDIA card :\ZB\n  \Z4Do either :\Zn\n    Select '\Z3recreatebumblebee\Zn' in the above menu after launching this script again.\n    or do> \Z3pbslacks/pbcompilebumblebee\Zn\n  \Z4Or do only if already done on an upgraded target :\Zn\n    Select '\Z3bumblebee\Zn' in the above menu after launching this script again.\n    or do> \Z3pbslacks/pbupgradebumblebee\Zn"
+}
+
+xend >> $XTEMPMES
+
+if [ -f "$XTEMPMES" ] ;then
+    dialog --colors --backtitle 'pbcompile' --title 'End messages' \
+	--msgbox "$(cat $XTEMPMES)" 20 85
+fi
+rm -f $XTEMPMES

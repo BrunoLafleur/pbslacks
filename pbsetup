@@ -240,15 +240,15 @@ if [ $ISASPIRE -eq 1 ] ;then
 fi
 
 # Upgrade
-[ $ISRECREATE -eq 1 ] && XXOPT='-post' || XXOPT=
+[ $ISRECREATE -eq 1 ] && XXUBIN='pbcompile' || XXUBIN='pbupgrade'
 if [ $ISUPGRADE -eq 1 -o $ISRECREATE -eq 1 ] ;then
     MYSCR="screen -A -c $PBSLACKSPWD/screenrc -S pbupgrade"
     if [ $XTEST -eq 1 -o $UID -eq 0 ]; then
-        $MYSCR "$PBSLACKSPWD/pbupgrade" -u $MYUSER -g $MYGROUP $PBTEST $XXOPT
+        $MYSCR "$PBSLACKSPWD/$XXUBIN" -u $MYUSER -g $MYGROUP $PBTEST
     else
 	mygt 'Change to root.'
-        su - root -c "(cd \"$MYPWD\";$MYSCR \"$PBSLACKSPWD/pbupgrade\" \
-		-u $MYUSER -g $MYGROUP $PBTEST $XXOPT)"
+        su - root -c "(cd \"$MYPWD\";$MYSCR \"$PBSLACKSPWD/$XXUBIN\" \
+		-u $MYUSER -g $MYGROUP $PBTEST)"
     fi
     mygt "Upgrade done for selected set of packages." >> $XTEMPMES
 fi
