@@ -34,6 +34,11 @@ if [ -d  /mnt/boot ] ;then
     mount -t vfat /dev/mmcblk0p1 /mnt/boot 
     rm /mnt/boot/initrd.gz
     ROOT=/mnt installpkg /rpi-extra/kernel* /rpi-extra/sarpi*
+
+    sed -i "s/^.*hdmi_drive=.*$/hdmi_drive=2/" /mnt/boot/config.txt
+    sed -i "s/^.*dtparam=audio=.*$/dtparam=audio=on/" /mnt/boot/config.txt
+    sed -i "s/^.*disable_overscan=.*$/disable_overscan=1/" /mnt/boot/config.txt
+
     if [ $(ls /usb-stick | wc -l) -ne 0 ] ;then
 	umount /usb-stick # Remove the key.
 	mygt "You can now remove the USB stick and reboot the computer."
@@ -43,3 +48,5 @@ if [ -d  /mnt/boot ] ;then
 else
     mygt "I don't see your install. Do the extra work by hand."
 fi
+
+mygt "You can also edit /mnt/boot/config.txt ot /boot/config.txt after a reboot and tune some parameters"

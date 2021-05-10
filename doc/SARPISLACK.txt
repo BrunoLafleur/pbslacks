@@ -50,3 +50,7 @@ Pour évitez que les sites vous prennent pour un téléphone :
   Cherchez general.useragent.override
   Mettez type String et mettez sans armv7 :
     Mozilla/5.0 (X11; Linux; rv:78.0) Gecko/20100101 Firefox/78.0
+    
+Thunderbird :
+-------------
+Changez la langue dans Préférences => marche.
