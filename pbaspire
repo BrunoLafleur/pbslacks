@@ -167,7 +167,7 @@ xother=on
 xkde4=$xframe
 [ $PBARCH = arm ] && xkde4=off
 # Preselect sets.
-xsel="on $xother $xkde4 $xframe on $xother $xother $xother $xother $xother $xother $xother $xother off off"
+xsel="on $xother $xkde4 $xframe on $xother $xother $xother $xother $xother $xother $xother on off off"
 ditem=core
 bclaide=1
 

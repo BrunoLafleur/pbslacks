@@ -54,9 +54,11 @@ done
 	xgeturl "$XTHUNDERBIRD"
 	xpurgepac 'thunderbird-' tar.bz2
     elif  [ "$PBARCH" = arm ] ;then
-	xgetsbosrc thunderbird
 	xgetsbosrc libffi6
 	xgetsbosrc libevent6
+	xgetsbosrc thunderbird
+	xgetsbosrc firefox
 	xpurgepac 'thunderbird/thunderbird_' deb
+	xpurgepac 'firefox/firefox_' deb
     fi
 )

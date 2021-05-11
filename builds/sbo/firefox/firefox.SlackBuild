@@ -25,7 +25,7 @@
 # Repackaging of the Debian version.
 # Author of this script : Pierre Brochard (pierre.brochard.1982@m4x.org)
 
-PRGNAM=thunderbird
+PRGNAM=firefox
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
@@ -39,9 +39,8 @@ if [ -z "$DEBARCH" ]; then
   esac
 fi
 
-set -x
 VERSION=${VERSION:-$(echo $PKGNAM_*_$DEBARCH.deb|rev|cut -f 2- -d -|cut -f 1 -d _|rev)}
-SRCNAM=$(ls thunderbird_$VERSION-*_$DEBARCH.deb)
+SRCNAM=$(ls firefox_$VERSION-*_$DEBARCH.deb)
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/SBo}
@@ -73,7 +72,7 @@ mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp $PKG/usr/share/doc/$PRGNAM/* $PKG/usr/doc/$PRGNAM-$VERSION
 rm -rf $PKG/usr/share/doc
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
-find $PKG/usr/lib/thunderbird -name '*.so' -exec chmod a+x {} \;
+find $PKG/usr/lib/firefox -name '*.so' -exec chmod a+x {} \;
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
