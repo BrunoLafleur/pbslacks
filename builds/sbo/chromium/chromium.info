@@ -1,0 +1,8 @@
+PRGNAM="chromium"
+VERSION="90.0.4430.93"
+HOMEPAGE="https://github.com/chromium/chromium/"
+DOWNLOAD_arm="http://ftp.fr.debian.org/debian/pool/main/c/chromium/chromium_90.0.4430.93-1_armhf.deb"
+MD5SUM_arm="7e88f14863e29c8e4ab90f0b78e972c9"
+REQUIRES=""
+MAINTAINER="Pierre Brochard"
+EMAIL="pierre.brochard.1982@m4x.org"

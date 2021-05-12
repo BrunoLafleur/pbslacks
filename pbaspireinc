@@ -110,15 +110,15 @@ xgetsrc () {
 # Get the original source tarball with path in package.info.
 xgetsbosrc () {
     name="$1"
-    nocontentdisp="$2"
+    cib="$2";[ "$cib" != '' ] && cib="_$cib"
     info="$name/${name}.info"
     [ ! -d "$name" ] && mkdir "$name"
     cp -au "$PBDIRPROG/builds/sbo/$info" "$name"
     rm -f "$name/${name}.tar.gz"
-    # Get all links in DOWNLOAD= and DOWNLOAD_x86_64=
+    # Get all links in DOWNLOAD= and DOWNLOAD_...=
     # Works with multi-lines ending with '\'
     path=$(cat $info| tr '\n' '\f'|sed 's/ \\\f/ /g'|tr '\f' '\n' | \
-	       fgrep DOWNLOAD|grep -i -v unsupported|\
+	       fgrep "DOWNLOAD$cib"|grep -i -v unsupported|\
 	       cut -d '=' -f2|cut -d '"' -f2|tr '\n' ' ')
     rm -f $info
     for i in $path ; do

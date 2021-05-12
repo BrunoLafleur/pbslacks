@@ -24,6 +24,11 @@ xhookpitivi () {
     upgradepkg --reinstall slackware64/l/python-six-*.t?z
 }
 
+xhookdebian () {
+    # Post actions for debian
+    echo "none" > /dev/null
+}
+
 xhookpac1 () {
     # Post actions for packages
     upgradepkg --reinstall slackware64/ap/linuxdoc-tools-*.t?z

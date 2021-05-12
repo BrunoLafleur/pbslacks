@@ -59,12 +59,16 @@ if [ ! -d /boot ] ;then
     mygt "Do the install of the Slackware Linux distribution before :\n-see the doc/SLACKWARE.txt file." |sed 's@\\n@\n@g' > $XTEMPMES
 fi
 
+PBARCH=x64
+
 if [ $XTEST -ne 1 ] ;then
     if [ -d slackware64-current ] ;then
 	cd slackware64-current
     elif [ -d slackwarearm-current ] ;then
 	cd slackwarearm-current
     fi
+    TARCH="$(basename "$(pwd)"|cut -d '-' -f1|cut -c9-)"
+    [ "$TARCH" = 'arm' ] && PBARCH=arm
     if [ '(' ! -d slackware64 -a ! -d slackware ')' \
 	     -o '(' ! -h pbslacks -a ! -d pbslacks ')' ] ;then
 	mygt 'slackware64 or pbslacks not found.'> $XTEMPMES
@@ -106,15 +110,15 @@ XUPNOPOST=on
 xmaster () {
     defitem=$1;shift
     xsel1=$1;shift;xsel2=$1;shift;xsel3=$1;shift;xsel4=$1;shift;xsel5=$1;shift
-    xsel6=$1;shift;xsel7=$1;shift;xsel8=$1;shift;xsel9=$1;shift;xsgdm=$1;shift
-    xsel10=$1;shift;xselpi=$1;shift;xsel11=$1;shift;xsel12=$1;shift;xsel13=$1;shift
-    xsel14=$1;shift;xsel24=$1
+    xsel6=$1;shift;xsel7=$1;shift;xsel8=$1;shift;xsdeb=$1;shift;xsel9=$1;shift
+    xsgdm=$1;shift;xsel10=$1;shift;xselpi=$1;shift;xsel11=$1;shift
+    xsel12=$1;shift;xsel13=$1;shift;xsel14=$1;shift;xsel24=$1
     pactit=$(mygt 'Main menu')
     pactit="pbupgrade: $pactit"
     dialog --colors --backtitle 'pbupgrade' --title "$pactit" \
 	--default-item $defitem --defaultno \
 	--separate-output --item-help --help-button --help-status --checklist \
-	"$(mygt 'Choose your actions below after you have launch the \Zbpbaspire*\ZB script')" 0 110 17 \
+	"$(mygt 'Choose your actions below after you have launch the \Zbpbaspire*\ZB script')" 0 110 18 \
 	system "$(mygt 'Sync/Upgrade system to the last fetched current Slackware')" $xsel1 system \
 	systemnet "$(mygt 'Sync/Upgrade system to the last current Slackware on the internet')" $xsel2 systemnet \
 	compat32 "$(mygt 'Install/Upgrade the 32 bits compatible mode')" $xsel3 compat32 \
@@ -123,6 +127,7 @@ xmaster () {
 	packages2 "$(mygt 'Install/Upgrade the packages2 set of software')" $xsel6 packages2 \
 	packages3 "$(mygt 'Install/Upgrade the packages3 set of software')" $xsel7 packages3 \
 	packages4 "$(mygt 'Install/Upgrade the packages4 set of software')" $xsel8 packages4 \
+	debian "$(mygt 'Install/Upgrade Debian binary packages')" $xsdeb debian \
 	frameworks "$(mygt 'Install/Upgrade KDE4 and the KDE5 frameworks libraries')" $xsel9 frameworks \
 	gdm "$(mygt 'Install/Upgrade GDM from Gnome 2 desktop manager')" $xsgdm gdm \
 	openshot "$(mygt 'Install/Upgrade the Openshot software')" $xsel10 openshot \
@@ -157,8 +162,8 @@ xframe=$XUPNOPOST
 [ $(ls /var/log/packages/plasma-desktop-*[0-9]* 2> /dev/null|wc -l) -ge 1 ] && \
     xframe=off
 xsel="$XUPSYSTEM off $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST \
-$XUPNOPOST $xframe $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST \
-off off"
+$XUPNOPOST off $xframe $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST \
+$XUPNOPOST off off"
 ditem=system
 bclaide=1
 
@@ -169,8 +174,8 @@ while [ $bclaide -eq 1 ] ;do
 	xitem="$(cat $XTEMPOUT|grep '^HELP'|cut -d ' ' -f2)"
 	xsel=
 	for i in system systemnet compat32 mozilla packages packages2 packages3 \
-			packages4 frameworks gdm openshot pitivi audacity ardour \
-			tesseract4 bumblebee bootload ;do
+			packages4 debian frameworks gdm openshot pitivi audacity \
+			ardour tesseract4 bumblebee bootload ;do
 	  if [ $(grep "^$i$" "$XTEMPOUT"|wc -l) -eq 1 ] ;then
 	      xsel="$xsel on"
 	  else
@@ -196,6 +201,8 @@ while [ $bclaide -eq 1 ] ;do
 	    xpacaide_add kde5/deps
 	elif [ "$xitem" = gdm ] ;then
 	    xpacaide gdm
+	elif [ "$xitem" = debian ] ;then
+	    xpacaide debian
 	elif [ "$xitem" = openshot ] ;then
 	    xpacaide packages/openshot
 	elif [ "$xitem" = pitivi ] ;then
@@ -228,6 +235,7 @@ ISPACK3="$(cat $XTEMPOUT|grep '^packages3$'|wc -l)"
 ISPACK4="$(cat $XTEMPOUT|grep '^packages4$'|wc -l)"
 ISFRAMEW="$(cat $XTEMPOUT|grep '^frameworks$'|wc -l)"
 ISGDM="$(cat $XTEMPOUT|grep '^gdm$'|wc -l)"
+ISDEBIAN="$(cat $XTEMPOUT|grep '^debian$'|wc -l)"
 ISOPENSHOT="$(cat $XTEMPOUT|grep '^openshot$'|wc -l)"
 ISPITIVI="$(cat $XTEMPOUT|grep '^pitivi$'|wc -l)"
 ISAUDACITY="$(cat $XTEMPOUT|grep '^audacity$'|wc -l)"
@@ -292,6 +300,13 @@ if [ $XEND -eq 0 ] ;then
 	fi
 	mygt "Upgrade packages4 done." >> $XTEMPMES
     fi
+    if [ $ISDEBIAN -eq 1 ] ;then
+	if [ $XTEST -ne 1 ] ;then
+	    upgradedir debian
+	    xhookdebian
+	fi
+	mygt "Upgrade debian binary packages done." >> $XTEMPMES
+    fi
     if [ $ISFRAMEW -eq 1 ] ;then
 	if [ $XTEST -ne 1 ] ;then
 	    upgradedir kde4/deps
@@ -349,7 +364,7 @@ if [ $XEND -eq 0 ] ;then
 	fi
 	mygt "Upgrade Bumblebee done." >> $XTEMPMES
     fi
-    if [ $ISBOOTLOAD -eq 1 ] ;then
+    if [ $ISBOOTLOAD -eq 1 -a "$PBARCH" = x64 ] ;then
 	mygt "Updating bootloader asked." >> $XTEMPMES
     fi
 fi
@@ -367,7 +382,7 @@ if [ $XEND -eq 1 ] ;then
     exit 0
 fi
 
-if [ $ISSYSTEM -eq 1 -o $ISBOOTLOAD -eq 1 ] ;then
+if [ '(' $ISSYSTEM -eq 1 -o $ISBOOTLOAD -eq 1 ')' -a "$PBARCH" = x64 ] ;then
 # Only if system was modified
     if [ -d /boot/efi/EFI/Slackware ] ;then
 	xitem=elilo

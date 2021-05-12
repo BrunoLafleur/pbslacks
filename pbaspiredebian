@@ -16,12 +16,12 @@ fi
 . "$XDIR/pbaspireinc"
 
 xhelp () {
-    mygt 'Launch this script in the directory including packages, packages2 et al.'
+    mygt 'Launch this script in the directory including debian.'
     echo
     echo '> ../pbslacks/$MYPROG'
 }
 
-if [ ! -d packages -o \
+if [ ! -d debian -o \
        \( "$0" != "../pbslacks/$MYPROG" -a "$0" != "pbslacks/$MYPROG" \) ] ;then
     xhelp
     exit 1
@@ -41,17 +41,29 @@ while [ $# -ge 1 ] ;do
     shift
 done
 
-# Depends on $XLANG. For x64 only.
+RARCH=x86_64;[ $PBARCH = arm ] && RARCH=arm
 
-[ ! -d packages/Mozilla ] && mkdir packages/Mozilla
 (
-    cd packages/Mozilla
-    if [ "$PBARCH" = x64 ] ;then
-	. "$XDIR/pbpathinc"
-	xgeturl "$XFIREFOX"
-	xpurgepac 'firefox-' tar.bz2
-
-	xgeturl "$XTHUNDERBIRD"
-	xpurgepac 'thunderbird-' tar.bz2
+    # We put those in package4.
+    if [ -d packages/Mozilla/thunderbird ] ;then
+	rm -rf packages/Mozilla/libffi6*
+	rm -rf packages/Mozilla/libevent6*
+	rm -rf packages/Mozilla/thunderbird*
+	rm -rf packages/Mozilla/firefox*
     fi
+    cd debian
+    for i in thunderbird firefox chromium ;do
+	xgetsbosrc $i $RARCH
+	xpurgepac "$i/$i_" deb
+    done
+    for i in libffi6 libevent6 ;do
+	xgetsbosrc $i
+    done
+    
 )
+if [ -d slackware$PBARCH-current ] ;then
+    (
+	cd slackware$PBARCH-current
+	ln -sf ../debian .
+    )
+fi

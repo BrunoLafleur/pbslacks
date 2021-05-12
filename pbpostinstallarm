@@ -4,10 +4,11 @@
 # Date : 2019
 # License : See the LICENSE file in this repository.
 
-. "$(dirname $0)/pbinclude"
-
 xhelp () {
-    mygt 'Launch this script in a new directory.\nor in a directory which contains slackware64-current.\n\npbslacks should be side by side of this current directory.'|sed 's@\\n@\n@g'
+    echo 'Launch this script in a new directory.'
+    echo 'or in a directory which contains slackware64-current.'
+    echo
+    echo 'pbslacks should be side by side of this current directory.'
     echo
     echo '> ../pbslacks/pbpostinstallarm [-help|-h]'
 }
@@ -41,12 +42,12 @@ if [ -d  /mnt/boot ] ;then
 
     if [ $(ls /usb-stick | wc -l) -ne 0 ] ;then
 	umount /usb-stick # Remove the key.
-	mygt "You can now remove the USB stick and reboot the computer."
+	echo 'You can now remove the USB stick and reboot the computer.'
     else
-	mygt "Unmount your USB stick and remove it before rebooting the computer."
+	echo 'Unmount your USB stick and remove it before rebooting the computer.'
     fi
 else
     mygt "I don't see your install. Do the extra work by hand."
 fi
 
-mygt "You can also edit /mnt/boot/config.txt ot /boot/config.txt after a reboot and tune some parameters"
+echo 'You can also edit /mnt/boot/config.txt ot /boot/config.txt after a reboot and tune some parameters'
