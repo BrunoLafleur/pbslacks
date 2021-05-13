@@ -1,0 +1,8 @@
+PRGNAM="icu4c67"
+VERSION="67.1"
+HOMEPAGE="http://site.icu-project.org/download/67"
+DOWNLOAD="https://github.com/unicode-org/icu/releases/download/release-67-1/icu4c-67_1-src.tgz"
+MD5SUM="c4d62b497cbd89ab2a9ca6b543e57b30"
+REQUIRES=""
+MAINTAINER="Pierre Brochard"
+EMAIL="pierre.brochard.1982@m4x.org"
