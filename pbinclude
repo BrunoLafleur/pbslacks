@@ -55,12 +55,15 @@ PBARCH=x64
 if [ ! -d slackware64-current ] ;then
     if [ -d slackwarearm-current ] ;then
 	PBARCH=arm
-    else
-	TARCH="$(basename "$(pwd)"|cut -d '-' -f1|cut -c9-)"
-	[ "$TARCH" = 'arm' ] && PBARCH=arm	
+    elif [ "$(basename "$(pwd)"|cut -d '-' -f1|cut -c1-9)" = 'slackware' ] ;then
+	TARCH="$(basename "$(pwd)"|cut -d '-' -f1|cut -c10-)"
+	[ "$TARCH" = 'arm' ] && PBARCH=arm
+    elif [ "$(grep ARM CURRENT.WARNING|grep Welcome|wc -l)" -eq 1 ] ;then
+	PBARCH=arm
     fi
 fi  
 [ "$PBARCH" = x64 ] && XLIBDIR=/usr/lib64 || XLIBDIR=/usr/lib
+[ "$PBARCH" = x64 ] && RARCH= || RARCH=arm
 
 # Function last prefix file.
 xlast () {

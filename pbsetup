@@ -45,7 +45,7 @@ trap 'echo "*** Ctrl-C caught -- aborting operations ***"; cleanup; exit 1' 2 14
 
 # Can be the USB stick.
 CDIR=$(basename $MYPWD)
-ISSTICK=0;[ -d current -a "$CDIR" = slackware64-current ] && ISSTICK=1
+ISSTICK=0;[ -d current -o -d slackware -o -d slackware64 ] && ISSTICK=1
 
 if [ $XTEST -ne 1 -a $ISSTICK -eq 0 -a "$0" = "$PBMYPROG" \
     -a "$SLREPO" != 'Slackware-' ] ;then
