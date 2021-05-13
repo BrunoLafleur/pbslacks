@@ -71,7 +71,7 @@ export TAG=_PB
 # ===========================================================
 
 if [ $ISDEBIAN -eq 1 ] ;then
-    for i in libffi6 libevent6 thunderbird firefox chromium ;do
+    for i in libffi6 libevent6 libwebp6 thunderbird firefox chromium ;do
 	xmakepac debian $i
     done
 fi
