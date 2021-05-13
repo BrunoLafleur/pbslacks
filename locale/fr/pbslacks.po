@@ -168,65 +168,65 @@ msgstr "Vérifiez les signatures GPG des paquets téléchargés."
 msgid "Clean the local repository from old packages or source files."
 msgstr "On enlève les anciennes versions de la copie locale du système."
 
-#: pbaspire:280
+#: pbaspire:280 pbaspire:279
 #, sh-format
 msgid "Get/Update core system done : \\Z3${PBNAME}core\\Zn."
 msgstr "Coeur du système obtenu ou mis à jour : \\Z3${PBNAME}core\\Zn."
 
-#: pbaspire:282
+#: pbaspire:282 pbaspire:281
 #, sh-format
 msgid "Get/Update multilib compat 32 bits mode done : \\Z3${PBNAME}core\\Zn."
 msgstr ""
 "Mode de compatibilié 32 bits obtenu ou mis à jour : \\Z3${PBNAME}core\\Zn."
 
-#: pbaspire:284
+#: pbaspire:284 pbaspire:283
 #, sh-format
 msgid "Get/Update KDE5 frameworks libraries done : \\Z3${PBNAME}core\\Zn."
 msgstr ""
 "Librairies frameworks de KDE5 obtenues ou mises à jour : \\Z3${PBNAME}core"
 "\\Zn."
 
-#: pbaspire:286
+#: pbaspire:286 pbaspire:285
 #, sh-format
 msgid "Get/Update gparted live iso done : \\Z3${PBNAME}core\\Zn."
 msgstr "Image iso GParted live obtenue ou mise à jour : \\Z3${PBNAME}core\\Zn."
 
-#: pbaspire:288
+#: pbaspire:288 pbaspire:287
 #, sh-format
 msgid "Get/Update VirtualBox installer done : \\Z3${PBNAME}core\\Zn."
 msgstr "Installeur VirtualBox obtenu ou mis à jour : \\Z3${PBNAME}core\\Zn."
 
-#: pbaspire:290
+#: pbaspire:290 pbaspire:289
 #, sh-format
 msgid "Local repository cleaned : \\Z3${PBNAME}core\\Zn."
 msgstr "Copie locale du système nettoyée : \\Z3${PBNAME}core\\Zn."
 
-#: pbaspire:295
+#: pbaspire:295 pbaspire:294
 #, sh-format
 msgid "Get/Update GDM packages done : \\Z3${PBNAME}gdm\\Zn."
 msgstr "Paquets de GDM obtenus ou mis à jour : \\Z3${PBNAME}gdm\\Zn."
 
-#: pbaspire:300
+#: pbaspire:300 pbaspire:299
 #, sh-format
 msgid "Get/Update KDE4 packages done : \\Z3${PBNAME}kde4\\Zn."
 msgstr "Paquets de KDE4 obtenus ou mis à jour : \\Z3${PBNAME}kde4\\Zn."
 
-#: pbaspire:305
+#: pbaspire:305 pbaspire:304
 #, sh-format
 msgid "Get/Update Alien Bob packages done : \\Z3${PBNAME}alien\\Zn."
 msgstr "Paquets d'Alien Bob obtenus ou mis à jour : \\Z3${PBNAME}alien\\Zn."
 
-#: pbaspire:310
+#: pbaspire:310 pbaspire:309
 #, sh-format
 msgid "Get/Update Ponce packages done : \\Z3${PBNAME}ponce\\Zn."
 msgstr "Paquets de Ponce obtenus ou mis à jour : \\Z3${PBNAME}ponce\\Zn."
 
-#: pbaspire:314
+#: pbaspire:314 pbaspire:313
 #, sh-format
 msgid "Get/Update Slackonly packages done : \\Z3${PBNAME}slonly\\Zn."
 msgstr "Paquets de Slackonly obtenus ou mis à jour : \\Z3${PBNAME}slonly\\Zn."
 
-#: pbaspire:319
+#: pbaspire:319 pbaspire:318
 #, sh-format
 msgid ""
 "Get/Update Conraid and Slackel binary packages done : \\Z3${PBNAME}other\\Zn."
@@ -234,19 +234,19 @@ msgstr ""
 "Autres paquets binaires de Conraid et Slackel obtenus ou mis à jour : "
 "\\Z3${PBNAME}other\\Zn."
 
-#: pbaspire:324
+#: pbaspire:324 pbaspire:323
 #, sh-format
 msgid "Get/Update other source packages done : \\Z3${PBNAME}sources\\Zn."
 msgstr ""
 "Autres paquets sources obtenus ou mis à jour : \\Z3${PBNAME}sources\\Zn."
 
-#: pbaspire:330
+#: pbaspire:330 pbaspire:329
 #, sh-format
 msgid "Get/Update binary Debian done : \\Z3${PBNAME}debian\\Zn."
 msgstr ""
 "Paquets binaires de Debian obtenus ou mis à jour : \\Z3${PBNAME}debian\\Zn."
 
-#: pbaspire:336
+#: pbaspire:336 pbaspire:335
 #, sh-format
 msgid ""
 "Get/Update Firefox and Thunderbird for $XLANG language done : \\Z3${PBNAME}"
@@ -255,15 +255,15 @@ msgstr ""
 "Obtention ou mise à jour de Firefox et Thunderbird pour le langage $XLANG "
 "faite : \\Z3${PBNAME}mozilla\\Zn."
 
-#: pbaspire:340
+#: pbaspire:340 pbaspire:339
 msgid "GPG signatures checked :"
 msgstr "Signatures GPG vérifiées :"
 
-#: pbaspire:349 pbsetup:321 pbupgrade:369 pbcompile:283
+#: pbaspire:349 pbsetup:321 pbupgrade:369 pbcompile:283 pbaspire:348
 msgid "No action was demanded. Exit."
 msgstr "Aucune action demandée. Sortie."
 
-#: pbaspire:352 pbsetup:325 pbupgrade:82 pbcompile:75
+#: pbaspire:352 pbsetup:325 pbupgrade:82 pbcompile:75 pbaspire:351
 msgid "Actions which were done"
 msgstr "Actions réalisées"
 
@@ -350,7 +350,7 @@ msgid ""
 "Redo the Bumblebee Slackware packages.\\nIf already done on an upgraded host "
 "use the packages already generated with upgradebumblebee."
 msgstr ""
-"Recréation des packages Slackware de Bummblebee.\\nSi déjà fait sur une "
+"Recréation des packages Slackware de Bumblebee.\\nSi déjà fait sur une "
 "machine a jour, ne pas refaire et utilisez directement les paquets générés "
 "avec upgradebumblebee."
 
@@ -376,7 +376,7 @@ msgstr "Mise à jour de packages* faite."
 msgid "Correct this error and relaunch this script."
 msgstr "Erreur à corriger puis relancer ce script."
 
-#: pbinclude:78
+#: pbinclude:78 pbinclude:81
 #, sh-format
 msgid "Delete : $j"
 msgstr "Effacement : $j"
@@ -1217,7 +1217,7 @@ msgstr "Compilez à nouveau Ardour"
 
 #: pbcompile:122
 msgid "Compile again Bumblebee packages."
-msgstr "Compiler à nouveau les paquets Bummblebee."
+msgstr "Compiler à nouveau les paquets Bumblebee."
 
 #: pbcompile:172
 msgid ""

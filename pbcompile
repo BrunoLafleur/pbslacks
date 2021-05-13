@@ -98,8 +98,8 @@ xmaster () {
     xsel19=$1;shift;xsel20=$1;shift;xselrp=$1;shift;xsel21=$1;shift
     xsel22=$1;shift;xsel23=$1
     pactit=$(mygt 'Main menu')
-    pactit="pbcompile: $pactit"
-    dialog --colors --backtitle 'pbcompile' --title "$pactit" \
+    pactit="pbcompile ($PBARCH) : $pactit"
+    dialog --colors --backtitle "pbcompile ($PBARCH)" --title "$pactit" \
 	--default-item $defitem --defaultno \
 	--separate-output --item-help --help-button --help-status --checklist \
 	"$(mygt 'Choose your actions below after you have launch the \Zbpbaspire*\ZB script')" 0 110 17 \
