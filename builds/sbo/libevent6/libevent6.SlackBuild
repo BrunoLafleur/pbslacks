@@ -115,9 +115,9 @@ rm -f $PKG/usr/lib${LIBDIRSUFFIX}/*.la
 rm -rf $PKG/usr/man
 rm -rf $PKG/usr/info
 rm -rf $PKG/usr/include
-rm -rf $PKG//usr/lib${LIBDIRSUFFIX}/*.la
-rm -rf $PKG//usr/lib${LIBDIRSUFFIX}/*.so
-rm -rf $PKG//usr/lib${LIBDIRSUFFIX}/pkgconfig
+rm -rf $PKG/usr/lib${LIBDIRSUFFIX}/pkgconfig
+rm -f $PKG/usr/lib${LIBDIRSUFFIX}/*.la
+rm -f $PKG/usr/lib${LIBDIRSUFFIX}/*.so
 
 # Add a documentation directory:
 mkdir -p $PKG/usr/doc/${PKGNAM}-$VERSION
