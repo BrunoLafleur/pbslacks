@@ -56,7 +56,7 @@ done
 	xgetsbosrc $i $RARCH
 	xpurgepac "$i/$i_" deb
     done
-    for i in libffi6 libevent6 libwebp6 ;do
+    for i in libffi6 libevent6 libwebp6 icu4c67 ;do
 	xgetsbosrc $i
     done
     
