@@ -51,7 +51,16 @@ MYPROG=$(basename "$0")
 PBMYPROG="pbslacks/$MYPROG"
 MYPWD=$(pwd)
 PBDIRPROG="$(cd $(dirname $0); pwd)";cd "$MYPWD"
-XLIBDIR=/usr/lib64
+PBARCH=x64
+if [ ! -d slackware64-current ] ;then
+    if [ -d slackwarearm-current ] ;then
+	PBARCH=arm
+    else
+	TARCH="$(basename "$(pwd)"|cut -d '-' -f1|cut -c9-)"
+	[ "$TARCH" = 'arm' ] && PBARCH=arm	
+    fi
+fi  
+[ "$PBARCH" = x64 ] && XLIBDIR=/usr/lib64 || XLIBDIR=/usr/lib
 
 # Function last prefix file.
 xlast () {

@@ -59,16 +59,12 @@ if [ ! -d /boot ] ;then
     mygt "Do the install of the Slackware Linux distribution before :\n-see the doc/SLACKWARE.txt file." |sed 's@\\n@\n@g' > $XTEMPMES
 fi
 
-PBARCH=x64
-
 if [ $XTEST -ne 1 ] ;then
     if [ -d slackware64-current ] ;then
 	cd slackware64-current
     elif [ -d slackwarearm-current ] ;then
 	cd slackwarearm-current
     fi
-    TARCH="$(basename "$(pwd)"|cut -d '-' -f1|cut -c9-)"
-    [ "$TARCH" = 'arm' ] && PBARCH=arm
     if [ '(' ! -d slackware64 -a ! -d slackware ')' \
 	     -o '(' ! -h pbslacks -a ! -d pbslacks ')' ] ;then
 	mygt 'slackware64 or pbslacks not found.'> $XTEMPMES

@@ -16,12 +16,12 @@ if [ ! $UID = 0 ]; then
 fi
 
 xhelp () {
-    mygt 'Launch this script in the directory including gdm.'
+    mygt 'Launch this script in the directory including debian.'
     echo
     echo '> pbslacks/$MYPROG'
 }
 
-if [ ! -d gdm -o '(' ! -h pbslacks -a ! -d pbslacks ')' ] ;then
+if [ ! -d debian -o '(' ! -h pbslacks -a ! -d pbslacks ')' ] ;then
     xhelp
     exit 1
 fi
@@ -30,7 +30,7 @@ MYUSER=produits
 MYGROUP=users
 RECOMP=1
 ISALL=1
-ISGDM=0
+ISDEBIAN=0
 
 while [ $# -ge 1 ] ;do
     MYARG="$1"
@@ -42,8 +42,8 @@ while [ $# -ge 1 ] ;do
 	MYGROUP="$1"
     elif [ "$MYARG" = "-norecomp" ] ;then
         RECOMP=0
-    elif [ "$MYARG" = "-isgdm" ] ;then
-	ISGDM=1;ISALL=0
+    elif [ "$MYARG" = "-isdebian" ] ;then
+	ISDEBIAN=1;ISALL=0
     elif [ "$MYARG" = "-help" -o "$MYARG" = "-h" ] ;then
 	xhelp
 	exit 0
@@ -52,7 +52,7 @@ while [ $# -ge 1 ] ;do
 done
 
 if [ $ISALL -eq 1 ] ;then
-    ISGDM=1
+    ISDEBIAN=1
 fi
 
 mygt 'Only after a system update and reboot.\nIf already done on this or another machine, this script is not useful.\nPress a touch for continue or abort.'|sed 's@\\n@\n@g'
@@ -70,9 +70,9 @@ export PKGTYPE=txz
 export TAG=_PB
 # ===========================================================
 
-if [ $ISGDM -eq 1 ] ;then
-    for i in libart_lgpl libgnomecanvas gdm ;do
-	xmakepac gdm $i
+if [ $ISDEBIAN -eq 1 ] ;then
+    for i in libffi6 libevent6 thunderbird firefox chromium ;do
+	xmakepac debian $i
     done
 fi
 
