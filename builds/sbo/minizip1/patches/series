@@ -1,0 +1,3 @@
+include.patch
+automake.patch
+traversal.patch

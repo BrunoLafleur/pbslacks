@@ -1,0 +1,8 @@
+PRGNAM="minizip1"
+VERSION="1.1"
+HOMEPAGE="http://www.winimage.com/zLibDll/minizip.html"
+DOWNLOAD="http://deb.debian.org/debian/pool/main/m/minizip/minizip_1.1.orig.tar.xz"
+MD5SUM=""
+REQUIRES=""
+MAINTAINER="Pierre Brochard"
+EMAIL="pierre.brochard.1982@m4x.org"
