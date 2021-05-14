@@ -100,9 +100,6 @@ else
     XUPSYSTEM=on
 fi
 
-XUPPOST=off
-XUPNOPOST=on
-
 xmaster () {
     defitem=$1;shift
     xsel1=$1;shift;xsel2=$1;shift;xsel3=$1;shift;xsel4=$1;shift;xsel5=$1;shift
@@ -154,12 +151,16 @@ xpacaide_add () {
     rm -f $XTEMPMES
 }
 
-xframe=$XUPNOPOST
+xframe=on
 [ $(ls /var/log/packages/plasma-desktop-*[0-9]* 2> /dev/null|wc -l) -ge 1 ] && \
     xframe=off
-xsel="$XUPSYSTEM off $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST \
-$XUPNOPOST off $xframe $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST $XUPNOPOST \
-$XUPNOPOST off off"
+xother=on
+[ $PBARCH = arm ] && xother=off
+xdebian=off
+[ $PBARCH = arm ] && xdebian=on
+xsel="$XUPSYSTEM off $xother $xother $xother $xother $xother \
+$xother $xdebian $xframe $xother $xother $xother $xother $xother \
+$xother off off"
 ditem=system
 bclaide=1
 

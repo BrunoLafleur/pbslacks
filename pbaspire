@@ -33,7 +33,6 @@ fi
 
 PBNAME=$0
 MYPWD=$(pwd)
-PBARCH="$(basename "$MYPWD"|cut -d '-' -f2)"
 XTEMPOUT=$(mktemp -p /tmp -t pbaspireout.XXXXXX)
 XTEMPMES=$(mktemp -p /tmp -t pbaspiremes.XXXXXX)
 XTEMPCHK=$(mktemp -p /tmp -t pbaspirechk.XXXXXX)

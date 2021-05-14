@@ -87,9 +87,6 @@ fi
 MYPWD=$(pwd)
 HOMESLACK="$MYPWD"
 
-XUPNOPOST=off
-XUPPOST=on
-
 xmaster () {
     defitem=$1;shift
     xsel15=$1;shift;xsel16=$1;shift;xsel17=$1;shift
@@ -141,11 +138,13 @@ xpacaide_add () {
     rm -f $XTEMPMES
 }
 
-xframe=$XUPNOPOST
-[ $(ls /var/log/packages/plasma-desktop-*[0-9]* 2> /dev/null|wc -l) -ge 1 ] && \
-    xframe=off
-xsel="$XUPPOST $XUPPOST $XUPPOST off $XUPPOST off off off off off off \
-off $XUPPOST $XUPPOST $XUPPOST $XUPPOST off"
+xframe=off
+xother=on
+[ $PBARCH = arm ] && xother=off
+xdebian=off
+[ $PBARCH = arm ] && xdebian=on
+xsel="$xother $xother $xother off $xother off off off off $xdebian $xdebian \
+off $xother $xother $xother $xother off"
 ditem=recreatepackages
 bclaide=1
 
