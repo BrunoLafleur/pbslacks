@@ -82,6 +82,8 @@ find -L . \
 chmod u+s $PKG/usr/lib/chromium/chrome-sandbox
 mv -f $PKG/usr/share/man $PKG/usr/man
 
+sed -i 's/^want_temp_profile=0/want_temp_profile=0\nCHROMIUM_FLAGS="\$CHROMIUM_FLAGS --no-sandbox"/' $PKG/usr/bin/chromium
+
 mkdir -p $PKG/usr/doc/$PKGNAM-$VERSION
 cp $PKG/usr/share/doc/$PKGNAM/* $PKG/usr/doc/$PKGNAM-$VERSION
 cp $PKG/usr/share/doc/$PKGNAM2/* $PKG/usr/doc/$PKGNAM-$VERSION
