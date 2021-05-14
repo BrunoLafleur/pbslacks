@@ -44,6 +44,10 @@ PKGNAM2=${PKGNAM}-common
 SRCNAM2=$(ls ${PKGNAM2}_*_$DEBARCH.deb)
 PKGNAM3=${PKGNAM}-sandbox
 SRCNAM3=$(ls ${PKGNAM3}_*_$DEBARCH.deb)
+PKGNAM4=${PKGNAM}-driver
+SRCNAM4=$(ls ${PKGNAM4}_*_$DEBARCH.deb)
+PKGNAM5=${PKGNAM}-l10n
+SRCNAM5=$(ls ${PKGNAM5}_*_all.deb)
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/SBo}
@@ -66,6 +70,8 @@ cd $PKG
 ar p $CWD/$SRCNAM data.tar.xz | tar xJv
 ar p $CWD/$SRCNAM2 data.tar.xz | tar xJv
 ar p $CWD/$SRCNAM3 data.tar.xz | tar xJv
+ar p $CWD/$SRCNAM4 data.tar.xz | tar xJv
+ar p $CWD/$SRCNAM5 data.tar.xz | tar xJv
 chown -R root:root .
 
 find -L . \
@@ -74,11 +80,14 @@ find -L . \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 chmod u+s $PKG/usr/lib/chromium/chrome-sandbox
+mv -f $PKG/usr/share/man $PKG/usr/man
 
 mkdir -p $PKG/usr/doc/$PKGNAM-$VERSION
 cp $PKG/usr/share/doc/$PKGNAM/* $PKG/usr/doc/$PKGNAM-$VERSION
 cp $PKG/usr/share/doc/$PKGNAM2/* $PKG/usr/doc/$PKGNAM-$VERSION
 cp $PKG/usr/share/doc/$PKGNAM3/* $PKG/usr/doc/$PKGNAM-$VERSION
+cp $PKG/usr/share/doc/$PKGNAM4/* $PKG/usr/doc/$PKGNAM-$VERSION
+cp $PKG/usr/share/doc/$PKGNAM5/* $PKG/usr/doc/$PKGNAM-$VERSION
 
 rm -rf $PKG/usr/share/doc
 cat $CWD/$PKGNAM.SlackBuild > $PKG/usr/doc/$PKGNAM-$VERSION/$PKGNAM.SlackBuild
