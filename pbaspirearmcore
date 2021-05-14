@@ -178,7 +178,7 @@ if [ $ISSARPI -eq 1 -o $ISPURGE -eq 1 ] ;then
     if [ ! -f "../$LSARPIINSTALL" ] ;then
 	if [ ! -h sarpi ] ; then
 	    [ ! -d ../sarpi ] && mkdir ../sarpi
-	    ln -s ../sarpi .
+	    ln -sf ../sarpi .
 	fi
 	(
 	    cd sarpi
