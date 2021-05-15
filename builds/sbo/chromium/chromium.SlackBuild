@@ -83,7 +83,10 @@ chmod u+s $PKG/usr/lib/chromium/chrome-sandbox
 mv -f $PKG/usr/share/man $PKG/usr/man
 
 # For glibc >= 2.31 syscall problems. Should be corrected with chromium 91.
-sed -i 's/^want_temp_profile=0/want_temp_profile=0\nCHROMIUM_FLAGS="\$CHROMIUM_FLAGS --disable-seccomp-filter-sandbox"/' $PKG/usr/bin/chromium
+#sed -i 's/^want_temp_profile=0/want_temp_profile=0\nCHROMIUM_FLAGS="\$CHROMIUM_FLAGS --disable-seccomp-filter-sandbox"/' $PKG/usr/bin/chromium
+# The above works but there is some hard locks and we can't kill the blocked
+# chromium processes. So I keep the no-sandbox for now.
+sed -i 's/^want_temp_profile=0/want_temp_profile=0\nCHROMIUM_FLAGS="\$CHROMIUM_FLAGS --no-sandbox"/' $PKG/usr/bin/chromium
 
 mkdir -p $PKG/usr/doc/$PKGNAM-$VERSION
 cp $PKG/usr/share/doc/$PKGNAM/* $PKG/usr/doc/$PKGNAM-$VERSION
