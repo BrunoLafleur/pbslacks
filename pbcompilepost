@@ -129,30 +129,31 @@ if [ $ISPAC1 -eq 1 ] ;then
     )
 
     # 32 bits packages
-    (
-	export ARCH=i486
-	for i in openal-soft libtxc_dxtn ;do
-	    xmakepac packages $i 32
-	done
-    )
+    if [ $PBARCH = x64 ] ;then
+	(
+	    export ARCH=i486
+	    for i in openal-soft libtxc_dxtn ;do
+		xmakepac packages $i 32
+	    done
+	)
+	(
+	    cd packages/32
+	    for i in cabextract libdvdcss icoutils wxPython openal-soft \
+				libtxc_dxtn ;do
+		if [ $RECOMP -eq 1 ] ;then
+		    (
+			unset TAG
+			convertpkg-compat32 -i "$i-"'*.t?z' -d ../compat32
+			chown ${MYUSER}.$MYGROUP ../compat32/$i-compat32-*.t?z
+		    )
+		fi
+		xpurgetmp ${i}-compat32
+		upgradepkg --install-new --reinstall ../compat32/$i-compat32-*.t?z
+		rm -f /usr/lib/lib*.la
+	    done
+	)
+    fi
 
-    (
-	cd packages/32
-	for i in cabextract libdvdcss icoutils wxPython openal-soft \
-			    libtxc_dxtn ;do
-	    if [ $RECOMP -eq 1 ] ;then
-		(
-		    unset TAG
-		    convertpkg-compat32 -i "$i-"'*.t?z' -d ../compat32
-		    chown ${MYUSER}.$MYGROUP ../compat32/$i-compat32-*.t?z
-		)
-	    fi
-	    xpurgetmp ${i}-compat32
-	    upgradepkg --install-new --reinstall ../compat32/$i-compat32-*.t?z
-	    rm -f /usr/lib/lib*.la
-	done
-    )
-    
     # Recompile and reinstall some Slackware packages for new dependencies.
     (
 	export X264=yes
