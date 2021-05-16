@@ -23,23 +23,23 @@ msgid ""
 "directory."
 msgstr ""
 
-#: pbaspire:49
+#: pbaspire:49 pbaspire:48
 msgid "Get/Update versus officiel Slackware"
 msgstr ""
 
-#: pbaspire:50
+#: pbaspire:50 pbaspire:49
 msgid "Get/Update multilib compat 32 bits mode"
 msgstr ""
 
-#: pbaspire:51
+#: pbaspire:51 pbaspire:50
 msgid "Get/Update KDE4"
 msgstr ""
 
-#: pbaspire:52
+#: pbaspire:52 pbaspire:51
 msgid "Get/Update KDE5 frameworks libraries or some KDE5 applications"
 msgstr ""
 
-#: pbaspire:53
+#: pbaspire:53 pbaspire:52
 msgid "Get/Update GDM desktop manager from Gnome 2"
 msgstr ""
 
@@ -87,7 +87,8 @@ msgstr ""
 msgid "Clean the local repository from old packages versions"
 msgstr ""
 
-#: pbaspire:72 pbsetup:129 pbupgrade:112 pbcompile:100
+#: pbaspire:72 pbsetup:129 pbupgrade:112 pbcompile:100 pbupgrade:109
+#: pbcompile:97
 msgid "Main menu"
 msgstr ""
 
@@ -95,69 +96,69 @@ msgstr ""
 msgid "Choose your actions below"
 msgstr ""
 
-#: pbaspire:199
+#: pbaspire:199 pbaspire:204
 msgid "Get or update the officiel lastest current Slackware."
 msgstr ""
 
-#: pbaspire:201
+#: pbaspire:201 pbaspire:206
 msgid ""
 "Get or update the multilib of Alien Bob which is a 32 bits compatibility set "
 "of packages."
 msgstr ""
 
-#: pbaspire:203
+#: pbaspire:203 pbaspire:208
 msgid "Get or update the KDE4 set of packages."
 msgstr ""
 
-#: pbaspire:205
+#: pbaspire:205 pbaspire:210
 msgid "Get or update the KDE5 frameworks libraries."
 msgstr ""
 
-#: pbaspire:207
+#: pbaspire:207 pbaspire:212
 msgid "Get or update the GDM desktop manager."
 msgstr ""
 
-#: pbaspire:209
+#: pbaspire:209 pbaspire:216
 msgid "Get or update the GParted live ISO."
 msgstr ""
 
-#: pbaspire:211
+#: pbaspire:211 pbaspire:218
 msgid "Get or update the VirtualBox installer and extensions."
 msgstr ""
 
-#: pbaspire:213
+#: pbaspire:213 pbaspire:220
 msgid "Get or update some Alien Bob binary packages."
 msgstr ""
 
-#: pbaspire:215
+#: pbaspire:215 pbaspire:222
 msgid "Get or update some Ponce binary packages."
 msgstr ""
 
-#: pbaspire:217
+#: pbaspire:217 pbaspire:224
 msgid "Get or update some Slackonly binary packages."
 msgstr ""
 
-#: pbaspire:219
+#: pbaspire:219 pbaspire:226
 msgid "Get or update some Conraid and Slackel binary packages."
 msgstr ""
 
-#: pbaspire:221
+#: pbaspire:221 pbaspire:228
 msgid "Get or update some other source packages."
 msgstr ""
 
-#: pbaspire:223
+#: pbaspire:223 pbaspire:230
 msgid "Get or update binary Debian packages."
 msgstr ""
 
-#: pbaspire:225
+#: pbaspire:225 pbaspire:232
 msgid "Get or update Firefox and Thunderbird."
 msgstr ""
 
-#: pbaspire:227
+#: pbaspire:227 pbaspire:234
 msgid "Check the GPG signatures of the downloaded packages."
 msgstr ""
 
-#: pbaspire:229
+#: pbaspire:229 pbaspire:236
 msgid "Clean the local repository from old packages or source files."
 msgstr ""
 
@@ -191,63 +192,64 @@ msgstr ""
 msgid "Local repository cleaned : \\Z3${PBNAME}core\\Zn."
 msgstr ""
 
-#: pbaspire:295 pbaspire:294
+#: pbaspire:295 pbaspire:294 pbaspire:305
 #, sh-format
 msgid "Get/Update GDM packages done : \\Z3${PBNAME}gdm\\Zn."
 msgstr ""
 
-#: pbaspire:300 pbaspire:299
+#: pbaspire:300 pbaspire:299 pbaspire:310
 #, sh-format
 msgid "Get/Update KDE4 packages done : \\Z3${PBNAME}kde4\\Zn."
 msgstr ""
 
-#: pbaspire:305 pbaspire:304
+#: pbaspire:305 pbaspire:304 pbaspire:315
 #, sh-format
 msgid "Get/Update Alien Bob packages done : \\Z3${PBNAME}alien\\Zn."
 msgstr ""
 
-#: pbaspire:310 pbaspire:309
+#: pbaspire:310 pbaspire:309 pbaspire:320
 #, sh-format
 msgid "Get/Update Ponce packages done : \\Z3${PBNAME}ponce\\Zn."
 msgstr ""
 
-#: pbaspire:314 pbaspire:313
+#: pbaspire:314 pbaspire:313 pbaspire:324
 #, sh-format
 msgid "Get/Update Slackonly packages done : \\Z3${PBNAME}slonly\\Zn."
 msgstr ""
 
-#: pbaspire:319 pbaspire:318
+#: pbaspire:319 pbaspire:318 pbaspire:329
 #, sh-format
 msgid ""
 "Get/Update Conraid and Slackel binary packages done : \\Z3${PBNAME}other\\Zn."
 msgstr ""
 
-#: pbaspire:324 pbaspire:323
+#: pbaspire:324 pbaspire:323 pbaspire:334
 #, sh-format
 msgid "Get/Update other source packages done : \\Z3${PBNAME}sources\\Zn."
 msgstr ""
 
-#: pbaspire:330 pbaspire:329
+#: pbaspire:330 pbaspire:329 pbaspire:340
 #, sh-format
 msgid "Get/Update binary Debian done : \\Z3${PBNAME}debian\\Zn."
 msgstr ""
 
-#: pbaspire:336 pbaspire:335
+#: pbaspire:336 pbaspire:335 pbaspire:346
 #, sh-format
 msgid ""
 "Get/Update Firefox and Thunderbird for $XLANG language done : \\Z3${PBNAME}"
 "mozilla\\Zn."
 msgstr ""
 
-#: pbaspire:340 pbaspire:339
+#: pbaspire:340 pbaspire:339 pbaspire:350
 msgid "GPG signatures checked :"
 msgstr ""
 
 #: pbaspire:349 pbsetup:321 pbupgrade:369 pbcompile:283 pbaspire:348
+#: pbaspire:359 pbupgrade:370 pbcompile:282
 msgid "No action was demanded. Exit."
 msgstr ""
 
-#: pbaspire:352 pbsetup:325 pbupgrade:82 pbcompile:75 pbaspire:351
+#: pbaspire:352 pbsetup:325 pbupgrade:82 pbcompile:75 pbaspire:351 pbaspire:362
 msgid "Actions which were done"
 msgstr ""
 
@@ -695,190 +697,190 @@ msgstr ""
 msgid "slackware64 or pbslacks not found."
 msgstr ""
 
-#: pbupgrade:117 pbcompile:105
+#: pbupgrade:117 pbcompile:105 pbupgrade:114 pbcompile:102
 msgid ""
 "Choose your actions below after you have launch the \\Zbpbaspire*\\ZB script"
 msgstr ""
 
-#: pbupgrade:118
+#: pbupgrade:118 pbupgrade:115
 msgid "Sync/Upgrade system to the last fetched current Slackware"
 msgstr ""
 
-#: pbupgrade:119
+#: pbupgrade:119 pbupgrade:116
 msgid "Sync/Upgrade system to the last current Slackware on the internet"
 msgstr ""
 
-#: pbupgrade:120
+#: pbupgrade:120 pbupgrade:117
 msgid "Install/Upgrade the 32 bits compatible mode"
 msgstr ""
 
-#: pbupgrade:121
+#: pbupgrade:121 pbupgrade:118
 msgid "Install/Upgrade the Firefox and Thunderbird softwares"
 msgstr ""
 
-#: pbupgrade:122
+#: pbupgrade:122 pbupgrade:119
 msgid "Install/Upgrade the packages set of software"
 msgstr ""
 
-#: pbupgrade:123
+#: pbupgrade:123 pbupgrade:120
 msgid "Install/Upgrade the packages2 set of software"
 msgstr ""
 
-#: pbupgrade:124
+#: pbupgrade:124 pbupgrade:121
 msgid "Install/Upgrade the packages3 set of software"
 msgstr ""
 
-#: pbupgrade:125
+#: pbupgrade:125 pbupgrade:122
 msgid "Install/Upgrade the packages4 set of software"
 msgstr ""
 
-#: pbupgrade:126
+#: pbupgrade:126 pbupgrade:123
 msgid "Install/Upgrade Debian binary packages"
 msgstr ""
 
-#: pbupgrade:127
+#: pbupgrade:127 pbupgrade:124
 msgid "Install/Upgrade KDE4 and the KDE5 frameworks libraries"
 msgstr ""
 
-#: pbupgrade:128
+#: pbupgrade:128 pbupgrade:125
 msgid "Install/Upgrade GDM from Gnome 2 desktop manager"
 msgstr ""
 
-#: pbupgrade:129
+#: pbupgrade:129 pbupgrade:126
 msgid "Install/Upgrade the Openshot software"
 msgstr ""
 
-#: pbupgrade:130
+#: pbupgrade:130 pbupgrade:127
 msgid "Install/Upgrade the Pitivi software"
 msgstr ""
 
-#: pbupgrade:131
+#: pbupgrade:131 pbupgrade:128
 msgid "Install/Upgrade the Audacity software"
 msgstr ""
 
-#: pbupgrade:132
+#: pbupgrade:132 pbupgrade:129
 msgid "Install/Upgrade the Ardour software"
 msgstr ""
 
-#: pbupgrade:133
+#: pbupgrade:133 pbupgrade:130
 msgid "Install/Upgrade the Tesseract version 4 software"
 msgstr ""
 
-#: pbupgrade:134
+#: pbupgrade:134 pbupgrade:131
 msgid ""
 "Install/Upgrade the Bumblebee support of your second NVIDIA graphic card"
 msgstr ""
 
-#: pbupgrade:135
+#: pbupgrade:135 pbupgrade:132
 msgid "Upgrade boot loader."
 msgstr ""
 
-#: pbupgrade:183
+#: pbupgrade:183 pbupgrade:184
 msgid ""
 "Upgrade your Slackware system with the last current fetched.\\nUses Slackpkg."
 msgstr ""
 
-#: pbupgrade:185
+#: pbupgrade:185 pbupgrade:186
 msgid ""
 "Upgrade your Slackware system with the last current on the internet.\\nUses "
 "Slackpkg."
 msgstr ""
 
-#: pbupgrade:187
+#: pbupgrade:187 pbupgrade:188
 msgid "Upgrade the Alien Bob 32 bits compatible mode."
 msgstr ""
 
-#: pbupgrade:189
+#: pbupgrade:189 pbupgrade:190
 msgid ""
 "Upgrade the Firefox and Thunderbird products.\\nThey should be downloaded "
 "and put in the packages/Mozilla directory before."
 msgstr ""
 
-#: pbupgrade:213
+#: pbupgrade:213 pbupgrade:214
 msgid ""
 "Upgrade your Bumblebee packages if they are in sync with the upgraded "
 "Slackware.\\nDone on another machine for exemple."
 msgstr ""
 
-#: pbupgrade:215
+#: pbupgrade:215 pbupgrade:216
 msgid ""
 "Upgrade your boot loader only if you upgrade your system and not the "
 "bootloader."
 msgstr ""
 
-#: pbupgrade:248 pbupgradesys:118
+#: pbupgrade:248 pbupgradesys:118 pbupgrade:249
 msgid "Upgrade system done."
 msgstr ""
 
-#: pbupgrade:262
+#: pbupgrade:262 pbupgrade:263
 msgid "Upgrade Alien Bob multilib done."
 msgstr ""
 
-#: pbupgrade:268
+#: pbupgrade:268 pbupgrade:269
 msgid "Upgrade Mozilla done."
 msgstr ""
 
-#: pbupgrade:276
+#: pbupgrade:276 pbupgrade:277
 msgid "Upgrade packages done."
 msgstr ""
 
-#: pbupgrade:283
+#: pbupgrade:283 pbupgrade:284
 msgid "Upgrade packages2 done."
 msgstr ""
 
-#: pbupgrade:290
+#: pbupgrade:290 pbupgrade:291
 msgid "Upgrade packages3 done."
 msgstr ""
 
-#: pbupgrade:297
+#: pbupgrade:297 pbupgrade:298
 msgid "Upgrade packages4 done."
 msgstr ""
 
-#: pbupgrade:304
+#: pbupgrade:304 pbupgrade:305
 msgid "Upgrade debian binary packages done."
 msgstr ""
 
-#: pbupgrade:316
+#: pbupgrade:316 pbupgrade:317
 msgid "Upgrade KDE4 and KDE5 frameworks done."
 msgstr ""
 
-#: pbupgrade:322
+#: pbupgrade:322 pbupgrade:323
 msgid "Upgrade GDM desktop manager done."
 msgstr ""
 
-#: pbupgrade:329
+#: pbupgrade:329 pbupgrade:330
 msgid "Upgrade openshot done."
 msgstr ""
 
-#: pbupgrade:336
+#: pbupgrade:336 pbupgrade:337
 msgid "Upgrade pitivi done."
 msgstr ""
 
-#: pbupgrade:342
+#: pbupgrade:342 pbupgrade:343
 msgid "Upgrade audacity done."
 msgstr ""
 
-#: pbupgrade:348
+#: pbupgrade:348 pbupgrade:349
 msgid "Upgrade ardour done."
 msgstr ""
 
-#: pbupgrade:355
+#: pbupgrade:355 pbupgrade:356
 msgid "Upgrade tesseract4 done."
 msgstr ""
 
-#: pbupgrade:361
+#: pbupgrade:361 pbupgrade:362
 msgid "Upgrade Bumblebee done."
 msgstr ""
 
-#: pbupgrade:364
+#: pbupgrade:364 pbupgrade:365
 msgid "Updating bootloader asked."
 msgstr ""
 
-#: pbupgrade:394
+#: pbupgrade:394 pbupgrade:395
 msgid "Bootloader menu"
 msgstr ""
 
-#: pbupgrade:395
+#: pbupgrade:395 pbupgrade:396
 msgid ""
 "We have detected the bootloader below. Cancel if it is not true.\\nIn this "
 "last case, you should recreate the config of your bootloader before reboot. "
@@ -886,11 +888,11 @@ msgid ""
 "rerun the install of your bootloader."
 msgstr ""
 
-#: pbupgrade:396
+#: pbupgrade:396 pbupgrade:397
 msgid "No bootloader detected. Reconfigure your bootloader before reboot."
 msgstr ""
 
-#: pbupgrade:408
+#: pbupgrade:408 pbupgrade:409
 msgid ""
 "\\ZbThe boot loader was not upgraded.\\ZB\\nIf lilo is installed, launch : "
 "\\Z3/sbin/lilo\\Zn\\nIf Grub is installed, launch : \\Z3grub-mkconfig -o /"
@@ -900,35 +902,35 @@ msgid ""
 "other favorite bootloader install procedure before rebooting.\\ZB"
 msgstr ""
 
-#: pbupgrade:412
+#: pbupgrade:412 pbupgrade:413
 msgid ""
 "Elilo upgraded : Files vmlinuz et initrd.gz copied in \\Z3/boot/efi/EFI/"
 "Slackware\\Zn"
 msgstr ""
 
-#: pbupgrade:417
+#: pbupgrade:417 pbupgrade:418
 msgid ""
 "Grub upgraded : \\Z3grub-mkconfig\\Zn relaunched.\\n\\Z1Look if there are "
 "error messages below\\Zn."
 msgstr ""
 
-#: pbupgrade:422
+#: pbupgrade:422 pbupgrade:423
 msgid ""
 "Lilo upgraded with \\Z3/sbin/lilo\\Zn.\\n\\Z1Look if there are error "
 "messages below\\Zn."
 msgstr ""
 
-#: pbupgrade:427
+#: pbupgrade:427 pbupgrade:428
 msgid ""
 "Look at \\Z3/syslinux.cfg\\Zn and rerun \\Z3syslinux\\Zn on your boot "
 "partition if some path have changed."
 msgstr ""
 
-#: pbupgrade:441
+#: pbupgrade:441 pbupgrade:442
 msgid " (\\Z1be sure to have upgraded the bootloader before\\Zn)"
 msgstr ""
 
-#: pbupgrade:447 pbcompile:298
+#: pbupgrade:447 pbcompile:298 pbupgrade:448 pbcompile:297
 #, sh-format
 msgid ""
 "Reboot the host${XBOOTMES}.\\n\\n\\ZbThen do if not already done on an "
@@ -1028,120 +1030,120 @@ msgstr ""
 msgid "Launch this script in the directory including gdm."
 msgstr ""
 
-#: pbcompile:106
+#: pbcompile:106 pbcompile:103
 msgid "Compile again the packages set of software"
 msgstr ""
 
-#: pbcompile:107
+#: pbcompile:107 pbcompile:104
 msgid "Compile again the packages2 set of software"
 msgstr ""
 
-#: pbcompile:108
+#: pbcompile:108 pbcompile:105
 msgid "Compile again the packages3 set of software"
 msgstr ""
 
-#: pbcompile:109
+#: pbcompile:109 pbcompile:106
 msgid "Compile again the Calibre software"
 msgstr ""
 
-#: pbcompile:110
+#: pbcompile:110 pbcompile:107
 msgid "Compile again the packages4 set of software"
 msgstr ""
 
-#: pbcompile:111
+#: pbcompile:111 pbcompile:108
 msgid "Compile again dependencies for KDE4 set of software"
 msgstr ""
 
-#: pbcompile:112
+#: pbcompile:112 pbcompile:109
 msgid "Compile again KDE4 set of software"
 msgstr ""
 
-#: pbcompile:113
+#: pbcompile:113 pbcompile:110
 msgid "Compile again languages for KDE4 set of software"
 msgstr ""
 
-#: pbcompile:114
+#: pbcompile:114 pbcompile:111
 msgid "Compile again KDE5 frameworks set of software"
 msgstr ""
 
-#: pbcompile:115
+#: pbcompile:115 pbcompile:112
 msgid "Compile again GDM desktop manager set of software"
 msgstr ""
 
-#: pbcompile:116
+#: pbcompile:116 pbcompile:113
 msgid "Make again packages for some software with Debian binary packages"
 msgstr ""
 
-#: pbcompile:117
+#: pbcompile:117 pbcompile:114
 msgid "Compile again the Chromium software"
 msgstr ""
 
-#: pbcompile:118
+#: pbcompile:118 pbcompile:115
 msgid "Compile again the Openshot software"
 msgstr ""
 
-#: pbcompile:119
+#: pbcompile:119 pbcompile:116
 msgid "Compile again the Pitivi software"
 msgstr ""
 
-#: pbcompile:120
+#: pbcompile:120 pbcompile:117
 msgid "Compile again the Audacity software"
 msgstr ""
 
-#: pbcompile:121
+#: pbcompile:121 pbcompile:118
 msgid "Compile again the Ardour software"
 msgstr ""
 
-#: pbcompile:122
+#: pbcompile:122 pbcompile:119
 msgid "Compile again Bumblebee packages."
 msgstr ""
 
-#: pbcompile:172
+#: pbcompile:172 pbcompile:171
 msgid ""
 "Redo the packages which are here in sources form.\\nIf not already done on "
 "this machine or another.\\n"
 msgstr ""
 
-#: pbcompile:180
+#: pbcompile:180 pbcompile:179
 msgid ""
 "Redo the Calibre package.\\nIf not already done on this machine or another."
 msgstr ""
 
-#: pbcompile:182
+#: pbcompile:182 pbcompile:181
 msgid ""
 "Redo dependencies for KDE4 set of packages.\\nIf not already done on this "
 "machine or another."
 msgstr ""
 
-#: pbcompile:184
+#: pbcompile:184 pbcompile:183
 msgid ""
 "Redo KDE4 set of packages.\\nIf not already done on this machine or another."
 msgstr ""
 
-#: pbcompile:186
+#: pbcompile:186 pbcompile:185
 msgid ""
 "Redo languages for KDE4 set of packages.\\nIf not already done on this "
 "machine or another."
 msgstr ""
 
-#: pbcompile:188
+#: pbcompile:188 pbcompile:187
 msgid ""
 "Redo KDE5 frameworks set of packages.\\nIf not already done on this machine "
 "or another."
 msgstr ""
 
-#: pbcompile:190
+#: pbcompile:190 pbcompile:189
 msgid ""
 "Redo GDM set of packages.\\nIf not already done on this machine or another."
 msgstr ""
 
-#: pbcompile:192
+#: pbcompile:192 pbcompile:191
 msgid ""
 "Redo Debian set of packages.\\nIf not already done on this machine or "
 "another."
 msgstr ""
 
-#: pbcompile:194
+#: pbcompile:194 pbcompile:193
 msgid ""
 "Redo the Chromium navigator which are here in sources form.\\nIf not already "
 "done on this machine or another.\\nIt is a very long process (some hours)."
@@ -1149,54 +1151,101 @@ msgid ""
 "support."
 msgstr ""
 
-#: pbcompile:196
+#: pbcompile:196 pbcompile:195
 msgid ""
 "Redo the openshot packages which are here in sources form.\\nIf not already "
 "done on this machine or another."
 msgstr ""
 
-#: pbcompile:198
+#: pbcompile:198 pbcompile:197
 msgid ""
 "Redo the pitivi packages which are here in sources form.\\nIf not already "
 "done on this machine or another."
 msgstr ""
 
-#: pbcompile:200
+#: pbcompile:200 pbcompile:199
 msgid ""
 "Redo the audacity packages which are here in sources form.\\nIf not already "
 "done on this machine or another."
 msgstr ""
 
-#: pbcompile:202
+#: pbcompile:202 pbcompile:201
 msgid ""
 "Redo the ardour packages which are here in sources form.\\nIf not already "
 "done on this machine or another."
 msgstr ""
 
-#: pbcompile:204
+#: pbcompile:204 pbcompile:203
 msgid ""
 "Redo the Bumblebee packages.\\nIf not already done on this machine or "
 "another.\\nYou should reboot after upgrading system packages and before "
 "doing this action else the Bumblebee packages wont built."
 msgstr ""
 
-#: pbcompile:254
+#: pbcompile:254 pbcompile:253
 msgid "Recreate source packages done."
 msgstr ""
 
-#: pbcompile:260
+#: pbcompile:260 pbcompile:259
 msgid "Recreate source kde4 packages done."
 msgstr ""
 
-#: pbcompile:266
+#: pbcompile:266 pbcompile:265
 msgid ""
 "Recreate source Bumblebee done. Reboot your computer for Bumblebee to work."
 msgstr ""
 
-#: pbcompile:272 pbcompile:278
+#: pbcompile:272 pbcompile:278 pbcompile:271 pbcompile:277
 msgid "Recreate source GDM done."
 msgstr ""
 
-#: pbaspiredebian:19
+#: pbaspiredebian:19 pbaspiredebian:17
 msgid "Launch this script in the directory including debian."
+msgstr ""
+
+#: pbaspire:53
+msgid "Get/Update Sarpi installer for arm Slackware"
+msgstr ""
+
+#: pbaspire:214
+msgid "Get or update the Sarpi installer for arm Slackware."
+msgstr ""
+
+#: pbaspire:288
+#, sh-format
+msgid "Get/Update core system done : \\Z3${PBNAME}${RARCH}core\\Zn."
+msgstr ""
+
+#: pbaspire:290
+#, sh-format
+msgid ""
+"Get/Update multilib compat 32 bits mode done : \\Z3${PBNAME}${RARCH}core\\Zn."
+msgstr ""
+
+#: pbaspire:292
+#, sh-format
+msgid ""
+"Get/Update KDE5 frameworks libraries done : \\Z3${PBNAME}${RARCH}core\\Zn."
+msgstr ""
+
+#: pbaspire:294
+#, sh-format
+msgid "Get/Update gparted live iso done : \\Z3${PBNAME}${RARCH}core\\Zn."
+msgstr ""
+
+#: pbaspire:296
+#, sh-format
+msgid "Get/Update VirtualBox installer done : \\Z3${PBNAME}${RARCH}core\\Zn."
+msgstr ""
+
+#: pbaspire:298
+#, sh-format
+msgid ""
+"Get/Update Sarpi installer for arm Slackware done : \\Z3${PBNAME}${RARCH}core"
+"\\Zn."
+msgstr ""
+
+#: pbaspire:300
+#, sh-format
+msgid "Local repository cleaned : \\Z3${PBNAME}${RARCH}core\\Zn."
 msgstr ""

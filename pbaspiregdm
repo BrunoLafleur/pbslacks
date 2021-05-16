@@ -8,13 +8,12 @@
 
 XDIR="$(dirname $0)"
 MYPWD=$(pwd)
-PBARCH="$(basename "$MYPWD"|cut -d '-' -f2)"
+. "$XDIR/pbinclude"
 if [ "$PBARCH" = x64 ] ;then
     . "$XDIR/pbaspireinit"
 else
     . "$XDIR/pbaspirearminit"
 fi
-. "$XDIR/pbinclude"
 . "$XDIR/pbaspireinc"
 
 xhelp () {

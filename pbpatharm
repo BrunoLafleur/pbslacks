@@ -18,7 +18,7 @@
 # rsync -Prv --delete ftp.slackware.uk::slackwarearm/slackwarearm-current .
 
 SLACKARM='http://nephtys.lip6.fr/pub/linux/distributions/slackwarearm'
-SARPI='https://sarpi.penthux.net/index.php?p=rpi4getarmv7current'
+SARPIHOME='https://sarpi.penthux.net/index.php?p=rpi4getarmv7current'
 SARPIINSTALL='https://slackware.uk/sarpi/rpi4/current-armv7l/img/sarpi4-installer_slackcurrent_01May21_sp1.img.xz'
 RUFUS='https://rufus.ie/fr/'
 RUFUSEXE='https://github.com/pbatard/rufus/releases/download/v3.14/rufus-3.14.exe'
