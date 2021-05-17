@@ -16,7 +16,7 @@ Slackware and her add-ons.
 It can be put on a USB stick or a double layer DVD Rom.
 
 It can be a multi-boot USB stick with the installable Slackware and
-the GParted live iso.
+the GParted live iso (for Intel 64 bits Slackware only).
 
 =================================================================
 I have added the choice between KDE5 from the latest current Slackware
