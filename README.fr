@@ -7,7 +7,8 @@ License : Voir le fichier LICENSE de ce répertoire ou les entêtes des fichiers
 Cet outil a été entièrement écrit et conçu par l'auteur ci-dessus.
 
 Cet outil est constitué de plusieur scripts qui téléchargent la dernière
-distribution Linux Slackware current et mes paquets additionnels préférés.
+distribution Linux Slackware current (pour processeurs Intel 64 bits ou arm 32 bits)
+et mes paquets additionnels préférés.
 
 Ils mettent aussi à jour une Slackware current déjà installée.
 
@@ -106,9 +107,9 @@ Sur la Slackware current à mettre à jour, lancez les scripts suivants à parti
 d'une clé USB ou un répertoire central (du type Slackware-x64-$XDATE vu plus
 haut).
 
-  > pbslacks/pbsetup # Choisissez upgrade dans le menu affiché
-    ----------------              -------
-ou> pbsclacks/upgrade
+  > pbslacks/pbsetup # Choisissez upgrade ou recreate dans le menu affiché
+    ----------------              -------    --------
+ou> pbslacks/upgrade (ou pbslacks/pbcompile)
 
 Ce script a un menu qui permet de choisir les catégories de paquets à mettre à
 jour.

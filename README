@@ -8,7 +8,7 @@ files.
 This tool has been written in totality by the above author.
 
 Those are some scripts which download the latest Linux Slackware current
-Intel 64 bits distribution and my preferred add-ons packages.
+Intel 64 bits or arm 32 bits distributions and my preferred add-ons packages.
 They also upgrade an already installed current Slackware.
 
 An iso image can also be done which include the resulting downloaded
@@ -16,7 +16,7 @@ Slackware and her add-ons.
 It can be put on a USB stick or a double layer DVD Rom.
 
 It can be a multi-boot USB stick with the installable Slackware and
-the GParted live iso.
+the GParted live iso (for Intel 64 bits Slackware only).
 
 =================================================================
 I have added the choice between KDE5 from the latest current Slackware
@@ -37,20 +37,20 @@ For a fresh install from a USB stick do :
 -on a working computer with a working system with a Bourne shell terminal
 like bash (on Linux or MS Windows or ...) and the wget program.
 -with internet acces.
--in a newly created repository like Slackware-x64-date in the same directory
-as pbslacks (pbsetup create it).
--if there is an old Slackware-x64-date in the same parent directory, the
+-in a newly created repository like Slackware-x64-date or Slackware-arm-date
+in the same directory as pbslacks (pbsetup can create it).
+-if there is an old Slackware-[x64|arm]-date in the same parent directory, the
 distribution and the add-on packages are copied and not fetched again if there
 were not upgraded.
 
  > pbslacks/pbsetup # Choose aspire in the displayed menu
    ----------------          ------
 or> XDATE=`date '+%Y%m%d'`
-  > mkdir Slackware-x64-$XDATE
+  > mkdir Slackware-x64-$XDATE (or Slackware-arm-$XDATE)
   > cd Slackware-x64-$XDATE
   > ../pbslacks/pbaspire
 
-This script has a dialog menu which permits to choose packages to get.
+This script has a dialog menu which permits to choose set of packages to get.
 It can also launch some other scripts from this project.
 
 Then do a USB stick (a 16 Go or above one) as root (admin user - pbsetup
@@ -90,7 +90,7 @@ It can also launch some other scripts from this project.
 =================================================================
 For updating a cloned Slackware current repository to the latest.
 Download again (only the differences as we do with wget -N)
-on a fresh or existant USB or central/local repository :
+on a fresh or existant USB or central/local repository with :
 
   > pbslacks/pbsetup # Choose aspire in the displayed menu
     ----------------          ------
@@ -104,9 +104,9 @@ On the installed Slackware current to upgrade,
 lauch the following scripts on the USB stick or a disk copy of it on a central
 repository on the new machine as root (pbsetup will ask for the root password).
 
-  > pbslacks/pbsetup # Choose upgrade in the displayed menu
-    ----------------          -------
-or> pbsclacks/upgrade
+  > pbslacks/pbsetup # Choose upgrade or recreate in the displayed menu
+    ----------------          -------    --------
+or> pbslacks/upgrade (or pbslacks/pbcompile)
 
 This script has a dialog menu which permits to choose packages to add.
 It can also launch some other scripts from this project.
@@ -121,6 +121,10 @@ Modify it if you want another mirror or change some versions of packages.
 
 The screen tool is used for the pbupgrade script.
     ------                      ---------
+It maybe useful to do :
+  > export TERM=xterm
+before launching the tool to be able to backscroll to see what has been done.
+
 If your console or X-Window terminal breaks, you can recover it with
   > screen -r from another console as long as your machine is alive.
 
