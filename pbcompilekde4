@@ -80,9 +80,9 @@ xmakekdedep () {
 		cd kde4/source/$XCAT/$XSUB/$XPAC
 		sh ./${XPAC}.SlackBuild
 		if [ $? -ne 0 ] ;then
-		    mygt 'Correct this error and relaunch this script.'
+		    mygt 'Correct this error and relaunch this script. Press a key to end.'
 		    cd ..;chown -R ${MYUSER}.$MYGROUP $XPAC
-		    exit 1
+		    read c;exit 1
 		fi
 	    )
 	    [ $? -ne 0 ] && exit 1

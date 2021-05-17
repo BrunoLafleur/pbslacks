@@ -40,9 +40,9 @@ fi
 # GDM
 (
     cd gdm
-    xgetsbosrc libart_lgpl
-    xgetsbosrc libgnomecanvas
-    xgetsbosrc gdm
+    for i in libart_lgpl libgnomecanvas gdm xvkbd ;do
+	xgetsbosrc $i
+    done
 )
 if [ -d slackware$PBARCH-current ] ;then
     (

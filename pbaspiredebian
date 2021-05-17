@@ -54,7 +54,8 @@ done
 	xgetsbosrc $i $RARCH
 	xpurgepac "$i/$i_" deb
     done
-    for i in libffi6 libevent6 libwebp6 icu4c67 jsoncpp re29 snappy minizip1 ;do
+    for i in libffi6 libevent6 libwebp6 icu4c67 jsoncpp re29 snappy minizip1 \
+	     firejail ;do
 	xgetsbosrc $i
     done
     
