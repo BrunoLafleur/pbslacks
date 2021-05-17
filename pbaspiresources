@@ -26,6 +26,8 @@ if [ ! -d packages -o \
     exit 1
 fi
 
+[ $PBARCH = arm ] && RARCH=arm || RARCH=x86_64
+
 ############################################
 # Download new sources packages.
 ############################################
@@ -111,8 +113,10 @@ fi
     xgetsrc eigen3 "$PATHEIGEN3"
     xgetsrc opencv "$PATHOPENCV"
     xgetsrc opencv "$PATHOPENCVBIS"
-    for i in kaffeine gradle audiveris signal-desktop vokoscreen zoom-linux \
-	     opera ;do
+    for i in kaffeine gradle audiveris vokoscreen opera ;do
 	xgetsbosrc "$i"
+    done
+    for i in signal-desktop zoom-linux ;do
+	xgetsbosrc "$i" $RARCH
     done
 )
