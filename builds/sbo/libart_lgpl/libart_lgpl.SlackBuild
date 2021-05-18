@@ -39,7 +39,7 @@ fi
 NUMJOBS=${NUMJOBS:-" -j7 "}
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp}
+TMP=${TMP:-/tmp/SBo}
 PKG=$TMP/package-libart_lgpl
 OUTPUT=${OUTPUT:-/tmp}
 

@@ -71,7 +71,8 @@ export TAG=_PB
 # ===========================================================
 
 if [ $ISGDM -eq 1 ] ;then
-    for i in libart_lgpl libgnomecanvas gdm xvkbd ;do
+   # for i in libart_lgpl libgnomecanvas gdm xvkbd ;do
+    for i in xvkbd ;do
 	xmakepac gdm $i
     done
 fi

@@ -1,0 +1,55 @@
+diff -ru5 xvkbd-4.0old/Makefile.in xvkbd-4.0/Makefile.in
+--- xvkbd-4.0old/Makefile.in	2019-09-01 00:03:18.000000000 +0200
++++ xvkbd-4.0/Makefile.in	2021-05-18 22:41:46.629546611 +0200
+@@ -986,15 +986,16 @@
+ 
+ XVkbd-common.h: XVkbd-common.ad
+ 	[ which ad2c > /dev/null ] || ad2c XVkbd-common.ad > XVkbd-common.h
+ 
+ install-data-hook:
++	[ -d $(DESTDIR)$(appdefaultdir) ] || mkdir -p $(DESTDIR)$(appdefaultdir)
+ 	for file in *.ad; do \
+-		$(INSTALL_DATA) $$file $(appdefaultdir)/$${file%.ad}; \
++		$(INSTALL_DATA) $$file $(DESTDIR)$(appdefaultdir)/$${file%.ad}; \
+ 	done
+-	[ -d $(datarootdir)/xvkbd/ ] || mkdir $(datarootdir)/xvkbd/
+-	$(INSTALL_DATA) words.english $(datarootdir)/xvkbd/words.english
++	[ -d $(DESTDIR)$(datarootdir)/xvkbd ] || mkdir -p $(DESTDIR)$(datarootdir)/xvkbd
++	$(INSTALL_DATA) words.english $(DESTDIR)$(datarootdir)/xvkbd/words.english
+ 
+ clean::
+ 	rm -f *~ *.bak
+ 
+ distclean::
+diff -ru5 xvkbd-4.0old/resources.h xvkbd-4.0/resources.h
+--- xvkbd-4.0old/resources.h	2019-08-31 07:57:55.000000000 +0200
++++ xvkbd-4.0/resources.h	2021-05-18 22:13:38.914167168 +0200
+@@ -17,11 +17,11 @@
+ 
+ #ifndef PROGRAM_NAME
+ # define PROGRAM_NAME "xvkbd"
+ #endif
+ 
+-struct appres_struct {
++extern struct appres_struct {
+   String description;
+   String show_manual_command;
+ 
+   String geometry;
+   Boolean inherit_geometry;
+diff -ru5 xvkbd-4.0old/xvkbd.c xvkbd-4.0/xvkbd.c
+--- xvkbd-4.0old/xvkbd.c	2019-09-01 00:14:31.000000000 +0200
++++ xvkbd-4.0/xvkbd.c	2021-05-18 22:13:20.569297574 +0200
+@@ -71,10 +71,12 @@
+  * Layout of the main keyboard can be redefined by resources.
+  */
+ #define NUM_KEY_ROWS    25
+ #define NUM_KEY_COLS    25
+ 
++struct appres_struct appres = {0};
++
+ static char *keys_normal[NUM_KEY_ROWS][NUM_KEY_COLS] = {
+   { "F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "F10", "F11", "F12", "BackSpace" },
+   { "Escape", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "\\", "`" },
+   { "Tab", "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "[", "]", "Delete" },
+   { "Control_L", "a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "'", "Return" },
