@@ -91,6 +91,10 @@ make
 make install DESTDIR=$PKG
 make install-man DESTDIR=$PKG
 
+# To have it in the GDM desktop manager.
+mkdir -p $PKG/etc/X11/gdm
+cp $CWD/custom $PKG/etc/X11/gdm
+
 strip --strip-unneeded $PKG/usr/bin/*
 gzip -9 $PKG/usr/man/man?/*
 

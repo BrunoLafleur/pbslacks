@@ -5,6 +5,11 @@ be used for systems without a hardware keyboard such as kiosk terminals
 or handheld devices. This program also has facility to send characters
 specified as the command line option to another client.
 
-In /etc/gdm/Init/Default
-Add in the end a line just before the line with exit 0
-/usr/bin/xvkbd -secure -geometry -5-5 &
+It is added to the gdm desktop manager by putting the custom file in this
+directory in /etc/X11/gdm/Init
+It is called by /etc/X11/gdm/Init/Default
+
+The keyboard layout can also be changed with :
+cp /etc/X11/app-default/XVkbd-lang /etc/X11/app-default/XVkbd
+
+Or dynamically with the left bottom button.

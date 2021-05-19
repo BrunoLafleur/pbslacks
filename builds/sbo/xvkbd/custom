@@ -1,0 +1,3 @@
+#!/bin/sh
+
+(sleep 1;/usr/bin/xvkbd -secure -geometry -5-5) &
