@@ -52,7 +52,10 @@ done
     cd debian
     for i in thunderbird firefox chromium ;do
 	xgetsbosrc $i $RARCH
-	xpurgepac "$i/$i_" deb
+	xpurgepac "$i/${i}_" deb
+    done
+    for i in chromium-common chromium-sandbox chromium-driver chromium-l10n ;do
+	xpurgepac "$i/${i}_" deb
     done
     for i in libffi6 libevent6 libwebp6 icu4c67 jsoncpp re29 snappy minizip1 \
 	     firejail ;do

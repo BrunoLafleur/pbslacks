@@ -121,7 +121,7 @@ xgetsbosrc () {
 	       fgrep "DOWNLOAD$cib"|grep -i -v unsupported|\
 	       cut -d '=' -f2|cut -d '"' -f2|tr '\n' ' ')
     rm -f $info
-    for i in $path ; do
-	xgetsrc $name "$i"
+    for ii in $path ; do
+	xgetsrc $name "$ii"
     done
 }
