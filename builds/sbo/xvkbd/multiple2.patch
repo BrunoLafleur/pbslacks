@@ -1,0 +1,37 @@
+diff -ru5 xvkbd-4.1old/Makefile.in xvkbd-4.1/Makefile.in
+--- xvkbd-4.1old/Makefile.in	2020-05-04 06:45:55.000000000 +0200
++++ xvkbd-4.1/Makefile.in	2021-05-20 19:15:39.027079643 +0200
+@@ -986,15 +986,15 @@
+ 
+ XVkbd-common.h: XVkbd-common.ad
+ 	[ which ad2c > /dev/null ] || ad2c XVkbd-common.ad > XVkbd-common.h
+ 
+ install-data-hook:
+-	[ -d $(DESTDIR)$(appdefaultdir) ] || mkdir $(DESTDIR)$(appdefaultdir)
++	[ -d $(DESTDIR)$(appdefaultdir) ] || mkdir -p $(DESTDIR)$(appdefaultdir)
+ 	for file in *.ad; do \
+ 		$(INSTALL_DATA) $$file $(DESTDIR)$(appdefaultdir)/$${file%.ad}; \
+ 	done
+-	[ -d $(DESTDIR)$(datarootdir)/xvkbd/ ] || mkdir $(DESTDIR)$(datarootdir)/xvkbd/
++	[ -d $(DESTDIR)$(datarootdir)/xvkbd/ ] || mkdir -p $(DESTDIR)$(datarootdir)/xvkbd/
+ 	$(INSTALL_DATA) words.english $(DESTDIR)$(datarootdir)/xvkbd/words.english
+ 
+ clean::
+ 	rm -f *~ *.bak
+ 
+diff -ru5 xvkbd-4.1old/xvkbd.c xvkbd-4.1/xvkbd.c
+--- xvkbd-4.1old/xvkbd.c	2020-05-04 06:34:19.000000000 +0200
++++ xvkbd-4.1/xvkbd.c	2021-05-20 19:16:10.327915215 +0200
+@@ -460,11 +460,11 @@
+ };
+ 
+ /*
+  * Global variables
+  */
+-struct appres_struct appres;
++struct appres_struct appres = {0};
+ 
+ static char dict_filename[PATH_MAX] = "";
+ static char private_dict_weight_value[20] = "1";
+ 
+ static int argc1;
