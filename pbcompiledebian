@@ -71,10 +71,15 @@ export TAG=_PB
 # ===========================================================
 
 if [ $ISDEBIAN -eq 1 ] ;then
-    for i in libffi6 libevent6 libwebp6 icu4c67 jsoncpp re29 snappy minizip1 \
-		     firejail firetools thunderbird firefox chromium ;do
+    for i in firejail firetools ;do
 	xmakepac debian $i
     done
+    if [ $PBARCH = arm ] ;then
+	for i in libffi6 libevent6 libwebp6 icu4c67 jsoncpp re29 snappy \
+			 minizip1 thunderbird firefox chromium ;do
+	    xmakepac debian $i
+	done
+    fi
 fi
 
 mygt "Upgrade packages* done."
