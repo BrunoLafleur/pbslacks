@@ -255,6 +255,7 @@ msgstr ""
 
 #: pbaspirealien:14 pbaspiremoz:19 pbaspireother:14 pbaspireponce:14
 #: pbaspireslonly:14 pbaspiresources:14 pbcompilepost:19 pbcompilekde4:19
+#: pbaspiresources:18
 msgid ""
 "Launch this script in the directory including packages, packages2 et al."
 msgstr ""
@@ -345,7 +346,7 @@ msgid ""
 "machine, this script is not useful.\\nPress a touch for continue or abort."
 msgstr ""
 
-#: pbcompilepost:308 pbcompilekde4:210 pbcompilegdm:79
+#: pbcompilepost:308 pbcompilekde4:210 pbcompilegdm:79 pbcompilepost:317
 msgid "Upgrade packages* done."
 msgstr ""
 
@@ -1022,7 +1023,7 @@ msgstr ""
 msgid "Sarpi not copied."
 msgstr ""
 
-#: pbaspiregdm:21
+#: pbaspiregdm:21 pbaspiregdm:20
 msgid "Launch this script in a directory which contains gdm."
 msgstr ""
 
@@ -1248,4 +1249,12 @@ msgstr ""
 #: pbaspire:300
 #, sh-format
 msgid "Local repository cleaned : \\Z3${PBNAME}${RARCH}core\\Zn."
+msgstr ""
+
+#: pbcompilekde4:83
+msgid "Correct this error and relaunch this script. Press a key to end."
+msgstr ""
+
+#: pbcompile:277
+msgid "Recreate source Debian done."
 msgstr ""

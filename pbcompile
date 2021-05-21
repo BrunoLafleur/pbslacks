@@ -274,7 +274,7 @@ if [ $XEND -eq 0 ] ;then
 	if [ $XTEST -ne 1 ] ;then
 	    $HOMESLACK/pbslacks/pbcompiledebian -u $MYUSER -g $MYGROUP
 	fi
-	mygt "Recreate source GDM done." >> $XTEMPMES
+	mygt "Recreate source Debian done." >> $XTEMPMES
     fi
 fi
 

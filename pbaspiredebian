@@ -40,6 +40,7 @@ while [ $# -ge 1 ] ;do
 done
 
 [ $PBARCH = arm ] && RARCH=arm || RARCH=x86_64
+[ $PBARCH = arm ] && AARCH=arm || AARCH=64
 
 (
     # We put those in package4.
@@ -63,9 +64,9 @@ done
     done
     
 )
-if [ -d slackware$PBARCH-current ] ;then
+if [ -d slackware$AARCH-current ] ;then
     (
-	cd slackware$PBARCH-current
+	cd slackware$AARCH-current
 	ln -sf ../debian .
     )
 fi

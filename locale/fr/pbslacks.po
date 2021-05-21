@@ -271,6 +271,7 @@ msgstr "Actions réalisées"
 
 #: pbaspirealien:14 pbaspiremoz:19 pbaspireother:14 pbaspireponce:14
 #: pbaspireslonly:14 pbaspiresources:14 pbcompilepost:19 pbcompilekde4:19
+#: pbaspiresources:18
 msgid ""
 "Launch this script in the directory including packages, packages2 et al."
 msgstr ""
@@ -370,7 +371,7 @@ msgstr ""
 "déjà fait sur une machine a jour, il n'est pas utile de relancer ce script."
 "\\nAppuyer sur une touche pour continuer sinon CTRLc pour arrêter"
 
-#: pbcompilepost:308 pbcompilekde4:210 pbcompilegdm:79
+#: pbcompilepost:308 pbcompilekde4:210 pbcompilegdm:79 pbcompilepost:317
 msgid "Upgrade packages* done."
 msgstr "Mise à jour de packages* faite."
 
@@ -1144,7 +1145,7 @@ msgstr "Copie Sarpi faite."
 msgid "Sarpi not copied."
 msgstr "Copie Sarpi non faite."
 
-#: pbaspiregdm:21
+#: pbaspiregdm:21 pbaspiregdm:20
 msgid "Launch this script in a directory which contains gdm."
 msgstr "Script à lancer dans le répertoire contenant gdm."
 
@@ -1412,3 +1413,12 @@ msgstr ""
 #, sh-format
 msgid "Local repository cleaned : \\Z3${PBNAME}${RARCH}core\\Zn."
 msgstr "Copie locale du système nettoyée : \\Z3${PBNAME}${RARCH}core\\Zn."
+
+#: pbcompilekde4:83
+msgid "Correct this error and relaunch this script. Press a key to end."
+msgstr ""
+"Erreur à corriger puis relancer ce script. Pressez sur une touche pour finir."
+
+#: pbcompile:277
+msgid "Recreate source Debian done."
+msgstr "Paquets sources de Debian recréés."
