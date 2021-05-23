@@ -54,3 +54,25 @@ Pour évitez que les sites vous prennent pour un téléphone :
 Thunderbird :
 -------------
 Changez la langue dans Préférences => marche.
+
+Audio :
+------
+Relancez pulseaudio (se lance trop tot ?) :
+pulseaudio -k
+
+/etc/asound.conf
+pcm.pulse { type pulse }
+ctl.pulse { type pulse }
+pcm.!default { type pulse }
+ctl.!default { type pulse }
+
+/etc/pulse/daemon.conf:
+default-sample-rate = 48000
+resample-method = trivial
+
+/etc/pulse/default.pa :
+#load-module module-suspend-on-idle
+
+#.ifexists module-esound-protocol-unix.so
+# load-module module-esound-protocol-unix
+#.endif
