@@ -65,10 +65,10 @@ tar xvf $CWD/$PRGNAM-$VERSION.tar.xz
 cd $PRGNAM-$VERSION
 chown -R root:root .
 find -L . \
- \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
-  -o -perm 511 \) -exec chmod 755 {} \; -o \
- \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
-  -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
+     \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
+     -o -perm 511 \) -exec chmod 755 {} \; -o \
+     \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
+     -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
@@ -85,10 +85,16 @@ sed -i "s|lib/firejail|lib${LIBDIRSUFFIX=}/firejail|" Makefile
 make
 make install DESTDIR=$PKG
 
-find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
-  | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
+find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" \
+    | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
-sed -i "s|whitelist /usr/share/doc|#whitelist /usr/share/doc|" $PKG/etc/firejail/firefox.profile
+sed -i "s|whitelist /usr/share/doc|#whitelist /usr/share/doc|" \
+    $PKG/etc/firejail/firefox.profile
+# For hardening because debian sid chromium is launched with --no-sandbox
+# because it is a glibc 2.31 compiled version running on a glibc 2.33 system
+# with dynamic libs compiled also with glibc 2.33 lib.
+# For a native working Slackware Chromium you can remove this file.
+cp $CWD/chromium.local $PKG/etc/firejail/
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
