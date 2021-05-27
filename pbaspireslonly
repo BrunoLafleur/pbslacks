@@ -26,10 +26,14 @@ fi
 # Download new versions of binary packages.
 # Slonly packages.
 ############################################
-xgeturl "$SLACKSLONLY/GPG-KEY"
-mv -f GPG-KEY gpgkeys/GPG-KEY-x64-slonly
-xgeturl "$SLACKSLONLY32/GPG-KEY"
-mv -f GPG-KEY gpgkeys/GPG-KEY-x32-slonly
+if [ ! -f gpgkeys/GPG-KEY-x64-slonly ] ;then
+    xgeturl "$SLACKSLONLY/GPG-KEY"
+    mv -f GPG-KEY gpgkeys/GPG-KEY-x64-slonly
+fi
+if [ ! -f gpgkeys/GPG-KEY-x32-slonly ] ;then
+    xgeturl "$SLACKSLONLY32/GPG-KEY"
+    mv -f GPG-KEY gpgkeys/GPG-KEY-x32-slonly
+fi
 
 (
     cd packages

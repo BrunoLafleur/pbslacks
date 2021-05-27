@@ -26,10 +26,14 @@ fi
 # Download new versions of binary packages.
 # Ponce packages.
 ############################################
-xgeturl "$SLACKPONCE/GPG-KEY"
-mv -f GPG-KEY gpgkeys/GPG-KEY-x64-ponce
-xgeturl "$SLACKPONCE32/GPG-KEY"
-mv -f GPG-KEY gpgkeys/GPG-KEY-x32-ponce
+if [ ! -f gpgkeys/GPG-KEY-x64-ponce ] ;then
+    xgeturl "$SLACKPONCE/GPG-KEY"
+    mv -f GPG-KEY gpgkeys/GPG-KEY-x64-ponce
+fi
+if [ ! -f gpgkeys/GPG-KEY-x32-ponce ] ;then
+    xgeturl "$SLACKPONCE32/GPG-KEY"
+    mv -f GPG-KEY gpgkeys/GPG-KEY-x32-ponce
+fi
 
 (
     cd packages

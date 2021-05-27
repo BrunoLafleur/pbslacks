@@ -207,17 +207,11 @@ if [ $ISCHECK -eq 1 ] ;then
     # Get GPG Keys from the original Slackware web site.
     if [ -d slackware64-current ] ;then
 	(
-	    cd slackware64-current;rm -f GPG-KEY
-	    xgeturl "$SLACKKEYS/slackware64-current/GPG-KEY"
+	    cd slackware64-current
+	    [ ! -f GPG-KEY ] && xgeturl "$SLACKKEYS/slackware64-current/GPG-KEY"
 	    ln -sf ../gpgkeys .
 	)
     fi
-    find slackware64-current -name '*.asc'|while read i;test "$i" != "" ;do
-	(
-	    echo "$i";rm -f "$i";cd $(dirname "$i")
-	    xgeturl "$SLACKKEYS/$i"
-	)
-    done
     [ $ISSTICK -eq 1 ] && cd slackware64-current
 
     # Check with GPG signatures

@@ -26,8 +26,10 @@ fi
 # Download new versions of binary packages.
 # Alien Bob packages.
 ############################################
-xgeturl "$SLACKALIEN/GPG-KEY"
-mv -f GPG-KEY gpgkeys/GPG-KEY-slackbuilds-alien
+if [ ! -f gpgkeys/GPG-KEY-slackbuilds-alien ] ;then
+    xgeturl "$SLACKALIEN/GPG-KEY"
+    mv -f GPG-KEY gpgkeys/GPG-KEY-slackbuilds-alien
+fi
 
 (
     cd packages

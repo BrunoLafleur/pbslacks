@@ -26,12 +26,18 @@ fi
 # Download new versions of binary packages.
 # Conrad and Slonly packages.
 ############################################
-xgeturl "$SLACKCF/GPG-KEY"
-mv -f GPG-KEY gpgkeys/GPG-KEY-x64-conraid
-xgeturl "$SLACKDJPAR/GPG-KEY"
-mv -f GPG-KEY gpgkeys/GPG-KEY-x64-slackel
-xgeturl "$SLACKDJPAR32/GPG-KEY"
-mv -f GPG-KEY gpgkeys/GPG-KEY-x32-slackel
+if [ ! -f  gpgkeys/GPG-KEY-x64-conraid ] ;then
+    xgeturl "$SLACKCF/GPG-KEY"
+    mv -f GPG-KEY gpgkeys/GPG-KEY-x64-conraid
+fi
+if [ ! -f gpgkeys/GPG-KEY-x64-slackel ] ;then
+    xgeturl "$SLACKDJPAR/GPG-KEY"
+    mv -f GPG-KEY gpgkeys/GPG-KEY-x64-slackel
+fi
+if [ ! -f gpgkeys/GPG-KEY-x32-slackel ] ;then
+    xgeturl "$SLACKDJPAR32/GPG-KEY"
+    mv -f GPG-KEY gpgkeys/GPG-KEY-x32-slackel
+fi
 
 (
     cd packages

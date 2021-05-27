@@ -1,0 +1,11 @@
+# For pulseaudio
+# Deactivate desktop one before launching firejail with :
+# > echo "autospawn = no" >> ~/.config/pulse/client.conf
+# > pulseaudio -k
+# Reactivate with :
+# > rm -f ~/.config/pulse/client.conf
+# > pulseaudio --start
+ignore dbus-system none
+ignore nogroups
+whitelist ${HOME}/.config/pulse
+whitelist /usr/share/pulseaudio

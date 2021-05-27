@@ -95,6 +95,7 @@ sed -i "s|whitelist /usr/share/doc|#whitelist /usr/share/doc|" \
 # with dynamic libs compiled also with glibc 2.33 lib.
 # For a native working Slackware Chromium you can remove this file.
 cp $CWD/chromium.local $PKG/etc/firejail/
+cp $CWD/globals.local $PKG/etc/firejail/
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
