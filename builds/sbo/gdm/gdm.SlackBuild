@@ -79,6 +79,10 @@ CXXFLAGS="$SLKCFLAGS" \
 make SUSPEND_COMMAND=/usr/sbin/pm-suspend
 make SUSPEND_COMMAND=/usr/sbin/pm-suspend install-strip DESTDIR=$PKG
 
+# For PAM and XDG (XDG_RUNTIME_DIR and al.).
+mkdir -p $PKG/etc/pam.d
+cp $CWD/gdm_pam $PKG/etc/pam.d/gdm
+
 # Install some simple session files designed to work with Slackware
 mkdir -p $PKG/etc/X11/$PRGNAM/Sessions
 cp -r $CWD/Sessions/* $PKG/etc/X11/$PRGNAM/Sessions

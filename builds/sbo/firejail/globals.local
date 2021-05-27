@@ -1,11 +1,9 @@
-# For pulseaudio
-# Deactivate desktop one before launching firejail with :
-# > echo "autospawn = no" >> ~/.config/pulse/client.conf
-# > pulseaudio -k
-# Reactivate with :
-# > rm -f ~/.config/pulse/client.conf
-# > pulseaudio --start
-ignore dbus-system none
-ignore nogroups
-whitelist ${HOME}/.config/pulse
-whitelist /usr/share/pulseaudio
+# For pulseaudio on Slackware current.
+#ignore nogroups
+ignore dbus-user
+
+# In case XDG_RUNTIME_DIR is set manually in /etc/profile.d
+whitelist /tmp/xdg-runtime-*
+noblacklist /tmp/xdg-runtime-*/pulse
+noblacklist /tmp/xdg-runtime-*/dconf
+blacklist /tmp/xdg-runtime-*/*

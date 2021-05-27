@@ -9,3 +9,10 @@ process table, mount table.
 Firejail can sandbox any type of processes: servers, graphical applications, and
 even user login sessions. Written in C with virtually no dependencies, it should
 work on any Linux computer with a 3.x kernel version.
+
+I have added a globals.local and a chromium.local files.
+For audio to work on Slackware current with pulseaudio (xdg setup).
+And more secure profile for chromium in cas we use --no-sandbox.
+
+You should also be sure XDG_RUNTIME_DIR is enable either with /etc/profile.d
+or in pam.
