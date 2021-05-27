@@ -83,7 +83,7 @@ fi
     # Guile 2.2 supprime en janvier. Utile a denemo.
     xgetsrc guile2.2 "$PATHGUILE22"
     # Discord just being put here. No packages done for now.
-    xgetsrc discord "$PATHDISCORD"
+    xgetsbosrc discord $RARCH
     #xpurgepac discord tar.gz
     # Update Youtube LUA file for VLC.
     xgeturl "$PATHVLCYOUTUBE"
@@ -113,10 +113,10 @@ fi
     xgetsrc eigen3 "$PATHEIGEN3"
     xgetsrc opencv "$PATHOPENCV"
     xgetsrc opencv "$PATHOPENCVBIS"
-    for i in kaffeine gradle audiveris vokoscreen opera ;do
+    for i in kaffeine gradle audiveris vokoscreen ;do
 	xgetsbosrc "$i"
     done
-    for i in signal-desktop zoom-linux ;do
+    for i in opera signal-desktop zoom-linux ;do
 	xgetsbosrc "$i" $RARCH
     done
 )
