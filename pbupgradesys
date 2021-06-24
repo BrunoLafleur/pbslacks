@@ -72,8 +72,8 @@ upgradesys () {
 	(
 	    cd $XCURDIRA
 	    if [ $(ls /var/log/packages/glibc-solibs-*|wc -l) -gt 0 ] ;then
-		PAC1=$(lt -t aaa_glibc-solibs-*.t?z|head -1)
-		PAC2=$(lt -t aaa_libraries-*.t?z|head -1)
+		PAC1=$(ls -t aaa_glibc-solibs-*.t?z|head -1)
+		PAC2=$(ls -t aaa_libraries-*.t?z|head -1)
 		upgradepkg glibc-solibs%$PAC1
 		upgradepkg aaa_elflibs%$PAC2
 	    else
