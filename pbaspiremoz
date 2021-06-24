@@ -45,9 +45,9 @@ done
 
 [ ! -d packages/Mozilla ] && mkdir packages/Mozilla
 (
-    cd packages/Mozilla
     if [ "$PBARCH" = x64 ] ;then
 	. "$XDIR/pbpathinc"
+	cd packages/Mozilla
 	xgeturl "$XFIREFOX"
 	xpurgepac 'firefox-' tar.bz2
 
