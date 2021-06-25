@@ -45,6 +45,7 @@ xhookpac2 () {
     rm -f $XLIBDIR/vlc/lua/playlist/youtube.luac
     rm -f packages2/discord-*.tar.gz
     rm -f packages2/t1utils-1.41-x86_64-1_slonly.*
+    rm -f packages2/lsdvd-0.17-x86_64-2_slonly.*
 }
 
 xhookpac3 () {

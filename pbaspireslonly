@@ -59,7 +59,7 @@ xpurgeindex packages
 (
     cd packages2
     # system/t1utils est maintenant dans texlive.
-    for i in office/evince libraries/libsmf multimedia/lsdvd graphics/fontforge \
+    for i in office/evince libraries/libsmf graphics/fontforge \
 			   graphics/lilypond ;do
 	PROJ=$(echo $i|cut -d '/' -f2)
 	xgetpac "$PROJ" "$SLACKSLONLY/$i" 5
