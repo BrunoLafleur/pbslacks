@@ -1,0 +1,8 @@
+protobuf
+dbus-cpp
+properties-cpp
+gtest (1.10.0+)
+
+Avant cmake :
+truncate -s 0 ../cmake/FindGMock.cmake
+truncate -s 0 ../tests/CMakeLists.txt

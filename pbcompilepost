@@ -278,6 +278,8 @@ if [ $ISFRAMEW -eq 1 ] ;then
 fi
 
 if [ $ISPAC4 -eq 1 ] ;then
+    xmakealienpac packages4 vivaldi
+    exit 0
     xmakealienpac packages4 wxGTK3
     (
 	export WXCONF=$XLIBDIR/wx/config/gtk3-unicode-static-3.0
@@ -285,7 +287,7 @@ if [ $ISPAC4 -eq 1 ] ;then
     )
     [ $? -ne 0 ] && exit 1
     for i in xrdp xorgxrdp SFML fbida kaffeine eigen3 opencv gradle \
-		  signal-desktop vokoscreen audiveris zoom-linux opera ;do
+		  signal-desktop vokoscreen audiveris zoom-linux opera vivaldi ;do
 	xmakepac packages4 $i
     done
     xhookpac4
