@@ -42,6 +42,7 @@ ISPITIVI=0
 ISAUDACITY=0
 ISARDOUR=0
 ISFRAMEW=0
+ISLMMS=0
 
 while [ $# -ge 1 ] ;do
     MYARG="$1"
@@ -73,6 +74,8 @@ while [ $# -ge 1 ] ;do
 	ISAUDACITY=1;ISALL=0
     elif [ "$MYARG" = "-isardour" ] ;then
 	ISARDOUR=1;ISALL=0
+    elif [ "$MYARG" = "-islmms" ] ;then
+	ISLMMS=1;ISALL=0
     elif [ "$MYARG" = "-isframew" ] ;then
 	ISFRAMEW=1;ISALL=0
     elif [ "$MYARG" = "-help" -o "$MYARG" = "-h" ] ;then
@@ -94,6 +97,7 @@ if [ $ISALL -eq 1 ] ;then
     ISAUDACITY=1
     ISARDOUR=1
     ISFRAMEW=1
+    ISLMMS=1
 fi
 
 mygt 'Only after a system update and reboot.\nIf already done on this or another machine, this script is not useful.\nPress a touch for continue or abort.'|sed 's@\\n@\n@g'
@@ -312,6 +316,12 @@ fi
 if [ $ISARDOUR -eq 1 ] ;then    
     for i in liblo liblrdf ardour ;do
 	xmakealienpac packages4/ardour $i
+    done
+fi
+
+if [ $ISLMMS -eq 1 ] ;then    
+    for i in stk fltk lmms ;do
+	xmakealienpac packages4/lmms $i
     done
 fi
 

@@ -93,13 +93,13 @@ xmaster () {
     xselca=$1;shift;xsel18=$1;shift;xselkd=$1;shift;xselke=$1;shift
     xselkei=$1;shift;xselfw=$1;shift;xsegdm=$1;shift;xsedeb=$1;shift
     xsel19=$1;shift;xsel20=$1;shift;xselrp=$1;shift;xsel21=$1;shift
-    xsel22=$1;shift;xsel23=$1
+    xsel22=$1;shift;xslmms=$1;shift;xsel23=$1
     pactit=$(mygt 'Main menu')
     pactit="pbcompile ($PBARCH) : $pactit"
     dialog --colors --backtitle "pbcompile ($PBARCH)" --title "$pactit" \
 	--default-item $defitem --defaultno \
 	--separate-output --item-help --help-button --help-status --checklist \
-	"$(mygt 'Choose your actions below after you have launch the \Zbpbaspire*\ZB script')" 0 110 17 \
+	"$(mygt 'Choose your actions below after you have launch the \Zbpbaspire*\ZB script')" 0 110 18 \
 	recreatepackages "$(mygt 'Compile again the packages set of software')" $xsel15 recreatepackages \
 	recreatepackages2 "$(mygt 'Compile again the packages2 set of software')" $xsel16 recreatepackages2 \
 	recreatepackages3 "$(mygt 'Compile again the packages3 set of software')" $xsel17 recreatepackages3 \
@@ -116,6 +116,7 @@ xmaster () {
 	recreatepitivi "$(mygt 'Compile again the Pitivi software')" $xselrp recreatepitivi \
 	recreateaudacity "$(mygt 'Compile again the Audacity software')" $xsel21 recreateaudacity \
 	recreateardour "$(mygt 'Compile again the Ardour software')" $xsel22 recreateardour \
+	recreatelmms "$(mygt 'Compile again the LMMS software')" $xslmms recreatelmms \
 	recreatebumblebee "$(mygt 'Compile again Bumblebee packages.')" $xsel23 recreatebumblebee
 }
 
@@ -144,7 +145,7 @@ xother=on
 xdebian=off
 [ $PBARCH = arm ] && xdebian=on
 xsel="$xother $xother $xother off $xother off off off off $xdebian $xdebian \
-off $xother $xother $xother $xother off"
+off $xother $xother $xother $xother $xother off"
 ditem=recreatepackages
 bclaide=1
 
@@ -159,7 +160,8 @@ while [ $bclaide -eq 1 ] ;do
 			recreatekde4deps recreatekde4 recreatekde4i \
 			recreateframeworks recreategdm recreatedebian \
 			recreatechromium recreateopenshot recreatepitivi \
-			recreateaudacity recreateardour recreatebumblebee ;do
+			recreateaudacity recreateardour recreatelmms \
+			recreatebumblebee ;do
 	  if [ $(grep "^$i$" "$XTEMPOUT"|wc -l) -eq 1 ] ;then
 	      xsel="$xsel on"
 	  else
@@ -170,7 +172,7 @@ while [ $bclaide -eq 1 ] ;do
 	if [ "$(echo "$xitem"|cut -c1-16)" = recreatepackages ] ;then
 	    pacaide=$(mygt 'Redo the packages which are here in sources form.\nIf not already done on this machine or another.\n')
 	    jtem="$(echo "$xitem"|cut -c9-)"
-	    find -L $jtem -type d|cut -d '/' -f1-2|sort -u|egrep -v "$jtem$|chromium|openshot|pitivi|audacity|ardour|tesseract|frameworks|Httpfs|32|Mozilla|Steam|compat32" > $XTEMPMES
+	    find -L $jtem -type d|cut -d '/' -f1-2|sort -u|egrep -v "$jtem$|chromium|openshot|pitivi|audacity|ardour|lmms|tesseract|frameworks|Httpfs|32|Mozilla|Steam|compat32" > $XTEMPMES
 	    while read j;test "$j" != "" ;do
 		pacaide="${pacaide}\n$j"
 	    done < $XTEMPMES
@@ -199,6 +201,8 @@ while [ $bclaide -eq 1 ] ;do
 	    pacaide=$(mygt 'Redo the audacity packages which are here in sources form.\nIf not already done on this machine or another.')
 	elif [ "$xitem" = recreateardour ] ;then
 	    pacaide=$(mygt 'Redo the ardour packages which are here in sources form.\nIf not already done on this machine or another.')
+	elif [ "$xitem" = recreatelmms ] ;then
+	    pacaide=$(mygt 'Redo the LMMS packages which are here in sources form.\nIf not already done on this machine or another.')
 	elif [ "$xitem" = recreatebumblebee ] ;then
 	    pacaide=$(mygt 'Redo the Bumblebee packages.\nIf not already done on this machine or another.\nYou should reboot after upgrading system packages and before doing this action else the Bumblebee packages wont built.')
 	fi
@@ -233,6 +237,8 @@ ISRECRE="$(cat $XTEMPOUT|grep '^recreateaudacity$'|wc -l)"
 [ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -isaudacity"
 ISRECRE="$(cat $XTEMPOUT|grep '^recreateardour$'|wc -l)"
 [ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -isardour"
+ISRECRE="$(cat $XTEMPOUT|grep '^recreatelmms$'|wc -l)"
+[ $ISRECRE -eq 1 ] && OPTRECRE="$OPTRECRE -islmms"
 
 ISRECRE="$(cat $XTEMPOUT|grep '^recreatekde4deps$'|wc -l)"
 [ $ISRECRE -eq 1 ] && OPTRECREKDE4="$OPTRECREKDE4 -iskde4deps"

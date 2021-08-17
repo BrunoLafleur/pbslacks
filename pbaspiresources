@@ -120,4 +120,12 @@ fi
     for i in opera signal-desktop zoom-linux vivaldi ;do
 	xgetsbosrc "$i" $RARCH
     done
+     
+    [ ! -d lmms ] && mkdir lmms
+    (
+	cd lmms
+	for i in stk fltk lmms ;do
+	    xgetsbosrc "$i"
+	done
+    )
 )

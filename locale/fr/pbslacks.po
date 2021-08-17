@@ -261,7 +261,7 @@ msgid "GPG signatures checked :"
 msgstr "Signatures GPG vérifiées :"
 
 #: pbaspire:349 pbsetup:321 pbupgrade:369 pbcompile:283 pbaspire:348
-#: pbaspire:359 pbupgrade:370 pbcompile:282
+#: pbaspire:359 pbupgrade:370 pbcompile:282 pbupgrade:380 pbcompile:288
 msgid "No action was demanded. Exit."
 msgstr "Aucune action demandée. Sortie."
 
@@ -301,23 +301,23 @@ msgstr "Copie des scripts pour KDE5 d'Alien Bob faite."
 msgid "KDE5 frameworks sources copied."
 msgstr "Copie des sources de KDE5 frameworks faite."
 
-#: pbaspirecore:226 pbaspirearmcore:165
+#: pbaspirecore:226 pbaspirearmcore:165 pbaspirecore:220 pbaspirearmcore:159
 msgid "Check GPG signatures :"
 msgstr "Vérification des signatures GPG :"
 
-#: pbaspirecore:251
+#: pbaspirecore:251 pbaspirecore:245
 msgid "GParted copied."
 msgstr "Copie GParted faite."
 
-#: pbaspirecore:253 pbaspirecore:259
+#: pbaspirecore:253 pbaspirecore:259 pbaspirecore:247
 msgid "GParted not copied."
 msgstr "Copie GParted non faite."
 
-#: pbaspirecore:282
+#: pbaspirecore:282 pbaspirecore:276
 msgid "VirtualBox copied."
 msgstr "Copie VirtualBox faite."
 
-#: pbaspirecore:284 pbaspirecore:290
+#: pbaspirecore:284 pbaspirecore:290 pbaspirecore:278
 msgid "VirtualBox not copied."
 msgstr "Copie VirtualBox non faite."
 
@@ -362,7 +362,7 @@ msgstr ""
 msgid "This script must be done as root. Exit."
 msgstr "Ce script doit être lancé root. On sort."
 
-#: pbcompilepost:99 pbcompilekde4:66 pbcompilegdm:58
+#: pbcompilepost:99 pbcompilekde4:66 pbcompilegdm:58 pbcompilepost:103
 msgid ""
 "Only after a system update and reboot.\\nIf already done on this or another "
 "machine, this script is not useful.\\nPress a touch for continue or abort."
@@ -372,6 +372,7 @@ msgstr ""
 "\\nAppuyer sur une touche pour continuer sinon CTRLc pour arrêter"
 
 #: pbcompilepost:308 pbcompilekde4:210 pbcompilegdm:79 pbcompilepost:317
+#: pbcompilepost:328
 msgid "Upgrade packages* done."
 msgstr "Mise à jour de packages* faite."
 
@@ -824,28 +825,28 @@ msgstr "Installer/mettre à jour Audacity"
 msgid "Install/Upgrade the Ardour software"
 msgstr "Installer/mettre à jour Ardour"
 
-#: pbupgrade:133 pbupgrade:130
+#: pbupgrade:133 pbupgrade:130 pbupgrade:131
 msgid "Install/Upgrade the Tesseract version 4 software"
 msgstr "Installer/mettre à jour Tesseract version 4"
 
-#: pbupgrade:134 pbupgrade:131
+#: pbupgrade:134 pbupgrade:131 pbupgrade:132
 msgid ""
 "Install/Upgrade the Bumblebee support of your second NVIDIA graphic card"
 msgstr ""
 "Installer/mettre à jour le support de votre 2ième carte graphique NVIDIA"
 
-#: pbupgrade:135 pbupgrade:132
+#: pbupgrade:135 pbupgrade:132 pbupgrade:133
 msgid "Upgrade boot loader."
 msgstr "Mettre à jour le gestionnaire de démarrage"
 
-#: pbupgrade:183 pbupgrade:184
+#: pbupgrade:183 pbupgrade:184 pbupgrade:185
 msgid ""
 "Upgrade your Slackware system with the last current fetched.\\nUses Slackpkg."
 msgstr ""
 "Mettez à jour votre système Slackware avec la dernière current ramenée."
 "\\nUtilise Slackpkg."
 
-#: pbupgrade:185 pbupgrade:186
+#: pbupgrade:185 pbupgrade:186 pbupgrade:187
 msgid ""
 "Upgrade your Slackware system with the last current on the internet.\\nUses "
 "Slackpkg."
@@ -853,11 +854,11 @@ msgstr ""
 "Mettez à jour votre système Slackware avec la dernière current sur internet."
 "\\nUtilise Slackpkg."
 
-#: pbupgrade:187 pbupgrade:188
+#: pbupgrade:187 pbupgrade:188 pbupgrade:189
 msgid "Upgrade the Alien Bob 32 bits compatible mode."
 msgstr "Mettez à jour le mode de compatibilté 32 bits (multilib) d'Alien Bob."
 
-#: pbupgrade:189 pbupgrade:190
+#: pbupgrade:189 pbupgrade:190 pbupgrade:191
 msgid ""
 "Upgrade the Firefox and Thunderbird products.\\nThey should be downloaded "
 "and put in the packages/Mozilla directory before."
@@ -865,7 +866,7 @@ msgstr ""
 "Mettez à jour Firefox et Thunderbird\\nIls doivent avoir été aspirés "
 "préalablement."
 
-#: pbupgrade:213 pbupgrade:214
+#: pbupgrade:213 pbupgrade:214 pbupgrade:217
 msgid ""
 "Upgrade your Bumblebee packages if they are in sync with the upgraded "
 "Slackware.\\nDone on another machine for exemple."
@@ -873,7 +874,7 @@ msgstr ""
 "Mettez à jour les paquets Bumblebee s'ils ont été recompilés avec la "
 "dernière Slackware installée.\\nFait sur une autre machine par exemple."
 
-#: pbupgrade:215 pbupgrade:216
+#: pbupgrade:215 pbupgrade:216 pbupgrade:219
 msgid ""
 "Upgrade your boot loader only if you upgrade your system and not the "
 "bootloader."
@@ -881,79 +882,79 @@ msgstr ""
 "Mettez à jour votre gestionnaire de démarrage seulement si vous avez mis à "
 "jour votre système et pas le gestionnaire de démarrage."
 
-#: pbupgrade:248 pbupgradesys:118 pbupgrade:249
+#: pbupgrade:248 pbupgradesys:118 pbupgrade:249 pbupgrade:253
 msgid "Upgrade system done."
 msgstr "Mise à jour du système faite."
 
-#: pbupgrade:262 pbupgrade:263
+#: pbupgrade:262 pbupgrade:263 pbupgrade:267
 msgid "Upgrade Alien Bob multilib done."
 msgstr "Mise à jour multilib d'Alien Bob faite."
 
-#: pbupgrade:268 pbupgrade:269
+#: pbupgrade:268 pbupgrade:269 pbupgrade:273
 msgid "Upgrade Mozilla done."
 msgstr "Mise à jour Mozilla faite."
 
-#: pbupgrade:276 pbupgrade:277
+#: pbupgrade:276 pbupgrade:277 pbupgrade:281
 msgid "Upgrade packages done."
 msgstr "Mise à jour de packages faite."
 
-#: pbupgrade:283 pbupgrade:284
+#: pbupgrade:283 pbupgrade:284 pbupgrade:288
 msgid "Upgrade packages2 done."
 msgstr "Mise à jour de packages2 faite."
 
-#: pbupgrade:290 pbupgrade:291
+#: pbupgrade:290 pbupgrade:291 pbupgrade:295
 msgid "Upgrade packages3 done."
 msgstr "Mise à jour de packages3 faite."
 
-#: pbupgrade:297 pbupgrade:298
+#: pbupgrade:297 pbupgrade:298 pbupgrade:302
 msgid "Upgrade packages4 done."
 msgstr "Mise à jour de packages4 faite."
 
-#: pbupgrade:304 pbupgrade:305
+#: pbupgrade:304 pbupgrade:305 pbupgrade:309
 msgid "Upgrade debian binary packages done."
 msgstr "Mise à jour des paquets binaires de debian faite."
 
-#: pbupgrade:316 pbupgrade:317
+#: pbupgrade:316 pbupgrade:317 pbupgrade:321
 msgid "Upgrade KDE4 and KDE5 frameworks done."
 msgstr "Mise à jour de KDE4 et KDE5 frameworks faite."
 
-#: pbupgrade:322 pbupgrade:323
+#: pbupgrade:322 pbupgrade:323 pbupgrade:327
 msgid "Upgrade GDM desktop manager done."
 msgstr "Mise à jour du gestionnaire de bureaux GDM faite."
 
-#: pbupgrade:329 pbupgrade:330
+#: pbupgrade:329 pbupgrade:330 pbupgrade:334
 msgid "Upgrade openshot done."
 msgstr "Mise à jour de Openshot faite."
 
-#: pbupgrade:336 pbupgrade:337
+#: pbupgrade:336 pbupgrade:337 pbupgrade:341
 msgid "Upgrade pitivi done."
 msgstr "Mise à jour de Pitivi faite."
 
-#: pbupgrade:342 pbupgrade:343
+#: pbupgrade:342 pbupgrade:343 pbupgrade:347
 msgid "Upgrade audacity done."
 msgstr "Mise à jour d'audacity faite."
 
-#: pbupgrade:348 pbupgrade:349
+#: pbupgrade:348 pbupgrade:349 pbupgrade:353
 msgid "Upgrade ardour done."
 msgstr "Mise à jour de ardour faite."
 
-#: pbupgrade:355 pbupgrade:356
+#: pbupgrade:355 pbupgrade:356 pbupgrade:366
 msgid "Upgrade tesseract4 done."
 msgstr "Mise à jour de tesseract4 faite."
 
-#: pbupgrade:361 pbupgrade:362
+#: pbupgrade:361 pbupgrade:362 pbupgrade:372
 msgid "Upgrade Bumblebee done."
 msgstr "Mise à jour de Bumblebee faite."
 
-#: pbupgrade:364 pbupgrade:365
+#: pbupgrade:364 pbupgrade:365 pbupgrade:375
 msgid "Updating bootloader asked."
 msgstr "La mise à jour du gestionnaire de démarrage a été demandée."
 
-#: pbupgrade:394 pbupgrade:395
+#: pbupgrade:394 pbupgrade:395 pbupgrade:405
 msgid "Bootloader menu"
 msgstr "Menu gestionnaire de démarrage"
 
-#: pbupgrade:395 pbupgrade:396
+#: pbupgrade:395 pbupgrade:396 pbupgrade:406
 msgid ""
 "We have detected the bootloader below. Cancel if it is not true.\\nIn this "
 "last case, you should recreate the config of your bootloader before reboot. "
@@ -966,11 +967,11 @@ msgstr ""
 "démarrer d'un autre média comme un DVD ou une clé USB et relancez "
 "l'installation de votre gestionnaire."
 
-#: pbupgrade:396 pbupgrade:397
+#: pbupgrade:396 pbupgrade:397 pbupgrade:407
 msgid "No bootloader detected. Reconfigure your bootloader before reboot."
 msgstr "Aucun gestionnaire de démarrage détecté. Mettez le vôtre à jour."
 
-#: pbupgrade:408 pbupgrade:409
+#: pbupgrade:408 pbupgrade:409 pbupgrade:419
 msgid ""
 "\\ZbThe boot loader was not upgraded.\\ZB\\nIf lilo is installed, launch : "
 "\\Z3/sbin/lilo\\Zn\\nIf Grub is installed, launch : \\Z3grub-mkconfig -o /"
@@ -987,7 +988,7 @@ msgstr ""
 "Slackware\\Zn\\n\\n\\ZbOu relancez votre autre gestionnaire de démarrage "
 "favori avant de redémarrer votre machine.\\ZB"
 
-#: pbupgrade:412 pbupgrade:413
+#: pbupgrade:412 pbupgrade:413 pbupgrade:423
 msgid ""
 "Elilo upgraded : Files vmlinuz et initrd.gz copied in \\Z3/boot/efi/EFI/"
 "Slackware\\Zn"
@@ -995,7 +996,7 @@ msgstr ""
 "Elilo mis à jour : Fichiers vmlinuz et initrd.gz copiés dans \\Z3/boot/efi/"
 "EFI/Slackware\\Zn"
 
-#: pbupgrade:417 pbupgrade:418
+#: pbupgrade:417 pbupgrade:418 pbupgrade:428
 msgid ""
 "Grub upgraded : \\Z3grub-mkconfig\\Zn relaunched.\\n\\Z1Look if there are "
 "error messages below\\Zn."
@@ -1003,7 +1004,7 @@ msgstr ""
 "Grub mis à jour : \\Z3grub-mkconfig\\Zn relancé.\\n\\Z1Regardez s'il y a des "
 "messages d'erreurs ci-dessous\\Zn."
 
-#: pbupgrade:422 pbupgrade:423
+#: pbupgrade:422 pbupgrade:423 pbupgrade:433
 msgid ""
 "Lilo upgraded with \\Z3/sbin/lilo\\Zn.\\n\\Z1Look if there are error "
 "messages below\\Zn."
@@ -1011,7 +1012,7 @@ msgstr ""
 "Lilo mis à jour avec \\Z3/sbin/lilo\\Zn.\\n\\Z1Regardez s'il y a des "
 "messages d'erreurs ci-dessous\\Zn."
 
-#: pbupgrade:427 pbupgrade:428
+#: pbupgrade:427 pbupgrade:428 pbupgrade:438
 msgid ""
 "Look at \\Z3/syslinux.cfg\\Zn and rerun \\Z3syslinux\\Zn on your boot "
 "partition if some path have changed."
@@ -1019,13 +1020,14 @@ msgstr ""
 "Regardez \\Z3/syslinux.cfg\\Zn et relancez \\Z3syslinux\\Zn sur votre "
 "partition de démarrage si certains chemins ont changé."
 
-#: pbupgrade:441 pbupgrade:442
+#: pbupgrade:441 pbupgrade:442 pbupgrade:452
 msgid " (\\Z1be sure to have upgraded the bootloader before\\Zn)"
 msgstr ""
 " (\\Z1vérifiez que vous avez mis à jour votre gestionnaire de démarrage "
 "avant de redémarrer\\Zn)"
 
-#: pbupgrade:447 pbcompile:298 pbupgrade:448 pbcompile:297
+#: pbupgrade:447 pbcompile:298 pbupgrade:448 pbcompile:297 pbupgrade:458
+#: pbcompile:303
 #, sh-format
 msgid ""
 "Reboot the host${XBOOTMES}.\\n\\n\\ZbThen do if not already done on an "
@@ -1137,11 +1139,11 @@ msgstr ""
 msgid "KDE5 applications sources copied."
 msgstr "Copie des sources de KDE5 faite."
 
-#: pbaspirearmcore:190
+#: pbaspirearmcore:190 pbaspirearmcore:184
 msgid "Sarpi copied."
 msgstr "Copie Sarpi faite."
 
-#: pbaspirearmcore:192 pbaspirearmcore:198
+#: pbaspirearmcore:192 pbaspirearmcore:198 pbaspirearmcore:186
 msgid "Sarpi not copied."
 msgstr "Copie Sarpi non faite."
 
@@ -1218,11 +1220,11 @@ msgstr "Compilez à nouveau Audacity"
 msgid "Compile again the Ardour software"
 msgstr "Compilez à nouveau Ardour"
 
-#: pbcompile:122 pbcompile:119
+#: pbcompile:122 pbcompile:119 pbcompile:120
 msgid "Compile again Bumblebee packages."
 msgstr "Compiler à nouveau les paquets Bumblebee."
 
-#: pbcompile:172 pbcompile:171
+#: pbcompile:172 pbcompile:171 pbcompile:173
 msgid ""
 "Redo the packages which are here in sources form.\\nIf not already done on "
 "this machine or another.\\n"
@@ -1230,14 +1232,14 @@ msgstr ""
 "Recompilez les paquets qui sont ici sous forme source.\\nSi non fait sur "
 "cette machine ou une autre.\\n"
 
-#: pbcompile:180 pbcompile:179
+#: pbcompile:180 pbcompile:179 pbcompile:181
 msgid ""
 "Redo the Calibre package.\\nIf not already done on this machine or another."
 msgstr ""
 "Recompilez le paquet Calibre qui est ici sous forme source.\\nSi non fait "
 "sur cette machine ou une autre.\\n"
 
-#: pbcompile:182 pbcompile:181
+#: pbcompile:182 pbcompile:181 pbcompile:183
 msgid ""
 "Redo dependencies for KDE4 set of packages.\\nIf not already done on this "
 "machine or another."
@@ -1245,14 +1247,14 @@ msgstr ""
 "Recompilez les dépendences de KDE4 qui sont ici sous forme source.\\nSi non "
 "déjà fait sur cette machine ou une autre.\\n"
 
-#: pbcompile:184 pbcompile:183
+#: pbcompile:184 pbcompile:183 pbcompile:185
 msgid ""
 "Redo KDE4 set of packages.\\nIf not already done on this machine or another."
 msgstr ""
 "Recompilez les paquets de KDE4 qui sont ici sous forme source.\\nSi non déjà "
 "fait sur cette machine ou une autre.\\n"
 
-#: pbcompile:186 pbcompile:185
+#: pbcompile:186 pbcompile:185 pbcompile:187
 msgid ""
 "Redo languages for KDE4 set of packages.\\nIf not already done on this "
 "machine or another."
@@ -1260,7 +1262,7 @@ msgstr ""
 "Recompilez les langages pour KDE4 qui sont ici sous forme source.\\nSi non "
 "déjà fait sur cette machine ou une autre.\\n"
 
-#: pbcompile:188 pbcompile:187
+#: pbcompile:188 pbcompile:187 pbcompile:189
 msgid ""
 "Redo KDE5 frameworks set of packages.\\nIf not already done on this machine "
 "or another."
@@ -1268,14 +1270,14 @@ msgstr ""
 "Recompilez les paquets de l'ensemble KDE5 frameworks qui sont ici sous forme "
 "source.\\nSi non déjà fait sur cette machine ou une autre.\\n"
 
-#: pbcompile:190 pbcompile:189
+#: pbcompile:190 pbcompile:189 pbcompile:191
 msgid ""
 "Redo GDM set of packages.\\nIf not already done on this machine or another."
 msgstr ""
 "Recompilez les paquets de GDM qui sont ici sous forme source.\\nSi non déjà "
 "fait sur cette machine ou une autre.\\n"
 
-#: pbcompile:192 pbcompile:191
+#: pbcompile:192 pbcompile:191 pbcompile:193
 msgid ""
 "Redo Debian set of packages.\\nIf not already done on this machine or "
 "another."
@@ -1283,7 +1285,7 @@ msgstr ""
 "Recompilez les paquets de Debian qui sont ici sous forme source.\\nSi non "
 "déjà fait sur cette machine ou une autre.\\n"
 
-#: pbcompile:194 pbcompile:193
+#: pbcompile:194 pbcompile:193 pbcompile:195
 msgid ""
 "Redo the Chromium navigator which are here in sources form.\\nIf not already "
 "done on this machine or another.\\nIt is a very long process (some hours)."
@@ -1295,7 +1297,7 @@ msgstr ""
 "heures).\\nC'est utile pour qu'Opera ait la librairie libffmpeg.so avec le "
 "support du h264."
 
-#: pbcompile:196 pbcompile:195
+#: pbcompile:196 pbcompile:195 pbcompile:197
 msgid ""
 "Redo the openshot packages which are here in sources form.\\nIf not already "
 "done on this machine or another."
@@ -1303,7 +1305,7 @@ msgstr ""
 "Recompilez les paquets d'Openshot qui sont ici sous forme source.\\nSi non "
 "fait sur cette machine ou une autre."
 
-#: pbcompile:198 pbcompile:197
+#: pbcompile:198 pbcompile:197 pbcompile:199
 msgid ""
 "Redo the pitivi packages which are here in sources form.\\nIf not already "
 "done on this machine or another."
@@ -1311,7 +1313,7 @@ msgstr ""
 "Recompilez les paquets pitivi qui sont ici sous forme source.\\nSi non fait "
 "sur cette machine ou une autre.\\n"
 
-#: pbcompile:200 pbcompile:199
+#: pbcompile:200 pbcompile:199 pbcompile:201
 msgid ""
 "Redo the audacity packages which are here in sources form.\\nIf not already "
 "done on this machine or another."
@@ -1319,7 +1321,7 @@ msgstr ""
 "Recompilez les paquets d'Audacity qui sont ici sous forme source.\\nSi non "
 "fait sur cette machine ou une autre."
 
-#: pbcompile:202 pbcompile:201
+#: pbcompile:202 pbcompile:201 pbcompile:203
 msgid ""
 "Redo the ardour packages which are here in sources form.\\nIf not already "
 "done on this machine or another."
@@ -1327,7 +1329,7 @@ msgstr ""
 "Recompilez les paquets d'Ardour qui sont ici sous forme source.\\nSi non "
 "fait sur cette machine ou une autre."
 
-#: pbcompile:204 pbcompile:203
+#: pbcompile:204 pbcompile:203 pbcompile:207
 msgid ""
 "Redo the Bumblebee packages.\\nIf not already done on this machine or "
 "another.\\nYou should reboot after upgrading system packages and before "
@@ -1337,15 +1339,15 @@ msgstr ""
 "autre.\\nVous devez redémarrer après mise à jour des paquets systèmes avant "
 "cette action sinon les paquets Bumblebee ne se reconstruiront pas."
 
-#: pbcompile:254 pbcompile:253
+#: pbcompile:254 pbcompile:253 pbcompile:259
 msgid "Recreate source packages done."
 msgstr "Paquets sources recréés."
 
-#: pbcompile:260 pbcompile:259
+#: pbcompile:260 pbcompile:259 pbcompile:265
 msgid "Recreate source kde4 packages done."
 msgstr "Paquets sources pour kde4 recréés."
 
-#: pbcompile:266 pbcompile:265
+#: pbcompile:266 pbcompile:265 pbcompile:271
 msgid ""
 "Recreate source Bumblebee done. Reboot your computer for Bumblebee to work."
 msgstr "Bumblebee recréé à partir des sources. Redémarrez la machine."
@@ -1419,6 +1421,26 @@ msgid "Correct this error and relaunch this script. Press a key to end."
 msgstr ""
 "Erreur à corriger puis relancer ce script. Pressez sur une touche pour finir."
 
-#: pbcompile:277
+#: pbcompile:277 pbcompile:283
 msgid "Recreate source Debian done."
 msgstr "Paquets sources de Debian recréés."
+
+#: pbupgrade:130
+msgid "Install/Upgrade the LMMS software"
+msgstr "Installer/mettre à jour le logiciel LMMS"
+
+#: pbupgrade:359
+msgid "Upgrade lmms done."
+msgstr "Mise à jour de LMMS faite."
+
+#: pbcompile:119
+msgid "Compile again the LMMS software"
+msgstr "Compilez à nouveau le logiciel LMMS"
+
+#: pbcompile:205
+msgid ""
+"Redo the LMMS packages which are here in sources form.\\nIf not already done "
+"on this machine or another."
+msgstr ""
+"Recompilez les paquets de LMMS qui sont ici sous forme source.\\nSi non fait "
+"sur cette machine ou une autre.\\n"

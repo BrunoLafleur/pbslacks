@@ -108,7 +108,7 @@ xpurgeindex packages3
 	    xgetsrcpac0 "$i" "$SLACKALIEN/$i/build" 9
 	done
     )
-    
+
     [ ! -d ardour ] && mkdir ardour
     (
 	cd ardour
