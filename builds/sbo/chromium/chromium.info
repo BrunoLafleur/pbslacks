@@ -1,16 +1,16 @@
 PRGNAM="chromium"
-VERSION="90.0.4430.212"
+VERSION="93.0.4577.82"
 HOMEPAGE="https://github.com/chromium/chromium/"
-DOWNLOAD_arm="http://ftp.fr.debian.org/debian/pool/main/c/chromium/chromium_90.0.4430.212-1_armhf.deb \
-http://ftp.fr.debian.org/debian/pool/main/c/chromium/chromium-common_90.0.4430.212-1_armhf.deb \
-http://ftp.fr.debian.org/debian/pool/main/c/chromium/chromium-sandbox_90.0.4430.212-1_armhf.deb \
-http://ftp.fr.debian.org/debian/pool/main/c/chromium/chromium-driver_90.0.4430.212-1_armhf.deb \
-http://ftp.fr.debian.org/debian/pool/main/c/chromium/chromium-l10n_90.0.4430.212-1_all.deb"
-MD5SUM_arm="cfac58c6dd818be1016d62bff57a9817 \
-ef87cdaa0cc953554177ece82bb461ab \
-a9deab1cffdef3ba2e5a1347c3ccf45e \
-d326a46f8136c75aa99b314478be9da4 \
-b7415bfc23f1ccf6f8bf951d88317ba0"
+DOWNLOAD_arm="http://ftp.fr.debian.org/debian/pool/main/c/chromium/chromium_93.0.4577.82-1_armhf.deb \
+http://ftp.fr.debian.org/debian/pool/main/c/chromium/chromium-common_93.0.4577.82-1_armhf.deb \
+http://ftp.fr.debian.org/debian/pool/main/c/chromium/chromium-sandbox_93.0.4577.82-1_armhf.deb \
+http://ftp.fr.debian.org/debian/pool/main/c/chromium/chromium-driver_93.0.4577.82-1_armhf.deb \
+http://ftp.fr.debian.org/debian/pool/main/c/chromium/chromium-l10n_93.0.4577.82-1_all.deb"
+MD5SUM_arm="fb0576fdef3576e6a13e066c9d779fef \
+b0d955aba7c33d01d2265de88d5bb209 \
+8e48539be9ead8ae7cf9efa302323242 \
+dd9799c90bed4816e3723547d0241e45 \
+1dbbceea02baac0256c95d27c5f498af"
 REQUIRES="libwebp6 icu4c67 jsoncpp re29 snappy minizip1"
 MAINTAINER="Pierre Brochard"
 EMAIL="pierre.brochard.1982@m4x.org"
