@@ -1,0 +1,16 @@
+PRGNAM="zeromq"
+VERSION="4.3.4"
+HOMEPAGE="http://zeromq.org"
+DOWNLOAD="https://github.com/zeromq/libzmq/releases/download/v4.3.4/zeromq-4.3.4.tar.gz \
+https://github.com/zeromq/cppzmq/archive/v4.6.0/cppzmq-4.6.0.tar.gz"
+FILENAME="zeromq-4.3.4.tar.gz"
+MD5SUM="c897d4005a3f0b8276b00b7921412379 \
+7cae1b3fbfeaddb9cf1f70e99a98add2"
+SHASUM="47277a64749049123d1401600e8cfbab10a3ae28"
+SHA256SUM="c593001a89f5a85dd2ddf564805deb860e02471171b3f204944857336295c3e5"
+DOWNLOAD_1="https://github.com/zeromq/cppzmq/archive/v4.6.0/cppzmq-4.6.0.tar.gz"
+FILENAME_1="cppzmq-4.6.0.tar.gz"
+MD5SUM_1="7cae1b3fbfeaddb9cf1f70e99a98add2"
+REQUIRES=""
+MAINTAINER="Corrado Franco"
+EMAIL="conraid (at) linux (dot) it"

@@ -43,8 +43,7 @@ fi
     [ ! -d openshot ] && mkdir openshot
     (
 	cd openshot
-	for i in python3-pyzmq libopenshot-audio httplib2 zeromq \
-			       unittest-cpp frei0r ;do
+	for i in python3-pyzmq httplib2 unittest-cpp frei0r ;do
 	    xgetpac "$i" "$SLACKPONCE" 3
 	done
     )

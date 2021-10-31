@@ -1,8 +1,8 @@
 #!/bin/bash
 #
-# Slackware build script for libopenshot
+# Slackware build script for zeromq
 #
-# Copyright 2019-2021 Corrado Franco (https://corradofranco.it)
+# Copyright 2017-2021 Corrado Franco (https://corradofranco.it)
 # All rights reserved.
 #
 # This program is free software: you can redistribute it and/or modify
@@ -29,15 +29,16 @@ set -eu
 
 cd $(dirname $0) ; CWD=$(pwd)
 
-PKGNAM=libopenshot
-VERSION=0.2.7
-BUILD=${BUILD:-5}
+PKGNAM=zeromq
+VERSION=4.3.4
+CPPVERSION=4.6.0
+BUILD=${BUILD:-1}
 TAG=${TAG:-cf}
 TMP=${TMP:-/tmp/pkg}
 PKG=$TMP/package-$PKGNAM
 OUTPUT=${OUTPUT:-/tmp}
 
-DOCFILES="AUTHORS COPYING* *.md"
+DOCFILES="AUTHORS COPYING* INSTALL NEWS doc"
 
 if [ -z ${ARCH:=""} ]; then
   case "$( uname -m )" in
@@ -51,7 +52,7 @@ fi
 # the name of the created package would be, and then exit. This information
 # could be useful to other scripts.
 if [ ! -z "${PRINT_PACKAGE_NAME:-""}" ]; then
-  echo "$PKGNAM-$VERSION-$ARCH-$BUILD.txz "
+  echo "$PKGNAM-$VERSION-$ARCH-${BUILD}${TAG}.txz"
   exit 0
 fi
 
@@ -75,34 +76,37 @@ cd $TMP
 rm -rf $PKGNAM-$VERSION
 tar xvf $CWD/$PKGNAM-$VERSION.tar.gz || tar xvf $CWD/v$VERSION.tar.gz
 cd $PKGNAM-$VERSION
+tar --wildcards -xf $CWD/cppzmq-$CPPVERSION.tar.gz */zmq.hpp */zmq_addon.hpp --strip=1
 
 chown -R root:root .
-find . \
-  \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
-  -exec chmod 755 {} \+ -o \
-  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
-  -exec chmod 644 {} \+
+chmod -R u+w,go+r-w,a+X-s .
 
-# Apply patches
-if [ -e $CWD/patches/ ]; then
-  for PATCH in $CWD/patches/*.patch; do
-    patch -p1 -i $PATCH
-  done
-fi
+# Fix for libsodium
+sed 's/libzmq_werror="yes"/libzmq_werror="no"/' -i configure
 
-mkdir -p build
-cd build
-cmake -Wno-dev \
-  -DCMAKE_CXX_FLAGS_RELEASE:STRING="$SLKCFLAGS -DNDEBUG" \
-  -DCMAKE_BUILD_TYPE=Release \
-  -DCMAKE_INSTALL_PREFIX=/usr \
-  -DUSE_SYSTEM_JSONCPP=Off \
-  -DENABLE_RUBY=OFF \
-  ..
+LDFLAGS="-L/usr/lib$LIBDIRSUFFIX" \
+CFLAGS="$SLKCFLAGS" \
+CXXFLAGS="$SLKCFLAGS" \
+./configure \
+  --prefix=/usr \
+  --libdir=/usr/lib$LIBDIRSUFFIX \
+  --sysconfdir=/etc \
+  --localstatedir=/var \
+  --mandir=/usr/man \
+  --infodir=/usr/info \
+  --docdir=/usr/doc/$PKGNAM-$VERSION \
+  --enable-static=no \
+  --enable-shared=yes \
+  --with-libsodium \
+  --host=$ARCH-slackware-linux \
+  --build=$ARCH-slackware-linux
 
 make
 make DESTDIR=$PKG install
-cd ..
+
+# Install header
+install -Dm644 zmq.hpp "$PKG/usr/include/zmq.hpp"
+install -Dm644 zmq_addon.hpp "$PKG/usr/include/zmq_addon.hpp"
 
 # Don't ship .la files:
 rm -f $PKG/{,usr/}lib${LIBDIRSUFFIX}/*.la

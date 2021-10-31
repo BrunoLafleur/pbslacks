@@ -1,8 +1,8 @@
 #!/bin/bash
 #
-# Slackware build script for libopenshot
+# Slackware build script for protobuf
 #
-# Copyright 2019-2021 Corrado Franco (https://corradofranco.it)
+# Copyright 2011-2021 Corrado Franco (https://corradofranco.it)
 # All rights reserved.
 #
 # This program is free software: you can redistribute it and/or modify
@@ -24,20 +24,25 @@
 # <http://www.gnu.org/licenses/>.
 #
 # Latest version of this SlackBuild at https://github.com/conraid/SlackBuilds
-
+#
 set -eu
 
 cd $(dirname $0) ; CWD=$(pwd)
 
-PKGNAM=libopenshot
-VERSION=0.2.7
-BUILD=${BUILD:-5}
+PKGNAM=protobuf
+VERSION=3.19.1
+BUILD=${BUILD:-1}
 TAG=${TAG:-cf}
 TMP=${TMP:-/tmp/pkg}
 PKG=$TMP/package-$PKGNAM
 OUTPUT=${OUTPUT:-/tmp}
 
-DOCFILES="AUTHORS COPYING* *.md"
+DOCFILES="BUILD LICENSE *.txt README* WORKSPACE editors examples"
+
+# Set YES to enable bindings.
+BUILD_PYTHON=${BUILD_PYTHON:-YES}
+BUILD_PHP=${BUILD_PHP:-YES}
+BUILD_RUBY=${BUILD_RUBY:-NO}
 
 if [ -z ${ARCH:=""} ]; then
   case "$( uname -m )" in
@@ -51,7 +56,7 @@ fi
 # the name of the created package would be, and then exit. This information
 # could be useful to other scripts.
 if [ ! -z "${PRINT_PACKAGE_NAME:-""}" ]; then
-  echo "$PKGNAM-$VERSION-$ARCH-$BUILD.txz "
+  echo "$PKGNAM-$VERSION-$ARCH-${BUILD}${TAG}.txz"
   exit 0
 fi
 
@@ -73,42 +78,40 @@ rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 rm -rf $PKGNAM-$VERSION
-tar xvf $CWD/$PKGNAM-$VERSION.tar.gz || tar xvf $CWD/v$VERSION.tar.gz
+tar xvf $CWD/$PKGNAM-$VERSION.tar.gz
 cd $PKGNAM-$VERSION
 
 chown -R root:root .
-find . \
-  \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
-  -exec chmod 755 {} \+ -o \
-  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
-  -exec chmod 644 {} \+
+chmod -R u+w,go+r-w,a-s .
 
-# Apply patches
-if [ -e $CWD/patches/ ]; then
-  for PATCH in $CWD/patches/*.patch; do
-    patch -p1 -i $PATCH
-  done
-fi
-
-mkdir -p build
-cd build
-cmake -Wno-dev \
-  -DCMAKE_CXX_FLAGS_RELEASE:STRING="$SLKCFLAGS -DNDEBUG" \
-  -DCMAKE_BUILD_TYPE=Release \
-  -DCMAKE_INSTALL_PREFIX=/usr \
-  -DUSE_SYSTEM_JSONCPP=Off \
-  -DENABLE_RUBY=OFF \
-  ..
+./autogen.sh
+LDFLAGS="-L/usr/lib${LIBDIRSUFFIX}" \
+CFLAGS="$SLKCFLAGS" \
+CXXFLAGS="$SLKCFLAGS" \
+./configure \
+  --prefix=/usr \
+  --libdir=/usr/lib${LIBDIRSUFFIX} \
+  --sysconfdir=/etc \
+  --localstatedir=/var \
+  --mandir=/usr/man \
+  --docdir=/usr/doc/$PKGNAM-$VERSION \
+  --enable-static=no \
+  --enable-shared=yes \
+  --host=$ARCH-slackware-linux \
+  --build=$ARCH-slackware-linux
 
 make
-make DESTDIR=$PKG install
-cd ..
+make DESTDIR=$PKG install-strip
 
 # Don't ship .la files:
 rm -f $PKG/{,usr/}lib${LIBDIRSUFFIX}/*.la
 
-find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF | cut -f 1 -d : | xargs -r strip --strip-unneeded 2> /dev/null || true
-find $PKG | xargs file | grep "current ar archive" | cut -f 1 -d : | xargs -r strip -g 2> /dev/null || true
+# Python
+if [ $BUILD_PYTHON = "YES" ]; then
+  cd python
+  python3 setup.py install --cpp_implementation --root=$PKG
+  cd -
+fi
 
 if [ -d $PKG/usr/man ]; then
   find $PKG/usr/man -type f -exec chmod 644 {} \; -exec gzip -9 {} \;
@@ -116,11 +119,15 @@ if [ -d $PKG/usr/man ]; then
 fi
 
 mkdir -p $PKG/usr/doc/$PKGNAM-$VERSION
-cp -a $DOCFILES $PKG/usr/doc/$PKGNAM-$VERSION || true
+cp -a $DOCFILES $PKG/usr/doc/$PKGNAM-$VERSION
 cat $CWD/$PKGNAM.SlackBuild > $PKG/usr/doc/$PKGNAM-$VERSION/$PKGNAM.SlackBuild
+
+# Install emacs and vim syntax files
+install -Dm644 editors/protobuf-mode.el -t "$PKG/usr/share/emacs/site-lisp/"
+install -Dm644 editors/proto.vim -t "$PKG/usr/share/vim/vimfiles/syntax"
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 
 cd $PKG
-/sbin/makepkg -l y -c n $OUTPUT/$PKGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-txz}
+/sbin/makepkg -l y -c n $OUTPUT/$PKGNAM-$VERSION-$ARCH-$BUILD${TAG}.txz

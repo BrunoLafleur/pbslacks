@@ -36,8 +36,9 @@ fi
     [ ! -d openshot ] && mkdir openshot
     (
 	cd openshot
-	for i in openshot_qt lxml inkscape opencolorio pybind11 openimageio \
-			     numpy3 tbb Blender libopenshot ;do
+	for i in zeromq protobuf libopenshot-audio libopenshot openshot_qt lxml \
+			inkscape opencolorio pybind11 openimageio numpy3 tbb \
+			Blender ;do
 	    xgetsbosrc "$i"
 	done
 	xlocalsrcpac gstreamer0 "gstreamer-0.10.36.tar.xz"

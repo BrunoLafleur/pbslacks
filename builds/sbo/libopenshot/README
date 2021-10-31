@@ -1,3 +1,17 @@
-OpenShot Library (libopenshot) is an open-source project dedicated to
-delivering high quality video editing, animation, and playback solutions
-to the world. For more information visit <http://www.openshot.org/>.
+
+Slackware Current Repository by Conraid
+
+======================================================================
+
+libopenshot (OpenShot Video Library)
+
+OpenShot Video Library (libopenshot) is a free, open-source project
+dedicated to delivering high quality video editing, animation, and
+playback solutions to the world. API currently supports C++, Python
+and Ruby.
+
+HOME: https://github.com/OpenShot/libopenshot/
+
+======================================================================
+REQUIRES: protobuf libopenshot-audio zeromq unittest-cpp
+
