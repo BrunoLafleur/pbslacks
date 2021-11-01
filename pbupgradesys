@@ -51,7 +51,7 @@ setconfslackpkg () {
     fi
 }
 
-upgradeglibc () [
+upgradeglibc () {
     XCURDIRA=slackware64/a
     if [ $(ls $XCURDIRA/aaa_glibc-solibs-*.t?z 2> /dev/null|wc -l) -gt 0 ] ;then
 	(
