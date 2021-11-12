@@ -1,0 +1,23 @@
+This gcc8 package can be installed alongside Slackware's gcc packages.
+
+How to use these gcc8 compilers instead of Slackware's default C and C++?
+Simple:
+In your console or terminal, you 'source' the provided profile script,
+like this (a c-shell compatible script is available as well):
+
+  source /etc/profile.d/gcc8.sh
+
+The command 'source' is equivalent to the dot command ' . '.
+The profile script will (re-)define the common variables that are used
+by make and other programs to determine which binary to run as the compiler:
+
+export CC=gcc-8
+export CPP=cpp-8
+export CXX=g++-8
+export AR=gcc-ar-8
+export NM=gcc-nm-8
+export RANLIB=gcc-ranlib-8
+
+Nothing else needs to be done after sourcing the profile script.
+All you do next is run your compile job as usual in that same console.
+Your program will be compiled with the binaries provided by the gcc8 package.

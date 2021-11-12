@@ -61,13 +61,17 @@ else
 fi
 
 cuda=""
-if [ -d /usr/include/cuda ]; then
-  # If cudatoolkit is installed, assume we want to use it
-  cuda="-DWITH_CYCLES_CUDA_BINARIES=ON"
-  # However disable cuda if requested by e.g. CUDA=no
-  if [ ${CUDA:-yes} != "yes" ]; then
-    cuda="-DWITH_CYCLES_CUDA_BINARIES=OFF"
-  fi
+HASCUDA=no
+if [ -d /usr/lib$LIBDIRSUFFIX/nvidia-bumblebee/cuda/include -o \
+	-d /usr/include/cuda ]; then
+    # If cudatoolkit is installed, assume we want to use it
+    cuda="-DWITH_CYCLES_CUDA_BINARIES=ON"
+    HASCUDA=yes
+    # However disable cuda if requested by e.g. CUDA=no
+    if [ ${CUDA:-yes} != "yes" ]; then
+	cuda="-DWITH_CYCLES_CUDA_BINARIES=OFF"
+    fi
+    export PATH=/usr/lib$LIBDIRSUFFIX/nvidia-bumblebee/cuda/bin${PATH:+:$PATH}
 fi
 
 set -e
@@ -91,6 +95,7 @@ find -L . \
 
 # For Python 3.9
 cat $CWD/blender-python3.9-pb.patch|patch -p1
+#cat $CWD/cuda.patch|patch -p1
 
 mkdir -p build
 cd build
@@ -137,11 +142,18 @@ for bin in $BLENDERBINS ; do
   cat <<EOF >$PKG/usr/bin/$bin
 #!/bin/sh
 #export PYTHONPATH=/usr/share/$SRCNAM/$BASE_VERSION/python/lib$LIBDIRSUFFIX/python$PYTHON_VERSION
-export LD_LIBRARY_PATH=/usr/lib$LIBDIRSUFFIX/opencollada
+export LD_LIBRARY_PATH=/usr/lib$LIBDIRSUFFIX/opencollada\${LD_LIBRARY_PATH:+:\$LD_LIBRARY_PATH}
+export PATH=/usr/lib$LIBDIRSUFFIX/nvidia-bumblebee/cuda/bin\${PATH:+:\$PATH}
 exec $bin.bin "\$@"
 EOF
   chmod 0755 $PKG/usr/bin/$bin
 done
+
+# Pour CUDA
+if [ "$HASCUDA" = yes ] ;then
+    mkdir -p $PKG/etc/rc.d
+    cp $CWD/load_nvidia_devices $PKG/etc/rc.d/rc.nvidia
+fi
 
 mkdir -p $PKG/usr/man/man1
 ./doc/manpage/blender.1.py build/bin/blender $PKG/usr/man/man1/blender.1
