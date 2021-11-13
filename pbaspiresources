@@ -38,7 +38,7 @@ fi
 	cd openshot
 	for i in zeromq protobuf libopenshot-audio libopenshot openshot_qt lxml \
 			inkscape opencolorio pybind11 openimageio numpy3 tbb \
-			Blender ;do
+			OpenSubdiv Blender ;do
 	    xgetsbosrc "$i"
 	done
 	xlocalsrcpac gstreamer0 "gstreamer-0.10.36.tar.xz"

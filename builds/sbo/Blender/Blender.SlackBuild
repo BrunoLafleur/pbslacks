@@ -86,6 +86,7 @@ cd $TMP
 rm -rf $SRCNAM-$VERSION
 tar xvf $CWD/$SRCNAM-$VERSION.tar.xz
 cd $SRCNAM-$VERSION
+
 chown -R root:root .
 find -L . \
  \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
@@ -94,7 +95,8 @@ find -L . \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
 # For Python 3.9
-cat $CWD/blender-python3.9-pb.patch|patch -p1
+cat $CWD/patches/blender-python3.9-pb.patch|patch -p1 || exit 1
+cat $CWD/patches/0007-BPY_thread_save_crashes_against_Py3.9.patch|patch -p1 || exit 1
 #cat $CWD/cuda.patch|patch -p1
 
 mkdir -p build
@@ -127,7 +129,7 @@ cd build
     -DWITH_SDL:BOOL=ON \
     -DWITH_SDL_DYNLOAD:BOOL=ON \
     -DCMAKE_BUILD_TYPE=Release \
-    $cuda \
+    $cuda
 
   make
   make install DESTDIR=$PKG
