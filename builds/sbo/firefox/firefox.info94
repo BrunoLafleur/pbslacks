@@ -1,0 +1,8 @@
+PRGNAM="firefox"
+VERSION="94.0.2"
+HOMEPAGE="https://www.mozilla.org/fr/firefox/"
+DOWNLOAD_arm="http://ftp.fr.debian.org/debian/pool/main/f/firefox/firefox_94.0.2-1_armhf.deb"
+MD5SUM_arm="6574a0da7d9a2a4e419432f7ac05fb6f"
+REQUIRES=""
+MAINTAINER="Pierre Brochard"
+EMAIL="pierre.brochard.1982@m4x.org"

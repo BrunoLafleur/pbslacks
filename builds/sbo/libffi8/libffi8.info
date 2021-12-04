@@ -1,0 +1,8 @@
+PRGNAM="libffi6"
+VERSION="3.4.2"
+HOMEPAGE="https://sourceware.org/libffi/"
+DOWNLOAD="https://github.com/libffi/libffi/releases/download/v3.4.2/libffi-3.4.2.tar.gz"
+MD5SUM="294b921e6cf9ab0fbaea4b639f8fdbe8"
+REQUIRES=""
+MAINTAINER="Pierre Brochard"
+EMAIL="pierre.brochard.1982@m4x.org"

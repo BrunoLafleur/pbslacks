@@ -59,7 +59,7 @@ done
 	xpurgepac "$i/${i}_" deb
     done
     for i in libffi6 libevent6 libwebp6 icu4c67 jsoncpp re29 snappy minizip1 \
-	     firejail firetools ;do
+	     firejail firetools libffi8 ;do
 	xgetsbosrc $i
     done
     
