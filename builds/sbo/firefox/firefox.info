@@ -1,7 +1,7 @@
 PRGNAM="firefox"
 VERSION="88.0.1"
 HOMEPAGE="https://www.mozilla.org/fr/firefox/"
-DOWNLOAD_arm="https://github.com/BrunoLafleur/pbslacks/blob/master/builds/src/firefox/firefox_88.0.1-1_armhf.deb"
+DOWNLOAD_arm="https://github.com/BrunoLafleur/pbslacks/raw/master/builds/src/firefox_88.0.1-1_armhf.deb"
 MD5SUM_arm="164b83deccbf66ac4129f435788a6062"
 REQUIRES=""
 MAINTAINER="Pierre Brochard"
