@@ -1,5 +1,3 @@
-alias ll='ls -l'
-alias lt='ls -lt'
 alias h=history
 
 cdl () {
@@ -9,9 +7,17 @@ cdl () {
 }
 
 lnew () {
-    if [ ! -z "$1" ] ;then
-	ls -lt "$1"| head -20
-    else
-	ls -lt| head -20
-    fi
+    ls -lt "$@"| head -20
+}
+
+ll () {
+    ls -l "$@"
+}
+
+lt () {
+    ls -lt "$@"
+}
+
+ltr () {
+    ls -ltr "$@"
 }

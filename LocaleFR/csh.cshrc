@@ -13,3 +13,6 @@ alias ll 'ls -l \!*'
 alias lt 'ls -lt \!*'
 alias lnew 'ls -lt \!*| head -20'
 alias h history
+alias rmed "find . '(' -name '*%' -o -name '*~' -o -name '#*#' -o -name '.??*%' \\
+    -o -name '.??*~' -o -name '.??*.swp' -o -name '.#*#' -o -name 'core' \\
+    -o -name 'gmon.out' ')' -user $USER -type f -exec \rm -f '{}' \;"
