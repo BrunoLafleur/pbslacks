@@ -7,6 +7,4 @@ zcat $CWD/patch/kde-workspace/kde-workspace.batteryapplet.diff.gz | patch -p1 --
 # Fix issues with default panel.  Offer launchers for Dolphin, Konqueror, Firefox, and Konsole.
 zcat $CWD/patch/kde-workspace/kde-workspace.panel-layout.diff.gz | patch -p1 --verbose || { touch ${SLACK_KDE_BUILD_DIR}/${PKGNAME}.failed ; continue ; }
 
-zcat $CWD/patch/kde-workspace/libqalculate.patch.gz | patch -p1 --verbose || { touch ${SLACK_KDE_BUILD_DIR}/${PKGNAME}.failed ; continue ; }
-
 zcat $CWD/patch/kde-workspace/kde-workspace-opengl.patch.gz | patch -p1 --verbose || { touch ${SLACK_KDE_BUILD_DIR}/${PKGNAME}.failed ; continue ; }
