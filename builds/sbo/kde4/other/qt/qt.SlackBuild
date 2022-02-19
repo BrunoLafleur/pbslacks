@@ -129,6 +129,7 @@ done
 # breaking the build when QtWebKit is present on the build system and some things
 # (assistant for one) are built without support for QtWebKit. So let's go with
 # -webkit and remove the built files later from the package. -HW
+#  -qtnamespace Qt4 : problems with qt-gstreamer, PyQt ...
 
 export CFLAGS="$SLKCFLAGS"
 export CXXFLAGS="$SLKCFLAGS -std=gnu++98 -fpermissive -fno-delete-null-pointer-checks"

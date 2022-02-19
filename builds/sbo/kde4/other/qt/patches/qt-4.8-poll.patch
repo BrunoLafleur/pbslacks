@@ -350,7 +350,7 @@ diff -up qt-everywhere-opensource-src-4.8.6/src/corelib/kernel/qcore_unix.cpp.po
 +    // Linux can return early from the syscall, without setting EINTR.
 +    if (timeout_ms < 0) {
 +	forever {
-+	    int ret = ::poll(fds, nfds, -1);
++	    int ret = QT_PREPEND_NAMESPACE(poll)(fds, nfds, -1);
 +	    if (ret > 0)
 +		return ret;
 +	    if (retry_eintr) {
@@ -379,7 +379,7 @@ diff -up qt-everywhere-opensource-src-4.8.6/src/corelib/kernel/qcore_unix.cpp.po
 +    int remaining = timeout_ms;
 +
 +    forever {
-+	int ret = ::poll(fds, nfds, remaining);
++	int ret = QT_PREPEND_NAMESPACE(poll)(fds, nfds, remaining);
 +	if (ret > 0)
 +	    return ret;
 +	timeval now = qt_gettime();

@@ -1,0 +1,72 @@
+diff -ru5 qt-everywhere-opensource-src-4.8.7old/src/gui/util/qabstractsystemtrayiconsys.cpp qt-everywhere-opensource-src-4.8.7/src/gui/util/qabstractsystemtrayiconsys.cpp
+--- qt-everywhere-opensource-src-4.8.7old/src/gui/util/qabstractsystemtrayiconsys.cpp	2022-02-19 10:23:08.559742526 +0100
++++ qt-everywhere-opensource-src-4.8.7/src/gui/util/qabstractsystemtrayiconsys.cpp	2022-02-19 10:38:17.754718244 +0100
+@@ -40,10 +40,11 @@
+ ****************************************************************************/
+ #ifndef QT_NO_SYSTEMTRAYICON
+ 
+ #include "qabstractsystemtrayiconsys_p.h"
+ 
++QT_BEGIN_NAMESPACE
+ 
+ QSystemTrayIconSysFactoryInterface::QSystemTrayIconSysFactoryInterface()
+ {
+ }
+ 
+@@ -60,6 +61,8 @@
+ void QAbstractSystemTrayIconSys::sendActivated(QSystemTrayIcon::ActivationReason reason)
+ {
+     qtsystray_sendActivated(trayIcon, reason);
+ }
+ 
++QT_END_NAMESPACE
++
+ #endif
+diff -ru5 qt-everywhere-opensource-src-4.8.7old/src/gui/util/qabstractsystemtrayiconsys_p.h qt-everywhere-opensource-src-4.8.7/src/gui/util/qabstractsystemtrayiconsys_p.h
+--- qt-everywhere-opensource-src-4.8.7old/src/gui/util/qabstractsystemtrayiconsys_p.h	2022-02-19 10:23:08.559742526 +0100
++++ qt-everywhere-opensource-src-4.8.7/src/gui/util/qabstractsystemtrayiconsys_p.h	2022-02-19 10:36:45.045204995 +0100
+@@ -56,10 +56,12 @@
+ #ifndef QT_NO_SYSTEMTRAYICON
+ 
+ #include <qfactoryinterface.h>
+ #include <qsystemtrayicon.h>
+ 
++QT_BEGIN_NAMESPACE
++
+ class QAbstractSystemTrayIconSys;
+ 
+ class Q_GUI_EXPORT QSystemTrayIconSysFactoryInterface : public QObject, public QFactoryInterface
+ {
+     Q_OBJECT
+@@ -98,9 +100,11 @@
+ 
+ protected:
+     QSystemTrayIcon *trayIcon;
+ };
+ 
++QT_END_NAMESPACE
++
+ #endif // QT_NO_SYSTEMTRAYICON
+ 
+ #endif // QABSTRACTSYSTEMTRAYICONSYS_P_H
+ 
+diff -ru5 qt-everywhere-opensource-src-4.8.7old/src/gui/util/qxembedsystemtrayicon_x11.cpp qt-everywhere-opensource-src-4.8.7/src/gui/util/qxembedsystemtrayicon_x11.cpp
+--- qt-everywhere-opensource-src-4.8.7old/src/gui/util/qxembedsystemtrayicon_x11.cpp	2022-02-19 10:23:08.560742528 +0100
++++ qt-everywhere-opensource-src-4.8.7/src/gui/util/qxembedsystemtrayicon_x11.cpp	2022-02-19 10:54:57.788021370 +0100
+@@ -50,16 +50,14 @@
+ #include "qpainter.h"
+ #include "qpaintengine.h"
+ #include "qsystemtrayicon_p.h"
+ #include "qx11info_x11.h"
+ 
+-QT_BEGIN_INCLUDE_NAMESPACE
+ #include <QtCore/qcoreapplication.h>
+ #include <X11/Xlib.h>
+ #include <X11/Xatom.h>
+ #include <X11/Xutil.h>
+-QT_END_INCLUDE_NAMESPACE
+ 
+ QT_BEGIN_NAMESPACE
+ 
+ class QSystemTrayIconWidget : public QWidget
+ {

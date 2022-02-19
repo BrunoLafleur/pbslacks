@@ -99,6 +99,11 @@ find . \
  -exec chmod 644 {} \+
 
 zcat $CWD/include-everything.patch.gz | patch -p1 --verbose || exit 1
+cat $CWD/generator.patch | patch -p1 --verbose || exit 1
+
+export CFLAGS="$SLKCFLAGS"
+export CXXFLAGS="$SLKCFLAGS"
+export PATH=${PATH}:$QTDIR/bin
 
 cd generator
   echo "Building generator..."

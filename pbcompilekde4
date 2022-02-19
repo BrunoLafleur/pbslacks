@@ -121,7 +121,7 @@ if [ $ISKDE4DEPS -eq 1 ] ;then
     xmakekdedep libdbusmenu-qt libdbusmenu-qt4 deps
     xmakekdedep poppler poppler-qt4 deps
     xmakekdedep cln cln deps
-
+    
     # I have to re-add suppressed packages.
     # List is inside pbslacks/Slackpkg/blacklistkeepkde4
     for i in akonadi automoc4 glade3 libbluedevil liblastfm \

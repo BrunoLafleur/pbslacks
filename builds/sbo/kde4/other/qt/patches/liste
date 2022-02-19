@@ -44,3 +44,4 @@ qt-everywhere-opensource-src-4.8.5-QTBUG-35459.patch
 qt-everywhere-opensource-src-4.8.6-systemtrayicon.patch
 qt-everywhere-opensource-src-4.8.7-icu59.patch
 qt-4.8-disable-sslv3.patch
+qt-namespace.patch
