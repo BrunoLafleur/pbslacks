@@ -112,13 +112,13 @@ cd $SRCNAM-$VERSION || exit 1
 
 chown -R root:root .
 find -L . \
- \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
-  -o -perm 511 \) -exec chmod 755 {} \; -o \
- \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
-  -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
+     \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
+     -o -perm 511 \) -exec chmod 755 {} \; -o \
+     \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
+     -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
 if [ $ARCH = "i486" -o $ARCH = "i586" ]; then
-  sed -i -e "s/QMAKE_CFLAGS_RELEASE        += -O2/QMAKE_CFLAGS_RELEASE        += $SLKCFLAGS/" mkspecs/common/gcc-base.conf || exit 1
+    sed -i -e "s/QMAKE_CFLAGS_RELEASE        += -O2/QMAKE_CFLAGS_RELEASE        += $SLKCFLAGS/" mkspecs/common/gcc-base.conf || exit 1
 fi
 
 for i in $(cat $CWD/patches/liste) ;do
@@ -193,13 +193,16 @@ Description: Qt Configuration
 Version: $VERSION
 EOF
 
-# libjscore is used internally.  Prevent a false dependency on this in the .pc files:
+# libjscore is used internally.
+# Prevent a false dependency on this in the .pc files:
 sed -i "s,-ljscore,,g" $PKG/usr/lib${LIBDIRSUFFIX}/qt/lib/pkgconfig/*.pc
-sed -i "s,-L../JavaScriptCore/release,,g" $PKG/usr/lib${LIBDIRSUFFIX}/qt/lib/pkgconfig/*.pc
+sed -i "s,-L../JavaScriptCore/release,,g" \
+    $PKG/usr/lib${LIBDIRSUFFIX}/qt/lib/pkgconfig/*.pc
 
 # Make sure that .pc, and .prl files use the correct $LIBDIRSUFFIX:
 sed -i "s,-L/usr/X11R6/lib ,-L/usr/X11R6/lib${LIBDIRSUFFIX} ,g" \
-    $PKG/usr/lib${LIBDIRSUFFIX}/qt/lib/pkgconfig/*.pc $PKG/usr/lib${LIBDIRSUFFIX}/qt/lib/*.prl
+    $PKG/usr/lib${LIBDIRSUFFIX}/qt/lib/pkgconfig/*.pc \
+    $PKG/usr/lib${LIBDIRSUFFIX}/qt/lib/*.prl
 
 # Link the shared libraries into /usr/lib:
 (
@@ -217,7 +220,7 @@ find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
 # to PATH.
 mkdir -p $PKG/etc/profile.d
 sed -e "s#usr/lib/#usr/lib${LIBDIRSUFFIX}/#g" $CWD/profile.d/qt4.sh \
-  > $PKG/etc/profile.d/qt4.sh
+    > $PKG/etc/profile.d/qt4.sh
 sed -e "s#usr/lib/#usr/lib${LIBDIRSUFFIX}/#g" $CWD/profile.d/qt4.csh \
     > $PKG/etc/profile.d/qt4.csh
 cp $CWD/profile.d/qt54.* $PKG/etc/profile.d
@@ -230,7 +233,10 @@ mkdir -p $PKG/usr/bin
 (
     cd $PKG/usr/lib${LIBDIRSUFFIX}/qt/bin
     for file in * ; do
-	( cd $PKG/usr/bin ; ln -sf /usr/lib${LIBDIRSUFFIX}/qt/bin/$file $file-qt4 )
+	(
+	    cd $PKG/usr/bin
+	    ln -sf /usr/lib${LIBDIRSUFFIX}/qt/bin/$file $file-qt4
+	)
     done
 )
 
@@ -238,7 +244,10 @@ mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/pkgconfig
 (
     cd $PKG/usr/lib${LIBDIRSUFFIX}/qt/lib/pkgconfig
     for file in *.pc ; do
-	( cd $PKG/usr/lib${LIBDIRSUFFIX}/pkgconfig ; ln -sf /usr/lib${LIBDIRSUFFIX}/qt/lib/pkgconfig/$file . )
+	(
+	    cd $PKG/usr/lib${LIBDIRSUFFIX}/pkgconfig
+	    ln -sf /usr/lib${LIBDIRSUFFIX}/qt/lib/pkgconfig/$file .
+	)
     done
 )
 
@@ -266,6 +275,7 @@ convert doc/src/images/qt-logo.png  -resize 48x48 $PKG/usr/share/icons/hicolor/4
 
 # And the .desktop files
 mkdir -p $PKG/usr/share/applications
+
 cat <<EOF > $PKG/usr/share/applications/designer.desktop
 [Desktop Entry]
 Name=Qt4 Designer
@@ -279,6 +289,7 @@ Encoding=UTF-8
 Type=Application
 Categories=Qt;Development;
 EOF
+
 cat <<EOF > $PKG/usr/share/applications/assistant.desktop
 [Desktop Entry]
 Name=Qt4 Assistant
@@ -290,6 +301,7 @@ Encoding=UTF-8
 Type=Application
 Categories=Qt;Development;Documentation;
 EOF
+
 cat <<EOF > $PKG/usr/share/applications/linguist.desktop
 [Desktop Entry]
 Name=Qt4 Linguist
@@ -302,6 +314,7 @@ Encoding=UTF-8
 Type=Application
 Categories=Qt;Development;
 EOF
+
 cat <<EOF > $PKG/usr/share/applications/qtconfig.desktop
 [Desktop Entry]
 Name=Qt4 Config

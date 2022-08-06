@@ -506,7 +506,8 @@ deterministic_build() {
 [ -r ./kde.options ] && . ./kde.options
 
 # This avoids compiling a version number into KDE's .la files:
-QTDIR=/usr/lib${LIBDIRSUFFIX}/qt ; export QTDIR
+QTDIR=/usr/lib${LIBDIRSUFFIX}/qt;export QTDIR
+PATH=$QTDIR/bin:${PATH};export PATH
 
 # Get the kde environment variables
 [ -d post-install/kdebase ] && eval $(sed -e "s#/lib#/lib${LIBDIRSUFFIX}#" ./post-install/kdebase/profile.d/kde.sh)

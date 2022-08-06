@@ -1,6 +1,8 @@
 #! /bin/sh
 
 cp lang.* pbalias.sh pbgnomekeyring.sh /etc/profile.d
+# Analogue a pbgnomekeyring.sh : tester ce dernier
+cp xprofile /etc
 cp csh.cshrc /etc
 
 if [ `ls /usr/share/X11/xorg.conf.d/90-* 2> /dev/null|wc -l` -eq 0 ] ;then
