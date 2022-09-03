@@ -64,6 +64,12 @@ xhookkde4 () {
     upgradepkg --reinstall slackware64/l/sip-*.txz
 }
 
+xhookkde4deps () {
+    # Post actions for kde4
+    # Reput the current one. It has been modified by deps for compilation.
+    removepkg attica
+}
+
 xhookframew () {
     # Post actions for framew
     echo "none" > /dev/null

@@ -23,14 +23,44 @@
 #kernel-modules.*
 #kernel-source
 
-# We keep qt4 aside qt5 if we have them.
-# phonon kde4 renomme phonon4qt4.
+# We keep kde4/deps which can cohabit
 phonon4qt4
 phonon-gstreamer
+LibRaw18
+grantlee051
+qca213
+eigen32
+sip422
+exiv221
+polkit-qt4-1
+libdbusmenu-qt4
+
+# We keep kde4/other which can cohabit
+ConsoleKit2
+pm-utils
+# cgmanager rc.6 et rc.S ?
+cgmanager
 PyQt
+automoc4
+libbluedevil
+liblastfm
+qimageblitz
+qjson
 qt
 qt-gstreamer
 qtscriptgenerator
+raptor2
+rasqal
+redland
+soprano
+strigi
+# Other (are they needed ?)
+orage
+glade3
+gtk-xfce-engine
+attica042
+scim
+scim.*
 
 #
 # aaa_elflibs should NOT be blacklisted!

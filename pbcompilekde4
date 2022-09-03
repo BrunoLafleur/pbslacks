@@ -86,7 +86,7 @@ xmakekdedep () {
 		fi
 	    )
 	    [ $? -ne 0 ] && exit 1
-	    cd kde4;mkdir -p $XCAT;cd $XCAT
+	    cd kde4;mkdir -p $XCAT;chown ${MYUSER}.$MYGROUP $XCAT;cd $XCAT
 	    cp /tmp/${XPAC}-[0-9]*-x86_64-*.txz .
 	    upgradepkg --install-new --reinstall ${XPAC}-[0-9]*-x86_64-*.txz
 	    chown ${MYUSER}.$MYGROUP ${XPAC}-[0-9]*-x86_64-*.t?z
@@ -121,17 +121,20 @@ if [ $ISKDE4DEPS -eq 1 ] ;then
     xmakekdedep libdbusmenu-qt libdbusmenu-qt4 deps
     xmakekdedep poppler poppler-qt4 deps
     xmakekdedep cln cln deps
-    
+    xmakekdedep akonadi akonadi kdeother
+
     # I have to re-add suppressed packages.
     # List is inside pbslacks/Slackpkg/blacklistkeepkde4
-    for i in akonadi automoc4 glade3 libbluedevil liblastfm \
+    for i in automoc4 glade3 libbluedevil liblastfm \
 		     pm-utils qjson raptor2 redland scim scim-input-pad \
-		     scim-pinyin soprano attica cgmanager \
+		     scim-pinyin soprano attica042 cgmanager \
 		     gtk-xfce-engine orage qt qtwebkit PyQt qt-gstreamer \
 		     qimageblitz qtscriptgenerator rasqal scim-anthy \
 		     scim-hangul scim-m17n scim-tables strigi ;do
 	xmakekdedep $i $i other
     done
+
+    xhookkde4deps
 fi
 
 if [ $ISKDE4 -eq 1 ] ;then

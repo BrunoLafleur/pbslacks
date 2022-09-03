@@ -45,17 +45,22 @@ export HOMESLACK="$MYPWD"
     LOCALSRC=../../../pbslacks/builds/src
     (
 	cd deps
-	for i in LibRaw exiv2 grantlee libdbusmenu-qt polkit-qt-1 qca sip ;do
-	    cp $LOCALSRC/${i}-[0-9]* $i
+	for i in LibRaw exiv2 grantlee libdbusmenu-qt qca sip ;do
+	    cp $LOCALSRC/${i}-[0-9]* ${i}*
 	done
+	cp $LOCALSRC/polkit-qt-1-* polkit-qt4-1
 	cp $LOCALSRC/phonon-backend-gstreamer-* phonon-gstreamer
-	cp $LOCALSRC/eigen-* eigen3
+	cp $LOCALSRC/eigen-* eigen32
 	cp $LOCALSRC/phonon-[0-9]* phonon4qt4
 	cd poppler-qt4
 	xgeturl "$KDE4DEPS_POPPLER"
 	cd ../cln
 	xgeturl "$KDE4DEPS_CLN"
 	cd ..
+    )
+    (
+	cd kdeother
+	cp $LOCALSRC/akonadi-[0-9]* akonadi
     )
     (
 	cd other/qt
@@ -78,9 +83,9 @@ export HOMESLACK="$MYPWD"
 	xgeturl "$KDE4OTHER_AUTOMOC4"
 	cd ..
 	for i in orage raptor2 rasqal redland scim scim-anthy scim-hangul \
-		       scim-input-pad scim-m17n strigi akonadi cgmanager \
+		       scim-input-pad scim-m17n strigi cgmanager \
 		       gtk-xfce-engine liblastfm pm-utils qt-gstreamer \
-		       qtscriptgenerator-src attica libbluedevil qjson ;do
+		       qtscriptgenerator-src attica042 libbluedevil qjson ;do
 	    cp $LOCALSRC/${i}-[0-9]* $i
 	done
     )

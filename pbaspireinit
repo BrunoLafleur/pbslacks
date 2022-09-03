@@ -78,6 +78,7 @@ fi
 [ ! -d kde4 ] && mkdir kde4
 [ ! -d kde4/deps ] && mkdir kde4/deps
 [ ! -d kde4/other ] && mkdir kde4/other
+[ ! -d kde4/kdeother ] && mkdir kde4/kdeother
 [ ! -d kde4/kde ] && mkdir kde4/kde
 [ ! -d kde4/source ] && mkdir kde4/source
 [ ! -d kde5 ] && mkdir kde5
