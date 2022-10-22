@@ -64,6 +64,7 @@ fi
     )
     xgetsbosrc gst-plugins-bad
     xgetsbosrc hplip-plugin
+    xgetsbosrc wxPython
     xgetsrc openal-soft "$PATHOPENAL"
     xgetsrc libtxc_dxtn "$PATHLIBTXC_DXTN"
     xgetsrc libgaminggear "$PATHLIBGAMINGGEAR"

@@ -54,12 +54,6 @@ fi
 	    xgetpac "$i" "$SLACKDJ" 5
 	done
     )
-    (
-	cd 32
-	for i in wxPython ;do
-	    xgetpac "$i" "$SLACKDJ32" 5
-	done
-    )
 )
 xpurgeindex packages
 

@@ -118,7 +118,7 @@ export TAG=_PB
 if [ $ISPAC1 -eq 1 ] ;then
     rm -f packages4/gst-plugins-bad-[0-9]*ponce.t?z*
     for i in libtxc_dxtn libgaminggear acpibrightness gst-plugins-bad \
-			 dawconfig hplip-plugin ;do
+			 dawconfig hplip-plugin wxPython ;do
 	xmakepac packages $i
     done
 
@@ -136,7 +136,7 @@ if [ $ISPAC1 -eq 1 ] ;then
     if [ $PBARCH = x64 ] ;then
 	(
 	    export ARCH=i486
-	    for i in openal-soft libtxc_dxtn ;do
+	    for i in openal-soft libtxc_dxtn wxPython ;do
 		xmakepac packages $i 32
 	    done
 	)
