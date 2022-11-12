@@ -7,10 +7,10 @@ DOWNLOAD="https://downloads.vivaldi.com/stable/vivaldi-stable_3.7.2218.52-1_i386
 MD5SUM="688dcaabbded8a31e70c2be6a5ba3ddf \
         00d2f09afa9447e9a506c9a4ff52bbdd \
         247a331a4d5bceb9f20366a39136a4fa"
-DOWNLOAD_x86_64="https://downloads.vivaldi.com/stable/vivaldi-stable_4.1.2369.18-1_amd64.deb \
-                 http://security.ubuntu.com/ubuntu/pool/universe/c/chromium-browser/chromium-codecs-ffmpeg-extra_91.0.4472.101-0ubuntu0.18.04.1_amd64.deb"
-MD5SUM_x86_64="e3b2d719f6446b25bb4cd6187609de5e \
-               d8462544115557e1de413db4fe13a49a"	       
+DOWNLOAD_x86_64="https://downloads.vivaldi.com/stable/vivaldi-stable_5.5.2805.44-1_amd64.deb \
+                 http://security.ubuntu.com/ubuntu/pool/universe/c/chromium-browser/chromium-codecs-ffmpeg-extra_107.0.5304.87-0ubuntu11.18.04.1_amd64.deb"
+MD5SUM_x86_64="495d6b4829f29e8e2610f30ab277284a \
+               6b417b1bf91f36ed8663ca4d46c11fde"	       
 DOWNLOAD_arm="https://downloads.vivaldi.com/stable/vivaldi-stable_4.1.2369.16-1_armhf.deb \
                  http://launchpadlibrarian.net/543392876/chromium-codecs-ffmpeg-extra_91.0.4472.101-0ubuntu0.18.04.1_armhf.deb"
 MD5SUM_arm="36bab8f6e8b3dc7a2816f69dd3b814cf \
