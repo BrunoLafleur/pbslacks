@@ -291,7 +291,7 @@ if [ $ISPAC4 -eq 1 ] ;then
     [ $? -ne 0 ] && exit 1
     for i in xrdp xorgxrdp SFML fbida kaffeine eigen3 opencv gradle \
 		  signal-desktop vokoscreen audiveris zoom-linux opera vivaldi \
-		  brave-browser ;do
+		  brave-browser telegram-bin ;do
 	xmakepac packages4 $i
     done
     xhookpac4

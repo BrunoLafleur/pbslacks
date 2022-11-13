@@ -119,7 +119,8 @@ fi
     for i in kaffeine gradle audiveris vokoscreen ;do
 	xgetsbosrc "$i"
     done
-    for i in opera signal-desktop zoom-linux vivaldi brave-browser ;do
+    for i in opera signal-desktop zoom-linux telegram-bin vivaldi \
+		   brave-browser ;do
 	xgetsbosrc "$i" $RARCH
     done
      
