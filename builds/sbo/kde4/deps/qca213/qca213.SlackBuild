@@ -89,6 +89,8 @@ zcat $CWD/Add_support_for_OpenSSL_1.1.0.diff.gz | patch -p1 --verbose || exit 1
 mkdir build
 cd build
 
+QTDIR=/usr/lib${LIBDIRSUFFIX}/qt \
+PATH=$QTDIR/bin:$PATH \
 cmake \
   -DCMAKE_INSTALL_PREFIX=/usr \
   -DQCA_MAN_INSTALL_DIR=/usr/man \

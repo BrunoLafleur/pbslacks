@@ -93,6 +93,8 @@ zcat $CWD/d7aa275b0bca86ae174e7e504dd269df2a0234cf.patch.gz | patch -p1 --verbos
 mkdir build
 cd build
 
+QTDIR=/usr/lib${LIBDIRSUFFIX}/qt \
+PATH=$QTDIR/bin:$PATH \
 CXXFLAGS="$SLKCFLAGS -std=c++11 -fpermissive" \
 cmake \
   -DCMAKE_INSTALL_PREFIX=/usr \
