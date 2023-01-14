@@ -24,6 +24,8 @@ cd $(dirname $0) ; CWD=$(pwd)
 
 PKGNAM=db53
 VERSION=5.3.28
+SRCVERSION=5.3_5.3.28+dfsg1.orig
+DEBIAN=db5.3_5.3.28+dfsg1-0.8.debian
 BUILD=${BUILD:-4}
 TAG=${TAG:-_SBo}
 
@@ -69,8 +71,8 @@ rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 rm -rf db-$VERSION
-tar xvf $CWD/db$VERSION.tar.xz || exit 1
-tar xvf $CWD/debian.tar.xz || exit 1
+tar xvf $CWD/db${SRCVERSION}.tar.xz || exit 1
+tar xvf $CWD/${DEBIAN}.tar.xz || exit 1
 cd db-$VERSION || exit 1
 cat ../debian/patches/series| while read i;test "$i" != "" ;do
   echo "$i"
