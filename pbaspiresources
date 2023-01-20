@@ -102,6 +102,8 @@ fi
     xgetsrc gramps "$PATHGRAMPS"
     xgetsbosrc goocanvas2
     xgetsbosrc msgpack-python
+    xgetsbosrc cffi
+    xgetsbosrc pycparser
 )
 
 ############################################
