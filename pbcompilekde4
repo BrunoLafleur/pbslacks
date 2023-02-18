@@ -121,6 +121,7 @@ if [ $ISKDE4DEPS -eq 1 ] ;then
     xmakekdedep libdbusmenu-qt libdbusmenu-qt4 deps
     xmakekdedep poppler poppler-qt4 deps
     xmakekdedep cln cln deps
+    xmakekdedep upower upower deps
     xmakekdedep akonadi akonadi kdeother
 
     # I have to re-add suppressed packages.
