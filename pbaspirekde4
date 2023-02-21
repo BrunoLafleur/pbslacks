@@ -45,7 +45,7 @@ export HOMESLACK="$MYPWD"
     LOCALSRC=../../../pbslacks/builds/src
     (
 	cd deps
-	for i in LibRaw exiv2 grantlee libdbusmenu-qt qca sip upower ;do
+	for i in LibRaw exiv2 grantlee libdbusmenu-qt qca sip ;do
 	    cp $LOCALSRC/${i}-[0-9]* ${i}*
 	done
 	cp $LOCALSRC/polkit-qt-1-* polkit-qt4-1
