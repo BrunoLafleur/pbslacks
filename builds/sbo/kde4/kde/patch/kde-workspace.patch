@@ -10,7 +10,7 @@ zcat $CWD/patch/kde-workspace/kde-workspace.panel-layout.diff.gz | patch -p1 --v
 zcat $CWD/patch/kde-workspace/kde-workspace-opengl.patch.gz | patch -p1 --verbose || { touch ${SLACK_KDE_BUILD_DIR}/${PKGNAME}.failed ; continue ; }
 
 # Depend de lazy et hal.
-zcat $CWD/patch/kde-workspace/kdm-suspend-hal.diff.gz | patch -p0 --verbose || { touch ${SLACK_KDE_BUILD_DIR}/${PKGNAME}.failed ; continue ; }
+#zcat $CWD/patch/kde-workspace/kdm-suspend-hal.diff.gz | patch -p0 --verbose || { touch ${SLACK_KDE_BUILD_DIR}/${PKGNAME}.failed ; continue ; }
 
 # suspend and hibernate with elogind : a friend of LuckyCyborg.
 zcat $CWD/patch/kde-workspace/kde-workspace-elogind.patch.gz | patch -p1 --verbose || { touch ${SLACK_KDE_BUILD_DIR}/${PKGNAME}.failed ; continue ; }
