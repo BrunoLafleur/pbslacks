@@ -5,8 +5,8 @@
 # License : See the LICENSE file in this repository.
 
 XDIR="$(dirname $0)"
-. "$XDIR/pbaspireinit"
 . "$XDIR/pbinclude"
+. "$XDIR/pbaspireinit"
 . "$XDIR/pbaspireinc"
 . "$XDIR/pbpathinc"
 

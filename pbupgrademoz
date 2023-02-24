@@ -19,8 +19,8 @@ xhelp () {
     echo "  > pbslacks/pbupgrademoz"
 }
 
-if [ -d slackware64-current ] ;then
-    cd slackware64-current
+if [ -d slackware64-${SLACKVER} ] ;then
+    cd slackware64-${SLACKVER}
 fi
 if [ ! -d slackware64 -o '(' ! -h pbslacks -a ! -d pbslacks ')' ] ;then
     xhelp

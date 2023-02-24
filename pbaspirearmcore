@@ -62,19 +62,19 @@ export HOMESLACK="$MYPWD"
 
 # Can be the USB stick.
 CDIR=$(basename $MYPWD)
-ISSTICK=0;[ -d current -a "$CDIR" = slackwarearm-current ] && ISSTICK=1
+ISSTICK=0;[ -d ${SLACKVER} -a "$CDIR" = slackwarearm-${SLACKVER} ] && ISSTICK=1
 
 # The official current Slackware.
 if [ $ISCORE -eq 1 -o $ISPURGE -eq 1 ] ;then
     [ $ISSTICK -eq 1 ] && cd ..
-    [ $ISCORE -eq 1 ] && myrget 4 "$SLACKARM/slackwarearm-current" \
-				slackwarearm-current
+    [ $ISCORE -eq 1 ] && myrget 4 "$SLACKARM/slackwarearm-${SLACKVER}" \
+				slackwarearm-${SLACKVER}
 
 # Nettoyage des doublons
     echo '------------------------------------'
-    if [ -d slackwarearm-current ] ;then
+    if [ -d slackwarearm-${SLACKVER} ] ;then
 	(
-	    cd slackwarearm-current
+	    cd slackwarearm-${SLACKVER}
 	    find . -name '*.t?z'|grep -v '^./source/'|\
 		while read i;test "$i" != "" ;do
 		    pack=$(echo $i|sed 's@-[0-9\.][^-]*-[^-]*-[^-]*$@@')
@@ -96,13 +96,13 @@ if [ $ISCORE -eq 1 -o $ISPURGE -eq 1 ] ;then
     else
 	mygt "Slackware current not copied."
     fi
-    [ $ISSTICK -eq 1 ] && cd slackwarearm-current
+    [ $ISSTICK -eq 1 ] && cd slackwarearm-${SLACKVER}
     echo '------------------------------------'
 fi
 [ $ISSTICK -eq 1 ] && cd ..
-if [ -d slackwarearm-current ] ;then
+if [ -d slackwarearm-${SLACKVER} ] ;then
     (
-	cd slackwarearm-current
+	cd slackwarearm-${SLACKVER}
 	ln -sf ../perso .
 	ln -sf ../pbslacks .
 	ln -sf ../packages* .
@@ -110,7 +110,7 @@ if [ -d slackwarearm-current ] ;then
 	ln -sf ../gpgkeys .
     )
 fi
-[ $ISSTICK -eq 1 ] && cd slackwarearm-current
+[ $ISSTICK -eq 1 ] && cd slackwarearm-${SLACKVER}
 
 # Apps KDE5
 if [ $ISKDE5 -eq 1 ] ;then
@@ -133,9 +133,9 @@ if [ $ISKDE5 -eq 1 ] ;then
 	mygt "KDE5 applications sources copied."
 	echo '------------------------------------'
     )
-    if [ -d slackware64-current ] ;then
+    if [ -d slackware64-${SLACKVER} ] ;then
 	(
-	    cd slackware64-current
+	    cd slackware64-${SLACKVER}
 	    ln -sf ../kde5 .
 	)
     fi
@@ -144,14 +144,14 @@ fi
 if [ $ISCHECK -eq 1 ] ;then
     [ $ISSTICK -eq 1 ] && cd ..
     # Get GPG Keys from the original Slackware web site.
-    if [ -d slackwarearm-current ] ;then
+    if [ -d slackwarearm-${SLACKVER} ] ;then
 	(
-	    cd slackwarearm-current
-	    [ ! -f GPG-KEY ] && xgeturl "$SLACKKEYS/slackwarearm-current/GPG-KEY"
+	    cd slackwarearm-${SLACKVER}
+	    [ ! -f GPG-KEY ] && xgeturl "$SLACKKEYS/slackwarearm-${SLACKVER}/GPG-KEY"
 	    ln -sf ../gpgkeys .
 	)
     fi
-    [ $ISSTICK -eq 1 ] && cd slackwarearm-current
+    [ $ISSTICK -eq 1 ] && cd slackwarearm-${SLACKVER}
 
     # Check with GPG signatures
     # From :
@@ -178,7 +178,7 @@ if [ $ISSARPI -eq 1 -o $ISPURGE -eq 1 ] ;then
 	    cd sarpi
 	    if [ ! -f "$LSARPIINSTALL" ] ;then
 		[ $ISSARPI -eq 1 ] && xgeturl "$SARPIINSTALL"
-		xpurgepac "sarpi-installer_slackcurrent[0-9]" xz
+		xpurgepac "sarpi-installer_slack${SLACKVER}[0-9]" xz
 		echo '------------------------------------'
 		if [ -f "$LSARPIINSTALL" ] ;then
 		    mygt "Sarpi copied."

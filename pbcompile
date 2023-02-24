@@ -53,10 +53,10 @@ if [ ! -d /boot ] ;then
 fi
 
 if [ $XTEST -ne 1 ] ;then
-    if [ -d slackware64-current ] ;then
-	cd slackware64-current
-    elif [ -d slackwarearm-current ] ;then
-	cd slackwarearm-current
+    if [ -d slackware64-${SLACKVER} ] ;then
+	cd slackware64-${SLACKVER}
+    elif [ -d slackwarearm-${SLACKVER} ] ;then
+	cd slackwarearm-${SLACKVER}
     fi
     if [ '(' ! -d slackware64 -a ! -d slackware ')' \
 	     -o '(' ! -h pbslacks -a ! -d pbslacks ')' ] ;then

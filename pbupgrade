@@ -9,7 +9,7 @@
 . "$(dirname $0)/pbupgradesys"
 
 # For systemnet upgrade. Change mirror if you want.
-SLACKMIR='http://nephtys.lip6.fr/pub/linux/distributions/slackware/slackware64-current/'
+SLACKMIR='http://nephtys.lip6.fr/pub/linux/distributions/slackware/slackware64-${SLACKVER}/'
 
 xhelp () {
     mygt 'Launch this script in the directory including alreadey cloned slackware64 or slackware64-current.\nIt can be on the bootable slackware install USB stick.\npbslacks should also be there.'|sed 's@\\n@\n@g'
@@ -60,10 +60,10 @@ if [ ! -d /boot ] ;then
 fi
 
 if [ $XTEST -ne 1 ] ;then
-    if [ -d slackware64-current ] ;then
-	cd slackware64-current
-    elif [ -d slackwarearm-current ] ;then
-	cd slackwarearm-current
+    if [ -d slackware64-${SLACKVER} ] ;then
+	cd slackware64-${SLACKVER}
+    elif [ -d slackwarearm-${SLACKVER} ] ;then
+	cd slackwarearm-${SLACKVER}
     fi
     if [ '(' ! -d slackware64 -a ! -d slackware ')' \
 	     -o '(' ! -h pbslacks -a ! -d pbslacks ')' ] ;then
@@ -257,13 +257,13 @@ fi
 if [ $XEND -eq 0 ] ;then
     if [ $ISCOMPAT -eq 1 ] ;then
 	if [ $XTEST -ne 1 ] ;then
-	    if [ $(ls current/aaa_glibc-solibs-*.t?z 2> /dev/null|wc -l) -gt 0 ]
+	    if [ $(ls ${SLACKVER}/aaa_glibc-solibs-*.t?z 2> /dev/null|wc -l) -gt 0 ]
 	    then
-		rm -f current/glibc-solibs-*
-		rm -f current/slackware64-compat32/a-compat32/aaa_elflibs-compat32-*
+		rm -f ${SLACKVER}/glibc-solibs-*
+		rm -f ${SLACKVER}/slackware64-compat32/a-compat32/aaa_elflibs-compat32-*
 	    fi
-	    upgradepkg --reinstall --install-new current/*.t?z
-	    upgradepkg --install-new current/slackware64-compat32/*/*.t?z
+	    upgradepkg --reinstall --install-new ${SLACKVER}/*.t?z
+	    upgradepkg --install-new ${SLACKVER}/slackware64-compat32/*/*.t?z
 	fi
 	mygt "Upgrade Alien Bob multilib done." >> $XTEMPMES
     fi

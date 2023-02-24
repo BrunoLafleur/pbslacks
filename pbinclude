@@ -52,8 +52,10 @@ PBMYPROG="pbslacks/$MYPROG"
 MYPWD=$(pwd)
 PBDIRPROG="$(cd $(dirname $0); pwd)";cd "$MYPWD"
 PBARCH=x64
-if [ ! -d slackware64-current ] ;then
-    if [ -d slackwarearm-current ] ;then
+#SLACKVER=current
+SLACKVER=15.0
+if [ ! -d slackware64-${SLACKVER} ] ;then
+    if [ -d slackwarearm-${SLACKVER} ] ;then
 	PBARCH=arm
     elif [ "$(basename "$(pwd)"|cut -d '-' -f1|cut -c1-9)" = 'slackware' ] ;then
 	TARCH="$(basename "$(pwd)"|cut -d '-' -f1|cut -c10-)"

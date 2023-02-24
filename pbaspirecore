@@ -7,8 +7,8 @@
 # can be done non root.
 
 XDIR="$(dirname $0)"
-. "$XDIR/pbaspireinit"
 . "$XDIR/pbinclude"
+. "$XDIR/pbaspireinit"
 . "$XDIR/pbaspireinc"
 . "$XDIR/pbpathinc"
 
@@ -71,19 +71,19 @@ export HOMESLACK="$MYPWD"
 
 # Can be the USB stick.
 CDIR=$(basename $MYPWD)
-ISSTICK=0;[ -d current -a "$CDIR" = slackware64-current ] && ISSTICK=1
+ISSTICK=0;[ -d ${SLACKVER} -a "$CDIR" = slackware64-${SLACKVER} ] && ISSTICK=1
 
 # The official current Slackware.
 if [ $ISCORE -eq 1 -o $ISPURGE -eq 1 ] ;then
     [ $ISSTICK -eq 1 ] && cd ..
-    [ $ISCORE -eq 1 ] && myrget 4 "$SLACKMIR/slackware64-current" \
-				slackware64-current
+    [ $ISCORE -eq 1 ] && myrget 4 "$SLACKMIR/slackware64-${SLACKVER}" \
+				slackware64-${SLACKVER}
 
 # Nettoyage des doublons
     echo '------------------------------------'
-    if [ -d slackware64-current ] ;then
+    if [ -d slackware64-${SLACKVER} ] ;then
 	(
-	    cd slackware64-current
+	    cd slackware64-${SLACKVER}
 	    find . -name '*.t?z'|grep -v '^./source/'|\
 		while read i;test "$i" != "" ;do
 		    pack=$(echo $i|sed 's@-[0-9\.][^-]*-[^-]*-[^-]*$@@')
@@ -105,14 +105,14 @@ if [ $ISCORE -eq 1 -o $ISPURGE -eq 1 ] ;then
     else
 	mygt "Slackware current not copied."
     fi
-    [ $ISSTICK -eq 1 ] && cd slackware64-current
+    [ $ISSTICK -eq 1 ] && cd slackware64-${SLACKVER}
     echo '------------------------------------'
 fi
 [ $ISSTICK -eq 1 ] && cd ..
-if [ -d slackware64-current ] ;then
+if [ -d slackware64-${SLACKVER} ] ;then
     (
-	cd slackware64-current
-	ln -sf ../current .
+	cd slackware64-${SLACKVER}
+	ln -sf ../${SLACKVER} .
 	ln -sf ../perso .
 	ln -sf ../pbslacks .
 	ln -sf ../bumblebee .
@@ -122,17 +122,17 @@ if [ -d slackware64-current ] ;then
 	ln -sf ../gpgkeys .
     )
 fi
-[ $ISSTICK -eq 1 ] && cd slackware64-current
+[ $ISSTICK -eq 1 ] && cd slackware64-${SLACKVER}
 
 # Multilib Alien Bob.
 if [ $ISMULTI -eq 1 -o $ISPURGE -eq 1 ] ;then
-    [ $ISMULTI -eq 1 ] && myrget 7 "$SLACKMULTI" current
+    [ $ISMULTI -eq 1 ] && myrget 7 "$SLACKMULTI" ${SLACKVER}
 
 # Nettoyage des doublons
     echo '------------------------------------'
-    if [ -d current ] ;then
+    if [ -d ${SLACKVER} ] ;then
 	(
-	    cd current
+	    cd ${SLACKVER}
 	    find . -name '*.t?z'|grep -v '^./source/'|\
 		while read i;test "$i" != "" ;do
 		    pack=$(echo $i|sed 's@-[0-9\.][^-]*-[^-]*-[^-]*$@@')
@@ -149,10 +149,10 @@ if [ $ISMULTI -eq 1 -o $ISPURGE -eq 1 ] ;then
     else
 	mygt "Slackware multilib not copied."
     fi
-    if [ -d slackware64-current ] ;then
+    if [ -d slackware64-${SLACKVER} ] ;then
 	(
-	    cd slackware64-current
-	    ln -sf ../current .
+	    cd slackware64-${SLACKVER}
+	    ln -sf ../${SLACKVER} .
 	)
     fi
     echo '------------------------------------'
@@ -194,9 +194,9 @@ if [ $ISFRAMEW -eq 1 ] ;then
 	)
 	echo '------------------------------------'
     )
-    if [ -d slackware64-current ] ;then
+    if [ -d slackware64-${SLACKVER} ] ;then
 	(
-	    cd slackware64-current
+	    cd slackware64-${SLACKVER}
 	    ln -sf ../kde5 .
 	)
     fi
@@ -205,14 +205,14 @@ fi
 if [ $ISCHECK -eq 1 ] ;then
     [ $ISSTICK -eq 1 ] && cd ..
     # Get GPG Keys from the original Slackware web site.
-    if [ -d slackware64-current ] ;then
+    if [ -d slackware64-${SLACKVER} ] ;then
 	(
-	    cd slackware64-current
-	    [ ! -f GPG-KEY ] && xgeturl "$SLACKKEYS/slackware64-current/GPG-KEY"
+	    cd slackware64-${SLACKVER}
+	    [ ! -f GPG-KEY ] && xgeturl "$SLACKKEYS/slackware64-${SLACKVER}/GPG-KEY"
 	    ln -sf ../gpgkeys .
 	)
     fi
-    [ $ISSTICK -eq 1 ] && cd slackware64-current
+    [ $ISSTICK -eq 1 ] && cd slackware64-${SLACKVER}
 
     # Check with GPG signatures
     # From :

@@ -9,9 +9,14 @@
 SLACKDIR='/pub/linux/distributions/slackware'
 SLACKMIR="http://nephtys.lip6.fr$SLACKDIR"
 
+if [ "$SLACKVER" = '' ] ;then
+    #SLACKVER=current
+    SLACKVER=15.0
+fi
+
 SLACKKEYS='https://mirrors.slackware.com/slackware'
-SLACKMULTI="$SLACKMIR/people/alien/multilib/current"
-SLACKMULTI_SRC="$SLACKMIR/people/alien/multilib/source/current"
+SLACKMULTI="$SLACKMIR/people/alien/multilib/${SLACKVER}"
+SLACKMULTI_SRC="$SLACKMIR/people/alien/multilib/source/${SLACKVER}"
 
 # GParted Live iso and VirtualBox for Windows.
 
@@ -24,8 +29,8 @@ VBOXDOC="$VBOXREP/UserManual.pdf"
 # Alien Bob list of repositories.
 
 SLACKALIEN="$SLACKMIR/people/alien/slackbuilds"
-SLACKALIEN2="$SLACKMIR/people/alien-kde/current/latest/x86_64/deps"
-SLACKALIEN3="$SLACKMIR/people/alien/sbrepos/current/x86_64"
+SLACKALIEN2="$SLACKMIR/people/alien-kde/${SLACKVER}/latest/x86_64/deps"
+SLACKALIEN3="$SLACKMIR/people/alien/sbrepos/${SLACKVER}/x86_64"
 SLACKALIENSRC2="$SLACKMIR/people/alien-kde/source/latest/deps"
 
 # Links for localized Mozilla Firefox and Thunderbird.
@@ -36,24 +41,24 @@ XFIREFOXXPI='https://ftp.mozilla.org/pub/firefox/releases/78.10.1esr/linux-x86_6
 
 # Links for binary packages from Conraid and Slackel.
 
-SLACKCF="http://slack.conraid.net/repository/slackware64-current"
-SLACKDJ="http://www.slackel.gr/repo/x86_64/current/slackel/extra"
-SLACKDJ32="http://www.slackel.gr/repo/i486/current/slackel/extra"
-SLACKDJPAR="http://www.slackel.gr/repo/x86_64/current"
-SLACKDJPAR32="http://www.slackel.gr/repo/i486/current"
+SLACKCF="http://slack.conraid.net/repository/slackware64-${SLACKVER}"
+SLACKDJ="http://www.slackel.gr/repo/x86_64/${SLACKVER}/slackel/extra"
+SLACKDJ32="http://www.slackel.gr/repo/i486/${SLACKVER}/slackel/extra"
+SLACKDJPAR="http://www.slackel.gr/repo/x86_64/${SLACKVER}"
+SLACKDJPAR32="http://www.slackel.gr/repo/i486/${SLACKVER}"
 
 # Links for Gnome from SAXA.
 SLACKDL="http://www.droplinegnome.org/files/3.36/x86_64/testing"
 
 # Links for binary packages from Ponce.
 
-SLACKPONCE="http://ponce.cc/slackware/slackware64-current/packages"
-SLACKPONCE32="http://ponce.cc/slackware/slackware-current/packages"
+SLACKPONCE="http://ponce.cc/slackware/slackware64-${SLACKVER}/packages"
+SLACKPONCE32="http://ponce.cc/slackware/slackware-${SLACKVER}/packages"
 
 # Links for binary packages from Slonly.
 
-SLACKSLONLY="https://slackonly.com/pub/packages/current-x86_64"
-SLACKSLONLY32="https://slackonly.com/pub/packages/current-x86"
+SLACKSLONLY="https://slackonly.com/pub/packages/${SLACKVER}-x86_64"
+SLACKSLONLY32="https://slackonly.com/pub/packages/${SLACKVER}-x86"
 SLACKSLONLY142="https://slackonly.com/pub/packages/14.2-x86_64"
 
 # List of sources packages.

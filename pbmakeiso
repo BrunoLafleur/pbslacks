@@ -12,7 +12,7 @@ xhelp () {
     echo '> ../pbslacks/$MYPROG'
 }
 
-if [ ! -d slackware64-current -o \
+if [ ! -d slackware64-${SLACKVER} -o \
        \( "$0" != "../pbslacks/$MYPROG" -a "$0" != "pbslacks/$MYPROG" \) ] ;then
     xhelp
     exit 1
@@ -34,7 +34,7 @@ echo '-------------------------------------------------'
 emygt "If not too big for your recorder which should use double layer media,\nthe iso created can be put on a DVD with :\n> growisofs -speed=2 -dvd-compat -Z /dev/dvd \$FNAMEISO\n\n  Or your favorite DVD recorder.\n\n  Or on an USB stick (sdX below is the name of the USB device) :\n> dd if=\$FNAMEISO of=/dev/sdX bs=1M ;sync\n\n  Or launch :\n> pbmakeiso2usb \$FNAMEISO\n\n  Or lauch :\n> pbmakeusb"|sed 's@\\n@\n@g'
 echo '-------------------------------------------------'
 
-cd slackware64-current
+cd slackware64-${SLACKVER}
 # Pour enlevez les sources changez les 2 variables suivantes.
 SRC1='|source/?.*'
 SRC2=
@@ -61,7 +61,7 @@ xorriso -as mkisofs -iso-level 3 \
     -m Bumblebee-SlackBuilds.tgz -exclude-list $XTEMPLIST \
     -volid "SlackDVD" -output "../$NAMEISO" -graft-points . \
     bumblebee/Crazybee/Bumblebee-SlackBuilds.tgz=../../Crazybee/Bumblebee-SlackBuilds.tgz \
-    bumblebee/=../bumblebee current/=../current packages/=../packages \
+    bumblebee/=../bumblebee ${SLACKVER}/=../${SLACKVER} packages/=../packages \
     packages2/=../packages2 packages3/=../packages3 packages4/=../packages4 \
     kde5/=../kde5 kde4/=../kde4 divers/=../../divers pbslacks/=../../pbslacks \
     perso/=../../perso gdm/=../gdm debian/=../debian gpgkeys/=../gpgkeys

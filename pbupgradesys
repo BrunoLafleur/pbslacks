@@ -66,14 +66,14 @@ upgradeglibc () {
 		slackpkg upgrade aaa_libraries
 	    fi
 	    cd ../../..
-	    [ -d current ] && upgradepkg --reinstall --install-new \
-					 current/aaa_glibc-solibs-*.t?z
+	    [ -d ${SLACKVER} ] && upgradepkg --reinstall --install-new \
+					 ${SLACKVER}/aaa_glibc-solibs-*.t?z
 	)
     else
 	slackpkg upgrade glibc-solibs
 	# Upgrade glibc-solibs for multilib.
-	[ -d current ] && upgradepkg --reinstall --install-new \
-				     current/glibc-solibs-*.t?z
+	[ -d ${SLACKVER} ] && upgradepkg --reinstall --install-new \
+				     ${SLACKVER}/glibc-solibs-*.t?z
     fi
 }
 

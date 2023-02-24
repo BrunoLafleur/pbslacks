@@ -30,7 +30,7 @@ xhelp () {
     echo '>                    [-noslack (no packages copy on the stick)]'
 }
 
-if [ ! -d slackware64-current -o \
+if [ ! -d slackware64-${SLACKVER} -o \
        \( "$0" != "../pbslacks/$MYPROG" -a "$0" != "pbslacks/$MYPROG" \) ] ;then
     xhelp
     exit 1
@@ -38,7 +38,7 @@ fi
 
 MYPWD=$(pwd)
 ISO=0
-REPO="$MYPWD/slackware64-current"
+REPO="$MYPWD/slackware64-${SLACKVER}"
 REPISO=Linuxiso
 GPARTISO=
 VBOXREP=Virtualbox

@@ -7,8 +7,8 @@
 # can be done non root.
 
 XDIR="$(dirname $0)"
-. "$XDIR/pbaspireinit"
 . "$XDIR/pbinclude"
+. "$XDIR/pbaspireinit"
 . "$XDIR/pbaspireinc"
 . "$XDIR/pbpathkde4"
 
@@ -139,9 +139,9 @@ export HOMESLACK="$MYPWD"
     )
     echo '------------------------------------'
 )
-if [ -d slackware64-current ] ;then
+if [ -d slackware64-${SLACKVER} ] ;then
     (
-	cd slackware64-current
+	cd slackware64-${SLACKVER}
 	ln -sf ../kde4 .
     )
 fi

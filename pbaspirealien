@@ -5,8 +5,8 @@
 # License : See the LICENSE file in this repository.
 
 XDIR="$(dirname $0)"
-. "$XDIR/pbaspireinit"
 . "$XDIR/pbinclude"
+. "$XDIR/pbaspireinit"
 . "$XDIR/pbaspireinc"
 . "$XDIR/pbpathinc"
 
@@ -36,7 +36,7 @@ fi
     xgetpac p7zip "$SLACKALIEN3/p7zip" 10
     for i in cabextract jack2 musescore openjdk boost-compat vkd3d FAudio wine \
 	     jamulus qjackctl pulseaudio-jack ;do
-	xgetpac "$i" "$SLACKALIEN/$i/pkg64/current" 10
+	xgetpac "$i" "$SLACKALIEN/$i/pkg64/${SLACKVER}" 10
     done
     rm -f libxkbcommon-*
     rm -f qt5-*
@@ -53,16 +53,16 @@ fi
     #xgetsrcpac "$i" "$SLACKMULTI_SRC/$i/" 9
 
     for i in steamclient ;do
-	xgetpac "$i" "$SLACKALIEN/$i/pkg/current" 10
+	xgetpac "$i" "$SLACKALIEN/$i/pkg/${SLACKVER}" 10
     done
     for i in libreoffice libreoffice-dict-fr libreoffice-l10n-fr \
 			 libreoffice-sdkdoc ;do
-	xgetpac "$i" "$SLACKALIEN/libreoffice/pkg64/current" 10
+	xgetpac "$i" "$SLACKALIEN/libreoffice/pkg64/${SLACKVER}" 10
     done
     (
 	cd 32
 	for i in cabextract ;do
-	    xgetpac "$i" "$SLACKALIEN/$i/pkg/current" 10
+	    xgetpac "$i" "$SLACKALIEN/$i/pkg/${SLACKVER}" 10
 	done
     )
 )
@@ -72,7 +72,7 @@ xpurgeindex packages
 (
     cd packages2
     for i in SDL_sound aubio rubberband vlc ;do
-	xgetpac "$i" "$SLACKALIEN/$i/pkg64/current" 10
+	xgetpac "$i" "$SLACKALIEN/$i/pkg64/${SLACKVER}" 10
     done
 )
 xpurgeindex packages2
@@ -90,7 +90,7 @@ xpurgeindex packages3
 (
     cd packages4
     for i in chromium-widevine-plugin nodejs wxGTK mbedtls obs-studio ;do
-	xgetpac "$i" "$SLACKALIEN/$i/pkg64/current" 10
+	xgetpac "$i" "$SLACKALIEN/$i/pkg64/${SLACKVER}" 10
     done
     rm -f PyQt-*
     rm -f PyQt5-*
