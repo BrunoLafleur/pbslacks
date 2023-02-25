@@ -117,8 +117,9 @@ export TAG=_PB
 
 if [ $ISPAC1 -eq 1 ] ;then
     rm -f packages4/gst-plugins-bad-[0-9]*ponce.t?z*
-    for i in libtxc_dxtn libgaminggear acpibrightness gst-plugins-bad \
-			 dawconfig hplip-plugin wxPython ;do
+    for i in gstreamer0 gst-plugins-base0 libtxc_dxtn libgaminggear \
+			acpibrightness gst-plugins-bad \
+			dawconfig hplip-plugin wxPython ;do
 	xmakepac packages $i
     done
 
@@ -131,35 +132,33 @@ if [ $ISPAC1 -eq 1 ] ;then
 	#xmakealienpac packages mlt
 	xmakealienpac source/l mlt packages
     )
-
+    
     # 32 bits packages
+    # A faire ajoute gstreamer0
     if [ $PBARCH = x64 ] ;then
-	(
-	    export ARCH=i486
-	    for i in openal-soft libtxc_dxtn wxPython ;do
-		xmakepac packages $i 32
-	    done
-	)
-	[ $? -ne 0 ] && exit 1
-	(
-	    cd packages/32
-	    for i in cabextract libdvdcss icoutils wxPython openal-soft \
-				libtxc_dxtn ;do
+	rm -f packages/compat32/wxPython-compat32-[0-9]*djcompat32.*
+	for i in python2 cabextract libdvdcss icoutils GConf gstreamer0 \
+			 gst-plugins-base0 openal-soft libtxc_dxtn wxPython ;do
+	    if [ -d packages/$i ] ;then
+		(export ARCH=i486;xmakepac packages $i 32)
+		[ $? -ne 0 ] && exit 1
+	    fi
+	    (
+		cd packages/32
 		if [ $RECOMP -eq 1 ] ;then
-		    (
-			unset TAG
-			convertpkg-compat32 -i "$i-"'*.t?z' -d ../compat32
-			chown ${MYUSER}.$MYGROUP ../compat32/$i-compat32-*.t?z
+		    (unset TAG
+		     convertpkg-compat32 -i "$i-"'*.t?z' -d ../compat32
+		     chown ${MYUSER}.$MYGROUP ../compat32/$i-compat32-*.t?z
 		    )
 		fi
 		xpurgetmp ${i}-compat32
 		upgradepkg --install-new --reinstall ../compat32/$i-compat32-*.t?z
 		rm -f /usr/lib/lib*.la
-	    done
-	)
-	[ $? -ne 0 ] && exit 1
+	    )
+	    [ $? -ne 0 ] && exit 1
+	done
     fi
-
+    
     # Recompile and reinstall some Slackware packages for new dependencies.
     (
 	export X264=yes
@@ -194,8 +193,7 @@ fi
 
 if [ $ISOPENSHOT -eq 1 ] ;then
     # python2-* for openshot 1.4, openshot_qt => openshot 2.5
-    for i in gstreamer0 gst-plugins-base0 python2-mlt \
-			python2-libcaca python2-libwebp python-pillow6 \
+    for i in python2-mlt python2-libcaca python2-libwebp python-pillow6 \
 			zeromq protobuf libopenshot-audio libopenshot \
 			openshot_qt lxml inkscape pybind11 openimageio \
 			opencolorio numpy3 tbb OpenSubdiv Blender openshot ;do
@@ -217,8 +215,7 @@ fi
 
 if [ $ISPAC2 -eq 1 ] ;then    
     # More 64 bits packages
-    for i in roccat-tools kmplayer denemo guile2.2 discord PyYAML lutris \
-	     lsdvd ;do
+    for i in roccat-tools kmplayer denemo guile2.2 discord PyYAML lutris lsdvd ;do
 	xmakepac packages2 $i
     done
     xhookpac2

@@ -52,8 +52,18 @@ PBMYPROG="pbslacks/$MYPROG"
 MYPWD=$(pwd)
 PBDIRPROG="$(cd $(dirname $0); pwd)";cd "$MYPWD"
 PBARCH=x64
-#SLACKVER=current
-SLACKVER=15.0
+
+if [ -d slackware64-current ] ;then
+    SLACKVER=current
+elif [ -d slackwarearm-current ] ;then
+    SLACKVER=current
+elif [ -d slackware64-15.0 ] ;then
+    SLACKVER=15.0
+elif [ -d slackwarearm-15.0 ] ;then
+    SLACKVER=15.0
+else
+    SLACKVER=15.0
+fi
 if [ ! -d slackware64-${SLACKVER} ] ;then
     if [ -d slackwarearm-${SLACKVER} ] ;then
 	PBARCH=arm

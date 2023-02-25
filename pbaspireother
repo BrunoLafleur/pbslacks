@@ -54,8 +54,13 @@ fi
 	    xgetpac "$i" "$SLACKDJ" 5
 	done
     )
+    (
+	cd 32
+	xgetpac python2 "$SLACKMIR/slackware-${SLACKVER}/slackware/d" 7
+    )
 )
 xpurgeindex packages
+exit 0
 
 ############################################
 (

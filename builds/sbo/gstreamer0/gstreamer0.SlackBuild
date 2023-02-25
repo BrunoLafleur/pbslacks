@@ -50,12 +50,11 @@ fi
 
 NUMJOBS=${NUMJOBS:-" -j$(expr $(nproc) + 1) "}
 
-if [ "$ARCH" = "i586" ]; then
-  SLKCFLAGS="-O2 -march=i586 -mtune=i686"
+if [ "$ARCH" = "i486" -o "$ARCH" = "i586" -o "$ARCH" = "i686" ]; then
+  SLKCFLAGS="-O2 -march=$ARCH -mtune=i686 -m32"
   LIBDIRSUFFIX=""
-elif [ "$ARCH" = "i686" ]; then
-  SLKCFLAGS="-O2 -march=i686 -mtune=i686"
-  LIBDIRSUFFIX=""
+  PKG_CONFIG_PATH=/usr/lib/pkgconfig:$PKG_CONFIG_PATH;export PKG_CONFIG_PATH
+  GLIB_EXTRA_CFLAGS="$SLKCFLAGS";export GLIB_EXTRA_CFLAGS
 elif [ "$ARCH" = "s390" ]; then
   SLKCFLAGS="-O2"
   LIBDIRSUFFIX=""
@@ -71,7 +70,7 @@ TMP=${TMP:-/tmp/SBo}
 PKG=$TMP/package-${PKGNAM}
 OUTPUT=${OUTPUT:-/tmp}
 
-rm -rf $PKG
+rm -rf $PKG3
 mkdir -p $TMP $PKG $OUTPUT
 
 cd $TMP
@@ -89,6 +88,7 @@ zcat $CWD/gstreamer-0.10.36-bison3.patch.gz | patch -p1 --verbose || exit 1
 
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
+LDFLAGS="$SLKCFLAGS" \
 ./configure \
   --prefix=/usr \
   --libdir=/usr/lib${LIBDIRSUFFIX} \
@@ -108,6 +108,9 @@ CXXFLAGS="$SLKCFLAGS" \
 # gstreamer (10.22) from compiling.  Check again with future releases.
 # Seems fine as of 0.10.26, so it's enabled again  -RW
 
+CFLAGS="$SLKCFLAGS";export CFLAGS
+LDFLAGS="$SLKCFLAGS";export LDFLAGS
+  
 make $NUMJOBS || make || exit 1
 make install DESTDIR=$PKG || exit 1
 

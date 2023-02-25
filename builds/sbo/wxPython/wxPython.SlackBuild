@@ -47,12 +47,15 @@ else
     do_gp="with"
 fi
 
-if [ "$ARCH" = "i486" ]; then
-  SLKCFLAGS="-O2 -march=i486 -mtune=i686 -Wno-narrowing"
+if [ "$ARCH" = "i486" -o "$ARCH" = "i586" -o "$ARCH" = "i686" ]; then
+  SLKCFLAGS="-O2 -march=$ARCH -mtune=i686 -m32 -Wno-narrowing"
   LIBDIRSUFFIX=""
-elif [ "$ARCH" = "i686" ]; then
-  SLKCFLAGS="-O2 -march=i686 -mtune=i686 -Wno-narrowing"
-  LIBDIRSUFFIX=""
+  PKG_CONFIG_PATH=/usr/lib/pkgconfig:$PKG_CONFIG_PATH;export PKG_CONFIG_PATH
+  WXCONFIG_CFLAGS="$SLKCFLAGS";export WXCONFIG_CFLAGS
+  WXCONFIG_CXXFLAGS="$SLKCFLAGS";export WXCONFIG_CXXFLAGS
+  sed -i 's=#error "LONG_BIT =#warning "LONG_BIT =' \
+      /usr/include/python2.7/pyport.h
+  PATH=/usr/bin/32:$PATH;export PATH
 elif [ "$ARCH" = "x86_64" ]; then
   SLKCFLAGS="-O2 -fPIC -Wno-narrowing"
   LIBDIRSUFFIX="64"
@@ -74,6 +77,7 @@ chmod -R u+w,go+r-w,a-s .
 
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
+LDFLAGS="$SLKCFLAGS" \
 ./configure \
   --prefix=/usr \
   --sysconfdir=/etc \
@@ -128,7 +132,8 @@ cd wxPython
 cd -
 
 # install wxPython includes
-cp -rf include/wx-2.8/wx/wxPython $PKG/usr/include/wx-2.8/wx/
+[ -d include/wx-2.8/wx/wxPython ] && \
+    cp -rf include/wx-2.8/wx/wxPython $PKG/usr/include/wx-2.8/wx/
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true

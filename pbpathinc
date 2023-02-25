@@ -9,10 +9,7 @@
 SLACKDIR='/pub/linux/distributions/slackware'
 SLACKMIR="http://nephtys.lip6.fr$SLACKDIR"
 
-if [ "$SLACKVER" = '' ] ;then
-    #SLACKVER=current
-    SLACKVER=15.0
-fi
+[ "$SLACKVER" = '' ] && SLACKVER=15.0
 
 SLACKKEYS='https://mirrors.slackware.com/slackware'
 SLACKMULTI="$SLACKMIR/people/alien/multilib/${SLACKVER}"
