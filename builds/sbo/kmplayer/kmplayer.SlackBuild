@@ -69,13 +69,22 @@ tar xvfJ $CWD/kmplayer-pbadd.tar.xz
 cat $CWD/kmplayer-pb.patch | patch -p1
 cat $CWD/kmplayer-externc.patch | patch -p1
 
+if [ -d /usr/lib${LIBDIRSUFFIX}/qt ]; then
+  QTDIR=/usr/lib${LIBDIRSUFFIX}/qt
+fi
+export PATH=${PATH}:$QTDIR/bin
+
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
+LDFLAGS="$SLKCFLAGS" \
 CC=gcc \
 CXX=g++ \
+LD=g++ \
 cmake \
   -DCMAKE_INSTALL_PREFIX=/usr \
   -DCMAKE_BUILD_TYPE=Release \
+  -DQT_QMAKE_EXECUTABLE=$QTDIR/bin/qmake \
+  -DQT_QT_INCLUDE_DIR=$QTDIR/include/Qt \
   -DLIB_SUFFIX="${LIBDIRSUFFIX}" \
   -DBUILD_SHARED_LIBS=ON \
   .

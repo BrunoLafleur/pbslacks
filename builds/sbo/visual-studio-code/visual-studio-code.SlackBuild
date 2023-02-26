@@ -1,8 +1,8 @@
-#!/bin/bash
+#!/bin/sh
 
-# Slackware build script for cffi
+# Slackware build script for <appname>
 
-# Copyright 2014-2019  Dimitris Zlatanidis  Orestiada, Greece
+# Copyright 2015 Andre Barboza, Belo Horizonte
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -22,57 +22,38 @@
 #  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-cd $(dirname $0) ; CWD=$(pwd)
-
-PRGNAM=cffi
-VERSION=${VERSION:-1.13.2}
+PRGNAM=visual-studio-code
+VERSION=${VERSION:-1.64.2}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
-PKGTYPE=${PKGTYPE:-tgz}
 
+# Automatically determine the architecture we're building on:
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
-    i?86) ARCH=i586 ;;
-    arm*) ARCH=arm ;;
+    i?86) ARCH=i486 ;;
        *) ARCH=$( uname -m ) ;;
   esac
 fi
 
-# If the variable PRINT_PACKAGE_NAME is set, then this script will report what
-# the name of the created package would be, and then exit. This information
-# could be useful to other scripts.
-if [ ! -z "${PRINT_PACKAGE_NAME}" ]; then
-  echo "$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.$PKGTYPE"
-  exit 0
-fi
-
-TMP=${TMP:-/tmp/SBo}
+CWD=$(pwd)
+TMP=${TMP:-/tmp/SBo}	# For consistency's sake, use this
 PKG=$TMP/package-$PRGNAM
+OUTPUT=${OUTPUT:-/tmp}	# Drop the package in /tmp
 
-OUTPUT=${OUTPUT:-/tmp}
-
-if [ "$ARCH" = "i586" ]; then
-  SLKCFLAGS="-O2 -march=i586 -mtune=i686"
-  LIBDIRSUFFIX=""
-elif [ "$ARCH" = "i686" ]; then
-  SLKCFLAGS="-O2 -march=i686 -mtune=i686"
-  LIBDIRSUFFIX=""
-elif [ "$ARCH" = "x86_64" ]; then
-  SLKCFLAGS="-O2 -fPIC"
-  LIBDIRSUFFIX="64"
+if [ "$ARCH" = "x86_64" ]; then
+  PKGSUFFIX=64
 else
-  SLKCFLAGS="-O2"
-  LIBDIRSUFFIX=""
+  PKGSUFFIX=32
 fi
 
-set -e
+set -e # Exit on most errors
 
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
-rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/$PRGNAM-$VERSION.tar.gz
-cd $PRGNAM-$VERSION
+rm -rf VSCode-linux-x64
+tar xvfz $CWD/code-stable-x64-*.tar.gz
+cd VSCode-linux-x64
 chown -R root:root .
 find -L . \
  \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
@@ -80,18 +61,33 @@ find -L . \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
-python2 setup.py install --root=$PKG
-python3 setup.py install --root=$PKG
+# Copy binary files
+mkdir -p "${PKG}/opt/${PRGNAM}-${VERSION}"
+cp -rvf * "${PKG}/opt/${PRGNAM}-${VERSION}" -R
 
-find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
-  | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
+# Link executable to usr/bin
+mkdir -p "${PKG}/usr/bin"
+ln -s "/opt/${PRGNAM}-${VERSION}/code" "${PKG}"/usr/bin/visual-studio-code
 
-mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-cp -a LICENSE PKG-INFO $PKG/usr/doc/$PRGNAM-$VERSION
+# copy desktop shortcut
+mkdir -p "${PKG}/usr/share/applications"
+install -m644 "${CWD}/${PRGNAM}.desktop" "${PKG}/usr/share/applications/${PRGNAM}.desktop"
+
+# copy vscode icon
+mkdir -p "${PKG}/usr/share/icons" 
+install -m644 "${PKG}/opt/${PRGNAM}-${VERSION}/resources/app/out/vs/platform/extensionManagement/common/media/defaultIcon.png" \
+	"${PKG}/usr/share/icons/${PRGNAM}.png"
+
+# copy license and slackbuild
+mkdir -p "$PKG/usr/doc/$PRGNAM-$VERSION"
+install -m644 "${PKG}/opt/${PRGNAM}-${VERSION}/resources/app/LICENSE.rtf" \
+	"$PKG/usr/doc/$PRGNAM-$VERSION"
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
+cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
-/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.$PKGTYPE
+/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
+
