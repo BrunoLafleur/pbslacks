@@ -85,9 +85,11 @@ export HOMESLACK="$MYPWD"
 	for i in orage raptor2 rasqal redland scim scim-anthy scim-hangul \
 		       scim-input-pad scim-m17n strigi cgmanager \
 		       gtk-xfce-engine liblastfm pm-utils qt-gstreamer \
-		       qtscriptgenerator-src attica042 libbluedevil qjson ;do
+		       libbluedevil qjson ;do
 	    cp $LOCALSRC/${i}-[0-9]* $i
 	done
+	cp $LOCALSRC/attica-[0-9]* attica042
+	cp $LOCALSRC/qtscriptgenerator-src qtscriptgenerator
     )
     (
 	cd kde;[ ! -d src ] && mkdir src;cd src
@@ -126,7 +128,7 @@ export HOMESLACK="$MYPWD"
 	    xgeturl "$KDE4_KDEVELOPPGQT"
 	    xpurgesrc 'tar.?z' sig
 	    for i in polkit-kde libnm-qt kaudiocreator ;do
-		cp ../../$LOCALSRC/${i}-[0-9]* .
+		cp ../../$LOCALSRC/${i}-* .
 	    done
 	)
     )

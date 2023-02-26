@@ -283,7 +283,7 @@ fi
 if [ $ISPAC4 -eq 1 ] ;then
     xmakealienpac packages4 wxGTK3
     (
-	export WXCONF=$XLIBDIR/wx/config/gtk3-unicode-static-3.0
+	export WXCONF=$XLIBDIR/wx/config/gtk3-unicode-3.2
 	xmakepac packages4 vbam
     )
     [ $? -ne 0 ] && exit 1
