@@ -42,7 +42,7 @@ TMP=${TMP:-/tmp/SBo}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 
-MYCFLAGS='-Wno-error=deprecated-declarations -Wno-error=cast-function-type'
+MYCFLAGS='-Wno-error=deprecated-declarations -Wno-error=cast-function-type -Wno-error=nonnull -Wno-error=register'
 
 if [ "$ARCH" = "i586" ]; then
   SLKCFLAGS="-O2 -march=i586 -mtune=i586 $MYCFLAGS"

@@ -71,7 +71,7 @@ find -L . \
 
 # https://bugs.gentoo.org/737596
 # patch -p1 < $CWD/patches/fix_atomic_rel_error.patch
-patch -p1 < $CWD/patches/glib268.patch
+# patch -p1 < $CWD/patches/glib268.patch
 
 # strip invalid tag
 sed -i /url/d org.inkscape.Inkscape.appdata.xml.in

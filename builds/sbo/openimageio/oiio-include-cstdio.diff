@@ -1,10 +1,16 @@
---- src/jpeg2000.imageio/jpeg2000output-v1.cpp.orig	2019-08-02 13:53:54.000000000 +1000
-+++ src/jpeg2000.imageio/jpeg2000output-v1.cpp	2019-08-07 21:54:04.354000000 +1000
-@@ -28,6 +28,7 @@
-   (This is the Modified BSD License)
- */
+diff -rU5 oiio-Release-2.1.17.0old/src/jpeg2000.imageio/jpeg2000output-v1.cpp oiio-Release-2.1.17.0/src/jpeg2000.imageio/jpeg2000output-v1.cpp
+--- oiio-Release-2.1.17.0old/src/jpeg2000.imageio/jpeg2000output-v1.cpp	2020-07-01 20:06:00.000000000 +0200
++++ oiio-Release-2.1.17.0/src/jpeg2000.imageio/jpeg2000output-v1.cpp	2023-03-11 22:14:34.000000000 +0100
+@@ -1,9 +1,11 @@
+ // Copyright 2008-present Contributors to the OpenImageIO project.
+ // SPDX-License-Identifier: BSD-3-Clause
+ // https://github.com/OpenImageIO/oiio/blob/master/LICENSE.md
  
++#include <cstddef>
 +#include <cstdio>
  #include <vector>
  
  #include "openjpeg.h"
+ 
+ #include <OpenImageIO/filesystem.h>
+Seulement dans oiio-Release-2.1.17.0/src/jpeg2000.imageio: jpeg2000output-v1.cpp.orig

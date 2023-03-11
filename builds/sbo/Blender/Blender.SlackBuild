@@ -80,13 +80,12 @@ TMP=${TMP:-/tmp/SBo}
 PKG=$TMP/package-$SRCNAM
 OUTPUT=${OUTPUT:-/tmp}
 
-if [ ] ;then
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 rm -rf $SRCNAM-$VERSION
 tar xvf $CWD/$SRCNAM-$VERSION.tar.xz
-fi
+
 cd $TMP
 cd $SRCNAM-$VERSION
 
@@ -98,9 +97,9 @@ find -L . \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
 # For Python 3.9
-#cat $CWD/patches/blender-python3.9-pb.patch|patch -p1 || exit 1
+cat $CWD/patches/blender-python3.9-pb.patch|patch -p1 || exit 1
 #cat $CWD/patches/0007-BPY_thread_save_crashes_against_Py3.9.patch|patch -p1 || exit 1
-#cat $CWD/cuda.patch|patch -p1
+cat $CWD/cuda.patch|patch -p1
 
 mkdir -p build
 cd build

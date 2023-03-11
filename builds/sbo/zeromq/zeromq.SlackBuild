@@ -98,6 +98,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --enable-static=no \
   --enable-shared=yes \
   --with-libsodium \
+  --disable-Werror \
   --host=$ARCH-slackware-linux \
   --build=$ARCH-slackware-linux
 
