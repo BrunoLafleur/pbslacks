@@ -308,7 +308,8 @@ if [ $ISCHROMIUM -eq 1 ] ;then
 fi
 
 if [ $ISAUDACITY -eq 1 ] ;then
-    for i in lilv lv2 serd sord sratom suil vamp-plugin-sdk audacity ;do
+    for i in lilv lv2 serd sord sratom suil vamp-plugin-sdk portsmf libsbsms \
+		  soundtouch twolame soxr audacity ;do
 	xmakealienpac packages4/audacity $i
     done
 fi

@@ -109,6 +109,7 @@ if [ $ISKDE4DEPS -eq 1 ] ;then
     # Packages which has been replaced.
     # So I have modified them to not collide with the new ones.
     # KDE4 have been made aware of those modifications.
+    if [  ] ;then
     xmakekdedep LibRaw LibRaw18 deps
     xmakekdedep exiv2 exiv221 deps
     xmakekdedep sip sip422 deps
@@ -122,7 +123,8 @@ if [ $ISKDE4DEPS -eq 1 ] ;then
     xmakekdedep poppler poppler-qt4 deps
     xmakekdedep cln cln deps
     xmakekdedep akonadi akonadi kdeother
-
+    fi
+    
     # I have to re-add suppressed packages.
     # List is inside pbslacks/Slackpkg/blacklistkeepkde4
     for i in automoc4 glade3 libbluedevil liblastfm \

@@ -89,6 +89,11 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \+
 
+if [ -d /usr/lib${LIBDIRSUFFIX}/qt ]; then
+  QTDIR=/usr/lib${LIBDIRSUFFIX}/qt
+fi
+export PATH=${PATH}:$QTDIR/bin
+
 # Build and install:
 mkdir build
 cd build
@@ -96,6 +101,8 @@ cd build
     -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \
     -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS" \
     -DCMAKE_INSTALL_PREFIX=/usr \
+    -DQT_QMAKE_EXECUTABLE=$QTDIR/bin/qmake \
+    -DQT_QT_INCLUDE_DIR=$QTDIR/include/Qt \
     -DMAN_INSTALL_DIR=/usr/man \
     -DSYSCONF_INSTALL_DIR=/etc/kde \
     -DLIB_SUFFIX=${LIBDIRSUFFIX} \

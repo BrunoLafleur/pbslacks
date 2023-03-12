@@ -135,4 +135,12 @@ fi
 	    xgetsbosrc "$i"
 	done
     )
+    
+    [ ! -d audacity ] && mkdir audacity
+    (
+	cd audacity
+	for i in portsmf libsbsms soundtouch twolame soxr ;do
+	    xgetsbosrc "$i"
+	done
+    )
 )

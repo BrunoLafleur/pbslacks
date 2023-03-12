@@ -51,9 +51,20 @@ if [ ! -z "${PRINT_PACKAGE_NAME}" ]; then
   exit 0
 fi
 
-if [ "$ARCH" = "x86_64" ]; then
+if [ "$ARCH" = "i586" ]; then
+  SLKCFLAGS="-O2 -march=i586 -mtune=i686 -std=gnu++14"
+  LIBDIRSUFFIX=""
+elif [ "$ARCH" = "s390" ]; then
+  SLKCFLAGS="-O2 -std=gnu++14"
+  LIBDIRSUFFIX=""
+elif [ "$ARCH" = "x86_64" ]; then
+  SLKCFLAGS="-O2 -fPIC -std=gnu++14"
   LIBDIRSUFFIX="64"
+elif [ "$ARCH" = "armv7hl" ]; then
+  SLKCFLAGS="-O2 -march=armv7-a -mfpu=vfpv3-d16 -std=gnu++14"
+  LIBDIRSUFFIX=""
 else
+  SLKCFLAGS="-O2 -std=gnu++14"
   LIBDIRSUFFIX=""
 fi
 
@@ -73,6 +84,11 @@ find . \
  -exec chmod 755 {} \+ -o \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \+
+
+if [ -d /usr/lib${LIBDIRSUFFIX}/qt ]; then
+  QTDIR=/usr/lib${LIBDIRSUFFIX}/qt
+fi
+export PATH=${PATH}:$QTDIR/bin
 
 mkdir cmake-build
 cd cmake-build

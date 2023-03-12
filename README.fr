@@ -163,3 +163,15 @@ servir.
 
 J'ai testé ces scripts sur la distribution Linux Slackware current à partir de
 juillet 2019, jusqu'à maintenant.
+
+J'ai aussi testé sur la Slackware 15.0 du 10 mars 2023.
+
+Pour mettre à jour d'une Slackware current datée d'avant la 15.0 (14+) vous
+pouvez renommer la slackware64-current en slackware64-15.0 et utiliser
+le menu aspire dans pbslacks/pbsetup.
+
+Vous pouvez ensuite retourner à la Slackware current d'après la 15.0 en
+renommer à nouveau slackware64-15.0 en slackware64-current.
+
+Ne mettez jamais directement à jour la Slackware current d'avant la 15.0
+(aka post 14.2) vers la Slackware current après la 15.0 (post 15.0).

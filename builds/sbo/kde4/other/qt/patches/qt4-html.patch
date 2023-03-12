@@ -1,0 +1,16 @@
+diff -rU5 qt-everywhere-opensource-src-4.8.7old/src/3rdparty/webkit/Source/WebCore/html/HTMLImageElement.cpp qt-everywhere-opensource-src-4.8.7/src/3rdparty/webkit/Source/WebCore/html/HTMLImageElement.cpp
+--- qt-everywhere-opensource-src-4.8.7old/src/3rdparty/webkit/Source/WebCore/html/HTMLImageElement.cpp	2015-05-07 16:14:47.000000000 +0200
++++ qt-everywhere-opensource-src-4.8.7/src/3rdparty/webkit/Source/WebCore/html/HTMLImageElement.cpp	2023-03-12 20:37:32.000000000 +0100
+@@ -72,11 +72,11 @@
+ PassRefPtr<HTMLImageElement> HTMLImageElement::createForJSConstructor(Document* document, const int* optionalWidth, const int* optionalHeight)
+ {
+     RefPtr<HTMLImageElement> image = adoptRef(new HTMLImageElement(imgTag, document));
+     if (optionalWidth)
+         image->setWidth(*optionalWidth);
+-    if (optionalHeight > 0)
++    if (optionalHeight)
+         image->setHeight(*optionalHeight);
+     return image.release();
+ }
+ 
+ bool HTMLImageElement::mapToEntry(const QualifiedName& attrName, MappedAttributeEntry& result) const
