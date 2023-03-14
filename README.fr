@@ -168,7 +168,7 @@ J'ai aussi testé sur la Slackware 15.0 du 10 mars 2023.
 
 Pour mettre à jour d'une Slackware current datée d'avant la 15.0 (14+) vous
 pouvez renommer la slackware64-current en slackware64-15.0 et utiliser
-le menu aspire dans pbslacks/pbsetup.
+le menu aspire dans pbslacks/pbsetup. Et ensuite le menu upgrade.
 
 Vous pouvez ensuite retourner à la Slackware current d'après la 15.0 en
 renommer à nouveau slackware64-15.0 en slackware64-current.

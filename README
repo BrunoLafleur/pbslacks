@@ -164,7 +164,7 @@ I have also tested on a Slackware 15.0 of 10 mars 2023.
 
 To upgrade from a Slackware current dated before 15.0 (14+) you can
 rename the slackware64-current to slackware64-15.0 and use the
-aspire menu in pbslacks/pbsetup.
+aspire menu in pbslacks/pbsetup then the upgrade menu.
 
 You can then go again to Slackware current post 15.0 in renaming back
 slackware64-15.0 to slackware64-current.

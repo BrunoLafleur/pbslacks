@@ -14,3 +14,19 @@ diff -rU5 qt-everywhere-opensource-src-4.8.7old/src/3rdparty/webkit/Source/WebCo
  }
  
  bool HTMLImageElement::mapToEntry(const QualifiedName& attrName, MappedAttributeEntry& result) const
+diff -rU5 qt-everywhere-opensource-src-4.8.7old/tools/linguist/linguist/messagemodel.cpp qt-everywhere-opensource-src-4.8.7/tools/linguist/linguist/messagemodel.cpp
+--- qt-everywhere-opensource-src-4.8.7old/tools/linguist/linguist/messagemodel.cpp	2015-05-07 16:14:39.000000000 +0200
++++ qt-everywhere-opensource-src-4.8.7/tools/linguist/linguist/messagemodel.cpp	2023-03-13 22:20:31.000000000 +0100
+@@ -181,11 +181,11 @@
+     for (int i = 0; i < two->contextCount(); ++i) {
+         ContextItem *oc = two->contextItem(i);
+         if (ContextItem *c = one->findContext(oc->context())) {
+             for (int j = 0; j < oc->messageCount(); ++j) {
+                 MessageItem *m = oc->messageItem(j);
+-                if (c->findMessage(m->text(), m->comment()) >= 0)
++                if (c->findMessage(m->text(), m->comment()))
+                     ++inBoth;
+             }
+         }
+     }
+     return inBoth * 100 / two->messageCount();
