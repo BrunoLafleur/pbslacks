@@ -127,9 +127,6 @@ if [ $ISKDE4DEPS -eq 1 ] ;then
     
     # I have to re-add suppressed packages.
     # List is inside pbslacks/Slackpkg/blacklistkeepkde4
-    xmakekdedep qt qt other
-    xmakekdedep qtwebkit qtwebkit other
-    exit 0
     for i in automoc4 glade3 libbluedevil liblastfm \
 		     pm-utils qjson raptor2 redland scim scim-input-pad \
 		     scim-pinyin soprano attica042 cgmanager \
@@ -157,7 +154,7 @@ if [ $ISKDE4 -eq 1 ] ;then
 	    rm -rf /usr/include/ConsoleKit.save
 	    mv -f /usr/include/ConsoleKit /usr/include/ConsoleKit.save
 	fi
-	sh kde.SlackBuild extragear:plasma-nm # extragear:calligra
+	sh kde.SlackBuild # extragear:calligra
 	#sh kde.SlackBuild kdegraphics:okular extragear:caligra
 	#sh kde.SlackBuild kdelibs kdebase:nepomuk-core kdepimlibs kdebase kdesdk extragear:libkscreen kdegraphics kdebindings kdebase:kde-workspace kdeaccessibility kdeutils kdelibs kdemultimedia extragear:libktorrent kdenetwork oxygen-icons kdeadmin kdeartwork kdegames kdetoys kdepim kdepim-runtime kdenetwork:kopete kdeedu kdewebdev kdebase:kde-baseapps kdeplasma-addons polkit-kde extragear
 	exit $?
