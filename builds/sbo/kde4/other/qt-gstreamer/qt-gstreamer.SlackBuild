@@ -91,6 +91,7 @@ find . \
 # nothing does), but we'll queue a fix for the FTBFS anyway:
 zcat $CWD/patches/qt-gstreamer.gstreamer-1.16.x.diff.gz | patch -p1 --verbose || exit 1
 zcat $CWD/patches/qt-gstreamer-gcc10.patch.gz | patch -p1 --verbose || exit 1
+zcat $CWD/patches/qt-gstreamer-gcc11.patch.gz | patch -p1 --verbose || exit 1
 
 mkdir -p build
 cd build
