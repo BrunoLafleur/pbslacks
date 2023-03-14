@@ -92,6 +92,8 @@ python setup.py install --root=$PKG
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
+cp $CWD/openshot.sh $PKG/usr/bin
+
 # mkdir -p $PKG/usr/man
 mv $PKG/usr/share/man $PKG/usr/
 rm -rf $PKG/usr/share/man

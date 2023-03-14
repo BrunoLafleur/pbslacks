@@ -127,6 +127,12 @@ if [ $ISKDE4DEPS -eq 1 ] ;then
     
     # I have to re-add suppressed packages.
     # List is inside pbslacks/Slackpkg/blacklistkeepkde4
+    for i in PyQt qt-gstreamer \
+		     qimageblitz qtscriptgenerator rasqal scim-anthy \
+		     scim-hangul scim-m17n scim-tables strigi ;do
+	xmakekdedep $i $i other
+    done
+    exit 0
     for i in automoc4 glade3 libbluedevil liblastfm \
 		     pm-utils qjson raptor2 redland scim scim-input-pad \
 		     scim-pinyin soprano attica042 cgmanager \
