@@ -106,6 +106,8 @@ find $PKG | xargs file | grep -e "executable" -e "shared object" \
   | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
 
 cp -a $PKG/usr/lib${LIBDIRSUFFIX}/$PKGNAM/lib${LIBDIRSUFFIX}/lib* $PKG/usr/lib${LIBDIRSUFFIX}
+cp -a $PKG/usr/lib${LIBDIRSUFFIX}/$PKGNAM/lib${LIBDIRSUFFIX}/cmake $PKG/usr/lib${LIBDIRSUFFIX}
+cp -a $PKG/usr/lib${LIBDIRSUFFIX}/$PKGNAM/lib${LIBDIRSUFFIX}/grantlee $PKG/usr/lib${LIBDIRSUFFIX}
 
 mkdir -p $PKG/usr/doc/$PKGNAM-$VERSION
 cp -a AUTHORS CHANGELOG COPYING* GOALS README $PKG/usr/doc/$PKGNAM-$VERSION

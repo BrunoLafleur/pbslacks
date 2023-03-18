@@ -1,12 +1,13 @@
 mkdir -p build
 cd build
+  INCGRANTLEE='-I/usr/lib64/grantlee051/include'
   cmake \
     $KDE_OPT_ARGS \
     -DWITH_HAL=OFF \
-    -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS -Wno-narrowing" \
-    -DCMAKE_C_FLAGS_RELEASE:STRING="$SLKCFLAGS -Wno-narrowing" \
-    -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS -Wno-narrowing" \
-    -DCMAKE_CXX_FLAGS_RELEASE:STRING="$SLKCFLAGS -Wno-narrowing" \
+    -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS $INCGRANTLEE -Wno-narrowing" \
+    -DCMAKE_C_FLAGS_RELEASE:STRING="$SLKCFLAGS $INCGRANTLEE -Wno-narrowing" \
+    -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS $INCGRANTLEE -Wno-narrowing" \
+    -DCMAKE_CXX_FLAGS_RELEASE:STRING="$SLKCFLAGS $INCGRANTLEE -Wno-narrowing" \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DMAN_INSTALL_DIR=/usr/man \
