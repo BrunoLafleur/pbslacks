@@ -1,4 +1,4 @@
 # Fix build:
 zcat $CWD/patch/amarok/amarok_mariadb.patch.gz | patch -p1 --verbose || { touch ${SLACK_KDE_BUILD_DIR}/${PKGNAME}.failed ; continue ; }
 
-zcat $CWD/patch/amarok/amarok-taglib.patch.gz | patch -p0 --verbose || { touch ${SLACK_KDE_BUILD_DIR}/${PKGNAME}.failed ; continue ; }
+#zcat $CWD/patch/amarok/amarok-taglib.patch.gz | patch -p1 --verbose || { touch ${SLACK_KDE_BUILD_DIR}/${PKGNAME}.failed ; continue ; }
