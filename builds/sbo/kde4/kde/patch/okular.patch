@@ -1,0 +1,2 @@
+# Fix build:
+zcat $CWD/patch/okular/okular-gcc11.patch.gz | patch -p1 --verbose || { touch ${SLACK_KDE_BUILD_DIR}/${PKGNAME}.failed ; continue ; }
