@@ -272,12 +272,14 @@ if [ $XEND -eq 0 ] ;then
     fi
     if [ $ISRECREGDM -eq 1 ] ;then
 	if [ $XTEST -ne 1 ] ;then
+	    ln -sf ../gdm .
 	    $HOMESLACK/pbslacks/pbcompilegdm -u $MYUSER -g $MYGROUP
 	fi
 	mygt "Recreate source GDM done." >> $XTEMPMES
     fi
     if [ $ISRECREDEBIAN -eq 1 ] ;then
 	if [ $XTEST -ne 1 ] ;then
+	    ln -sf ../debian .
 	    $HOMESLACK/pbslacks/pbcompiledebian -u $MYUSER -g $MYGROUP
 	fi
 	mygt "Recreate source Debian done." >> $XTEMPMES

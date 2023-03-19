@@ -46,9 +46,9 @@ fi
 	xgetsbosrc $i
     done
 )
-if [ -d slackware$AARCH-current ] ;then
+if [ -d slackware$AARCH-${SLACKVER} ] ;then
     (
-	cd slackware$AARCH-current
+	cd slackware$AARCH-${SLACKVER}
 	ln -sf ../gdm .
     )
 fi
