@@ -15,6 +15,6 @@ zcat $CWD/patch/kde-workspace/kde-workspace-opengl.patch.gz | patch -p1 --verbos
 # suspend and hibernate with elogind : a friend of LuckyCyborg.
 zcat $CWD/patch/kde-workspace/kde-workspace-elogind.patch.gz | patch -p1 --verbose || { touch ${SLACK_KDE_BUILD_DIR}/${PKGNAME}.failed ; continue ; }
 
-#zcat $CWD/patch/kde-workspace/kde-workspace-widgetexplorer.patch.gz | patch -p1 --verbose || { touch ${SLACK_KDE_BUILD_DIR}/${PKGNAME}.failed ; continue ; }
-
 zcat $CWD/patch/kde-workspace/kde-workspace-opengl2.patch.gz | patch -p1 --verbose || { touch ${SLACK_KDE_BUILD_DIR}/${PKGNAME}.failed ; continue ; }
+
+zcat $CWD/patch/kde-workspace/kde-workspace-widgetexplorer.patch.gz | patch -p1 --verbose || { touch ${SLACK_KDE_BUILD_DIR}/${PKGNAME}.failed ; continue ; }
