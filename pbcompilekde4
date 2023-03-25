@@ -109,6 +109,7 @@ if [ $ISKDE4DEPS -eq 1 ] ;then
     # Packages which has been replaced.
     # So I have modified them to not collide with the new ones.
     # KDE4 have been made aware of those modifications.
+    xmakekdedep libappindicator libappindicator deps
     xmakekdedep LibRaw LibRaw18 deps
     xmakekdedep exiv2 exiv221 deps
     xmakekdedep sip sip422 deps
@@ -119,10 +120,11 @@ if [ $ISKDE4DEPS -eq 1 ] ;then
     xmakekdedep polkit-qt-1 polkit-qt4-1 deps
     xmakekdedep qca qca213 deps
     xmakekdedep libdbusmenu-qt libdbusmenu-qt4 deps
+    xmakekdedep sni-qt sni-qt deps
     xmakekdedep poppler poppler-qt4 deps
     xmakekdedep cln cln deps
     xmakekdedep akonadi akonadi kdeother
-    
+
     # I have to re-add suppressed packages.
     # List is inside pbslacks/Slackpkg/blacklistkeepkde4
     for i in automoc4 glade3 libbluedevil liblastfm \
@@ -152,8 +154,8 @@ if [ $ISKDE4 -eq 1 ] ;then
 	    rm -rf /usr/include/ConsoleKit.save
 	    mv -f /usr/include/ConsoleKit /usr/include/ConsoleKit.save
 	fi
-	# kdenetwork (:kopete) oxygen-icons ...
-	sh kde.SlackBuild # extragear:calligra
+	# kdegames
+	sh kde.SlackBuild kdegames kdetoys kdepim kdepim-runtime kdenetwork:kopete kdeedu kdewebdev kdebase:kde-baseapps kdeplasma-addons polkit-kde extragear # extragear:calligra
 	#sh kde.SlackBuild kdegraphics:okular extragear:caligra
 	#sh kde.SlackBuild kdelibs kdebase:nepomuk-core kdepimlibs kdebase kdesdk extragear:libkscreen kdegraphics kdebindings kdebase:kde-workspace kdeaccessibility kdeutils kdelibs kdemultimedia extragear:libktorrent kdenetwork oxygen-icons kdeadmin kdeartwork kdegames kdetoys kdepim kdepim-runtime kdenetwork:kopete kdeedu kdewebdev kdebase:kde-baseapps kdeplasma-addons polkit-kde extragear
 	exit $?

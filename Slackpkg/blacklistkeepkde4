@@ -52,6 +52,8 @@ akonadi
 akonadi.*
 scim
 scim.*
+sni-qt
+libappindicator
 
 # For keeping KDE4
 kde/
