@@ -51,7 +51,8 @@ export HOMESLACK="$MYPWD"
 	done
 	cp $LOCALSRC/polkit-qt-1-* polkit-qt4-1
 	cp $LOCALSRC/phonon-backend-gstreamer-* phonon-gstreamer
-	cp $LOCALSRC/eigen-* eigen32
+	cp $LOCALSRC/eigen-3* eigen32
+	cp $LOCALSRC/eigen-2* eigen20
 	cp $LOCALSRC/phonon-[0-9]* phonon4qt4
 	cd poppler-qt4
 	xgeturl "$KDE4DEPS_POPPLER"

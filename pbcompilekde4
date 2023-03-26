@@ -114,6 +114,7 @@ if [ $ISKDE4DEPS -eq 1 ] ;then
     xmakekdedep exiv2 exiv221 deps
     xmakekdedep sip sip422 deps
     xmakekdedep eigen eigen32 deps
+    xmakekdedep eigen eigen20 deps
     xmakekdedep grantlee grantlee051 deps
     xmakekdedep phonon phonon4qt4 deps
     xmakekdedep phonon-gstreamer phonon-gstreamer deps
@@ -154,8 +155,8 @@ if [ $ISKDE4 -eq 1 ] ;then
 	    rm -rf /usr/include/ConsoleKit.save
 	    mv -f /usr/include/ConsoleKit /usr/include/ConsoleKit.save
 	fi
-	# kdeedu:rocks
-	sh kde.SlackBuild # extragear:calligra
+	# extragear:calligra
+	sh kde.SlackBuild kdebase:kde-workspace # extragear:calligra
 	#sh kde.SlackBuild kdegraphics:okular extragear:caligra
 	#sh kde.SlackBuild kdelibs kdebase:nepomuk-core kdepimlibs kdebase kdesdk extragear:libkscreen kdegraphics kdebindings kdebase:kde-workspace kdeaccessibility kdeutils kdelibs kdemultimedia extragear:libktorrent kdenetwork oxygen-icons kdeadmin kdeartwork kdegames kdetoys kdepim kdepim-runtime kdenetwork:kopete kdeedu kdewebdev kdebase:kde-baseapps kdeplasma-addons polkit-kde extragear
 	exit $?

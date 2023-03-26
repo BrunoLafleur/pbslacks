@@ -23,4 +23,4 @@ zcat $CWD/patch/kdelibs/kde4libs-4.14.26.diff.gz | patch -p1 --verbose || { touc
 
 zcat $CWD/patch/kdelibs/findexiv2.patch.gz | patch -p1 --verbose || { touch ${SLACK_KDE_BUILD_DIR}/${PKGNAME}.failed ; continue ; }
 
-zcat $CWD/patch/kdelibs/kdelibs-comp-pointer.patch.gz | patch -p1 --verbose || { touch ${SLACK_KDE_BUILD_DIR}/${PKGNAME}.failed ; continue ; }
+zcat $CWD/patch/kdelibs/kdelibs-comp-pointer+newmenu.patch.gz | patch -p1 --verbose || { touch ${SLACK_KDE_BUILD_DIR}/${PKGNAME}.failed ; continue ; }
