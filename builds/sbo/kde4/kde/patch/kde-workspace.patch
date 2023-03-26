@@ -20,3 +20,7 @@ zcat $CWD/patch/kde-workspace/kde-workspace-elogind.patch.gz | patch -p1 --verbo
 zcat $CWD/patch/kde-workspace/kde-workspace-widgetexplorer.patch.gz | patch -p1 --verbose || { touch ${SLACK_KDE_BUILD_DIR}/${PKGNAME}.failed ; continue ; }
 
 zcat $CWD/patch/kde-workspace/kde-workspace-notifications.patch.gz | patch -p1 --verbose || { touch ${SLACK_KDE_BUILD_DIR}/${PKGNAME}.failed ; continue ; }
+
+zcat $CWD/patch/kde-workspace/kde-workspace-activitymanager.patch.gz | patch -p1 --verbose || { touch ${SLACK_KDE_BUILD_DIR}/${PKGNAME}.failed ; continue ; }
+
+zcat $CWD/patch/kde-workspace/kde-workspace-statusnotifier.patch.gz | patch -p1 --verbose || { touch ${SLACK_KDE_BUILD_DIR}/${PKGNAME}.failed ; continue ; }
