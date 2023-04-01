@@ -3,10 +3,10 @@ cd build
   cmake \
     $KDE_OPT_ARGS \
     -DKDE_PLATFORM_FEATURE_DISABLE_DEPRECATED=TRUE \
-    -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \
-    -DCMAKE_C_FLAGS_RELEASE:STRING="$SLKCFLAGS" \
-    -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS -std=c++11" \
-    -DCMAKE_CXX_FLAGS_RELEASE:STRING="$SLKCFLAGS -std=c++11" \
+    -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS -I/usr/include/tirpc -ltirpc" \
+    -DCMAKE_C_FLAGS_RELEASE:STRING="$SLKCFLAGS -I/usr/include/tirpc -ltirpc" \
+    -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS -std=gnu++11 -I/usr/include/tirpc -ltirpc" \
+    -DCMAKE_CXX_FLAGS_RELEASE:STRING="$SLKCFLAGS -std=gnu++11 -I/usr/include/tirpc -ltirpc" \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DMAN_INSTALL_DIR=/usr/man \
