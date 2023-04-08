@@ -96,9 +96,10 @@ cd build
 QTDIR=/usr/lib${LIBDIRSUFFIX}/qt \
 PATH=$QTDIR/bin:$PATH \
 CXXFLAGS="$SLKCFLAGS -std=c++11 -fpermissive" \
+LDFLAGS="$SLKCFLAGS -std=c++11 -fpermissive -Wl,-rpath=/usr/lib${LIBDIRSUFFIX}/$PKGNAM/lib${LIBDIRSUFFIX}" \
 cmake \
-  -DCMAKE_INSTALL_PREFIX=/usr \
-  -DCMAKE_INSTALL_MANDIR=/usr/man \
+  -DCMAKE_INSTALL_PREFIX=/usr/lib${LIBDIRSUFFIX}/$PKGNAM \
+  -DCMAKE_INSTALL_MANDIR=/usr/lib${LIBDIRSUFFIX}/$PKGNAM/man \
   -DBUILD_SHARED_LIBS=ON \
   -DENABLE_QT4=ON \
   -DENABLE_QT5=OFF \
@@ -117,24 +118,13 @@ make $NUMJOBS || make || exit 1
 make install DESTDIR=$PKG || exit 1
 
 # Don't ship .la files:
-rm -f $PKG/{,usr/}lib${LIBDIRSUFFIX}/*.la
+rm -f $PKG/usr/lib${LIBDIRSUFFIX}/$PKGNAM/lib${LIBDIRSUFFIX}/lib*.la
 
 # Back to source tarball root directory:
 cd ..
 
-# Remove files that overlap with poppler qt5 :
-rm -rf $PKG/usr/bin $PKG/usr/man $PKG/usr/share/gtk-doc
-rm -f $PKG/usr/include/poppler/*
-for i in cpp fofi glib splash goo ;do
-    rm -rf $PKG/usr/include/poppler/$i
-done
-rm -rf $PKG/usr/lib64/girepository-1.0/
-rm -f $PKG/usr/lib64/pkgconfig/poppler-cpp.pc
-rm -f $PKG/usr/lib64/pkgconfig/poppler-glib.pc
-rm -f $PKG/usr/lib64/pkgconfig/poppler.pc
-rm -f $PKG/usr/lib64/libpoppler-cpp.so*
-rm -f $PKG/usr/lib64/libpoppler-glib.so*
-rm -f $PKG/usr/lib64/libpoppler.so*
+# Some cleaning.
+rm -rf $PKG/usr/lib${LIBDIRSUFFIX}/$PKGNAM/share/gtk-doc
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null

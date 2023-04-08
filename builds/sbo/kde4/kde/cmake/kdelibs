@@ -1,6 +1,6 @@
 mkdir -p build
 cd build
-  INCGRANTLEE='-I/usr/lib64/grantlee051/include'
+  INCGRANTLEE="-I/usr/lib${LIBDIRSUFFIX}/grantlee051/include"
   cmake \
     $KDE_OPT_ARGS \
     -DWITH_HAL=OFF \

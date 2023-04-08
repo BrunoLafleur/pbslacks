@@ -112,7 +112,7 @@ make install DESTDIR=$PKG || exit 1
   # Fix temporary working directory:
   sed -i "/^tmpdir/s|=.*|= 'tmpdir'|" setup.py
   CFLAGS="$SLKCFLAGS -I$PKG/usr/include" \
-  LDFLAGS="-L$PKG/usr/lib${LIBDIRSUFFIX} -lwebp" \
+  LDFLAGS="-L$PKG/usr/lib${LIBDIRSUFFIX} -lwebp -Wl,-rpath=/usr/lib${LIBDIRSUFFIX}/$PKGNAM " \
   python setup.py install --root=$PKG
 )
 

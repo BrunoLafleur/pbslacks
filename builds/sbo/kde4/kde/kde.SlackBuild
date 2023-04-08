@@ -86,6 +86,8 @@ fix_perms() {
    -exec chmod 644 {} \+
 }
 
+NOSTRIPRPATH=
+
 strip_binaries() {
   target_dir=$1
   [ -z "$target_dir" ] && target_dir='.'
@@ -93,11 +95,13 @@ strip_binaries() {
   find $target_dir | xargs file | grep "shared object" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
   find $target_dir | xargs file | grep "current ar archive" | grep ELF | cut -f 1 -d : | xargs strip -g 2> /dev/null
   # Also strip rpaths:
-  for file in $(find $target_dir | xargs file | grep -e "executable" -e "shared object" | grep ELF | cut -f 1 -d : 2> /dev/null) ; do
-    if [ ! "$(patchelf --print-rpath $file 2> /dev/null)" = "" ]; then
-      patchelf --remove-rpath $file
-    fi
-  done
+  if [ "$NOSTRIPRPATH" != 'yes' ] ;then
+      for file in $(find $target_dir | xargs file | grep -e "executable" -e "shared object" | grep ELF | cut -f 1 -d : 2> /dev/null) ; do
+	  if [ ! "$(patchelf --print-rpath $file 2> /dev/null)" = "" ]; then
+	      patchelf --remove-rpath $file
+	  fi
+      done
+  fi
 }
 
 process_man_pages() {
