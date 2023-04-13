@@ -1,5 +1,9 @@
 zcat $CWD/patch/plasma-nm/plasma-nm-1.0.0.patch.gz | patch -p1 --verbose || { touch ${SLACK_KDE_BUILD_DIR}/${PKGNAME}.failed ; continue ; }
 
-zcat $CWD/patch/plasma-nm/plasma-nm-1.0.1.patch.gz | patch -p1 --verbose || { touch ${SLACK_KDE_BUILD_DIR}/${PKGNAME}.failed ; continue ; }
+#zcat $CWD/patch/plasma-nm/plasma-nm-1.0.1.patch.gz | patch -p1 --verbose || { touch ${SLACK_KDE_BUILD_DIR}/${PKGNAME}.failed ; continue ; }
 
 zcat $CWD/patch/plasma-nm/plasma-nm-1.0.2.patch.gz | patch -p1 --verbose || { touch ${SLACK_KDE_BUILD_DIR}/${PKGNAME}.failed ; continue ; }
+
+zcat $CWD/patch/plasma-nm/plasma-nm-1.0.3.patch.gz | patch -p1 --verbose || { touch ${SLACK_KDE_BUILD_DIR}/${PKGNAME}.failed ; continue ; }
+
+zcat $CWD/patch/plasma-nm/plasma-nm-1.0.4.patch.gz | patch -p1 --verbose || { touch ${SLACK_KDE_BUILD_DIR}/${PKGNAME}.failed ; continue ; }
