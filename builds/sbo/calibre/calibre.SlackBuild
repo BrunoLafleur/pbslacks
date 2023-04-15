@@ -313,8 +313,8 @@ if [ "$BUILD_PYTHONMODS" = "YES" ]; then
   #SRCURL[9]="https://www.riverbankcomputing.com/static/Downloads/PyQt5/${INT_PYQT5}/PyQt5-${INT_PYQT5}.tar.gz"
   SRCURL[9]="https://files.pythonhosted.org/packages/28/6c/640e3f5c734c296a7193079a86842a789edb7988dca39eab44579088a1d1/PyQt5-${INT_PYQT5}.tar.gz"
 
-  SOURCE[10]="$SRCDIR/sources/sip-${INT_SIP}.tar.xz"
-  SRCURL[10]="https://github.com/BrunoLafleur/pbslacks/blob/master/builds/src/sip-${INT_SIP}.tar.xz"
+  SOURCE[10]="$SRCDIR/sources/sip-${INT_SIP}.tar.gz"
+  SRCURL[10]="https://github.com/BrunoLafleur/pbslacks/blob/master/builds/src/sip-${INT_SIP}.tar.gz"
   
   SOURCE[11]="$SRCDIR/sources/dbus-python-${INT_DBUSPYTHON}.tar.gz"
   SRCURL[11]="http://dbus.freedesktop.org/releases/dbus-python/dbus-python-${INT_DBUSPYTHON}.tar.gz"

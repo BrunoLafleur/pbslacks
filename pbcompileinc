@@ -41,7 +41,8 @@ xmakealienpac () {
 	    chown -R ${MYUSER}.$MYGROUP *
 	    # build
 	    sh "./${pac}.SlackBuild"
-	    if [ $? -ne 0 ] ;then
+	    ERR=$?;chown -R ${MYUSER}.$MYGROUP *
+	    if [ $ERR -ne 0 ] ;then
 		mygt 'Correct this error and relaunch this script. Press a key to end.'
 		read c;exit 1
 	    fi
