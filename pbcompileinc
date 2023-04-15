@@ -56,26 +56,38 @@ xmakealienpac () {
 
 xmakepac () {
     XDIR="$1"
-    XPAC="$2"
+    pac="$2"
     XSUB="$3"
-    if [ $RECOMP -eq 1 ] ;then
+    dest="$XDIR/$XSUB"
+    if [ $RECOMP -eq 1 -a -d "${XDIR}/$pac" ] ;then
 	(
-	    cd ${XDIR}/$XPAC
-	    ./${XPAC}.SlackBuild
+	    cd "${XDIR}/$pac"
+	    ./${pac}.SlackBuild
 	    if [ $? -ne 0 ] ;then
 		mygt 'Correct this error and relaunch this script. Press a key to end.'
 		read c;exit 1
 	    fi
 	)
 	[ $? -ne 0 ] && exit 1
-	xcleanpac "$XPAC" "$XDIR"
-	if [ "$XSUB" != '' ] ;then
-            mv $XDIR/${XPAC}-[0-9m]*i486*.t?z $XDIR/$XSUB
-	    xpurgepac "$XDIR/$XSUB/$XPAC-[0-9m]" t?z
-	fi
+	xcleanpac "$pac" "$dest"
     fi
-    if [ "$XSUB" = '' ] ;then
-	upgradepkg --install-new --reinstall $XDIR/${XPAC}-[0-9m]*.t?z
+    if [ "$XSUB" = '32' ] ;then
+    	(
+	    cd "$dest"
+	    if [ $RECOMP -eq 1 ] ;then
+		(unset TAG;unset ARCH
+		 convertpkg-compat32 -i "$pac-"'*.t?z' -d ../compat32
+		 chown ${MYUSER}.$MYGROUP ../compat32/${pac}-compat32-*.t?z
+		)
+	    fi
+	    xpurgetmp ${pac}-compat32
+	    upgradepkg --install-new --reinstall ../compat32/${pac}-compat32-*.t?z
+	    rm -f /usr/lib/lib*.la
+	)
+	[ $? -ne 0 ] && exit 1
+    elif [ "$XSUB" = '' ] ;then
+	upgradepkg --install-new --reinstall "$XDIR/${pac}"-[0-9m]*.t?z
 	rm -f $XLIBDIR/lib*.la
     fi
+    exit 0
 }

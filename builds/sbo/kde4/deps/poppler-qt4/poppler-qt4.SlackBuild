@@ -84,17 +84,18 @@ find . \
  -exec chmod 644 {} \;
 
 # Patch to reinclude QT4 with new Poppler API.
-xzcat $CWD/poppler_qt4.patch.xz | patch -p1 --verbose || exit 1
+xzcat $CWD/patches/poppler_qt4.patch.xz | patch -p1 --verbose || exit 1
+zcat $CWD/patches/poppler_qt4_sec.patch.gz | patch -p1 --verbose || exit 1
 
 # Apply upstream patches to fix regressions:
-zcat $CWD/2ed4cd66401bc1d9683c94238e9024218d7be3ba.patch.gz | patch -p1 --verbose || exit 1
-zcat $CWD/d7aa275b0bca86ae174e7e504dd269df2a0234cf.patch.gz | patch -p1 --verbose || exit 1
+zcat $CWD/patches/2ed4cd66401bc1d9683c94238e9024218d7be3ba.patch.gz | patch -p1 --verbose || exit 1
+zcat $CWD/patches/d7aa275b0bca86ae174e7e504dd269df2a0234cf.patch.gz | patch -p1 --verbose || exit 1
 
 mkdir build
 cd build
 
 QTDIR=/usr/lib${LIBDIRSUFFIX}/qt \
-PATH=$QTDIR/bin:$PATH \
+     PATH=$QTDIR/bin:$PATH \
 CXXFLAGS="$SLKCFLAGS -std=c++11 -fpermissive" \
 LDFLAGS="$SLKCFLAGS -std=c++11 -fpermissive -Wl,-rpath=/usr/lib${LIBDIRSUFFIX}/$PKGNAM/lib${LIBDIRSUFFIX}" \
 cmake \

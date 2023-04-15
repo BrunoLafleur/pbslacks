@@ -116,6 +116,7 @@ export TAG=_PB
 # ===========================================================
 
 if [ $ISPAC1 -eq 1 ] ;then
+        if [ ] ;then
     rm -f packages4/gst-plugins-bad-[0-9]*ponce.t?z*
     for i in gstreamer0 gst-plugins-base0 libtxc_dxtn libgaminggear \
 			acpibrightness gst-plugins-bad \
@@ -132,29 +133,15 @@ if [ $ISPAC1 -eq 1 ] ;then
 	#xmakealienpac packages mlt
 	xmakealienpac source/l mlt packages
     )
-    
+	fi
+	
     # 32 bits packages
     # A faire ajoute gstreamer0
     if [ $PBARCH = x64 ] ;then
 	rm -f packages/compat32/wxPython-compat32-[0-9]*djcompat32.*
 	for i in python2 cabextract libdvdcss icoutils GConf gstreamer0 \
 			 gst-plugins-base0 openal-soft libtxc_dxtn wxPython ;do
-	    if [ -d packages/$i ] ;then
-		(export ARCH=i486;xmakepac packages $i 32)
-		[ $? -ne 0 ] && exit 1
-	    fi
-	    (
-		cd packages/32
-		if [ $RECOMP -eq 1 ] ;then
-		    (unset TAG
-		     convertpkg-compat32 -i "$i-"'*.t?z' -d ../compat32
-		     chown ${MYUSER}.$MYGROUP ../compat32/$i-compat32-*.t?z
-		    )
-		fi
-		xpurgetmp ${i}-compat32
-		upgradepkg --install-new --reinstall ../compat32/$i-compat32-*.t?z
-		rm -f /usr/lib/lib*.la
-	    )
+	    (export ARCH=i486;xmakepac packages $i 32)
 	    [ $? -ne 0 ] && exit 1
 	done
     fi
