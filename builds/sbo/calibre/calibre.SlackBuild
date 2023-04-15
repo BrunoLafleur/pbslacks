@@ -1,0 +1,2347 @@
+#!/bin/sh
+# $Id: calibre.SlackBuild,v 1.229 2020/05/10 17:51:38 root Exp root $
+# Copyright 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020  Eric Hameleers, Eindhoven, NL
+# All rights reserved.
+#
+#   Permission to use, copy, modify, and distribute this software for
+#   any purpose with or without fee is hereby granted, provided that
+#   the above copyright notice and this permission notice appear in all
+#   copies.
+#
+#   THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
+#   WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+#   MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+#   IN NO EVENT SHALL THE AUTHORS AND COPYRIGHT HOLDERS AND THEIR
+#   CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+#   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+#   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF
+#   USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+#   ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+#   OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
+#   OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+#   SUCH DAMAGE.
+# -----------------------------------------------------------------------------
+#
+# Slackware SlackBuild script 
+# ===========================
+# By:         Eric Hameleers <alien@slackware.com>
+# For:        calibre
+# Descr:      e-book library management application
+# URL:        http://calibre-ebook.com/
+# Build needs:(Slackware 14.2) meson, python3, python3-setuptools.
+# Needs:      If you did not add Qt5 to the package, you will also need:
+#             libinput,libxkbcommon,qt5.
+#             If you did not add python2.7 to the package, you will also need:
+#             PyQt5, PyQtWebEngine, dbus-python, dnspython, pycrypto,
+#             pysetuptools, python-apsw, python-beautifulsoup4, python-bflc,
+#             python-chardet, python-css-parser, python-dateutil, python-enum34,
+#             python-feedparser, pyhton-html2text, python-html5-parser,
+#             python-html5lib, python-lxml, python-markdown, python-mechanize,
+#             python-msgpack, python-netifaces, python-pillow, python-psutil,
+#             python-pygments, python-regex, python-six, python-soupsieve,
+#             python-unrardll, python-webencodings, sip, sqlite-amalgamation.
+# Changelog:  
+# 0.7.20-1:   25/Sep/2010 by Eric Hameleers <alien@slackware.com>
+#             * Initial build.
+# 1.0.0-1:    23/aug/2013 by Eric Hameleers <alien@slackware.com>
+#             * Finally, 1.0.0 ! With python-apsw as a new dependency.
+# 1.49.0-1:   15/aug/2014 by Eric Hameleers <alien@slackware.com>
+#             * Last version in the 1.x series.
+# 2.28.0-1:   25/may/2015 by Eric Hameleers <alien@slackware.com>
+#             * First build of the Qt5 based 2.x series.
+# 2.30.0-1:   05/jun/2015 by Eric Hameleers <alien@slackware.com>
+#             * Update.
+# 2.31.0-1:   15/jul/2015 by Eric Hameleers <alien@slackware.com>
+#             * Update.
+# 2.32.1-1:   20/jul/2015 by Eric Hameleers <alien@slackware.com>
+#             * Update.
+# 2.33.0-1:   05/aug/2015 by Eric Hameleers <alien@slackware.com>
+#             * Update.
+# 2.35.0-1:   14/aug/2015 by Eric Hameleers <alien@slackware.com>
+#             * Update.
+# 2.37.0-1:   04/sep/2015 by Eric Hameleers <alien@slackware.com>
+#             * Update. Removed BeautifulSoup as dependency. Minimal required
+#               version of Python becomes 2.7.9.
+# 2.37.1-1:   07/sep/2015 by Eric Hameleers <alien@slackware.com>
+#             * Emergency bugfix release.
+# 2.39.0-1:   25/sep/2015 by Eric Hameleers <alien@slackware.com>
+#             * Update.
+# 2.44.1-1:   22/nov/2015 by Eric Hameleers <alien@slackware.com>
+#             * Update.
+# 2.45.0-1:   02/dec/2015 by Eric Hameleers <alien@slackware.com>
+#             * Update.
+# 2.50.1-1:   01/feb/2016 by Eric Hameleers <alien@slackware.com>
+#             * Update.
+# 2.52.0-1:   05/mar/2016 by Eric Hameleers <alien@slackware.com>
+#             * Update.
+# 2.56.0-1:   12/may/2016 by Eric Hameleers <alien@slackware.com>
+#             * Update.
+# 2.61.0-1:   03/jul/2016 by Eric Hameleers <alien@slackware.com>
+#             * Update.
+# 2.71.0-1:   07/nov/2016 by Eric Hameleers <alien@slackware.com>
+#             * Update.
+# 2.75.1-1:   27/dec/2016 by Eric Hameleers <alien@slackware.com>
+#             * Update.
+# 2.79.1-1:   13/feb/2017 by Eric Hameleers <alien@slackware.com>
+#             * Update.
+# 3.1.1-1:    19/jun/2017 by Eric Hameleers <alien@slackware.com>
+#             * New major release 3.x.
+# 3.4.0-1:    16/jul/2017 by Eric Hameleers <alien@slackware.com>
+#             * Update.
+# 3.6.0-1:    06/aug/2017 by Eric Hameleers <alien@slackware.com>
+#             * Update.
+# 3.7.0-1:    12/sep/2017 by Eric Hameleers <alien@slackware.com>
+#             * Update.
+# 3.9.0-1:    13/oct/2017 by Eric Hameleers <alien@slackware.com>
+#             * Update.
+# 3.12.0-1:   20/nov/2017 by Eric Hameleers <alien@slackware.com>
+#             * Update.
+# 3.13.0-1:   08/dec/2017 by Eric Hameleers <alien@slackware.com>
+#             * Update.
+# 3.18.0-1:   07/mar/2018 by Eric Hameleers <alien@slackware.com>
+#             * Update.
+# 3.20.0-1:   02/apr/2018 by Eric Hameleers <alien@slackware.com>
+#             * Update.
+# 3.23.0-1:   06/may/2018 by Eric Hameleers <alien@slackware.com>
+#             * Update.
+# 3.23.0-2:   23/may/2018 by Eric Hameleers <alien@slackware.com>
+#             * Rebuilt for new poppler in -current.
+# 3.30.0-1:   24/aug/2018 by Eric Hameleers <alien@slackware.com>
+#             * Update.  Note that Calibre won't compile against Qt 5.11.x
+#               so for slackware-current internal Qt 5.9 libraries are added.
+# 3.32.0-1:   30/sep/2018 by Eric Hameleers <alien@slackware.com>
+#             * Update.
+# 3.33.1-1:   21/oct/2018 by Eric Hameleers <alien@slackware.com>
+#             * Update due to icu4c update in -current.
+# 3.38.0-1:   18/jan/2019 by Eric Hameleers <alien@slackware.com>
+#             * Update.
+# 3.38.1-1:   19/jan/2019 by Eric Hameleers <alien@slackware.com>
+#             * Update.
+# 3.40.1-1:   09/mar/2019 by Eric Hameleers <alien@slackware.com>
+#             * Update.
+# 3.46.0-1:   27/jul/2019 by Eric Hameleers <alien@slackware.com>
+#             * Update.
+# 3.47.1-1:   08/sep/2019 by Eric Hameleers <alien@slackware.com>
+#             * Update.
+# 4.2.0-1:    19/oct/2019 by Eric Hameleers <alien@slackware.com>
+#             * New major release 4.x. No more qt-webkit.
+# 4.7.0-1:    30/dec/2019 by Eric Hameleers <alien@slackware.com>
+#             * Update.
+# 4.11.2-1:   05/mar/2020 by Eric Hameleers <alien@slackware.com>
+#             * Update.
+# 4.12.0-1:   06/mar/2020 by Eric Hameleers <alien@slackware.com>
+#             * Update.
+# 4.15.0-1:   07/may/2020 by Eric Hameleers <alien@slackware.com>
+#             * Update.
+# 
+# Run 'sh calibre.SlackBuild' to build a Slackware package.
+# The package (.txz) and .txt file as well as build logs are created in /tmp .
+# Install it using 'installpkg'. 
+#
+# -----------------------------------------------------------------------------
+
+PRGNAM=calibre
+SRCNAM=calibre
+VERSION=${VERSION:-4.23.0}
+BUILD=${BUILD:-1}
+NUMJOBS=${NUMJOBS:-" -j$(nproc) "}
+TAG=${TAG:-alien}
+
+DOCS="LICENSE* Changelog* COPYRIGHT README*"
+
+PYTHON=$(python2 -c 'import sys; print (sys.version.split( )[0])')
+SLACKVER=${SLACKVER:-$(cat /etc/slackware-version |cut -d' ' -f2)}
+
+REQUIRED_QT="5.15.2"
+
+# Only used in case we need to build our own Qt:
+INT_QT=5.15.2
+
+REQUIRED_MTP="1.1.16"
+
+# Only used in case we need to build our own libmtp:
+INT_MTP=1.1.17
+
+# Only used when we build our own ImageMagick:
+INT_MAGICK=6.9.10_68
+
+REQUIRED_PYTHON="2.7"
+REQUIRED_PYTHON_MIN="16"
+
+# Only used in case we need to build our own python:
+INT_PYTHON=2.7.18
+
+# Only used in case we need to build our own python modules:
+#INT_SETUPTOOLS=14.3
+# Newer setuptools generate messages like:
+# dist.py:267: UserWarning: Unknown distribution option: 'zip_safe'
+# and fails to compile netifaces with error:
+# netifaces.c error you need to add code for your platform
+INT_SETUPTOOLS=42.0.2
+# The rest of the internal Python deps:
+INT_APSW=3.30.1-r1
+INT_BEAUTIFULSOUP=4.8.0
+INT_BFLC=1.5
+INT_CHARDET=3.0.4
+INT_CSSPARSER=1.0.4
+INT_DATEUTIL=2.8.0
+INT_DBUSPYTHON=1.2.8
+INT_DNSPYTHON=1.16.0
+INT_ENUM34=1.1.6
+INT_FEEDPARSER=5.2.1
+INT_HTML2TEXT=2018.1.9
+INT_HTML5LIB=1.0.1
+INT_HTML5PARSER=0.4.9
+INT_HYPHEN=2.8.8
+INT_LXML=4.3.3
+INT_MARKDOWN=3.1
+INT_MECHANIZE=0.4.3
+INT_MSGPACK=0.6.1
+INT_NETIFACES=0.10.9
+INT_PILLOW=6.2.0
+INT_PSUTIL=5.6.2
+INT_PYCRYPTO=2.6.1
+INT_PYGMENTS=2.3.1
+INT_PYQT5=5.15.2
+INT_PYQTWEBENG=5.15.2
+INT_REGEX=2019.04.14
+INT_SIP=4.19.24
+INT_SIX=1.12.0
+INT_SOUPSIEVE=1.9.1
+INT_SQLITE=3310100
+INT_UNRARDLL=0.1.3
+INT_WEBENC=0.5.1
+INT_XKB=0.9.1
+
+# Software that's an internal dependency to the package:
+INT_HUNSPELL=1.7.0
+INT_OPTIPNG=0.7.7
+INT_PODOFO=0.9.6
+INT_UNRARSRC=5.9.1
+
+# Where do we look for sources?
+SRCDIR=$(cd $(dirname $0); pwd)
+PATCHDIR=${SRCDIR}/patches
+
+# Place to build (TMP) package (PKG) and output (OUTPUT) the program:
+TMP=${TMP:-/tmp/build}
+PKG=$TMP/package-$PRGNAM
+OUTPUT=${OUTPUT:-/tmp}
+
+SOURCE[0]="$SRCDIR/sources/${SRCNAM}-${VERSION}.tar.xz"
+SRCURL[0]="https://download.calibre-ebook.com/${VERSION}/${SRCNAM}-${VERSION}.tar.xz"
+
+# Allow the package builder to override BUILD_MAGICK:
+# By default we do not compile an internal version but enabling this
+# allows us to be independant of Slackware's ImageMagick upgrades.
+BUILD_MAGICK=${BUILD_MAGICK:-NO}
+
+# Allow the package builder to override BUILD_QT:
+if [ -z "$BUILD_QT" ]; then
+  if pkg-config --exists "Qt5Core >= $REQUIRED_QT" && pkg-config --exists "Qt5Core <= $INT_QT" ;
+  then
+    BUILD_QT="NO"
+  else
+    # We need to build our own qt5:
+    BUILD_QT="YES"
+  fi
+fi
+
+# Allow the package builder to override BUILD_MTP:
+if [ -z "$BUILD_MTP" ]; then
+  if pkg-config --exists "libmtp >= $REQUIRED_MTP" ; then
+    BUILD_MTP="NO"
+  else
+    # We need to build our own libmtp:
+    BUILD_MTP="YES"
+  fi
+fi
+
+# Allow the package builder to override BUILD_PYTHON:
+if [ -z "$BUILD_PYTHON" ]; then
+  if [ "$(echo $PYTHON |cut -d. -f1,2)" = "$REQUIRED_PYTHON" -a "$(echo $PYTHON |cut -d. -f3)" -ge "$REQUIRED_PYTHON_MIN" ]; then
+    BUILD_PYTHON="NO"
+  else
+    # We need to build our own python 2.7 plus supporting modules:
+    BUILD_PYTHON="YES"
+  fi
+fi
+
+# Allow the package builder to override BUILD_PYTHONMODS:
+if [ BUILD_PYTHON="YES" ]; then
+  # If we need to build python then the mods are required too:
+  BUILD_PYTHONMODS="YES"
+else
+  # We may want to include the modules instead of relying on separate packages;
+  # Note: that will currently not work, my python-fu is insufficient.
+  BUILD_PYTHONMODS="${BUILD_PYTHONMODS:-NO}"
+fi
+
+# Determine what sources we need to download:
+if [ "$BUILD_PYTHONMODS" = "YES" ]; then
+  echo ">> Compiling python modules <<"
+
+  # URL for the newer setuptools:
+  SOURCE[1]="$SRCDIR/sources/setuptools-${INT_SETUPTOOLS}.zip"
+  SRCURL[1]="https://pypi.python.org/packages/source/s/setuptools/setuptools-${INT_SETUPTOOLS}.zip"
+  # URL for the older setuptools:
+  #SOURCE[1]="$SRCDIR/sources/setuptools-${INT_SETUPTOOLS}.tar.gz"
+  #SRCURL[1]="https://pypi.python.org/packages/source/s/setuptools/setuptools-${INT_SETUPTOOLS}.tar.gz"
+
+  SOURCE[2]="$SRCDIR/sources/Pygments-${INT_PYGMENTS}.tar.gz"
+  SRCURL[2]="https://pypi.python.org/packages/source/P/Pygments/Pygments-${INT_PYGMENTS}.tar.gz"
+
+  SOURCE[3]="$SRCDIR/sources/dnspython-${INT_DNSPYTHON}.tar.gz"
+  SRCURL[3]="http://www.dnspython.org/kits/${INT_DNSPYTHON}/dnspython-${INT_DNSPYTHON}.tar.gz"
+
+  SOURCE[4]="$SRCDIR/sources/css-parser-${INT_CSSPARSER}.tar.gz"
+  SRCURL[4]="https://pypi.python.org/packages/source/c/css-parser/css-parser-${INT_CSSPARSER}.tar.gz"
+
+  SOURCE[5]="$SRCDIR/sources/python-dateutil-${INT_DATEUTIL}.tar.gz"
+  SRCURL[5]="https://pypi.python.org/packages/source/p/python-dateutil/python-dateutil-${INT_DATEUTIL}.tar.gz"
+
+  SOURCE[6]="$SRCDIR/sources/Pillow-${INT_PILLOW}.tar.gz"
+  SRCURL[6]="https://pypi.io/packages/source/p/pillow/Pillow-${INT_PILLOW}.tar.gz"
+
+  SOURCE[7]="$SRCDIR/sources/lxml-${INT_LXML}.tgz"
+  SRCURL[7]="http://lxml.de/files/lxml-${INT_LXML}.tgz"
+
+  SOURCE[8]="$SRCDIR/sources/mechanize-${INT_MECHANIZE}.tar.gz"
+  SRCURL[8]="https://github.com/python-mechanize/mechanize/archive/v${INT_MECHANIZE}.tar.gz"
+
+  SOURCE[9]="$SRCDIR/sources/PyQt5-${INT_PYQT5}.tar.gz"
+  #SRCURL[9]="https://www.riverbankcomputing.com/static/Downloads/PyQt5/${INT_PYQT5}/PyQt5-${INT_PYQT5}.tar.gz"
+  SRCURL[9]="https://files.pythonhosted.org/packages/28/6c/640e3f5c734c296a7193079a86842a789edb7988dca39eab44579088a1d1/PyQt5-${INT_PYQT5}.tar.gz"
+
+  SOURCE[10]="$SRCDIR/sources/sip-${INT_SIP}.tar.xz"
+  SRCURL[10]="https://github.com/BrunoLafleur/pbslacks/blob/master/builds/src/sip-${INT_SIP}.tar.xz"
+  
+  SOURCE[11]="$SRCDIR/sources/dbus-python-${INT_DBUSPYTHON}.tar.gz"
+  SRCURL[11]="http://dbus.freedesktop.org/releases/dbus-python/dbus-python-${INT_DBUSPYTHON}.tar.gz"
+
+  SOURCE[12]="$SRCDIR/sources/pycrypto-${INT_PYCRYPTO}.tar.gz"
+  SRCURL[12]="http://ftp.dlitz.net/pub/dlitz/crypto/pycrypto/pycrypto-${INT_PYCRYPTO}.tar.gz"
+
+  SOURCE[13]="$SRCDIR/sources/netifaces-${INT_NETIFACES}.tar.gz"
+  SRCURL[13]="https://pypi.io/packages/source/n/netifaces/netifaces-${INT_NETIFACES}.tar.gz"
+
+  SOURCE[14]="$SRCDIR/sources/psutil-${INT_PSUTIL}.tar.gz"
+  SRCURL[14]="https://github.com/giampaolo/psutil/archive/release-${INT_PSUTIL}.tar.gz"
+
+  SOURCE[15]="$SRCDIR/sources/apsw-${INT_APSW}.zip"
+  # Needs a newwer sqlite than ships with Slackware 14.1:
+  SRCURL[15]="https://github.com/rogerbinns/apsw/releases/download/${INT_APSW}/apsw-${INT_APSW}.zip"
+
+  SOURCE[16]="$SRCDIR/sources/regex-${INT_REGEX}.tar.gz"
+  SRCURL[16]="https://pypi.io/packages/source/r/regex/regex-${INT_REGEX}.tar.gz"
+
+  SOURCE[17]="$SRCDIR/sources/msgpack-python-${INT_MSGPACK}.tar.gz"
+  SRCURL[17]="https://pypi.io/packages/source/m/msgpack/msgpack-${INT_MSGPACK}.tar.gz"
+
+  SOURCE[18]="$SRCDIR/sources/six-${INT_SIX}.tar.gz"
+  SRCURL[18]="https://pypi.io/packages/source/s/six/six-${INT_SIX}.tar.gz"
+
+  SOURCE[19]="$SRCDIR/sources/enum34-${INT_ENUM34}.tar.gz"
+  SRCURL[19]="https://files.pythonhosted.org/packages/bf/3e/31d502c25302814a7c2f1d3959d2a3b3f78e509002ba91aea64993936876/enum34-${INT_ENUM34}.tar.gz"
+
+  SOURCE[20]="$SRCDIR/sources/webencodings-${INT_WEBENC}.tar.gz"
+  SRCURL[20]="https://pypi.io/packages/source/w/webencodings/webencodings-${INT_WEBENC}.tar.gz"
+
+  SOURCE[21]="$SRCDIR/sources/html5lib-${INT_HTML5LIB}.tar.gz"
+  SRCURL[21]="https://pypi.io/packages/source/h/html5lib/html5lib-${INT_HTML5LIB}.tar.gz"
+
+  SOURCE[22]="$SRCDIR/sources/html5-parser-${INT_HTML5PARSER}.tar.gz"
+  SRCURL[22]="https://pypi.io/packages/source/h/html5-parser/html5-parser-${INT_HTML5PARSER}.tar.gz"
+
+  SOURCE[23]="$SRCDIR/sources/unrardll-${INT_UNRARDLL}.tar.gz"
+  SRCURL[23]="https://pypi.io/packages/source/u/unrardll/unrardll-${INT_UNRARDLL}.tar.gz"
+
+  SOURCE[24]="$SRCDIR/sources/feedparser-${INT_FEEDPARSER}.tar.gz"
+  SRCURL[24]="https://pypi.io/packages/source/f/feedparser/feedparser-${INT_FEEDPARSER}.tar.gz"
+
+  SOURCE[25]="$SRCDIR/sources/Markdown-${INT_MARKDOWN}.tar.gz"
+  SRCURL[25]="https://pypi.io/packages/source/M/Markdown/Markdown-${INT_MARKDOWN}.tar.gz"
+
+  SOURCE[26]="$SRCDIR/sources/sqlite-amalgamation-${INT_SQLITE}.zip"
+  SRCURL[26]="https://www.sqlite.org/2020/sqlite-amalgamation-${INT_SQLITE}.zip"
+
+  SOURCE[27]="$SRCDIR/sources/beautifulsoup4-${INT_BEAUTIFULSOUP}.tar.gz"
+  SRCURL[27]="https://pypi.io/packages/source/b/beautifulsoup4/beautifulsoup4-${INT_BEAUTIFULSOUP}.tar.gz"
+
+  SOURCE[28]="$SRCDIR/sources/backports.functools_lru_cache-${INT_BFLC}.tar.gz"
+  SRCURL[28]="https://pypi.io/packages/source/b/backports.functools_lru_cache/backports.functools_lru_cache-${INT_BFLC}.tar.gz"
+
+  SOURCE[29]="$SRCDIR/sources/soupsieve-${INT_SOUPSIEVE}.tar.gz"
+  SRCURL[29]="https://pypi.io/packages/source/s/soupsieve/soupsieve-${INT_SOUPSIEVE}.tar.gz"
+
+  SOURCE[30]="$SRCDIR/sources/html2text-${INT_HTML2TEXT}.tar.gz"
+  SRCURL[30]="https://pypi.io/packages/source/h/html2text/html2text-${INT_HTML2TEXT}.tar.gz"
+
+  SOURCE[31]="$SRCDIR/sources/chardet-${INT_CHARDET}.tar.gz"
+  SRCURL[31]="https://pypi.io/packages/source/c/chardet/chardet-${INT_CHARDET}.tar.gz"
+
+  SOURCE[32]="$SRCDIR/sources/PyQtWebEngine-${INT_PYQTWEBENG}.tar.gz"
+  #SRCURL[32]="https://www.riverbankcomputing.com/static/Downloads/PyQtWebEngine/${INT_PYQTWEBENG}/PyQtWebEngine-${INT_PYQTWEBENG}.tar.gz"
+  SRCURL[32]="https://files.pythonhosted.org/packages/36/43/bd66139dc1b3abeaf4c79ee19de9eed9376f394113525de00494086a3773/PyQtWebEngine-${INT_PYQTWEBENG}.tar.gz"
+  
+  SOURCE[33]="$SRCDIR/sources/unrarsrc-${INT_UNRARSRC}.tar.gz"
+  SRCURL[33]="http://www.rarlab.com/rar/unrarsrc-${INT_UNRARSRC}.tar.gz"
+
+  SOURCE[34]="$SRCDIR/sources/hunspell-${INT_HUNSPELL}.tar.gz"
+  SRCURL[34]="https://github.com/hunspell/hunspell/archive/v${INT_HUNSPELL}.tar.gz"
+
+  NEXT_ARRAYEL=${#SOURCE[@]}
+else
+  NEXT_ARRAYEL=1
+fi
+
+if [ "$BUILD_PYTHON" = "YES" ]; then
+  echo ">> Compiling python interpreter <<"
+
+  SOURCE[$NEXT_ARRAYEL]="$SRCDIR/sources/Python-${INT_PYTHON}.tar.xz"
+  SRCURL[$NEXT_ARRAYEL]="http://python.org/ftp/python/${INT_PYTHON}/Python-${INT_PYTHON}.tar.xz"
+
+  NEXT_ARRAYEL=$(( ${NEXT_ARRAYEL} + 1 ))
+fi
+
+if [ "$BUILD_MTP" = "YES" ]; then
+  echo ">> Compiling libmtp <<"
+
+  SOURCE[$NEXT_ARRAYEL]="$SRCDIR/sources/libmtp-${INT_MTP}.tar.gz"
+  SRCURL[$NEXT_ARRAYEL]="https://downloads.sourceforge.net/libmtp/libmtp-${INT_MTP}.tar.gz"
+
+  NEXT_ARRAYEL=$(( ${NEXT_ARRAYEL} + 1 ))
+fi
+
+if [ "$BUILD_QT" = "YES" ]; then
+  echo ">> Compiling Qt  <<"
+
+  SOURCE[$NEXT_ARRAYEL]="$SRCDIR/sources/qt-everywhere-src-${INT_QT}.tar.xz"
+  SRCURL[$NEXT_ARRAYEL]="http://download.qt.io/official_releases/qt/$(echo ${INT_QT}|cut -d. -f1,2)/${INT_QT}/single/qt-everywhere-src-${INT_QT}.tar.xz"
+
+  NEXT_ARRAYEL=$(( ${NEXT_ARRAYEL} + 1 ))
+
+  SOURCE[$NEXT_ARRAYEL]="$SRCDIR/sources/libxkbcommon-xkbcommon-${INT_XKB}.tar.gz"
+  SRCURL[$NEXT_ARRAYEL]="https://github.com/xkbcommon/libxkbcommon/archive/xkbcommon-${INT_XKB}.tar.gz"
+
+  NEXT_ARRAYEL=$(( ${NEXT_ARRAYEL} + 1 ))
+fi
+
+if [ "$BUILD_MAGICK" = "YES" ]; then
+  echo ">> Compiling Magick  <<"
+
+  SOURCE[$NEXT_ARRAYEL]="$SRCDIR/sources/ImageMagick-${INT_MAGICK}.tar.xz"
+  SRCURL[$NEXT_ARRAYEL]="http://www.imagemagick.org/download/releases/ImageMagick-${INT_MAGICK}.tar.xz"
+
+  NEXT_ARRAYEL=$(( ${NEXT_ARRAYEL} + 1 ))
+fi
+
+SOURCE[$NEXT_ARRAYEL]="$SRCDIR/sources/optipng-${INT_OPTIPNG}.tar.gz"
+SRCURL[$NEXT_ARRAYEL]="https://downloads.sourceforge.net/optipng/optipng-${INT_OPTIPNG}.tar.gz"
+NEXT_ARRAYEL=$(( ${NEXT_ARRAYEL} + 1 ))
+
+SOURCE[$NEXT_ARRAYEL]="$SRCDIR/sources/podofo-${INT_PODOFO}.tar.gz"
+SRCURL[$NEXT_ARRAYEL]="https://downloads.sourceforge.net/podofo/podofo-${INT_PODOFO}.tar.gz"
+NEXT_ARRAYEL=$(( ${NEXT_ARRAYEL} + 1 ))
+
+SOURCE[$NEXT_ARRAYEL]="$SRCDIR/sources/hyphen-${INT_HYPHEN}.tar.gz"
+SRCURL[$NEXT_ARRAYEL]="https://downloads.sourceforge.net/hunspell/hyphen-${INT_HYPHEN}.tar.gz"
+NEXT_ARRAYEL=$(( ${NEXT_ARRAYEL} + 1 ))
+
+##
+## --- with a little luck, you won't have to edit below this point --- ##
+##
+
+# Automatically determine the architecture we're building on:
+MARCH=$( uname -m )
+if [ -z "$ARCH" ]; then
+  case "$MARCH" in
+    i?86)    export ARCH=i586 ;;
+    armv7hl) export ARCH=$MARCH ;;
+    arm*)    export ARCH=arm ;;
+    # Unless $ARCH is already set, use uname -m for all other archs:
+    *)       export ARCH=$MARCH ;;
+  esac
+fi
+
+case "$ARCH" in
+  i?86)      SLKCFLAGS="-O2 -march=${ARCH} -mtune=i686"
+             SLKLDFLAGS=""; LIBDIRSUFFIX=""
+             ;;
+  x86_64)    SLKCFLAGS="-O2 -fPIC"
+             SLKLDFLAGS="-L/usr/lib64"; LIBDIRSUFFIX="64"
+             ;;
+  armv7hl)   SLKCFLAGS="-O2 -march=armv7-a -mfpu=vfpv3-d16"
+             SLKLDFLAGS=""; LIBDIRSUFFIX=""
+             ;;
+  *)         SLKCFLAGS="-O2"
+             SLKLDFLAGS=""; LIBDIRSUFFIX=""
+             ;;
+esac
+
+case "$ARCH" in
+    arm*)    TARGET=$ARCH-slackware-linux-gnueabi ;;
+    *)       TARGET=$ARCH-slackware-linux ;;
+esac
+
+# Allow the package builder to override BUILD_PYQT5:
+if [ -z "$BUILD_PYQT5" ]; then
+    if [ -d /usr/lib${LIBDIRSUFFIX}/python${REQUIRED_PYTHON}/site-packages/PyQt5-${INT_PYQT5}.dist-info ] ;then
+	BUILD_PYQT5="NO"
+    else
+	BUILD_PYQT5="YES"
+    fi
+fi
+
+# Exit the script on errors:
+set -e
+trap 'echo "$0 FAILED at line ${LINENO}" | tee $OUTPUT/error-${PRGNAM}.log' ERR
+# Catch unitialized variables:
+set -u
+P1=${1:-1}
+
+# Save old umask and set to 0022:
+_UMASK_=$(umask)
+umask 0022
+
+# Create working directories:
+mkdir -p $OUTPUT          # place for the package to be saved
+mkdir -p $TMP/tmp-$PRGNAM # location to build the source
+mkdir -p $PKG             # place for the package to be built
+
+if [ "$P1" != "--oldbuild" -a  "$P1" != "--download" ]; then
+  # If the "--oldbuild" parameter is present, we keep
+  #  the old build files and continue;
+  # By default we remove the remnants of previous build and continue:
+  echo -e "**\n**  Cleaning up old build ...\n**"
+  rm -rf $PKG/*             # always erase old package's contents
+  rm -rf $TMP/tmp-$PRGNAM/* # remove the remnants of previous build
+  rm -rf $OUTPUT/{configure,make,install,error,makepkg}-$PRGNAM.log
+                            # remove old log files
+fi
+
+# Source file availability:
+for (( i = 0; i < ${#SOURCE[*]}; i++ )) ; do
+  if ! [ -f ${SOURCE[$i]} ]; then
+    echo "Source '$(basename ${SOURCE[$i]})' not available yet..."
+    # Check if the $SRCDIR is writable at all - if not, download to $OUTPUT
+    [ -w "$SRCDIR" ] || SOURCE[$i]="$OUTPUT/$(basename ${SOURCE[$i]})"
+    if [ -f ${SOURCE[$i]} ]; then echo "Ah, found it!"; continue; fi
+    if ! [ "x${SRCURL[$i]}" == "x" ]; then
+      echo "Will download file to $(dirname $SOURCE[$i])"
+      wget --no-check-certificate --content-disposition -nv -T 20 -O "${SOURCE[$i]}" "${SRCURL[$i]}" || true
+      if [ $? -ne 0 -o ! -s "${SOURCE[$i]}" ]; then
+        echo "Fail to download '$(basename ${SOURCE[$i]})'. Aborting the build."
+        mv -f "${SOURCE[$i]}" "${SOURCE[$i]}".FAIL
+        exit 1
+      fi
+    else
+      echo "File '$(basename ${SOURCE[$i]})' not available. Aborting the build."
+      exit 1
+    fi
+  fi
+done
+
+if [ "$P1" == "--download" ]; then
+  echo "Download complete."
+  exit 0
+fi
+
+# --- PACKAGE BUILDING ---
+
+echo "++"
+echo "|| $PRGNAM-$VERSION"
+echo "++"
+
+HOMECALIBRE=/usr/lib${LIBDIRSUFFIX}/calibre
+
+cd $TMP/tmp-$PRGNAM
+
+if [ "$P1" != "--oldbuild" ]; then
+  if [ "$BUILD_PYTHON" = "YES" -o "$BUILD_PYTHONMODS" = "YES" -o "$BUILD_MTP" = "YES" -o  "$BUILD_QT" = "YES" -o "$BUILD_MAGICK" = "YES" ]; then
+    # Sanity check:
+    # In case we need to build an internal set of python interpreter plus
+    # support modules, then you must not compile this package when calibre
+    # is already installed!
+    if [ -d $HOMECALIBRE/lib ]; then
+      echo ""
+      echo "** You have calibre installed in $HOMECALIBRE"
+      echo "** Compiling this package means you have to remove the existing"
+      echo "** calibre installation first, it conflicts with the compilation!"
+      echo ""
+      exit 1
+    fi
+  fi
+
+  echo "Extracting the source archive(s) for $PRGNAM..."
+  tar -xf ${SOURCE[0]}
+  if [ $NEXT_ARRAYEL -gt 1 ]; then
+  for (( i = 1; i < ${#SOURCE[*]}; i++ )) ; do
+    echo "-- Also extracting dependency source $(basename ${SOURCE[$i]})..."
+    if unzip -l ${SOURCE[$i]} 1>/dev/null 2>&1 ; then
+      unzip -q ${SOURCE[$i]}
+    else
+      tar -xf ${SOURCE[$i]}
+    fi
+  done
+  fi
+
+  chown -R root:root .
+  chmod -R u+w,go+r-w,a+X-s .
+fi
+
+echo Building ...
+
+#
+# What follows is a series of subroutines for building all the parts:
+#
+
+#
+# Build libxkbcommon:
+#
+make_xkbcommon() {
+
+  local MOD="xkbcommon"
+  echo -e "\n**  $MOD  **\n"
+
+  cd $TMP/tmp-$PRGNAM/libxkbcommon-xkbcommon-${INT_XKB}
+
+  export CFLAGS="$SLKCFLAGS"
+  export CXXFLAGS="$SLKCFLAGS"
+  mkdir -p build
+  cd build
+    meson .. \
+      -Denable-docs=false \
+      -Denable-wayland=false \
+      --prefix=$HOMECALIBRE \
+      --libdir=$HOMECALIBRE/lib \
+      2>&1 | tee $OUTPUT/configure-${PRGNAM}_${MOD}.log
+  cd -
+  # Build and install:
+  ninja -C build \
+    2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+  DESTDIR=$PKG meson install -C build \
+    2>&1 | tee $OUTPUT/install-${PRGNAM}_${MOD}.log
+
+  # Add documentation:
+  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+  cp -a LICENSE NEWS PACKAGING README* \
+    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+
+} # End make_xkbcommon
+
+
+#
+# Build Qt 5.x:
+#
+make_qt5() {
+
+  # Calibre needs: qt-base, qt-svg, qt-declarative, qt-imageformats,
+  # qt-webchannel, qt-location, qt-x11extras, qt-sensors, qt-webengine.
+
+  local MOD="qt5"
+  echo -e "\n**  $MOD  **\n"
+
+  cd $TMP/tmp-$PRGNAM/qt-everywhere-src-${INT_QT}
+
+  # If we build our own Qt5, unset the QT-related environment variables,
+  # so that a pre-existing Qt5 will not be picked up and create errors later:
+  unset QTDIR
+  unset QT5DIR
+  NEWPATH="$HOMECALIBRE/bin"
+  for elem in $(echo $PATH | cut -d: --output-delimiter=' ' -f1-) ; do
+    if ! $(echo "$elem"| grep -q /qt) ; then
+      NEWPATH="$NEWPATH:$elem"
+    fi
+  done
+  export PATH="$NEWPATH"
+
+  # Use -reduce-relocations only on i?86 and x86_64 architextures.
+  # https://bugreports.qt-project.org/browse/QTBUG-36129
+  if echo $ARCH | grep -q '\(i.86\|x86_64\)' 2>/dev/null; then
+    RELOCATIONS="-reduce-relocations"
+  else
+    RELOCATIONS=""
+  fi
+
+  if [ "$P1" != "--oldbuild" ]; then
+    # Fix path to mysql header
+    cat $PATCHDIR/qt5.mysql.h.diff | patch -p1 --verbose || exit 1
+
+    if ! pkg-config --exists libpulse 2>/dev/null ; then
+      # Forcibly disable pulseaudio in qtwebengine:
+      cat $PATCHDIR/qt5.pulseaudio.diff | patch -p1 --verbose || exit 1
+    fi
+
+    # Use our custom compiler and linker flags:
+    sed -e "s|^\(QMAKE_CFLAGS_RELEASE.*\)|\1 ${SLKCFLAGS}|" \
+      -i qtbase/mkspecs/common/gcc-base.conf || exit 1
+    sed -e "s|^\(QMAKE_LFLAGS_RELEASE.*\)|\1 ${SLKLDFLAGS}|" \
+      -i qtbase/mkspecs/common/g++-unix.conf || exit 1
+  fi
+
+  if ! pkg-config --exists libpulse 2>/dev/null ; then
+    # Disable pulseaudio in Qt5:
+    PACONF="-no-pulseaudio"
+  else
+    PACONF=" "
+  fi
+
+  export CFLAGS="$SLKCFLAGS"
+  export CXXFLAGS="$SLKCFLAGS"
+  export OPENSOURCE_CXXFLAGS="$SLKCFLAGS"
+  export QTDIR="${TMP}/qt-everywhere-src-${INT_QT}"
+  export LD_LIBRARY_PATH="${QTDIR}/qtbase/lib:${QTDIR}/qttools/lib"
+  export QT_PLUGIN_PATH="${QTDIR}/qtbase/plugins"
+  ./configure -v \
+    -confirm-license \
+    -opensource \
+    -prefix $HOMECALIBRE \
+    -system-libpng \
+    -system-libjpeg \
+    -system-zlib \
+    -system-sqlite \
+    -plugin-sql-sqlite \
+    -accessibility \
+    -alsa \
+    -dbus \
+    -glib \
+    -icu \
+    -openssl \
+    -optimized-qmake \
+    -qpa xcb \
+    -qt-harfbuzz \
+    -qt-pcre \
+    -qt-xcb \
+    -verbose \
+    -nomake examples \
+    -no-pulseaudio \
+    -no-separate-debug-info \
+    -no-strip \
+    -no-use-gold-linker \
+    -no-sql-odbc -no-sql-psql \
+    -no-qml-debug \
+    -skip qt3d -skip qtactiveqt -skip qtandroidextras -skip qtcharts \
+    -skip qtconnectivity -skip qtdatavis3d -skip qtdoc -skip qtgamepad \
+    -skip qtgraphicaleffects -skip qtlottie -skip qtmacextras \
+    -skip qtmultimedia -skip qtnetworkauth -skip qtpurchasing \
+    -skip qtquickcontrols -skip qtquickcontrols2 -skip qtremoteobjects \
+    -skip qtscript -skip qtscxml -skip qtserialbus -skip qtserialport \
+    -skip qtspeech -skip qttools -skip qttranslations -skip qtwayland \
+    -skip qtwebglplugin -skip qtwebsockets -skip qtwebview \
+    -skip qtwinextras -skip qtxmlpatterns \
+    -webengine-proprietary-codecs \
+    ${PACONF} \
+    $RELOCATIONS \
+    -no-pch \
+     2>&1 | tee $OUTPUT/configure-${PRGNAM}_${MOD}.log
+
+  # Sometimes a failure happens when parallelizing make.  Retry if make fails,
+  # but make a failure the second time around (single threaded) a fatal error:
+  make $NUMJOBS || make || exit 1 \
+    2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+  make install INSTALL_ROOT=$PKG \
+    2>&1 | tee $OUTPUT/install-${PRGNAM}_${MOD}.log
+
+  # Add documentation:
+  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+  cp -a LICENSE* README* \
+    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+
+} # End make_qt5
+
+
+#
+# Build libmtp:
+#
+make_mtp() {
+
+  local MOD="libmtp"
+  echo -e "\n**  $MOD  **\n"
+
+  cd $TMP/tmp-$PRGNAM/libmtp-${INT_MTP}
+
+  CFLAGS="$SLKCFLAGS" \
+  ./configure \
+    --prefix=$HOMECALIBRE \
+    --disable-static
+
+  # Build and install:
+  make $NUMJOBS || make || exit 1
+  make install DESTDIR=$PKG || exit 1
+
+  # Guess someone didn't have enough to drink:
+  ( cd $PKG$HOMECALIBRE/bin
+    rm -f mtp-sendtr mtp-sendfile mtp-newfolder mtp-getfile mtp-delfile
+    ln -s mtp-connect mtp-sendtr
+    ln -s mtp-connect mtp-sendfile
+    ln -s mtp-connect mtp-newfolder
+    ln -s mtp-connect mtp-getfile
+    ln -s mtp-connect mtp-delfile
+  )
+
+  # No need for this in the calibre package:
+  rm -rf $PKG/lib $PKG/usr/lib/udev
+
+  # Add documentation:
+  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+  cp -a README* \
+    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+
+} # End make_libmtp
+
+
+#
+# Build ImageMagick:
+#
+make_magick() {
+
+  local MOD="ImageMagick"
+  echo -e "\n**  $MOD  **\n"
+
+  cd $TMP/tmp-$PRGNAM/ImageMagick-${INT_MAGICK}
+
+  LDFLAGS="" CFLAGS="" CXXFLAGS="" \
+  ./configure \
+    --prefix=$HOMECALIBRE \
+    --enable-shared \
+    --disable-static \
+    --disable-openmp \
+    --without-modules \
+    --without-frozenpaths \
+    --without-perl \
+    --without-x \
+    --with-gcc-arch=$ARCH \
+    --enable-zero-configuration \
+    --build=$TARGET \
+    2>&1 | tee $OUTPUT/configure-${PRGNAM}_${MOD}.log
+
+  # Build (no parallel build!) and install: follow the official SlackBuild
+  # and first install to the target location, then rebuild and install into
+  # the package location.
+  make 2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+  make install \
+    2>&1 | tee $OUTPUT/install-${PRGNAM}_${MOD}.log
+  make clean
+  echo -e "\n**  Second run of 'make' for ImageMagick  **\n" \
+    >> $OUTPUT/make-${PRGNAM}_${MOD}.log
+  make 2>&1 | tee -a $OUTPUT/make-${PRGNAM}_${MOD}.log
+  echo -e "\n**  Second run of 'make install' for ImageMagick  **\n" \
+    >> $OUTPUT/make-${PRGNAM}_${MOD}.log
+  make install DESTDIR=$PKG \
+    2>&1 | tee -a $OUTPUT/install-${PRGNAM}_${MOD}.log
+
+  # .la files in libdir should be removed.
+  # Other .la files should be left alone, as ImageMagick uses them internally
+  # to locate modules.
+  rm -f $PKG$HOMECALIBRE/lib/*.la
+
+  # Add documentation:
+  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+  cp -a AUTHORS LICENSE NEWS NOTICE README* \
+    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+
+} # End make_magick
+
+#
+# Build python 2.7:
+#
+make_python() {
+
+  local MOD="python"
+  echo -e "\n**  $MOD  **\n"
+
+  local BRANCH_VERSION=$(echo $INT_PYTHON | cut -f 1,2 -d . )
+  local SITEPK="$XPYSITE"
+
+  cd $TMP/tmp-$PRGNAM/Python-${INT_PYTHON}
+
+  if [ "$P1" != "--oldbuild" ]; then
+    cat $PATCHDIR/python.readline.set_pre_input_hook.diff \
+      | patch -p1 --verbose \
+      2>&1 | tee $OUTPUT/patch-${PRGNAM}_${MOD}.log
+  fi
+
+  # We are going to install python inside the calibre package.
+  # This requires some changes to the standard build:
+  # Creating the 'lib' directory below is needed! We are going to use rpath
+  # so that we can run python from this non-standard path:
+  mkdir -p $HOMECALIBRE/lib
+
+  LDFLAGS="-Wl,-rpath $HOMECALIBRE/lib" \
+  ./configure \
+    --prefix=$HOMECALIBRE \
+    --bindir=$HOMECALIBRE \
+    --with-threads \
+    --enable-ipv6 \
+    --enable-shared \
+    --enable-unicode=ucs4 \
+    --build=$TARGET \
+    2>&1 | tee $OUTPUT/configure-${PRGNAM}_${MOD}.log
+
+  make $NUMJOBS || make 2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+  make install DESTDIR=$PKG 2>&1 | tee -a $OUTPUT/make-${PRGNAM}_${MOD}.log
+
+  # We'll install the python-tools under site-packages:
+  mkdir -p $SITEPK
+  cp -a Tools/* $SITEPK/
+
+  # No need for man pages now:
+  rm -rf $PKG$HOMECALIBRE/share/man
+
+  # Add documentation:
+  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+  cp -a LICENSE README \
+    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+
+} # End make_python
+
+XPYVER=$(echo $INT_PYTHON | cut -f 1,2 -d . )
+XPYPREFIX="$HOMECALIBRE"
+XPYSITE="$XPYPREFIX/lib/python${XPYVER}/site-packages"
+XINSTALLPY="--prefix=$XPYPREFIX --install-lib=$XPYSITE"
+
+#
+# Build pyseuptools:
+#
+make_setuptools() {
+
+  local MOD="setuptools"
+  echo -e "\n**  $MOD  **\n"
+
+  cd $TMP/tmp-$PRGNAM/setuptools-${INT_SETUPTOOLS}
+  rm -f setuptools/*.exe
+
+  # Compile and install
+  python2 setup.py install --root=$PKG $XINSTALLPY \
+    2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+
+  # Add documentation:
+  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+  cp -a *.rst \
+    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+
+} # End make_setuptools
+
+
+make_dnspython() {
+
+  local MOD="dnspython"
+  echo -e "\n**  ${MOD}  **\n"
+
+  cd $TMP/tmp-$PRGNAM/dnspython-${INT_DNSPYTHON}
+
+  # Compile and install
+  python2 setup.py install --root=$PKG $XINSTALLPY \
+    2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+
+  # Add documentation:
+  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+  cp -a LICENSE README* \
+    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+
+} # End make_dnspython
+
+#
+# Build css-parser:
+#
+make_cssparser() {
+
+  local MOD="cssparser"
+  echo -e "\n**  $MOD  **\n"
+
+  cd $TMP/tmp-$PRGNAM/css-parser-${INT_CSSPARSER}
+
+  # The source is infested with DOS files:
+  sed -i -e 's/\r//' $( find . -type f -exec file "{}" ";" | \
+    grep CRLF | cut -f1 -d: ) \
+    || true
+
+  # Compile and install
+  python2 setup.py install --root=$PKG $XINSTALLPY \
+    2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+
+  # Add documentation:
+  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+  cp -a README* \
+    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+
+} # End make_cssparser
+
+#
+# Build dateutil:
+#
+make_dateutil() {
+
+  local MOD="dateutil"
+  echo -e "\n**  $MOD  **\n"
+
+  cd $TMP/tmp-$PRGNAM/python-dateutil-${INT_DATEUTIL}
+
+  # Compile and install
+  python2 setup.py install --root=$PKG $XINSTALLPY \
+    2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+
+  # Add documentation:
+  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+  cp -a LICENSE NEWS \
+    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+
+} # End make_dateutil
+
+#
+# Build imaging (this package is called "python-pillow" in Slackware):
+#
+make_pillow() {
+
+  local MOD="pillow"
+  echo -e "\n**  $MOD  **\n"
+
+  cd $TMP/tmp-$PRGNAM/Pillow-${INT_PILLOW}
+
+  # Installation path for headers:
+  PYTHONINC=$( python2 -c 'from distutils.sysconfig import *;print (get_python_inc())' )
+
+  # Compile and install
+  CFLAGS="$SLKCFLAGS" \
+  python2 setup.py install --root $PKG $XINSTALLPY \
+    2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+
+  # Add documentation:
+  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+  cp -a CHANGES* LICENSE README* RELEASING* \
+    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+
+} # End make_pillow
+
+#
+# Build lxml:
+#
+make_lxml() {
+
+  local MOD="lxml"
+  echo -e "\n**  $MOD  **\n"
+
+  cd $TMP/tmp-$PRGNAM/lxml-${INT_LXML}
+
+  # Compile and install
+  python2 setup.py install --root=$PKG $XINSTALLPY \
+    2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+
+  # Add documentation:
+  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+  cp -a *.txt doc/licenses \
+    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+
+} # End make_lxml
+
+#
+# Build mechanize:
+#
+make_mechanize() {
+
+  local MOD="mechanize"
+  echo -e "\n**  $MOD  **\n"
+
+  cd $TMP/tmp-$PRGNAM/mechanize-${INT_MECHANIZE}
+
+  # Compile and install
+  export CFLAGS="$SLKCFLAGS"
+  python2 setup.py install --root=$PKG $XINSTALLPY \
+    2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+
+  # Add documentation:
+  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+  cp -a *.txt \
+    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+
+} # End make_mechanize
+
+#
+# Build sip:
+#
+make_sip() {
+
+  local MOD="sip"
+  echo -e "\n**  $MOD  **\n"
+
+  cd $TMP/tmp-$PRGNAM/sip-${INT_SIP}
+
+  # Compile and install sip first:
+  python2 configure.py \
+    CFLAGS="$SLKCFLAGS" \
+    CXXFLAGS="$SLKCFLAGS" \
+    2>&1 | tee $OUTPUT/configure-${PRGNAM}_${MOD}.log
+  make $NUMJOBS || make 2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+  make install DESTDIR=$PKG 2>&1 | tee $OUTPUT/install-${PRGNAM}_${MOD}.log
+
+  echo -e "\n**  $MOD - PyQt5 module **\n"
+
+  # Add the PyQt5 private sip module:
+  make clean
+  python2 configure.py \
+    --sip-module PyQt5.sip \
+    --no-tools \
+    CFLAGS="$SLKCFLAGS" \
+    CXXFLAGS="$SLKCFLAGS" \
+    2>&1 | tee -a $OUTPUT/configure-${PRGNAM}_${MOD}.log
+  make $NUMJOBS || make 2>&1 | tee -a $OUTPUT/make-${PRGNAM}_${MOD}.log
+  make install DESTDIR=$PKG 2>&1 | tee -a $OUTPUT/install-${PRGNAM}_${MOD}.log
+
+  # Add documentation:
+  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+  cp -a LICENSE* NEWS README \
+    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+
+} # End make_sip
+
+#
+# Build dbus-python:
+#
+make_dbuspython() {
+
+  local MOD="dbus-python"
+  echo -e "\n**  $MOD  **\n"
+
+  cd $TMP/tmp-$PRGNAM/dbus-python-${INT_DBUSPYTHON}
+
+  LDFLAGS="" \
+  LD_LIBRARY_PATH="$HOMECALIBRE/lib" \
+  PYTHON_INCLUDES="$SLK_PYTHON_INCLUDES" \
+  PYTHON_LIBS="$SLK_PYTHON_LIBS" \
+  ./configure \
+    --prefix=$HOMECALIBRE \
+    --enable-shared=yes \
+    --enable-static=no \
+    --build=$TARGET \
+    --host=$TARGET \
+    2>&1 | tee $OUTPUT/configure-${PRGNAM}_${MOD}.log
+
+  make 2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+  make install DESTDIR=$PKG 2>&1 | tee -a $OUTPUT/make-${PRGNAM}_${MOD}.log
+
+  # Add documentation:
+  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+  cp -a AUTHORS COPYING* INSTALL NEWS README* \
+    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+
+} # End make_dbuspython
+
+#
+# Build python-pygments:
+#
+make_pygments() {
+
+  local MOD="pygments"
+  echo -e "\n**  $MOD  **\n"
+
+  cd $TMP/tmp-$PRGNAM/Pygments-${INT_PYGMENTS}
+
+  # Compile and install
+  export CFLAGS="$SLKCFLAGS"
+  python2 setup.py install --root=$PKG $XINSTALLPY \
+    2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+
+  # Add documentation:
+  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+  cp -a AUTHORS CHANGES LICENSE README* TODO \
+    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+
+} # End make_pygments
+
+
+#
+# Build PyQt5:
+#
+make_pyqt5() {
+
+  local MOD="pyqt5"
+  echo -e "\n**  $MOD  **\n"
+
+  PYTHON2VER=$(python2 -V 2>&1 | cut -f 2 -d' ' | cut -f 1-2 -d. 2>/dev/null)
+  PYTHON2LIB=$( python2 -c 'from distutils.sysconfig import get_python_lib; print get_python_lib()' 2>/dev/null )
+
+  cd $TMP/tmp-$PRGNAM/PyQt5-${INT_PYQT5}
+
+  if [ "$P1" != "--oldbuild" ]; then
+    # Remove code that is unneeded if Qt is not bundled and crashes on python2
+    # https://www.riverbankcomputing.com/pipermail/pyqt/2019-July/041896.html
+    cat $SRCDIR/patches/pyqt5-python2-crash.patch |patch -p1 --verbose || exit 1
+  fi
+
+  if [ "${BUILD_QT}" = "NO" ]; then
+    export QTDIR=/usr/lib${LIBDIRSUFFIX}/qt5
+  else
+    unset QT5DIR
+    export QTDIR=$HOMECALIBRE
+  fi
+
+  export CFLAGS="$SLKCFLAGS"
+  export CXXFLAGS="$SLKCFLAGS"
+
+  python2 configure.py \
+    --confirm-license \
+    --verbose \
+    --qsci-api \
+    --qmake=$QTDIR/bin/qmake \
+    2>&1 | tee $OUTPUT/configure-${PRGNAM}_${MOD}.log
+
+  make $NUMJOBS || make \
+    2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+
+  make -j1 install DESTDIR=$PKG INSTALL_ROOT=$PKG  \
+    2>&1 | tee -a $OUTPUT/make-${PRGNAM}_${MOD}.log
+
+  rm -rf $PKG/$PYTHON2LIB/PyQt5/uic/port_v3/
+
+  if [ "${BUILD_QT}" = "NO" ]; then
+    # Remove ugly bits that threaten to overwrite a system file:
+    rm -rf $PKG/usr/lib${LIBDIRSUFFIX}/qt5
+  fi
+
+  # Add documentation:
+  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+  cp -a LICENSE* NEWS \
+    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+
+} # End make_pyqt5
+
+
+#
+# Build PyQtWebEngine:
+#
+make_pyqtwebengine() {
+
+  local MOD="pyqtwebengine"
+  echo -e "\n**  $MOD  **\n"
+
+  cd $TMP/tmp-$PRGNAM/PyQtWebEngine-${INT_PYQT5}
+
+  if [ "${BUILD_QT}" = "NO" ]; then
+    export QTDIR=/usr/lib${LIBDIRSUFFIX}/qt5
+  else
+    unset QT5DIR
+    export QTDIR=$HOMECALIBRE
+  fi
+
+  export CFLAGS="$SLKCFLAGS"
+  export CXXFLAGS="$SLKCFLAGS"
+
+  python2 configure.py \
+    --qmake=$QTDIR/bin/qmake \
+    2>&1 | tee $OUTPUT/configure-${PRGNAM}_${MOD}.log
+  make $NUMJOBS || make \
+    2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+  make -j1 install DESTDIR=$PKG INSTALL_ROOT=$PKG  \
+    2>&1 | tee -a $OUTPUT/make-${PRGNAM}_${MOD}.log
+  install -Dm644 PyQtWebEngine.api -t $PKG/usr/share/qt5/qsci/api/python
+
+  if [ "${BUILD_QT}" = "NO" ]; then
+    # Remove ugly bits that threaten to overwrite a system file:
+    rm -rf $PKG/usr/lib${LIBDIRSUFFIX}/qt5
+  fi
+
+  # Add documentation:
+  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+  cp -a LICENSE* NEWS \
+    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+
+} # End make_pyqtwebengine
+
+
+#
+# Build pycrypto:
+#
+make_pycrypto() {
+
+  local MOD="pycrypto"
+  echo -e "\n**  $MOD  **\n"
+
+  cd $TMP/tmp-$PRGNAM/pycrypto-${INT_PYCRYPTO}
+
+  # Compile and install
+  export CFLAGS="$SLKCFLAGS"
+  python2 setup.py install --root=$PKG $XINSTALLPY \
+    2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+
+  # Add documentation:
+  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+  cp -a ACKS ChangeLog COPYRIGHT README TODO Doc \
+    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+
+} # End make_pycrypto
+
+#
+# Build netifaces:
+#
+make_netifaces() {
+
+  local MOD="netifaces"
+  echo -e "\n**  $MOD  **\n"
+
+  cd $TMP/tmp-$PRGNAM/netifaces-${INT_NETIFACES}
+
+  # Compile and install
+  export CFLAGS="-I$HOMECALIBRE/include"
+  python2 setup.py install --root=$PKG $XINSTALLPY \
+    2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+  unset CFLAGS
+
+  # Add documentation:
+  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+  cp -a LICENSE README* \
+    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+
+} # End make_netifaces
+
+
+#
+# Build apsw:
+#
+make_apsw() {
+
+  local MOD="apsw"
+  echo -e "\n**  $MOD  **\n"
+
+  cd $TMP/tmp-$PRGNAM/apsw-${INT_APSW}
+
+  # Link in the SQLite amalgamation files to compile sqlite
+  # statically into the module:
+  ln -s ../sqlite-amalgamation-${INT_SQLITE} sqlite3
+
+  # Compile and install
+  export CFLAGS="$SLKCFLAGS"
+  python2 setup.py install --root=$PKG $XINSTALLPY \
+    2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+
+  # Add documentation:
+  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+  cp -a PKG-INFO \
+    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+
+} # End make_apsw
+
+
+#
+# Build psutil:
+#
+make_psutil() {
+
+  local MOD="psutil"
+  echo -e "\n**  $MOD  **\n"
+
+  cd $TMP/tmp-$PRGNAM/psutil*-${INT_PSUTIL}
+
+  # Compile and install
+  export CFLAGS="$SLKCFLAGS"
+  python2 setup.py install --root=$PKG $XINSTALLPY \
+    2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+
+  # Add documentation:
+  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+  cp -a CREDITS HISTORY* INSTALL* LICENSE README* \
+    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+
+} # End make_psutil
+
+#
+# Build optipng:
+#
+make_optipng() {
+
+  local MOD="optipng"
+  echo -e "\n**  $MOD  **\n"
+
+  cd $TMP/tmp-$PRGNAM/optipng-${INT_OPTIPNG}
+
+  ./configure -prefix=/usr \
+    2>&1 | tee $OUTPUT/configure-${PRGNAM}_${MOD}.log
+
+  make -C src 2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+  mkdir -p $PKG/usr/bin
+  install -v -m0755 src/optipng/optipng $PKG/usr/bin/optipng-calibre \
+    2>&1 | tee -a $OUTPUT/make-${PRGNAM}_${MOD}.log
+
+  # Add documentation:
+  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+  cp -a AUTHORS.txt LICENSE.txt README.tx* \
+    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+
+} # End make_optipng
+
+
+#
+# Build unrar source:
+#
+make_unrarsrc() {
+
+  local MOD="unrarsrc"
+  echo -e "\n**  $MOD  **\n"
+
+  cd $TMP/tmp-$PRGNAM/unrar
+  if [ "$P1" != "--oldbuild" ]; then
+    cp -a ../unrar ../libunrar
+  else
+    make clean
+    make clean -C ../libunrar
+  fi
+  make -C ../libunrar lib libversion=${INT_UNRARSRC} CXXFLAGS="$SLKCFLAGS" \
+    2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+  make -f makefile unrar lib CXXFLAGS="$SLKCFLAGS" \
+    2>&1 | tee -a $OUTPUT/make-${PRGNAM}_${MOD}.log
+
+  # Manually install binaries:
+  install -D -m 755 unrar $PKG$HOMECALIBRE/bin/unrar
+  install -D -m 755 ../libunrar/libunrar.so $PKG$HOMECALIBRE/lib/libunrar.so
+  install -D -m 644 dll.hpp $PKG$HOMECALIBRE/include/unrar/dll.hpp
+
+  # Add documentation:
+  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+  cp -a acknow.txt license.txt readme.txt \
+    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+
+} # End make_unrarsrc
+
+
+#
+# Build hunspell:
+#
+make_hunspell() {
+
+  local MOD="hunspell"
+  echo -e "\n**  $MOD  **\n"
+
+  cd $TMP/tmp-$PRGNAM/hunspell-${INT_HUNSPELL}
+
+  autoreconf -vif \
+    2>&1 | tee $OUTPUT/configure-${PRGNAM}_${MOD}.log
+
+  CFLAGS="$SLKCFLAGS" \
+  CXXFLAGS="$SLKCFLAGS" \
+  ./configure \
+    --prefix=$HOMECALIBRE \
+    --disable-static \
+    --with-readline \
+    --build=$TARGET \
+    2>&1 | tee $OUTPUT/configure-${PRGNAM}_${MOD}.log
+
+  # Build and install:
+  make $NUMJOBS || make \
+    2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+  make install DESTDIR=$PKG \
+    2>&1 | tee $OUTPUT/install-${PRGNAM}_${MOD}.log
+
+  # Add documentation:
+  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+  cp -a ABOUT-NLS AUTHORS* BUGS COPYING* ChangeLog* NEWS README* THANKS TODO \
+    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+
+} # End make_hunspell
+
+
+#
+# Build hyphen:
+#
+make_hyphen() {
+
+  local MOD="hyphen"
+  echo -e "\n**  $MOD  **\n"
+
+  cd $TMP/tmp-$PRGNAM/hyphen-${INT_HYPHEN}
+
+  LDFLAGS="" \
+  LD_LIBRARY_PATH="$HOMECALIBRE/lib" \
+  ./configure \
+    --prefix=$HOMECALIBRE \
+    --enable-shared=yes \
+    --enable-static=no \
+    --build=$TARGET \
+    --host=$TARGET \
+    2>&1 | tee $OUTPUT/configure-${PRGNAM}_${MOD}.log
+
+  make 2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+  make install DESTDIR=$PKG 2>&1 | tee -a $OUTPUT/make-${PRGNAM}_${MOD}.log
+
+  # Add documentation:
+  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+  cp -a AUTHORS COPYIN* ChangeLog INSTALL NEWS READM* THANKS TODO \
+    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+
+} # End make_hyphen
+
+
+#
+# Build python-regex:
+#
+make_regex() {
+
+  local MOD="regex"
+  echo -e "\n**  $MOD  **\n"
+
+  cd $TMP/tmp-$PRGNAM/regex-${INT_REGEX}
+
+  # Compile and install
+  export CFLAGS="$SLKCFLAGS"
+  python2 setup.py install --root=$PKG --optimize=1 $XINSTALLPY \
+	  2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+
+  # Add documentation:
+  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+  cp -a docs/Features.html docs/Features.rst docs/UnicodeProperties.txt \
+    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+
+} # End make_regex
+
+
+#
+# Build msgpack-python:
+#
+make_msgpack() {
+
+  local MOD="msgpack"
+  echo -e "\n**  $MOD  **\n"
+
+  cd $TMP/tmp-$PRGNAM/msgpack-${INT_MSGPACK}
+
+  # Compile and install
+  export CFLAGS="$SLKCFLAGS"
+  python2 setup.py install --root=$PKG --optimize=1 $XINSTALLPY \
+	  2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+
+  # Add documentation:
+  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+  cp -a COPYING* README* \
+    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+
+} # End make_msgpack
+
+
+#
+# Build six:
+#
+make_six() {
+
+  local MOD="six"
+  echo -e "\n**  $MOD  **\n"
+
+  cd $TMP/tmp-$PRGNAM/six-${INT_SIX}
+
+  # Compile and install
+  export CFLAGS="$SLKCFLAGS"
+  python2 setup.py install --root=$PKG --optimize=1 $XINSTALLPY \
+	  2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+
+  # Add documentation:
+  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+  cp -a CHANGES LICENSE* README* \
+    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+
+} # End make_six
+
+
+#
+# Build enum34 (backported from Python3:
+#
+make_enum34() {
+
+  local MOD="enum34"
+  echo -e "\n**  $MOD  **\n"
+
+  cd $TMP/tmp-$PRGNAM/enum34-${INT_ENUM34}
+
+  # Compile and install
+  export CFLAGS="$SLKCFLAGS"
+  python2 setup.py install --root=$PKG --optimize=1 $XINSTALLPY \
+	  2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+
+  # Add documentation:
+  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+  cp -a PKG-INFO enum/LICENSE enum/README \
+    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+
+} # End make_enum34
+
+
+#
+# Build webencodings:
+#
+make_webenc() {
+
+  local MOD="webencodings"
+  echo -e "\n**  $MOD  **\n"
+
+  cd $TMP/tmp-$PRGNAM/webencodings-${INT_WEBENC}
+
+  # Compile and install
+  export CFLAGS="$SLKCFLAGS"
+  python2 setup.py install --root=$PKG --optimize=1 $XINSTALLPY \
+	  2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+
+  # Add documentation:
+  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+  cp -a README* \
+    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+
+} # End make_webenc
+
+
+#
+# Build html5lib:
+#
+make_html5lib() {
+
+  local MOD="html5lib"
+  echo -e "\n**  $MOD  **\n"
+
+  cd $TMP/tmp-$PRGNAM/html5lib-${INT_HTML5LIB}
+
+  # Compile and install
+  export CFLAGS="$SLKCFLAGS"
+  python2 setup.py install --root=$PKG --optimize=1 $XINSTALLPY \
+	  2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+
+  # Add documentation:
+  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+  cp -a LICENSE* README* *.rst requirements.txt \
+    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+
+} # End make_html5lib
+
+
+#
+# Build html5-parser:
+#
+make_html5parser() {
+
+  local MOD="html5-parser"
+  echo -e "\n**  $MOD  **\n"
+
+  cd $TMP/tmp-$PRGNAM/html5-parser-${INT_HTML5PARSER}
+
+  # Compile and install
+  export CFLAGS="$SLKCFLAGS"
+  python2 setup.py install --root=$PKG --optimize=1 $XINSTALLPY \
+	  2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+
+  # Add documentation:
+  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+  cp -a LICENSE* README* \
+    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+
+} # End make_html5parser
+
+
+#
+# Build unrardll:
+#
+make_unrardll() {
+
+  local MOD="unrardll"
+  echo -e "\n**  $MOD  **\n"
+
+  cd $TMP/tmp-$PRGNAM/unrardll-${INT_UNRARDLL}
+
+  # Compile and install
+  export CFLAGS="$SLKCFLAGS -I$HOMECALIBRE/include"
+  python2 setup.py install --root=$PKG --optimize=1 $XINSTALLPY \
+	  2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+
+  # Add documentation:
+  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+  cp -a LICENSE* README* \
+    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+
+} # End make_unrardll
+
+
+make_feedparser() {
+
+  local MOD="feedparser"
+  echo -e "\n**  $MOD  **\n"
+
+  cd $TMP/tmp-$PRGNAM/feedparser-${INT_FEEDPARSER}
+
+  # Compile and install
+  export CFLAGS="$SLKCFLAGS"
+  python2 setup.py install --root=$PKG --optimize=1 $XINSTALLPY \
+	  2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+
+  # Add documentation:
+  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+  cp -a LICENSE* NEWS README* \
+    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+
+} # End make_feedparser
+
+
+make_Markdown() {
+
+  local MOD="Markdown"
+  echo -e "\n**  $MOD  **\n"
+
+  cd $TMP/tmp-$PRGNAM/Markdown-${INT_MARKDOWN}
+
+  # Compile and install
+  export CFLAGS="$SLKCFLAGS"
+  python2 setup.py install --root=$PKG --optimize=1 $XINSTALLPY \
+	  2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+
+  # Add documentation:
+  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+  cp -a *.md \
+    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+
+} # End make_Markdown
+
+
+make_beautifulsoup() {
+
+  local MOD="beautifulsoup"
+  echo -e "\n**  $MOD  **\n"
+
+  cd $TMP/tmp-$PRGNAM/beautifulsoup4-${INT_BEAUTIFULSOUP}
+
+  # Compile and install:
+  python2 setup.py install --root=$PKG $XINSTALLPY \
+    2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+
+  # Add documentation:
+  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+  cp -a *.txt LICENSE README.md \
+    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+
+} # End make_beautifulsoup
+
+
+make_bflc() {
+
+  local MOD="backports.functools_lru_cache"
+  echo -e "\n**  $MOD  **\n"
+
+  # First, define the backports namespace:
+  (
+    local BRANCH_VERSION=$(echo $INT_PYTHON | cut -f 1,2 -d . )
+    CALPYTH=$PKG$HOMECALIBRE/lib/python${BRANCH_VERSION}/site-packages
+    mkdir -p $CALPYTH
+    cd $CALPYTH
+    mkdir -p backports
+    cd backports
+    cat << EOF > __init__.py
+from pkgutil import extend_path
+__path__ = extend_path(__path__, __name__)
+EOF
+     python2 -m compileall . || true
+  )
+
+  cd $TMP/tmp-$PRGNAM/backports.functools_lru_cache-${INT_BFLC}
+
+  # Compile and install:
+  python2 setup.py install --root=$PKG \
+    2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+
+} # End make_bflc
+
+
+make_soupsieve() {
+
+  local MOD="soupsieve"
+  echo -e "\n**  $MOD  **\n"
+
+  cd $TMP/tmp-$PRGNAM/soupsieve-${INT_SOUPSIEVE}
+
+  # Compile and install:
+  python2 setup.py build \
+    2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+  python2 setup.py install --root=$PKG --optimize=1 $XINSTALLPY \
+	  2>&1 | tee -a $OUTPUT/make-${PRGNAM}_${MOD}.log
+
+  # Add documentation:
+  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+  cp -a *.md \
+    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+
+} # End make_soupsieve
+
+
+make_html2text() {
+
+  local MOD="html2text"
+  echo -e "\n**  $MOD  **\n"
+
+  cd $TMP/tmp-$PRGNAM/html2text-${INT_HTML2TEXT}
+
+  # Compile and install:
+  python2 setup.py install --root=$PKG $XINSTALLPY \
+    2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+
+  # Add documentation:
+  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+  cp -a *.rst COPYING README.md \
+    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+
+} # End make_html2text
+
+
+make_chardet() {
+
+  local MOD="chardet"
+  echo -e "\n**  $MOD  **\n"
+
+  cd $TMP/tmp-$PRGNAM/chardet-${INT_CHARDET}
+
+  # Compile and install:
+  python2 setup.py install --root=$PKG $XINSTALLPY \
+    2>&1 | tee $OUTPUT/make-${PRGNAM}_${MOD}.log
+
+  # Add documentation:
+  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+  cp -a *.rst LICENSE \
+    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+
+} # End make_chardet
+
+
+make_podofo() {
+
+  local MOD="podofo"
+  echo -e "\n**  $MOD  **\n"
+
+  cd $TMP/tmp-$PRGNAM/podofo-${INT_PODOFO}
+
+  # Fix the mandir location (we delete usr/man later on):
+  sed -i -e 's#SET(MANDIR "share/man/")#SET(MANDIR "man/")#' CMakeLists.txt
+
+  # Build fails otherwise:
+  mkdir -p test/TokenizerTest/objects
+
+  mkdir -p build
+  cd build
+    cmake \
+      -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \
+      -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS" \
+      -DFREETYPE_INCLUDE_DIR=/usr/include/freetype2 \
+      -DCMAKE_INSTALL_PREFIX=$HOMECALIBRE \
+      -DPODOFO_BUILD_STATIC:BOOL=0 \
+      -DPODOFO_BUILD_SHARED:BOOL=1 \
+      -DPODOFO_USE_VISIBILITY:BOOL=1 \
+      -DCMAKE_CXX_STANDARD:STRING=11 \
+      -DWANT_BOOST:BOOL=0 \
+      ..
+    make $NUMJOBS 2>&1 | tee $OUTPUT/make-${PRGNAM}.log
+    make DESTDIR=$PKG install 2>&1 | tee $OUTPUT/install-${PRGNAM}.log
+  cd - 1>/dev/null
+
+  # Add documentation:
+  mkdir -p $PKG$HOMECALIBRE/doc/internaldeps/${MOD}
+  cp -a AUTHORS ChangeLog CODING* CONTRIBUTIONS* COPYING* \
+    FAQ* INSTALL README* TODO \
+    $PKG$HOMECALIBRE/doc/internaldeps/${MOD} || true
+
+} # End make_podofo
+
+
+
+# --------------
+# Build calibre:
+# --------------
+
+make_calibre () {
+
+  echo -e "\n**  calibre  **\n"
+
+  touch $OUTPUT/patch-$PRGNAM.log
+  cd $TMP/tmp-$PRGNAM/${SRCNAM}-${VERSION}
+  cat $PATCHDIR/calibre_icu.patch | patch -p1 --verbose 2>&1 | \
+      tee $OUTPUT/patch-${PRGNAM}.log
+
+  if [ "$P1" != "--oldbuild" ]; then
+    # This dropping of privilege is unneccessary and breaks the SlackBuild:
+    sed -i -e "s:if os.geteuid() == 0:if False and os.geteuid() == 0:" \
+      setup/install.py
+
+    ## Calibre should not hard-code the hunspell library version:
+    #OURLIB=$(pkg-config --libs hunspell |sed 's/-l//')
+    #sed -i setup/extensions.json -e 's/"libraries": "hunspell-.*"/"libraries": "'$OURLIB'"/'
+  fi
+
+  # See if we picked up any compiler or linker flags for python:
+  LDFLAGS=${LDFLAGS:-""}
+  CFLAGS=${CFLAGS:-""}
+
+  # Place where we have to install stuff:
+  PYTHONLIB=$( python2 -c "from distutils.sysconfig import get_python_lib; print (get_python_lib())" )
+
+  # Create the directory for calibre's environment module:
+  mkdir -p $PKG$PYTHONLIB
+
+  # Find the prefix python was installed to (may be different from calibre's):
+  PYTHONROOT=$( python2 -c "from distutils.sysconfig import get_python_lib; print (get_python_lib(prefix='/'))" )
+  PYTHONPREF="${PYTHONLIB%$PYTHONROOT}"
+
+  # Massage the install script to actually install to that python libdir:
+  sed -e "/s.get_python_lib(prefix=/s,(prefix=.*),(prefix='$PKG$PYTHONPREF')," \
+      -i setup/install.py 
+
+  # Cut out the DOS crap:
+  sed -i -e 's/\r//' src/calibre/web/feeds/recipes/*
+
+  export HUNSPELL_INC_DIR="$HOMECALIBRE/include/hunspell" \
+  export HUNSPELL_LIB_DIR="$HOMECALIBRE/lib" \
+  export PODOFO_INC_DIR="$HOMECALIBRE/include/podofo" \
+  export PODOFO_LIB_DIR="$HOMECALIBRE/lib" \
+
+  OVERRIDE_LDFLAGS="$LDFLAGS $SLKLDFLAGS" \
+  OVERRIDE_CFLAGS="$CFLAGS $SLKCFLAGS" \
+  LANG='en_US.UTF-8' python2 setup.py build \
+    2>&1 | tee $OUTPUT/make-${PRGNAM}.log
+
+  # Create the directories the xdg-utils expects to be present:
+  mkdir -p $PKG/usr/share/{applications,icons/hicolor,mime/packages}
+  mkdir -p $PKG/usr/share/{desktop-directories,packages}
+
+  # Install the lot:
+  XDG_DATA_DIRS="$PKG/usr/share" \
+  XDG_UTILS_INSTALL_MODE="system" \
+  LIBPATH=/usr/lib${LIBDIRSUFFIX} \
+  LANG='en_US.UTF-8' \
+  PYTHONPATH="$XPYSITE" \
+  python2 setup.py install \
+    --prefix=/usr \
+    --libdir=/usr/lib${LIBDIRSUFFIX} \
+    --staging-root=$PKG/usr \
+    --staging-libdir=$PKG/usr/lib${LIBDIRSUFFIX} \
+    2>&1 | tee $OUTPUT/install-$PRGNAM.log
+
+  # Add python path for calibre :
+  sed -i "s=import sys, os=import sys, os\n\nsys.path.insert(0,'/usr/lib64/calibre/lib/python2.7/site-packages')\nos.environ['PYTHONPATH'] \= '/usr/lib64/calibre/lib/python2.7/site-packages'=" $PKG/usr/bin/calibre
+
+  # Add man pages:
+  mkdir -p ${PKG}/usr/man
+  cp -a man-pages/* ${PKG}/usr/man/
+
+  # This does not belong in a package - use 'removepkg' instead:
+  rm -f $PKG/usr/bin/calibre-uninstall
+
+  # Create symlinks to system Libration fonts:
+  if [ -d $PKG/usr/share/calibre/fonts/liberation ]; then
+    echo  "** Replacing Liberation fonts with symlinks..."
+    ( cd $PKG/usr/share/calibre/fonts/liberation/
+      for FONT in *.ttf *.otf ; do
+        if [ -f /usr/share/fonts/TTF/$FONT ]; then
+          rm -f $FONT
+          ln -sf /usr/share/fonts/TTF/$FONT
+        fi
+      done
+    )
+  else
+    echo  "** Adding Liberation fonts as symlinks..."
+    mkdir -p $PKG/usr/share/calibre/fonts/liberation
+    ( cd $PKG/usr/share/calibre/fonts/liberation
+      for FONT in /usr/share/fonts/TTF/Liberation*.ttf ; do
+        ln -sf $FONT
+      done
+    )
+  fi
+
+  # All these files will be generated by update-mime-database:
+  find $PKG/usr/share/mime -maxdepth 1 -type f | xargs rm -f
+
+  # But this one needs to be added here:
+  install -Dm644 resources/calibre-mimetypes.xml \
+    ${PKG}/usr/share/mime/packages/calibre-mimetypes.xml
+
+  # These files are generated by update-desktop-database while installing:
+  rm -f $PKG/usr/share/applications/defaults.list
+  rm -f $PKG/usr/share/applications/mimeinfo.cache
+
+  # These two served their purpose:
+  rmdir $PKG/usr/share/{desktop-directories,packages}
+
+  # And then some additions or it won't all look nice in your menu:
+
+  # Add a MimeType icon for lrf, and add an application icon:
+  for i in 16 24 32 48 64 96 128; do
+    mkdir -p $PKG/usr/share/icons/hicolor/${i}x${i}/{apps,mimetypes}
+    convert imgsrc/mimetypes/lrf.svg -scale $i \
+      $PKG/usr/share/icons/hicolor/${i}x${i}/mimetypes/application-x-sony-bbeb.png
+    convert resources/images/library.png -resize ${i}x${i} \
+      $PKG/usr/share/icons/hicolor/${i}x${i}/apps/calibre-gui.png
+    convert imgsrc/viewer.svg -scale $i \
+      $PKG/usr/share/icons/hicolor/${i}x${i}/apps/calibre-viewer.png
+  done
+
+} # End of make_calibre
+
+#
+# End of the subroutines.
+#
+
+if [ "$BUILD_PYTHONMODS" = "YES" ]; then
+  # Not part of Slackware or too old, and need it:
+  make_hunspell
+  rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+
+  make_optipng
+  rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+
+  make_podofo
+  rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+
+  make_hyphen
+  rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+
+  make_unrarsrc
+  rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+  # End - not part of Slackware
+fi
+
+# Compilation of the optional software:
+if [ "$BUILD_PYTHON" = "YES" -o "$BUILD_PYTHONMODS" = "YES" -o "$BUILD_QT" = "YES" -o "$BUILD_MTP" = "YES" -o "$BUILD_MAGICK" = "YES" ]; then
+  if  [ -f $SRCDIR/${PRGNAM}_pythondeps-${SLACKVER}-${ARCH}.tar.bz2 ]; then
+    # We unwrap the tarball of compiled python internal libraries instead of
+    # having to build them - this saves a _lot_ of compile time:
+    mkdir -p $PKG$HOMECALIBRE
+    ( cd $PKG$HOMECALIBRE
+      echo "**  Extracting dependencies tarball... **"
+      tar -jxf $SRCDIR/${PRGNAM}_pythondeps-${SLACKVER}-${ARCH}.tar.bz2
+      # We also need a copy in the filesystem root!
+      rsync -a $PKG$HOMECALIBRE /usr/lib${LIBDIRSUFFIX}/
+    )
+  fi
+
+  # Ensure that our non-standard python2.7 is found and used:
+  echo "** Configuring build environment for preferring internal libraries **"
+  export PATH="$HOMECALIBRE:$HOMECALIBRE/bin:$PATH"
+  export PKG_CONFIG_PATH="$HOMECALIBRE/lib/pkgconfig:$PKG_CONFIG_PATH"
+  export LDFLAGS="-Wl,-rpath $HOMECALIBRE/lib -L$HOMECALIBRE/lib"
+
+  # In order to prevent a gcc error if we have to compile libmtp:
+  mkdir -p $HOMECALIBRE/lib
+
+fi
+
+if [ "$BUILD_MTP" = "YES" ]; then
+  # No sufficiently new libmtp was found so we need to supply it ourself.
+
+  if  [ ! -f $SRCDIR/${PRGNAM}_pythondeps-${SLACKVER}-${ARCH}.tar.bz2 ]; then
+    # No tarball containing pre-compiled libraries was found.
+    # We need to build libmptp ourself.
+    
+    # After each part is built we will sync to here because in the end, calibre
+    # will wipe the origin and we will have to sync it all back:
+    mkdir -p $HOMECALIBRE
+
+    make_mtp
+    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+  fi
+fi
+
+if [ "$BUILD_MAGICK" = "YES" ]; then
+  # We want to have an internal version of ImageMagick to be less dependent
+  # of Slackware library version changes.
+
+  if  [ ! -f $SRCDIR/${PRGNAM}_pythondeps-${SLACKVER}-${ARCH}.tar.bz2 ]; then
+    # No tarball containing pre-compiled libraries was found.
+    # We need to build Magick ourself.
+    
+    # After each part is built we will sync to here because in the end, calibre
+    # will wipe the origin and we will have to sync it all back:
+    mkdir -p $HOMECALIBRE
+
+    make_magick
+    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+  fi
+fi
+
+if [ "$BUILD_QT" = "YES" ]; then
+  # No sufficiently new Qt was found so we need to supply it ourself.
+
+  if  [ ! -f $SRCDIR/${PRGNAM}_pythondeps-${SLACKVER}-${ARCH}.tar.bz2 ]; then
+    # No tarball containing pre-compiled libraries was found.
+    # We need to build Qt ourself.
+    
+    # After each part is built we will sync to here because in the end, calibre
+    # will wipe the origin and we will have to sync it all back:
+    mkdir -p $HOMECALIBRE
+
+    make_xkbcommon
+    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+
+    make_qt5
+    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+  fi
+fi
+
+if [ "$BUILD_PYTHON" = "YES" ]; then
+  # No python2.7 was found on the computer so we need to supply it ourself.
+
+  if  [ ! -f $SRCDIR/${PRGNAM}_pythondeps-${SLACKVER}-${ARCH}.tar.bz2 ]; then
+    # No tarball containing pre-compiled python libraries was found.
+    # We need to build python2.7 ourself.
+    
+    # After each part is built we will sync to here because in the end, calibre
+    # will wipe the origin and we will have to sync it all back:
+    mkdir -p $HOMECALIBRE
+
+    make_python
+    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+  fi
+
+  SLK_PYTHON_INCLUDES="-I$HOMECALIBRE/include/python${REQUIRED_PYTHON}"
+  SLK_PYTHON_LIBS="-L$HOMECALIBRE/lib -lpython${REQUIRED_PYTHON}"
+else
+  SLK_PYTHON_INCLUDES="-I$HOMECALIBRE/include/python${REQUIRED_PYTHON} $(python2 -c 'from distutils.sysconfig import *;print (get_python_inc())')"
+  SLK_PYTHON_LIBS="-L$HOMECALIBRE/lib -lpython${REQUIRED_PYTHON} $(python2 -c 'from distutils.sysconfig import *;print (get_python_lib())')"
+fi
+
+if [ "$BUILD_PYTHONMODS" = "YES" ]; then
+  # The python2.7 modules need to be compiled into the package:
+
+  if  [ ! -f $SRCDIR/${PRGNAM}_pythondeps-${SLACKVER}-${ARCH}.tar.bz2 ]; then
+    # No tarball containing pre-compiled python libraries was found.
+    # We need to build python2.7 modules ourself.
+    
+    # After each part is built we will sync to here because in the end, calibre
+    # will wipe the origin and we will have to sync it all back:
+    mkdir -p $HOMECALIBRE
+
+    ## Ensure that all our binaries and libraries are found and used:
+    #export PATH="$HOMECALIBRE:$HOMECALIBRE/bin:$PATH"
+    #export PKG_CONFIG_PATH="$HOMECALIBRE/lib/pkgconfig:$PKG_CONFIG_PATH"
+    #export LDFLAGS="-Wl,-rpath $HOMECALIBRE/lib -L$HOMECALIBRE/lib"
+
+    make_setuptools
+    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+
+    make_unrardll
+    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+
+    make_pillow
+    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+
+    make_apsw || exit 1
+    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+
+    make_beautifulsoup
+    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+
+    make_bflc
+    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+
+    make_soupsieve
+    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+
+    make_dnspython
+    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+
+    make_cssparser
+    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+
+    make_dateutil
+    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+
+    make_lxml
+    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+
+    make_mechanize
+    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+
+    make_pycrypto
+    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+
+    make_netifaces
+    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+
+    make_dbuspython
+    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+
+    make_psutil
+    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+
+    make_pygments
+    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+
+    make_enum34
+    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+
+    make_sip
+    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+
+    if [ "$BUILD_PYQT5" = 'YES' ] ;then
+	make_pyqt5
+	rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+    fi
+    
+    make_pyqtwebengine
+    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+
+    make_regex
+    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+
+    make_msgpack
+    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+
+    make_six
+    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+
+    make_webenc
+    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+
+    make_html5lib
+    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+
+    make_html5parser
+    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+
+    make_feedparser
+    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+
+    make_Markdown
+    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+
+    make_html2text
+    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+
+    make_chardet
+    rsync -a $PKG$HOMECALIBRE/ $HOMECALIBRE/
+
+  fi
+fi
+
+if [ "$BUILD_PYTHON" = "YES" -o "$BUILD_PYTHONMODS" = "YES" -o "$BUILD_QT" = "YES" -o "$BUILD_MTP" = "YES" ]; then
+  # At this point we can wrap the compiled python etc. internal libraries
+  # into a tarball which we can re-use in a future build (so that we do not
+  # have to recompile them every time).
+  # If you want to make use of this, then just copy the resulting tarball
+  # into the same directory as this SlackBuild script:
+  if  [ ! -f $SRCDIR/${PRGNAM}_pythondeps-${SLACKVER}-${ARCH}.tar.bz2 ]; then
+    ( cd $PKG$HOMECALIBRE
+      echo "**"
+      echo "** Creating dependencies tarball $OUTPUT/${PRGNAM}_pythondeps-${SLACKVER}-${ARCH}.tar.bz2"
+      echo "** Move this file to $SRCDIR for future compilation speedups."
+      echo "**"
+      tar -jcf $OUTPUT/${PRGNAM}_pythondeps-${SLACKVER}-${ARCH}.tar.bz2 .
+    )
+  fi
+fi
+
+# We need to point calibre's compilation at our custom headers:
+export CFLAGS="-I$HOMECALIBRE/include"
+
+# The main course - compile calibre:
+make_calibre
+
+if [ "$BUILD_PYTHON" = 'YES' -o "$BUILD_PYTHONMODS" = 'YES' ]; then
+    # Compiling calibre will have wiped all previously compiled python stuff,
+    # so we need to put it back into the package, and then it can go:
+    rsync -a $HOMECALIBRE/ $PKG$HOMECALIBRE/
+
+    if [ "$BUILD_PYTHON" = "YES" ]; then
+	# We need to tell calibre to use the internal python:
+	for FILE in $PKG/usr/bin/* ; do
+	    if ! file $FILE | grep -q ELF ; then
+		sed -i \
+		    -e "s,^#!/usr/bin/env .*$,#!$HOMECALIBRE/python2," \
+		    $FILE
+	    fi
+	done
+    fi
+
+    # This is not needed in the package:
+    rm -rf $PKG$HOMECALIBRE/{bin,lib/pkgconfig,lib/python*/test,share,usr/man}
+
+    # Compiling bytecode makes Calibre startup much faster:
+    set +e
+    if [ "$BUILD_PYTHON" = "YES" ]; then
+	$HOMECALIBRE/python2 -m compileall -d '/' ${PKG}$HOMECALIBRE/ || true
+	$HOMECALIBRE/python2 -OO -m compileall -d '/' ${PKG}$HOMECALIBRE/ || true
+    else
+	python2 -m compileall -d '/' ${PKG}$HOMECALIBRE/ || true
+	python2 -OO -m compileall -d '/' ${PKG}$HOMECALIBRE/ || true
+    fi
+    set -e
+    
+    # Now we can remove these from the filesystem:
+    rm -rf $HOMECALIBRE
+fi
+
+# Create a doinst.sh:
+mkdir -p $PKG/install
+cat <<EOT >> $PKG/install/doinst.sh
+# Update the desktop and mime database:
+if [ -x usr/bin/update-desktop-database ]; then
+  chroot . /usr/bin/update-desktop-database usr/share/applications > /dev/null 2>&1
+fi
+if [ -x usr/bin/update-mime-database ]; then
+  chroot . /usr/bin/update-mime-database usr/share/mime > /dev/null 2>&1
+fi
+if [ -x usr/bin/gtk-update-icon-cache ] ; then
+  chroot . /usr/bin/gtk-update-icon-cache --quiet usr/share/icons/hicolor 
+fi
+
+EOT
+
+# Add documentation:
+mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
+# First, the calibre documentation files:
+cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION || true
+if [ "$BUILD_PYTHON" = "YES" -o "$BUILD_PYTHONMODS" = "YES" ]; then
+  # Add documentation (mainly licenses) of the internal python deps:
+  mv $PKG$HOMECALIBRE/doc/internaldeps/* $PKG/usr/doc/$PRGNAM-$VERSION/ || true
+  rm -rf $PKG$HOMECALIBRE/doc
+fi
+# Add all the patches we used to build this package:
+cp -a $PATCHDIR $PKG/usr/doc/$PRGNAM-$VERSION
+# And finally, add this SlackBuild script:
+cat $SRCDIR/$(basename $0) > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
+chown -R root:root $PKG/usr/doc/$PRGNAM-$VERSION
+find $PKG/usr/doc -type f -exec chmod 644 {} \;
+
+# Compress the man page(s):
+if [ -d $PKG/usr/man ]; then
+  find $PKG/usr/man -type f -name "*.?" -exec gzip -9f {} \;
+  for i in $(find $PKG/usr/man -type l -name "*.?") ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
+fi
+
+if [ "$BUILD_QT" = "YES" ]; then
+  # If we built our own Qt then this can be removed from the package:
+  rm -rf $PKG$HOMECALIBRE/{demos,doc,examples,tests}
+fi
+
+# Don't ship .la files:
+rm -f $PKG/{,usr/}lib${LIBDIRSUFFIX}/*.la
+
+# Strip binaries (if any):
+find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
+  | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
+
+# Add a package description:
+mkdir -p $PKG/install
+cat $SRCDIR/slack-desc > $PKG/install/slack-desc
+# Add the external dependencies :
+cat $SRCDIR/slack-required > $PKG/install/slack-required
+if [ "$BUILD_PYTHONMODS" = "YES" ]; then
+  cat $PKG/install/slack-required \
+    | grep -Ev "PyQt5|PyQtWebEngine|dbus-python|dnspython|pycrypto|pysetuptools|python-apsw|python-beautifulsoup4|python-bflc|python-chardet|python-css-parser|python-dateutil|python-enum34|python-feedparser|pyhton-html2text|python-html5-parser|python-html5lib|python-lxml|python-markdown|python-mechanize|python-msgpack|python-netifaces|python-pillow|python-psutil|python-pygments|python-regex|python-six|python-soupsieve|python-unrardll|python-webencodings|sip|sqlite-amalgamation" \
+    > $PKG/install/slack-required.temp || true
+  mv $PKG/install/slack-required.temp  $PKG/install/slack-required
+fi
+if [ "$BUILD_QT" = "YES" ]; then
+  cat $PKG/install/slack-required \
+    | grep -Ev "libxkbcommon|libinput|libwacom|qt5" \
+    > $PKG/install/slack-required.temp || true
+  mv $PKG/install/slack-required.temp  $PKG/install/slack-required
+fi
+
+# Build the package:
+cd $PKG
+makepkg --linkadd y --chown n $OUTPUT/${PRGNAM}-${VERSION}-${ARCH}-${BUILD}${TAG}.${PKGTYPE:-txz} 2>&1 | tee $OUTPUT/makepkg-${PRGNAM}.log
+cd $OUTPUT
+md5sum ${PRGNAM}-${VERSION}-${ARCH}-${BUILD}${TAG}.${PKGTYPE:-txz} > ${PRGNAM}-${VERSION}-${ARCH}-${BUILD}${TAG}.${PKGTYPE:-txz}.md5
+cd -
+cat $PKG/install/slack-desc | grep "^${PRGNAM}" > $OUTPUT/${PRGNAM}-${VERSION}-${ARCH}-${BUILD}${TAG}.txt
+cat $PKG/install/slack-required > $OUTPUT/${PRGNAM}-${VERSION}-${ARCH}-${BUILD}${TAG}.dep
+
+# Restore the original umask:
+umask ${_UMASK_}
+

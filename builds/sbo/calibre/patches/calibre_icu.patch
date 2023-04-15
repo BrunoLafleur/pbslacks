@@ -1,0 +1,32 @@
+diff -ru calibre-4.23.0old/src/calibre/utils/icu.c calibre-4.23.0/src/calibre/utils/icu.c
+--- calibre-4.23.0old/src/calibre/utils/icu.c	2020-08-21 03:39:18.000000000 +0200
++++ calibre-4.23.0/src/calibre/utils/icu.c	2021-01-11 22:51:59.000000000 +0100
+@@ -243,14 +243,14 @@
+ 
+     a = python_to_icu(a_, &asz);
+     if (a == NULL) goto end;
+-    if (asz == 0) { found = TRUE; goto end; }
++    if (asz == 0) { found = 1; goto end; }
+     b = python_to_icu(b_, &bsz);
+     if (b == NULL) goto end;
+ 
+     search = usearch_openFromCollator(a, asz, b, bsz, self->collator, NULL, &status);
+     if (U_SUCCESS(status)) {
+         pos = usearch_first(search, &status);
+-        if (pos != USEARCH_DONE) found = TRUE;
++        if (pos != USEARCH_DONE) found = 1;
+     }
+ end:
+     if (search != NULL) usearch_close(search);
+diff -ru calibre-4.23.0old/src/calibre/utils/matcher.c calibre-4.23.0/src/calibre/utils/matcher.c
+--- calibre-4.23.0old/src/calibre/utils/matcher.c	2020-08-21 03:39:18.000000000 +0200
++++ calibre-4.23.0/src/calibre/utils/matcher.c	2021-01-11 23:29:29.000000000 +0100
+@@ -15,7 +15,7 @@
+ #define inline
+ #endif
+ 
+-typedef unsigned char bool;
++//typedef unsigned char bool;
+ #define TRUE 1
+ #define FALSE 0
+ #define MAX(x, y) ((x > y) ? x : y)

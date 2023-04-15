@@ -1,0 +1,14 @@
+--- calibre/setup/installer/linux/freeze2.py.orig	2013-11-15 04:51:25.000000000 +0100
++++ calibre/setup/installer/linux/freeze2.py	2013-11-15 12:22:32.844323955 +0100
+@@ -236,7 +236,10 @@
+ 
+     def create_tarfile(self):
+         self.info('Creating archive...')
+-        dist = os.path.join(self.d(self.SRC), 'dist',
++        dest = 'dist'
++        if not os.path.exists(dest):
++            os.makedirs(dest)
++        dist = os.path.join(self.d(self.SRC), dest,
+             '%s-%s-%s.tar.bz2'%(__appname__, __version__, arch))
+         with tarfile.open(dist, mode='w:bz2',
+                     format=tarfile.PAX_FORMAT) as tf:

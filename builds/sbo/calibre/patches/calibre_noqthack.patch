@@ -1,0 +1,29 @@
+diff -uar calibre.orig/setup/extensions.py calibre/setup/extensions.py
+--- calibre.orig/setup/extensions.py	2013-12-25 04:34:37.000000000 +0100
++++ calibre/setup/extensions.py	2013-12-26 17:56:05.972330008 +0100
+@@ -197,13 +197,6 @@
+                 sip_files=['calibre/gui2/progress_indicator/QProgressIndicator.sip']
+                 ),
+ 
+-    Extension('qt_hack',
+-                ['calibre/ebooks/pdf/render/qt_hack.cpp'],
+-                inc_dirs=qt_private_inc + ['calibre/ebooks/pdf/render', 'qt-harfbuzz/src'],
+-                headers=['calibre/ebooks/pdf/render/qt_hack.h'],
+-                sip_files=['calibre/ebooks/pdf/render/qt_hack.sip']
+-                ),
+-
+     Extension('unrar',
+               ['unrar/%s.cpp'%(x.partition('.')[0]) for x in '''
+                rar.o strlist.o strfn.o pathfn.o savepos.o smallfn.o global.o file.o
+Only in calibre/setup: extensions.py.orig
+diff -uar calibre.orig/src/calibre/constants.py calibre/src/calibre/constants.py
+--- calibre.orig/src/calibre/constants.py	2013-12-25 04:34:37.000000000 +0100
++++ calibre/src/calibre/constants.py	2013-12-26 18:00:06.706456142 +0100
+@@ -138,7 +138,6 @@
+                 'freetype',
+                 'woff',
+                 'unrar',
+-                'qt_hack',
+                 '_regex',
+                 'hunspell',
+             ]

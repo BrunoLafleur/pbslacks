@@ -1,0 +1,12 @@
+--- ./Modules/readline.c.orig	2010-05-09 10:15:40.000000000 -0500
++++ ./Modules/readline.c	2010-11-27 17:08:38.000000000 -0600
+@@ -11,6 +11,9 @@
+ #include <errno.h>
+ #include <sys/time.h>
+ 
++/* This seems to be needed for set_pre_input_hook to work */
++#define HAVE_RL_PRE_INPUT_HOOK 1
++
+ #if defined(HAVE_SETLOCALE)
+ /* GNU readline() mistakenly sets the LC_CTYPE locale.
+  * This is evil.  Only the user or the app's main() should do this!

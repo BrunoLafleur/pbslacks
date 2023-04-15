@@ -34,8 +34,8 @@ fi
 (
     cd packages
     xgetpac p7zip "$SLACKALIEN3/p7zip" 10
-    for i in cabextract jack2 musescore openjdk boost-compat vkd3d FAudio wine \
-	     jamulus qjackctl pulseaudio-jack ;do
+    for i in cabextract jack2 musescore openjdk openjdk11 boost-compat vkd3d \
+			FAudio wine jamulus qjackctl pulseaudio-jack ;do
 	xgetpac "$i" "$SLACKALIEN/$i/pkg64/${SLACKVER}" 10
     done
     rm -f libxkbcommon-*
@@ -81,7 +81,9 @@ xpurgeindex packages2
 (
     cd packages3
     for i in calibre ;do
-	xgetsrcpac0 "$i" "$SLACKALIEN/$i/build" 9
+	#xgetsrcpac0 "$i" "$SLACKALIEN/$i/build" 9
+	# Calibre 4 avec Qt5
+	xlocalsrcpac calibre ""
     done
 )
 xpurgeindex packages3
