@@ -268,6 +268,8 @@ if [ $ISFRAMEW -eq 1 ] ;then
 fi
 
 if [ $ISPAC4 -eq 1 ] ;then
+    xmakepac packages4 audiveris
+    exit 0
     xmakealienpac packages4 wxGTK3
     (
 	export WXCONF=$XLIBDIR/wx/config/gtk3-unicode-3.2

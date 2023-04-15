@@ -63,11 +63,14 @@ git add -u
 git commit -m 'my commit'
 ./gradlew build
 
-unzip -d $PKG/$AUDIVERIS_HOME build/distributions/Audiveris.zip
+AUDIVERIS_INSTALL=$(ls build/distributions/Audiveris*.zip)
+AUDIVERIS_NAME=$(basename $AUDIVERIS_INSTALL .zip)
+
+unzip -d $PKG/$AUDIVERIS_HOME $AUDIVERIS_INSTALL
 cp $CWD/*.traineddata $PKG/$TESS3_HOME
 
 cd $PKG/usr/bin
-  ln -s $AUDIVERIS_HOME/Audiveris/bin/Audiveris .
+  ln -s $AUDIVERIS_HOME/$AUDIVERIS_NAME/bin/Audiveris .
 cd -
 
 mkdir -p $PKG/usr/doc/${PRGNAM}-$VERSION
