@@ -1,7 +1,7 @@
 PRGNAM="scim-m17n"
 VERSION="0.2.3"
 HOMEPAGE="https://www.scim-im.org/"
-DOWNLOAD="https://github.com/BrunoLafleur/pbslacks/blob/master/builds/src/scim-m17n-0.2.3.tar.gz"
+DOWNLOAD="https://github.com/BrunoLafleur/pbslacks/raw/master/builds/src/scim-m17n-0.2.3.tar.gz"
 MD5SUM="179a009b262e0aa0aba786f37e4345ed"
 REQUIRES=""
 MAINTAINER="Pierre Brochard"

@@ -1,7 +1,7 @@
 PRGNAM="orage"
 VERSION="4.12.1"
 HOMEPAGE="https://docs.xfce.org/panel-plugins/orage/start"
-DOWNLOAD="https://github.com/BrunoLafleur/pbslacks/blob/master/builds/src/orage-4.12.1.tar.xz"
+DOWNLOAD="https://github.com/BrunoLafleur/pbslacks/raw/master/builds/src/orage-4.12.1.tar.xz"
 MD5SUM="4f4ae60dc5693e2a845f97792ce92b70"
 REQUIRES=""
 MAINTAINER="Pierre Brochard"

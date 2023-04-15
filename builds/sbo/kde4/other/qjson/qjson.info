@@ -1,7 +1,7 @@
 PRGNAM="qjson"
 VERSION="0.9.0"
 HOMEPAGE="https://github.com/flavio/qjson"
-DOWNLOAD="https://github.com/BrunoLafleur/pbslacks/blob/master/builds/src/qjson-0.9.0.tar.lz"
+DOWNLOAD="https://github.com/BrunoLafleur/pbslacks/raw/master/builds/src/qjson-0.9.0.tar.lz"
 MD5SUM="bab9f6f2161ac68b3ff3941cd4535754"
 REQUIRES=""
 MAINTAINER="Pierre Brochard"

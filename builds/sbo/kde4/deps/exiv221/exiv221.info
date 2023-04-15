@@ -1,7 +1,7 @@
 PRGNAM="exiv221"
 VERSION="0.21.1"
 HOMEPAGE="https://exiv2.org/"
-DOWNLOAD="https://github.com/BrunoLafleur/pbslacks/blob/master/builds/src/exiv2-0.21.1.tar.xz"
+DOWNLOAD="https://github.com/BrunoLafleur/pbslacks/raw/master/builds/src/exiv2-0.21.1.tar.xz"
 MD5SUM="94f4feaa6e55c7ca4fa9735be904b6e5"
 DOWNLOAD_x86_64=""
 MD5SUM_x86_64=""

@@ -1,7 +1,7 @@
 PRGNAM="liblastfm"
 VERSION="1.1.0"
 HOMEPAGE="https://github.com/lastfm/liblastfm"
-DOWNLOAD="https://github.com/BrunoLafleur/pbslacks/blob/master/builds/src/liblastfm-1.1.0.tar.lz"
+DOWNLOAD="https://github.com/BrunoLafleur/pbslacks/raw/master/builds/src/liblastfm-1.1.0.tar.lz"
 MD5SUM="46076f1bd0d5f51633ac10c466d0a208"
 REQUIRES=""
 MAINTAINER="Pierre Brochard"

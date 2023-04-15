@@ -1,7 +1,7 @@
 PRGNAM="libbluedevil"
 VERSION="2.1"
 HOMEPAGE="https://github.com/KDE/libbluedevil"
-DOWNLOAD="https://github.com/BrunoLafleur/pbslacks/blob/master/builds/src/libbluedevil-2.1.tar.xz"
+DOWNLOAD="https://github.com/BrunoLafleur/pbslacks/raw/master/builds/src/libbluedevil-2.1.tar.xz"
 MD5SUM="0ffc977d171d786ae34bc4e461fe682b"
 REQUIRES=""
 MAINTAINER="Pierre Brochard"

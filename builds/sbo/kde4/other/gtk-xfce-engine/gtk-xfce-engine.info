@@ -1,7 +1,7 @@
 PRGNAM="gtk-xfce-engine"
 VERSION="2.10.1"
 HOMEPAGE="https://archive.xfce.org/src/archive/gtk-xfce-engine/"
-DOWNLOAD="https://github.com/BrunoLafleur/pbslacks/blob/master/builds/src/gtk-xfce-engine-2.10.1.tar.xz"
+DOWNLOAD="https://github.com/BrunoLafleur/pbslacks/raw/master/builds/src/gtk-xfce-engine-2.10.1.tar.xz"
 MD5SUM="d223efe627c9ec35a31ae4c7a06aea1f"
 REQUIRES=""
 MAINTAINER="Pierre Brochard"

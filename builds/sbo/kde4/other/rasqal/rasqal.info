@@ -1,7 +1,7 @@
 PRGNAM="rasqal"
 VERSION="0.9.33"
 HOMEPAGE="https://github.com/dajobe/rasqal"
-DOWNLOAD="https://github.com/BrunoLafleur/pbslacks/blob/master/builds/src/rasqal-0.9.33.tar.xz"
+DOWNLOAD="https://github.com/BrunoLafleur/pbslacks/raw/master/builds/src/rasqal-0.9.33.tar.xz"
 MD5SUM="d049719548d288eb6fe3c3ef38226f67"
 REQUIRES=""
 MAINTAINER="Pierre Brochard"

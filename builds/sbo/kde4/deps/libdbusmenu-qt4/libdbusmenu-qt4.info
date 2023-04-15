@@ -1,7 +1,7 @@
 PRGNAM="libdbusmenu-qt4"
 VERSION="0.9.2"
 HOMEPAGE="https://launchpad.net/libdbusmenu-qt"
-DOWNLOAD="https://github.com/BrunoLafleur/pbslacks/blob/master/builds/src/libdbusmenu-qt-0.9.2.tar.bz2"
+DOWNLOAD="https://github.com/BrunoLafleur/pbslacks/raw/master/builds/src/libdbusmenu-qt-0.9.2.tar.bz2"
 MD5SUM="9a49484927669cd2ec91b3bf9ba8b79e"
 DOWNLOAD_x86_64=""
 MD5SUM_x86_64=""

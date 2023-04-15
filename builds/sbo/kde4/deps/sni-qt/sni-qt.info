@@ -1,7 +1,7 @@
 PRGNAM="sni-qt"
 VERSION="0.2.7"
 HOMEPAGE="https://launchpad.net/libdbusmenu-qt"
-DOWNLOAD="https://github.com/BrunoLafleur/pbslacks/blob/master/builds/src/sni-qt_0.2.7+15.10.20150729.orig.tar.gz"
+DOWNLOAD="https://github.com/BrunoLafleur/pbslacks/raw/master/builds/src/sni-qt_0.2.7+15.10.20150729.orig.tar.gz"
 MD5SUM="0964a07812ba38373b69fb9f25692ba6"
 DOWNLOAD_x86_64=""
 MD5SUM_x86_64=""

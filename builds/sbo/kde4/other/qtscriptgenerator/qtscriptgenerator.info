@@ -1,7 +1,7 @@
 PRGNAM="qtscriptgenerator"
 VERSION="0.2.0"
 HOMEPAGE="https://code.google.com/p/qtscriptgenerator/"
-DOWNLOAD="https://github.com/BrunoLafleur/pbslacks/blob/master/builds/src/qtscriptgenerator-src-0.2.0.tar.xz"
+DOWNLOAD="https://github.com/BrunoLafleur/pbslacks/raw/master/builds/src/qtscriptgenerator-src-0.2.0.tar.xz"
 MD5SUM="1338913458ebd9ec897194a5ea416170"
 REQUIRES="qt"
 MAINTAINER="Pierre Brochard"

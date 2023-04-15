@@ -1,7 +1,7 @@
 PRGNAM="strigi"
 VERSION="0.7.8"
 HOMEPAGE="https://www.vandenoever.info/software/strigi/"
-DOWNLOAD="hhttps://github.com/BrunoLafleur/pbslacks/blob/master/builds/src/strigi-0.7.8.tar.xz"
+DOWNLOAD="hhttps://github.com/BrunoLafleur/pbslacks/raw/master/builds/src/strigi-0.7.8.tar.xz"
 MD5SUM="2bebc4ad8907dc78ca5d0af967e31494"
 REQUIRES=""
 MAINTAINER="Pierre Brochard"

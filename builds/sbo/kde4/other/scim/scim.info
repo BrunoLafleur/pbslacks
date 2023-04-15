@@ -1,7 +1,7 @@
 PRGNAM="scim"
 VERSION="1.4.18"
 HOMEPAGE="https://www.scim-im.org/"
-DOWNLOAD="https://github.com/BrunoLafleur/pbslacks/blob/master/builds/src/scim-1.4.18.tar.lz"
+DOWNLOAD="https://github.com/BrunoLafleur/pbslacks/raw/master/builds/src/scim-1.4.18.tar.lz"
 MD5SUM="2e0598c03d6a9c2decacc63a33679510"
 REQUIRES=""
 MAINTAINER="Pierre Brochard"

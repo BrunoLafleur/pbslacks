@@ -1,7 +1,7 @@
 PRGNAM="sip422"
 VERSION="4.19.22"
 HOMEPAGE="https://pypi.org/project/sip/"
-DOWNLOAD="https://github.com/BrunoLafleur/pbslacks/blob/master/builds/src/sip-4.19.22.tar.xz"
+DOWNLOAD="https://github.com/BrunoLafleur/pbslacks/raw/master/builds/src/sip-4.19.22.tar.xz"
 MD5SUM="5e2f9c580122ab30e6b07908a8eddf6b"
 DOWNLOAD_x86_64=""
 MD5SUM_x86_64=""

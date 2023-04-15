@@ -238,7 +238,7 @@ BUILD_MAGICK=${BUILD_MAGICK:-NO}
 
 # Allow the package builder to override BUILD_QT:
 if [ -z "$BUILD_QT" ]; then
-  if pkg-config --exists "Qt5Core >= $REQUIRED_QT" && pkg-config --exists "Qt5Core <= $INT_QT" ;
+  if pkg-config --exists "Qt5Core >= $REQUIRED_QT" #&& pkg-config --exists "Qt5Core <= $INT_QT" ;
   then
     BUILD_QT="NO"
   else
@@ -314,7 +314,7 @@ if [ "$BUILD_PYTHONMODS" = "YES" ]; then
   SRCURL[9]="https://files.pythonhosted.org/packages/28/6c/640e3f5c734c296a7193079a86842a789edb7988dca39eab44579088a1d1/PyQt5-${INT_PYQT5}.tar.gz"
 
   SOURCE[10]="$SRCDIR/sources/sip-${INT_SIP}.tar.gz"
-  SRCURL[10]="https://github.com/BrunoLafleur/pbslacks/blob/master/builds/src/sip-${INT_SIP}.tar.gz"
+  SRCURL[10]="https://github.com/BrunoLafleur/pbslacks/raw/master/builds/src/sip-${INT_SIP}.tar.gz"
   
   SOURCE[11]="$SRCDIR/sources/dbus-python-${INT_DBUSPYTHON}.tar.gz"
   SRCURL[11]="http://dbus.freedesktop.org/releases/dbus-python/dbus-python-${INT_DBUSPYTHON}.tar.gz"

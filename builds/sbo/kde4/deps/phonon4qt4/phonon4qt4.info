@@ -1,7 +1,7 @@
 PRGNAM="phonon4qt4"
 VERSION="4.8.3"
 HOMEPAGE="https://github.com/KDE/phonon"
-DOWNLOAD="https://github.com/BrunoLafleur/pbslacks/blob/master/builds/src/phonon-4.8.3.tar.xz"
+DOWNLOAD="https://github.com/BrunoLafleur/pbslacks/raw/master/builds/src/phonon-4.8.3.tar.xz"
 MD5SUM="88bb9867261803eed61ff53a7c026338"
 DOWNLOAD_x86_64=""
 MD5SUM_x86_64=""

@@ -1,7 +1,7 @@
 PRGNAM="pm-utils"
 VERSION="1.4.1"
 HOMEPAGE="https://pm-utils.freedesktop.org/wiki/"
-DOWNLOAD="https://github.com/BrunoLafleur/pbslacks/blob/master/builds/src/pm-utils-1.4.1.tar.gz"
+DOWNLOAD="https://github.com/BrunoLafleur/pbslacks/raw/master/builds/src/pm-utils-1.4.1.tar.gz"
 MD5SUM="1742a556089c36c3a89eb1b957da5a60"
 REQUIRES=""
 MAINTAINER="Pierre Brochard"

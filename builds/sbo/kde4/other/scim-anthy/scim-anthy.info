@@ -1,7 +1,7 @@
 PRGNAM="scim-anthy"
 VERSION="1.2.7"
 HOMEPAGE="https://www.scim-im.org/"
-DOWNLOAD="https://github.com/BrunoLafleur/pbslacks/blob/master/builds/src/scim-anthy-1.2.7.tar.xz"
+DOWNLOAD="https://github.com/BrunoLafleur/pbslacks/raw/master/builds/src/scim-anthy-1.2.7.tar.xz"
 MD5SUM="8b60ae8333cf2cef5102ca24c79b1211"
 REQUIRES=""
 MAINTAINER="Pierre Brochard"

@@ -1,7 +1,7 @@
 PRGNAM="qt-gstreamer"
 VERSION="1.2.0"
 HOMEPAGE="https://github.com/GStreamer/qt-gstreamer"
-DOWNLOAD="https://github.com/BrunoLafleur/pbslacks/blob/master/builds/src/qt-gstreamer-1.2.0.tar.xz"
+DOWNLOAD="https://github.com/BrunoLafleur/pbslacks/raw/master/builds/src/qt-gstreamer-1.2.0.tar.xz"
 MD5SUM="fd794045a828c184acc1794b08a463fd"
 DOWNLOAD_x86_64=""
 MD5SUM_x86_64=""
