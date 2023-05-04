@@ -78,18 +78,14 @@ fi
 ############################################
 (
     cd packages2
-    xgetsbosrc roccat-tools
-    xgetsbosrc PyYAML
-    xgetsbosrc lutris
-    xgetsbosrc lsdvd
-    xgetsbosrc visual-studio-code
+    for i in roccat-tools PyYAML lutris lsdvd visual-studio-code sqlitebrowser ;do
+	xgetsbosrc "$i"
+    done
     xlocalsrcpac kmplayer "kmplayer_0.11.5b.tar.bz2"
     xgetsrc denemo "$PATHDENEMO"
-    # Guile 2.2 supprime en janvier. Utile a denemo.
+    # Utile a denemo.
     xgetsrc guile2.2 "$PATHGUILE22"
-    # Discord just being put here. No packages done for now.
     xgetsbosrc discord $RARCH
-    #xpurgepac discord tar.gz
     # Update Youtube LUA file for VLC.
     xgeturl "$PATHVLCYOUTUBE"
 )
