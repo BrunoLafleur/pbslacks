@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description. Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in. You must
+# make exactly 11 lines for the formatting to be correct. It's also
+# customary to leave one space after the ':'.
+
+      |-----handy-ruler------------------------------------------------------|
+jasper20: jasper version 2.0 (free implementation of the JPEG-2000 standard)
+jasper20:
+jasper20: The Jasper Project is an open-source initiative to provide a free
+jasper20: software-based reference implementation of the codec specified in the
+jasper20: JPEG-2000 Part-1 standard (i.e., ISO/IEC 15444-1).jasper20:
+jasper20:
+jasper20: Homepage: http://www.ece.uvic.ca/~mdadams/jasper/
+jasper20:
+jasper20:
+jasper20:
+jasper20:
