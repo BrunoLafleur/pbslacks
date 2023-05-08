@@ -120,8 +120,6 @@ export HOMESLACK="$MYPWD"
 	    xgeturl "$KDE4_KPLAYER"
 	    xgeturl "$KDE4_KSCREEN"
 	    xgeturl "$KDE4_KWEBKITPART"
-	    xgeturl "$KDE4_LIBMMQT"
-	    mv libmm-qt-1.0.1-1.tar.xz libmm-qt-1.0.1.tar.xz
 	    xgeturl "$KDE4_OXYGENGTK2"
 	    xgeturl "$KDE4_PARTITIONMANAGER"
 	    xgeturl "$KDE4_PLASMANM"
@@ -129,7 +127,7 @@ export HOMESLACK="$MYPWD"
 	    xgeturl "$KDE4_WICDKDE"
 	    xgeturl "$KDE4_KDEVELOPPGQT"
 	    xpurgesrc 'tar.?z' sig
-	    for i in polkit-kde libnm-qt kaudiocreator ;do
+	    for i in polkit-kde libnm-qt libmm-qt kaudiocreator ;do
 		cp ../../$LOCALSRC/${i}-* .
 	    done
 	)
