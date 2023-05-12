@@ -127,7 +127,7 @@ export HOMESLACK="$MYPWD"
 	    xgeturl "$KDE4_WICDKDE"
 	    xgeturl "$KDE4_KDEVELOPPGQT"
 	    xpurgesrc 'tar.?z' sig
-	    for i in polkit-kde libnm-qt libmm-qt kaudiocreator ;do
+	    for i in polkit-kde libnm-qt libmm-qt kaudiocreator about-distro ;do
 		cp ../../$LOCALSRC/${i}-* .
 	    done
 	)
