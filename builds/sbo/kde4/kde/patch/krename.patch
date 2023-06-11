@@ -1,0 +1,7 @@
+zcat $CWD/patch/krename/krename-4.0.9-desktop-rus.patch.gz | patch -p1 --verbose || { touch ${SLACK_KDE_BUILD_DIR}/${PKGNAME}.failed ; continue ; }
+
+zcat $CWD/patch/krename/krename-4.0.9-podofo.patch.gz | patch -p1 --verbose || { touch ${SLACK_KDE_BUILD_DIR}/${PKGNAME}.failed ; continue ; }
+
+zcat $CWD/patch/krename/krename-4.0.9-rus.patch.gz | patch -p1 --verbose || { touch ${SLACK_KDE_BUILD_DIR}/${PKGNAME}.failed ; continue ; }
+
+zcat $CWD/patch/krename/krename-4.0.9-flag.patch.gz | patch -p1 --verbose || { touch ${SLACK_KDE_BUILD_DIR}/${PKGNAME}.failed ; continue ; }
