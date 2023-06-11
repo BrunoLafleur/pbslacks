@@ -104,6 +104,9 @@ cd builder
   make install DESTDIR=$PKG || exit 1
 cd -
 
+# Don't ship .la files:
+rm -f $PKG/{,usr/}lib${LIBDIRSUFFIX}/*.la
+
 mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/$PKGNAM/include
 mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/$PKGNAM/lib${LIBDIRSUFFIX}
 mv -f $PKG/usr/include/jasper $PKG/usr/lib${LIBDIRSUFFIX}/$PKGNAM/include

@@ -109,8 +109,6 @@ if [ $ISKDE4DEPS -eq 1 ] ;then
     # Packages which has been replaced.
     # So I have modified them to not collide with the new ones.
     # KDE4 have been made aware of those modifications.
-        xmakekdedep sni-qt sni-qt deps
-	exit 0
     xmakekdedep libappindicator libappindicator deps
     xmakekdedep LibRaw LibRaw18 deps
     xmakekdedep exiv2 exiv221 deps
@@ -126,6 +124,8 @@ if [ $ISKDE4DEPS -eq 1 ] ;then
     xmakekdedep sni-qt sni-qt deps
     xmakekdedep poppler poppler-qt4 deps
     xmakekdedep cln cln deps
+    xmakekdedep jasper jasper20 deps
+    xmakekdedep gamin gamin01 deps
     xmakekdedep akonadi akonadi kdeother
 
     # I have to re-add suppressed packages.

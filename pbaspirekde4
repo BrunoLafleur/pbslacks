@@ -54,6 +54,9 @@ export HOMESLACK="$MYPWD"
 	cp $LOCALSRC/eigen-3* eigen32
 	cp $LOCALSRC/eigen-2* eigen20
 	cp $LOCALSRC/phonon-[0-9]* phonon4qt4
+	cp $LOCALSRC/jasper-[0-9]* jasper20
+	cp $LOCALSRC/gamin-[0-9]* gamin01
+
 	cd poppler-qt4
 	xgeturl "$KDE4DEPS_POPPLER"
 	cd ../cln
@@ -83,6 +86,7 @@ export HOMESLACK="$MYPWD"
 	xgeturl "$KDE4OTHER_QIMAGEBLITZ"
 	cd ../automoc4
 	xgeturl "$KDE4OTHER_AUTOMOC4"
+	
 	cd ..
 	for i in orage raptor2 rasqal redland scim scim-anthy scim-hangul \
 		       scim-input-pad scim-m17n strigi cgmanager \
@@ -90,6 +94,7 @@ export HOMESLACK="$MYPWD"
 		       libbluedevil qjson ;do
 	    cp $LOCALSRC/${i}-[0-9]* $i
 	done
+	
 	cp $LOCALSRC/attica-[0-9]* attica042
 	cp $LOCALSRC/qtscriptgenerator-src-[0-9]* qtscriptgenerator
     )
@@ -127,6 +132,7 @@ export HOMESLACK="$MYPWD"
 	    xgeturl "$KDE4_WICDKDE"
 	    xgeturl "$KDE4_KDEVELOPPGQT"
 	    xpurgesrc 'tar.?z' sig
+	    
 	    for i in polkit-kde libnm-qt libmm-qt kaudiocreator about-distro ;do
 		cp ../../$LOCALSRC/${i}-* .
 	    done
