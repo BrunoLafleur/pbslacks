@@ -157,7 +157,7 @@ if [ $ISKDE4 -eq 1 ] ;then
 	    rm -rf /usr/include/ConsoleKit.save
 	    mv -f /usr/include/ConsoleKit /usr/include/ConsoleKit.save
 	fi
-	sh kde.SlackBuild # extragear:calligra
+	sh kde.SlackBuild extragear:libnm-qt extragear:plasma-nm # extragear:calligra
 	#sh kde.SlackBuild kdegraphics:okular extragear:caligra
 	#sh kde.SlackBuild kdelibs kdebase:nepomuk-core kdepimlibs kdebase kdesdk extragear:libkscreen kdegraphics kdebindings kdebase:kde-workspace kdeaccessibility kdeutils kdelibs kdemultimedia extragear:libktorrent kdenetwork oxygen-icons kdeadmin kdeartwork kdegames kdetoys kdepim kdepim-runtime kdenetwork:kopete kdeedu kdewebdev kdebase:kde-baseapps kdeplasma-addons polkit-kde extragear
 	exit $?
