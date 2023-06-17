@@ -1,1 +1,1 @@
-zcat $CWD/patch/krename/krusader-pointer.patch.gz | patch -p1 --verbose || { touch ${SLACK_KDE_BUILD_DIR}/${PKGNAME}.failed ; continue ; }
+zcat $CWD/patch/krusader/krusader-pointer.patch.gz | patch -p1 --verbose || { touch ${SLACK_KDE_BUILD_DIR}/${PKGNAME}.failed ; continue ; }
