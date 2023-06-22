@@ -66,6 +66,7 @@ export HOMESLACK="$MYPWD"
     (
 	cd kdeother
 	cp $LOCALSRC/akonadi-[0-9]* akonadi
+	cp $LOCALSRC/smplayer-[0-9st]* smplayer
     )
     (
 	cd other/qt

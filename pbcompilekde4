@@ -127,6 +127,7 @@ if [ $ISKDE4DEPS -eq 1 ] ;then
     xmakekdedep jasper jasper20 deps
     xmakekdedep gamin gamin01 deps
     xmakekdedep akonadi akonadi kdeother
+    xmakekdedep smplayer smplayer kdeother
 
     # I have to re-add suppressed packages.
     # List is inside pbslacks/Slackpkg/blacklistkeepkde4
