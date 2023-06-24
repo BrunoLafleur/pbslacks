@@ -67,6 +67,7 @@ export HOMESLACK="$MYPWD"
 	cd kdeother
 	cp $LOCALSRC/akonadi-[0-9]* akonadi
 	cp $LOCALSRC/smplayer-[0-9st]* smplayer
+	cp $LOCALSRC/smooth-tasks-[0-9]* smooth-tasks
     )
     (
 	cd other/qt
