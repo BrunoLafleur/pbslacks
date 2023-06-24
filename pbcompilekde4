@@ -109,6 +109,8 @@ if [ $ISKDE4DEPS -eq 1 ] ;then
     # Packages which has been replaced.
     # So I have modified them to not collide with the new ones.
     # KDE4 have been made aware of those modifications.
+        xmakekdedep smooth-tasks smooth-tasks kdeother
+	exit 0
     xmakekdedep libappindicator libappindicator deps
     xmakekdedep LibRaw LibRaw18 deps
     xmakekdedep exiv2 exiv221 deps
