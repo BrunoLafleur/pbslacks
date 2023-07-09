@@ -29,8 +29,8 @@ if [ ! -d packages -a -d "$OLDSLACK" ] ;then
 	cp -a "$OLDSLACK/packages"* .
 	if [ -d "$OLDSLACK/divers" ] ;then
 	    cp -a "$OLDSLACK/divers" .
-	    mv divers bumblebee
-	else	
+	fi
+	if [ -d "$OLDSLACK/bumblebee" ] ;then	
 	    cp -a "$OLDSLACK/bumblebee" .
 	fi
     fi
