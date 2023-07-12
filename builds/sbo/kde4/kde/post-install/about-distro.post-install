@@ -1,0 +1,5 @@
+# Configure about-distro:
+mkdir -p $PKG/etc/kde/xdg $PKG/usr/share/config
+# http://www.slackware.com/~alien/liveslak/blueSW-128px.png
+install -m0644 -o root $CWD/post-install/about-distro/blueSW-128px.png $PKG/etc/kde/xdg/slackware_logo.png
+install -m0644 -o root $CWD/post-install/about-distro/kcm-about-distrorc.ex $PKG/usr/share/config/kcm-about-distrorc
