@@ -1,0 +1,78 @@
+Installation Windows 11 sur un nouveau disque comme un SSD NVME tout neuf.
+
+Si on a un système Windows 10 upgradé en 11 ou Windows 11 avec une licence,
+et que l'on veut y ajouter un disque neuf pour y mettre Windows 11 qui a terme
+sera le Windows opérationnel de la machine, il faut :
+
+-Une clé USB d'au moins 8 Go.
+-Déclarer sa licence sur un compte Microsoft ou avoir la clé de l'installation
+initiale sous la main. Si on a upgradé un Windows 10 en 11, il est probable
+que la clé soit connectée a un compte Microsoft.
+-Le nouveau disque branché sur son port en plus des disques existant avec
+le Windows fonctionnel existant.
+-Il faut que la machine soit 64 bits (CPU 64 bits type Intel).
+
+Télécharger le "support d'installation Windows" ici :
+
+https://go.microsoft.com/fwlink/?linkid=2156295
+
+qui est un lien "Télécharger" sur la page (il est recommandé de lire la
+documentation de cette page) :
+
+https://www.microsoft.com/fr-fr/software-download/windows11
+
+Une fois téléchargé, lancez le fichier binaire obtenu. Il demande :
+
+-L'accord de la licence après lecture.
+-Sélectionnez "Créer un support d'installation pour un autre PC", puis
+sélectionnez "Suivant".
+-Sélectionnez la langue, la version, l'architecture (64 bits) pour Windows 11.
+-Sélectionnez le support (la clé USB d'au moins 8 Go qu'il faut insérer).
+
+Une fois la clé finalisé (quelques minutes), arrêtez la machine avec la clé
+inséré, débrancher tous les disques (avec le Windows actif et vos données) sauf
+le nouveau disque, démarrez la machine et allez dans le BIOS (F2 ou F... juste
+après le démarrage).
+
+On pourra rebrancher les diques débranchés après la nouvelle installation de
+Windows 11 et retrouver les données et les applications qui devront peut-être
+être réinstallées au même endroit que précédemment ou ailleurs (pour s'accrocher
+au nouveau Windows et refaire la base de registre sur le nouveau Windows).
+
+Si on laisse les disques avec un Windows fonctionnel, le nouveau Windows se
+mettra sur la partition de disque libre de son choix mais ne sera pas démarrable
+(bootable). Non testé : espace libre non partitionné sur le nouveau disque avec
+les disques branchés.
+
+Dans le BIOS mettez la clé USB en premier dans le menu donnant l'ordre de la
+séquence de démarrage (boot). Sauvegardez et quitter le BIOS et démarrer
+l'ordinateur.
+
+On arrive sur l'écran d'installation. On choisi à ce niveau "Pas de licence".
+
+Cliquer sur installer. On arrive sur le choix du disque.
+
+Si des partitions existent, cliquer sur chacune à tour de
+rôle et appuyer sur le bouton "Supprimer" (à moins de vouloir les garder et
+qu'il reste de la place non alloué à la fin du disque - sinon n'effacer que
+celles que l'on veut).
+
+L'installation recréera les partitions nécessaires s'il a assez de place et
+s'arrêtera sinon (il ne reprend pas de partitions existantes dans ce cas avec
+un disque sans système).
+
+On laisse Windows s'installer et redémarrer 2 ou 3 fois. On termine ensuite de
+configurer et on se connecte au compte Microsoft pour réactiver la licence.
+
+Une fois qu'on a un système opérationnel, on arrête la machine et on rebranche
+les autres disques. On enlève la clé USB.
+
+On redémarre (vérifier que dans le BIOS, le nouveau disque est en premier).
+Dans le BIOS on devrait voir l'ancien Windows et le nouveau dans la liste des
+démarrages possibles (boot).
+
+On réinstalle ce que l'on souhaite. On vérifie que l'on a bien ses données sur les
+anciens disques.
+
+On peut aussi réinstaller les drivers de carte graphique, carte mère et autres
+cartes (surtout pour les jeux). Et remettre ses paramètres d'écran et autres.

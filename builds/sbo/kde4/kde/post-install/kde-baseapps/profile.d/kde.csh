@@ -11,7 +11,7 @@ else
     setenv XDG_CONFIG_DIRS /etc/xdg:/etc/kde/xdg
 endif
 
-if ( ! $?XDG_RUNTIME_DIR ) then
+if ( ! $?XDG_RUNTIME_DIR && $?USER ) then
     # Using /run/user would be more in line with XDG specs, but in that case
     # we should mount /run as tmpfs and add this to the Slackware rc scripts:
     # mkdir /run/user ; chmod 1777 /run/user
