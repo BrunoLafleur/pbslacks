@@ -1,0 +1,8 @@
+PRGNAM="kwallet4-pam"
+VERSION="5.5.5"
+HOMEPAGE="https://github.com/KDE/kwallet-pam/tree/Plasma/5.5"
+DOWNLOAD="https://github.com/BrunoLafleur/pbslacks/blob/master/builds/src/kwallet-pam_5.5.5.tar.xz"
+MD5SUM="4f909539a8e3e3a4bd62deda18fa3d32"
+REQUIRES=""
+MAINTAINER="Pierre Brochard"
+EMAIL="pierre.brochard.1982@m4x.org"
