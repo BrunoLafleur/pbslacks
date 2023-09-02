@@ -198,6 +198,7 @@ while [ $bclaide -eq 1 ] ;do
 	    xpacaide_add kde4/kdeother
 	    xpacaide_add kde5/frameworks
 	    xpacaide_add kde5/deps
+	    xpacaide_add kde5/plasma-extra
 	elif [ "$xitem" = gdm ] ;then
 	    xpacaide gdm
 	elif [ "$xitem" = debian ] ;then
@@ -319,6 +320,7 @@ if [ $XEND -eq 0 ] ;then
 	    xhookkde4
 	    upgradedir kde5/deps
 	    upgradedir kde5/frameworks
+	    upgradedir kde5/plasma-extra
 	    xhookframew
 	fi
 	mygt "Upgrade KDE4 and KDE5 frameworks done." >> $XTEMPMES
