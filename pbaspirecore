@@ -184,12 +184,6 @@ if [ $ISFRAMEW -eq 1 ] ;then
 	echo '------------------------------------'
 	mygt "KDE5 frameworks sources copied."
 	echo '------------------------------------'
-	# Get packages deps used by frameworks
-	(
-	    [ ! -d deps ] && mkdir -p deps
-	    cp -a ../../pbslacks/builds/pkgsold/* deps
-	)
-	echo '------------------------------------'
     )
     if [ -d slackware64-${SLACKVER} ] ;then
 	(

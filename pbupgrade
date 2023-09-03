@@ -197,7 +197,6 @@ while [ $bclaide -eq 1 ] ;do
 	    xpacaide_add kde4/other
 	    xpacaide_add kde4/kdeother
 	    xpacaide_add kde5/frameworks
-	    xpacaide_add kde5/deps
 	    xpacaide_add kde5/plasma-extra
 	elif [ "$xitem" = gdm ] ;then
 	    xpacaide gdm
@@ -318,7 +317,6 @@ if [ $XEND -eq 0 ] ;then
 	    xhookkde4deps
 	    upgradedir kde4/kde
 	    xhookkde4
-	    upgradedir kde5/deps
 	    upgradedir kde5/frameworks
 	    upgradedir kde5/plasma-extra
 	    xhookframew
