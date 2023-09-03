@@ -54,6 +54,11 @@ scim
 scim.*
 sni-qt
 libappindicator
+kcm-fcitx-kde4
+fcitx-qt4
+kwallet4-pam
+smooth-tasks
+smplayer
 
 # For keeping KDE4
 kde/
@@ -85,6 +90,9 @@ plasma-nm
 calligra
 calligra-.*
 kwebkitpart
+about-distro
+krename
+krusader
 
 # Frameworks KDE5 standalone
 5.78.0
@@ -101,6 +109,9 @@ sip422
 exiv221
 polkit-qt4-1
 libdbusmenu-qt4
+gamin01
+jasper20
+sni-qt
 
 #
 # aaa_elflibs should NOT be blacklisted!
