@@ -126,6 +126,6 @@ PATHTBB='https://github.com/oneapi-src/oneTBB/archive/2020_U2/tbb-2020_U2.tar.gz
 PATHLXML='https://pypi.io/packages/source/l/lxml/lxml-4.4.1.tar.gz'
 PATHOPERA='https://get.geo.opera.com/pub/opera-beta/72.0.3815.133/linux/opera-beta_72.0.3815.133_amd64.deb'
 
-# KDE5 Frameworks.
-KDE5_FW_SRC='https://download.kde.org/stable/frameworks/5.81'
+# KDE5 Frameworks. stable pour les derniers, Attic pour les plus vieux.
+KDE5_FW_SRC='https://download.kde.org/Attic/frameworks/5.81'
 KDE5_PLASMA_WAYLAND='https://download.kde.org/stable/plasma-wayland-protocols/plasma-wayland-protocols-v1.2.1.tar.xz'

@@ -186,11 +186,8 @@ if [ $ISFRAMEW -eq 1 ] ;then
 	echo '------------------------------------'
 	# Get packages deps used by frameworks
 	(
-	    mkdir -p deps;cd deps
-	    xgetpac qrencode "$SLACKALIEN2" 10
-	    xgetpac phonon "$SLACKALIEN2" 10
-	    xpurgesrc 'tar.?z' asc md5
-	    rm -f phonon4qt5-*
+	    [ ! -d deps ] && mkdir -p deps
+	    cp -a ../../pbslacks/builds/pkgsold/* deps
 	)
 	echo '------------------------------------'
     )
