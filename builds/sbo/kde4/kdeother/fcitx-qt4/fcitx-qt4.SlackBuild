@@ -78,7 +78,7 @@ if [ ! -z "${PRINT_PACKAGE_NAME}" ]; then
   exit 0
 fi
 
-TMP=${TMP:-/tmp}
+TMP=${TMP:-/tmp/SBo}
 PKG=$TMP/package-$PKGNAM
 OUTPUT=${OUTPUT:-/tmp}
 
@@ -88,6 +88,13 @@ cd $TMP
 rm -rf ${SRCNAM}-$VERSION
 tar xvf $CWD/${SRCNAM}-${VERSION}.tar.?z || exit 1
 cd ${SRCNAM}-$VERSION || exit 1
+
+# Add dictionaries. Else it will be downloaded at compile time.
+cp $CWD/en_dict-20121020.tar.gz src/module/spell/dict
+cp $CWD/py_table-20121124.tar.gz src/module/pinyin-enhance/data
+cp $CWD/py_stroke-20121124.tar.gz src/module/pinyin-enhance/data
+cp $CWD/pinyin.tar.gz src/im/pinyin/data
+cp $CWD/table.tar.gz src/im/table/data
 
 chown -R root:root .
 find . \
@@ -134,17 +141,17 @@ rm -rf $PKG/usr/include/fcitx-config
 rm -rf $PKG/usr/include/fcitx-gclient
 rm -rf $PKG/usr/include/fcitx-utils
 
-rm -rf $PKG/usr/lib${LIBDIRSUFFIX}/pkgconfig/fcitx-config.pc
-rm -rf $PKG/usr/lib${LIBDIRSUFFIX}/pkgconfig/fcitx-gclient.pc
-rm -rf $PKG/usr/lib${LIBDIRSUFFIX}/pkgconfig/fcitx-utils.pc
-rm -rf $PKG/usr/lib${LIBDIRSUFFIX}/pkgconfig/fcitx.pc
+rm -f $PKG/usr/lib${LIBDIRSUFFIX}/pkgconfig/fcitx-config.pc
+rm -f $PKG/usr/lib${LIBDIRSUFFIX}/pkgconfig/fcitx-gclient.pc
+rm -f $PKG/usr/lib${LIBDIRSUFFIX}/pkgconfig/fcitx-utils.pc
+rm -f $PKG/usr/lib${LIBDIRSUFFIX}/pkgconfig/fcitx.pc
 
 rm -rf $PKG/usr/lib${LIBDIRSUFFIX}/fcitx
 rm -rf $PKG/usr/lib${LIBDIRSUFFIX}/girepository-1.0
-rm -rf $PKG/usr/lib${LIBDIRSUFFIX}/libfcitx-config.*
-rm -rf $PKG/usr/lib${LIBDIRSUFFIX}/libfcitx-core.*
-rm -rf $PKG/usr/lib${LIBDIRSUFFIX}/libfcitx-gclient.*
-rm -rf $PKG/usr/lib${LIBDIRSUFFIX}/libfcitx-utils.*
+rm -f $PKG/usr/lib${LIBDIRSUFFIX}/libfcitx-config.*
+rm -f $PKG/usr/lib${LIBDIRSUFFIX}/libfcitx-core.*
+rm -f $PKG/usr/lib${LIBDIRSUFFIX}/libfcitx-gclient.*
+rm -f $PKG/usr/lib${LIBDIRSUFFIX}/libfcitx-utils.*
 
 mkdir -p $PKG/install
 zcat $CWD/doinst.sh.gz > $PKG/install/doinst.sh
