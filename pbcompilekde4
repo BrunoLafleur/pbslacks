@@ -131,6 +131,7 @@ if [ $ISKDE4DEPS -eq 1 ] ;then
     xmakekdedep smplayer smplayer kdeother
     xmakekdedep smooth-tasks smooth-tasks kdeother
     xmakekdedep kwallet-pam kwallet4-pam kdeother
+    xmakekdedep extra-cmake-modules extra-cmake-modules kdeother
     xmakekdedep fcitx fcitx-qt4 kdeother
     xmakekdedep kcm-fcitx-kde4 kcm-fcitx-kde4 kdeother
 

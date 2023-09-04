@@ -69,6 +69,7 @@ export HOMESLACK="$MYPWD"
 	cp $LOCALSRC/smplayer-[0-9st]* smplayer
 	cp $LOCALSRC/smooth-tasks-[0-9]* smooth-tasks
 	cp $LOCALSRC/kwallet-pam_[0-9]* kwallet4-pam
+	xgetsbosrc extra-cmake-modules
 	xgetsbosrc fcitx-qt4
 	xgetsbosrc kcm-fcitx-kde4
     )
