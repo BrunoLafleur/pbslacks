@@ -26,10 +26,10 @@
 cd $(dirname $0) ; CWD=$(pwd)
 
 PRGNAM=brave-browser
-VERSION=${VERSION:-1.56.11}
+VERSION=${VERSION:-1.58.129}
 BUILD=${BUILD:-1}
-TAG=${TAG:-_SBo}
-PKGTYPE=${PKGTYPE:-tgz}
+TAG=${TAG:-_PB}
+PKGTYPE=${PKGTYPE:-txz}
 DEBBUILD=${DEBBUILD:-1}
 
 if [ -z "$ARCH" ]; then

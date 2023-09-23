@@ -3,4 +3,4 @@ Software, Inc. based on the Chromium web browser.
 
 Note:
 This SlackBuild does not build Brave from source, it repackages
-the binary.
+the official RPM binary.
