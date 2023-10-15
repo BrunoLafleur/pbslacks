@@ -90,5 +90,4 @@ xmakepac () {
 	upgradepkg --install-new --reinstall "$XDIR/${pac}"-[0-9m]*.t?z
 	rm -f $XLIBDIR/lib*.la
     fi
-    exit 0
 }

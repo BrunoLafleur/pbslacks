@@ -105,13 +105,14 @@ xmaster () {
     xsel1=$1;shift;xsel2=$1;shift;xsel3=$1;shift;xsel4=$1;shift;xsel5=$1;shift
     xsel6=$1;shift;xsel7=$1;shift;xsel8=$1;shift;xsdeb=$1;shift;xsel9=$1;shift
     xsgdm=$1;shift;xsel10=$1;shift;xselpi=$1;shift;xsel11=$1;shift
-    xsel12=$1;shift;xslmms=$1;shift;xsel13=$1;shift;xsel14=$1;shift;xsel24=$1
+    xsel12=$1;shift;xslmms=$1;shift;xepip=$1;shift;xsel13=$1;shift
+    xsel14=$1;shift;xsel24=$1
     pactit=$(mygt 'Main menu')
     pactit="pbupgrade ($PBARCH) : $pactit"
     dialog --colors --backtitle "pbupgrade ($PBARCH)" --title "$pactit" \
 	--default-item $defitem --defaultno \
 	--separate-output --item-help --help-button --help-status --checklist \
-	"$(mygt 'Choose your actions below after you have launch the \Zbpbaspire*\ZB script')" 0 110 19 \
+	"$(mygt 'Choose your actions below after you have launch the \Zbpbaspire*\ZB script')" 0 110 20 \
 	system "$(mygt 'Sync/Upgrade system to the last fetched current Slackware')" $xsel1 system \
 	systemnet "$(mygt 'Sync/Upgrade system to the last current Slackware on the internet')" $xsel2 systemnet \
 	compat32 "$(mygt 'Install/Upgrade the 32 bits compatible mode')" $xsel3 compat32 \
@@ -128,6 +129,7 @@ xmaster () {
 	audacity "$(mygt 'Install/Upgrade the Audacity software')" $xsel11 audacity \
 	ardour "$(mygt 'Install/Upgrade the Ardour software')" $xsel12 ardour \
 	lmms "$(mygt 'Install/Upgrade the LMMS software')" $xslmms lmms \
+	epiphany "$(mygt 'Install/Upgrade the Epiphany software')" $xepip epiphany \
 	tesseract4 "$(mygt 'Install/Upgrade the Tesseract version 4 software')" $xsel13 tesseract4 \
 	bumblebee "$(mygt 'Install/Upgrade the Bumblebee support of your second NVIDIA graphic card')" $xsel14 bumblebee \
     	bootload "$(mygt 'Upgrade boot loader.')" $xsel24 bootload
@@ -161,7 +163,7 @@ xdebian=off
 [ $PBARCH = arm ] && xdebian=on
 xsel="$XUPSYSTEM off $xother $xother $xother $xother $xother \
 $xother $xdebian $xframe $xother $xother $xother $xother $xother $xother \
-$xother off off"
+$xother $xother off off"
 ditem=system
 bclaide=1
 
@@ -173,7 +175,7 @@ while [ $bclaide -eq 1 ] ;do
 	xsel=
 	for i in system systemnet compat32 mozilla packages packages2 packages3 \
 			packages4 debian frameworks gdm openshot pitivi audacity \
-			ardour lmms tesseract4 bumblebee bootload ;do
+			ardour lmms epiphany tesseract4 bumblebee bootload ;do
 	  if [ $(grep "^$i$" "$XTEMPOUT"|wc -l) -eq 1 ] ;then
 	      xsel="$xsel on"
 	  else
@@ -212,6 +214,8 @@ while [ $bclaide -eq 1 ] ;do
 	    xpacaide packages4/ardour
 	elif [ "$xitem" = lmms ] ;then
 	    xpacaide packages4/lmms
+	elif [ "$xitem" = epiphany ] ;then
+	    xpacaide packages4/epiphany
 	elif [ "$xitem" = tesseract4 ] ;then
 	    xpacaide packages4/tesseract4
 	elif [ "$xitem" = bumblebee ] ;then
@@ -242,6 +246,7 @@ ISPITIVI="$(cat $XTEMPOUT|grep '^pitivi$'|wc -l)"
 ISAUDACITY="$(cat $XTEMPOUT|grep '^audacity$'|wc -l)"
 ISARDOUR="$(cat $XTEMPOUT|grep '^ardour$'|wc -l)"
 ISLMMS="$(cat $XTEMPOUT|grep '^lmms$'|wc -l)"
+ISEPIPHANY="$(cat $XTEMPOUT|grep '^epiphany$'|wc -l)"
 ISTESS="$(cat $XTEMPOUT|grep '^tesseract4$'|wc -l)"
 ISBUMBLE="$(cat $XTEMPOUT|grep '^bumblebee$'|wc -l)"
 
@@ -354,6 +359,12 @@ if [ $XEND -eq 0 ] ;then
 	    upgradedir packages4/ardour
 	fi
 	mygt "Upgrade ardour done." >> $XTEMPMES
+    fi
+    if [ $ISEPIPHANY -eq 1 ] ;then
+	if [ $XTEST -ne 1 ] ;then
+	    upgradedir packages4/epiphany
+	fi
+	mygt "Upgrade epiphany done." >> $XTEMPMES
     fi
     if [ $ISLMMS -eq 1 ] ;then
 	if [ $XTEST -ne 1 ] ;then

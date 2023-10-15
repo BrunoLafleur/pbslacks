@@ -43,6 +43,7 @@ ISAUDACITY=0
 ISARDOUR=0
 ISFRAMEW=0
 ISLMMS=0
+ISEPIPHANY=0
 
 while [ $# -ge 1 ] ;do
     MYARG="$1"
@@ -74,6 +75,8 @@ while [ $# -ge 1 ] ;do
 	ISAUDACITY=1;ISALL=0
     elif [ "$MYARG" = "-isardour" ] ;then
 	ISARDOUR=1;ISALL=0
+    elif [ "$MYARG" = "-isepiphany" ] ;then
+	ISEPIPHANY=1;ISALL=0
     elif [ "$MYARG" = "-islmms" ] ;then
 	ISLMMS=1;ISALL=0
     elif [ "$MYARG" = "-isframew" ] ;then
@@ -96,6 +99,7 @@ if [ $ISALL -eq 1 ] ;then
     ISPITIVI=1
     ISAUDACITY=1
     ISARDOUR=1
+    ISEPIPHANY=1
     ISFRAMEW=1
     ISLMMS=1
 fi
@@ -116,7 +120,6 @@ export TAG=_PB
 # ===========================================================
 
 if [ $ISPAC1 -eq 1 ] ;then
-        if [ ] ;then
     rm -f packages4/gst-plugins-bad-[0-9]*ponce.t?z*
     for i in gstreamer0 gst-plugins-base0 libtxc_dxtn libgaminggear \
 			acpibrightness gst-plugins-bad \
@@ -133,7 +136,6 @@ if [ $ISPAC1 -eq 1 ] ;then
 	#xmakealienpac packages mlt
 	xmakealienpac source/l mlt packages
     )
-	fi
 	
     # 32 bits packages
     # A faire ajoute gstreamer0
@@ -301,15 +303,24 @@ if [ $ISAUDACITY -eq 1 ] ;then
     done
 fi
 
-if [ $ISARDOUR -eq 1 ] ;then    
+if [ $ISARDOUR -eq 1 ] ;then
     for i in liblo liblrdf ardour ;do
 	xmakealienpac packages4/ardour $i
     done
 fi
 
-if [ $ISLMMS -eq 1 ] ;then    
+if [ $ISLMMS -eq 1 ] ;then
     for i in stk fltk lmms ;do
 	xmakealienpac packages4/lmms $i
+    done
+fi
+
+if [ $ISEPIPHANY -eq 1 ] ;then
+    for i in bubblewrap appstream-glib gcab geoclue2 libdazzle libhandy \
+			libwpe unifdef wpebackend-fdo xdg-dbus-proxy libsoup3 \
+			libportal webkit2gtk4.1 epiphany ;do
+	echo "------------------- $i ----------"
+	xmakepac packages4/epiphany $i
     done
 fi
 

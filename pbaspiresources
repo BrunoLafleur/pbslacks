@@ -139,4 +139,14 @@ fi
 	    xgetsbosrc "$i"
 	done
     )
+    
+    [ ! -d epiphany ] && mkdir epiphany
+    (
+	cd epiphany
+	for i in appstream-glib bubblewrap epiphany gcab geoclue2 libdazzle \
+				libhandy libportal libsoup3 libwpe unifdef \
+				webkit2gtk4.1 wpebackend-fdo xdg-dbus-proxy ;do
+	    xgetsbosrc "$i"
+	done
+    )
 )
