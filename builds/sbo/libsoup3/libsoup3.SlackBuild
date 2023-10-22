@@ -30,8 +30,8 @@ PRGNAM=libsoup3
 SRCNAM=libsoup
 VERSION=${VERSION:-3.4.3}
 BUILD=${BUILD:-1}
-TAG=${TAG:-_SBo}
-PKGTYPE=${PKGTYPE:-tgz}
+TAG=${TAG:-_PB}
+PKGTYPE=${PKGTYPE:-txz}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in

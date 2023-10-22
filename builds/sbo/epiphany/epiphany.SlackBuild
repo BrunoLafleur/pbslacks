@@ -29,8 +29,8 @@ cd $(dirname $0) ; CWD=$(pwd)
 PRGNAM=epiphany
 VERSION=${VERSION:-43.1}
 BUILD=${BUILD:-1}
-TAG=${TAG:-_SBo}
-PKGTYPE=${PKGTYPE:-tgz}
+TAG=${TAG:-_PB}
+PKGTYPE=${PKGTYPE:-txz}
 
 if [ -z "$ARCH" ]; then
 case "$( uname -m )" in

@@ -9,3 +9,14 @@ tablets, and televisions.
 NOTE:
 This package builds the 4.1 WebKit API. If you need 4.0 WebKit API,
 use webkit2gtk. Don't install both at the same time!!
+
+To have MediaRecorder :
+        -DUSE_GSTREAMER_TRANSCODER=ON \
+You should have gstreamer >= 1.20.7
+with :
+gstreamer
+gst-plugins-base
+gst-plugins-good
+gst-plugins-libav
+gst-plugins-bad
+gstreamer-editing-services

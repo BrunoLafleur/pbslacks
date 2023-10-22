@@ -26,10 +26,10 @@ cd $(dirname $0) ; CWD=$(pwd)
 
 PRGNAM=webkit2gtk4.1
 SRCNAM=webkitgtk
-VERSION=${VERSION:-2.40.5}
+VERSION=${VERSION:-2.42.1}
 BUILD=${BUILD:-1}
-TAG=${TAG:-_SBo}
-PKGTYPE=${PKGTYPE:-tgz}
+TAG=${TAG:-_PB}
+PKGTYPE=${PKGTYPE:-txz}
 
 TMP=${TMP:-/tmp/SBo}
 PKG=$TMP/package-$PRGNAM
@@ -94,9 +94,13 @@ cd build
 	-DENABLE_JOURNALD_LOG=OFF \
 	-DENABLE_DOCUMENTATION=OFF \
 	-DENABLE_BUBBLEWRAP_SANDBOX=off \
+	-DENABLE_MEDIA_STREAM=on \
+	-DENABLE_WEB_RTC=on \
+	-DENABLE_MEDIA_RECORDER=ON \
 	-DUSE_SYSTEM_MALLOC=on \
         -DUSE_AVIF=OFF \
-        -DUSE_GSTREAMER_TRANSCODER=OFF \
+	-DUSE_JPEGXL=OFF \
+        -DUSE_GSTREAMER_TRANSCODER=ON \
         -Wno-dev \
         -G Ninja \
         ..
