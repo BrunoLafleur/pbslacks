@@ -81,6 +81,9 @@ fi
     for i in roccat-tools PyYAML lutris lsdvd visual-studio-code sqlitebrowser ;do
 	xgetsbosrc "$i"
     done
+    # kmplayer don't work with above 2020 MPlayer.
+    xlocalsrcpac MPlayer2020 "Blue-1.13.tar.bz2"
+    xlocalsrcpac MPlayer2020 "MPlayer-20200103.tar.xz"
     xlocalsrcpac kmplayer "kmplayer_0.11.5b.tar.bz2"
     xgetsrc denemo "$PATHDENEMO"
     # Utile a denemo.

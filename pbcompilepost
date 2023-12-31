@@ -204,8 +204,8 @@ fi
 
 if [ $ISPAC2 -eq 1 ] ;then
     # More 64 bits packages
-    for i in roccat-tools kmplayer denemo guile2.2 discord PyYAML lutris lsdvd \
-			  visual-studio-code sqlitebrowser ;do
+    for i in roccat-tools MPlayer2020 kmplayer denemo guile2.2 discord PyYAML \
+			  lutris lsdvd visual-studio-code sqlitebrowser ;do
 	xmakepac packages2 $i
     done
     xhookpac2
