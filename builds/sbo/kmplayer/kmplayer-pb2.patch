@@ -1,0 +1,53 @@
+diff -rU5 kmplayer-0.11.5bold/src/kmplayerconfig.cpp kmplayer-0.11.5b/src/kmplayerconfig.cpp
+--- kmplayer-0.11.5bold/src/kmplayerconfig.cpp	2016-07-10 17:17:28.000000000 +0200
++++ kmplayer-0.11.5b/src/kmplayerconfig.cpp	2024-01-02 22:36:18.793483443 +0100
+@@ -462,21 +462,24 @@
+     configdialog->m_SourcePageURL->prefBitRate->setText (QString::number (prefbitrate));
+     configdialog->m_SourcePageURL->maxBitRate->setText (QString::number (maxbitrate));
+ 
+     configdialog->m_GeneralPageOutput->videoDriver->setCurrentRow(videodriver);
+     configdialog->m_GeneralPageOutput->audioDriver->setCurrentRow(audiodriver);
+-    configdialog->m_SourcePageURL->backend->setCurrentItem(configdialog->m_SourcePageURL->backend->findItems(backends["urlsource"], Qt::MatchFixedString).first());
++// PB bug
++    configdialog->m_SourcePageURL->backend->setCurrentRow(0);
++    
+     int id = 0;
+     const MediaManager::ProcessInfoMap::const_iterator e = m_player->mediaManager()->processInfos ().constEnd ();
+     for (MediaManager::ProcessInfoMap::const_iterator i = m_player->mediaManager()->processInfos ().constBegin(); i != e; ++i) {
+         ProcessInfo *p = i.value ();
+         if (p->supports ("urlsource")) {
+             if (backends["urlsource"] == QString (p->name))
+                 configdialog->m_SourcePageURL->backend->setCurrentRow(id);
+             id++;
+         }
+     }
++
+     configdialog->m_SourcePageURL->clicktoplay->setChecked (clicktoplay);
+     configdialog->m_SourcePageURL->grabhref->setChecked (grabhref);
+ 
+     // postproc
+     configdialog->m_OPPagePostproc->postProcessing->setChecked (postprocessing);
+@@ -694,10 +697,11 @@
+     showbroadcastbutton = configdialog->m_GeneralPageGeneral->showBroadcastButton->isChecked ();
+     seektime = configdialog->m_GeneralPageGeneral->seekTime->value();
+ 
+     videodriver = configdialog->m_GeneralPageOutput->videoDriver->currentRow();
+     audiodriver = configdialog->m_GeneralPageOutput->audioDriver->currentRow();
++    
+     QString backend_name = configdialog->m_SourcePageURL->backend->currentItem()->text();
+     if (!backend_name.isEmpty ()) {
+         const MediaManager::ProcessInfoMap::const_iterator e = m_player->mediaManager()->processInfos ().constEnd ();
+         for (MediaManager::ProcessInfoMap::const_iterator i = m_player->mediaManager()->processInfos ().constBegin(); i != e; ++i) {
+             ProcessInfo *p = i.value ();
+@@ -706,10 +710,11 @@
+                 backends["urlsource"] = p->name;
+                 break;
+             }
+         }
+     }
++    
+     clicktoplay = configdialog->m_SourcePageURL->clicktoplay->isChecked ();
+     grabhref = configdialog->m_SourcePageURL->grabhref->isChecked ();
+     //postproc
+     postprocessing = configdialog->m_OPPagePostproc->postProcessing->isChecked();
+     disableppauto = configdialog->m_OPPagePostproc->disablePPauto->isChecked();
