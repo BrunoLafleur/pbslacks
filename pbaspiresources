@@ -78,7 +78,8 @@ fi
 ############################################
 (
     cd packages2
-    for i in roccat-tools PyYAML lutris lsdvd visual-studio-code sqlitebrowser ;do
+    for i in roccat-tools PyYAML lutris lsdvd visual-studio-code sqlitebrowser \
+	     libx86emu hwinfo ;do
 	xgetsbosrc "$i"
     done
     # kmplayer don't work with above 2020 MPlayer.
