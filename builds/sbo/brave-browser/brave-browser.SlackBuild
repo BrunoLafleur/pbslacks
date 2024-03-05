@@ -26,7 +26,7 @@
 cd $(dirname $0) ; CWD=$(pwd)
 
 PRGNAM=brave-browser
-VERSION=${VERSION:-1.61.109}
+VERSION=${VERSION:-1.63.165}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_PB}
 PKGTYPE=${PKGTYPE:-txz}
