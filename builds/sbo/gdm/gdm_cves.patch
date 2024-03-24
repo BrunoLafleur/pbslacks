@@ -1,0 +1,477 @@
+diff -rU5 gdm-2.20.10.old/ChangeLog gdm-2.20.10/ChangeLog
+--- gdm-2.20.10.old/ChangeLog	2009-03-19 06:00:01.000000000 +0100
++++ gdm-2.20.10/ChangeLog	2024-03-24 16:10:49.281020043 +0100
+@@ -1,5 +1,19 @@
++2010-06-03 Brian Cameron <brian.cameron@sun.com>
++
++	* gui/gdmlanguages.c, gui/gdmsession.c, gui/gdmlogin.c,
++	  gui/greeter/greeter.c:  Switch buttons "Make Default" and
++	  "Just For This Session" for better usability.  Fixes bug #597661.
++
++2010-06-02 Brian Cameron <brian.cameron@sun.com>
++
++	* common/gdm-common.c:  Fix bug #571846.  No longer print
++	  invalid encoded strings since this can causemaster the user's
++	  password to be logged in the syslog if it contains invalid characters
++	  and if GDM debug is enabled.
++================================
++
+ 2009-03-19 Brian Cameron <brian.cameron@sun.com>
+ 
+ 	* Release 2.20.10:
+ 	* configure.ac: Updated to new release version
+ 	* NEWS: Updated.
+diff -rU5 gdm-2.20.10.old/NEWS gdm-2.20.10/NEWS
+--- gdm-2.20.10.old/NEWS	2009-03-19 06:00:01.000000000 +0100
++++ gdm-2.20.10/NEWS	2024-03-24 16:12:36.737669079 +0100
+@@ -1,5 +1,17 @@
++Patch by Pierre Brochard (pierre.brochard.1982@m4x.org) :
++--------------------------
++
++Not vulnerable to CVE-2011-0727 because the code implied appeared in version 2.28
++==========================================
++Patched for CVE-2011-1709
++==========================================
++Patched for CVE-2013-4169
++==========================================
++Patched bug 571846
++==========================================
++
+ Ahh news...
+ 
+ 2.20.10 Stuff:
+ 
+ - Ensure that gid/egid are set to 0 when running the Init, PostLogin,
+diff -rU5 gdm-2.20.10.old/common/gdm-common.c gdm-2.20.10/common/gdm-common.c
+--- gdm-2.20.10.old/common/gdm-common.c	2009-03-19 05:59:25.000000000 +0100
++++ gdm-2.20.10/common/gdm-common.c	2024-03-24 16:09:40.437241166 +0100
+@@ -215,11 +215,11 @@
+ ve_locale_to_utf8 (const char *str)
+ {
+ 	char *ret = g_locale_to_utf8 (str, -1, NULL, NULL, NULL);
+ 
+ 	if (ret == NULL) {
+-		g_warning ("string not in proper locale encoding: \"%s\"", str);
++		g_warning ("string not in proper locale encoding");
+ 		return g_strdup (str);
+ 	} else {
+ 		return ret;
+ 	}
+ }
+@@ -228,11 +228,11 @@
+ ve_locale_from_utf8 (const char *str)
+ {
+ 	char *ret = g_locale_from_utf8 (str, -1, NULL, NULL, NULL);
+ 
+ 	if (ret == NULL) {
+-		g_warning ("string not in proper utf8 encoding: \"%s\"", str);
++		g_warning ("string not in proper utf8 encoding");
+ 		return g_strdup (str);
+ 	} else {
+ 		return ret;
+ 	}
+ }
+@@ -240,11 +240,11 @@
+ char *
+ ve_filename_to_utf8 (const char *str)
+ {
+ 	char *ret = g_filename_to_utf8 (str, -1, NULL, NULL, NULL);
+ 	if (ret == NULL) {
+-		g_warning ("string not in proper locale encoding: \"%s\"", str);
++		g_warning ("string not in proper locale encoding");
+ 		return g_strdup (str);
+ 	} else {
+ 		return ret;
+ 	}
+ }
+@@ -252,11 +252,11 @@
+ char *
+ ve_filename_from_utf8 (const char *str)
+ {
+ 	char *ret = g_filename_from_utf8 (str, -1, NULL, NULL, NULL);
+ 	if (ret == NULL) {
+-		g_warning ("string not in proper utf8 encoding: \"%s\"", str);
++		g_warning ("string not in proper utf8 encoding");
+ 		return g_strdup (str);
+ 	} else {
+ 		return ret;
+ 	}
+ }
+diff -rU5 gdm-2.20.10.old/config/Makefile.am gdm-2.20.10/config/Makefile.am
+--- gdm-2.20.10.old/config/Makefile.am	2009-03-19 05:59:27.000000000 +0100
++++ gdm-2.20.10/config/Makefile.am	2024-03-24 13:52:02.683243499 +0100
+@@ -32,10 +32,12 @@
+ 	PostSession.in \
+ 	PostLogin \
+ 	XKeepsCrashing \
+ 	gettextfoo.h \
+ 	gdmprefetchlist.in \
++	mime-dummy-handler.desktop \
++	mimeapps.list \
+ 	extract-shell.sh
+ 
+ CLEANFILES = Xsession gdm.conf gdm.conf-custom default.desktop gnome.desktop CDE.desktop ssh.desktop Init PreSession PostSession gdmprefetchlist
+ 
+ Xsession: $(srcdir)/Xsession.in
+@@ -234,10 +236,16 @@
+ 		$(mkinstalldirs) $(DESTDIR)$(authdir); \
+ 		chmod 1770 $(DESTDIR)$(authdir); \
+ 		chown root:gdm $(DESTDIR)$(authdir) || : ; \
+ 	fi
+ 
++	if test '!' -d $(DESTDIR)$(workingdir)/.local/share/applications; then \
++		$(mkinstalldirs) $(DESTDIR)$(workingdir)/.local/share/applications; \
++		chmod 0755 $(DESTDIR)$(workingdir)/.local/share/applications; \
++		chown gdm:gdm $(DESTDIR)$(workingdir)/.local/share/applications || : ; \
++	fi
++
+ 	system=`uname`; \
+ 	if test -f /usr/include/security/pam_appl.h; then \
+ 	  if test '!' -d $(DESTDIR)$(PAM_PREFIX)/pam.d; then \
+ 		$(mkinstalldirs) $(DESTDIR)$(PAM_PREFIX)/pam.d; \
+ 		chmod 755 $(DESTDIR)$(PAM_PREFIX)/pam.d; \
+@@ -263,5 +271,7 @@
+ 	   fi; \
+ 	   $(INSTALL_SCRIPT) ssh.desktop $(DESTDIR)$(instsessdir)/ssh.desktop; \
+ 	   chmod 644 $(DESTDIR)$(instsessdir)/ssh.desktop; \
+ 	fi
+ 
++	$(INSTALL_DATA) $(srcdir)/mime-dummy-handler.desktop $(DESTDIR)$(workingdir)/.local/share/applications/mime-dummy-handler.desktop
++	$(INSTALL_DATA) $(srcdir)/mimeapps.list $(DESTDIR)$(workingdir)/.local/share/applications/mimeapps.list
+Seulement dans gdm-2.20.10/config: mime-dummy-handler.desktop
+Seulement dans gdm-2.20.10/config: mimeapps.list
+diff -rU5 gdm-2.20.10.old/daemon/misc.c gdm-2.20.10/daemon/misc.c
+--- gdm-2.20.10.old/daemon/misc.c	2009-03-19 05:59:27.000000000 +0100
++++ gdm-2.20.10/daemon/misc.c	2024-03-24 15:29:29.479227664 +0100
+@@ -891,19 +891,27 @@
+ 
+ #ifdef __sun
+ 	return;
+ #endif
+ 
++#if 0
++    /*
++      Vladz reported that GDM versions < 2.21.1 were vulnerable to a TOCTTOU (time of check to time of use) flaw in the way that GDM checked for the existence of, and created if missing, the /tmp/.X11-unix/ special directory.  A local attacker could use this flaw to overwrite arbitrary file contents via symbolic link attacks or to manipulate the contents of arbitrary files, including those files owned by the root user that would normally be inaccessible.  This is because GDM will chown /tmp/.X11-unix to the user and group root, but also changes the permissions to 1777.
++    */
++    /*
++      They are created at boot time.
++    */
+ 	old_euid = geteuid ();
+ 	old_egid = getegid ();
+ 
+ 	NEVER_FAILS_root_set_euid_egid (0, 0);
+ 
+ 	ensure_tmp_socket_dir ("/tmp/.ICE-unix");
+ 	ensure_tmp_socket_dir ("/tmp/.X11-unix");
+ 
+ 	NEVER_FAILS_root_set_euid_egid (old_euid, old_egid);
++#endif
+ }
+ 
+ const GList *
+ gdm_address_peek_local_list (void)
+ {
+diff -rU5 gdm-2.20.10.old/gui/gdmlanguages.c gdm-2.20.10/gui/gdmlanguages.c
+--- gdm-2.20.10.old/gui/gdmlanguages.c	2009-03-19 05:59:10.000000000 +0100
++++ gdm-2.20.10/gui/gdmlanguages.c	2024-03-24 14:49:03.885804662 +0100
+@@ -49,11 +49,11 @@
+ static GtkWidget    *tv                       = NULL;
+ static GtkListStore *lang_model               = NULL;
+ static GtkWidget    *dialog                   = NULL;
+ static gchar        *current_language         = NULL;
+ static gchar        *dialog_selected_language = NULL;
+-static gint          savelang                 = GTK_RESPONSE_NO;
++static gint          dont_savelang            = GTK_RESPONSE_YES;
+ static gboolean      always_restart           = FALSE;
+ 
+ #include "gdm-common.h"
+ 
+ typedef struct _Language Language;
+@@ -725,20 +725,20 @@
+ }
+ 
+ gint
+ gdm_lang_get_savelang_setting (void)
+ {
+-  return savelang;
++  return dont_savelang;
+ }
+ 
+ gchar *
+ gdm_lang_check_language (const char *old_language)
+ {
+   gchar *retval = NULL;
+ 
+   /* Don't save language unless told otherwise */
+-  savelang = GTK_RESPONSE_NO;
++  dont_savelang = GTK_RESPONSE_YES;
+ 
+   if (old_language == NULL)
+     old_language = "";
+ 
+   /* If a different language is selected */
+@@ -778,12 +778,12 @@
+  	  secondary_message = g_strdup_printf (_("You have chosen %s for this session, but your default setting is "
+ 	                                         "%s."), current_name, saved_name);
+ 	  g_free (current_name);
+ 	  g_free (saved_name);
+ 
+-	  savelang = gdm_wm_query_dialog (primary_message, secondary_message,
+-		_("Make _Default"), _("Just For _This Session"), TRUE);
++	  dont_savelang = gdm_wm_query_dialog (primary_message, secondary_message,
++		_("Just For _This Session"), _("Make _Default"), TRUE);
+ 	  g_free (primary_message);
+ 	  g_free (secondary_message);
+ 	}
+     }
+   else
+@@ -1090,11 +1090,11 @@
+ }
+ 
+ void
+ gdm_lang_op_slang (const gchar *args)
+ {
+-  if (gdm_lang_get_savelang_setting () == GTK_RESPONSE_YES)
++  if (gdm_lang_get_savelang_setting () == GTK_RESPONSE_NO)
+     printf ("%cY\n", STX);
+   else
+     printf ("%c\n", STX);
+ 
+   fflush (stdout);
+diff -rU5 gdm-2.20.10.old/gui/gdmlogin.c gdm-2.20.10/gui/gdmlogin.c
+--- gdm-2.20.10.old/gui/gdmlogin.c	2009-03-19 05:59:10.000000000 +0100
++++ gdm-2.20.10/gui/gdmlogin.c	2024-03-24 14:52:52.429857619 +0100
+@@ -130,11 +130,11 @@
+ static gint size_of_users = 0;
+ 
+ static gchar *curuser = NULL;
+ static gchar *session = NULL;
+ 
+-static gint savelang = GTK_RESPONSE_NO;
++static gint dont_savelang = GTK_RESPONSE_YES;
+ 
+ /* back_prog_timeout_event_id: event of the timer.
+  * back_prog_watcher_event_id: event of the background program watcher.
+  * back_prog_pid: 	       process ID of the background program.
+  * back_prog_has_run:	       true if the background program has run
+@@ -1327,11 +1327,11 @@
+     static gboolean replace_msg = TRUE;
+     static gboolean messages_to_give = FALSE;
+     gint lookup_status = SESSION_LOOKUP_SUCCESS;
+     gchar *firstmsg = NULL;
+     gchar *secondmsg = NULL;
+-    gint save_session = GTK_RESPONSE_NO;
++    gint dont_save_session = GTK_RESPONSE_YES;
+     
+     /* Parse opcode */
+     switch (op_code) {
+     case GDM_SETLOGIN:
+ 	/* somebody is trying to fool us this is the user that
+@@ -1502,15 +1502,15 @@
+ 						      "future sessions?"),
+ 						    gdm_session_name (tmp));	    
+ 			secondmsg = g_strdup_printf (_("Your preferred session type %s is not "
+ 						       "installed on this computer."),
+ 						     gdm_session_name (gdm_get_default_session ()));
+-			save_session = gdm_wm_query_dialog (firstmsg, secondmsg,
+-							    _("Make _Default"), _("Just _Log In"), TRUE);			
++			dont_save_session = gdm_wm_query_dialog (firstmsg, secondmsg,
++							    _("Just _Log In"), _("Make _Default"), TRUE);			
+ 			g_free (firstmsg);
+ 			g_free (secondmsg);
+-			gdm_set_save_session (save_session);			
++			gdm_set_save_session (dont_save_session);			
+ 			break;
+ 			
+ 		case SESSION_LOOKUP_DEFAULT_MISMATCH:
+ 			firstmsg = g_strdup_printf (_("Do you wish to make %s the default for "
+ 						      "future sessions?"),
+@@ -1518,16 +1518,16 @@
+ 			secondmsg = g_strdup_printf (_("You have chosen %s for this "
+ 						       "session, but your default "
+ 						       "setting is %s."),
+ 						     gdm_session_name (session),
+ 						     gdm_session_name (tmp));
+-			save_session = gdm_wm_query_dialog (firstmsg, secondmsg,
+-							    _("Make _Default"), _("Just For _This Session"), TRUE);
++			dont_save_session = gdm_wm_query_dialog (firstmsg, secondmsg,
++							    _("Just For _This Session"), _("Make _Default"), TRUE);
+ 			
+ 			g_free (firstmsg);
+ 			g_free (secondmsg);
+-			gdm_set_save_session (save_session);			
++			gdm_set_save_session (dont_save_session);			
+ 			break;
+ 		case SESSION_LOOKUP_USE_SWITCHDESK:
+ 			firstmsg = g_strdup_printf (_("You have chosen %s for this "
+ 						      "session"),
+ 						    gdm_session_name (session));
+@@ -1560,11 +1560,11 @@
+     case GDM_LANG:
+ 	gdm_lang_op_lang (args);
+ 	break;
+ 
+     case GDM_SSESS:
+-	if (gdm_get_save_session () == GTK_RESPONSE_YES)
++	if (gdm_get_save_session () == GTK_RESPONSE_NO)
+ 	    printf ("%cY\n", STX);
+ 	else
+ 	    printf ("%c\n", STX);
+ 	fflush (stdout);
+ 	
+diff -rU5 gdm-2.20.10.old/gui/gdmsession.c gdm-2.20.10/gui/gdmsession.c
+--- gdm-2.20.10.old/gui/gdmsession.c	2009-03-19 05:59:10.000000000 +0100
++++ gdm-2.20.10/gui/gdmsession.c	2024-03-24 14:55:00.872295920 +0100
+@@ -44,11 +44,11 @@
+ 
+ GHashTable *sessnames        = NULL;
+ gchar *default_session       = NULL;
+ const gchar *current_session = NULL;
+ GList *sessions              = NULL;
+-static gint save_session     = GTK_RESPONSE_NO;
++static gint dont_save_session     = GTK_RESPONSE_YES;
+ 
+ 
+ /* This is true if session dir doesn't exist or is whacked out
+  * in some way or another */
+ gboolean session_dir_whacked_out = FALSE;
+@@ -412,11 +412,11 @@
+   
+   /* Assume that the lookup will go well */
+   *lookup_status = SESSION_LOOKUP_SUCCESS;
+ 
+   /* Don't save session unless told otherwise */
+-  save_session = GTK_RESPONSE_NO;
++  dont_save_session = GTK_RESPONSE_YES;
+ 
+   /* Previously saved session not found in ~/.dmrc */
+   if ( ! (saved_session != NULL &&
+ 	  strcmp ("(null)", saved_session) != 0 &&
+ 	  saved_session[0] != '\0')) {
+@@ -425,11 +425,11 @@
+     if (current_session == NULL || strcmp (current_session, LAST_SESSION) == 0)
+       session = g_strdup (default_session);
+     else
+       session = g_strdup (current_session);
+     
+-    save_session = GTK_RESPONSE_YES;
++    dont_save_session = GTK_RESPONSE_NO;
+     return session;
+   }
+ 
+   /* If "Last" session is selected */
+   if (current_session == NULL ||
+@@ -459,11 +459,11 @@
+           /*
+            * Never save failsafe sessions as the default session.
+            * These are intended to be used for debugging or temporary 
+            * purposes.
+            */
+-	  save_session = GTK_RESPONSE_NO;
++	  dont_save_session = GTK_RESPONSE_YES;
+ 	}
+       else if (strcmp (saved_session, session) != 0)
+ 	{	 	  
+ 	  if (gdm_config_get_bool (GDM_KEY_SHOW_LAST_SESSION))
+ 	    {
+@@ -480,28 +480,28 @@
+ 	       */
+ 	      if (g_access ("/usr/bin/switchdesk", F_OK) == 0)
+ 	        {
+ 			*lookup_status = SESSION_LOOKUP_USE_SWITCHDESK;
+ 		}
+-	      save_session = GTK_RESPONSE_NO;
++	      dont_save_session = GTK_RESPONSE_YES;
+ 	    }
+ 	}
+     }
+ 
+   return session;
+ }
+ 
+ gint
+ gdm_get_save_session (void)
+ {
+-  return save_session;
++  return dont_save_session;
+ }
+ 
+ void
+ gdm_set_save_session (const gint session)
+ {
+-	save_session = session;
++	dont_save_session = session;
+ }
+ 
+ const char*
+ gdm_get_default_session (void)
+ {
+diff -rU5 gdm-2.20.10.old/gui/greeter/greeter.c gdm-2.20.10/gui/greeter/greeter.c
+--- gdm-2.20.10.old/gui/greeter/greeter.c	2009-03-19 05:59:10.000000000 +0100
++++ gdm-2.20.10/gui/greeter/greeter.c	2024-03-24 15:08:03.742707780 +0100
+@@ -227,11 +227,11 @@
+     GreeterItemInfo *conversation_info;
+     static GnomeCanvasItem *disabled_cover = NULL;
+     gint lookup_status = SESSION_LOOKUP_SUCCESS;
+     gchar *firstmsg = NULL;
+     gchar *secondmsg = NULL;
+-    gint save_session = GTK_RESPONSE_NO;
++    gint dont_save_session = GTK_RESPONSE_YES;
+ 
+     /* Parse opcode */
+     switch (op_code) {
+     case GDM_SETLOGIN:
+ 	/* somebody is trying to fool us this is the user that
+@@ -334,16 +334,16 @@
+ 						      "future sessions?"),
+ 						    gdm_session_name (tmp));	    
+ 			secondmsg = g_strdup_printf (_("Your preferred session type %s is not "
+ 						       "installed on this computer."),
+ 						     gdm_session_name (gdm_get_default_session ()));
+-			save_session = gdm_wm_query_dialog (firstmsg, secondmsg,
+-							    _("Make _Default"), _("Just _Log In"), TRUE);
++			dont_save_session = gdm_wm_query_dialog (firstmsg, secondmsg,
++							    _("Just _Log In"), _("Make _Default"), TRUE);
+ 			
+ 			g_free (firstmsg);
+ 			g_free (secondmsg);
+-			gdm_set_save_session (save_session);
++			gdm_set_save_session (dont_save_session);
+ 			break;
+ 			
+ 		case SESSION_LOOKUP_DEFAULT_MISMATCH:
+ 			firstmsg = g_strdup_printf (_("Do you wish to make %s the default for "
+ 						      "future sessions?"),
+@@ -351,16 +351,16 @@
+ 			secondmsg = g_strdup_printf (_("You have chosen %s for this "
+ 						       "session, but your default "
+ 						       "setting is %s."),
+ 						     gdm_session_name (session),
+ 						     gdm_session_name (tmp));
+-			save_session = gdm_wm_query_dialog (firstmsg, secondmsg,
+-							    _("Make _Default"), _("Just For _This Session"), TRUE);
++			dont_save_session = gdm_wm_query_dialog (firstmsg, secondmsg,
++							    _("Just For _This Session"), _("Make _Default"), TRUE);
+ 			
+ 			g_free (firstmsg);
+ 			g_free (secondmsg);
+-			gdm_set_save_session (save_session);
++			gdm_set_save_session (dont_save_session);
+ 			break;
+ 		case SESSION_LOOKUP_USE_SWITCHDESK:
+ 			firstmsg = g_strdup_printf (_("You have chosen %s for this "
+ 						      "session"),
+ 						    gdm_session_name (session));
+@@ -394,11 +394,11 @@
+     case GDM_LANG:
+ 	gdm_lang_op_lang (args);
+ 	break;
+ 
+     case GDM_SSESS:
+-	if (gdm_get_save_session () == GTK_RESPONSE_YES)
++	if (gdm_get_save_session () == GTK_RESPONSE_NO)
+ 	  printf ("%cY\n", STX);
+ 	else
+ 	  printf ("%c\n", STX);
+ 	fflush (stdout);
+ 	
