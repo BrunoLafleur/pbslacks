@@ -29,7 +29,7 @@ PRGNAM=numpy3
 SRCNAM=numpy
 VERSION=${VERSION:-1.19.2}
 BUILD=${BUILD:-1}
-TAG=${TAG:-_SBo}
+TAG=${TAG:-_PB}
 
 PYTHON_VERSIONS="3"
 
@@ -56,7 +56,7 @@ else
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/SBo}
+TMP=${TMP:-/tmp/PB}
 PKG=${PKG:-$TMP/package-$PRGNAM}
 OUTPUT=${OUTPUT:-/tmp}
 

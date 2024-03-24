@@ -24,7 +24,7 @@
 PRGNAM=denemo
 VERSION=${VERSION:-master}
 BUILD=${BUILD:-3}
-TAG=${TAG:-_SBo}
+TAG=${TAG:-_PB}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -57,7 +57,7 @@ fi
 
 set -e
 
-TMP=${TMP:-/tmp/SBo}
+TMP=${TMP:-/tmp/PB}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 

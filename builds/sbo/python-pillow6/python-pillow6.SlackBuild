@@ -26,7 +26,7 @@ cd $(dirname $0) ; CWD=$(pwd)
 PKGNAM=python-pillow6
 VERSION=${VERSION:-$(echo Pillow-*.tar.?z | rev | cut -f 3- -d . | cut -f 1 -d - | rev)}
 BUILD=${BUILD:-1}
-TAG=${TAG-_SBo}
+TAG=${TAG-_PB}
 
 # Automatically determine the architecture we're building on:
 if [ -z "$ARCH" ]; then
@@ -62,7 +62,7 @@ fi
 
 PYTHONINC=$( python2 -c 'from distutils.sysconfig import get_python_inc; print(get_python_inc())' )
 
-TMP=${TMP:-/tmp/SBo}
+TMP=${TMP:-/tmp/PB}
 PKG=$TMP/package-$PKGNAM
 OUTPUT=${OUTPUT:-/tmp}
 

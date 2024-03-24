@@ -35,7 +35,7 @@ PRGNAM=python3-matplotlib
 SRCNAM=matplotlib
 VERSION=${VERSION:-2.2.3}
 BUILD=${BUILD:-1}
-TAG=${TAG:-_SBo}
+TAG=${TAG:-_PB}
 
 TARBALL_VERSION=${TARBALL_VERSION:-2.2.3} # Tarball may have wrong versioning
 ENABLE_TESTS=${ENABLE_TESTS:-N}
@@ -49,7 +49,7 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/SBo}
+TMP=${TMP:-/tmp/PB}
 PKG=${PKG:-$TMP/package-$PRGNAM}
 OUTPUT=${OUTPUT:-/tmp}
 

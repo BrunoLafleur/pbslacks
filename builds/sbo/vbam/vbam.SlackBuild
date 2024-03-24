@@ -45,7 +45,7 @@
 PRGNAM=vbam
 VERSION=${VERSION:-2.1.4}
 BUILD=${BUILD:-1}
-TAG=${TAG:-_SBo}
+TAG=${TAG:-_PB}
 
 SRCVER="$VERSION"
 SRCNAM="visualboyadvance-m"
@@ -62,7 +62,7 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/SBo}
+TMP=${TMP:-/tmp/PB}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 

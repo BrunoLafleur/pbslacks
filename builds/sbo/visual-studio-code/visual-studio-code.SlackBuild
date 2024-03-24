@@ -25,7 +25,7 @@
 PRGNAM=visual-studio-code
 VERSION=${VERSION:-1.64.2}
 BUILD=${BUILD:-1}
-TAG=${TAG:-_SBo}
+TAG=${TAG:-_PB}
 
 # Automatically determine the architecture we're building on:
 if [ -z "$ARCH" ]; then
@@ -36,7 +36,7 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/SBo}	# For consistency's sake, use this
+TMP=${TMP:-/tmp/PB}	# For consistency's sake, use this
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}	# Drop the package in /tmp
 

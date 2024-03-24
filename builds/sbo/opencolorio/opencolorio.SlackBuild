@@ -26,7 +26,7 @@ PRGNAM=opencolorio
 SRCNAM=OpenColorIO
 VERSION=${VERSION:-1.1.1}
 BUILD=${BUILD:-1}
-TAG=${TAG:-_SBo}
+TAG=${TAG:-_PB}
 PYTHON_VERSIONS=${PYTHON_VERSIONS:-"2 3"}
 
 if [ -z "$ARCH" ]; then
@@ -38,7 +38,7 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/SBo}
+TMP=${TMP:-/tmp/PB}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 

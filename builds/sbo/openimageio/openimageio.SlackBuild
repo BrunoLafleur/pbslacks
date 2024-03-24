@@ -26,7 +26,7 @@ PRGNAM=openimageio
 SRCNAM=oiio-Release
 VERSION=${VERSION:-2.1.17.0}
 BUILD=${BUILD:-1}
-TAG=${TAG:-_SBo}
+TAG=${TAG:-_PB}
 
 PYLIB_INSTALL_DIRECTORY=$(python2 -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")
 PYLIB3_INSTALL_DIRECTORY=$(python3 -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")
@@ -40,7 +40,7 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/SBo}
+TMP=${TMP:-/tmp/PB}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 

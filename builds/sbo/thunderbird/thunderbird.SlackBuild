@@ -26,7 +26,7 @@
 
 PKGNAM=thunderbird
 BUILD=${BUILD:-1}
-TAG=${TAG:-_SBo}
+TAG=${TAG:-_PB}
 
 if [ -z "$DEBARCH" ]; then
   case "$( uname -m )" in
@@ -43,7 +43,7 @@ VERSION=${VERSION:-$(echo $PKGNAM_*_$DEBARCH.deb|rev|cut -f 2- -d -|cut -f 1 -d 
 SRCNAM=$(ls $PKGNAM_*_$DEBARCH.deb)
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/SBo}
+TMP=${TMP:-/tmp/PB}
 PKG=$TMP/package-$PKGNAM
 OUTPUT=${OUTPUT:-/tmp}
 

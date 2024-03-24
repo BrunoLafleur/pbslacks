@@ -24,7 +24,7 @@
 PKGNAM=libart_lgpl
 VERSION=${VERSION:-$(echo $PKGNAM-*.tar.?z* | rev | cut -f 3- -d . | cut -f 1 -d - | rev)}
 BUILD=${BUILD:-1}
-TAG=${TAG:-_SBo}
+TAG=${TAG:-_PB}
 
 # Automatically determine the architecture we're building on:
 if [ -z "$ARCH" ]; then
@@ -39,7 +39,7 @@ fi
 NUMJOBS=${NUMJOBS:-" -j7 "}
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/SBo}
+TMP=${TMP:-/tmp/PB}
 PKG=$TMP/package-libart_lgpl
 OUTPUT=${OUTPUT:-/tmp}
 

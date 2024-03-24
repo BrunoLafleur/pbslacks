@@ -26,7 +26,7 @@
 
 PKGNAM=chromium
 BUILD=${BUILD:-1}
-TAG=${TAG:-_SBo}
+TAG=${TAG:-_PB}
 
 if [ -z "$DEBARCH" ]; then
   case "$( uname -m )" in
@@ -50,7 +50,7 @@ PKGNAM5=${PKGNAM}-l10n
 SRCNAM5=$(ls ${PKGNAM5}_*_all.deb)
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/SBo}
+TMP=${TMP:-/tmp/PB}
 PKG=$TMP/package-$PKGNAM
 OUTPUT=${OUTPUT:-/tmp}
 

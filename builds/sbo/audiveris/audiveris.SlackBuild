@@ -30,14 +30,14 @@ PRGNAM=audiveris
 VERSION=${VERSION:-master}
 ARCH=noarch
 BUILD=${BUILD:-1}
-TAG=${TAG:-_SBo}
+TAG=${TAG:-_PB}
 
 AUDIVERIS_HOME=/usr/share/audiveris
 TESS3_HOME=/usr/share/tesseract-ocr/tessdata
 URL_TRAINEDDATA='https://github.com/tesseract-ocr/tessdata/raw/3.04.00/'
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/SBo}
+TMP=${TMP:-/tmp/PB}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 

@@ -7,7 +7,7 @@ PRGNAM=tbb
 SRCNAM=oneTBB
 VERSION=${VERSION:-2020u2}
 BUILD=${BUILD:-1}
-TAG=${TAG:-_SBo}
+TAG=${TAG:-_PB}
 
 SRCVERSION=$( echo ${VERSION} | sed 's,u,_U,' )
 
@@ -20,7 +20,7 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/SBo}
+TMP=${TMP:-/tmp/PB}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 

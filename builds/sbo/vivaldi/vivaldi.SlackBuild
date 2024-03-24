@@ -29,7 +29,7 @@ VERSION=${VERSION:-5.5.2805.44}
 FFMPEG_VERSION="107.0.5304.87"
 WIDEVINE_VERSION="4.10.1582.2"
 BUILD=${BUILD:-1}
-TAG=${TAG:-_SBo}
+TAG=${TAG:-_PB}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -48,7 +48,7 @@ case "$ARCH" in
 esac
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/SBo}
+TMP=${TMP:-/tmp/PB}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 

@@ -29,7 +29,7 @@ PKGNAM=libwebp6
 SRCNAM=libwebp
 VERSION=${VERSION:-$(echo *.tar.?z | rev | cut -f 3- -d . | rev)}
 BUILD=${BUILD:-2}
-TAG=${TAG:-_SBo}
+TAG=${TAG:-_PB}
 
 # Automatically determine the architecture we're building on:
 if [ -z "$ARCH" ]; then
@@ -73,7 +73,7 @@ else
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/SBo}
+TMP=${TMP:-/tmp/PB}
 PKG=$TMP/package-$PKGNAM
 OUTPUT=${OUTPUT:-/tmp}
 

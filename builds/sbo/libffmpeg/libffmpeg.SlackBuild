@@ -38,7 +38,7 @@ PKGNAM=libffmpeg
 SRCNAM=ffmpeg
 VERSION=${VERSION:-$(echo $SRCNAM-*.tar.xz | rev | cut -f 3- -d . | cut -f 1 -d - | rev)}
 BUILD=${BUILD:-3}
-TAG=${TAG:-_SBo}
+TAG=${TAG:-_PB}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -152,7 +152,7 @@ wavpack=""    ; [ "${WAVPACK:-yes}" != "no" ]     && wavpack="--enable-libwavpac
 # No default patent encumbered features:
 aac=""        ; [ "${AAC:-no}" = "no" ]           && aac="--disable-encoder=aac"
 
-TMP=${TMP:-/tmp/SBo}
+TMP=${TMP:-/tmp/PB}
 PKG=$TMP/package-$PKGNAM
 OUTPUT=${OUTPUT:-/tmp}
 
