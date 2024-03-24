@@ -1,10 +1,24 @@
 #%PAM-1.0
-auth		include		system-auth
-account		required	pam_nologin.so
-account		include		system-auth
-password	include		system-auth
-session		include		system-auth
-session		required	pam_loginuid.so
--session	optional	pam_ck_connector.so
--session	optional	pam_elogind.so
-session		include		postlogin
+
+auth       substack     system-auth
+
+# Uncomment this line to restrict login to users with a UID greater
+# than 999 (in other words, don't allow login for root):
+#auth       required     pam_succeed_if.so        uid >= 1000 quiet
+
+-auth      optional     pam_gnome_keyring.so
+-auth      optional     pam_kwallet.so
+auth       include      postlogin
+
+account    include      system-auth
+
+password   substack     system-auth
+-password  optional     pam_gnome_keyring.so     use_authtok
+
+session    optional     pam_keyinit.so           force revoke
+session    substack     system-auth
+session    required     pam_loginuid.so
+-session   optional     pam_elogind.so
+-session   optional     pam_gnome_keyring.so     auto_start
+-session   optional     pam_kwallet.so     auto_start
+session    include      postlogin
