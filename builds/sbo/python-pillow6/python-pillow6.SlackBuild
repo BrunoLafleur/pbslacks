@@ -60,7 +60,7 @@ elif [ "$ARCH" = "x86_64" ]; then
   LIBDIRSUFFIX="64"
 fi
 
-PYTHONINC=$( python -c 'from distutils.sysconfig import get_python_inc; print(get_python_inc())' )
+PYTHONINC=$( python2 -c 'from distutils.sysconfig import get_python_inc; print(get_python_inc())' )
 
 TMP=${TMP:-/tmp/SBo}
 PKG=$TMP/package-$PKGNAM
@@ -80,7 +80,7 @@ find . \
   \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
   -exec chmod 644 {} \;
 
-python setup.py install --root=$PKG || exit 1
+python2 setup.py install --root=$PKG || exit 1
 
 # install headers
 mkdir -p ${PKG}$PYTHONINC/Imaging
