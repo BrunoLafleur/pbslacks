@@ -62,10 +62,12 @@ fi
     )
     xlocalsrcpac gstreamer0 "gstreamer-0.10.36.tar.xz"
     xlocalsrcpac gst-plugins-base0 "gst-plugins-base-0.10.36.tar.xz"
-    xgetsbosrc gst-plugins-bad
-    xgetsbosrc hplip-plugin
-    xgetsbosrc GConf
-    xgetsbosrc wxPython
+
+    for i in goocanvas portaudio icoutils gst-plugins-bad hplip-plugin GConf \
+		       wxPython ;do
+	xgetsbosrc "$i"
+    done
+
     xgetsrc openal-soft "$PATHOPENAL"
     xgetsrc libtxc_dxtn "$PATHLIBTXC_DXTN"
     xgetsrc libgaminggear "$PATHLIBGAMINGGEAR"
