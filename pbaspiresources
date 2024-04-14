@@ -68,10 +68,12 @@ fi
 	xgetsbosrc "$i"
     done
 
-    # Ajouter test current pre 15 et post 15.
-    if [ "$SLACKVER" = 15.0 ] ;then
+    # Si 15 ou post 15 on prend portmidi2.
+    if [ "$SLACKPRE15" -ne 1 ] ;then
 	rm -rf portmidi
-	mv portmidi portmidi2
+	mv portmidi2 portmidi
+    else
+	rm -rf portmidi2
     fi
     
     xgetsrc openal-soft "$PATHOPENAL"

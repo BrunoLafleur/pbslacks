@@ -64,6 +64,7 @@ elif [ -d slackwarearm-15.0 ] ;then
 else
     SLACKVER=15.0
 fi
+
 if [ ! -d slackware64-${SLACKVER} ] ;then
     if [ -d slackwarearm-${SLACKVER} ] ;then
 	PBARCH=arm
@@ -73,7 +74,10 @@ if [ ! -d slackware64-${SLACKVER} ] ;then
     elif [ "$(grep ARM CURRENT.WARNING|grep Welcome|wc -l)" -eq 1 ] ;then
 	PBARCH=arm
     fi
-fi  
+fi
+
+SLACKPRE15=$(ls slackware*-${SLACKVER}/ANNOUNCE.14_2 2> /dev/null | wc -l)
+
 [ "$PBARCH" = x64 ] && XLIBDIR=/usr/lib64 || XLIBDIR=/usr/lib
 [ "$PBARCH" = x64 ] && RARCH= || RARCH=arm
 
