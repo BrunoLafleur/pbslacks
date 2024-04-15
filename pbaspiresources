@@ -63,8 +63,8 @@ fi
     xlocalsrcpac gstreamer0 "gstreamer-0.10.36.tar.xz"
     xlocalsrcpac gst-plugins-base0 "gst-plugins-base-0.10.36.tar.xz"
 
-    for i in goocanvas portaudio icoutils portmidi portmidi2 gst-plugins-bad \
-		       hplip-plugin GConf wxPython ;do
+    for i in libpng-legacy12 goocanvas portaudio icoutils portmidi portmidi2 \
+			     gst-plugins-bad hplip-plugin GConf wxPython ;do
 	xgetsbosrc "$i"
     done
 

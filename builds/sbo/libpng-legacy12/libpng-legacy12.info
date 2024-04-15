@@ -1,0 +1,8 @@
+PRGNAM="libpng-legacy12"
+VERSION="1.2.59"
+HOMEPAGE="https://libpng.sourceforge.io/index.html"
+DOWNLOAD="https://ftp-osl.osuosl.org/pub/libpng/src/libpng12/libpng-1.2.59.tar.xz"
+MD5SUM="e120f48f4e27e72255bc366c73aae1db"
+REQUIRES=""
+MAINTAINER="Pierre Brochard"
+EMAIL="pierre.brochard.1982@m4x.org"

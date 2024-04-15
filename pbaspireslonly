@@ -37,7 +37,7 @@ fi
 
 (
     cd packages
-    for i in libraries/libpng-legacy12 python/pygoocanvas ;do
+    for i in python/pygoocanvas ;do
 	PROJ=$(echo $i|cut -d '/' -f2)
 	xgetpac "$PROJ" "$SLACKSLONLY/$i" 5
     done

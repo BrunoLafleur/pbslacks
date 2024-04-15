@@ -1,0 +1,94 @@
+#!/bin/bash
+
+# Slackware build script for libpng-legacy12
+
+# Written by B. Watson (urchlay@slackware.uk)
+
+# Licensed under the WTFPL. See http://www.wtfpl.net/txt/copying/ for details.
+
+# 20220125 bkw: BUILD=2, get rid of .la file. Nothing that depends on
+# this needs it, and it might come back to bite us someday...
+
+cd $(dirname $0) ; CWD=$(pwd)
+
+PKGNAM=libpng-legacy12
+SRCNAM=libpng
+VERSION=${VERSION:-1.2.59}
+BUILD=${BUILD:-1}
+TAG=${TAG:-_PB}
+PKGTYPE=${PKGTYPE:-txz}
+
+# Automatically determine the architecture we're building on:
+if [ -z "$ARCH" ]; then
+    case "$( uname -m )" in
+	i?86) export ARCH=i486 ;;
+	arm*) export ARCH=arm ;;
+	# Unless $ARCH is already set, use uname -m for all other archs:
+	*) export ARCH=$( uname -m ) ;;
+    esac
+fi
+
+if [ "$ARCH" = "x86_64" ]; then
+    LIBDIRSUFFIX="64"
+else
+    LIBDIRSUFFIX=""
+fi
+
+TMP=${TMP:-/tmp/PB}
+PKG=$TMP/package-$PKGNAM
+OUTPUT=${OUTPUT:-/tmp}
+rm -rf $PKG $TMP/$PKGNAM
+mkdir -p $TMP/$PKGNAM $PKG/usr $OUTPUT
+
+cd $TMP/$PKGNAM
+rm -rf libpng-$VERSION
+tar xvf $CWD/$SRCNAM-$VERSION.tar.?z* || exit 1
+cd $SRCNAM-$VERSION
+
+chown -R root:root .
+find . \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
+     -exec chmod 755 {} \; -o \( -perm 666 -o -perm 664 -o -perm 600 \
+     -o -perm 444 -o -perm 440 -o -perm 400 \) \
+     -exec chmod 644 {} \;
+
+# Look like using ./configure is the only way that works now...
+./configure --prefix=/usr \
+	    --libdir=/usr/lib${LIBDIRSUFFIX} \
+	    --mandir=/usr/man
+
+make -j4 prefix=/usr LIBPATH=/usr/lib${LIBDIRSUFFIX} \
+     ZLIBLIB="-L/usr/lib${LIBDIRSUFFIX} -lm -lz" || exit 1
+make install prefix=/usr LIBPATH=/usr/lib${LIBDIRSUFFIX} \
+     ZLIBLIB="-L/usr/lib${LIBDIRSUFFIX} -lm -lz" DESTDIR=$PKG
+
+find $PKG | xargs file | grep -e "executable" -e "shared object" \
+    | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+
+rm -rf $PKG/usr/lib${LIBDIRSUFFIX}/lib*.la
+rm -rf $PKG/usr/lib${LIBDIRSUFFIX}/lib*.a
+rm -rf $PKG/usr/lib${LIBDIRSUFFIX}/lib*.so.3.*
+
+# We keep libs only.
+rm -rf $PKG/usr/man
+rm -rf $PKG/usr/include
+rm -rf $PKG/usr/bin
+rm -rf $PKG/usr/lib$LIBDIRSUFFIX/pkgconfig
+
+mkdir -p $PKG/usr/doc/$PKGNAM-$VERSION
+cp -a ANNOUNCE CHANGES INSTALL KNOWNBUG LICENSE README TODO Y2KINFO \
+   libpng*.txt example.c $PKG/usr/doc/$PKGNAM-$VERSION
+cat $CWD/$PKGNAM.SlackBuild > $PKG/usr/doc/$PKGNAM-$VERSION/$PKGNAM.SlackBuild
+
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+if [ ! -z "${PRINT_PACKAGE_NAME}" ]; then
+    echo "$PKGNAM-$VERSION-$ARCH-$BUILD$TAG.$PKGTYPE"
+    exit 0
+fi
+
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+cd $PKG
+/sbin/makepkg -l y -c n $OUTPUT/$PKGNAM-$VERSION-$ARCH-$BUILD$TAG.$PKGTYPE
