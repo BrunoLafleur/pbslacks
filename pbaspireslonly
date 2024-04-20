@@ -35,17 +35,6 @@ if [ ! -f gpgkeys/GPG-KEY-x32-slonly ] ;then
     mv -f GPG-KEY gpgkeys/GPG-KEY-x32-slonly
 fi
 
-(
-    cd packages
-    for i in python/pygoocanvas ;do
-	PROJ=$(echo $i|cut -d '/' -f2)
-	xgetpac "$PROJ" "$SLACKSLONLY/$i" 5
-    done
-    # We took 14.2 one because the current one is too old.
-    xgetpac "refind" "$SLACKSLONLY142/system/refind" 5
-)
-xpurgeindex packages
-
 ############################################
 (
     cd packages2

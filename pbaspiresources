@@ -33,6 +33,7 @@ fi
 ############################################
 (
     cd packages
+    
     [ ! -d openshot ] && mkdir openshot
     (
 	cd openshot
@@ -50,6 +51,7 @@ fi
 	rm -f python-pillow-[0-9]*.t?z*
 	xgetsrc python-pillow6 "$PATHPYTHONPIL"
     )
+    
     [ ! -d pitivi ] && mkdir pitivi
     (
 	cd pitivi
@@ -60,11 +62,13 @@ fi
 	    xgetsbosrc "$i"
 	done
     )
+    
     xlocalsrcpac gstreamer0 "gstreamer-0.10.36.tar.xz"
     xlocalsrcpac gst-plugins-base0 "gst-plugins-base-0.10.36.tar.xz"
 
-    for i in libpng-legacy12 goocanvas portaudio icoutils portmidi portmidi2 \
-			     gst-plugins-bad hplip-plugin GConf wxPython ;do
+    for i in libpng-legacy12 goocanvas pygoocanvas portaudio icoutils portmidi \
+			     portmidi2 gst-plugins-bad hplip-plugin GConf \
+			     wxPython refind ;do
 	xgetsbosrc "$i"
     done
 

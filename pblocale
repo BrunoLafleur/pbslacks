@@ -5,7 +5,7 @@
 # License : See the LICENSE file in this repository.
 
 xhelp () {
-    echo "> ./pblocale [-h|-help] [-init new_language] [progname]"
+    echo "> ./pblocale [-h|-help] [-init new_language] [prognames|all]"
 }
 
 XINIT=
