@@ -68,44 +68,44 @@ msgstr "Obtenir/mettre à jour des paquets binaires de Ponce"
 msgid "Get/Update some Slackonly binary packages"
 msgstr "Obtenir/mettre à jour des paquets binaires de Slackonly"
 
-#: pbaspire:59
+#: pbaspire:59 pbaspire:58
 msgid "Get/Update some Conraid or Slackel binary packages"
 msgstr "Obtenir/mettre à jour des paquets binaires de Conraid et Slackel"
 
-#: pbaspire:60
+#: pbaspire:60 pbaspire:59
 msgid "Get/Update some other source packages"
 msgstr "Obtenir/mettre à jour d'autres paquets sources"
 
-#: pbaspire:61
+#: pbaspire:61 pbaspire:60
 msgid "Get/Update latest binary Debian packages"
 msgstr "Obtenir/mettre à jour les derniers paquets binaires de Debian"
 
-#: pbaspire:62
+#: pbaspire:62 pbaspire:61
 msgid "Get/Update latest Firefox and Thunderbird"
 msgstr "Obtenir/mettre à jour Firefox et Thunderbird"
 
-#: pbaspire:63
+#: pbaspire:63 pbaspire:62
 msgid "Check GPG signatures"
 msgstr "Vérification des signatures GPG"
 
-#: pbaspire:64
+#: pbaspire:64 pbaspire:63
 msgid "Clean the local repository from old packages versions"
 msgstr "Nettoyage de la copie locale du système"
 
 #: pbaspire:72 pbsetup:129 pbupgrade:112 pbcompile:100 pbupgrade:109
-#: pbcompile:97 pbupgrade:110
+#: pbcompile:97 pbupgrade:110 pbaspire:71
 msgid "Main menu"
 msgstr "Menu principal"
 
-#: pbaspire:73 pbsetup:130
+#: pbaspire:73 pbsetup:130 pbaspire:72
 msgid "Choose your actions below"
 msgstr "Choisissez vos actions ci-dessous"
 
-#: pbaspire:199 pbaspire:204
+#: pbaspire:199 pbaspire:204 pbaspire:198
 msgid "Get or update the officiel lastest current Slackware."
 msgstr "Synchroniser avec la copie locale de la dernière Slackware current"
 
-#: pbaspire:201 pbaspire:206
+#: pbaspire:201 pbaspire:206 pbaspire:200
 msgid ""
 "Get or update the multilib of Alien Bob which is a 32 bits compatibility set "
 "of packages."
@@ -113,31 +113,31 @@ msgstr ""
 "Obtenir ou mettre à jour les paquets multilib d'Alien Bob qui est un jeu de "
 "paquets assurant un mode de compatibilité 32 bits."
 
-#: pbaspire:203 pbaspire:208
+#: pbaspire:203 pbaspire:208 pbaspire:202
 msgid "Get or update the KDE4 set of packages."
 msgstr "Obtenir ou mettre à jour les paquets de KDE4."
 
-#: pbaspire:205 pbaspire:210
+#: pbaspire:205 pbaspire:210 pbaspire:204
 msgid "Get or update the KDE5 frameworks libraries."
 msgstr "Obtenir ou mettre à jour les librairies frameworks de KDE5"
 
-#: pbaspire:207 pbaspire:212
+#: pbaspire:207 pbaspire:212 pbaspire:206
 msgid "Get or update the GDM desktop manager."
 msgstr "Obtenir ou mettre à jour le gestionnaire de bureaux GDM."
 
-#: pbaspire:209 pbaspire:216
+#: pbaspire:209 pbaspire:216 pbaspire:210
 msgid "Get or update the GParted live ISO."
 msgstr "Obtenir ou mettre à jour l'image ISO GParted live"
 
-#: pbaspire:211 pbaspire:218
+#: pbaspire:211 pbaspire:218 pbaspire:212
 msgid "Get or update the VirtualBox installer and extensions."
 msgstr "Obtenir ou mettre à jour VirtualBox et ses extensions."
 
-#: pbaspire:213 pbaspire:220
+#: pbaspire:213 pbaspire:220 pbaspire:214
 msgid "Get or update some Alien Bob binary packages."
 msgstr "Obtenir ou mettre à jour des paquets binaires d'Alien Bob"
 
-#: pbaspire:215 pbaspire:222
+#: pbaspire:215 pbaspire:222 pbaspire:216
 msgid "Get or update some Ponce binary packages."
 msgstr "Obtenir ou mettre à jour des paquets binaires de Ponce"
 
@@ -145,27 +145,27 @@ msgstr "Obtenir ou mettre à jour des paquets binaires de Ponce"
 msgid "Get or update some Slackonly binary packages."
 msgstr "Obtenir ou mettre à jour des paquets inaires de Slackonly"
 
-#: pbaspire:219 pbaspire:226
+#: pbaspire:219 pbaspire:226 pbaspire:218
 msgid "Get or update some Conraid and Slackel binary packages."
 msgstr "Obtenir ou mettre à jour des paquets binaires de Conraid et Slackel"
 
-#: pbaspire:221 pbaspire:228
+#: pbaspire:221 pbaspire:228 pbaspire:220
 msgid "Get or update some other source packages."
 msgstr "Obtenir ou mettre à jour d'autres paquets sources"
 
-#: pbaspire:223 pbaspire:230
+#: pbaspire:223 pbaspire:230 pbaspire:222
 msgid "Get or update binary Debian packages."
 msgstr "Obtenir ou mettre à jour des paquets binaires de Debian"
 
-#: pbaspire:225 pbaspire:232
+#: pbaspire:225 pbaspire:232 pbaspire:224
 msgid "Get or update Firefox and Thunderbird."
 msgstr "Obtenir ou mettre à jour Firefox et Thunderbird"
 
-#: pbaspire:227 pbaspire:234
+#: pbaspire:227 pbaspire:234 pbaspire:226
 msgid "Check the GPG signatures of the downloaded packages."
 msgstr "Vérifiez les signatures GPG des paquets téléchargés."
 
-#: pbaspire:229 pbaspire:236
+#: pbaspire:229 pbaspire:236 pbaspire:228
 msgid "Clean the local repository from old packages or source files."
 msgstr "On enlève les anciennes versions de la copie locale du système."
 
@@ -222,12 +222,7 @@ msgstr "Paquets d'Alien Bob obtenus ou mis à jour : \\Z3${PBNAME}alien\\Zn."
 msgid "Get/Update Ponce packages done : \\Z3${PBNAME}ponce\\Zn."
 msgstr "Paquets de Ponce obtenus ou mis à jour : \\Z3${PBNAME}ponce\\Zn."
 
-#: pbaspire:314 pbaspire:313 pbaspire:324
-#, sh-format
-msgid "Get/Update Slackonly packages done : \\Z3${PBNAME}slonly\\Zn."
-msgstr "Paquets de Slackonly obtenus ou mis à jour : \\Z3${PBNAME}slonly\\Zn."
-
-#: pbaspire:319 pbaspire:318 pbaspire:329
+#: pbaspire:319 pbaspire:318 pbaspire:329 pbaspire:314
 #, sh-format
 msgid ""
 "Get/Update Conraid and Slackel binary packages done : \\Z3${PBNAME}other\\Zn."
@@ -235,19 +230,19 @@ msgstr ""
 "Autres paquets binaires de Conraid et Slackel obtenus ou mis à jour : "
 "\\Z3${PBNAME}other\\Zn."
 
-#: pbaspire:324 pbaspire:323 pbaspire:334
+#: pbaspire:324 pbaspire:323 pbaspire:334 pbaspire:319
 #, sh-format
 msgid "Get/Update other source packages done : \\Z3${PBNAME}sources\\Zn."
 msgstr ""
 "Autres paquets sources obtenus ou mis à jour : \\Z3${PBNAME}sources\\Zn."
 
-#: pbaspire:330 pbaspire:329 pbaspire:340
+#: pbaspire:330 pbaspire:329 pbaspire:340 pbaspire:325
 #, sh-format
 msgid "Get/Update binary Debian done : \\Z3${PBNAME}debian\\Zn."
 msgstr ""
 "Paquets binaires de Debian obtenus ou mis à jour : \\Z3${PBNAME}debian\\Zn."
 
-#: pbaspire:336 pbaspire:335 pbaspire:346
+#: pbaspire:336 pbaspire:335 pbaspire:346 pbaspire:331
 #, sh-format
 msgid ""
 "Get/Update Firefox and Thunderbird for $XLANG language done : \\Z3${PBNAME}"
@@ -256,23 +251,23 @@ msgstr ""
 "Obtention ou mise à jour de Firefox et Thunderbird pour le langage $XLANG "
 "faite : \\Z3${PBNAME}mozilla\\Zn."
 
-#: pbaspire:340 pbaspire:339 pbaspire:350
+#: pbaspire:340 pbaspire:339 pbaspire:350 pbaspire:335
 msgid "GPG signatures checked :"
 msgstr "Signatures GPG vérifiées :"
 
 #: pbaspire:349 pbsetup:321 pbupgrade:369 pbcompile:283 pbaspire:348
 #: pbaspire:359 pbupgrade:370 pbcompile:282 pbupgrade:380 pbcompile:288
-#: pbupgrade:394 pbcompile:295
+#: pbupgrade:394 pbcompile:295 pbaspire:344
 msgid "No action was demanded. Exit."
 msgstr "Aucune action demandée. Sortie."
 
 #: pbaspire:352 pbsetup:325 pbupgrade:82 pbcompile:75 pbaspire:351 pbaspire:362
+#: pbaspire:347
 msgid "Actions which were done"
 msgstr "Actions réalisées"
 
 #: pbaspirealien:14 pbaspiremoz:19 pbaspireother:14 pbaspireponce:14
-#: pbaspireslonly:14 pbaspiresources:14 pbcompilepost:19 pbcompilekde4:19
-#: pbaspiresources:18
+#: pbaspiresources:14 pbcompilepost:19 pbcompilekde4:19 pbaspiresources:18
 msgid ""
 "Launch this script in the directory including packages, packages2 et al."
 msgstr ""
@@ -377,7 +372,7 @@ msgstr ""
 "\\nAppuyer sur une touche pour continuer sinon CTRLc pour arrêter"
 
 #: pbcompilepost:308 pbcompilekde4:210 pbcompilegdm:79 pbcompilepost:317
-#: pbcompilepost:328 pbcompilekde4:226
+#: pbcompilepost:328 pbcompilekde4:226 pbcompilepost:331
 msgid "Upgrade packages* done."
 msgstr "Mise à jour de packages* faite."
 
@@ -385,7 +380,7 @@ msgstr "Mise à jour de packages* faite."
 msgid "Correct this error and relaunch this script."
 msgstr "Erreur à corriger puis relancer ce script."
 
-#: pbinclude:78 pbinclude:81 pbinclude:93
+#: pbinclude:78 pbinclude:81 pbinclude:93 pbinclude:97
 #, sh-format
 msgid "Delete : $j"
 msgstr "Effacement : $j"
@@ -1370,16 +1365,16 @@ msgstr "Script à lancer dans le répertoire contenant debian."
 msgid "Get/Update Sarpi installer for arm Slackware"
 msgstr "Obtenir/mettre à jour l'installeur Sarpi de la Slackware arm"
 
-#: pbaspire:214
+#: pbaspire:214 pbaspire:208
 msgid "Get or update the Sarpi installer for arm Slackware."
 msgstr "Obtenir ou mettre à jour l'installeur Sarpi pour la Slackware arm."
 
-#: pbaspire:288
+#: pbaspire:288 pbaspire:278
 #, sh-format
 msgid "Get/Update core system done : \\Z3${PBNAME}${RARCH}core\\Zn."
 msgstr "Coeur du système obtenu ou mis à jour : \\Z3${PBNAME}${RARCH}core\\Zn."
 
-#: pbaspire:290
+#: pbaspire:290 pbaspire:280
 #, sh-format
 msgid ""
 "Get/Update multilib compat 32 bits mode done : \\Z3${PBNAME}${RARCH}core\\Zn."
@@ -1387,7 +1382,7 @@ msgstr ""
 "Mode de compatibilié 32 bits obtenu ou mis à jour : \\Z3${PBNAME}${RARCH}core"
 "\\Zn."
 
-#: pbaspire:292
+#: pbaspire:292 pbaspire:282
 #, sh-format
 msgid ""
 "Get/Update KDE5 frameworks libraries done : \\Z3${PBNAME}${RARCH}core\\Zn."
@@ -1395,20 +1390,20 @@ msgstr ""
 "Librairies frameworks de KDE5 obtenues ou mises à jour : "
 "\\Z3${PBNAME}${RARCH}core\\Zn."
 
-#: pbaspire:294
+#: pbaspire:294 pbaspire:284
 #, sh-format
 msgid "Get/Update gparted live iso done : \\Z3${PBNAME}${RARCH}core\\Zn."
 msgstr ""
 "Image iso GParted live obtenue ou mise à jour : \\Z3${PBNAME}${RARCH}core"
 "\\Zn."
 
-#: pbaspire:296
+#: pbaspire:296 pbaspire:286
 #, sh-format
 msgid "Get/Update VirtualBox installer done : \\Z3${PBNAME}${RARCH}core\\Zn."
 msgstr ""
 "Installeur VirtualBox obtenu ou mis à jour : \\Z3${PBNAME}${RARCH}core\\Zn."
 
-#: pbaspire:298
+#: pbaspire:298 pbaspire:288
 #, sh-format
 msgid ""
 "Get/Update Sarpi installer for arm Slackware done : \\Z3${PBNAME}${RARCH}core"
@@ -1417,7 +1412,7 @@ msgstr ""
 "Installeur Sarpi pour Slackware arm obtenu ou mis à jour : "
 "\\Z3${PBNAME}${RARCH}core\\Zn."
 
-#: pbaspire:300
+#: pbaspire:300 pbaspire:290
 #, sh-format
 msgid "Local repository cleaned : \\Z3${PBNAME}${RARCH}core\\Zn."
 msgstr "Copie locale du système nettoyée : \\Z3${PBNAME}${RARCH}core\\Zn."

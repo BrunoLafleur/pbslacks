@@ -63,74 +63,74 @@ msgstr ""
 msgid "Get/Update some Slackonly binary packages"
 msgstr ""
 
-#: pbaspire:59
+#: pbaspire:59 pbaspire:58
 msgid "Get/Update some Conraid or Slackel binary packages"
 msgstr ""
 
-#: pbaspire:60
+#: pbaspire:60 pbaspire:59
 msgid "Get/Update some other source packages"
 msgstr ""
 
-#: pbaspire:61
+#: pbaspire:61 pbaspire:60
 msgid "Get/Update latest binary Debian packages"
 msgstr ""
 
-#: pbaspire:62
+#: pbaspire:62 pbaspire:61
 msgid "Get/Update latest Firefox and Thunderbird"
 msgstr ""
 
-#: pbaspire:63
+#: pbaspire:63 pbaspire:62
 msgid "Check GPG signatures"
 msgstr ""
 
-#: pbaspire:64
+#: pbaspire:64 pbaspire:63
 msgid "Clean the local repository from old packages versions"
 msgstr ""
 
 #: pbaspire:72 pbsetup:129 pbupgrade:112 pbcompile:100 pbupgrade:109
-#: pbcompile:97 pbupgrade:110
+#: pbcompile:97 pbupgrade:110 pbaspire:71
 msgid "Main menu"
 msgstr ""
 
-#: pbaspire:73 pbsetup:130
+#: pbaspire:73 pbsetup:130 pbaspire:72
 msgid "Choose your actions below"
 msgstr ""
 
-#: pbaspire:199 pbaspire:204
+#: pbaspire:199 pbaspire:204 pbaspire:198
 msgid "Get or update the officiel lastest current Slackware."
 msgstr ""
 
-#: pbaspire:201 pbaspire:206
+#: pbaspire:201 pbaspire:206 pbaspire:200
 msgid ""
 "Get or update the multilib of Alien Bob which is a 32 bits compatibility set "
 "of packages."
 msgstr ""
 
-#: pbaspire:203 pbaspire:208
+#: pbaspire:203 pbaspire:208 pbaspire:202
 msgid "Get or update the KDE4 set of packages."
 msgstr ""
 
-#: pbaspire:205 pbaspire:210
+#: pbaspire:205 pbaspire:210 pbaspire:204
 msgid "Get or update the KDE5 frameworks libraries."
 msgstr ""
 
-#: pbaspire:207 pbaspire:212
+#: pbaspire:207 pbaspire:212 pbaspire:206
 msgid "Get or update the GDM desktop manager."
 msgstr ""
 
-#: pbaspire:209 pbaspire:216
+#: pbaspire:209 pbaspire:216 pbaspire:210
 msgid "Get or update the GParted live ISO."
 msgstr ""
 
-#: pbaspire:211 pbaspire:218
+#: pbaspire:211 pbaspire:218 pbaspire:212
 msgid "Get or update the VirtualBox installer and extensions."
 msgstr ""
 
-#: pbaspire:213 pbaspire:220
+#: pbaspire:213 pbaspire:220 pbaspire:214
 msgid "Get or update some Alien Bob binary packages."
 msgstr ""
 
-#: pbaspire:215 pbaspire:222
+#: pbaspire:215 pbaspire:222 pbaspire:216
 msgid "Get or update some Ponce binary packages."
 msgstr ""
 
@@ -138,27 +138,27 @@ msgstr ""
 msgid "Get or update some Slackonly binary packages."
 msgstr ""
 
-#: pbaspire:219 pbaspire:226
+#: pbaspire:219 pbaspire:226 pbaspire:218
 msgid "Get or update some Conraid and Slackel binary packages."
 msgstr ""
 
-#: pbaspire:221 pbaspire:228
+#: pbaspire:221 pbaspire:228 pbaspire:220
 msgid "Get or update some other source packages."
 msgstr ""
 
-#: pbaspire:223 pbaspire:230
+#: pbaspire:223 pbaspire:230 pbaspire:222
 msgid "Get or update binary Debian packages."
 msgstr ""
 
-#: pbaspire:225 pbaspire:232
+#: pbaspire:225 pbaspire:232 pbaspire:224
 msgid "Get or update Firefox and Thunderbird."
 msgstr ""
 
-#: pbaspire:227 pbaspire:234
+#: pbaspire:227 pbaspire:234 pbaspire:226
 msgid "Check the GPG signatures of the downloaded packages."
 msgstr ""
 
-#: pbaspire:229 pbaspire:236
+#: pbaspire:229 pbaspire:236 pbaspire:228
 msgid "Clean the local repository from old packages or source files."
 msgstr ""
 
@@ -212,51 +212,46 @@ msgstr ""
 msgid "Get/Update Ponce packages done : \\Z3${PBNAME}ponce\\Zn."
 msgstr ""
 
-#: pbaspire:314 pbaspire:313 pbaspire:324
-#, sh-format
-msgid "Get/Update Slackonly packages done : \\Z3${PBNAME}slonly\\Zn."
-msgstr ""
-
-#: pbaspire:319 pbaspire:318 pbaspire:329
+#: pbaspire:319 pbaspire:318 pbaspire:329 pbaspire:314
 #, sh-format
 msgid ""
 "Get/Update Conraid and Slackel binary packages done : \\Z3${PBNAME}other\\Zn."
 msgstr ""
 
-#: pbaspire:324 pbaspire:323 pbaspire:334
+#: pbaspire:324 pbaspire:323 pbaspire:334 pbaspire:319
 #, sh-format
 msgid "Get/Update other source packages done : \\Z3${PBNAME}sources\\Zn."
 msgstr ""
 
-#: pbaspire:330 pbaspire:329 pbaspire:340
+#: pbaspire:330 pbaspire:329 pbaspire:340 pbaspire:325
 #, sh-format
 msgid "Get/Update binary Debian done : \\Z3${PBNAME}debian\\Zn."
 msgstr ""
 
-#: pbaspire:336 pbaspire:335 pbaspire:346
+#: pbaspire:336 pbaspire:335 pbaspire:346 pbaspire:331
 #, sh-format
 msgid ""
 "Get/Update Firefox and Thunderbird for $XLANG language done : \\Z3${PBNAME}"
 "mozilla\\Zn."
 msgstr ""
 
-#: pbaspire:340 pbaspire:339 pbaspire:350
+#: pbaspire:340 pbaspire:339 pbaspire:350 pbaspire:335
 msgid "GPG signatures checked :"
 msgstr ""
 
 #: pbaspire:349 pbsetup:321 pbupgrade:369 pbcompile:283 pbaspire:348
 #: pbaspire:359 pbupgrade:370 pbcompile:282 pbupgrade:380 pbcompile:288
-#: pbupgrade:394 pbcompile:295
+#: pbupgrade:394 pbcompile:295 pbaspire:344
 msgid "No action was demanded. Exit."
 msgstr ""
 
 #: pbaspire:352 pbsetup:325 pbupgrade:82 pbcompile:75 pbaspire:351 pbaspire:362
+#: pbaspire:347
 msgid "Actions which were done"
 msgstr ""
 
 #: pbaspirealien:14 pbaspiremoz:19 pbaspireother:14 pbaspireponce:14
-#: pbaspireslonly:14 pbaspiresources:14 pbcompilepost:19 pbcompilekde4:19
-#: pbaspiresources:18
+#: pbaspiresources:14 pbcompilepost:19 pbcompilekde4:19 pbaspiresources:18
 msgid ""
 "Launch this script in the directory including packages, packages2 et al."
 msgstr ""
@@ -352,7 +347,7 @@ msgid ""
 msgstr ""
 
 #: pbcompilepost:308 pbcompilekde4:210 pbcompilegdm:79 pbcompilepost:317
-#: pbcompilepost:328 pbcompilekde4:226
+#: pbcompilepost:328 pbcompilekde4:226 pbcompilepost:331
 msgid "Upgrade packages* done."
 msgstr ""
 
@@ -360,7 +355,7 @@ msgstr ""
 msgid "Correct this error and relaunch this script."
 msgstr ""
 
-#: pbinclude:78 pbinclude:81 pbinclude:93
+#: pbinclude:78 pbinclude:81 pbinclude:93 pbinclude:97
 #, sh-format
 msgid "Delete : $j"
 msgstr ""
@@ -1216,45 +1211,45 @@ msgstr ""
 msgid "Get/Update Sarpi installer for arm Slackware"
 msgstr ""
 
-#: pbaspire:214
+#: pbaspire:214 pbaspire:208
 msgid "Get or update the Sarpi installer for arm Slackware."
 msgstr ""
 
-#: pbaspire:288
+#: pbaspire:288 pbaspire:278
 #, sh-format
 msgid "Get/Update core system done : \\Z3${PBNAME}${RARCH}core\\Zn."
 msgstr ""
 
-#: pbaspire:290
+#: pbaspire:290 pbaspire:280
 #, sh-format
 msgid ""
 "Get/Update multilib compat 32 bits mode done : \\Z3${PBNAME}${RARCH}core\\Zn."
 msgstr ""
 
-#: pbaspire:292
+#: pbaspire:292 pbaspire:282
 #, sh-format
 msgid ""
 "Get/Update KDE5 frameworks libraries done : \\Z3${PBNAME}${RARCH}core\\Zn."
 msgstr ""
 
-#: pbaspire:294
+#: pbaspire:294 pbaspire:284
 #, sh-format
 msgid "Get/Update gparted live iso done : \\Z3${PBNAME}${RARCH}core\\Zn."
 msgstr ""
 
-#: pbaspire:296
+#: pbaspire:296 pbaspire:286
 #, sh-format
 msgid "Get/Update VirtualBox installer done : \\Z3${PBNAME}${RARCH}core\\Zn."
 msgstr ""
 
-#: pbaspire:298
+#: pbaspire:298 pbaspire:288
 #, sh-format
 msgid ""
 "Get/Update Sarpi installer for arm Slackware done : \\Z3${PBNAME}${RARCH}core"
 "\\Zn."
 msgstr ""
 
-#: pbaspire:300
+#: pbaspire:300 pbaspire:290
 #, sh-format
 msgid "Local repository cleaned : \\Z3${PBNAME}${RARCH}core\\Zn."
 msgstr ""

@@ -55,7 +55,6 @@ GPARTED=$(mygt 'Get/Update GParted live iso')
 VBOX=$(mygt 'Get/Update VirtualBox installer')
 ALIEN=$(mygt 'Get/Update some Alien Bob binary packages')
 PONCE=$(mygt 'Get/Update some Ponce binary packages')
-SLONLY=$(mygt 'Get/Update some Slackonly binary packages')
 OTHER=$(mygt 'Get/Update some Conraid or Slackel binary packages')
 SOURCES=$(mygt 'Get/Update some other source packages')
 DEBIAN=$(mygt 'Get/Update latest binary Debian packages')
@@ -67,14 +66,14 @@ xmaster () {
     defitem=$1;shift
     xsel1=$1;shift;xsel2=$1;shift;xkde4=$1;shift;xsel3=$1;shift;xsgdm=$1;shift
     xssar=$1;shift;xsel4=$1;shift;xsel5=$1;shift;xsel6=$1;shift;xsel7=$1;shift
-    xsel8=$1;shift;xsel9=$1;shift;xsel10=$1;shift;xsedeb=$1;shift;xsel11=$1;shift
+    xsel9=$1;shift;xsel10=$1;shift;xsedeb=$1;shift;xsel11=$1;shift
     xsel12=$1;shift;xsel13=$1
     pactit=$(mygt 'Main menu');pactit="pbaspire: $pactit"
     pactxt=$(mygt 'Choose your actions below')
     if [ $ISDIAL -eq 1 ] ;then
 	dialog --colors --backtitle 'pbaspire' --title "$pactit" \
 	    --default-item $defitem --defaultno --separate-output --item-help \
-	    --help-button --help-status --checklist "$pactxt" 0 100 17 \
+	    --help-button --help-status --checklist "$pactxt" 0 100 16 \
 	    core "$CORE" $xsel1 core \
 	    multi "$MULTI" $xsel2 multi \
 	    kde4 "$KDE4" $xkde4 kde4 \
@@ -85,7 +84,6 @@ xmaster () {
 	    vbox "$VBOX" $xsel5 vbox \
 	    alien "$ALIEN" $xsel6 alien \
 	    ponce "$PONCE" $xsel7 ponce \
-	    slonly "$SLONLY" $xsel8 slonly \
 	    other "$OTHER" $xsel9 other \
 	    sources "$SOURCES" $xsel10 sources \
 	    debian "$DEBIAN" $xsedeb debian \
@@ -118,8 +116,6 @@ xmaster () {
 	    if [ "$c" = "y" ] ;then echo "HELP alien" 1>&2;return;fi
 	    echo "HELP ponce (y or n) :";read c
 	    if [ "$c" = "y" ] ;then echo "HELP ponce" 1>&2;return;fi
-	    echo "HELP slonly (y or n) :";read c
-	    if [ "$c" = "y" ] ;then echo "HELP slonly" 1>&2;return;fi
 	    echo "HELP other (y or n) :";read c
 	    if [ "$c" = "y" ] ;then echo "HELP other" 1>&2;return;fi
 	    echo "HELP sources (y or n) :";read c
@@ -153,8 +149,6 @@ xmaster () {
 	[ "$c" = "y" ] && echo "alien" 1>&2
 	echo "$PONCE (y or n) :";read c
 	[ "$c" = "y" ] && echo "ponce" 1>&2
-	echo "$SLONLY (y or n) :";read c
-	[ "$c" = "y" ] && echo "slonly" 1>&2
 	echo "$OTHER (y or n) :";read c
 	[ "$c" = "y" ] && echo "other" 1>&2
 	echo "$SOURCES (y or n) :";read c
@@ -181,7 +175,7 @@ xdebian=off
 xkde4=$xframe
 [ $PBARCH = arm ] && xkde4=off
 # Preselect sets.
-xsel="on $xother $xkde4 $xframe on $xdebian $xother $xother $xother $xother $xother $xother $xother $xdebian $xother off off"
+xsel="on $xother $xkde4 $xframe on $xdebian $xother $xother $xother $xother $xother $xother $xdebian $xother off off"
 ditem=core
 bclaide=1
 
@@ -192,7 +186,7 @@ while [ $bclaide -eq 1 ] ;do
 	xitem="$(cat $XTEMPOUT|grep '^HELP'|cut -d ' ' -f2)"
 	xsel=
 	for i in core multi kde4 framew gdm sarpi gparted vbox alien ponce \
-		      slonly other sources debian mozilla check clean ;do
+		      other sources debian mozilla check clean ;do
 	  if [ $(grep "^$i$" "$XTEMPOUT"|wc -l) -eq 1 ] ;then
 	      xsel="$xsel on"
 	  else
@@ -220,8 +214,6 @@ while [ $bclaide -eq 1 ] ;do
 	    pacaide=$(mygt 'Get or update some Alien Bob binary packages.')
 	elif [ "$xitem" = ponce ] ;then
 	    pacaide=$(mygt 'Get or update some Ponce binary packages.')
-	elif [ "$xitem" = slonly ] ;then
-	    pacaide=$(mygt 'Get or update some Slackonly binary packages.')
 	elif [ "$xitem" = other ] ;then
 	    pacaide=$(mygt 'Get or update some Conraid and Slackel binary packages.')
 	elif [ "$xitem" = sources ] ;then
@@ -257,7 +249,6 @@ ISGPARTED="$(cat $XTEMPOUT|grep '^gparted$'|wc -l)"
 ISVBOX="$(cat $XTEMPOUT|grep '^vbox$'|wc -l)"
 ISALIEN="$(cat $XTEMPOUT|grep '^alien$'|wc -l)"
 ISPONCE="$(cat $XTEMPOUT|grep '^ponce$'|wc -l)"
-ISSLONLY="$(cat $XTEMPOUT|grep '^slonly$'|wc -l)"
 ISOTHER="$(cat $XTEMPOUT|grep '^other$'|wc -l)"
 ISSOURCES="$(cat $XTEMPOUT|grep '^sources$'|wc -l)"
 ISMOZ="$(cat $XTEMPOUT|grep '^mozilla$'|wc -l)"
@@ -266,7 +257,6 @@ ISCHECK="$(cat $XTEMPOUT|grep '^check$'|wc -l)"
 ISCLEAN="$(cat $XTEMPOUT|grep '^clean$'|wc -l)"
 [ $PBARCH = arm ] && ISALIEN=0
 [ $PBARCH = arm ] && ISPONCE=0
-[ $PBARCH = arm ] && ISSLONLY=0
 [ $PBARCH = arm ] && ISOTHER=0
 [ $PBARCH != arm ] && ISSARPI=0
 
@@ -318,11 +308,6 @@ fi
 if [ $ISPONCE -eq 1 ] ;then
     [ $XTEST -ne 1 ] && "$PBNAME"ponce
     emygt "Get/Update Ponce packages done : \Z3\${PBNAME}ponce\Zn." >> $XTEMPMES
-fi
-if [ $ISSLONLY -eq 1 ] ;then
-    [ $XTEST -ne 1 ] && "$PBNAME"slonly
-    emygt "Get/Update Slackonly packages done : \Z3\${PBNAME}slonly\Zn." \
-	>> $XTEMPMES
 fi
 if [ $ISOTHER -eq 1 ] ;then
     [ $XTEST -ne 1 ] && "$PBNAME"other
