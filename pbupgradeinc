@@ -37,7 +37,7 @@ xhookpac1 () {
     removepkg OpenAL
     removepkg OpenAL-compat32
     rm -f packages/openal-soft-1.*_SBo.tgz
-    rm -f packages/wxPython-2.8.12.1-x86_64-5_slonly.*
+    rm -f packages/*_slonly.*
     rm -f packages/32/wxPython-2.8.12.1-i486-3dj.*
 }
 
@@ -46,8 +46,8 @@ xhookpac2 () {
     cp packages2/youtube.lua $XLIBDIR/vlc/lua/playlist
     rm -f $XLIBDIR/vlc/lua/playlist/youtube.luac
     rm -f packages2/discord-*.tar.gz
-    rm -f packages2/t1utils-1.41-x86_64-1_slonly.*
-    rm -f packages2/lsdvd-0.17-x86_64-2_slonly.*
+    rm -f packages2/*_slonly.*
+    removepkg evince
 }
 
 xhookpac3 () {

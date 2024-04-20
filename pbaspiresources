@@ -92,10 +92,12 @@ fi
 ############################################
 (
     cd packages2
-    for i in roccat-tools PyYAML lutris lsdvd visual-studio-code sqlitebrowser \
-	     libx86emu hwinfo irrlicht ;do
+    for i in gnome-icon-theme evince-gtk2 libsmf roccat-tools PyYAML lutris \
+			      lsdvd visual-studio-code sqlitebrowser libx86emu \
+			      hwinfo irrlicht ;do
 	xgetsbosrc "$i"
     done
+    
     # kmplayer don't work with above 2020 MPlayer.
     xlocalsrcpac MPlayer2020 "Blue-1.13.tar.bz2"
     xlocalsrcpac MPlayer2020 "MPlayer-20200103.tar.xz"
@@ -114,12 +116,12 @@ fi
     xgetsrc bsddb3 "$PATHBSDDB3"
     xgetsrc db53 "$PATHDB53"
     xgetsrc db53 "$PATHDB53BIS"
-    xgetsbosrc pyicu
+    
+    for i in pyicu goocanvas2 msgpack-python cffi pycparser ;do
+	xgetsbosrc "$i"
+    done
+
     xgetsrc gramps "$PATHGRAMPS"
-    xgetsbosrc goocanvas2
-    xgetsbosrc msgpack-python
-    xgetsbosrc cffi
-    xgetsbosrc pycparser
 )
 
 ############################################
@@ -134,9 +136,11 @@ fi
     xgetsrc eigen3 "$PATHEIGEN3"
     xgetsrc opencv "$PATHOPENCV"
     xgetsrc opencv "$PATHOPENCVBIS"
+    
     for i in kaffeine gradle audiveris vokoscreen ;do
 	xgetsbosrc "$i"
     done
+    
     for i in opera signal-desktop zoom-linux telegram-bin vivaldi \
 		   brave-browser google-chrome-the-latest ;do
 	xgetsbosrc "$i" $RARCH
