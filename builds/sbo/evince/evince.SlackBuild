@@ -1,10 +1,10 @@
-#!/bin/bash
+#!/bin/sh
 
-# Slackware build script for evince-gtk2
+# Slackware build script for evince
 
-# Copyright 2023 Petar Petrov slackalaxy@gmail.com
 # Copyright 2009  Andrew Brouwers <abrouwers@gmail.com>
-# Copyright 2009, Michiel van Wessem, Manchester, United Kingdom.
+# Copyright 2009-2014, Michiel van Wessem, Manchester, United Kingdom.
+# Copyright 2019, B. Watson
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,14 +24,18 @@
 # OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-cd $(dirname $0) ; CWD=$(pwd)
+# Now maintained by B. Watson <yalhcru@gmail.com>
 
-PRGNAM=evince-gtk2
-SRCNAM=evince
-VERSION=${VERSION:-2.32.0}
+# 20191231 bkw:
+# - take over maintenance
+# - update for v3.28.5.3, which is the last version that will build with
+#   Slack 14.2's rather outdated gtk+3 libraries. Actually it requires
+#   some fugly hackery to work, see shim.h for gory details and polemic.
+
+PRGNAM=evince
+VERSION=${VERSION:-3.28.5}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_PB}
-PKGTYPE=${PKGTYPE:-txz}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -41,13 +45,7 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-NLS=${NLS:-YES}
-
-if [ ! -z "${PRINT_PACKAGE_NAME}" ]; then
-  echo "$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.$PKGTYPE"
-  exit 0
-fi
-
+CWD=$(pwd)
 TMP=${TMP:-/tmp/PB}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
@@ -55,8 +53,8 @@ OUTPUT=${OUTPUT:-/tmp}
 if [ "$ARCH" = "i586" ]; then
   SLKCFLAGS="-O2 -march=i586 -mtune=i686"
   LIBDIRSUFFIX=""
-elif [ "$ARCH" = "i686" ]; then
-  SLKCFLAGS="-O2 -march=i686 -mtune=i686"
+elif [ "$ARCH" = "s390" ]; then
+  SLKCFLAGS="-O2"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "x86_64" ]; then
   SLKCFLAGS="-O2 -fPIC"
@@ -71,22 +69,34 @@ set -e
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
-rm -rf $SRCNAM-$VERSION
-tar xvf $CWD/$SRCNAM-$VERSION.tar.bz2
-cd $SRCNAM-$VERSION
+rm -rf $PRGNAM-$VERSION
+tar xvf $CWD/$PRGNAM-$VERSION.tar.xz
+cd $PRGNAM-$VERSION
 chown -R root:root .
-find -L . \
- \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
-  -o -perm 511 \) -exec chmod 755 {} \; -o \
- \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
-  -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
+find -L .  -perm /111 -a \! -perm 755 -a -exec chmod 755 {} \+ -o \
+        \! -perm /111 -a \! -perm 644 -a -exec chmod 644 {} \+
 
+# If we have any patches apply them here:
+#  http://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo-x86/app-text/evince/files/
+
+# 20191231 bkw: I'll leave this here, but I have NOT tested it.
+# It was never documented in README, caveat hactor.
+NLS=${NLS:-YES}
 if [ "$NLS" != "YES" ]; then
     # disable NLS - we're going for a small package here.
     rm po/*.po
     sed -i -e 's/USE_NLS=yes/USE_NLS=no/g' \
       -e 's/ENABLE_NLS 1/ENABLE_NLS 0/g' configure
 fi
+
+# 20200101 bkw: 14.2's mime stuff identifies djvu files as
+# image/vnd.djvu only, but evince wants image/vnd.djvu+multipage.
+sed -i '/^ *DJVU_MIME_TYPES/s|="|&image/vnd.djvu;|' configure
+
+# If we were building 3.30.x, we'd need this:
+# --without-gspell \
+
+cat $CWD/document_model.patch | patch -p1
 
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
@@ -98,47 +108,36 @@ CXXFLAGS="$SLKCFLAGS" \
   --localstatedir=/var \
   --mandir=/usr/man \
   --docdir=/usr/doc/$PRGNAM-$VERSION \
-  --without-keyring \
-  --without-gconf \
-  --disable-dbus \
+  --enable-dbus \
   --enable-pdf \
   --enable-tiff \
   --enable-djvu \
   --enable-t1lib \
-  --enable-pixbuf \
   --enable-comics \
-  --enable-impress \
-  --disable-dvi \
+  --enable-dvi \
+  --enable-ps \
+  --enable-xps \
+  --enable-introspection \
   --disable-static \
-  --disable-schemas-install \
-  --disable-scrollkeeper \
   --disable-nautilus \
-  --disable-introspection \
   --disable-maintainer-mode \
+  --with-systemduserunitdir=no \
   --build=$ARCH-slackware-linux
 
-make LDFLAGS=-lICE
-make install DESTDIR=$PKG
+# ugh. glib-genmarshal's flags changed gratuitously.
+sed -i 's,--prototypes,--header,' libview/Makefile
 
-rm -f $PKG/{,usr/}lib${LIBDIRSUFFIX}/*.la
+make V=1
+make install-strip DESTDIR=$PKG
 
 # Fix desktop entry
 sed -i "/NoDisplay=true/d" $PKG/usr/share/applications/evince.desktop
 
-# Remove these
-rm -rf $PKG/*.schemas
-
-find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
-  | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
-
-find $PKG/usr/man -type f -exec gzip -9 {} \;
-for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
+gzip -9 $PKG/usr/man/man1/$PRGNAM.1
 
 rm -rf $PKG/{usr/share/gtk-doc,etc}
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-cp -a \
- AUTHORS COPYING NEWS README \
- $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a AUTHORS COPYING NEWS README MAINTAINERS $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
@@ -146,4 +145,4 @@ cat $CWD/slack-desc > $PKG/install/slack-desc
 cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
-/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.$PKGTYPE
+/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-txz}

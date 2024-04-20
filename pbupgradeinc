@@ -47,7 +47,6 @@ xhookpac2 () {
     rm -f $XLIBDIR/vlc/lua/playlist/youtube.luac
     rm -f packages2/discord-*.tar.gz
     rm -f packages2/*_slonly.*
-    removepkg evince
 }
 
 xhookpac3 () {

@@ -24,6 +24,7 @@
 # Remplacez pick par edit sur ces commits.
 # git commit --amend --reset-author --no-edit
 # git rebase --continue
+# git checkout a4a7bb2b14f758b6bb4b180d40af884278c9300e -- builds/sbo
 
 SAVEPROD=..
 REMPNAME=$(basename "$0")

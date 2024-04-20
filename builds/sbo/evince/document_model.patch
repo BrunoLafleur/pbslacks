@@ -1,0 +1,16 @@
+diff -rU5 evince-3.28.5old/libview/ev-document-model.h evince-3.28.5/libview/ev-document-model.h
+--- evince-3.28.5old/libview/ev-document-model.h	2018-10-23 20:33:50.000000000 +0200
++++ evince-3.28.5/libview/ev-document-model.h	2024-04-20 17:49:30.000000000 +0200
+@@ -52,11 +52,11 @@
+ 	EV_PAGE_LAYOUT_SINGLE,
+ 	EV_PAGE_LAYOUT_DUAL,
+ 	EV_PAGE_LAYOUT_AUTOMATIC
+ } EvPageLayout;
+ 
+-GType            ev_document_model_get_type          (void) G_GNUC_CONST;
++/* GType            ev_document_model_get_type          (void) G_GNUC_CONST; */
+ EvDocumentModel *ev_document_model_new               (void);
+ EvDocumentModel *ev_document_model_new_with_document (EvDocument      *document);
+ 
+ void             ev_document_model_set_document      (EvDocumentModel *model,
+ 						      EvDocument      *document);

@@ -1,5 +1,4 @@
-This is the last GTK2 version of evince. It will conflict with the 
-latest one, so don't install both.
+evince (a simple gtk-based document viewer)
 
 Evince is a document viewer for multiple document formats. It currently 
 supports pdf, postscript, djvu, tiff and dvi. The goal of evince is to 
@@ -14,3 +13,11 @@ Evince is specifically designed to support the following file formats:
 * CBR/CBZ (comic books)
 * DVI (requires optional dependency texlive)
 * XPS (requires optional dependency libgxps)
+
+This uses dconf (runtime-only) to save various settings (and even 
+then, not ALL settings are saved).
+
+Note: this is the last version I could get to compile and run on Slackware
+14.2. Newer versions of evince require newer glib2 and gtk+3 libraries
+than 14.2 provides, so please don't email me asking for updates (you'll
+have to wait until Slackware 15.0 is released).

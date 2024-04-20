@@ -69,7 +69,9 @@ rm -rf $PKG/usr/lib${LIBDIRSUFFIX}/lib*.a
 rm -rf $PKG/usr/lib${LIBDIRSUFFIX}/lib*.so.3.*
 
 # We keep libs only.
-rm -rf $PKG/usr/man $PKG/usr/bin
+rm -rf $PKG/usr/man
+rm -rf $PKG/usr/include
+rm -rf $PKG/usr/bin
 rm -rf $PKG/usr/lib$LIBDIRSUFFIX/pkgconfig
 
 mkdir -p $PKG/usr/doc/$PKGNAM-$VERSION
