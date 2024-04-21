@@ -144,7 +144,7 @@ if [ $ISPAC1 -eq 1 ] ;then
     if [ $PBARCH = x64 ] ;then
 	rm -f packages/compat32/wxPython-compat32-[0-9]*djcompat32.*	
 	for i in cabextract libdvdcss icoutils GConf openal-soft libtxc_dxtn \
-			    gstreamer0 gst-plugins-base0 wxPython python2 ;do
+			    python2 gstreamer0 gst-plugins-base0 wxPython ;do
 	    (export ARCH=i486;xmakepac packages $i 32)
 	    [ $? -ne 0 ] && exit 1
 	done

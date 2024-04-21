@@ -22,7 +22,7 @@
 # OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-cd $(dirname $0) ; CWD=$(pwd)
+cd $(dirname $0);CWD=$(pwd)
 
 PKGNAM=gstreamer0
 SRCNAM=gstreamer
@@ -51,8 +51,14 @@ fi
 NUMJOBS=${NUMJOBS:-" -j$(expr $(nproc) + 1) "}
 
 if [ "$ARCH" = "i486" -o "$ARCH" = "i586" -o "$ARCH" = "i686" ]; then
-  SLKCFLAGS="-O2 -m32 -march=i586 -mtune=i686"
+  SLKCFLAGS="-O2 -m32 -march=i586 -mtune=i686 -fPIC"
   LIBDIRSUFFIX=""
+
+  # Installer python2 32 bits.
+  #if [ -d /usr/lib64 -a -x /usr/bin/32/g-ir-compiler ] ;then
+  #    sed -i 's/^bindir=${prefix}\/bin$/bindir=\${prefix}\/bin\/32/' \
+  #	  /usr/lib/pkgconfig/gobject-introspection-1.0.pc
+  #fi
 elif [ "$ARCH" = "s390" ]; then
   SLKCFLAGS="-O2"
   LIBDIRSUFFIX=""
@@ -86,9 +92,11 @@ zcat $CWD/gstreamer-0.10.36-bison3.patch.gz | patch -p1 --verbose || exit 1
 
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
+LDFLAGS="$SLKCFLAGS" \
 ./configure \
   --prefix=/usr \
   --libdir=/usr/lib${LIBDIRSUFFIX} \
+  --with-pkg-config-path=/usr/lib${LIBDIRSUFFIX}/pkgconfig \
   --sysconfdir=/etc \
   --localstatedir=/var \
   --mandir=/usr/man \
@@ -105,8 +113,8 @@ CXXFLAGS="$SLKCFLAGS" \
 # gstreamer (10.22) from compiling.  Check again with future releases.
 # Seems fine as of 0.10.26, so it's enabled again  -RW
 
-make $NUMJOBS || make || exit 1
-make install DESTDIR=$PKG || exit 1
+make $NUMJOBS || make -i || exit 1
+make -i install DESTDIR=$PKG || exit 1
 
 # Don't ship .la files:
 rm -f $PKG/{,usr/}lib${LIBDIRSUFFIX}/*.la
@@ -146,5 +154,5 @@ mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 
 cd $PKG
-/sbin/makepkg -l y -c n $OUTPUT/${PKGNAM}-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
+/sbin/makepkg -l y -c n $OUTPUT/${PKGNAM}-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-txz}
 
