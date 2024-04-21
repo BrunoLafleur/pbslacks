@@ -28,7 +28,7 @@
 #   ./KDE.SlackBuild kdeedu:marble
 #   ./KDE.SlackBuild kdebindings:perlqt,perlkde
 
-TAG=${TAG:-_SBo}
+TAG=${TAG:-_PB}
 
 CLEANUP=${CLEANUP:-"yes"} # clean up build directory after successful build.
 PRECHECK=${PRECHECK:-"no"} # don't let the script check the available sources.

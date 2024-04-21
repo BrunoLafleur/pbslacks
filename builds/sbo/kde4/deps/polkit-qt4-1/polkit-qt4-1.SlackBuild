@@ -22,13 +22,13 @@
 
 # Modified by Pierre Brochard (pierre.brochard.1982@m4x.org)
 
-cd $(dirname $0) ; CWD=$(pwd)
+cd $(dirname $0);CWD=$(pwd)
 
 PKGNAM=polkit-qt4-1
 SRCNAM=polkit-qt-1
 VERSION=${VERSION:-$(echo $SRCNAM-*.tar.?z* | rev | cut -f 3- -d . | cut -f 1 -d - | rev)}
 BUILD=${BUILD:-2}
-TAG=${TAG-_SBo}
+TAG=${TAG-_PB}
 
 NUMJOBS=${NUMJOBS:-" -j$(expr $(nproc) + 1) "}
 
@@ -75,7 +75,7 @@ if [ -d /usr/lib${LIBDIRSUFFIX}/qt ]; then
     PATH=$QTDIR/bin:$PATH;export PATH
 fi
 
-TMP=${TMP:-/tmp/SBo}
+TMP=${TMP:-/tmp/PB}
 PKG=$TMP/package-$PKGNAM
 OUTPUT=${OUTPUT:-/tmp}
 

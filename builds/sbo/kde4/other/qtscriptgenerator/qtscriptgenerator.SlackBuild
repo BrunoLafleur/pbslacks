@@ -25,12 +25,12 @@
 
 # New version from Pierre Brochard (pierre.brochard.1982@m4x.org)
 
-cd $(dirname $0) ; CWD=$(pwd)
+cd $(dirname $0);CWD=$(pwd)
 
 PKGNAM=qtscriptgenerator
 VERSION=${VERSION:-0.2.0}
 BUILD=${BUILD:-3}
-TAG=${TAG-_SBo}
+TAG=${TAG-_PB}
 
 # Automatically determine the architecture we're building on:
 if [ -z "$ARCH" ]; then
@@ -80,12 +80,13 @@ if [ -d /usr/lib${LIBDIRSUFFIX}/qt ]; then
   QTDIR=/usr/lib${LIBDIRSUFFIX}/qt
 fi
 
-TMP=${TMP:-/tmp/SBo}
+TMP=${TMP:-/tmp/PB}
 PKG=$TMP/package-$PKGNAM
 OUTPUT=${OUTPUT:-/tmp}
 
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
+
 cd $TMP
 rm -rf $PKGNAM-src-$VERSION
 tar xvf $CWD/$PKGNAM-src-$VERSION.tar.?z* || exit 1

@@ -23,8 +23,6 @@
 
 # Modified by Pierre Brochard (pierre.brochard.1982@m4x.org)
 
-cd $(dirname $0) ; CWD=$(pwd)
-
 # Pull this package from git due to some copyright related
 # problems going on at Canonical...
 # git clone git://gitorious.org/dbusmenu/dbusmenu-qt.git dbusmenu-qt
@@ -32,11 +30,13 @@ cd $(dirname $0) ; CWD=$(pwd)
 # Get version number from
 # grep dbusmenu_qt_VERSION dbusmenu-qt/CMakeLists.txt
 
+cd $(dirname $0);CWD=$(pwd)
+
 PKGNAM=libdbusmenu-qt4
 SRCNAM=libdbusmenu-qt
 VERSION=${VERSION:-$(echo $SRCNAM-*.tar.?z* | rev | cut -f 3- -d . | cut -f 1 -d - | rev)}
 BUILD=${BUILD:-3}
-TAG=${TAG-_SBo}
+TAG=${TAG-_PB}
 
 NUMJOBS=${NUMJOBS:-" -j$(expr $(nproc) + 1) "}
 
@@ -74,7 +74,7 @@ else
   LIBDIRSUFFIX=""
 fi
 
-TMP=${TMP:-/tmp/SBo}
+TMP=${TMP:-/tmp/PB}
 PKG=$TMP/package-$PKGNAM
 OUTPUT=${OUTPUT:-/tmp}
 

@@ -23,7 +23,7 @@
 
 # Modified by Pierre Brochard (pierre.brochard.1982@m4x.org)
 
-cd $(dirname $0) ; CWD=$(pwd)
+cd $(dirname $0);CWD=$(pwd)
 
 PKGNAM=extra-cmake-modules
 SRCNAM=extra-cmake-modules
@@ -69,12 +69,13 @@ else
   LIBDIRSUFFIX=""
 fi
 
-TMP=${TMP:-/tmp/SBo}
+TMP=${TMP:-/tmp/PB}
 PKG=$TMP/package-$PKGNAM
 OUTPUT=${OUTPUT:-/tmp}
 
 rm -rf $PKG
 mkdir -p $PKG $TMP $OUTPUT
+
 cd $TMP
 rm -rf $SRCNAM-$SRCVER
 tar xvf $CWD/$SRCNAM-$VERSION.tar.?z || exit 1

@@ -3,10 +3,12 @@
 # Packager Submax (Massimo Cavalleri)
 # http://www.freedesktop.org/wiki/Software/liblazy
 
+cd $(dirname $0);CWD=$(pwd)
+
 PKGNAM=liblazy
 VERSION=0.2
 BUILD=${BUILD:-6}
-TAG=${TAG:-_SBo}
+TAG=${TAG:-_PB}
 
 NUMJOBS=${NUMJOBS:--j7}
 
@@ -31,7 +33,7 @@ fi
 # the name of the created package would be, and then exit. This information
 # could be useful to other scripts.
 if [ ! -z "${PRINT_PACKAGE_NAME}" ]; then
-  echo "$PKGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}"
+  echo "$PKGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-txz}"
   exit 0
 fi
 
@@ -46,8 +48,7 @@ case $ARCH in
     "s390") SLKCFLAGS="-O2" ; SLKLIBDIR=lib ; CHOST=s390 ;;
 esac
 
-CWD=$(pwd)
-TMP=${TMP:-/tmp/SBo}
+TMP=${TMP:-/tmp/PB}
 PKG=$TMP/package-$PKGNAM
 OUTPUT=${OUTPUT:-/tmp}
 
@@ -111,4 +112,4 @@ chown -R root:root $PKG
 if [ -x "$(which requiredbuilder)" ]; then
    requiredbuilder -y -v -s $CWD $PKG
 fi
-/sbin/makepkg -l y -c n $OUTPUT/$PKGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
+/sbin/makepkg -l y -c n $OUTPUT/$PKGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-txz}

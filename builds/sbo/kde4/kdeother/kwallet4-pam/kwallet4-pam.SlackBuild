@@ -25,7 +25,7 @@
 
 # New version from Pierre Brochard (pierre.brochard.1982@m4x.org)
 
-cd $(dirname $0) ; CWD=$(pwd)
+cd $(dirname $0);CWD=$(pwd)
 
 PKGNAM=kwallet4-pam
 SRCNAM=kwallet-pam
@@ -72,12 +72,13 @@ else
   LIBDIRSUFFIX=""
 fi
 
-TMP=${TMP:-/tmp/SBo}
+TMP=${TMP:-/tmp/PB}
 PKG=$TMP/package-$PKGNAM
 OUTPUT=${OUTPUT:-/tmp}
 
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
+
 cd $TMP
 rm -rf $SRCNAM-$VERSION
 tar xvf $CWD/${SRCNAM}_$VERSION.tar.?z* || exit 1

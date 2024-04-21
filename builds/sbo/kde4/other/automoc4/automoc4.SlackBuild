@@ -22,12 +22,12 @@
 
 # New version from Pierre Brochard (pierre.brochard.1982@m4x.org)
 
-cd $(dirname $0) ; CWD=$(pwd)
+cd $(dirname $0);CWD=$(pwd)
 
 PKGNAM=automoc4
 VERSION=${VERSION:-$(echo $PKGNAM-*.tar.?z* | rev | cut -f 3- -d . | cut -f 1 -d - | rev)}
 BUILD=${BUILD:-2}
-TAG=${TAG-_SBo}
+TAG=${TAG-_PB}
 
 # Automatically determine the architecture we're building on:
 if [ -z "$ARCH" ]; then
@@ -63,12 +63,13 @@ else
   LIBDIRSUFFIX=""
 fi
 
-TMP=${TMP:-/tmp/SBo}
+TMP=${TMP:-/tmp/PB}
 PKG=$TMP/package-automoc4
 OUTPUT=${OUTPUT:-/tmp}
 
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
+
 cd $TMP
 tar xvf $CWD/automoc4-$VERSION.tar.?z* || exit 1
 cd automoc4-$VERSION || exit 1

@@ -26,13 +26,13 @@
 # Modified by Robby Workman <rworkman@slackware.com>
 # Modified by Eric Hameleers <alien@slackware.com>
 
-cd $(dirname $0) ; CWD=$(pwd)
+cd $(dirname $0);CWD=$(pwd)
 
 PKGNAM=PyQt
 SRCNAM=PyQt4_gpl_x11
 VERSION=${VERSION:-$(echo ${SRCNAM}-*.tar.?z | rev | cut -f 3- -d . | cut -f 1 -d - | rev)}
 BUILD=${BUILD:-1}
-TAG=${TAG-_SBo}
+TAG=${TAG-_PB}
 
 # Automatically determine the architecture we're building on:
 if [ -z "$ARCH" ]; then
@@ -72,12 +72,9 @@ fi
 
 NUMJOBS=${NUMJOBS:-" -j$(expr $(nproc) + 1) "}
 
-TMP=${TMP:-/tmp/SBo}
+TMP=${TMP:-/tmp/PB}
 PKG=$TMP/package-${PKGNAM}
 OUTPUT=${OUTPUT:-/tmp}
-
-PYTHON2LIB=$( python2 -c 'from distutils.sysconfig import get_python_lib; print(get_python_lib())' 2>/dev/null )
-PYTHON3LIB=$( python3 -c 'from distutils.sysconfig import get_python_lib; print(get_python_lib())' 2>/dev/null )
 
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
@@ -105,6 +102,8 @@ export CFLAGS="$SLKCFLAGS"
 export CXXFLAGS="$SLKCFLAGS"
 
 PATH=${PATH}:/usr/lib$LIBDIRSUFFIX/qt/bin;export PATH
+PYTHON3LIB=$(python3 -c 'from distutils.sysconfig import get_python_lib; print(get_python_lib())' 2>/dev/null )
+
 python3 configure.py \
   --confirm-license \
   --qsci-api \
@@ -114,7 +113,9 @@ make install DESTDIR=$PKG INSTALL_ROOT=$PKG || exit 1
 make clean
 
 mv $PKG/usr/bin/pyuic4 $PKG/usr/bin/pyuic4-py3
-rm -rf $PKG/$PYTHON3LIB/${PKGNAM}4/uic/port_v2/
+rm -rf $PKG/$PYTHON3LIB/${PKGNAM}4/uic/port_v2
+
+PYTHON2LIB=$(python2 -c 'from distutils.sysconfig import get_python_lib; print(get_python_lib())' 2>/dev/null )
 
 python2 configure.py \
   --confirm-license \
@@ -124,7 +125,7 @@ python2 configure.py \
 make $NUMJOBS || make || exit 1
 make install DESTDIR=$PKG INSTALL_ROOT=$PKG || exit 1
 
-rm -rf $PKG/$PYTHON2LIB/${PKGNAM}4/uic/port_v3/
+rm -rf $PKG/$PYTHON2LIB/${PKGNAM}4/uic/port_v3
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" \
   | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null

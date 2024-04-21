@@ -30,7 +30,7 @@ SRCNAM=eigen
 VERSION=2.0.17
 SRCVER="eigen-b23437e61a07"
 BUILD=${BUILD:-4}
-TAG=${TAG-_SBo}
+TAG=${TAG-_PB}
 
 # Automatically determine the architecture we're building on:
 MARCH=$( uname -m )
@@ -69,7 +69,7 @@ else
   LIBDIRSUFFIX=""
 fi
 
-TMP=${TMP:-/tmp/SBo}
+TMP=${TMP:-/tmp/PB}
 PKG=$TMP/package-$PKGNAM
 OUTPUT=${OUTPUT:-/tmp}
 

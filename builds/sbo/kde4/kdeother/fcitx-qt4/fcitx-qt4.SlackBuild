@@ -28,7 +28,7 @@
 
 # Keep the version of the fcitx package in sync with the one of the Slackware.
 
-cd $(dirname $0) ; CWD=$(pwd)
+cd $(dirname $0);CWD=$(pwd)
 
 PKGNAM=fcitx-qt4
 SRCNAM=fcitx
@@ -78,12 +78,13 @@ if [ ! -z "${PRINT_PACKAGE_NAME}" ]; then
   exit 0
 fi
 
-TMP=${TMP:-/tmp/SBo}
+TMP=${TMP:-/tmp/PB}
 PKG=$TMP/package-$PKGNAM
 OUTPUT=${OUTPUT:-/tmp}
 
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
+
 cd $TMP
 rm -rf ${SRCNAM}-$VERSION
 tar xvf $CWD/${SRCNAM}-${VERSION}.tar.?z || exit 1
