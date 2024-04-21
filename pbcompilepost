@@ -133,17 +133,18 @@ if [ $ISPAC1 -eq 1 ] ;then
     (
 	rm -f packages*/*-3alien*.t?z
 	rm -f packages/32/*-3alien*.t?z
+	
 	export BUILD=1PB
 	#xmakealienpac packages mlt
 	xmakealienpac source/l mlt packages
     )
-	
+
     # 32 bits packages
     # A faire ajoute gstreamer0
     if [ $PBARCH = x64 ] ;then
-	rm -f packages/compat32/wxPython-compat32-[0-9]*djcompat32.*
-	for i in python2 cabextract libdvdcss icoutils GConf gstreamer0 \
-			 gst-plugins-base0 openal-soft libtxc_dxtn wxPython ;do
+	rm -f packages/compat32/wxPython-compat32-[0-9]*djcompat32.*	
+	for i in cabextract libdvdcss icoutils GConf openal-soft libtxc_dxtn \
+			    gstreamer0 gst-plugins-base0 wxPython python2 ;do
 	    (export ARCH=i486;xmakepac packages $i 32)
 	    [ $? -ne 0 ] && exit 1
 	done

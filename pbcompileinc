@@ -31,6 +31,11 @@ xmakealienpac () {
     pac="$2"
     dest="$3"
     [ -z "$dest" ] && dest="$XDIR"
+
+    echo "--------------------------------------------"
+    echo "    Traitement de : $pac"
+    echo "--------------------------------------------"
+    
     if [ $RECOMP -eq 1 -a -d "${XDIR}/$pac" ] ;then
 	rm -rf /tmp/build/package-* /tmp/build/tmp-*
 	(
@@ -60,6 +65,11 @@ xmakepac () {
     pac="$2"
     XSUB="$3"
     dest="$XDIR/$XSUB"
+
+    echo "--------------------------------------------"
+    echo "    Traitement de : $pac"
+    echo "--------------------------------------------"
+
     if [ $RECOMP -eq 1 -a -d "${XDIR}/$pac" ] ;then
 	(
 	    cd "${XDIR}/$pac"
@@ -86,7 +96,8 @@ xmakepac () {
 	    rm -f /usr/lib/lib*.la
 	)
 	[ $? -ne 0 ] && exit 1
-    elif [ "$XSUB" = '' ] ;then
+    fi
+    if [ "$XSUB" = '' ] ;then
 	upgradepkg --install-new --reinstall "$XDIR/${pac}"-[0-9m]*.t?z
 	rm -f $XLIBDIR/lib*.la
     fi

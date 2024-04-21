@@ -52,12 +52,8 @@ fi
 NUMJOBS=${NUMJOBS:-" -j$(expr $(nproc) + 1) "}
 
 if [ "$ARCH" = "i486" -o "$ARCH" = "i586" -o "$ARCH" = "i686" ]; then
-    # i686 min there is some _mm_ intrinsics.
-  SLKCFLAGS="-O2 -march=i686 -mtune=i686 -m32 -mfpmath=sse -msse2"
+  SLKCFLAGS="-O2 -m32 -march=i586 -mtune=i686"
   LIBDIRSUFFIX=""
-  PKG_CONFIG_PATH=/usr/lib/pkgconfig:$PKG_CONFIG_PATH;export PKG_CONFIG_PATH
-  GLIB_EXTRA_CFLAGS="$SLKCFLAGS";export GLIB_EXTRA_CFLAGS
-  MYADDOPT='--disable-libvisual'
 elif [ "$ARCH" = "s390" ]; then
   SLKCFLAGS="-O2"
   LIBDIRSUFFIX=""
@@ -75,6 +71,7 @@ OUTPUT=${OUTPUT:-/tmp}
 
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
+
 cd $TMP
 rm -rf $SRCNAM-$VERSION
 tar xvf $CWD/$SRCNAM-$VERSION.tar.?z* || exit 1
@@ -94,7 +91,6 @@ cat $CWD/enum_headers.patch | patch -p1 --verbose || exit 1
 
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
-LDFLAGS="$SLKCFLAGS" \
 ./configure \
   --prefix=/usr \
   --libdir=/usr/lib${LIBDIRSUFFIX} \
@@ -102,12 +98,8 @@ LDFLAGS="$SLKCFLAGS" \
   --localstatedir=/var \
   --mandir=/usr/man \
   --disable-debug \
-  $MYADDOPT \
   --disable-static \
   --build=$ARCH-slackware-linux || exit 1
-
-CFLAGS="$SLKCFLAGS";export CFLAGS
-LDFLAGS="$SLKCFLAGS";export LDFLAGS
 
 make $NUMJOBS || make || exit 1
 make install DESTDIR=$PKG || exit 1
