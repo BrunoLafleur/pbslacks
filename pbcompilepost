@@ -210,7 +210,7 @@ if [ $ISPAC2 -eq 1 ] ;then
     for i in gnome-icon-theme evince libsmf fontforge texi2html lilypond \
 			      roccat-tools MPlayer2020 kmplayer denemo guile2.2 \
 			      discord PyYAML lutris lsdvd visual-studio-code \
-			      sqlitebrowser libx86emu hwinfo irrlicht ;do
+			      sqlitebrowser libx86emu hwinfo irrlicht valgrind ;do
 	xmakepac packages2 $i
     done
     xhookpac2

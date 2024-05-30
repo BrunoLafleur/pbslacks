@@ -9,7 +9,7 @@
 . "$(dirname $0)/pbupgradesys"
 
 # For systemnet upgrade. Change mirror if you want.
-SLACKMIR='http://nephtys.lip6.fr/pub/linux/distributions/slackware/slackware64-${SLACKVER}/'
+SLACKURL='http://nephtys.lip6.fr/pub/linux/distributions/slackware/slackware64-${SLACKVER}/'
 
 xhelp () {
     mygt 'Launch this script in the directory including alreadey cloned slackware64 or slackware64-current.\nIt can be on the bootable slackware install USB stick.\npbslacks should also be there.'|sed 's@\\n@\n@g'

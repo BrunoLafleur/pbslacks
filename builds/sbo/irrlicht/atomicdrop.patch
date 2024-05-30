@@ -1,0 +1,134 @@
+diff -rU5 irrlicht-1.8.5old/include/IReferenceCounted.h irrlicht-1.8.5/include/IReferenceCounted.h
+--- irrlicht-1.8.5old/include/IReferenceCounted.h	2012-11-03 18:08:32.000000000 +0100
++++ irrlicht-1.8.5/include/IReferenceCounted.h	2024-05-25 22:07:13.000000000 +0200
+@@ -5,10 +5,57 @@
+ #ifndef __I_IREFERENCE_COUNTED_H_INCLUDED__
+ #define __I_IREFERENCE_COUNTED_H_INCLUDED__
+ 
+ #include "irrTypes.h"
+ 
++#if defined(__GNUC__) || defined(__clang__)
++#  define XINLINE inline
++#  define XFINLINE inline __attribute__ ((always_inline))
++#elif defined(__BORLANDC__) || defined(_MSC_VER) || defined(__LCC__)
++#  define XINLINE __inline
++#  define XFINLINE __forceinline
++#elif defined(__DMC__) || defined(__POCC__) || defined(__WATCOMC__) || \
++	defined(__SUNPRO_C)
++#  define XINLINE inline
++#  define XFINLINE inline
++#else
++#  define XINLINE inline
++#  define XFINLINE inline
++#endif
++
++#ifdef __GNUC__
++    XFINLINE static int X1SyncGet(volatile int* const pval)
++    {
++	    return __sync_add_and_fetch(pval,0);
++    }
++
++    XFINLINE static int X1SyncInc(volatile int* const pval)
++    {
++	    return __sync_fetch_and_add(pval,1);
++    }
++
++    XFINLINE static int X1SyncDec(volatile int* const pval)
++    {
++	    return __sync_fetch_and_sub(pval,1);
++    }
++#else
++    XFINLINE static int X1SyncGet(volatile int* const pval)
++    {
++	    return *pval;
++    }
++
++    XFINLINE static int X1SyncInc(volatile int* const pval)
++    {
++	    return (*pval)++;
++    }
++
++    XFINLINE static int X1SyncDec(volatile int* const pval)
++    {
++	    return (*pval)--;
++    }
++#endif
++
+ namespace irr
+ {
+ 
+ 	//! Base class of most objects of the Irrlicht Engine.
+ 	/** This class provides reference counting through the methods grab() and drop().
+@@ -81,11 +128,11 @@
+ 		method IDriver::loadTexture. You do this like
+ 		ITexture* texture = driver->loadTexture("example.jpg");
+ 		You will not have to drop the pointer to the loaded texture,
+ 		because the name of the method does not start with 'create'.
+ 		The texture is stored somewhere by the driver. */
+-		void grab() const { ++ReferenceCounter; }
++		void grab() const { X1SyncInc(&ReferenceCounter); }
+ 
+ 		//! Drops the object. Decrements the reference counter by one.
+ 		/** The IReferenceCounted class provides a basic reference
+ 		counting mechanism with its methods grab() and drop(). Most
+ 		objects of the Irrlicht Engine are derived from
+@@ -114,14 +161,13 @@
+ 		The texture is stored somewhere by the driver.
+ 		\return True, if the object was deleted. */
+ 		bool drop() const
+ 		{
+ 			// someone is doing bad reference counting.
+-			_IRR_DEBUG_BREAK_IF(ReferenceCounter <= 0)
++			_IRR_DEBUG_BREAK_IF(X1SyncGet(&ReferenceCounter) <= 0)
+ 
+-			--ReferenceCounter;
+-			if (!ReferenceCounter)
++			if (X1SyncDec(&ReferenceCounter) == 1)
+ 			{
+ 				delete this;
+ 				return true;
+ 			}
+ 
+@@ -130,11 +176,11 @@
+ 
+ 		//! Get the reference count.
+ 		/** \return Current value of the reference counter. */
+ 		s32 getReferenceCount() const
+ 		{
+-			return ReferenceCounter;
++			return X1SyncGet(&ReferenceCounter);
+ 		}
+ 
+ 		//! Returns the debug name of the object.
+ 		/** The Debugname may only be set and changed by the object
+ 		itself. This method should only be used in Debug mode.
+@@ -159,11 +205,11 @@
+ 
+ 		//! The debug name.
+ 		const c8* DebugName;
+ 
+ 		//! The reference counter. Mutable to do reference counting on const objects.
+-		mutable s32 ReferenceCounter;
++		mutable volatile s32 ReferenceCounter;
+ 	};
+ 
+ } // end namespace irr
+ 
+ #endif
+diff -rU5 irrlicht-1.8.5old/include/irrMap.h irrlicht-1.8.5/include/irrMap.h
+--- irrlicht-1.8.5old/include/irrMap.h	2012-11-03 18:08:32.000000000 +0100
++++ irrlicht-1.8.5/include/irrMap.h	2024-05-30 12:23:28.000000000 +0200
+@@ -541,10 +541,13 @@
+ 	class ParentLastIterator
+ 	{
+ 	public:
+ 
+ 		ParentLastIterator() : Root(0), Cur(0) {}
++		
++		ParentLastIterator(const ParentLastIterator& src) :
++				Root(src.Root), Cur(src.Cur) {}
+ 
+ 		explicit ParentLastIterator(Node* root) : Root(root), Cur(0)
+ 		{
+ 			reset();
+ 		}

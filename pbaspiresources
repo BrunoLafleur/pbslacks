@@ -95,7 +95,7 @@ fi
     for i in gnome-icon-theme evince libsmf fontforge texi2html lilypond \
 			      roccat-tools PyYAML lutris lsdvd \
 			      visual-studio-code sqlitebrowser libx86emu hwinfo \
-			      irrlicht ;do
+			      irrlicht valgrind ;do
 	xgetsbosrc "$i"
     done
     

@@ -1,8 +1,10 @@
-#!/bin/sh
+#!/bin/bash
 
-# Slackware build script for python3-tornado
+# Slackware build script for valgrind
+# Written by Kyle Guinn <elyk03@gmail.com>
+# Updated by Peter Wang <novalazy@gmail.com>
+# Maintained by Willy Sudiarto Raharjo <willysr@slackbuilds.org>
 
-# Copyright 2017-2020 Benjamin Trigona-Harany
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -22,12 +24,13 @@
 #  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-PRGNAM=python3-tornado
-VERSION=${VERSION:-6.0.4}
+cd $(dirname $0) ; CWD=$(pwd)
+
+PRGNAM=valgrind
+VERSION=${VERSION:-3.23.0}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_PB}
-
-SRCNAM=tornado
+PKGTYPE=${PKGTYPE:-txz}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -37,18 +40,28 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-CWD=$(pwd)
+if [ ! -z "${PRINT_PACKAGE_NAME}" ]; then
+  echo "$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.$PKGTYPE"
+  exit 0
+fi
+
 TMP=${TMP:-/tmp/PB}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 
 if [ "$ARCH" = "i586" ]; then
+  SLKCFLAGS="-O2 -march=i586 -mtune=i686"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "i686" ]; then
+  SLKCFLAGS="-O2 -march=i686 -mtune=i686"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "x86_64" ]; then
+  # The valgrind build system already passes -fpic
+  # and forcing -fPIC results in a build failure.
+  SLKCFLAGS="-O2"
   LIBDIRSUFFIX="64"
 else
+  SLKCFLAGS="-O2"
   LIBDIRSUFFIX=""
 fi
 
@@ -57,11 +70,9 @@ set -e
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
-
-rm -rf $SRCNAM-$VERSION
-tar xvf $CWD/$SRCNAM-$VERSION.tar.gz
-cd $SRCNAM-$VERSION
-
+rm -rf $PRGNAM-$VERSION
+tar xvf $CWD/$PRGNAM-$VERSION.tar.bz2
+cd $PRGNAM-$VERSION
 chown -R root:root .
 find -L . \
  \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
@@ -69,22 +80,40 @@ find -L . \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
-python3 setup.py install --root=$PKG
+CFLAGS="$SLKCFLAGS" \
+CXXFLAGS="$SLKCFLAGS" \
+./configure \
+  --prefix=/usr \
+  --libdir=/usr/lib${LIBDIRSUFFIX} \
+  --sysconfdir=/etc \
+  --localstatedir=/var \
+  --mandir=/usr/man \
+  --docdir=/usr/doc/$PRGNAM-$VERSION \
+  --build=$ARCH-slackware-linux
 
-#PYVER=$(python3 --version | cut -d' ' -f2|cut -d'.' -f1-2)
-#python3 setup.py install --root=$PKG --install-platlib=/usr/lib$LIBDIRSUFFIX/python${PYVER}/site-packages
+make
+make install DESTDIR=$PKG
 
-find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
+# Do NOT strip the shared objects, as recommended by the developers.
+find $PKG -print0 | xargs -0 file | grep -e "executable" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
+find $PKG/usr/man -type f -exec gzip -9 {} \;
+for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
+
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-cp -a \
-  LICENSE README.rst \
+cp -a AUTHORS COPYING* FAQ.txt NEWS README* \
   $PKG/usr/doc/$PRGNAM-$VERSION
+mv $PKG/usr/share/doc/valgrind/html $PKG/usr/doc/$PRGNAM-$VERSION
+# The doc directory is the only thing in $PKG/usr/share, and the only things
+# left in it now are pdf and a ps doc files.  They are large, so we won't keep
+# them around.  If you still want them, uncomment the line below.
+# mv $PKG/usr/share/doc/valgrind/*.{ps,pdf} $PKG/usr/doc/$PRGNAM-$VERSION
+rm -rf $PKG/usr/share
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 
 cd $PKG
-/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-txz}
+/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.$PKGTYPE

@@ -64,7 +64,7 @@ xpurgeindex packages
 ############################################
 (
     cd packages2
-    for i in jq lua lua53 oniguruma valgrind ;do
+    for i in jq lua lua53 oniguruma ;do
 	xgetpac "$i" "$SLACKCF/$i" 3
     done
     for i in guile1.8 ;do

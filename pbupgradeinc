@@ -47,6 +47,7 @@ xhookpac2 () {
     rm -f $XLIBDIR/vlc/lua/playlist/youtube.luac
     rm -f packages2/discord-*.tar.gz
     rm -f packages2/*_slonly.*
+    rm -f packages2/valgrind-3.18.1-x86_64-1cf.*
 }
 
 xhookpac3 () {
