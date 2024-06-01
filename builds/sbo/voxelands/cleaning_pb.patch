@@ -1,0 +1,4982 @@
+# Author of this patch : Pierre Brochard
+#                        pierre.brochard.1982@m4x.org
+#
+Seulement dans voxelands-v1709.00: CPackConfig.cmake
+Seulement dans voxelands-v1709.00: CPackSourceConfig.cmake
+Seulement dans voxelands-v1709.00: Makefile
+Seulement dans voxelands-v1709.00: bin
+Seulement dans voxelands-v1709.00: cmake_install.cmake
+Seulement dans voxelands-v1709.00/data: locale
+Seulement dans voxelands-v1709.00/src: Makefile
+diff -rU5 voxelands-v1709.00old/src/activeobject.h voxelands-v1709.00/src/activeobject.h
+--- voxelands-v1709.00old/src/activeobject.h	2017-09-24 06:59:00.000000000 +0200
++++ voxelands-v1709.00/src/activeobject.h	2024-05-29 16:20:54.606933466 +0200
+@@ -55,10 +55,12 @@
+ 	ActiveObject(u16 id):
+ 		m_id(id)
+ 	{
+ 	}
+ 
++	virtual ~ActiveObject() {};
++	
+ 	u16 getId()
+ 	{
+ 		return m_id;
+ 	}
+ 
+diff -rU5 voxelands-v1709.00old/src/array.c voxelands-v1709.00/src/array.c
+--- voxelands-v1709.00old/src/array.c	2017-09-24 06:59:00.000000000 +0200
++++ voxelands-v1709.00/src/array.c	2024-05-30 15:15:51.273343131 +0200
+@@ -59,11 +59,11 @@
+ array_t *array_copy(array_t *a)
+ {
+ 	array_t *r = array_create(ARRAY_TYPE_STRING);
+ 
+ 	if (a) {
+-		int i;
++		uint32_t i;
+ 		r->type = a->type;
+ 		switch (a->type) {
+ 		case ARRAY_TYPE_STRING:
+ 			for (i=0; i<a->length; i++) {
+ 				array_push_string(r,((char**)(a->data))[i]);
+@@ -92,11 +92,11 @@
+ }
+ 
+ /* compare two arrays */
+ int array_cmp(array_t *a1, array_t *a2)
+ {
+-	int i;
++	uint32_t i;
+ 	char** c1;
+ 	char** c2;
+ 	int *i1;
+ 	int *i2;
+ 	float *f1;
+@@ -182,11 +182,11 @@
+ }
+ 
+ /* destroy an array */
+ void array_free(array_t *a, int freestruct)
+ {
+-	int i;
++	uint32_t i;
+ 	if (!a)
+ 		return;
+ 	if (a->type == ARRAY_TYPE_STRING) {
+ 		char** p = a->data;
+ 		for (i=0; i<a->length; i++ ) {
+@@ -366,10 +366,14 @@
+ }
+ 
+ * set the value of array index i to an int value */
+ int array_set_int(array_t *a, uint32_t v, int i)
+ {
++
++	if(i < 0)
++	    return 1;
++	
+ 	uint32_t *p = a->data;
+ 	if (a->type == ARRAY_TYPE_STRING) {
+ 		char sv[20];
+ 		sprintf(sv,"%u",v);
+ 		return array_set_string(a,sv,i);
+@@ -377,11 +381,11 @@
+ 		return array_set_float(a,(float)v,i);
+ 	}else if (a->type != ARRAY_TYPE_INT) {
+ 		return 1;
+ 	}
+ 
+-	if (a->size <= i) {
++	if ((int) a->size <= i) {
+ 		int k;
+ 		int l = array_next_size(i+1);
+ 
+ 		p = realloc(a->data,sizeof(uint32_t)*l);
+ 		if (!p)
+@@ -391,21 +395,25 @@
+ 		}
+ 		a->data = p;
+ 		a->size = l;
+ 	}
+ 
+-	if (a->length <= i)
++	if ((int) a->length <= i)
+ 		a->length = i+1;
+ 
+ 	p[i] = v;
+ 
+ 	return 0;
+ }
+ 
+ /* set the value of array index i to a float value */
+ int array_set_float(array_t *a, float v, int i)
+ {
++	
++	if(i < 0)
++	    return 1;
++	
+ 	float *p = a->data;
+ 	if (a->type == ARRAY_TYPE_STRING) {
+ 		char sv[20];
+ 		sprintf(sv,"%f",v);
+ 		return array_set_string(a,sv,i);
+@@ -413,11 +421,11 @@
+ 		return array_set_float(a,(uint32_t)v,i);
+ 	}else if (a->type != ARRAY_TYPE_FLOAT) {
+ 		return 1;
+ 	}
+ 
+-	if (a->size <= i) {
++	if ((int) a->size <= i) {
+ 		int k;
+ 		int l = array_next_size(i+1);
+ 
+ 		p = realloc(a->data,sizeof(float)*l);
+ 		if (!p)
+@@ -426,26 +434,30 @@
+ 			p[k] = 0.0;
+ 		}
+ 		a->data = p;
+ 		a->size = l;
+ 	}
+-	if (a->length <= i)
++	if ((int) a->length <= i)
+ 		a->length = i+1;
+ 
+ 	p[i] = v;
+ 
+ 	return 0;
+ }
+ 
+ /* set the value of array index i to a string value */
+ int array_set_string(array_t *a, char* v, int i)
+ {
++	
++	if(i < 0)
++	    return 1;
++	
+ 	char** p = a->data;
+ 	if (a->type != ARRAY_TYPE_STRING)
+ 		return 1;
+ 
+-	if (a->size <= i) {
++	if ((int) a->size <= i) {
+ 		int k;
+ 		int l = array_next_size(i+1);
+ 
+ 		p = realloc(a->data,sizeof(char*)*l);
+ 		if (!p)
+@@ -454,11 +466,11 @@
+ 			p[k] = NULL;
+ 		}
+ 		a->data = p;
+ 		a->size = l;
+ 	}
+-	if (a->length <= i)
++	if ((int) a->length <= i)
+ 		a->length = i+1;
+ 
+ 	if (p[i])
+ 		free(p[i]);
+ 
+@@ -472,15 +484,19 @@
+ }
+ 
+ /* set the value of array index i to a ponter value */
+ int array_set_ptr(array_t *a, void* v, int i)
+ {
++		
++	if(i < 0)
++	    return 1;
++
+ 	char** p = a->data;
+ 	if (a->type != ARRAY_TYPE_PTR)
+ 		return 1;
+ 
+-	if (a->size <= i) {
++	if ((int) a->size <= i) {
+ 		int k;
+ 		int l = array_next_size(i+1);
+ 
+ 		p = realloc(a->data,sizeof(char*)*l);
+ 		if (!p)
+@@ -489,22 +505,22 @@
+ 			p[k] = NULL;
+ 		}
+ 		a->data = p;
+ 		a->size = l;
+ 	}
+-	if (a->length <= i)
++	if ((int) a->length <= i)
+ 		a->length = i+1;
+ 
+ 	p[i] = v;
+ 
+ 	return 0;
+ }
+ 
+ /* insert a pointer onto the first NULL index of an array */
+ int array_insert_ptr(array_t *a, void *v)
+ {
+-	int i;
++	uint32_t i;
+ 	uint8_t** p;
+ 
+ 	if (a->type != ARRAY_TYPE_PTR)
+ 		return 1;
+ 
+@@ -599,12 +615,16 @@
+ }
+ 
+ /* get an int value from an array */
+ uint32_t array_get_int(array_t *a, int i)
+ {
++
++	if(i < 0)
++	    return 0;
++	
+ 	if (a->type == ARRAY_TYPE_INT) {
+-		if (a->length <= i)
++	    if ((int) a->length <= i)
+ 			return 0;
+ 		return ((uint32_t*)(a->data))[i];
+ 	}else if (a->type == ARRAY_TYPE_FLOAT) {
+ 		float v = array_get_float(a,i);
+ 		return (uint32_t)v;
+@@ -619,12 +639,16 @@
+ }
+ 
+ /* get a float value from an array */
+ float array_get_float(array_t *a, int i)
+ {
++	
++	if(i < 0)
++	    return 0.0;
++	
+ 	if (a->type == ARRAY_TYPE_FLOAT) {
+-		if (a->length <= i)
++	    if ((int) a->length <= i)
+ 			return 0.0;
+ 		return ((float*)(a->data))[i];
+ 	}else if (a->type == ARRAY_TYPE_INT) {
+ 		uint32_t v = array_get_int(a,i);
+ 		return (float)v;
+@@ -639,10 +663,14 @@
+ }
+ 
+ /* get a string value from an array */
+ char* array_get_string(array_t *a, int i)
+ {
++
++	if(i < 0)
++	    return NULL;
++	
+ 	if (a->type == ARRAY_TYPE_FLOAT) {
+ 		float v = array_get_float(a,i);
+ 		char sv[20];
+ 		sprintf(sv,"%f",v);
+ 		return strdup(sv);
+@@ -650,31 +678,35 @@
+ 		uint32_t v = array_get_int(a,i);
+ 		char sv[20];
+ 		sprintf(sv,"%u",v);
+ 		return strdup(sv);
+ 	}else if (a->type == ARRAY_TYPE_STRING) {
+-		if (a->length <= i)
++	    if ((int) a->length <= i)
+ 			return NULL;
+ 		return ((char**)(a->data))[i];
+ 	}
+ 	return NULL;
+ }
+ 
+ /* get a pointer from an array */
+ void *array_get_ptr(array_t *a, int i)
+ {
+-	if (a->type == ARRAY_TYPE_PTR && a->length > i) {
++
++	if(i < 0)
++	    return NULL;
++	
++	if (a->type == ARRAY_TYPE_PTR && (int) a->length > i) {
+ 		return ((char**)(a->data))[i];
+ 	}
+ 	return NULL;
+ }
+ 
+ /* find the index of an int value in an array */
+ int array_find_int(array_t *a, uint32_t v)
+ {
+ 	if (a->type == ARRAY_TYPE_INT) {
+-		int i;
++		uint32_t i;
+ 		uint32_t *p = a->data;
+ 		for (i=0; i<a->length; i++) {
+ 			if (p[i] == v)
+ 				return i;
+ 		}
+@@ -684,11 +716,11 @@
+ 
+ /* find the index of a float value in an array */
+ int array_find_float(array_t *a, float v)
+ {
+ 	if (a->type == ARRAY_TYPE_FLOAT) {
+-		int i;
++		uint32_t i;
+ 		float *p = a->data;
+ 		for (i=0; i<a->length; i++) {
+ 			if (p[i] == v)
+ 				return i;
+ 		}
+@@ -698,11 +730,11 @@
+ 
+ /* find the index of a string value in an array */
+ int array_find_string(array_t *a, char* v)
+ {
+ 	if (a->type == ARRAY_TYPE_STRING) {
+-		int i;
++		uint32_t i;
+ 		char** p = a->data;
+ 		for (i=0; i<a->length; i++) {
+ 			if (!strcmp(p[i],v))
+ 				return i;
+ 		}
+@@ -712,11 +744,11 @@
+ 
+ /* find the index of a pointer in an array */
+ int array_find_ptr(array_t *a, void *v)
+ {
+ 	if (a->type == ARRAY_TYPE_PTR) {
+-		int i;
++		uint32_t i;
+ 		uint8_t* cv = v;
+ 		uint8_t** p = a->data;
+ 		for (i=0; i<a->length; i++) {
+ 			if (p[i] == cv)
+ 				return i;
+@@ -727,11 +759,11 @@
+ 
+ /* remove a string value from an array */
+ int array_remove_string(array_t *a, char* v)
+ {
+ 	if (a->type == ARRAY_TYPE_STRING) {
+-		int i;
++		uint32_t i;
+ 		char** p = a->data;
+ 		for (i=0; i<a->length; i++) {
+ 			if (!strcmp(p[i],v)) {
+ 				free(p[i]);
+ 				break;
+@@ -749,22 +781,19 @@
+ /* split a string into an array, at a separator character */
+ /* TODO: if strings is non-zero, then don't split within "" or '' */
+ /* TODO: utf8 support */
+ array_t *array_split(char* str, char* s, int strings)
+ {
++	
++	if (!str || !s)
++	    return NULL;
++
+ 	char buff[1024];
+ 	int i;
+ 	int o = 0;
+-	int l;
+-	array_t *r;
+-
+-	if (!str)
+-		return NULL;
+-
+-	r = array_create(ARRAY_TYPE_STRING);
+-
+-	l = strlen(s);
++	array_t* const r = array_create(ARRAY_TYPE_STRING);
++	const int l = strlen(s);
+ 
+ 	for (i=0; str[i]; i++) {
+ 		if (!strncmp(str+i,s,l)) {
+ 			buff[o] = 0;
+ 			array_push_string(r,buff);
+@@ -781,27 +810,30 @@
+ }
+ 
+ /* join an array into a string, using a glue character */
+ char* array_join(array_t *a, char* glue, int start)
+ {
++	const uint32_t ustart = start < 0 ? 0 : start;	
+ 	char* str = NULL;
+ 	int l = 0;
++	
+ 	if (!glue)
+ 		glue = " ";
++	
+ 	if (a->type == ARRAY_TYPE_STRING) {
+-		int i;
+-		int gl = strlen(glue);
+-		for (i=start; i<a->length; i++) {
+-			l += strlen(((char**)(a->data))[i])+gl;
++		uint32_t i;
++		const int gl = strlen(glue);
++		for (i=ustart; i<a->length; i++) {
++		    l += strlen(((char**)(a->data))[i]) + gl;
+ 		}
+ 		if (l) {
+-			str = malloc(l+1);
++			str = malloc(l + 1);
+ 			str[0] = 0;
+-			for (i=start; i<a->length; i++) {
+-				if (i > start)
+-					strcat(str,glue);
+-				strcat(str,((char**)(a->data))[i]);
++			for (i=ustart; i<a->length; i++) {
++			    if (i > ustart)
++				strcat(str,glue);
++			    strcat(str,((char**)(a->data))[i]);
+ 			}
+ 		}
+ 	}
+ 
+ 	return str;
+diff -rU5 voxelands-v1709.00old/src/auth.c voxelands-v1709.00/src/auth.c
+--- voxelands-v1709.00old/src/auth.c	2017-09-24 06:59:00.000000000 +0200
++++ voxelands-v1709.00/src/auth.c	2024-04-14 18:16:55.975419326 +0200
+@@ -82,11 +82,11 @@
+ 
+ 	return r;
+ }
+ 
+ /* convert a string to privs */
+-uint64_t auth_str2privs(char* str)
++uint64_t auth_str2privs(const char* str)
+ {
+ 	uint64_t privs = 0;
+ 	char buff[256];
+ 	int i;
+ 	int j;
+@@ -118,11 +118,11 @@
+ 
+ 	return privs;
+ }
+ 
+ /* init auth system for the given file */
+-int auth_init(char* file)
++int auth_init(const char* file)
+ {
+ 	char* path;
+ 	if (!auth.mutex) {
+ 		auth.mutex = mutex_create();
+ 		if (!auth.mutex)
+diff -rU5 voxelands-v1709.00old/src/auth.h voxelands-v1709.00/src/auth.h
+--- voxelands-v1709.00old/src/auth.h	2017-09-24 06:59:00.000000000 +0200
++++ voxelands-v1709.00/src/auth.h	2024-04-14 18:17:03.177393087 +0200
+@@ -31,12 +31,12 @@
+ } authdata_t;
+ #endif
+ 
+ /* defined in auth.c */
+ int auth_privs2str(uint64_t privs, char* buff, int size);
+-uint64_t auth_str2privs(char* str);
+-int auth_init(char* file);
++uint64_t auth_str2privs(const char* str);
++int auth_init(const char* file);
+ void auth_exit(void);
+ void auth_load(void);
+ void auth_save(void);
+ int auth_exists(char* name);
+ void auth_set(char* name, authdata_t data);
+diff -rU5 voxelands-v1709.00old/src/ban.c voxelands-v1709.00/src/ban.c
+--- voxelands-v1709.00old/src/ban.c	2017-09-24 06:59:00.000000000 +0200
++++ voxelands-v1709.00/src/ban.c	2024-04-14 14:06:16.606795346 +0200
+@@ -41,11 +41,11 @@
+ 	NULL,
+ 	0
+ };
+ 
+ /* init ban system for the given file */
+-int ban_init(char* file)
++int ban_init(const char* file)
+ {
+ 	char* path;
+ 	if (!ban.mutex) {
+ 		ban.mutex = mutex_create();
+ 		if (!ban.mutex)
+diff -rU5 voxelands-v1709.00old/src/ban.h voxelands-v1709.00/src/ban.h
+--- voxelands-v1709.00old/src/ban.h	2017-09-24 06:59:00.000000000 +0200
++++ voxelands-v1709.00/src/ban.h	2024-04-14 14:06:27.598758401 +0200
+@@ -4,11 +4,11 @@
+ #ifdef __cplusplus
+ extern "C" {
+ #endif
+ 
+ /* defined in ban.c */
+-int ban_init(char* file);
++int ban_init(const char* file);
+ void ban_exit(void);
+ void ban_load(void);
+ void ban_save(void);
+ int ban_ipbanned(char* ip);
+ int ban_description(char* ip_or_name, char* buff, int size);
+diff -rU5 voxelands-v1709.00old/src/bridge_temp.cpp voxelands-v1709.00/src/bridge_temp.cpp
+--- voxelands-v1709.00old/src/bridge_temp.cpp	2017-09-24 06:59:00.000000000 +0200
++++ voxelands-v1709.00/src/bridge_temp.cpp	2024-04-14 18:00:43.840035061 +0200
+@@ -248,13 +248,13 @@
+ 	SHA1 sha1;
+ 	sha1.addBytes(str, l);
+ 	return sha1.getDigest();
+ }
+ 
+-std::string bridge_config_get(char* name)
++std::string bridge_config_get(const char* name)
+ {
+-	char* v = config_get(name);
++	const char* v = config_get(name);
+ 	if (!v)
+ 		return "";
+ 
+ 	return std::string(v);
+ }
+Seulement dans voxelands-v1709.00/src/cguittfont: Makefile
+Seulement dans voxelands-v1709.00/src/cguittfont: cmake_install.cmake
+diff -rU5 voxelands-v1709.00old/src/character_creator.cpp voxelands-v1709.00/src/character_creator.cpp
+--- voxelands-v1709.00old/src/character_creator.cpp	2017-09-24 06:59:00.000000000 +0200
++++ voxelands-v1709.00/src/character_creator.cpp	2024-06-01 19:17:59.422224761 +0200
+@@ -118,11 +118,11 @@
+ 	m_cameranode->setPosition(v3f(20,0,0));
+ 	// *100.0 helps in large map coordinates
+ 	m_cameranode->setTarget(v3f(0,0,0));
+ 
+ 	// get a unique mesh so that the player model has it's own lighting
+-	scene::IAnimatedMesh* mesh = createModelMesh(smgr,"character.b3d",true);
++	scene::IAnimatedMesh* const mesh = createModelMesh(smgr,"character.b3d",true);
+ 	if (!mesh)
+ 		return;
+ 
+ 	m_model = smgr->addAnimatedMeshSceneNode(mesh,smgr->getRootSceneNode());
+ 
+@@ -809,11 +809,11 @@
+ //M:10:10:fair:blue:brown:medium:normal:green:blue:leather
+ void GUICharDefMenu::fetchPlayerSkin()
+ {
+ 	char buff[1024];
+ 	char buf[256];
+-	char* v;
++	const char* v;
+ 	std::string chardef = std::string(PLAYER_DEFAULT_CHARDEF);
+ 	v = config_get("client.character");
+ 	if (v)
+ 		chardef = v;
+ 	Strfnd f(chardef);
+diff -rU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00/src/client.cpp
+--- voxelands-v1709.00old/src/client.cpp	2017-09-24 06:59:00.000000000 +0200
++++ voxelands-v1709.00/src/client.cpp	2024-04-14 20:09:08.900031076 +0200
+@@ -252,11 +252,11 @@
+ 	{
+ 		//JMutexAutoLock envlock(m_env_mutex); //bulk comment-out
+ 
+ 		Player *player = new LocalPlayer();
+ 
+-		char* v = config_get("client.name");
++		const char* v = config_get("client.name");
+ 		if (v) {
+ 			player->updateName(v);
+ 		}else{
+ 			player->updateName(porting::getUser().c_str());
+ 		}
+@@ -752,11 +752,11 @@
+ 			infostream<<"Client: received map type: "<<m_map_type<<std::endl;
+ 		}
+ 
+ 		{
+ 			// Reply to server
+-			char *v;
++			const char *v;
+ 			std::string chardef = std::string(PLAYER_DEFAULT_CHARDEF);
+ 			v = config_get("client.character");
+ 			if (v)
+ 				chardef = v;
+ 
+Seulement dans voxelands-v1709.00/src: cmake_config.h
+Seulement dans voxelands-v1709.00/src: cmake_install.cmake
+diff -rU5 voxelands-v1709.00old/src/common.h voxelands-v1709.00/src/common.h
+--- voxelands-v1709.00old/src/common.h	2017-09-24 06:59:00.000000000 +0200
++++ voxelands-v1709.00/src/common.h	2024-04-14 18:12:39.135354753 +0200
+@@ -98,54 +98,54 @@
+ #define SEND_NO_PREFIX (1<<2)
+ 
+ /* defined in string.c */
+ char* trim(char* str);
+ /*char* strdup(const char* str);*/
+-int str_sanitise(char* dest, int size, char* str);
++int str_sanitise(char* dest, int size,const char* str);
+ int strappend(char* dest, int size, char* str);
+-int parse_bool(char* str);
+-int str_tov3t(char* str, v3_t *v);
++int parse_bool(const char* str);
++int str_tov3t(const char* str, v3_t *v);
+ int str_topwd(char* name, char* pass, char* buff, int size);
+ 
+ /* defined in config.c */
+-char* config_get(char* name);
+-int config_get_int(char* name);
+-int64_t config_get_int64(char* name);
+-float config_get_float(char* name);
+-int config_get_bool(char* name);
+-int config_get_v3t(char* name, v3_t *value);
+-void config_set(char* name, char* value);
++const char* config_get(const char* name);
++int config_get_int(const char* name);
++int64_t config_get_int64(const char* name);
++float config_get_float(const char* name);
++int config_get_bool(const char* name);
++int config_get_v3t(const char* name, v3_t *value);
++void config_set(const char* name,const char* value);
+ int config_set_command(command_context_t *ctx, array_t *args);
+-void config_set_int(char* name, int value);
+-void config_set_int64(char* name, int64_t value);
+-void config_set_float(char* name, float value);
+-void config_set_default(char* name, char* value, int (*setter)(char* v));
+-void config_set_default_int(char* name, int value, int (*setter)(char* v));
+-void config_set_default_float(char* name, float value, int (*setter)(char* v));
+-void config_load(char* type, char* file);
++void config_set_int(const char* name, int value);
++void config_set_int64(const char* name, int64_t value);
++void config_set_float(const char* name, float value);
++void config_set_default(const char* name,const char* value, int (*setter)(const char* v));
++void config_set_default_int(const char* name, int value, int (*setter)(const char* v));
++void config_set_default_float(const char* name, float value, int (*setter)(const char* v));
++void config_load(const char* type,const char* file);
+ int config_load_command(command_context_t *ctx, array_t *args);
+ int config_ignore_command(command_context_t *ctx, array_t *args);
+ void config_init(int argc, char** argv);
+-void config_save(char* section, char* type, char* file);
+-void config_clear(char* section);
++void config_save(const char* section,const char* type,const char* file);
++void config_clear(const char* section);
+ 
+ /* defined in config_default.c */
+ void config_default_init(void);
+ void config_default_creative(void);
+ void config_default_survival(void);
+-int config_default_gamemode(char* mode);
++int config_default_gamemode(const char* mode);
+ 
+ /* defined in log.c */
+-int log_minlevel_setter(char* v);
+-int log_maxlevel_setter(char* v);
+-int log_sminlevel_setter(char* v);
+-int log_smaxlevel_setter(char* v);
+-int log_cminlevel_setter(char* v);
+-int log_cmaxlevel_setter(char* v);
+-int log_file_setter(char* v);
+-void vlprint(uint8_t type, char* str);
+-void vlprintf(uint8_t type, char* fmt,...);
++int log_minlevel_setter(const char* v);
++int log_maxlevel_setter(const char* v);
++int log_sminlevel_setter(const char* v);
++int log_smaxlevel_setter(const char* v);
++int log_cminlevel_setter(const char* v);
++int log_cmaxlevel_setter(const char* v);
++int log_file_setter(const char* v);
++void vlprint(uint8_t type,const char* str);
++void vlprintf(uint8_t type,const char* fmt,...);
+ 
+ /* defined in utf8.c */
+ int utf8_seqlen(char* str);
+ uint32_t utf8_nextchar(char* str, int *i);
+ uint32_t utf8_toutf32(char* src, int size);
+@@ -196,25 +196,25 @@
+ int command_adduser(command_context_t *ctx, array_t *args);
+ int command_clearobjects(command_context_t *ctx, array_t *args);
+ int command_setpassword(command_context_t *ctx, array_t *args);
+ 
+ /* defined in world.c */
+-int world_create(char* name);
+-int world_load(char* name);
++int world_create(const char* name);
++int world_load(const char* name);
+ int world_import(char* path);
+ void world_unload(void);
+-int world_init(char* name);
++int world_init(const char* name);
+ void world_exit(void);
+ worldlist_t *world_list_get(void);
+ void world_list_free(worldlist_t *l);
+ 
+ #ifdef __cplusplus
+ }
+ #include <string>
+ class Client;
+ void bridge_register_client(Client *c);
+-std::string bridge_config_get(char* name);
++std::string bridge_config_get(const char* name);
+ #endif
+ 
+ /* bridge stuff TODO: remove */
+ #ifdef __cplusplus
+ #define EXTERNC extern "C"
+diff -rU5 voxelands-v1709.00old/src/config.c voxelands-v1709.00/src/config.c
+--- voxelands-v1709.00old/src/config.c	2017-09-24 06:59:00.000000000 +0200
++++ voxelands-v1709.00/src/config.c	2024-04-14 18:00:09.162169570 +0200
+@@ -38,15 +38,15 @@
+ 	0
+ };
+ 
+ typedef struct config_s {
+ 	char* default_value;
+-	int (*setter)(char* v);
++	int (*setter)(const char* v);
+ } config_t;
+ 
+ /* get the value of a config setting */
+-char* config_get(char* name)
++const char* config_get(const char* name)
+ {
+ 	nvp_t *n = nvp_get(&config.items,name);
+ 	if (!n)
+ 		return NULL;
+ 
+@@ -55,58 +55,58 @@
+ 
+ 	return n->value;
+ }
+ 
+ /* get a config setting as an int value */
+-int config_get_int(char* name)
++int config_get_int(const char* name)
+ {
+-	char* v = config_get(name);
++	const char* v = config_get(name);
+ 	if (v)
+ 		return strtol(v,NULL,10);
+ 
+ 	return 0;
+ }
+ 
+ /* get a config setting as an int value */
+-int64_t config_get_int64(char* name)
++int64_t config_get_int64(const char* name)
+ {
+-	char* v = config_get(name);
++	const char* v = config_get(name);
+ 	if (v)
+ 		return strtoll(v,NULL,10);
+ 
+ 	return 0;
+ }
+ 
+ /* get a config setting as a float value */
+-float config_get_float(char* name)
++float config_get_float(const char* name)
+ {
+-	char* v = config_get(name);
++	const char* v = config_get(name);
+ 	if (v)
+ 		return strtof(v,NULL);
+ 
+ 	return 0.0;
+ }
+ 
+ /* get a config setting as a boolean value */
+-int config_get_bool(char* name)
++int config_get_bool(const char* name)
+ {
+-	char* v = config_get(name);
++	const char* v = config_get(name);
+ 	return parse_bool(v);
+ }
+ 
+ /* get a config setting as a v3_t value */
+-int config_get_v3t(char* name, v3_t *value)
++int config_get_v3t(const char* name, v3_t *value)
+ {
+-	char* v = config_get(name);
++	const char* v = config_get(name);
+ 	if (!v)
+ 		return 1;
+ 
+ 	return str_tov3t(v,value);
+ }
+ 
+ /* set the value of a config setting */
+-void config_set(char* name, char* value)
++void config_set(const char* name,const char* value)
+ {
+ 	config_t *c;
+ 	nvp_t *n;
+ 
+ 	if (!name)
+@@ -163,35 +163,35 @@
+ 
+ 	return 0;
+ }
+ 
+ /* set a config setting to an int value */
+-void config_set_int(char* name, int value)
++void config_set_int(const char* name, int value)
+ {
+ 	char str[20];
+ 	sprintf(str,"%d",value);
+ 	config_set(name,str);
+ }
+ 
+ /* set a config setting to a 64bit int value */
+-void config_set_int64(char* name, int64_t value)
++void config_set_int64(const char* name, int64_t value)
+ {
+ 	char str[50];
+ 	sprintf(str,"%ld",value);
+ 	config_set(name,str);
+ }
+ 
+ /* set a config setting to a float value */
+-void config_set_float(char* name, float value)
++void config_set_float(const char* name, float value)
+ {
+ 	char str[50];
+ 	sprintf(str,"%f",value);
+ 	config_set(name,str);
+ }
+ 
+ /* set the default value of a config setting */
+-void config_set_default(char* name, char* value, int (*setter)(char* v))
++void config_set_default(const char* name,const char* value, int (*setter)(const char* v))
+ {
+ 	config_t *c;
+ 	nvp_t *n = nvp_get(&config.items,name);
+ 
+ 	if (!n) {
+@@ -223,27 +223,27 @@
+ 	if (value)
+ 		c->default_value = strdup(value);
+ }
+ 
+ /* set the default of a config setting to an int value */
+-void config_set_default_int(char* name, int value, int (*setter)(char* v))
++void config_set_default_int(const char* name, int value, int (*setter)(const char* v))
+ {
+ 	char str[20];
+ 	sprintf(str,"%d",value);
+ 	config_set_default(name,str,setter);
+ }
+ 
+ /* set the default of a config setting to a float value */
+-void config_set_default_float(char* name, float value, int (*setter)(char* v))
++void config_set_default_float(const char* name, float value, int (*setter)(const char* v))
+ {
+ 	char str[50];
+ 	sprintf(str,"%f",value);
+ 	config_set_default(name,str,setter);
+ }
+ 
+ /* load a config file */
+-void config_load(char* type, char* file)
++void config_load(const char* type,const char* file)
+ {
+ 	char buff[2048];
+ 	int s;
+ 	char* l;
+ 	file_t *f;
+@@ -356,11 +356,11 @@
+ 
+ 	config.isinit = 1;
+ }
+ 
+ /* save the current config */
+-void config_save(char* section, char* type, char* file)
++void config_save(const char* section,const char* type,const char* file)
+ {
+ 	file_t *f;
+ 	nvp_t *n;
+ 
+ 	if (!type && !file) {
+@@ -408,11 +408,11 @@
+ 	file_flush(f);
+ 	file_free(f);
+ }
+ 
+ /* clears all config values for section (i.e. "world.*") to defaults */
+-void config_clear(char* section)
++void config_clear(const char* section)
+ {
+ 	nvp_t *n;
+ 	int l;
+ 
+ 	/* don't clear everything, only sections */
+diff -rU5 voxelands-v1709.00old/src/config_default.c voxelands-v1709.00/src/config_default.c
+--- voxelands-v1709.00old/src/config_default.c	2017-09-24 06:59:00.000000000 +0200
++++ voxelands-v1709.00/src/config_default.c	2024-04-14 14:28:33.344352050 +0200
+@@ -228,11 +228,11 @@
+ 	config_set_default("world.player.hunger","true",NULL);
+ 
+ 	config_set_default("world.game.mob.spawn.level","destructive",NULL);
+ }
+ 
+-int config_default_gamemode(char* mode)
++int config_default_gamemode(const char* mode)
+ {
+ 	if (mode && !strcmp(mode,"creative")) {
+ 		config_default_creative();
+ 	}else{
+ 		config_default_survival();
+diff -rU5 voxelands-v1709.00old/src/content_cao.cpp voxelands-v1709.00/src/content_cao.cpp
+--- voxelands-v1709.00old/src/content_cao.cpp	2017-09-24 06:59:00.000000000 +0200
++++ voxelands-v1709.00/src/content_cao.cpp	2024-06-01 19:18:49.538110262 +0200
+@@ -74,24 +74,25 @@
+ {
+ 	if (m_node != NULL)
+ 		return;
+ 
+ 	video::IVideoDriver* driver = smgr->getVideoDriver();
+-	MobFeatures m = content_mob_features(m_content);
++	MobFeatures& m = content_mob_features(m_content);
++	
+ 	if (m.texture_display == MDT_EXTRUDED) {
+ 		ExtrudedSpriteSceneNode *node = new ExtrudedSpriteSceneNode(smgr->getRootSceneNode(),smgr,-1,v3f(0,0,0),v3f(0,0,0),v3f(5,5,5));
+ 		node->setVisible(true);
+ 		node->setSprite(g_texturesource->getTextureRaw(m.texture));
+ 		m_node = (scene::IMeshSceneNode*)node;
+ 		m_draw_type = MDT_EXTRUDED;
+ 		updateNodePos();
+ 	}else if (m.model != "") {
+-		scene::IAnimatedMesh* mesh = createModelMesh(smgr,m.model.c_str(),true);
++		scene::IAnimatedMesh* const mesh = createModelMesh(smgr,m.model.c_str(),true);
+ 		if (!mesh)
+ 			return;
+ 
+-		scene::IAnimatedMeshSceneNode* node = smgr->addAnimatedMeshSceneNode(mesh);
++		scene::IAnimatedMeshSceneNode* const node = smgr->addAnimatedMeshSceneNode(mesh);
+ 
+ 		if (node) {
+ 			int s;
+ 			int e;
+ 			char buff[1024];
+@@ -155,11 +156,12 @@
+ 		m_node = NULL;
+ 	}
+ }
+ void MobCAO::updateLight(u8 light_at_pos)
+ {
+-	MobFeatures m = content_mob_features(m_content);
++	const MobFeatures& m = content_mob_features(m_content);
++	
+ 	if (m.glow_light)
+ 		light_at_pos = m.glow_light;
+ 	if (m_shooting && m.attack_glow_light)
+ 		light_at_pos = m.attack_glow_light;
+ 
+@@ -206,11 +208,11 @@
+ void MobCAO::step(float dtime, ClientEnvironment *env)
+ {
+ 	if (!m_node)
+ 		return;
+ 
+-	MobFeatures m = content_mob_features(m_content);
++	const MobFeatures& m = content_mob_features(m_content);
+ 
+ 	pos_translator.translate(dtime);
+ 
+ 	updateNodePos();
+ 
+@@ -357,11 +359,11 @@
+ 
+ 	updateNodePos();
+ }
+ bool MobCAO::directReportPunch(content_t punch_item, v3f dir)
+ {
+-	MobFeatures m = content_mob_features(m_content);
++	const MobFeatures& m = content_mob_features(m_content);
+ 	if (m.punch_action == MPA_IGNORE)
+ 		return false;
+ 
+ 	ToolItemFeatures f = content_toolitem_features(punch_item);
+ 	if (m.special_dropped_item != CONTENT_IGNORE && (m.special_punch_item == TT_NONE || f.type == m.special_punch_item))
+diff -rU5 voxelands-v1709.00old/src/content_mob.cpp voxelands-v1709.00/src/content_mob.cpp
+--- voxelands-v1709.00old/src/content_mob.cpp	2017-09-24 06:59:00.000000000 +0200
++++ voxelands-v1709.00/src/content_mob.cpp	2024-05-29 19:28:40.044186271 +0200
+@@ -31,17 +31,18 @@
+ #include "profiler.h"
+ #include "intl.h"
+ 
+ MobFeatures g_content_mob_features[CONTENT_MOB_COUNT];
+ 
+-MobFeatures & content_mob_features(content_t c)
++MobFeatures& content_mob_features(content_t c)
+ {
+ 	static MobFeatures ignore = MobFeatures();
+-	if ((c&CONTENT_MOB_MASK) != CONTENT_MOB_MASK)
++	
++	if ((c & CONTENT_MOB_MASK) != CONTENT_MOB_MASK)
+ 		return ignore;
+ 
+-	u16 i = (c&~CONTENT_MOB_MASK);
++	u16 i = (c & ~CONTENT_MOB_MASK) - 1;
+ 
+ 	if (i >= CONTENT_MOB_COUNT)
+ 		return ignore;
+ 
+ 	if (g_content_mob_features[i].content != c)
+@@ -60,10 +61,11 @@
+ 		tiles[i].alpha = alpha;
+ 		tiles[i].material_type = MATERIAL_ALPHA_VERTEX;
+ 	}
+ }
+ #endif
++
+ void MobFeatures::getAnimationFrames(MobAnimation type, int *start, int *end)
+ {
+ 	*start = 0;
+ 	*end = 0;
+ 	switch (type) {
+@@ -131,30 +133,29 @@
+ 
+ 	if ((c1 != CONTENT_AIR && c1 != CONTENT_WATERSOURCE) && c1 != c2)
+ 		return false;
+ 
+ 	for (u16 i=0; i<CONTENT_MOB_COUNT; i++) {
+-		MobFeatures m = g_content_mob_features[i];
++		const MobFeatures& m = g_content_mob_features[i];
+ 		if (m.spawn_min_height > pos.Y)
+ 			continue;
+ 		if (m.spawn_max_height < pos.Y)
+ 			continue;
+-		if (m.spawn_chance > 1 && rand%m.spawn_chance != 0)
++		if (m.spawn_chance > 1 && rand % m.spawn_chance != 0)
+ 			continue;
+ 		can.push_back(i);
+ 	}
+ 
+ 	if (can.size() == 0)
+ 		return false;
+ 
+-	MobFeatures m;
+ 	u32 index = 0;
+ 
+ 	if (can.size() > 1)
+ 		index = myrand_range(0,can.size()-1);
+ 
+-	m = g_content_mob_features[can[index]];
++	const MobFeatures& m = g_content_mob_features[can[index]];
+ 
+ 	if (m.content == CONTENT_IGNORE)
+ 		return false;
+ 
+ 	v3f p = intToFloat(pos+v3s16(0,1,0), BS);
+@@ -172,12 +173,11 @@
+ 	return true;
+ }
+ 
+ void mob_spawn(v3s16 pos, content_t mob, ServerEnvironment *env)
+ {
+-
+-	MobFeatures &m = content_mob_features(mob);
++	const MobFeatures& m = content_mob_features(mob);
+ 
+ 	if (m.content == CONTENT_IGNORE)
+ 		return;
+ 	if (!config_get_bool("world.game.mob.spawn.natural"))
+ 		return;
+@@ -198,11 +198,11 @@
+ void mob_spawn_passive(v3s16 pos, bool water, ServerEnvironment *env)
+ {
+ 	std::vector<content_t> can;
+ 	int rand = myrand();
+ 	for (u16 i=0; i<CONTENT_MOB_COUNT; i++) {
+-		MobFeatures m = g_content_mob_features[i];
++		const MobFeatures& m = g_content_mob_features[i];
+ 		if (!m.spawn_naturally)
+ 			continue;
+ 		if (m.level > MOB_PASSIVE)
+ 			continue;
+ 		if (m.spawn_water != water)
+@@ -213,17 +213,16 @@
+ 	}
+ 
+ 	if (can.size() == 0)
+ 		return;
+ 
+-	MobFeatures m;
+ 	u32 index = 0;
+ 
+ 	if (can.size() > 1)
+ 		index = myrand_range(0,can.size()-1);
+ 
+-	m = g_content_mob_features[can[index]];
++	const MobFeatures& m = g_content_mob_features[can[index]];
+ 
+ 	if (m.content == CONTENT_IGNORE)
+ 		return;
+ 
+ 	v3s16 spots[9] = {
+@@ -277,11 +276,11 @@
+ 	std::vector<content_t> can;
+ 	u8 level = mobLevelI(config_get("world.game.mob.spawn.level"));
+ 	if (level < MOB_AGGRESSIVE)
+ 		return;
+ 	for (u16 i=0; i<CONTENT_MOB_COUNT; i++) {
+-		MobFeatures m = g_content_mob_features[i];
++		const MobFeatures& m = g_content_mob_features[i];
+ 		if (!m.spawn_naturally)
+ 			continue;
+ 		if (m.level < MOB_AGGRESSIVE)
+ 			continue;
+ 		if (m.level > level)
+@@ -292,17 +291,16 @@
+ 	}
+ 
+ 	if (can.size() == 0)
+ 		return;
+ 
+-	MobFeatures m;
+ 	u32 index = 0;
+ 
+ 	if (can.size() > 1)
+ 		index = myrand_range(0,can.size()-1);
+ 
+-	m = g_content_mob_features[can[index]];
++	const MobFeatures& m = g_content_mob_features[can[index]];
+ 
+ 	if (m.content == CONTENT_IGNORE)
+ 		return;
+ 
+ 	v3s16 spots[9] = {
+@@ -356,11 +354,12 @@
+ {
+ 	content_t i;
+ 	MobFeatures *f = NULL;
+ 
+ 	i = CONTENT_MOB_RAT;
+-	f = &g_content_mob_features[i&~CONTENT_MOB_MASK];
++	f = &g_content_mob_features[(i & ~CONTENT_MOB_MASK) - 1];
++	new(f) MobFeatures;
+ 	f->content = i;
+ 	f->description = gettext("Rat");
+ 	f->level = MOB_PASSIVE;
+ 	f->model = "rat.x";
+ 	f->setTexture("mob_rat.png");
+@@ -375,11 +374,12 @@
+ 	f->spawn_naturally = true;
+ 	f->setCollisionBox(aabb3f(-BS/3.,0.0,-BS/3., BS/3.,BS/2.,BS/3.));
+ 	content_list_add("creative",CONTENT_TOOLITEM_MOB_SPAWNER,1,i);
+ 
+ 	i = CONTENT_MOB_FIREFLY;
+-	f = &g_content_mob_features[i&~CONTENT_MOB_MASK];
++	f = &g_content_mob_features[(i & ~CONTENT_MOB_MASK) - 1];
++	new(f) MobFeatures;
+ 	f->content = i;
+ 	f->description = gettext("Firefly");
+ 	f->level = MOB_PASSIVE;
+ 	f->model_scale = v3f(0.5,0.5,0.5);
+ 	f->setTexture("mob_firefly.png");
+@@ -394,11 +394,12 @@
+ 	f->spawn_naturally = false;
+ 	f->setCollisionBox(aabb3f(-BS/4.,-BS/6.,-BS/4., BS/4.,BS/6.,BS/4.));
+ 	content_list_add("creative",CONTENT_TOOLITEM_MOB_SPAWNER,1,i);
+ 
+ 	i = CONTENT_MOB_OERKKI;
+-	f = &g_content_mob_features[i&~CONTENT_MOB_MASK];
++	f = &g_content_mob_features[(i & ~CONTENT_MOB_MASK) - 1];
++	new(f) MobFeatures;
+ 	f->content = i;
+ 	f->description = gettext("Oerkki");
+ 	f->level = MOB_AGGRESSIVE;
+ 	f->model = "oerkki.x";
+ 	f->model_scale = v3f(4,4,4);
+@@ -415,11 +416,12 @@
+ 	f->attack_player_range = v3f(1,1,1);
+ 	f->setCollisionBox(aabb3f(-BS/3.,0.0,-BS/3., BS/3.,BS*2.,BS/3.));
+ 	content_list_add("creative",CONTENT_TOOLITEM_MOB_SPAWNER,1,i);
+ 
+ 	i = CONTENT_MOB_DUNGEON_MASTER;
+-	f = &g_content_mob_features[i&~CONTENT_MOB_MASK];
++	f = &g_content_mob_features[(i & ~CONTENT_MOB_MASK) - 1];
++	new(f) MobFeatures;
+ 	f->content = i;
+ 	f->description = gettext("Dungeon Master");
+ 	f->level = MOB_DESTRUCTIVE;
+ 	f->model = "dungeon_master.b3d";
+ 	f->model_rotation = v3f(0,-90,0);
+@@ -436,11 +438,12 @@
+ 	f->attack_throw_offset = v3f(0,1.4,-1.0);
+ 	f->setCollisionBox(aabb3f(-0.75*BS, 0.*BS, -0.75*BS, 0.75*BS, 2.0*BS, 0.75*BS));
+ 	content_list_add("creative",CONTENT_TOOLITEM_MOB_SPAWNER,1,i);
+ 
+ 	i = CONTENT_MOB_FIREBALL;
+-	f = &g_content_mob_features[i&~CONTENT_MOB_MASK];
++	f = &g_content_mob_features[(i & ~CONTENT_MOB_MASK) - 1];
++	new(f) MobFeatures;
+ 	f->content = i;
+ 	f->description = gettext("Fireball");
+ 	f->level = MOB_DESTRUCTIVE;
+ 	f->setTexture("mob_fireball.png");
+ 	f->punch_action = MPA_IGNORE;
+@@ -453,11 +456,12 @@
+ 	f->contact_explosion_diameter = 3;
+ 	f->spawn_naturally = false;
+ 	f->setCollisionBox(aabb3f(-BS/3.,0.0,-BS/3., BS/3.,BS/2.,BS/3.));
+ 
+ 	i = CONTENT_MOB_DOE;
+-	f = &g_content_mob_features[i&~CONTENT_MOB_MASK];
++	f = &g_content_mob_features[(i & ~CONTENT_MOB_MASK) - 1];
++	new(f) MobFeatures;
+ 	f->content = i;
+ 	f->description = gettext("Doe");
+ 	f->level = MOB_PASSIVE;
+ 	f->hp = 30;
+ 	f->model = "doe.x";
+@@ -480,11 +484,12 @@
+ 	f->spawn_group = 3;
+ 	f->setCollisionBox(aabb3f(-0.6*BS, 0., -0.6*BS, 0.6*BS, 1.25*BS, 0.6*BS));
+ 	content_list_add("creative",CONTENT_TOOLITEM_MOB_SPAWNER,1,i);
+ 
+ 	i = CONTENT_MOB_STAG;
+-	f = &g_content_mob_features[i&~CONTENT_MOB_MASK];
++	f = &g_content_mob_features[(i & ~CONTENT_MOB_MASK) - 1];
++	new(f) MobFeatures;
+ 	f->content = i;
+ 	f->description = gettext("Stag");
+ 	f->level = MOB_AGGRESSIVE;
+ 	f->hp = 40;
+ 	f->model = "stag.x";
+@@ -509,11 +514,12 @@
+ 	f->attack_player_range = v3f(1,1,1);
+ 	f->setCollisionBox(aabb3f(-0.7*BS, 0., -0.7*BS, 0.7*BS, 1.5*BS, 0.7*BS));
+ 	content_list_add("creative",CONTENT_TOOLITEM_MOB_SPAWNER,1,i);
+ 
+ 	i = CONTENT_MOB_TAMESTAG;
+-	f = &g_content_mob_features[i&~CONTENT_MOB_MASK];
++	f = &g_content_mob_features[(i & ~CONTENT_MOB_MASK) - 1];
++	new(f) MobFeatures;
+ 	f->content = i;
+ 	f->description = gettext("Stag");
+ 	f->level = MOB_PASSIVE;
+ 	f->hp = 40;
+ 	f->model = "stag.b3d";
+@@ -532,11 +538,12 @@
+ 	f->sound_random = "mob-deer-env";
+ 	f->spawn_naturally = false;
+ 	f->setCollisionBox(aabb3f(-0.7*BS, 0., -0.7*BS, 0.7*BS, 1.5*BS, 0.7*BS));
+ 
+ 	i = CONTENT_MOB_FISH;
+-	f = &g_content_mob_features[i&~CONTENT_MOB_MASK];
++	f = &g_content_mob_features[(i & ~CONTENT_MOB_MASK) - 1];
++	new(f) MobFeatures;
+ 	f->content = i;
+ 	f->description = gettext("Fish");
+ 	f->level = MOB_PASSIVE;
+ 	f->model = "fish.b3d";
+ 	f->model_rotation = v3f(0,-90,0);
+@@ -558,11 +565,12 @@
+ 	f->hp = 5;
+ 	f->setCollisionBox(aabb3f(-0.25*BS, 0.25*BS, -0.25*BS, 0.25*BS, 0.75*BS, 0.25*BS));
+ 	content_list_add("creative",CONTENT_TOOLITEM_MOB_SPAWNER,1,i);
+ 
+ 	i = CONTENT_MOB_SHARK;
+-	f = &g_content_mob_features[i&~CONTENT_MOB_MASK];
++	f = &g_content_mob_features[(i & ~CONTENT_MOB_MASK) - 1];
++	new(f) MobFeatures;
+ 	f->content = i;
+ 	f->description = gettext("Shark");
+ 	f->level = MOB_AGGRESSIVE;
+ 	f->hp = 40;
+ 	f->model = "shark.b3d";
+@@ -583,11 +591,12 @@
+ 	f->attack_player_range = v3f(1,1,1);
+ 	f->setCollisionBox(aabb3f(-0.75*BS, 0., -0.75*BS, 0.75*BS, 1.*BS, 0.75*BS));
+ 	content_list_add("creative",CONTENT_TOOLITEM_MOB_SPAWNER,1,i);
+ 
+ 	i = CONTENT_MOB_WOLF;
+-	f = &g_content_mob_features[i&~CONTENT_MOB_MASK];
++	f = &g_content_mob_features[(i & ~CONTENT_MOB_MASK) - 1];
++	new(f) MobFeatures;
+ 	f->content = i;
+ 	f->description = gettext("Wolf");
+ 	f->level = MOB_AGGRESSIVE;
+ 	f->hp = 40;
+ 	f->model = "wolf.b3d";
+@@ -611,11 +620,12 @@
+ 	f->attack_player_range = v3f(1,1,1);
+ 	f->setCollisionBox(aabb3f(-0.5*BS, 0., -0.5*BS, 0.5*BS, 1.*BS, 0.5*BS));
+ 	content_list_add("creative",CONTENT_TOOLITEM_MOB_SPAWNER,1,i);
+ 
+ 	i = CONTENT_MOB_TAMEWOLF;
+-	f = &g_content_mob_features[i&~CONTENT_MOB_MASK];
++	f = &g_content_mob_features[(i & ~CONTENT_MOB_MASK) - 1];
++	new(f) MobFeatures;
+ 	f->content = i;
+ 	f->description = gettext("Tame Wolf");
+ 	f->level = MOB_PASSIVE;
+ 	f->hp = 40;
+ 	f->model = "wolf.b3d";
+@@ -637,11 +647,12 @@
+ 	f->spawn_naturally = false;
+ 	f->setCollisionBox(aabb3f(-0.5*BS, 0., -0.5*BS, 0.5*BS, 1.*BS, 0.5*BS));
+ 	content_list_add("creative",CONTENT_TOOLITEM_MOB_SPAWNER,1,i);
+ 
+ 	i = CONTENT_MOB_SHEEP;
+-	f = &g_content_mob_features[i&~CONTENT_MOB_MASK];
++	f = &g_content_mob_features[(i & ~CONTENT_MOB_MASK) - 1];
++	new(f) MobFeatures;
+ 	f->content = i;
+ 	f->description = gettext("Sheep");
+ 	f->level = MOB_PASSIVE;
+ 	f->hp = 30;
+ 	f->model = "sheep.b3d";
+@@ -669,11 +680,12 @@
+ 	f->spawn_group = 4;
+ 	f->setCollisionBox(aabb3f(-0.4*BS, 0., -0.4*BS, 0.4*BS, 1.*BS, 0.4*BS));
+ 	content_list_add("creative",CONTENT_TOOLITEM_MOB_SPAWNER,1,i);
+ 
+ 	i = CONTENT_MOB_SHEARED_SHEEP;
+-	f = &g_content_mob_features[i&~CONTENT_MOB_MASK];
++	f = &g_content_mob_features[(i & ~CONTENT_MOB_MASK) - 1];
++	new(f) MobFeatures;
+ 	f->content = i;
+ 	f->description = gettext("Sheared Sheep");
+ 	f->level = MOB_PASSIVE;
+ 	f->hp = 30;
+ 	f->model = "sheared_sheep.b3d";
+@@ -694,11 +706,12 @@
+ 	f->spawn_naturally = false;
+ 	f->setCollisionBox(aabb3f(-0.4*BS, 0., -0.4*BS, 0.4*BS, 1.*BS, 0.4*BS));
+ 	content_list_add("creative",CONTENT_TOOLITEM_MOB_SPAWNER,1,i);
+ 
+ 	i = CONTENT_MOB_SNOWBALL;
+-	f = &g_content_mob_features[i&~CONTENT_MOB_MASK];
++	f = &g_content_mob_features[(i & ~CONTENT_MOB_MASK) - 1];
++	new(f) MobFeatures;
+ 	f->content = i;
+ 	f->description = gettext("Snowball");
+ 	f->level = MOB_AGGRESSIVE;
+ 	f->setTexture("snow_ball.png");
+ 	f->model_offset = v3f(0,0.2,0);
+@@ -712,11 +725,12 @@
+ 	f->contact_drop_item = CONTENT_CRAFTITEM_SNOW_BALL;
+ 	f->spawn_naturally = false;
+ 	f->setCollisionBox(aabb3f(-BS/3.,0.0,-BS/3., BS/3.,BS/2.,BS/3.));
+ 
+ 	i = CONTENT_MOB_ARROW;
+-	f = &g_content_mob_features[i&~CONTENT_MOB_MASK];
++	f = &g_content_mob_features[(i & ~CONTENT_MOB_MASK) - 1];
++	new(f) MobFeatures;
+ 	f->content = i;
+ 	f->description = gettext("Arrow");
+ 	f->level = MOB_AGGRESSIVE;
+ 	f->setTexture("mob_arrow.png");
+ 	f->texture_display = MDT_EXTRUDED;
+@@ -730,11 +744,12 @@
+ 	f->contact_drop_item = CONTENT_CRAFTITEM_ARROW;
+ 	f->spawn_naturally = false;
+ 	f->setCollisionBox(aabb3f(-BS/3.,0.0,-BS/3., BS/3.,BS/2.,BS/3.));
+ 
+ 	i = CONTENT_MOB_GREY_KITTY;
+-	f = &g_content_mob_features[i&~CONTENT_MOB_MASK];
++	f = &g_content_mob_features[(i & ~CONTENT_MOB_MASK) - 1];
++	new(f) MobFeatures;
+ 	f->content = i;
+ 	f->description = gettext("Grey Kitten");
+ 	f->level = MOB_AGGRESSIVE;
+ 	f->hp = 30;
+ 	f->model = "kitty.b3d";
+@@ -757,11 +772,12 @@
+ 	f->attack_player_range = v3f(1,1,1);
+ 	f->setCollisionBox(aabb3f(-0.6*BS, 0., -0.6*BS, 0.6*BS, 1.25*BS, 0.6*BS));
+ 	content_list_add("creative",CONTENT_TOOLITEM_MOB_SPAWNER,1,i);
+ 
+ 	i = CONTENT_MOB_WHITE_KITTY;
+-	f = &g_content_mob_features[i&~CONTENT_MOB_MASK];
++	f = &g_content_mob_features[(i & ~CONTENT_MOB_MASK) - 1];
++	new(f) MobFeatures;
+ 	f->content = i;
+ 	f->description = gettext("White Kitten");
+ 	f->level = MOB_AGGRESSIVE;
+ 	f->hp = 30;
+ 	f->model = "kitty.b3d";
+@@ -784,11 +800,12 @@
+ 	f->attack_player_range = v3f(1,1,1);
+ 	f->setCollisionBox(aabb3f(-0.6*BS, 0., -0.6*BS, 0.6*BS, 1.25*BS, 0.6*BS));
+ 	content_list_add("creative",CONTENT_TOOLITEM_MOB_SPAWNER,1,i);
+ 
+ 	i = CONTENT_MOB_SIAMESE_KITTY;
+-	f = &g_content_mob_features[i&~CONTENT_MOB_MASK];
++	f = &g_content_mob_features[(i & ~CONTENT_MOB_MASK) - 1];
++	new(f) MobFeatures;
+ 	f->content = i;
+ 	f->description = gettext("Siamese Kitten");
+ 	f->level = MOB_AGGRESSIVE;
+ 	f->hp = 30;
+ 	f->model = "kitty.b3d";
+@@ -811,11 +828,12 @@
+ 	f->attack_player_range = v3f(1,1,1);
+ 	f->setCollisionBox(aabb3f(-0.6*BS, 0., -0.6*BS, 0.6*BS, 1.25*BS, 0.6*BS));
+ 	content_list_add("creative",CONTENT_TOOLITEM_MOB_SPAWNER,1,i);
+ 
+ 	i = CONTENT_MOB_GINGER_KITTY;
+-	f = &g_content_mob_features[i&~CONTENT_MOB_MASK];
++	f = &g_content_mob_features[(i & ~CONTENT_MOB_MASK) - 1];
++	new(f) MobFeatures;
+ 	f->content = i;
+ 	f->description = gettext("Ginger Kitten");
+ 	f->level = MOB_AGGRESSIVE;
+ 	f->hp = 30;
+ 	f->model = "kitty.b3d";
+diff -rU5 voxelands-v1709.00old/src/content_mob.h voxelands-v1709.00/src/content_mob.h
+--- voxelands-v1709.00old/src/content_mob.h	2017-09-24 06:59:00.000000000 +0200
++++ voxelands-v1709.00/src/content_mob.h	2024-05-29 19:20:16.437142665 +0200
+@@ -86,13 +86,14 @@
+ };
+ 
+ 
+ #define CONTENT_MOB_MASK 0x2000
+ 
+-struct MobFeatures {
++class MobFeatures {
++    public:
+ 	content_t content;
+-	char* description;
++	const char* description;
+ 	u8 level;
+ #ifndef SERVER
+ 	TileSpec tiles[6];
+ #endif
+ 	std::string texture;
+@@ -148,45 +149,54 @@
+ 	MobFeatures()
+ 	{
+ 		reset();
+ 	}
+ 
++	MobFeatures(const MobFeatures& m)
++	{
++		copie(m);
++	}
++	
++	MobFeatures& operator=(const MobFeatures& m)
++	{
++		copie(m);
++		return *this;
++	}
++	
+ 	void setCollisionBox(aabb3f cb)
+ 	{
+ 		cb.MinEdge.Y -= 0.5*BS;
+ 		cb.MaxEdge.Y -= 0.5*BS;
+ 		collisionbox = cb;
+ 	}
+ 
+-	aabb3f getCollisionBox()
++	aabb3f getCollisionBox() const
+ 	{
+ 		if (collisionbox.MinEdge != collisionbox.MaxEdge)
+ 			return collisionbox;
+ 		return aabb3f(-0.5*BS,0.,-0.5*BS,0.5*BS,BS,0.5*BS);
+ 	}
+ 
+-	v3f getSize()
++	v3f getSize() const
+ 	{
+ 		aabb3f c = getCollisionBox();
+ 		return v3f((c.MaxEdge.X-c.MinEdge.X)/BS,(c.MaxEdge.Y-c.MinEdge.Y)/BS,(c.MaxEdge.Z-c.MinEdge.Z)/BS);
+ 	}
+ 
+-	v3s16 getSizeBlocks()
++	v3s16 getSizeBlocks() const
+ 	{
+ 		v3f s = getSize();
+ 		return v3s16(MYMAX(s.X+0.5,1.0),MYMAX(s.Y+0.5,1.0),MYMAX(s.Z+0.5,1.0));
+ 	}
+ 
+ 	void getAnimationFrames(MobAnimation type, int *start, int *end);
+ 	void setAnimationFrames(MobAnimation type, int start, int end);
+ 	void setTexture(std::string name) {texture = name;}
+ 
+ #ifdef SERVER
+-	void setBoxTexture(u16 i, std::string name, u8 alpha=255)
+-	{}
+-	void setAllBoxTextures(std::string name, u8 alpha=255)
+-	{}
++	void setBoxTexture(u16 i, std::string name, u8 alpha=255) {}
++	void setAllBoxTextures(std::string name, u8 alpha=255) {}
+ #else
+ 	void setBoxTexture(u16 i, std::string name, u8 alpha=255);
+ 
+ 	void setAllBoxTextures(std::string name, u8 alpha=255)
+ 	{
+@@ -194,20 +204,20 @@
+ 			setBoxTexture(i, name, alpha);
+ 		}
+ 	}
+ #endif
+ 
++    private:
++	
+ 	void reset()
+ 	{
+-		content = CONTENT_IGNORE;
+-		description = (char*)"";
+-		texture = "";
+-		texture_display = MDT_AUTO;
+-		model = "";
+-		model_scale = v3f(1.0,1.0,1.0);
+-		model_offset = v3f(0,0,0);
++		content = CONTENT_IGNORE;description = "";level = MOB_NONE;
++		texture = "";texture_display = MDT_AUTO;
++		model = "";model_scale = v3f(1.0,1.0,1.0);model_offset = v3f(0,0,0);
+ 		model_rotation = v3f(0,0,0);
++		collisionbox = aabb3f(-0.5*BS,0.,-0.5*BS,0.5*BS,BS,0.5*BS);
++		
+ 		punch_action = MPA_DIE;
+ 		motion_type = MMT_WALK;
+ 		motion = MM_STATIC;
+ 		angry_motion = MM_STATIC;
+ 		static_thrown_speed = 20.0;
+@@ -229,23 +239,68 @@
+ 		special_dropped_max = 0;
+ 		contact_explosion_diameter = 0;
+ 		contact_place_node = CONTENT_IGNORE;
+ 		contact_drop_item = CONTENT_IGNORE;
+ 		moves_silently = false;
++		
+ 		sound_spawn = "";
+ 		sound_death = "";
+ 		sound_attack = "";
+ 		sound_punch = "mob-dig";
+ 		sound_random = "";
+ 		sound_random_extra = "";
++		
+ 		spawn_min_height = -20000;
+ 		spawn_max_height = 100;
+ 		spawn_chance = 1;
+ 		spawn_group = 1;
+ 		spawn_water = false;
++		
+ 		spawn_naturally = true;
+ 	}
++
++	void copie(const MobFeatures& m)
++	{
++		content = m.content;description = m.description;level = m.level;
++		texture = m.texture;texture_display = m.texture_display;
++		model = m.model;model_scale = m.model_scale;
++		model_offset = m.model_offset;model_rotation = m.model_rotation;
++		collisionbox = m.collisionbox;
++		
++		punch_action = m.punch_action;motion_type = m.motion_type;motion = m.motion;
++		angry_motion = m.angry_motion;
++		static_thrown_speed = m.static_thrown_speed;
++		follow_item = m.follow_item;tamed_mob = m.tamed_mob;
++		attack_throw_object = m.attack_throw_object;
++		attack_throw_offset = m.attack_throw_offset;
++		attack_player_damage = m.attack_player_damage;
++		attack_player_range = m.attack_player_range;
++		attack_mob_damage = m.attack_mob_damage;
++		attack_mob_range = m.attack_mob_range;
++		glow_light = m.glow_light;attack_glow_light = m.attack_glow_light;
++		hp = m.hp;dropped_item = m.dropped_item;
++		special_punch_item = m.special_punch_item;
++		special_dropped_item = m.special_dropped_item;
++		special_dropped_count = m.special_dropped_count;
++		special_dropped_max = m.special_dropped_max;
++		contact_explosion_diameter = m.contact_explosion_diameter;
++		contact_place_node = m.contact_place_node;
++		contact_drop_item = m.contact_drop_item;
++		moves_silently = m.moves_silently;
++		
++		sound_spawn = m.sound_spawn;sound_death = m.sound_death;
++		sound_attack = m.sound_attack;sound_punch = m.sound_punch;
++		sound_random = m.sound_random;sound_random_extra = m.sound_random_extra;
++		
++		spawn_min_height = m.spawn_min_height;
++		spawn_max_height = m.spawn_max_height;
++		spawn_chance = m.spawn_chance;
++		spawn_group = m.spawn_group;
++		spawn_water = m.spawn_water;
++		
++		spawn_naturally = m.spawn_naturally;
++	}
+ };
+ 
+ inline u8 mobLevelI(std::string level)
+ {
+ 	if (level == "destructive")
+@@ -297,8 +352,8 @@
+ #define CONTENT_MOB_SIAMESE_KITTY (CONTENT_MOB_MASK | 0x12)
+ #define CONTENT_MOB_GINGER_KITTY (CONTENT_MOB_MASK | 0x13)
+ #define CONTENT_MOB_SHEARED_SHEEP (CONTENT_MOB_MASK | 0x14)
+ 
+ // increment me if you add a mob!
+-#define CONTENT_MOB_COUNT 21
++#define CONTENT_MOB_COUNT 20
+ 
+ #endif
+diff -rU5 voxelands-v1709.00old/src/content_sao.cpp voxelands-v1709.00/src/content_sao.cpp
+--- voxelands-v1709.00old/src/content_sao.cpp	2017-09-24 06:59:00.000000000 +0200
++++ voxelands-v1709.00/src/content_sao.cpp	2024-05-29 18:27:43.054418029 +0200
+@@ -94,10 +94,11 @@
+ 	m_hp(10),
+ 	m_angry(false),
+ 	m_special_count(0),
+ 	m_tamed_chance(0),
+ 	m_disturb_timer(100000),
++	m_disturbing_player(),
+ 	m_random_disturb_timer(0),
+ 	m_walk_around(false),
+ 	m_walk_around_timer(0),
+ 	m_shoot_reload_timer(0),
+ 	m_shooting(false),
+@@ -125,10 +126,11 @@
+ 	m_hp(10),
+ 	m_angry(false),
+ 	m_special_count(0),
+ 	m_tamed_chance(0),
+ 	m_disturb_timer(100000),
++	m_disturbing_player(),
+ 	m_random_disturb_timer(0),
+ 	m_walk_around(false),
+ 	m_walk_around_timer(0),
+ 	m_shoot_reload_timer(0),
+ 	m_shooting(false),
+@@ -205,11 +207,11 @@
+ 	writeU8(os,(u8)m_shooting);
+ 	return os.str();
+ }
+ void MobSAO::step(float dtime, bool send_recommended)
+ {
+-	MobFeatures m = content_mob_features(m_content);
++	const MobFeatures& m = content_mob_features(m_content);
+ 	Player *disturbing_player = NULL;
+ 	v3f disturbing_player_off = v3f(0,1,0);
+ 	v3f disturbing_player_norm = v3f(0,1,0);
+ 	float disturbing_player_distance = 1000000;
+ 	float disturbing_player_dir = 0;
+@@ -540,11 +542,11 @@
+ 	if (m_base_position.getDistanceFrom(m_last_sent_position) > 0.5*BS)
+ 		sendPosition();
+ }
+ void MobSAO::stepMotionWander(float dtime)
+ {
+-	MobFeatures m = content_mob_features(m_content);
++	const MobFeatures& m = content_mob_features(m_content);
+ 	v3s16 pos_i = floatToInt(m_base_position, BS);
+ 	v3s16 pos_size_off(0,0,0);
+ 
+ 	if (m.motion_type == MMT_WALK) {
+ 		if (!m_next_pos_exists) {
+@@ -704,11 +706,11 @@
+ 		}
+ 	}
+ }
+ void MobSAO::stepMotionSeeker(float dtime, float offset)
+ {
+-	MobFeatures m = content_mob_features(m_content);
++	const MobFeatures& m = content_mob_features(m_content);
+ 	v3s16 pos_i = floatToInt(m_base_position, BS);
+ 	Player *disturbing_player = m_env->getPlayer(m_disturbing_player.c_str());
+ 	if (!disturbing_player) {
+ 		m_next_pos_exists = false;
+ 		return;
+@@ -900,11 +902,11 @@
+ 		}
+ 	}
+ }
+ void MobSAO::stepMotionFlee(float dtime)
+ {
+-	MobFeatures m = content_mob_features(m_content);
++	const MobFeatures& m = content_mob_features(m_content);
+ 	v3s16 pos_i = floatToInt(m_base_position, BS);
+ 	Player *disturbing_player = m_env->getPlayer(m_disturbing_player.c_str());
+ 	if (!disturbing_player) {
+ 		m_next_pos_exists = false;
+ 		return;
+@@ -1073,11 +1075,11 @@
+ 		}
+ 	}
+ }
+ void MobSAO::stepMotionSentry(float dtime)
+ {
+-	MobFeatures m = content_mob_features(m_content);
++	const MobFeatures& m = content_mob_features(m_content);
+ 	v3s16 pos_i = floatToInt(m_base_position, BS);
+ 
+ 	if (m.motion_type == MMT_WALK) {
+ 		if (!m_next_pos_exists) {
+ 			/* Check whether to drop down */
+@@ -1212,11 +1214,11 @@
+ 		}
+ 	}
+ }
+ void MobSAO::stepMotionThrown(float dtime)
+ {
+-	MobFeatures m = content_mob_features(m_content);
++	const MobFeatures& m = content_mob_features(m_content);
+ 	m_base_position += m_speed * dtime;
+ 	m_speed.Y -= 10.0*BS*dtime;
+ 
+ 	m_yaw = wrapDegrees_180(180./PI*atan2(m_speed.Z, m_speed.X));
+ 
+@@ -1239,11 +1241,12 @@
+ 		return;
+ 	}
+ }
+ void MobSAO::stepMotionConstant(float dtime)
+ {
+-	MobFeatures m = content_mob_features(m_content);
++	const MobFeatures& m = content_mob_features(m_content);
++	
+ 	m_base_position += m_speed * dtime;
+ 
+ 	m_yaw = wrapDegrees_180(180./PI*atan2(m_speed.Z, m_speed.X));
+ 
+ 	v3s16 pos_i = floatToInt(m_base_position, BS);
+@@ -1341,12 +1344,13 @@
+ 	}
+ 	map->dispatchEvent(&event);
+ }
+ InventoryItem* MobSAO::createPickedUpItem(content_t punch_item)
+ {
+-	MobFeatures m = content_mob_features(m_content);
++	const MobFeatures& m = content_mob_features(m_content);
+ 	ToolItemFeatures f = content_toolitem_features(punch_item);
++	
+ 	if (m.punch_action != MPA_PICKUP) {
+ 		if (!m_removed) {
+ 			if (m.special_dropped_item != CONTENT_IGNORE && (m.special_punch_item == TT_NONE || f.type == m.special_punch_item)) {
+ 				if (m.special_dropped_max > 0) {
+ 					if (m_special_count < m.special_dropped_count)
+@@ -1372,11 +1376,12 @@
+ 		m_removed = true;
+ 	return item;
+ }
+ u16 MobSAO::punch(content_t punch_item, v3f dir, const std::string &playername)
+ {
+-	MobFeatures m = content_mob_features(m_content);
++	const MobFeatures& m = content_mob_features(m_content);
++	
+ 	if (m.sound_punch != "")
+ 		m_env->addEnvEvent(ENV_EVENT_SOUND,m_base_position,m.sound_punch);
+ 	if (m.punch_action == MPA_IGNORE)
+ 		return 0;
+ 	ToolItemFeatures f = content_toolitem_features(punch_item);
+@@ -1437,11 +1442,11 @@
+ {
+ 	// so get the player
+ 	if (!player)
+ 		return false;
+ 	// see if mob is tamable
+-	MobFeatures m = content_mob_features(m_content);
++	const MobFeatures& m = content_mob_features(m_content);
+ 	if (m.tamed_mob == CONTENT_IGNORE)
+ 		return false;
+ 	// get the wielded item
+ 	u16 item_i = player->getSelectedItem();
+ 	InventoryList *ilist = player->inventory.getList("main");
+diff -rU5 voxelands-v1709.00old/src/crypto_base64.c voxelands-v1709.00/src/crypto_base64.c
+--- voxelands-v1709.00old/src/crypto_base64.c	2017-09-24 06:59:00.000000000 +0200
++++ voxelands-v1709.00/src/crypto_base64.c	2024-05-30 14:46:05.754151667 +0200
+@@ -184,11 +184,11 @@
+ 
+ 		/* convert the characters */
+ 		tmplen = s_base64_decode_triple((unsigned char*)quadruple, (unsigned char*)tmpresult);
+ 
+ 		/* check if the fit in the result buffer */
+-		if (targetlen < tmplen) {
++		if (targetlen < (size_t) tmplen) {
+ 			free(src);
+ 			return -1;
+ 		}
+ 
+ 		/* put the partial result in the result buffer */
+diff -rU5 voxelands-v1709.00old/src/environment.cpp voxelands-v1709.00/src/environment.cpp
+--- voxelands-v1709.00old/src/environment.cpp	2017-09-24 06:59:00.000000000 +0200
++++ voxelands-v1709.00/src/environment.cpp	2024-05-29 12:16:50.198759039 +0200
+@@ -397,11 +397,13 @@
+ 			player->serialize(os);
+ 			nvp_set(&saved_players, (char*)player->getName(), (char*)player->getName(), player);
+ 		}
+ 		list_file = list_file->next;
+ 	}
+-
++	
++	path_dirlist_free(list);
++	
+ 	for (i=0; i<m_players->length; i++) {
+ 		player = (Player*)array_get_ptr(m_players,i);
+ 		if (!player)
+ 			continue;
+ 		if (nvp_get(&saved_players, (char*)player->getName()) != NULL)
+@@ -425,11 +427,10 @@
+ 			nvp_set(&saved_players, (char*)player->getName(), (char*)player->getName(), player);
+ 		}
+ 	}
+ 
+ 	nvp_free(&saved_players,0);
+-
+ }
+ 
+ void ServerEnvironment::deSerializePlayers()
+ {
+ 
+@@ -3116,10 +3117,14 @@
+ 			send_recommended = true;
+ 		}
+ 
+ 		for (std::map<u16, ServerActiveObject*>::iterator i = m_active_objects.begin(); i != m_active_objects.end(); i++) {
+ 			ServerActiveObject* obj = i->second;
++
++			if(!obj)
++			    continue;
++			
+ 			// Remove non-peaceful mobs on peaceful mode
+ 			if (obj->level() > mob_level)
+ 				obj->m_removed = true;
+ 			// Don't step if is to be removed or stored statically
+ 			if (obj->m_removed)
+@@ -3163,14 +3168,17 @@
+ void ServerEnvironment::getActiveObjects(v3f origin, f32 max_d, core::array<DistanceSortedActiveObject> &dest)
+ {
+ 	for (std::map<u16, ServerActiveObject*>::iterator i = m_active_objects.begin(); i != m_active_objects.end(); i++) {
+ 		ServerActiveObject* obj = i->second;
+ 
++		if(!obj)
++		    continue;
++		
+ 		f32 d = (obj->getBasePosition() - origin).getLength();
+ 
+ 		if (d > max_d)
+-			continue;
++		    continue;
+ 
+ 		DistanceSortedActiveObject dso(obj, d);
+ 
+ 		dest.push_back(dso);
+ 	}
+diff -rU5 voxelands-v1709.00old/src/environment.h voxelands-v1709.00/src/environment.h
+--- voxelands-v1709.00old/src/environment.h	2017-09-24 06:59:00.000000000 +0200
++++ voxelands-v1709.00/src/environment.h	2024-04-14 18:01:43.457803977 +0200
+@@ -198,11 +198,11 @@
+ 		m_time = t;
+ 	}
+ 
+ 	u32 getSeason()
+ 	{
+-		char* s = config_get("world.game.environment.season");
++		const char* s = config_get("world.game.environment.season");
+ 		if (s) {
+ 			if (!strcmp(s,"summer"))
+ 				return ENV_SEASON_SUMMER;
+ 			if (!strcmp(s,"autumn") || !strcmp(s,"fall"))
+ 				return ENV_SEASON_AUTUMN;
+diff -rU5 voxelands-v1709.00old/src/file.c voxelands-v1709.00/src/file.c
+--- voxelands-v1709.00old/src/file.c	2017-09-24 06:59:00.000000000 +0200
++++ voxelands-v1709.00/src/file.c	2024-04-14 14:01:52.952676853 +0200
+@@ -48,15 +48,15 @@
+ 
+ 	return inc;
+ }
+ 
+ /* load a file into memory */
+-file_t *file_load(char* type, char* name)
++file_t *file_load(const char* type,const char* name)
+ {
+ 	file_t *ft;
+ 	FILE *f;
+-	char* fn;
++	const char* fn;
+ 	char* path;
+ 
+ 	if (type) {
+ 		fn = name;
+ 		path = path_get(type,name,1,NULL,0);
+@@ -119,14 +119,14 @@
+ 
+ 	return ft;
+ }
+ 
+ /* load a file into memory */
+-file_t *file_create(char* type, char *name)
++file_t *file_create(const char* type,const char *name)
+ {
+ 	file_t *ft;
+-	char* fn;
++	const char* fn;
+ 	char* path;
+ 
+ 	if (name) {
+ 		if (type) {
+ 			fn = name;
+@@ -380,11 +380,11 @@
+ {
+ 	return file->data+file->pos;
+ }
+ 
+ /* write data to a file buffer */
+-int file_write(file_t *file, void *buff, int size)
++int file_write(file_t *file,const void *buff, int size)
+ {
+ 	if (!file || !buff || size)
+ 		return -1;
+ 
+ 	if (file->size <= (file->pos+size+1)) {
+@@ -407,11 +407,11 @@
+ 
+ 	return size;
+ }
+ 
+ /* write a formatted string to a file buffer (printf style) */
+-int file_writef(file_t *file, char* fmt, ...)
++int file_writef(file_t *file,const char* fmt, ...)
+ {
+ 	va_list ap;
+ 	int l;
+ 	int s;
+ 	if (!file)
+diff -rU5 voxelands-v1709.00old/src/file.h voxelands-v1709.00/src/file.h
+--- voxelands-v1709.00old/src/file.h	2017-09-24 06:59:00.000000000 +0200
++++ voxelands-v1709.00/src/file.h	2024-04-14 14:01:24.689771730 +0200
+@@ -22,12 +22,12 @@
+ 	int modified;
+ } file_t;
+ #endif
+ 
+ /* defined in file.c */
+-file_t *file_load(char* type, char *name);
+-file_t *file_create(char* type, char *name);
++file_t *file_load(const char* type,const char *name);
++file_t *file_create(const char* type,const char *name);
+ void file_free(file_t *file);
+ void file_flush(file_t *file);
+ int file_find(file_t *file, int offset, unsigned char value);
+ int file_strfind(file_t *file, int offset, char* value);
+ int file_read(file_t *file, void* dst, int size);
+@@ -38,12 +38,12 @@
+ uint32_t file_read_uint(file_t *file);
+ float file_read_float(file_t *file);
+ int file_seek(file_t *file, int offset, int origin);
+ int file_tell(file_t *file);
+ void *file_get(file_t *file);
+-int file_write(file_t *file, void *buff, int size);
+-int file_writef(file_t *file, char* fmt, ...);
++int file_write(file_t *file,const  void *buff, int size);
++int file_writef(file_t *file,const char* fmt, ...);
+ 
+ #ifdef __cplusplus
+ }
+ #endif
+ 
+diff -rU5 voxelands-v1709.00old/src/game.cpp voxelands-v1709.00/src/game.cpp
+--- voxelands-v1709.00old/src/game.cpp	2017-09-24 06:59:00.000000000 +0200
++++ voxelands-v1709.00/src/game.cpp	2024-06-01 19:16:14.117466251 +0200
+@@ -749,11 +749,11 @@
+ 		Create server.
+ 		SharedPtr will delete it when it goes out of scope.
+ 	*/
+ 	SharedPtr<Server> server;
+ 	{
+-		char* v = config_get("world.server.address");
++		const char* v = config_get("world.server.address");
+ 		if (!v || !v[0]) {
+ 			//draw_load_screen(L"Creating server...", driver, font);
+ 			drawLoadingScreen(device,narrow_to_wide(gettext("Creating server...")));
+ 			infostream<<"Creating server"<<std::endl;
+ 			server = new Server();
+@@ -776,11 +776,11 @@
+ 	port = config_get_int("world.server.port");
+ 	if (!port)
+ 		port = 30000;
+ 	Address connect_address(0,0,0,0, port);
+ 	try{
+-		char* v = config_get("world.server.address");
++		const char* v = config_get("world.server.address");
+ 		if (!v || !v[0]) {
+ 			connect_address.setAddress(127,0,0,1);
+ 		}else{
+ 			connect_address.Resolve(v);
+ 		}
+@@ -925,11 +925,11 @@
+ 	show_debug = config_get_bool("debug.show");
+ 	fps_max = config_get_float("client.graphics.fps.max");
+ 	profiler_print_interval = config_get_float("debug.profiler.interval");
+ 	mouse_sensitivity = config_get_float("client.ui.mouse.sensitivity");
+ 	{
+-		char* v = config_get("client.graphics.selection");
++		const char* v = config_get("client.graphics.selection");
+ 		if (v && !strcmp(v,"outline"))
+ 			highlight_selected_node = false;
+ 	}
+ 	enable_particles = config_get_bool("client.graphics.particles");
+ 	enable_fog = config_get_bool("client.graphics.light.fog");
+@@ -1139,11 +1139,11 @@
+ 			Launch menus according to keys
+ 		*/
+ 		if (input->wasKeyDown(getKeySetting(VLKC_INVENTORY))) {
+ 			infostream<<"the_game: Launching inventory"<<std::endl;
+ 
+-			GUIFormSpecMenu *menu = new GUIFormSpecMenu(guienv, guiroot, -1, &g_menumgr, &client);
++			GUIFormSpecMenu* const menu = new GUIFormSpecMenu(guienv, guiroot, -1, &g_menumgr, &client);
+ 
+ 			InventoryLocation inventoryloc;
+ 			inventoryloc.setCurrentPlayer();
+ 
+ 			PlayerInventoryFormIO *fio = new PlayerInventoryFormIO(&client);
+@@ -1475,11 +1475,11 @@
+ 					if (event.player_damage.amount >= 2) {
+ 						damage_flash_timer += 0.05 * event.player_damage.amount;
+ 					}
+ #if USE_AUDIO == 1
+ 					{
+-						char* v;
++						const char* v;
+ 						std::string ch = std::string(PLAYER_DEFAULT_CHARDEF);
+ 						v = config_get("client.character");
+ 						if (v)
+ 							ch = v;
+ 						Strfnd f(ch);
+@@ -1494,14 +1494,14 @@
+ 					camera_pitch = event.player_force_move.pitch;
+ 				}else if (event.type == CE_DEATHSCREEN) {
+ 					if (respawn_menu_active)
+ 						continue;
+ 
+-					MainRespawnInitiator *respawner =
++					MainRespawnInitiator* const respawner =
+ 							new MainRespawnInitiator(
+ 									&respawn_menu_active, &client);
+-					GUIDeathScreen *menu =
++					GUIDeathScreen* const menu =
+ 							new GUIDeathScreen(guienv, guiroot, -1,
+ 								&g_menumgr, respawner);
+ 					menu->drop();
+ 
+ 					/* Handle visualization */
+@@ -1756,11 +1756,12 @@
+ 							InventoryLocation inventoryloc;
+ 							inventoryloc.setNodeMeta(nodepos);
+ 
+ 							/* Create menu */
+ 
+-							GUIFormSpecMenu *menu = new GUIFormSpecMenu(guienv, guiroot, -1, &g_menumgr, &client);
++							GUIFormSpecMenu* const menu = new GUIFormSpecMenu(guienv, guiroot, -1, &g_menumgr, &client);
++							
+ 							menu->setFormSpec(meta->getDrawSpecString(client.getLocalPlayer()), inventoryloc);
+ 							menu->setFormIO(new NodeMetadataFormIO(nodepos, &client));
+ 							menu->drop();
+ 							{
+ 								std::string sound = content_features(client.getEnv().getMap().getNodeNoEx(nodepos).getContent()).sound_access;
+@@ -1781,11 +1782,13 @@
+ 									InventoryLocation inventoryloc;
+ 									inventoryloc.setNodeMeta(nodepos);
+ 
+ 									/* Create menu */
+ 
+-									GUIFormSpecMenu *menu = new GUIFormSpecMenu(guienv, guiroot, -1, &g_menumgr, &client);
++									GUIFormSpecMenu* const menu =
++									    new GUIFormSpecMenu(guienv, guiroot, -1, &g_menumgr, &client);
++									
+ 									menu->setFormSpec(ameta->getDrawSpecString(client.getLocalPlayer()), inventoryloc);
+ 									menu->setFormIO(new NodeMetadataFormIO(npos, &client));
+ 									menu->drop();
+ 									{
+ 										std::string sound = content_features(nn.getContent()).sound_access;
+diff -rU5 voxelands-v1709.00old/src/game.h voxelands-v1709.00/src/game.h
+--- voxelands-v1709.00old/src/game.h	2017-09-24 06:59:00.000000000 +0200
++++ voxelands-v1709.00/src/game.h	2024-05-29 16:42:41.652237101 +0200
+@@ -37,11 +37,11 @@
+ class KeyList : protected core::list<KeyPress>
+ {
+ 	typedef core::list<KeyPress> super;
+ 	typedef super::Iterator Iterator;
+ 	typedef super::ConstIterator ConstIterator;
+-
++	
+ 	virtual ConstIterator find(const KeyPress &key) const
+ 	{
+ 		ConstIterator f(begin());
+ 		ConstIterator e(end());
+ 		while (f!=e) {
+@@ -63,10 +63,12 @@
+ 		}
+ 		return e;
+ 	}
+ 
+ public:
++	virtual ~KeyList() {};
++
+ 	void clear() { super::clear(); }
+ 
+ 	void set(const KeyPress &key)
+ 	{
+ 		if (find(key) == end())
+diff -rU5 voxelands-v1709.00old/src/guiMainMenu.cpp voxelands-v1709.00/src/guiMainMenu.cpp
+--- voxelands-v1709.00old/src/guiMainMenu.cpp	2017-09-24 06:59:00.000000000 +0200
++++ voxelands-v1709.00/src/guiMainMenu.cpp	2024-06-01 19:23:20.722495642 +0200
+@@ -157,11 +157,11 @@
+ 	*/
+ 
+ 	/*
+ 		Client section
+ 	*/
+-	char* selected_tab = config_get("client.ui.mainmenu.tab");
++	const char* selected_tab = config_get("client.ui.mainmenu.tab");
+ 	if (!selected_tab) {
+ 		m_data->selected_tab = TAB_SINGLEPLAYER;
+ 	}else if (!strcmp(selected_tab,"multiplayer")) {
+ 		m_data->selected_tab = TAB_MULTIPLAYER;
+ 	}else if (!strcmp(selected_tab,"settings")) {
+@@ -171,14 +171,14 @@
+ 	}else{
+ 		m_data->selected_tab = TAB_SINGLEPLAYER;
+ 	}
+ 
+ 	if (m_data->selected_tab == TAB_MULTIPLAYER) {
+-		GUIMultiplayerMenu *mmenu = new GUIMultiplayerMenu(env, parent, -1,m_data,menumgr,m_gamecallback);
++		GUIMultiplayerMenu* const mmenu = new GUIMultiplayerMenu(env, parent, -1,m_data,menumgr,m_gamecallback);
+ 		mmenu->drop();
+ 	}else if (m_data->selected_tab == TAB_SINGLEPLAYER) {
+-		GUISingleplayerMenu *mmenu = new GUISingleplayerMenu(env, parent, -1,menumgr,m_gamecallback);
++		GUISingleplayerMenu* const mmenu = new GUISingleplayerMenu(env, parent, -1,menumgr,m_gamecallback);
+ 		mmenu->drop();
+ 	}else if (m_data->selected_tab == TAB_CREDITS) {
+ 		// CREDITS
+ 		{
+ 			core::rect<s32> rect(0, 0, 550, 550);
+@@ -312,29 +312,32 @@
+ 			}
+ 			case GUI_ID_TAB_SINGLEPLAYER:
+ 			{
+ 				if (m_data->selected_tab == TAB_SETTINGS)
+ 					acceptInput();
+-				GUISingleplayerMenu *mmenu = new GUISingleplayerMenu(env, parent, -1,menumgr,m_gamecallback);
++				GUISingleplayerMenu* const mmenu =
++				    new GUISingleplayerMenu(env, parent, -1,menumgr,m_gamecallback);
+ 				mmenu->drop();
+ 				m_data->selected_tab = TAB_SINGLEPLAYER;
+ 				config_set("client.ui.mainmenu.tab","singleplayer");
+ 				return true;
+ 			}
+ 			case GUI_ID_TAB_MULTIPLAYER:
+ 			{
+ 				if (m_data->selected_tab == TAB_SETTINGS)
+ 					acceptInput();
+-				GUIMultiplayerMenu *mmenu = new GUIMultiplayerMenu(env, parent, -1,m_data,menumgr,m_gamecallback);
++				GUIMultiplayerMenu* const mmenu =
++				    new GUIMultiplayerMenu(env, parent, -1,m_data,menumgr,m_gamecallback);
+ 				mmenu->drop();
+ 				m_data->selected_tab = TAB_MULTIPLAYER;
+ 				config_set("client.ui.mainmenu.tab","multiplayer");
+ 				return true;
+ 			}
+ 			case GUI_ID_TAB_SETTINGS:
+ 			{
+-				GUISettingsMenu *smenu = new GUISettingsMenu(env, parent, -1,menumgr, false);
++				GUISettingsMenu* const smenu =
++				    new GUISettingsMenu(env, parent, -1,menumgr, false);
+ 				smenu->drop();
+ 				return true;
+ 			}
+ 			case GUI_ID_TAB_CREDITS:
+ 				if (m_data->selected_tab == TAB_SETTINGS)
+diff -rU5 voxelands-v1709.00old/src/guiPauseMenu.h voxelands-v1709.00/src/guiPauseMenu.h
+--- voxelands-v1709.00old/src/guiPauseMenu.h	2017-09-24 06:59:00.000000000 +0200
++++ voxelands-v1709.00/src/guiPauseMenu.h	2024-05-29 16:26:05.246506744 +0200
+@@ -30,10 +30,11 @@
+ #include "modalMenu.h"
+ 
+ class IGameCallback
+ {
+ public:
++	virtual ~IGameCallback() {};
+ 	virtual void exitToOS() = 0;
+ 	virtual void disconnect() = 0;
+ 	virtual void changePassword() = 0;
+ 	virtual void startGame() = 0;
+ };
+diff -rU5 voxelands-v1709.00old/src/guiSingleplayerMenu.cpp voxelands-v1709.00/src/guiSingleplayerMenu.cpp
+--- voxelands-v1709.00old/src/guiSingleplayerMenu.cpp	2017-09-24 06:59:00.000000000 +0200
++++ voxelands-v1709.00/src/guiSingleplayerMenu.cpp	2024-04-14 20:07:32.112327895 +0200
+@@ -531,11 +531,11 @@
+ 
+ 	world_unload();
+ }
+ void GUISingleplayerMenu::loadWorld(bool create)
+ {
+-	char* v;
++	const char* v;
+ 	config_clear("world");
+ 
+ 	survival_mode = true;
+ 	random_seed = true;
+ 	flat_map = false;
+diff -rU5 voxelands-v1709.00old/src/http.cpp voxelands-v1709.00/src/http.cpp
+--- voxelands-v1709.00old/src/http.cpp	2017-09-24 06:59:00.000000000 +0200
++++ voxelands-v1709.00/src/http.cpp	2024-04-14 18:20:21.670669782 +0200
+@@ -291,11 +291,11 @@
+ }
+ 
+ /* handle /api/xxx url's */
+ int HTTPRemoteClient::handleAPI()
+ {
+-	char* v;
++	const char* v;
+ 
+ 	std::string u1 = m_recv_headers.getUrl(1);
+ 
+ 	if (u1 == "summary" || u1 == "") {
+ 		std::string txt(VERSION_STRING);
+@@ -343,11 +343,11 @@
+ 			v = "";
+ 		txt += v;
+ 		txt += "\n";
+ 
+ 		txt += "summary,motd,mode,name,players,public,version,privs,features";
+-		send((char*)txt.c_str());
++		send(txt.c_str());
+ 		return 1;
+ 	}else if (u1 == "motd") {
+ 		v = config_get("world.game.motd");
+ 		if (!v)
+ 			v = "";
+@@ -391,11 +391,11 @@
+ 			if (c++)
+ 				txt += ", ";
+ 			txt += player->getName();
+ 		}
+ 		array_free(players,1);
+-		send((char*)txt.c_str());
++		send(txt.c_str());
+ 		return 1;
+ 	}else if (u1 == "public") {
+ 		v = config_get("world.server.client.default.password");
+ 		if (v || config_get_bool("world.server.client.private")) {
+ 			send("private");
+@@ -411,11 +411,11 @@
+ }
+ 
+ /* handle / url's */
+ int HTTPRemoteClient::handleIndex()
+ {
+-	char* v;
++	const char* v;
+ 	int c = 0;
+ 
+ 	std::string html("<div class=\"panel\"><h2>");
+ 	v = config_get("world.game.motd");
+ 	if (v)
+@@ -453,11 +453,11 @@
+ 	sendHTML(html);
+ 	return 1;
+ }
+ 
+ /* send text data to a remote http client */
+-void HTTPRemoteClient::send(char* data)
++void HTTPRemoteClient::send(const char* data)
+ {
+ 	int l = strlen(data);
+ 	m_send_headers.setHeader("Content-Type","text/plain");
+ 	m_send_headers.setLength(l);
+ 	sendHeaders();
+@@ -571,11 +571,11 @@
+ 
+ /*
+  * HTTP request
+  */
+ 
+-std::string http_request(char* host, char* url, char* post, int port)
++std::string http_request(const char* host, char* url, char* post, int port)
+ {
+ 	Address addr;
+ 	TCPSocket *sock;
+ 	HTTPResponseHeaders headers;
+ 	int s;
+diff -rU5 voxelands-v1709.00old/src/http.h voxelands-v1709.00/src/http.h
+--- voxelands-v1709.00old/src/http.h	2017-09-24 06:59:00.000000000 +0200
++++ voxelands-v1709.00/src/http.h	2024-05-29 16:24:46.623871019 +0200
+@@ -53,11 +53,11 @@
+ public:
+ 	HTTPHeaders()
+ 	{
+ 		clear();
+ 	}
+-	~HTTPHeaders() {};
++	virtual ~HTTPHeaders() {};
+ 	void clear()
+ 	{
+ 		m_contentLength = 0;
+ 		m_url = std::string("");
+ 		m_url_split.clear();
+@@ -84,17 +84,19 @@
+ };
+ 
+ class HTTPRequestHeaders : public HTTPHeaders
+ {
+ public:
++	virtual ~HTTPRequestHeaders() {};
+ 	virtual int read(TCPSocket *sock);
+ private:
+ };
+ 
+ class HTTPResponseHeaders : public HTTPHeaders
+ {
+ public:
++	virtual ~HTTPResponseHeaders() {};
+ 	virtual int read(TCPSocket *sock);
+ 	void setResponse(int r) {m_response = r;}
+ 	int getResponse() {return m_response;}
+ private:
+ 	int m_response;
+@@ -122,12 +124,12 @@
+ 	int handleIndex();
+ 	int handleAPI();
+ 	int handleSpecial(const char* response, std::string content);
+ 	int handleSpecial(const char* response) {return handleSpecial(response,"");}
+ 
+-	void send(char* data);
+-	void send(std::string &data) {send((char*)data.c_str());}
++	void send(const char* data);
++	void send(std::string &data) {send(data.c_str());}
+ 	void sendHTML(char* data);
+ 	void sendHTML(std::string &data) {sendHTML((char*)data.c_str());}
+ 	void sendFile(std::string &file);
+ 	void setResponse(const char* response) {std::string r(response); m_response = r;}
+ 
+@@ -158,9 +160,9 @@
+ 	std::vector<HTTPRemoteClient*> m_peers;
+ 	HTTPServerThread m_thread;
+ 	Server *m_server;
+ };
+ 
+-std::string http_request(char* host, char* url, char* post=NULL, int port=80);
++std::string http_request(const char* host, char* url, char* post=NULL, int port=80);
+ std::string http_url_encode(std::string &str);
+ 
+ #endif
+diff -rU5 voxelands-v1709.00old/src/inventory.cpp voxelands-v1709.00/src/inventory.cpp
+--- voxelands-v1709.00old/src/inventory.cpp	2017-09-24 06:59:00.000000000 +0200
++++ voxelands-v1709.00/src/inventory.cpp	2024-05-30 16:24:05.827538463 +0200
+@@ -803,14 +803,14 @@
+ 
+ /*
+ 	Inventory
+ */
+ 
+-InventoryList::InventoryList(std::string name, u32 size)
++InventoryList::InventoryList(std::string name, u32 size) :
++		m_items(),m_size(size),m_name(name),m_allowed(),
++		m_denied(),m_stackable(false),m_diff()
+ {
+-	m_name = name;
+-	m_size = size;
+ 	clearItems();
+ 	clearAllowed();
+ 	clearDenied();
+ 	setStackable();
+ }
+@@ -991,11 +991,14 @@
+ 			throw SerializationError("Unknown inventory identifier (3)");
+ 		}
+ 	}
+ }
+ 
+-InventoryList::InventoryList(const InventoryList &other)
++InventoryList::InventoryList(const InventoryList &other) :
++		m_items(),m_size(other.m_size),m_name(other.m_name),
++		m_allowed(other.m_allowed),m_denied(other.m_denied),
++		m_stackable(other.m_stackable),m_diff()
+ {
+ 	/*
+ 		Do this so that the items get cloned. Otherwise the pointers
+ 		in the array will just get copied.
+ 	*/
+@@ -1005,19 +1008,17 @@
+ InventoryList & InventoryList::operator = (const InventoryList &other)
+ {
+ 	m_name = other.m_name;
+ 	m_size = other.m_size;
+ 	clearItems();
++
+ 	for (u32 i=0; i<other.m_items.size(); i++) {
+ 		InventoryItem *item = other.m_items[i];
+ 		if (item != NULL)
+ 			m_items[i] = item->clone();
+ 	}
+-	m_stackable = other.m_stackable;
+-	m_allowed = other.m_allowed;
+-	m_denied = other.m_denied;
+-
++	
+ 	return *this;
+ }
+ 
+ const std::string &InventoryList::getName() const
+ {
+@@ -1445,11 +1446,11 @@
+ 	if (i == -1)
+ 		return NULL;
+ 	return m_lists[i];
+ }
+ 
+-const s32 Inventory::getListIndex(const std::string &name) const
++s32 Inventory::getListIndex(const std::string &name) const
+ {
+ 	for (u32 i=0; i<m_lists.size(); i++) {
+ 		if (m_lists[i]->getName() == name)
+ 			return i;
+ 	}
+diff -rU5 voxelands-v1709.00old/src/inventory.h voxelands-v1709.00/src/inventory.h
+--- voxelands-v1709.00old/src/inventory.h	2017-09-24 06:59:00.000000000 +0200
++++ voxelands-v1709.00/src/inventory.h	2024-05-30 22:01:42.830343745 +0200
+@@ -330,13 +330,12 @@
+ 
+ class ToolItem : public InventoryItem
+ {
+ public:
+ 	ToolItem(content_t content, u16 wear, u16 data):
+-		InventoryItem(1,data)
++			InventoryItem(1,data),m_wear(wear)
+ 	{
+-		m_wear = wear;
+ 		m_content = content_toolitem_features(content).content;
+ 	}
+ 	/*
+ 		Implementation interface
+ 	*/
+@@ -698,11 +697,11 @@
+ 		return m_diff;
+ 	}
+ 
+ private:
+ 	// -1 if not found
+-	const s32 getListIndex(const std::string &name) const;
++	s32 getListIndex(const std::string &name) const;
+ 
+ 	core::array<InventoryList*> m_lists;
+ 	InventoryDiff m_diff;
+ };
+ 
+Seulement dans voxelands-v1709.00/src/jthread: Makefile
+Seulement dans voxelands-v1709.00/src/jthread: cmake_install.cmake
+diff -rU5 voxelands-v1709.00old/src/jthread/jthread.h voxelands-v1709.00/src/jthread/jthread.h
+--- voxelands-v1709.00old/src/jthread/jthread.h	2017-09-24 06:59:00.000000000 +0200
++++ voxelands-v1709.00/src/jthread/jthread.h	2024-05-30 14:52:25.811196505 +0200
+@@ -43,28 +43,32 @@
+ 
+ class JTHREAD_IMPORTEXPORT JThread
+ {
+ public:
+ 	JThread();
++	JThread(const JThread& jt);
+ 	virtual ~JThread();
++	
++	JThread& operator=(const JThread& jt);
++
+ 	int Start();
+ 	int Kill();
+ 	virtual void *Thread() = 0;
+ 	bool IsRunning();
+ 	void *GetReturnValue();
+ protected:
+ 	void ThreadStarted();
+ private:
+ 
+ #ifdef JTHREAD_CONFIG_WIN32THREADS
+-#ifdef _WIN32_WCE
++# ifdef _WIN32_WCE
+ 	DWORD threadid;
+ 	static DWORD WINAPI TheThread(void *param);
+-#else
++# else
+ 	static UINT __stdcall TheThread(void *param);
+ 	UINT threadid;
+-#endif // _WIN32_WCE
++# endif // _WIN32_WCE
+ 	HANDLE threadhandle;
+ #else // pthread type threads
+ 	static void *TheThread(void *param);
+ 	
+ 	pthread_t threadid;
+Seulement dans voxelands-v1709.00/src/jthread: jthreadconfig.h
+diff -rU5 voxelands-v1709.00old/src/jthread/pthread/jmutex.cpp voxelands-v1709.00/src/jthread/pthread/jmutex.cpp
+--- voxelands-v1709.00old/src/jthread/pthread/jmutex.cpp	2017-09-24 06:59:00.000000000 +0200
++++ voxelands-v1709.00/src/jthread/pthread/jmutex.cpp	2024-05-29 15:51:33.365819509 +0200
+@@ -28,46 +28,45 @@
+ #include "jmutex.h"
+ 
+ namespace jthread
+ {
+ 
+-JMutex::JMutex()
+-{
+-	initialized = false;
+-}
+-
+-JMutex::~JMutex()
+-{
+-	if (initialized)
++    JMutex::JMutex() : mutex(),initialized(false)
++    {
++    }
++
++    JMutex::~JMutex()
++    {
++	    if (initialized)
+ 		pthread_mutex_destroy(&mutex);
+-}
++    }
+ 
+-int JMutex::Init()
+-{
+-	if (initialized)
++    int JMutex::Init()
++    {
++	    if (initialized)
+ 		return ERR_JMUTEX_ALREADYINIT;
+-	
+-	pthread_mutex_init(&mutex,NULL);
+-	initialized = true;
+-	return 0;	
+-}
+-
+-int JMutex::Lock()
+-{
+-	if (!initialized)
++	    
++	    pthread_mutex_init(&mutex,NULL);
++	    initialized = true;
++	    return 0;	
++    }
++
++    int JMutex::Lock()
++    {
++	    if (!initialized)
+ 		return ERR_JMUTEX_NOTINIT;
+ 		
+-	pthread_mutex_lock(&mutex);
+-	return 0;
+-}
+-
+-int JMutex::Unlock()
+-{
+-	if (!initialized)
++	    pthread_mutex_lock(&mutex);
++	    return 0;
++    }
++
++    int JMutex::Unlock()
++    {
++	    if (!initialized)
+ 		return ERR_JMUTEX_NOTINIT;
+ 	
+-	pthread_mutex_unlock(&mutex);
+-	return 0;
+-}
++	    pthread_mutex_unlock(&mutex);
++	    return 0;
++    }
+ 
+ } // end namespace
+ 
+diff -rU5 voxelands-v1709.00old/src/jthread/pthread/jthread.cpp voxelands-v1709.00/src/jthread/pthread/jthread.cpp
+--- voxelands-v1709.00old/src/jthread/pthread/jthread.cpp	2017-09-24 06:59:00.000000000 +0200
++++ voxelands-v1709.00/src/jthread/pthread/jthread.cpp	2024-05-30 14:50:47.241444825 +0200
+@@ -31,155 +31,173 @@
+ #include <stdlib.h>
+ 
+ namespace jthread
+ {
+ 
+-JThread::JThread()
+-{
+-	retval = NULL;
+-	mutexinit = false;
+-	running = false;
+-}
+-
+-JThread::~JThread()
+-{
+-	Kill();
+-}
++    JThread::JThread() : threadid(),retval(NULL),running(false),runningmutex(),
++			 continuemutex(),continuemutex2(),mutexinit(false)
++    {
++    }
++
++    JThread::JThread(const JThread& jt) : threadid(jt.threadid),
++					  retval(jt.retval),running(jt.running),
++					  runningmutex(jt.runningmutex),
++					  continuemutex(jt.continuemutex),
++					  continuemutex2(jt.continuemutex2),
++					  mutexinit(jt.mutexinit)
++    {
++    }
++
++    JThread::~JThread()
++    {
++	    Kill();
++    }
++
++    JThread& JThread::operator=(const JThread& jt)
++    {
++	    threadid = jt.threadid;retval = jt.retval;
++	    running = jt.running;
++	    runningmutex = jt.runningmutex;
++	    continuemutex = jt.continuemutex;
++	    continuemutex2 = jt.continuemutex2;
++	    mutexinit = jt.mutexinit;
++	    return *this;
++    }
++    
++    int JThread::Start()
++    {
++	    int status;
+ 
+-int JThread::Start()
+-{
+-	int status;
+-
+-	if (!mutexinit)
+-	{
++	    if (!mutexinit)
++	    {
+ 		if (!runningmutex.IsInitialized())
+ 		{
+-			if (runningmutex.Init() < 0)
+-				return ERR_JTHREAD_CANTINITMUTEX;
++		    if (runningmutex.Init() < 0)
++			return ERR_JTHREAD_CANTINITMUTEX;
+ 		}
+ 		if (!continuemutex.IsInitialized())
+ 		{
+-			if (continuemutex.Init() < 0)
+-				return ERR_JTHREAD_CANTINITMUTEX;
++		    if (continuemutex.Init() < 0)
++			return ERR_JTHREAD_CANTINITMUTEX;
+ 		}
+ 		if (!continuemutex2.IsInitialized())
+ 		{
+-			if (continuemutex2.Init() < 0)
+-				return ERR_JTHREAD_CANTINITMUTEX;
++		    if (continuemutex2.Init() < 0)
++			return ERR_JTHREAD_CANTINITMUTEX;
+ 		}
+ 		mutexinit = true;
+-	}
++	    }
+ 	
+-	runningmutex.Lock();
+-	if (running)
+-	{
++	    runningmutex.Lock();
++	    if (running)
++	    {
+ 		runningmutex.Unlock();
+ 		return ERR_JTHREAD_ALREADYRUNNING;
+-	}
+-	runningmutex.Unlock();
++	    }
++	    runningmutex.Unlock();
+ 	
+-	pthread_attr_t attr;
+-	pthread_attr_init(&attr);
+-	pthread_attr_setdetachstate(&attr,PTHREAD_CREATE_DETACHED);
+-	
+-	continuemutex.Lock();
+-	status = pthread_create(&threadid,&attr,TheThread,this);	
+-	pthread_attr_destroy(&attr);
+-	if (status != 0)
+-	{
++	    pthread_attr_t attr;
++	    pthread_attr_init(&attr);
++	    pthread_attr_setdetachstate(&attr,PTHREAD_CREATE_DETACHED);
++	
++	    continuemutex.Lock();
++	    status = pthread_create(&threadid,&attr,TheThread,this);	
++	    pthread_attr_destroy(&attr);
++	    if (status != 0)
++	    {
+ 		continuemutex.Unlock();
+ 		return ERR_JTHREAD_CANTSTARTTHREAD;
+-	}
++	    }
+ 	
+ 	/* Wait until 'running' is set */
+ 	
+-	runningmutex.Lock();			
+-	while (!running)
+-	{
++	    runningmutex.Lock();			
++	    while (!running)
++	    {
+ 		runningmutex.Unlock();
+ 		
+ 		struct timespec req,rem;
+ 
+ 		req.tv_sec = 0;
+ 		req.tv_nsec = 1000000;
+ 		nanosleep(&req,&rem);
+ 
+ 		runningmutex.Lock();
+-	}
+-	runningmutex.Unlock();
++	    }
++	    runningmutex.Unlock();
+ 	
+-	continuemutex.Unlock();
++	    continuemutex.Unlock();
+ 	
+-	continuemutex2.Lock();
+-	continuemutex2.Unlock();
+-	return 0;
+-}
+-
+-int JThread::Kill()
+-{
+-	runningmutex.Lock();			
+-	if (!running)
+-	{
++	    continuemutex2.Lock();
++	    continuemutex2.Unlock();
++	    return 0;
++    }
++
++    int JThread::Kill()
++    {
++	    runningmutex.Lock();			
++	    if (!running)
++	    {
+ 		runningmutex.Unlock();
+ 		return ERR_JTHREAD_NOTRUNNING;
+-	}
+-	pthread_cancel(threadid);
+-	running = false;
+-	runningmutex.Unlock();
+-	return 0;
+-}
+-
+-bool JThread::IsRunning()
+-{
+-	bool r;
+-	
+-	runningmutex.Lock();			
+-	r = running;
+-	runningmutex.Unlock();
+-	return r;
+-}
+-
+-void *JThread::GetReturnValue()
+-{
+-	void *val;
++	    }
++	    pthread_cancel(threadid);
++	    running = false;
++	    runningmutex.Unlock();
++	    return 0;
++    }
++
++    bool JThread::IsRunning()
++    {
++	    bool r;
++	
++	    runningmutex.Lock();			
++	    r = running;
++	    runningmutex.Unlock();
++	    return r;
++    }
++
++    void *JThread::GetReturnValue()
++    {
++	    void *val;
+ 	
+-	runningmutex.Lock();
+-	if (running)
++	    runningmutex.Lock();
++	    if (running)
+ 		val = NULL;
+-	else
++	    else
+ 		val = retval;
+-	runningmutex.Unlock();
+-	return val;
+-}
+-
+-void *JThread::TheThread(void *param)
+-{
+-	JThread *jthread;
+-	void *ret;
+-	
+-	jthread = (JThread *)param;
+-	
+-	jthread->continuemutex2.Lock();
+-	jthread->runningmutex.Lock();
+-	jthread->running = true;
+-	jthread->runningmutex.Unlock();
+-	
+-	jthread->continuemutex.Lock();
+-	jthread->continuemutex.Unlock();
+-	
+-	ret = jthread->Thread();
+-
+-	jthread->runningmutex.Lock();
+-	jthread->running = false;
+-	jthread->retval = ret;
+-	jthread->runningmutex.Unlock();
+-
+-	return NULL;
+-}
+-
+-void JThread::ThreadStarted()
+-{
+-	continuemutex2.Unlock();
+-}
++	    runningmutex.Unlock();
++	    return val;
++    }
++
++    void *JThread::TheThread(void *param)
++    {
++	    JThread *jthread;
++	    void *ret;
++	
++	    jthread = (JThread *)param;
++	
++	    jthread->continuemutex2.Lock();
++	    jthread->runningmutex.Lock();
++	    jthread->running = true;
++	    jthread->runningmutex.Unlock();
++	
++	    jthread->continuemutex.Lock();
++	    jthread->continuemutex.Unlock();
++	
++	    ret = jthread->Thread();
++
++	    jthread->runningmutex.Lock();
++	    jthread->running = false;
++	    jthread->retval = ret;
++	    jthread->runningmutex.Unlock();
++
++	    return NULL;
++    }
++
++    void JThread::ThreadStarted()
++    {
++	    continuemutex2.Unlock();
++    }
+ 
+ } // end namespace
+ 
+diff -rU5 voxelands-v1709.00old/src/keycode.cpp voxelands-v1709.00/src/keycode.cpp
+--- voxelands-v1709.00old/src/keycode.cpp	2017-09-24 06:59:00.000000000 +0200
++++ voxelands-v1709.00/src/keycode.cpp	2024-04-14 14:47:18.985665998 +0200
+@@ -500,11 +500,11 @@
+ KeyPress *g_key_setting_cache[256];
+ static bool key_setting_cache_init = false;
+ 
+ KeyPress getKeySetting(KeyCode code)
+ {
+-	char* v;
++	const char* v;
+ 	if (!key_setting_cache_init)
+ 		clearKeyCache();
+ 	if (g_key_setting_cache[code])
+ 		return *g_key_setting_cache[code];
+ 
+diff -rU5 voxelands-v1709.00old/src/log.c voxelands-v1709.00/src/log.c
+--- voxelands-v1709.00old/src/log.c	2017-09-24 06:59:00.000000000 +0200
++++ voxelands-v1709.00/src/log.c	2024-04-14 14:24:08.649244680 +0200
+@@ -43,11 +43,11 @@
+ 	5,
+ 	NULL,
+ 	{"none","error","warn","action","chat","info","debug"}
+ };
+ 
+-static void level_setter(char* v, int *l, int d)
++static void level_setter(const char* v, int *l, int d)
+ {
+ 	int i;
+ 	if (v) {
+ 		for (i=0; i<7; i++) {
+ 			if (!strcmp(logdata.levels[i],v)) {
+@@ -59,41 +59,41 @@
+ 
+ 	*l = d;
+ }
+ 
+ /* config setters */
+-int log_minlevel_setter(char* v)
++int log_minlevel_setter(const char* v)
+ {
+ 	level_setter(v,&logdata.min_level,1);
+ 	return 0;
+ }
+-int log_maxlevel_setter(char* v)
++int log_maxlevel_setter(const char* v)
+ {
+ 	level_setter(v,&logdata.max_level,5);
+ 	return 0;
+ }
+-int log_sminlevel_setter(char* v)
++int log_sminlevel_setter(const char* v)
+ {
+ 	level_setter(v,&logdata.system_min_level,4);
+ 	return 0;
+ }
+-int log_smaxlevel_setter(char* v)
++int log_smaxlevel_setter(const char* v)
+ {
+ 	level_setter(v,&logdata.system_max_level,5);
+ 	return 0;
+ }
+-int log_cminlevel_setter(char* v)
++int log_cminlevel_setter(const char* v)
+ {
+ 	level_setter(v,&logdata.console_min_level,4);
+ 	return 0;
+ }
+-int log_cmaxlevel_setter(char* v)
++int log_cmaxlevel_setter(const char* v)
+ {
+ 	level_setter(v,&logdata.console_max_level,5);
+ 	return 0;
+ }
+-int log_file_setter(char* v)
++int log_file_setter(const char* v)
+ {
+ 	if (logdata.logfile)
+ 		free(logdata.logfile);
+ 	logdata.logfile = NULL;
+ 
+@@ -104,11 +104,11 @@
+ 
+ 	return 0;
+ }
+ 
+ /* print text to game and system consoles */
+-void vlprint(uint8_t type, char* str)
++void vlprint(uint8_t type,const char* str)
+ {
+ 	char buff[1024];
+ 	char* b = buff;
+ 	int s = 1024;
+ 
+@@ -179,11 +179,11 @@
+ 		fclose(f);
+ 	}
+ }
+ 
+ /* print formatted text to game and system consoles */
+-void vlprintf(uint8_t type, char* fmt,...)
++void vlprintf(uint8_t type,const char* fmt,...)
+ {
+ 	char buff[1024];
+ 	va_list ap;
+ 
+ 	if (!fmt)
+diff -rU5 voxelands-v1709.00old/src/log.h voxelands-v1709.00/src/log.h
+--- voxelands-v1709.00old/src/log.h	2017-09-24 06:59:00.000000000 +0200
++++ voxelands-v1709.00/src/log.h	2024-05-29 16:19:32.683256608 +0200
+@@ -43,10 +43,12 @@
+ };
+ 
+ class ILogOutput
+ {
+ public:
++	virtual ~ILogOutput() {};
++	
+ 	/* line: Full line with timestamp, level and thread */
+ 	virtual void printLog(const std::string &line){};
+ 	/* line: Only actual printed text */
+ 	virtual void printLog(enum LogMessageLevel lev, const std::string &line){};
+ };
+diff -rU5 voxelands-v1709.00old/src/main.cpp voxelands-v1709.00/src/main.cpp
+--- voxelands-v1709.00old/src/main.cpp	2017-09-24 06:59:00.000000000 +0200
++++ voxelands-v1709.00/src/main.cpp	2024-06-01 19:29:16.855700061 +0200
+@@ -132,10 +132,11 @@
+ 
+ // A small helper class
+ class TimeGetter
+ {
+ public:
++	virtual ~TimeGetter() {};
+ 	virtual u32 getTime() = 0;
+ };
+ 
+ // A precise irrlicht one
+ class IrrlichtTimeGetter: public TimeGetter
+@@ -796,11 +797,11 @@
+ 		DSTACK("Dedicated server branch");
+ 
+ 		// Create time getter
+ 		g_timegetter = new SimpleTimeGetter();
+ 
+-		char* v = config_get("server.world");
++		const char* v = config_get("server.world");
+ 		world_init(v);
+ 
+ 		// Create server
+ 		Server server;
+ 		server.start();
+@@ -834,11 +835,11 @@
+ 	// Determine driver
+ 
+ 	video::E_DRIVER_TYPE driverType = video::EDT_OPENGL;
+ 
+ 	{
+-		char* v = config_get("client.video.driver");
++		const char* v = config_get("client.video.driver");
+ 		if (v && !strcmp(v,"d3d9"))
+ 			driverType = video::EDT_DIRECT3D9;
+ 	}
+ 
+ 	/*
+@@ -898,11 +899,11 @@
+ 	gui::IGUIFont* font = NULL;
+ 	{
+ 		char buff[1024];
+ #if USE_FREETYPE
+ 		uint16_t font_size = config_get_int("client.ui.font.size");
+-		char* v = config_get("client.ui.font");
++		const char* v = config_get("client.ui.font");
+ 		if (!v)
+ 			v = "unifont.ttf";
+ 		if (path_get("font",v,1,buff,1024))
+ 			font = gui::CGUITTFont::createTTFont(guienv, buff, font_size, true, true, 1, 128);
+ #else
+@@ -969,11 +970,11 @@
+ 	std::string password;
+ 
+ 	// if there's no chardef then put the player directly into the character creator
+ 	bool character_creator = true;
+ 	{
+-		char* v = config_get("client.character");
++		const char* v = config_get("client.character");
+ 		if (v && v[0])
+ 			character_creator = false;
+ 	}
+ 
+ 	/*
+@@ -1009,11 +1010,11 @@
+ 				smgr->clear();
+ 
+ 				// Initialize menu data
+ 				std::string playername = "";
+ 				{
+-					char* v = config_get("client.name");
++					const char* v = config_get("client.name");
+ 					if (v)
+ 						playername = std::string(v);
+ 				}
+ 				if (playername == "")
+ 					playername = porting::getUser();
+@@ -1038,11 +1039,11 @@
+ 				menudata.fixed_seed = narrow_to_wide(bridge_config_get("world.seed"));
+ 				if (menudata.fixed_seed != L"")
+ 					menudata.use_fixed_seed = true;
+ 				menudata.map_type = config_get("world.map.type");
+ 
+-				GUIMainMenu *menu = new GUIMainMenu(
++				GUIMainMenu* const menu = new GUIMainMenu(
+ 					guienv,
+ 					guiroot,
+ 					-1,
+ 					&g_menumgr,
+ 					&menudata,
+@@ -1052,11 +1053,11 @@
+ 
+ 				if (error_message != L"") {
+ 					errorstream<<"error_message = "
+ 							<<wide_to_narrow(error_message)<<std::endl;
+ 
+-					GUIMessageMenu *menu2 =
++					GUIMessageMenu* const menu2 =
+ 							new GUIMessageMenu(guienv, guiroot, -1,
+ 								&g_menumgr, error_message.c_str());
+ 					menu2->drop();
+ 					error_message = L"";
+ 				}
+@@ -1103,11 +1104,11 @@
+ 				if (device->run() == false || kill == true)
+ 					break;
+ 
+ 				infostream<<"Dropping main menu"<<std::endl;
+ 
+-				menu->drop();
++				menu->drop(); // Don't use after.
+ 
+ 				character_creator = menudata.character_creator;
+ 
+ 				if (character_creator)
+ 					break;
+@@ -1167,11 +1168,11 @@
+ 
+ 			if (character_creator) {
+ 				character_creator = false;
+ 				video::IVideoDriver* driver = device->getVideoDriver();
+ 
+-				GUICharDefMenu *menu = new GUICharDefMenu(device, guienv, guiroot, -1, &g_menumgr);
++				GUICharDefMenu* const menu = new GUICharDefMenu(device, guienv, guiroot, -1, &g_menumgr);
+ 				menu->allowFocusRemoval(true);
+ 
+ #if USE_AUDIO == 1
+ 				sound_play_music("bg-charcreator",1.0,1);
+ #endif
+@@ -1199,21 +1200,20 @@
+ #if USE_AUDIO == 1
+ 				sound_stop_music(1.0);
+ #endif
+ 
+ 				menu->drop();
+-
+ 				continue;
+ 			}
+ 			// Initialize mapnode again to enable changed graphics settings
+ 			init_mapnode(device);
+ 
+ 			/*
+ 				Run game
+ 			*/
+ 			{
+-				char* v = config_get("world.server.address");
++				const char* v = config_get("world.server.address");
+ 				if (!v || !v[0]) {
+ 					if (!world_init(NULL)) {
+ 						the_game(
+ 							kill,
+ 							input,
+diff -rU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00/src/map.cpp
+--- voxelands-v1709.00old/src/map.cpp	2017-09-24 06:59:00.000000000 +0200
++++ voxelands-v1709.00/src/map.cpp	2024-05-30 22:48:01.912347076 +0200
+@@ -2351,11 +2351,11 @@
+ 	}else{
+ 		m_seed = config_get_int64("world.seed");
+ 	}
+ 	m_type = MGT_DEFAULT;
+ 	if (config_get("world.map.type")) {
+-		char* type = config_get("world.map.type");
++		const char* type = config_get("world.map.type");
+ 		if (!strcmp(type,"flat")) {
+ 			m_type = MGT_FLAT;
+ 		}else{
+ 			config_set("world.map.type","default");
+ 		}
+@@ -2746,12 +2746,15 @@
+ 		u32 sector_blocks_drawn = 0;
+ 
+ 		core::list< MapBlock * >::Iterator i;
+ 		for(i=sectorblocks.begin(); i!=sectorblocks.end(); i++)
+ 		{
+-			MapBlock *block = *i;
++			MapBlock* const block = *i;
+ 
++			if(!block)
++			    continue;
++			
+ 			/*
+ 				Compare block position to camera position, skip
+ 				if not seen on display
+ 			*/
+ 
+diff -rU5 voxelands-v1709.00old/src/map.h voxelands-v1709.00/src/map.h
+--- voxelands-v1709.00old/src/map.h	2017-09-24 06:59:00.000000000 +0200
++++ voxelands-v1709.00/src/map.h	2024-05-29 16:22:34.437492056 +0200
+@@ -121,10 +121,12 @@
+ };
+ 
+ class MapEventReceiver
+ {
+ public:
++	virtual ~MapEventReceiver() {};
++	
+ 	// event shall be deleted by caller after the call.
+ 	virtual void onMapEditEvent(MapEditEvent *event) = 0;
+ };
+ 
+ class Map /*: public NodeContainer*/
+@@ -481,11 +483,11 @@
+ 			scene::ISceneNode* parent,
+ 			scene::ISceneManager* mgr,
+ 			s32 id
+ 	);
+ 
+-	~ClientMap();
++	virtual ~ClientMap();
+ 
+ 	s32 mapType() const
+ 	{
+ 		return MAPTYPE_CLIENT;
+ 	}
+diff -rU5 voxelands-v1709.00old/src/mapblock_mesh.cpp voxelands-v1709.00/src/mapblock_mesh.cpp
+--- voxelands-v1709.00old/src/mapblock_mesh.cpp	2017-09-24 06:59:00.000000000 +0200
++++ voxelands-v1709.00/src/mapblock_mesh.cpp	2024-06-01 19:38:58.738259469 +0200
+@@ -414,24 +414,24 @@
+ 	if (corner.Y == 1)
+ 		p.Y += 1;
+ 	if (corner.Z == 1)
+ 		p.Z += 1;
+ 
+-		for (u8 i = 0; i < 8; i++) {
+-		MapNode n = vmanip.getNodeRO(p - dirs8[i]);
+-		ContentFeatures &f = content_features(n);
+-		if (f.param_type == CPT_LIGHT) {
+-			dl += n.getLight(LIGHTBANK_DAY);
+-			nl += n.getLight(LIGHTBANK_NIGHT);
+-			light_count++;
+-			if (f.light_source > 0)
+-				ambient_occlusion -= 1.0;
+-		} else if (f.draw_type == CDT_CUBELIKE || f.draw_type == CDT_DIRTLIKE) {
+-			ambient_occlusion += 0.5;
+-		} else if (n.getContent() != CONTENT_IGNORE) {
+-			ambient_occlusion += 0.25;
+-		}
++	for (u8 i = 0; i < 8; i++) {
++	    MapNode n = vmanip.getNodeRO(p - dirs8[i]);
++	    ContentFeatures &f = content_features(n);
++	    if (f.param_type == CPT_LIGHT) {
++		dl += n.getLight(LIGHTBANK_DAY);
++		nl += n.getLight(LIGHTBANK_NIGHT);
++		light_count++;
++		if (f.light_source > 0)
++		    ambient_occlusion -= 1.0;
++	    } else if (f.draw_type == CDT_CUBELIKE || f.draw_type == CDT_DIRTLIKE) {
++		ambient_occlusion += 0.5;
++	    } else if (n.getContent() != CONTENT_IGNORE) {
++		ambient_occlusion += 0.25;
++	    }
+ 	}
+ 
+ 	if (light_count == 0)
+ 		return 0;
+ 
+@@ -469,10 +469,11 @@
+ {
+ 	m_mesh->drop();
+ 	m_mesh = NULL;
+ 	m_farmesh->drop();
+ 	m_farmesh = NULL;
++	
+ 	if (!m_animation_data.empty())
+ 		m_animation_data.clear();
+ }
+ 
+ void MapBlockMesh::animate(float time)
+@@ -699,48 +700,54 @@
+ 		}
+ 
+ 		// Create meshbuffer
+ 		// This is a "Standard MeshBuffer",
+ 		// it's a typedeffed CMeshBuffer<video::S3DVertex>
+-		scene::SMeshBuffer *buf = new scene::SMeshBuffer();
++		scene::SMeshBuffer* const buf = new scene::SMeshBuffer();
++
++		if(buf) {
+ 		// Set material
+-		buf->Material = d.tile.getMaterial();
++		    buf->Material = d.tile.getMaterial();
+ 		// Add to mesh
+-		mesh->addMeshBuffer(buf);
++		    mesh->addMeshBuffer(buf);
+ 		// Mesh grabbed it
+-		buf->drop();
+-
+-		buf->append(d.vertices.data(), d.vertices.size(), d.indices.data(), d.indices.size());
++		    buf->drop();
++		    buf->append(d.vertices.data(), d.vertices.size(), d.indices.data(), d.indices.size());
++		}
+ 	}
+ 	for (u32 i=0; i<data->m_fardata.size(); i++) {
+ 		MeshData &d = data->m_fardata[i];
+ 		// Create meshbuffer
+ 		// This is a "Standard MeshBuffer",
+ 		// it's a typedeffed CMeshBuffer<video::S3DVertex>
+-		scene::SMeshBuffer *buf = new scene::SMeshBuffer();
++		scene::SMeshBuffer* const buf = new scene::SMeshBuffer();
++
++		if(buf) {
+ 		// Set material
+-		buf->Material = d.tile.getMaterial();
++		    buf->Material = d.tile.getMaterial();
+ 		// Add to mesh
+-		fmesh->addMeshBuffer(buf);
++		    fmesh->addMeshBuffer(buf);
+ 		// Mesh grabbed it
+-		buf->drop();
+-
+-		buf->append(d.vertices.data(), d.vertices.size(), d.indices.data(), d.indices.size());
++		    buf->drop();
++		    buf->append(d.vertices.data(), d.vertices.size(), d.indices.data(), d.indices.size());
++		}
+ 	}
+ 
+ 	translateMesh(mesh, intToFloat(data->m_blockpos * MAP_BLOCKSIZE - camera_offset, BS));
+ 	translateMesh(fmesh, intToFloat(data->m_blockpos * MAP_BLOCKSIZE - camera_offset, BS));
+ 
+ 	if (mutex != NULL)
+ 		mutex->Lock();
+ 
+ 	if (m_mesh != NULL)
+ 		m_mesh->drop();
++	m_mesh = mesh;
++	
+ 	if (m_farmesh != NULL)
+ 		m_farmesh->drop();
+-	m_mesh = mesh;
+ 	m_farmesh = fmesh;
++	
+ 	m_meshdata.swap(data->m_meshdata);
+ 	m_fardata.swap(data->m_fardata);
+ 	refresh(data->m_daynight_ratio);
+ 	m_mesh->recalculateBoundingBox();
+ 
+diff -rU5 voxelands-v1709.00old/src/mapnode.h voxelands-v1709.00/src/mapnode.h
+--- voxelands-v1709.00old/src/mapnode.h	2017-09-24 06:59:00.000000000 +0200
++++ voxelands-v1709.00/src/mapnode.h	2024-05-30 14:31:48.394272356 +0200
+@@ -277,17 +277,16 @@
+ };
+ 
+ class FaceText
+ {
+ public:
+-	FaceText():
+-		m_hastext(false)
++	FaceText() :
++			m_type(FTT_INFO),m_hastext(false)
+ 	{
+ 	}
+-	FaceText(f32 tlx, f32 tly, f32 brx, f32 bry):
+-		m_type(FTT_INFO),
+-		m_hastext(true)
++	FaceText(f32 tlx, f32 tly, f32 brx, f32 bry) :
++			m_type(FTT_INFO),m_hastext(true)
+ 	{
+ #ifndef SERVER
+ 		m_pos = core::rect<f32>(tlx,tly,brx,bry);
+ #endif
+ 	}
+@@ -548,18 +547,12 @@
+ 		rotate_tile_with_nodebox = false;
+ 		plantlike_tiled = false;
+ 		wield_nodebox = true;
+ 		description = (char*)"";
+ 		nodeboxes.clear();
+-		nodeboxes.push_back(NodeBox(
+-			-0.5*BS,
+-			-0.5*BS,
+-			-0.5*BS,
+-			0.5*BS,
+-			0.5*BS,
+-			0.5*BS
+-		));
++		nodeboxes.push_back(NodeBox(-0.5*BS,-0.5*BS,-0.5*BS,
++						0.5*BS,0.5*BS,0.5*BS));
+ 		wield_nodeboxes.clear();
+ 		setAllFaceTexts(FaceText());
+ 		param_type = CPT_NONE;
+ 		param2_type = CPT_NONE;
+ 		item_param_type = CPT_NONE;
+@@ -833,16 +826,13 @@
+ 	u16 crack;
+ 	bool has_crack;
+ 	bool is_coloured;
+ 	content_t content;
+ 
+-	SelectedNode()
++	SelectedNode() : pos(0,0,0),crack(0),has_crack(false),is_coloured(false),
++			 content(CONTENT_IGNORE)	 
+ 	{
+-		pos = v3s16(0,0,0);
+-		has_crack = false;
+-		is_coloured = false;
+-		content = CONTENT_IGNORE;
+ 	}
+ 
+ 	SelectedNode(v3s16 p, u16 c, bool h, content_t cnt)
+ 	{
+ 		pos = p;
+@@ -962,23 +952,29 @@
+ 	*/
+ 	u8 param2;
+ 
+ 	u32 envticks;
+ 
+-	MapNode(const MapNode & n)
++	MapNode(const MapNode & n) :
++			content(n.content),param1(n.param1),param2(n.param2),
++			envticks(n.envticks)
+ 	{
+-		*this = n;
+ 	}
+ 
+-	MapNode(content_t a_content=CONTENT_AIR, u8 a_param1=0, u8 a_param2=0)
++	MapNode(content_t a_content=CONTENT_AIR, u8 a_param1=0, u8 a_param2=0) :
++			content(a_content),param1(a_param1),param2(a_param2),
++			envticks(0)
+ 	{
+-		content = a_content;
+-		param1 = a_param1;
+-		param2 = a_param2;
+-		envticks = 0;
+ 	}
+ 
++	MapNode& operator=(const MapNode& n)
++	{
++		content = n.content;param1 = n.param1;param2 = n.param2;
++		envticks = n.envticks;
++		return *this;
++	}
++	
+ 	bool operator==(const MapNode &other)
+ 	{
+ 		return (content == other.content
+ 				&& param1 == other.param1
+ 				&& param2 == other.param2);
+@@ -1088,11 +1084,10 @@
+ 	*/
+ 
+ 	static u32 serializedLength(u8 version);
+ 	void serialize(u8 *dest, u8 version);
+ 	void deSerialize(u8 *source, u8 version);
+-
+ };
+ 
+ /*
+ 	Gets lighting value at face of node
+ 
+diff -rU5 voxelands-v1709.00old/src/mesh.cpp voxelands-v1709.00/src/mesh.cpp
+--- voxelands-v1709.00old/src/mesh.cpp	2017-09-24 06:59:00.000000000 +0200
++++ voxelands-v1709.00/src/mesh.cpp	2024-06-01 19:41:33.380759710 +0200
+@@ -120,11 +120,12 @@
+ 			}
+ 		}
+ 
+ 		u16 indices[6] = {0,1,2,2,3,0};
+ 		for (u32 i=0; i<6; ++i) {
+-			scene::IMeshBuffer *buf = new scene::SMeshBuffer();
++			scene::IMeshBuffer* const buf = new scene::SMeshBuffer();
++			
+ 			buf->append(vertices + 4 * i, 4, indices, 6);
+ 			// Set default material
+ 			buf->getMaterial().setFlag(video::EMF_LIGHTING, false);
+ 			buf->getMaterial().setFlag(video::EMF_BILINEAR_FILTER, false);
+ 			buf->getMaterial().MaterialType = video::EMT_TRANSPARENT_ALPHA_CHANNEL_REF;
+@@ -132,11 +133,12 @@
+ 			mesh->addMeshBuffer(buf);
+ 			buf->drop();
+ 		}
+ 	}
+ 
+-	scene::SAnimatedMesh *anim_mesh = new scene::SAnimatedMesh(mesh);
++	scene::SAnimatedMesh* const anim_mesh = new scene::SAnimatedMesh(mesh);
++	
+ 	mesh->drop();
+ 	scaleMesh(anim_mesh, scale);  // also recalculates bounding box
+ 	return anim_mesh;
+ }
+ 
+@@ -167,11 +169,12 @@
+ 		return mesh;
+ #if (IRRLICHT_VERSION_MAJOR >= 1 && IRRLICHT_VERSION_MINOR >= 8) || IRRLICHT_VERSION_MAJOR >= 2
+ 	// irrlicht 1.8+ we just manually load the mesh
+ 	scene::IMeshLoader *loader;
+ 	u32 lc = smgr->getMeshLoaderCount();
+-	io::IReadFile* file = smgr->getFileSystem()->createAndOpenFile(buff);
++	io::IReadFile* const file = smgr->getFileSystem()->createAndOpenFile(buff);
++	
+ 	if (!file)
+ 		return 0;
+ 	for (u32 i=0; i<lc; i++) {
+ 		loader = smgr->getMeshLoader(i);
+ 		file->seek(0);
+@@ -344,15 +347,17 @@
+ 	}
+ 
+ 	delete[] solidity;
+ 
+ 	// Add to mesh
+-	scene::SMesh *mesh = new scene::SMesh();
++	scene::SMesh* const mesh = new scene::SMesh();
+ 	mesh->addMeshBuffer(buf);
+ 	buf->drop();
+-	scene::SAnimatedMesh *anim_mesh = new scene::SAnimatedMesh(mesh);
++	
++	scene::SAnimatedMesh* const anim_mesh = new scene::SAnimatedMesh(mesh);
+ 	mesh->drop();
++	
+ 	return anim_mesh;
+ }
+ 
+ scene::IAnimatedMesh* createExtrudedMesh(video::ITexture *texture,
+ 		video::IVideoDriver *driver, v3f scale)
+@@ -367,16 +372,16 @@
+ 		if (data == NULL)
+ 			return NULL;
+ 		mesh = extrudeARGB(size.Width, size.Height, (u8*) data);
+ 		texture->unlock();
+ 	}else{
+-		video::IImage *img1 = driver->createImageFromData(format, size, texture->lock(MY_ETLM_READ_ONLY));
++		video::IImage* const img1 = driver->createImageFromData(format, size, texture->lock(MY_ETLM_READ_ONLY));
+ 		if (img1 == NULL)
+ 			return NULL;
+ 
+ 		// img1 is in the texture's color format, convert to 8-bit ARGB
+-		video::IImage *img2 = driver->createImage(video::ECF_A8R8G8B8, size);
++		video::IImage* const img2 = driver->createImage(video::ECF_A8R8G8B8, size);
+ 		if (img2 != NULL) {
+ 			img1->copyTo(img2);
+ 
+ 			mesh = extrudeARGB(size.Width, size.Height, (u8*) img2->lock());
+ 			img2->unlock();
+@@ -561,16 +566,17 @@
+ 
+ 	// Set render target
+ 	driver->setRenderTarget(rtt, false, true, video::SColor(0,0,0,0));
+ 
+ 	// Get a scene manager
+-	scene::ISceneManager *smgr_main = device->getSceneManager();
++	scene::ISceneManager* const smgr_main = device->getSceneManager();
+ 	assert(smgr_main);
+-	scene::ISceneManager *smgr = smgr_main->createNewSceneManager();
++	scene::ISceneManager* const smgr = smgr_main->createNewSceneManager();
+ 	assert(smgr);
+ 
+-	scene::IMeshSceneNode* meshnode = smgr->addMeshSceneNode(mesh, NULL, -1, v3f(0,0,0), v3f(0,0,0), v3f(1,1,1), true);
++	scene::IMeshSceneNode* const meshnode =
++	    smgr->addMeshSceneNode(mesh, NULL, -1, v3f(0,0,0), v3f(0,0,0), v3f(1,1,1), true);
+ 	meshnode->setMaterialFlag(video::EMF_LIGHTING, true);
+ 	meshnode->setMaterialFlag(video::EMF_ANTI_ALIASING, true);
+ 	meshnode->setMaterialFlag(video::EMF_BILINEAR_FILTER, true);
+ 
+ 	scene::ICameraSceneNode* camera = smgr->addCameraSceneNode(0,
+diff -rU5 voxelands-v1709.00old/src/modalMenu.h voxelands-v1709.00/src/modalMenu.h
+--- voxelands-v1709.00old/src/modalMenu.h	2017-09-24 06:59:00.000000000 +0200
++++ voxelands-v1709.00/src/modalMenu.h	2024-05-29 16:25:25.015692681 +0200
+@@ -32,10 +32,11 @@
+ 
+ class IMenuManager
+ {
+ public:
+ 	// A GUIModalMenu calls these when this class is passed as a parameter
++	virtual ~IMenuManager() {};
+ 	virtual void createdMenu(GUIModalMenu *menu) = 0;
+ 	virtual void deletingMenu(GUIModalMenu *menu) = 0;
+ };
+ 
+ /*
+diff -rU5 voxelands-v1709.00old/src/nvp.c voxelands-v1709.00/src/nvp.c
+--- voxelands-v1709.00old/src/nvp.c	2017-09-24 06:59:00.000000000 +0200
++++ voxelands-v1709.00/src/nvp.c	2024-04-14 13:55:56.786863549 +0200
+@@ -55,11 +55,11 @@
+ 			free(n->data);
+ 	}
+ }
+ 
+ /* get a name/value pair */
+-nvp_t *nvp_get(nvp_t **list, char* name)
++nvp_t *nvp_get(nvp_t **list,const char* name)
+ {
+ 	nvp_t *c = *list;
+ 	unsigned int h = hash(name);
+ 	while (c) {
+ 		if (c->h > h)
+@@ -70,56 +70,56 @@
+ 	}
+ 	return NULL;
+ }
+ 
+ /* get the value of a name/value pair */
+-char* nvp_get_str(nvp_t **list, char* name)
++char* nvp_get_str(nvp_t **list,const char* name)
+ {
+ 	nvp_t *c = nvp_get(list,name);
+ 	if (c)
+ 		return c->value;
+ 	return NULL;
+ }
+ 
+ /* get the value of a name/value pair as an int value */
+-int nvp_get_int(nvp_t **list, char* name)
++int nvp_get_int(nvp_t **list,const char* name)
+ {
+ 	nvp_t *c = nvp_get(list,name);
+ 	if (c)
+ 		return strtol(c->value,NULL,10);
+ 	return 0;
+ }
+ 
+ /* get the value of a name/value pair as a float value */
+-float nvp_get_float(nvp_t **list, char* name)
++float nvp_get_float(nvp_t **list,const char* name)
+ {
+ 	nvp_t *c = nvp_get(list,name);
+ 	if (c)
+ 		return strtof(c->value,NULL);
+ 	return 0.0;
+ }
+ 
+ /* get the value of a name/value pair as a boolean value */
+-int nvp_get_bool(nvp_t **list, char* name)
++int nvp_get_bool(nvp_t **list,const char* name)
+ {
+ 	nvp_t *c = nvp_get(list,name);
+ 	if (c && (!strcmp(c->value,"1") || !strcmp(c->value,"true")))
+ 		return 1;
+ 	return 0;
+ }
+ 
+ /* get a name/value pair's data value */
+-void *nvp_get_data(nvp_t **list, char* name)
++void *nvp_get_data(nvp_t **list,const char* name)
+ {
+ 	nvp_t *c = nvp_get(list,name);
+ 	if (c)
+ 		return c->data;
+ 	return NULL;
+ }
+ 
+ /* set the value of a name/value pair */
+-void nvp_set(nvp_t **list, char* name, char* value, void *data)
++void nvp_set(nvp_t **list,const char* name,const char* value, void *data)
+ {
+ 	nvp_t *c = *list;
+ 	unsigned int h = hash(name);
+ 
+ 	while (c) {
+@@ -154,35 +154,35 @@
+ 
+ 	*list = list_insert_cmp(list,c,nvp_insert_cmp);
+ }
+ 
+ /* set a name/value pair to an int value */
+-void nvp_set_int(nvp_t **list, char* name, int value)
++void nvp_set_int(nvp_t **list,const char* name, int value)
+ {
+ 	char str[20];
+ 	sprintf(str,"%d",value);
+ 	nvp_set(list,name,str,NULL);
+ }
+ 
+ /* set a name/value pair to a float value */
+-void nvp_set_float(nvp_t **list, char* name, float value)
++void nvp_set_float(nvp_t **list,const char* name, float value)
+ {
+ 	char str[20];
+ 	sprintf(str,"%f",value);
+ 	nvp_set(list,name,str,NULL);
+ }
+ 
+ /* set a name/value pair to a float value */
+-void nvp_set_v3t(nvp_t **list, char* name, v3_t *value)
++void nvp_set_v3t(nvp_t **list,const char* name, v3_t *value)
+ {
+ 	char str[128];
+ 	sprintf(str,"(%f,%f,%f)",value->x,value->y,value->z);
+ 	nvp_set(list,name,str,NULL);
+ }
+ 
+ /* parse a name=value string to an nvp list */
+-void nvp_from_str(nvp_t **list, char* str)
++void nvp_from_str(nvp_t **list,const char* str)
+ {
+ 	char name[512];
+ 	char value[512];
+ 	uint8_t is_str = 0;
+ 	uint8_t is_value = 0;
+diff -rU5 voxelands-v1709.00old/src/nvp.h voxelands-v1709.00/src/nvp.h
+--- voxelands-v1709.00old/src/nvp.h	2017-09-24 06:59:00.000000000 +0200
++++ voxelands-v1709.00/src/nvp.h	2024-04-14 13:55:14.830001988 +0200
+@@ -21,21 +21,21 @@
+ } nvp_t;
+ #endif
+ 
+ /* defined in nvp.c */
+ void nvp_free(nvp_t **list, int data);
+-nvp_t *nvp_get(nvp_t **list, char* name);
+-char* nvp_get_str(nvp_t **list, char* name);
+-int nvp_get_int(nvp_t **list, char* name);
+-float nvp_get_float(nvp_t **list, char* name);
+-int nvp_get_bool(nvp_t **list, char* name);
+-void *nvp_get_data(nvp_t **list, char* name);
+-void nvp_set(nvp_t **list, char* name, char* value, void *data);
+-void nvp_set_int(nvp_t **list, char* name, int value);
+-void nvp_set_float(nvp_t **list, char* name, float value);
+-void nvp_set_v3t(nvp_t **list, char* name, struct v3_s *value);
+-void nvp_from_str(nvp_t **list, char* str);
++nvp_t *nvp_get(nvp_t **list,const char* name);
++char* nvp_get_str(nvp_t **list,const char* name);
++int nvp_get_int(nvp_t **list,const char* name);
++float nvp_get_float(nvp_t **list,const char* name);
++int nvp_get_bool(nvp_t **list,const char* name);
++void *nvp_get_data(nvp_t **list,const char* name);
++void nvp_set(nvp_t **list,const char* name,const char* value, void *data);
++void nvp_set_int(nvp_t **list,const char* name, int value);
++void nvp_set_float(nvp_t **list,const char* name, float value);
++void nvp_set_v3t(nvp_t **list,const char* name, struct v3_s *value);
++void nvp_from_str(nvp_t **list,const char* str);
+ int nvp_to_str(nvp_t **list, char* buff, int size);
+ 
+ #ifdef __cplusplus
+ }
+ #endif
+diff -rU5 voxelands-v1709.00old/src/path.c voxelands-v1709.00/src/path.c
+--- voxelands-v1709.00old/src/path.c	2017-09-24 06:59:00.000000000 +0200
++++ voxelands-v1709.00/src/path.c	2024-04-14 14:27:11.524628943 +0200
+@@ -59,11 +59,11 @@
+ 	NULL,
+ 	NULL,
+ 	NULL
+ };
+ 
+-int path_check(char* base, char* rel)
++static int path_check(char* base,const char* rel)
+ {
+ 	int l;
+ 	char path[2048];
+ #ifndef WIN32
+ 	struct stat st;
+@@ -103,11 +103,11 @@
+ #endif
+ 
+ 	return 0;
+ }
+ 
+-static char* path_set(char* base, char* rel, char* buff, int size)
++static char* path_set(char* base,const char* rel, char* buff, int size)
+ {
+ 	int l;
+ 	char path[2048];
+ 
+ 	if (!base && !rel)
+@@ -342,11 +342,11 @@
+ 		free(path.screenshot);
+ 	path.screenshot = NULL;
+ }
+ 
+ /* sets path.data_custom */
+-int path_custom_setter(char* p)
++int path_custom_setter(const char* p)
+ {
+ 	if (path.data_custom)
+ 		free(path.data_custom);
+ 	path.data_custom = NULL;
+ 
+@@ -355,11 +355,11 @@
+ 
+ 	return 0;
+ }
+ 
+ /* sets path.screenshot */
+-int path_screenshot_setter(char* p)
++int path_screenshot_setter(const char* p)
+ {
+ 	if (path.screenshot)
+ 		free(path.screenshot);
+ 	path.screenshot = NULL;
+ 
+@@ -368,11 +368,11 @@
+ 
+ 	return 0;
+ }
+ 
+ /* sets the world path to user_data + /worlds/ + p, creates the path if necessary */
+-int path_world_setter(char* p)
++int path_world_setter(const char* p)
+ {
+ 	int c;
+ 	char buff[2048];
+ 	char* base = path.data_user;
+ 
+@@ -419,11 +419,11 @@
+  *
+  * returns the path or NULL if either:
+  *	must_exist is non-zero and the path doesn't exist
+  *	buff is not NULL and too small to hold the full path
+  */
+-char* path_get(char* type, char* file, int must_exist, char* buff, int size)
++char* path_get(const char* type,const char* file, int must_exist, char* buff, int size)
+ {
+ 	char rel_path[1024];
+ 
+ 	if (!file && !type)
+ 		return NULL;
+@@ -501,11 +501,11 @@
+ 	}else if (!strcmp(type,"sound")) {
+ 		snprintf(rel_path,1024,"sounds/%s",file);
+ 	}else if (!strcmp(type,"font")) {
+ 		snprintf(rel_path,1024,"fonts/%s",file);
+ 	}else if (!strncmp(type,"translation-",12)) {
+-		char* lang = type+12;
++		const char* lang = type+12;
+ 		type = "translation";
+ 		snprintf(rel_path,1024,"locale/%s/%s",lang,file);
+ 	}else{
+ 		strcpy(rel_path,file);
+ 	}
+diff -rU5 voxelands-v1709.00old/src/path.h voxelands-v1709.00/src/path.h
+--- voxelands-v1709.00old/src/path.h	2017-09-24 06:59:00.000000000 +0200
++++ voxelands-v1709.00/src/path.h	2024-04-14 14:26:59.194670598 +0200
+@@ -16,14 +16,14 @@
+ #endif
+ 
+ /* defined in path.c */
+ int path_init(void);
+ void path_exit(void);
+-int path_custom_setter(char* p);
+-int path_screenshot_setter(char* p);
+-int path_world_setter(char* p);
+-char* path_get(char* type, char* file, int must_exist, char* buff, int size);
++int path_custom_setter(const char* p);
++int path_screenshot_setter(const char* p);
++int path_world_setter(const char* p);
++char* path_get(const char* type,const char* file, int must_exist, char* buff, int size);
+ int path_exists(char* path);
+ int path_create(char* type, char* file);
+ int path_remove(char* type, char* path);
+ dirlist_t *path_dirlist(char* type, char* path);
+ void path_dirlist_free(dirlist_t *l);
+diff -rU5 voxelands-v1709.00old/src/player.cpp voxelands-v1709.00/src/player.cpp
+--- voxelands-v1709.00old/src/player.cpp	2017-09-24 06:59:00.000000000 +0200
++++ voxelands-v1709.00/src/player.cpp	2024-06-01 19:43:24.580403595 +0200
+@@ -213,11 +213,11 @@
+ }
+ 
+ void Player::serialize(std::ostream &os)
+ {
+ 	// Utilize a Settings object for storing values
+-	char* flags[8] = {
++	const char* flags[8] = {
+ 		"flag_white",
+ 		"flag_blue",
+ 		"flag_green",
+ 		"flag_orange",
+ 		"flag_purple",
+@@ -279,13 +279,13 @@
+ 
+ void Player::deSerialize(std::istream &is)
+ {
+ 	nvp_t *list = NULL;
+ 	std::string conf;
+-	char* val;
++	const char* val;
+ 	v3_t v;
+-	char* flags[8] = {
++	const char* flags[8] = {
+ 		"flag_white",
+ 		"flag_blue",
+ 		"flag_green",
+ 		"flag_orange",
+ 		"flag_purple",
+@@ -637,11 +637,11 @@
+ 		if (!m_text)
+ 			return;
+ 		m_text->setPosition(v3f(0, (f32)BS*2.1, 0));
+ 
+ 		// get a unique mesh so that the player model has it's own lighting
+-		scene::IAnimatedMesh* mesh = createModelMesh(mgr,"character.b3d",true);
++		scene::IAnimatedMesh* const mesh = createModelMesh(mgr,"character.b3d",true);
+ 		if (!mesh)
+ 			return;
+ 
+ 		m_node = mgr->addAnimatedMeshSceneNode(mesh,this);
+ 
+@@ -859,11 +859,11 @@
+ 	m_sneak_node_exists(false),
+ 	m_can_use_energy(true),
+ 	m_ignore_energy(false),
+ 	m_low_energy_effect(0)
+ {
+-	char* v;
++	const char* v;
+ 	m_energy = 10.0;
+ 
+ 	v = config_get("client.character");
+ 	if (!v)
+ 		v = PLAYER_DEFAULT_CHARDEF;
+diff -rU5 voxelands-v1709.00old/src/selection_mesh.cpp voxelands-v1709.00/src/selection_mesh.cpp
+--- voxelands-v1709.00old/src/selection_mesh.cpp	2017-09-24 06:59:00.000000000 +0200
++++ voxelands-v1709.00/src/selection_mesh.cpp	2024-06-01 19:43:50.853319840 +0200
+@@ -318,18 +318,18 @@
+ 		}
+ 
+ 		// Create meshbuffer
+ 		// This is a "Standard MeshBuffer",
+ 		// it's a typedeffed CMeshBuffer<video::S3DVertex>
+-		scene::SMeshBuffer *buf = new scene::SMeshBuffer();
++		scene::SMeshBuffer* const buf = new scene::SMeshBuffer();
++		
+ 		// Set material
+ 		buf->Material = d.tile.getMaterial();
+ 		// Add to mesh
+ 		mesh->addMeshBuffer(buf);
+ 		// Mesh grabbed it
+ 		buf->drop();
+-
+ 		buf->append(d.vertices.data(), d.vertices.size(), d.indices.data(), d.indices.size());
+ 	}
+ 
+ 	translateMesh(mesh, intToFloat(data->m_blockpos_nodes - o_camera_offset, BS));
+ 
+diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
+--- voxelands-v1709.00old/src/server.cpp	2017-09-24 06:59:00.000000000 +0200
++++ voxelands-v1709.00/src/server.cpp	2024-05-30 21:58:52.797524311 +0200
+@@ -1819,11 +1819,11 @@
+ 		char checkpwd[64];
+ 		if (auth_exists(playername)) {
+ 			if (auth_getpwd(playername,checkpwd))
+ 				checkpwd[0] = 0;
+ 		}else{
+-			char* default_pwd = config_get("world.server.client.default.password");
++			const char* default_pwd = config_get("world.server.client.default.password");
+ 			if (default_pwd && default_pwd[0]) {
+ 				std::string defaultpwd = translatePassword(playername,narrow_to_wide(defaultpwd));
+ 				strcpy(checkpwd,defaultpwd.c_str());
+ 			}else{
+ 				strcpy(checkpwd,password);
+@@ -1843,11 +1843,11 @@
+ 
+ 		// Add player to auth manager
+ 		if (!auth_exists(playername)) {
+ 			infostream<<"Server: adding player "<<playername<<" to auth manager"<<std::endl;
+ 			uint64_t privs = 0;
+-			char* priv = config_get("world.server.client.default.privs");
++			const char* priv = config_get("world.server.client.default.privs");
+ 			if (priv)
+ 				privs = auth_str2privs(priv);
+ 
+ 			auth_add(playername);
+ 			auth_setpwd(playername,checkpwd);
+@@ -1855,11 +1855,11 @@
+ 			auth_save();
+ 		}
+ 
+ 		// Enforce user limit.
+ 		// Don't enforce for users that have some admin right
+-		char* admin_name = config_get("world.server.admin");
++		const char* admin_name = config_get("world.server.admin");
+ 		if (
+ 			m_clients.size() >= (uint16_t)config_get_int("world.server.client.max")
+ 			&& (auth_getprivs(playername) & (PRIV_SERVER|PRIV_BAN|PRIV_PRIVS)) == 0
+ 			&& (!admin_name || strcmp(admin_name,playername))
+ 		) {
+@@ -2471,11 +2471,11 @@
+ 				if (pp.getDistanceFrom(spf) <= sg)
+ 					return;
+ 			}
+ 		}
+ 
+-		InventoryItem *wielditem = (InventoryItem*)player->getWieldItem();
++		InventoryItem* const wielditem = (InventoryItem*)player->getWieldItem();
+ 		content_t wieldcontent = CONTENT_IGNORE;
+ 		if (wielditem)
+ 			wieldcontent = wielditem->getContent();
+ 		ToolItemFeatures wielded_tool_features = content_toolitem_features(wieldcontent);
+ 		CraftItemFeatures *wielded_craft_features = content_craftitem_features(wieldcontent);
+@@ -3715,16 +3715,16 @@
+ 			1: place block
+ 		*/
+ 		else if(action == 1)
+ 		{
+ 			v3s16 p_dir = p_under - p_over;
+-			InventoryList *ilist = player->inventory.getList("main");
++			InventoryList* const ilist = player->inventory.getList("main");
+ 			if (ilist == NULL)
+ 				return;
+ 
+ 			// Get item
+-			InventoryItem *item = ilist->getItem(item_i);
++			InventoryItem* const item = ilist->getItem(item_i);
+ 
+ 			// If there is no item, it is not possible to add it anywhere
+ 			if (item == NULL)
+ 				return;
+ 
+@@ -3988,14 +3988,14 @@
+ 				uint16_t idata = item->getData();
+ 
+ 				/*
+ 					Handle inventory
+ 				*/
+-				InventoryList *ilist = player->inventory.getList("main");
++				InventoryList* const ilist = player->inventory.getList("main");
+ 				if (!config_get_bool("world.player.inventory.creative") && ilist) {
+ 					if ((wieldcontent&CONTENT_TOOLITEM_MASK) == CONTENT_TOOLITEM_MASK) {
+-						ToolItem *titem = (ToolItem*)wielditem;
++						ToolItem* const titem = (ToolItem*)wielditem;
+ 						if (titem->addWear(1)) {
+ 							ilist->deleteItem(item_i);
+ 						}else{
+ 							wielditem->setData(0);
+ 							ilist->addDiff(item_i,wielditem);
+@@ -4085,16 +4085,16 @@
+ 				}
+ 
+ 				if (!config_get_bool("world.player.inventory.creative")) {
+ 					if (wielded_tool_features.onplace_replace_item != CONTENT_IGNORE) {
+ 						u16 wear = ((ToolItem*)wielditem)->getWear();
+-						InventoryItem *item = InventoryItem::create(
++						InventoryItem* const item = InventoryItem::create(
+ 							wielded_tool_features.onplace_replace_item,
+ 							1,
+ 							wear
+ 						);
+-						InventoryItem *citem = ilist->changeItem(item_i,item);
++						InventoryItem* const citem = ilist->changeItem(item_i,item);
+ 						if (citem)
+ 							delete citem;
+ 					}else{
+ 						ilist->deleteItem(item_i);
+ 					}
+@@ -4147,11 +4147,11 @@
+ 				core::list<u16> far_players;
+ 				sendAddNode(p_over, n, 0, &far_players, 30);
+ 				if (!config_get_bool("world.player.inventory.creative")) {
+ 					// Delete the right amount of items from the slot
+ 					u16 dropcount = item->getDropCount();
+-					InventoryList *ilist = player->inventory.getList("main");
++					InventoryList* const ilist = player->inventory.getList("main");
+ 					// Delete item if all gone
+ 					if (item->getCount() <= dropcount) {
+ 						if (item->getCount() < dropcount)
+ 							infostream<<"WARNING: Server: dropped more items"
+ 								<<" than the slot contains"<<std::endl;
+@@ -4210,11 +4210,11 @@
+ 							"block not found"<<std::endl;
+ 					return;
+ 				}
+ 
+ 				if (!config_get_bool("world.player.inventory.droppable")) {
+-					InventoryList *mlist = player->inventory.getList("main");
++					InventoryList* const mlist = player->inventory.getList("main");
+ 					mlist->deleteItem(item_i);
+ 				}else if ((getPlayerPrivs(player) & PRIV_BUILD) == 0) {
+ 					infostream<<"Not allowing player to drop item: no build privs"<<std::endl;
+ 					return;
+ 				}
+@@ -4234,11 +4234,11 @@
+ 
+ 				if (obj == NULL) {
+ 					InventoryItem *nitem;
+ 					if (!config_get_bool("world.player.inventory.creative")) {
+ 						// Delete the right amount of items from the slot
+-						InventoryList *ilist = player->inventory.getList("main");
++						InventoryList* const ilist = player->inventory.getList("main");
+ 						nitem = ilist->changeItem(item_i,NULL);
+ 						// Send inventory
+ 						UpdateCrafting(peer_id);
+ 						SendInventory(peer_id);
+ 					}else{
+@@ -4254,11 +4254,11 @@
+ 
+ 					infostream<<"Placed object"<<std::endl;
+ 
+ 					if (!config_get_bool("world.player.inventory.creative")) {
+ 						// Delete the right amount of items from the slot
+-						InventoryList *ilist = player->inventory.getList("main");
++						InventoryList* const ilist = player->inventory.getList("main");
+ 
+ 						wielditem->setData(0);
+ 						ilist->addDiff(item_i,wielditem);
+ 
+ 						// Send inventory
+@@ -4278,11 +4278,11 @@
+ 					return;
+ 				}
+ 				if (!config_get_bool("world.player.inventory.creative")) {
+ 					// Delete the right amount of items from the slot
+ 					u16 dropcount = item->getDropCount();
+-					InventoryList *ilist = player->inventory.getList("main");
++					InventoryList* const ilist = player->inventory.getList("main");
+ 
+ 					// Delete item if all gone
+ 					if (item->getCount() <= dropcount) {
+ 						if (item->getCount() < dropcount)
+ 							infostream<<"WARNING: Server: dropped more items"
+@@ -4314,11 +4314,11 @@
+ 
+ 				/*
+ 					Check that the block is loaded so that the item
+ 					can properly be added to the static list too
+ 				*/
+-				MapBlock *block = m_env.getMap().getBlockNoCreateNoEx(blockpos);
++				MapBlock* const block = m_env.getMap().getBlockNoCreateNoEx(blockpos);
+ 				if (block==NULL) {
+ 					infostream<<"Error while placing object: "
+ 							"block not found"<<std::endl;
+ 					return;
+ 				}
+@@ -4342,34 +4342,36 @@
+ 				/*
+ 					Create the object
+ 				*/
+ 				ServerActiveObject *obj = NULL;
+ 				/* createSAO will drop all craft items, we may not want that */
+-				if (
+-					wielded_craft_features->content == wieldcontent
+-					&& wielded_craft_features->drop_item == CONTENT_IGNORE
+-				) {
+-					InventoryItem *ditem = InventoryItem::create(wieldcontent,item->getDropCount());
+-					obj = ditem->createSAO(&m_env, 0, pos);
+-					delete ditem;
++				if (wielded_craft_features->content == wieldcontent
++						&& wielded_craft_features->drop_item == CONTENT_IGNORE) {
++				    InventoryItem* const ditem = InventoryItem::create(wieldcontent,item->getDropCount());
++				    obj = ditem->createSAO(&m_env, 0, pos);
++				    delete ditem;
+ 				}else{
+-					obj = item->createSAO(&m_env, 0, pos);
++				    InventoryItem* const ditem = ilist->getItem(item_i);
++
++				    if(ditem)
++					obj = ditem->createSAO(&m_env, 0, pos);
+ 				}
+ 
+ 				if (obj == NULL) {
+-					InventoryItem *nitem;
++					InventoryItem* nitem = NULL;
+ 					if (!config_get_bool("world.player.inventory.creative")) {
+ 						// Delete the right amount of items from the slot
+-						InventoryList *ilist = player->inventory.getList("main");
++						InventoryList* const ilist = player->inventory.getList("main");
+ 						nitem = ilist->changeItem(item_i,NULL);
+ 						// Send inventory
+ 						UpdateCrafting(peer_id);
+ 						SendInventory(peer_id);
+-					}else{
+-						nitem = wielditem->clone();
++					    /*}else{
++					      nitem = wielditem->clone();*/
+ 					}
+-					m_env.dropToParcel(p_over,nitem);
++					if(nitem)
++					    m_env.dropToParcel(p_over,nitem);
+ 				}else{
+ 					actionstream<<player->getName()<<" places "<<item->getName()
+ 							<<" at "<<PP(p_over)<<std::endl;
+ 
+ 					// Add the object to the environment
+@@ -4378,11 +4380,11 @@
+ 					infostream<<"Placed object"<<std::endl;
+ 
+ 					if (!config_get_bool("world.player.inventory.creative")) {
+ 						// Delete the right amount of items from the slot
+ 						u16 dropcount = item->getDropCount();
+-						InventoryList *ilist = player->inventory.getList("main");
++						InventoryList* const ilist = player->inventory.getList("main");
+ 
+ 						// Delete item if all gone
+ 						if (item->getCount() <= dropcount) {
+ 							if(item->getCount() < dropcount)
+ 								infostream<<"WARNING: Server: dropped more items"
+@@ -4661,12 +4663,12 @@
+ 					if (
+ 						ma->to_inv == "current_player"
+ 						&& ma->from_inv == "current_player"
+ 						&& ma->to_list == "discard"
+ 					) {
+-						InventoryList *list = player->inventory.getList("discard");
+-						InventoryItem *item = list->getItem(0);
++						InventoryList* const list = player->inventory.getList("discard");
++						InventoryItem* item = list->getItem(0);
+ 						if (item) {
+ 							if (config_get_bool("world.player.inventory.droppable")) {
+ 								v3f pos = player->getPosition();
+ 								pos.Y += BS;
+ 								v3f dir = v3f(0,0,BS);
+@@ -5950,11 +5952,11 @@
+ 			name = narrow_to_wide(player->getName());
+ 		// Add name to information string
+ 		os<<name<<L",";
+ 	}
+ 	os<<L"}";
+-	char* motd = config_get("world.game.motd");
++	const char* motd = config_get("world.game.motd");
+ 	if (motd && motd[0])
+ 		os<<std::endl<<L"# Server: "<<narrow_to_wide(motd);
+ 	return os.str();
+ }
+ 
+@@ -6048,13 +6050,11 @@
+ 	/*
+ 		Create a new player
+ 	*/
+ 	{
+ 		uint64_t privs = 0;
+-		char* priv;
+-
+-		priv = config_get("world.server.client.default.privs");
++		const char* priv = config_get("world.server.client.default.privs");
+ 
+ 		if (priv && priv[0])
+ 			privs = auth_str2privs(priv);
+ 
+ 		player = new ServerRemotePlayer();
+@@ -6238,17 +6238,16 @@
+ 	auth_save();
+ }
+ 
+ uint64_t Server::getPlayerPrivs(Player *player)
+ {
+-	const char* playername;
+-	char* admin_name;
++
+ 	if (!player)
+ 		return 0;
+ 
+-	playername = player->getName();
+-	admin_name = config_get("world.server.admin");
++	const char* playername = player->getName();
++	const char* admin_name = config_get("world.server.admin");
+ 
+ 	if (admin_name && !strcmp(admin_name,playername))
+ 		return PRIV_ALL;
+ 
+ 	return getPlayerAuthPrivs(playername);
+diff -rU5 voxelands-v1709.00old/src/sound.c voxelands-v1709.00/src/sound.c
+--- voxelands-v1709.00old/src/sound.c	2017-09-24 06:59:00.000000000 +0200
++++ voxelands-v1709.00/src/sound.c	2024-04-14 14:46:35.907810666 +0200
+@@ -466,11 +466,11 @@
+ 	free(e->token);
+ 	free(e);
+ }
+ 
+ /* play sound effect */
+-uint32_t sound_play_effect(char* token, float volume, uint8_t loop, v3_t *pos)
++uint32_t sound_play_effect(const char* token, float volume, uint8_t loop, v3_t *pos)
+ {
+ 	sound_instance_t *i;
+ 	sound_t *e = sound_data.effects.sounds;
+ 	if (!sound_data.init || !e)
+ 		return 0;
+@@ -522,11 +522,11 @@
+ 
+ 	return i->id;
+ }
+ 
+ /* play music */
+-uint32_t sound_play_music(char* token, float volume, uint8_t loop)
++uint32_t sound_play_music(const char* token, float volume, uint8_t loop)
+ {
+ 	sound_t *e = sound_data.music.sounds;
+ 	if (!sound_data.init || !e)
+ 		return 0;
+ 
+@@ -635,33 +635,33 @@
+ 	sound_stop_music(fade);
+ 	sound_stop_effects(fade);
+ }
+ 
+ /* command setter for sound effects volume */
+-int sound_effects_setter(char* value)
++int sound_effects_setter(const char* value)
+ {
+ 	float vf;
+ 	int v = strtol(value,NULL,10);
+ 	vf = (float)v/100.0;
+ 	sound_volume_effects(vf);
+ 
+ 	return 0;
+ }
+ 
+ /* command setter for music volume */
+-int sound_music_setter(char* value)
++int sound_music_setter(const char* value)
+ {
+ 	float vf;
+ 	int v = strtol(value,NULL,10);
+ 	vf = (float)v/100.0;
+ 	sound_volume_music(vf);
+ 
+ 	return 0;
+ }
+ 
+ /* command setter for master volume */
+-int sound_master_setter(char* value)
++int sound_master_setter(const char* value)
+ {
+ 	int v = strtol(value,NULL,10);
+ 	if (v < 0)
+ 		v = 0;
+ 	if (v > 100)
+diff -rU5 voxelands-v1709.00old/src/sound.h voxelands-v1709.00/src/sound.h
+--- voxelands-v1709.00old/src/sound.h	2017-09-24 06:59:00.000000000 +0200
++++ voxelands-v1709.00/src/sound.h	2024-04-14 14:46:54.804747234 +0200
+@@ -38,20 +38,20 @@
+ void sound_step(float dtime, v3_t *pos, v3_t *at, v3_t *up);
+ int sound_load_effect(char* file, char* token);
+ int sound_load_music(char* file, char* token);
+ void sound_free_effect(char* token);
+ void sound_free_music(char* token);
+-uint32_t sound_play_effect(char* token, float volume, uint8_t loop, v3_t *pos);
+-uint32_t sound_play_music(char* token, float volume, uint8_t loop);
++uint32_t sound_play_effect(const char* token, float volume, uint8_t loop, v3_t *pos);
++uint32_t sound_play_music(const char* token, float volume, uint8_t loop);
+ void sound_stop_effects(int fade);
+ void sound_stop_music(int fade);
+ void sound_stop_single(uint32_t id);
+ int sound_exists(uint32_t id);
+ void sound_stop(int fade);
+-int sound_master_setter(char* value);
+-int sound_effects_setter(char* value);
+-int sound_music_setter(char* value);
++int sound_master_setter(const char* value);
++int sound_effects_setter(const char* value);
++int sound_music_setter(const char* value);
+ 
+ #ifdef _VL_SOUND_EXPOSE_INTERNAL
+ /* defined in sound.c */
+ void sound_process(float dtime);
+ float sound_volume_master(float v);
+diff -rU5 voxelands-v1709.00old/src/string.c voxelands-v1709.00/src/string.c
+--- voxelands-v1709.00old/src/string.c	2017-09-24 06:59:00.000000000 +0200
++++ voxelands-v1709.00/src/string.c	2024-04-14 18:08:20.075297697 +0200
+@@ -81,11 +81,11 @@
+ 
+ 	return l;
+ }
+ 
+ /* makes a string safe for use as a file or directory name */
+-int str_sanitise(char* dest, int size, char* str)
++int str_sanitise(char* dest, int size,const char* str)
+ {
+ 	int o = 0;
+ 	int i = 0;
+ 	int lws = 0;
+ 
+@@ -105,11 +105,11 @@
+ 
+ 	return -1;
+ }
+ 
+ /* parse a string into a bool true/false 1/0 */
+-int parse_bool(char* str)
++int parse_bool(const char* str)
+ {
+ 	if (str) {
+ 		if (!strcmp(str,"true"))
+ 			return 1;
+ 		if (!strcmp(str,"yes"))
+@@ -126,11 +126,11 @@
+ 
+ 	return 0;
+ }
+ 
+ /* parse a string to a v3_t */
+-int str_tov3t(char* str, v3_t *v)
++int str_tov3t(const char* str, v3_t *v)
+ {
+ 	char buff[256];
+ 	char* b;
+ 	char* s1;
+ 	char* s2;
+diff -rU5 voxelands-v1709.00old/src/tile.cpp voxelands-v1709.00/src/tile.cpp
+--- voxelands-v1709.00old/src/tile.cpp	2017-09-24 06:59:00.000000000 +0200
++++ voxelands-v1709.00/src/tile.cpp	2024-06-01 19:49:13.506302889 +0200
+@@ -549,11 +549,11 @@
+ 				driver->createImage(video::ECF_A8R8G8B8, dim);
+ 		img->copyTo(img2);
+ 		img->drop();*/
+ 
+ 		// Generate image by name
+-		video::IImage *img2 = generate_image_from_scratch(name, m_device);
++		video::IImage* const img2 = generate_image_from_scratch(name, m_device);
+ 		if(img2 == NULL)
+ 		{
+ 			infostream<<"TextureSource::buildMainAtlas(): Couldn't generate texture atlas: Couldn't generate image \""<<name<<"\""<<std::endl;
+ 			continue;
+ 		}
+@@ -1157,11 +1157,10 @@
+ 
+ 				float dst[4] = {0.,0.,1.,1.};
+ 				float src[4] = {0.,(s*progression),1.,(s*progression)+s};
+ 
+ 				alpha_blit(device,baseimg,img_crack,dst,src,part_of_name);
+-
+ 				img_crack->drop();
+ 			}
+ 		}
+ 		/*
+ 			[combine:WxH:X,Y=filename:X,Y=filename2
+@@ -1184,17 +1183,17 @@
+ 				infostream<<"Adding \""<<filename
+ 						<<"\" to combined ("<<x<<","<<y<<")"
+ 						<<std::endl;
+ 
+ 				if (path_get((char*)"texture",const_cast<char*>(filename.c_str()),1,buff,1024)) {
+-					video::IImage *img = driver->createImageFromFile(buff);
++					video::IImage* const img = driver->createImageFromFile(buff);
+ 					if (img) {
+ 						core::dimension2d<u32> dim = img->getDimension();
+ 						infostream<<"Size "<<dim.Width
+ 								<<"x"<<dim.Height<<std::endl;
+ 						core::position2d<s32> pos_base(x, y);
+-						video::IImage *img2 =
++						video::IImage* const img2 =
+ 								driver->createImage(video::ECF_A8R8G8B8, dim);
+ 						img->copyTo(img2);
+ 						img->drop();
+ 						img2->copyToWithAlpha(baseimg, pos_base,
+ 								core::rect<s32>(v2s32(0,0), dim),
+@@ -1246,11 +1245,11 @@
+ 			if (path_get((char*)"texture",const_cast<char*>(filename.c_str()),1,buff,1024)) {
+ 
+ 				infostream<<"generate_image(): Loading path \""<<buff
+ 						<<"\""<<std::endl;
+ 
+-				video::IImage *image = driver->createImageFromFile(buff);
++				video::IImage* const image = driver->createImageFromFile(buff);
+ 
+ 				if (image == NULL) {
+ 					infostream<<"generate_image(): Loading path \""
+ 							<<buff<<"\" failed"<<std::endl;
+ 				}else{
+@@ -1265,11 +1264,10 @@
+ 						c.setAlpha(255);
+ 						image->setPixel(x,y,c);
+ 					}
+ 					// Blit
+ 					image->copyTo(baseimg);
+-
+ 					image->drop();
+ 				}
+ 			}
+ 		}
+ 		/*
+@@ -1294,22 +1292,21 @@
+ 
+ 			if (path_get((char*)"texture",const_cast<char*>(filename.c_str()),1,buff,1024)) {
+ 
+ 				infostream<<"generate_image(): Loading path \""<<buff<<"\""<<std::endl;
+ 
+-				video::IImage *image = driver->createImageFromFile(buff);
++				video::IImage* const image = driver->createImageFromFile(buff);
+ 
+ 				if (image == NULL) {
+ 					infostream<<"generate_image(): Loading path \""
+ 							<<buff<<"\" failed"<<std::endl;
+ 				}else{
+ 					core::dimension2d<u32> dim = image->getDimension();
+ 					baseimg = driver->createImage(video::ECF_A8R8G8B8, dim);
+ 
+ 					// Blit
+ 					image->copyTo(baseimg);
+-
+ 					image->drop();
+ 
+ 					for(u32 y=0; y<dim.Height; y++)
+ 					for(u32 x=0; x<dim.Width; x++)
+ 					{
+@@ -1350,22 +1347,21 @@
+ 
+ 			if (path_get((char*)"texture",const_cast<char*>(filename.c_str()),1,buff,1024)) {
+ 
+ 				infostream<<"generate_image(): Loading path \""<<buff<<"\""<<std::endl;
+ 
+-				video::IImage *image = driver->createImageFromFile(buff);
++				video::IImage* const image = driver->createImageFromFile(buff);
+ 
+ 				if (image == NULL) {
+ 					infostream<<"generate_image(): Loading path \""
+ 							<<buff<<"\" failed"<<std::endl;
+ 				}else{
+ 					core::dimension2d<u32> dim = image->getDimension();
+ 					baseimg = driver->createImage(video::ECF_A8R8G8B8, dim);
+ 
+ 					// Blit
+ 					image->copyTo(baseimg);
+-
+ 					image->drop();
+ 
+ 					for(u32 y=0; y<dim.Height; y++)
+ 					for(u32 x=0; x<dim.Width; x++)
+ 					{
+@@ -1413,11 +1409,11 @@
+ 			}
+ 
+ 			u32 transform = parseImageTransform(part_of_name.substr(10));
+ 			core::dimension2d<u32> dim = imageTransformDimension(
+ 					transform, baseimg->getDimension());
+-			video::IImage *image = driver->createImage(
++			video::IImage* const image = driver->createImage(
+ 					baseimg->getColorFormat(), dim);
+ 			assert(image);
+ 			imageTransform(transform, baseimg, image);
+ 			baseimg->drop();
+ 			baseimg = image;
+@@ -1522,11 +1518,11 @@
+ 						imagename_top, device);
+ 				return true;
+ 			}
+ 
+ 			// Create image of render target
+-			video::IImage *image = driver->createImage(rtt, v2s32(0,0), dim);
++			video::IImage* const image = driver->createImage(rtt, v2s32(0,0), dim);
+ 			assert(image);
+ 
+ 			baseimg = driver->createImage(video::ECF_A8R8G8B8, dim);
+ 
+ 			if(image)
+@@ -1642,11 +1638,11 @@
+ 						imagename_top, device);
+ 				return true;
+ 			}
+ 
+ 			// Create image of render target
+-			video::IImage *image = driver->createImage(rtt, v2s32(0,0), dim);
++			video::IImage* const image = driver->createImage(rtt, v2s32(0,0), dim);
+ 			assert(image);
+ 
+ 			baseimg = driver->createImage(video::ECF_A8R8G8B8, dim);
+ 
+ 			if(image)
+@@ -1675,11 +1671,11 @@
+ 			video::SColor color;
+ 			if (!parseColorString(color_str, color, false))
+ 				return false;
+ 
+ 			core::dimension2d<u32> dim = baseimg->getDimension();
+-			video::IImage *img = driver->createImage(video::ECF_A8R8G8B8, dim);
++			video::IImage* const img = driver->createImage(video::ECF_A8R8G8B8, dim);
+ 
+ 			if (!img) {
+ 				errorstream << "generateImagePart(): Could not create image "
+ 						<< "for part_of_name=\"" << part_of_name
+ 						<< "\", cancelling." << std::endl;
+@@ -1711,11 +1707,11 @@
+ 			}
+ 
+ 			v2u32 frame_size = baseimg->getDimension();
+ 			frame_size.Y /= frame_count;
+ 
+-			video::IImage *img = driver->createImage(video::ECF_A8R8G8B8,
++			video::IImage* const img = driver->createImage(video::ECF_A8R8G8B8,
+ 					frame_size);
+ 			if (!img) {
+ 				errorstream <<"generate_image(): Could not create image "
+ 						<< "for part_of_name=\"" << part_of_name
+ 						<< "\", cancelling." << std::endl;
+@@ -1846,14 +1842,15 @@
+ 			driver->setRenderTarget(0, false, true, 0);
+ 
+ 			skin->setFont(std_font);
+ 
+ 			// Create image of render target
+-			video::IImage *image = driver->createImage(rtt, v2s32(0,0), rtt_dim);
++			video::IImage* const image = driver->createImage(rtt, v2s32(0,0), rtt_dim);
+ 			assert(image);
+ 
+-			video::IImage *new_baseimg = driver->createImage(video::ECF_A8R8G8B8, rtt_dim);
++			video::IImage* const new_baseimg =
++			    driver->createImage(video::ECF_A8R8G8B8, rtt_dim);
+ 			if (new_baseimg) {
+ 				baseimg->copyToScaling(new_baseimg);
+ 				baseimg->drop();
+ 				baseimg = new_baseimg;
+ 			}
+@@ -1876,11 +1873,11 @@
+ 			float y = mystof(sf.next(","));
+ 			float X = mystof(sf.next(","));
+ 			float Y = mystof(sf.next(","));
+ 			std::string path = sf.end();
+ 			if (path_get((char*)"texture",const_cast<char*>(path.c_str()),1,buff,1024)) {
+-				video::IImage *image = driver->createImageFromFile(buff);
++			    video::IImage* const image = driver->createImageFromFile(buff);
+ 
+ 				if (baseimg == NULL) {
+ 					errorstream << "generateImagePart(): baseimg == NULL "
+ 							<< "for part_of_name=\"" << part_of_name
+ 							<< "\", cancelling." << std::endl;
+diff -rU5 voxelands-v1709.00old/src/utility.h voxelands-v1709.00/src/utility.h
+--- voxelands-v1709.00old/src/utility.h	2017-09-24 06:59:00.000000000 +0200
++++ voxelands-v1709.00/src/utility.h	2024-05-31 21:52:02.491754630 +0200
+@@ -41,10 +41,59 @@
+ #include "debug.h"
+ #include "strfnd.h"
+ #include "exceptions.h"
+ #include "porting.h"
+ 
++#if defined(__GNUC__) || defined(__clang__)
++#  define XINLINE inline
++#  define XFINLINE inline __attribute__ ((always_inline))
++#elif defined(__BORLANDC__) || defined(_MSC_VER) || defined(__LCC__)
++#  define XINLINE __inline
++#  define XFINLINE __forceinline
++#elif defined(__DMC__) || defined(__POCC__) || defined(__WATCOMC__) || \
++	defined(__SUNPRO_C)
++#  define XINLINE inline
++#  define XFINLINE inline
++#else
++#  define XINLINE inline
++#  define XFINLINE inline
++#endif
++
++#ifndef __I_IREFERENCE_COUNTED_H_INCLUDED__
++# ifdef __GNUC__
++    XFINLINE static int X1SyncGet(volatile int* const pval)
++    {
++	    return __sync_add_and_fetch(pval,0);
++    }
++
++    XFINLINE static int X1SyncInc(volatile int* const pval)
++    {
++	    return __sync_fetch_and_add(pval,1);
++    }
++
++    XFINLINE static int X1SyncDec(volatile int* const pval)
++    {
++	    return __sync_fetch_and_sub(pval,1);
++    }
++# else
++    XFINLINE static int X1SyncGet(volatile int* const pval)
++    {
++	    return *pval;
++    }
++
++    XFINLINE static int X1SyncInc(volatile int* const pval)
++    {
++	    return (*pval)++;
++    }
++
++    XFINLINE static int X1SyncDec(volatile int* const pval)
++    {
++	    return (*pval)--;
++    }
++# endif
++#endif
++
+ using namespace jthread;
+ 
+ extern const v3s16 g_6dirs[6];
+ 
+ extern const v3s16 g_26dirs[26];
+@@ -316,13 +365,13 @@
+ 		ptr = t;
+ 	}
+ 	SharedPtr(SharedPtr<T> &t)
+ 	{
+ 		//*this = t;
+-		drop();
++		//drop();
+ 		refcount = t.refcount;
+-		(*refcount)++;
++		X1SyncInc(refcount);
+ 		ptr = t.ptr;
+ 	}
+ 	~SharedPtr()
+ 	{
+ 		drop();
+@@ -335,13 +384,15 @@
+ 		ptr = t;
+ 		return *this;
+ 	}
+ 	SharedPtr<T> & operator=(SharedPtr<T> &t)
+ 	{
++		if(this == &t)
++		    return *this;
+ 		drop();
+ 		refcount = t.refcount;
+-		(*refcount)++;
++		X1SyncInc(refcount);
+ 		ptr = t.ptr;
+ 		return *this;
+ 	}
+ 	T* operator->()
+ 	{
+@@ -364,21 +415,22 @@
+ 		return ptr[i];
+ 	}
+ private:
+ 	void drop()
+ 	{
+-		assert((*refcount) > 0);
+-		(*refcount)--;
+-		if(*refcount == 0)
++		assert(refcount && X1SyncGet(refcount) > 0);
++		
++		if (X1SyncDec(refcount) == 1)
+ 		{
+-			delete refcount;
+-			if(ptr != NULL)
+-				delete ptr;
++		    delete refcount;refcount = NULL;
++		    if(ptr != NULL)
++			delete ptr;
++		    ptr = NULL;
+ 		}
+ 	}
+ 	T *ptr;
+-	int *refcount;
++	volatile int *refcount;
+ };
+ 
+ template <typename T>
+ class Buffer
+ {
+@@ -452,92 +504,93 @@
+ private:
+ 	void drop()
+ 	{
+ 		if(data)
+ 			delete[] data;
++		data = NULL;m_size = 0;
+ 	}
+ 	T *data;
+ 	unsigned int m_size;
+ };
+ 
+ template <typename T>
+ class SharedBuffer
+ {
+ public:
+-	SharedBuffer()
++	SharedBuffer() :
++			data(NULL),m_size(0),refcount(0)
+ 	{
+-		m_size = 0;
+-		data = NULL;
+-		refcount = new unsigned int;
+-		(*refcount) = 1;
++		refcount = new int;*refcount = 1;
+ 	}
+-	SharedBuffer(unsigned int size)
++	SharedBuffer(unsigned int size) :
++			data(NULL),m_size(size),refcount(0)
+ 	{
+-		m_size = size;
+-		if(m_size != 0)
+-			data = new T[m_size];
+-		else
+-			data = NULL;
+-		refcount = new unsigned int;
+-		(*refcount) = 1;
++		if(m_size)
++		    data = new T[m_size];
++		refcount = new int;*refcount = 1;
+ 	}
+-	SharedBuffer(const SharedBuffer &buffer)
++	SharedBuffer(const SharedBuffer& buffer) :
++			data(buffer.data),m_size(buffer.m_size),
++			refcount(buffer.refcount)
+ 	{
+ 		//std::cout<<"SharedBuffer(const SharedBuffer &buffer)"<<std::endl;
+-		m_size = buffer.m_size;
+-		data = buffer.data;
+-		refcount = buffer.refcount;
+-		(*refcount)++;
++		X1SyncInc(refcount);
+ 	}
+-	SharedBuffer & operator=(const SharedBuffer & buffer)
++	
++	SharedBuffer& operator=(const SharedBuffer& buffer)
+ 	{
+ 		//std::cout<<"SharedBuffer & operator=(const SharedBuffer & buffer)"<<std::endl;
+ 		if(this == &buffer)
+-			return *this;
++		    return *this;
++		
+ 		drop();
+-		m_size = buffer.m_size;
+ 		data = buffer.data;
++		m_size = buffer.m_size;
+ 		refcount = buffer.refcount;
+-		(*refcount)++;
++		X1SyncInc(refcount);
+ 		return *this;
+ 	}
+ 	/*
+ 		Copies whole buffer
+ 	*/
+-	SharedBuffer(T *t, unsigned int size)
++	SharedBuffer(T* const t,const unsigned int size)
+ 	{
+-		m_size = size;
+-		if(m_size != 0)
++		
++		if(size)
+ 		{
+-			data = new T[m_size];
+-			memcpy(data, t, m_size);
++		    data = new T[size];
++		    memcpy(data,t,size);
+ 		}
+ 		else
+-			data = NULL;
+-		refcount = new unsigned int;
+-		(*refcount) = 1;
++		    data = NULL;
++		
++		m_size = size;
++		refcount = new int;
++		*refcount = 1;
+ 	}
+ 	/*
+ 		Copies whole buffer
+ 	*/
+ 	SharedBuffer(const Buffer<T> &buffer)
+ 	{
+ 		m_size = buffer.getSize();
+-		if(m_size != 0)
++		if(m_size)
+ 		{
+-			data = new T[m_size];
+-			memcpy(data, *buffer, buffer.getSize());
++		    data = new T[m_size];
++		    memcpy(data, *buffer, buffer.getSize());
+ 		}
+ 		else
+-			data = NULL;
+-		refcount = new unsigned int;
+-		(*refcount) = 1;
++		    data = NULL;
++
++		refcount = new int;
++		*refcount = 1;
+ 	}
+ 	~SharedBuffer()
+ 	{
+ 		drop();
+ 	}
++	
+ 	T & operator[](unsigned int i) const
+ 	{
+ 		//assert(i < m_size)
+ 		return data[i];
+ 	}
+@@ -554,22 +607,24 @@
+ 		return Buffer<T>(data, m_size);
+ 	}
+ private:
+ 	void drop()
+ 	{
+-		assert((*refcount) > 0);
+-		(*refcount)--;
+-		if(*refcount == 0)
++		assert(refcount && X1SyncGet(refcount) > 0);
++
++		if (X1SyncDec(refcount) == 1)
+ 		{
+-			if(data)
+-				delete[] data;
+-			delete refcount;
++		    delete refcount;refcount = NULL;
++		    if(data)
++			delete[] data;
++		    data = NULL;m_size = 0;
+ 		}
+ 	}
+-	T *data;
++	
++	T* data;
+ 	unsigned int m_size;
+-	unsigned int *refcount;
++	volatile int* refcount;
+ };
+ 
+ inline SharedBuffer<u8> SharedBufferFromString(const char *string)
+ {
+ 	SharedBuffer<u8> b((u8*)string, strlen(string)+1);
+diff -rU5 voxelands-v1709.00old/src/world.c voxelands-v1709.00/src/world.c
+--- voxelands-v1709.00old/src/world.c	2017-09-24 06:59:00.000000000 +0200
++++ voxelands-v1709.00/src/world.c	2024-04-14 18:11:48.084540615 +0200
+@@ -21,11 +21,11 @@
+ #include "path.h"
+ #include "list.h"
+ 
+ #include <string.h>
+ 
+-static int world_exists(char* name)
++static int world_exists(const char* name)
+ {
+ 	char buff[2048];
+ 	char nbuff[256];
+ 
+ 	if (!name)
+@@ -38,11 +38,11 @@
+ 		return 0;
+ 
+ 	return 1;
+ }
+ 
+-int world_create(char* name)
++int world_create(const char* name)
+ {
+ 	char buff[2048];
+ 	char nbuff[256];
+ 	char nbuff1[256];
+ 	int i;
+@@ -80,16 +80,16 @@
+ 	}
+ 
+ 	return 1;
+ }
+ 
+-int world_load(char* name)
++int world_load(const char* name)
+ {
+ 	char buff[2048];
+ 	char buff1[2048];
+ 	char nbuff[256];
+-	char* v;
++	const char* v;
+ 
+ 	config_clear("world");
+ 
+ 	if (!name) {
+ #ifdef SERVER
+@@ -130,11 +130,11 @@
+ {
+ 	char buff[2048];
+ 	char pbuff[2048];
+ 	char newp[256];
+ 	char id[256];
+-	char* v;
++	const char* v;
+ 
+ 	if (!path_exists(path))
+ 		return 1;
+ 
+ 	if (snprintf(buff,2048,"%s",path) >= 2048)
+@@ -142,16 +142,14 @@
+ 
+ 	v = strrchr(buff,'/');
+ 	if (!v)
+ 		return 1;
+ 
+-	*v = 0;
+-
+ 	config_set("world.path",buff);
+ 	config_load("world","world.cfg");
+-
+ 	v = config_get("world.path");
++	
+ 	if (!v || !strcmp(v,buff) || !config_get("world.name")) {
+ 		config_clear("world");
+ 		return 1;
+ 	}
+ 
+@@ -187,13 +185,13 @@
+ 	config_save("world","world","world.cfg");
+ 	config_clear("world");
+ }
+ 
+ /* initialise and/or create a world */
+-int world_init(char* name)
++int world_init(const char* name)
+ {
+-	char *v;
++	const char *v;
+ 
+ 	if (!name) {
+ #ifdef SERVER
+ 		name = config_get("server.world");
+ #else
+@@ -244,13 +242,13 @@
+ {
+ 	dirlist_t *d;
+ 	dirlist_t *e;
+ 	worldlist_t *l = NULL;
+ 	worldlist_t *w;
+-	char* n;
+-	char* v;
+-	char* m;
++	const char* n;
++	const char* v;
++	const char* m;
+ 
+ 	d = path_dirlist("worlds",NULL);
+ 
+ 	if (!d)
+ 		return NULL;
