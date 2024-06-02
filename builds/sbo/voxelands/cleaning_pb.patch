@@ -1,13 +1,3 @@
-# Author of this patch : Pierre Brochard
-#                        pierre.brochard.1982@m4x.org
-#
-Seulement dans voxelands-v1709.00: CPackConfig.cmake
-Seulement dans voxelands-v1709.00: CPackSourceConfig.cmake
-Seulement dans voxelands-v1709.00: Makefile
-Seulement dans voxelands-v1709.00: bin
-Seulement dans voxelands-v1709.00: cmake_install.cmake
-Seulement dans voxelands-v1709.00/data: locale
-Seulement dans voxelands-v1709.00/src: Makefile
 diff -rU5 voxelands-v1709.00old/src/activeobject.h voxelands-v1709.00/src/activeobject.h
 --- voxelands-v1709.00old/src/activeobject.h	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00/src/activeobject.h	2024-05-29 16:20:54.606933466 +0200
@@ -535,8 +525,6 @@ diff -rU5 voxelands-v1709.00old/src/bridge_temp.cpp voxelands-v1709.00/src/bridg
  
  	return std::string(v);
  }
-Seulement dans voxelands-v1709.00/src/cguittfont: Makefile
-Seulement dans voxelands-v1709.00/src/cguittfont: cmake_install.cmake
 diff -rU5 voxelands-v1709.00old/src/character_creator.cpp voxelands-v1709.00/src/character_creator.cpp
 --- voxelands-v1709.00old/src/character_creator.cpp	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00/src/character_creator.cpp	2024-06-01 19:17:59.422224761 +0200
@@ -595,8 +583,6 @@ diff -rU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00/src/client.cpp
  			if (v)
  				chardef = v;
  
-Seulement dans voxelands-v1709.00/src: cmake_config.h
-Seulement dans voxelands-v1709.00/src: cmake_install.cmake
 diff -rU5 voxelands-v1709.00old/src/common.h voxelands-v1709.00/src/common.h
 --- voxelands-v1709.00old/src/common.h	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00/src/common.h	2024-04-14 18:12:39.135354753 +0200
@@ -1867,7 +1853,7 @@ diff -rU5 voxelands-v1709.00old/src/environment.h voxelands-v1709.00/src/environ
  				return ENV_SEASON_AUTUMN;
 diff -rU5 voxelands-v1709.00old/src/file.c voxelands-v1709.00/src/file.c
 --- voxelands-v1709.00old/src/file.c	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00/src/file.c	2024-04-14 14:01:52.952676853 +0200
++++ voxelands-v1709.00/src/file.c	2024-06-02 13:30:10.600181816 +0200
 @@ -48,15 +48,15 @@
  
  	return inc;
@@ -1886,6 +1872,19 @@ diff -rU5 voxelands-v1709.00old/src/file.c voxelands-v1709.00/src/file.c
  	if (type) {
  		fn = name;
  		path = path_get(type,name,1,NULL,0);
+@@ -99,11 +99,11 @@
+ 		fclose(f);
+ 		free(ft);
+ 		return NULL;
+ 	}
+ 
+-	if (ft->len != fread(ft->data, 1, ft->len, f)) {
++	if ((size_t) ft->len != fread(ft->data, 1, ft->len, f)) {
+ 		free(path);
+ 		fclose(f);
+ 		free(ft->data);
+ 		free(ft);
+ 		return NULL;
 @@ -119,14 +119,14 @@
  
  	return ft;
@@ -1903,6 +1902,19 @@ diff -rU5 voxelands-v1709.00old/src/file.c voxelands-v1709.00/src/file.c
  	if (name) {
  		if (type) {
  			fn = name;
+@@ -193,11 +193,11 @@
+ 	f = fopen(file->path, "wb");
+ 	if (!f)
+ 		return;
+ 
+ 	if (file->len) {
+-		if (fwrite(file->data,1,file->len,f) != file->len) {
++	    if (fwrite(file->data,1,file->len,f) != (size_t) file->len) {
+ 			fclose(f);
+ 			return;
+ 		}
+ 	}
+ 
 @@ -380,11 +380,11 @@
  {
  	return file->data+file->pos;
@@ -2451,8 +2463,6 @@ diff -rU5 voxelands-v1709.00old/src/inventory.h voxelands-v1709.00/src/inventory
  	InventoryDiff m_diff;
  };
  
-Seulement dans voxelands-v1709.00/src/jthread: Makefile
-Seulement dans voxelands-v1709.00/src/jthread: cmake_install.cmake
 diff -rU5 voxelands-v1709.00old/src/jthread/jthread.h voxelands-v1709.00/src/jthread/jthread.h
 --- voxelands-v1709.00old/src/jthread/jthread.h	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00/src/jthread/jthread.h	2024-05-30 14:52:25.811196505 +0200
@@ -2492,7 +2502,6 @@ diff -rU5 voxelands-v1709.00old/src/jthread/jthread.h voxelands-v1709.00/src/jth
  	static void *TheThread(void *param);
  	
  	pthread_t threadid;
-Seulement dans voxelands-v1709.00/src/jthread: jthreadconfig.h
 diff -rU5 voxelands-v1709.00old/src/jthread/pthread/jmutex.cpp voxelands-v1709.00/src/jthread/pthread/jmutex.cpp
 --- voxelands-v1709.00old/src/jthread/pthread/jmutex.cpp	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00/src/jthread/pthread/jmutex.cpp	2024-05-29 15:51:33.365819509 +0200
@@ -3830,7 +3839,7 @@ diff -rU5 voxelands-v1709.00old/src/path.h voxelands-v1709.00/src/path.h
  void path_dirlist_free(dirlist_t *l);
 diff -rU5 voxelands-v1709.00old/src/player.cpp voxelands-v1709.00/src/player.cpp
 --- voxelands-v1709.00old/src/player.cpp	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00/src/player.cpp	2024-06-01 19:43:24.580403595 +0200
++++ voxelands-v1709.00/src/player.cpp	2024-06-02 14:51:08.206236148 +0200
 @@ -213,11 +213,11 @@
  }
  
@@ -3873,6 +3882,19 @@ diff -rU5 voxelands-v1709.00old/src/player.cpp voxelands-v1709.00/src/player.cpp
  
  		m_node = mgr->addAnimatedMeshSceneNode(mesh,this);
  
+@@ -699,11 +699,11 @@
+ void RemotePlayer::wieldItem(u16 item)
+ {
+ 	m_selected_item = item;
+ 	if (!m_wield)
+ 		return;
+-	const InventoryItem *i = getWieldItem();
++	const InventoryItem* const i = getWieldItem();
+ 	if (!i) {
+ 		m_wield->setVisible(false);
+ 		return;
+ 	}
+ 	bool haveWield = false;
 @@ -859,11 +859,11 @@
  	m_sneak_node_exists(false),
  	m_can_use_energy(true),
@@ -3886,6 +3908,22 @@ diff -rU5 voxelands-v1709.00old/src/player.cpp voxelands-v1709.00/src/player.cpp
  	v = config_get("client.character");
  	if (!v)
  		v = PLAYER_DEFAULT_CHARDEF;
+diff -rU5 voxelands-v1709.00old/src/player.h voxelands-v1709.00/src/player.h
+--- voxelands-v1709.00old/src/player.h	2017-09-24 06:59:00.000000000 +0200
++++ voxelands-v1709.00/src/player.h	2024-06-02 14:50:31.296522568 +0200
+@@ -187,11 +187,11 @@
+ 	}
+ 
+ 	virtual void wieldItem(u16 item);
+ 	virtual const InventoryItem *getWieldItem() const
+ 	{
+-		const InventoryList *list = inventory.getList("main");
++		const InventoryList* const list = inventory.getList("main");
+ 		if (list)
+ 			return list->getItem(m_selected_item);
+ 		return NULL;
+ 	}
+ 	virtual u16 getSelectedItem() {return m_selected_item;}
 diff -rU5 voxelands-v1709.00old/src/selection_mesh.cpp voxelands-v1709.00/src/selection_mesh.cpp
 --- voxelands-v1709.00old/src/selection_mesh.cpp	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00/src/selection_mesh.cpp	2024-06-01 19:43:50.853319840 +0200
@@ -3912,7 +3950,7 @@ diff -rU5 voxelands-v1709.00old/src/selection_mesh.cpp voxelands-v1709.00/src/se
  
 diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
 --- voxelands-v1709.00old/src/server.cpp	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00/src/server.cpp	2024-05-30 21:58:52.797524311 +0200
++++ voxelands-v1709.00/src/server.cpp	2024-06-02 15:28:21.056355995 +0200
 @@ -1819,11 +1819,11 @@
  		char checkpwd[64];
  		if (auth_exists(playername)) {
@@ -3952,20 +3990,457 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  			&& (auth_getprivs(playername) & (PRIV_SERVER|PRIV_BAN|PRIV_PRIVS)) == 0
  			&& (!admin_name || strcmp(admin_name,playername))
  		) {
-@@ -2471,11 +2471,11 @@
+@@ -2037,11 +2037,11 @@
+ 
+ 		if ((getPlayerPrivs(player) & PRIV_BUILD) == 0)
+ 			return;
+ 
+ 		ToolItem *titem = NULL;
+-		InventoryList *ilist = player->inventory.getList("main");
++		InventoryList* const ilist = player->inventory.getList("main");
+ 		if (ilist == NULL)
+ 			return;
+ 
+ 		// Get item
+ 		InventoryItem *item = ilist->getItem(item_i);
+@@ -2088,11 +2088,11 @@
+ 		}
+ 
+ 		v3f pf((f32)ps.X/100., (f32)ps.Y/100., (f32)ps.Z/100.);
+ 		v3f sf((f32)ss.X/100., (f32)ss.Y/100., (f32)ss.Z/100.);
+ 
+-		ServerActiveObject *obj = new MobSAO(&m_env, 0, pf, sf*content_mob_features(thrown).static_thrown_speed*BS, thrown);
++		ServerActiveObject* const obj = new MobSAO(&m_env, 0, pf, sf*content_mob_features(thrown).static_thrown_speed*BS, thrown);
+ 
+ 		if (obj == NULL) {
+ 			infostream<<"WARNING: item resulted in NULL object, "
+ 							<<"not throwing into map"
+ 							<<std::endl;
+@@ -2109,11 +2109,11 @@
+ 			if (item->getCount() <= 1) {
+ 				if (item->getCount() < 1)
+ 					infostream<<"WARNING: Server: dropped more items"
+ 							<<" than the slot contains"<<std::endl;
+ 
+-				InventoryList *ilist = player->inventory.getList("main");
++				InventoryList* const ilist = player->inventory.getList("main");
+ 				if (ilist)
+ 					// Remove from inventory and send inventory
+ 					ilist->deleteItem(item_i);
+ 			}else{
+ 				item->remove(1);
+@@ -2125,18 +2125,18 @@
+ 		}
+ 	}
+ 	break;
+ 	case TOSERVER_USEITEM:
+ 	{
+-		InventoryList *ilist = player->inventory.getList("main");
++		InventoryList* const ilist = player->inventory.getList("main");
+ 		if (ilist == NULL)
+ 			return;
+ 
+-		u16 item_i = player->getSelectedItem();
++		const u16 item_i = player->getSelectedItem();
+ 
+ 		// Get item
+-		InventoryItem *item = ilist->getItem(item_i);
++		InventoryItem* const item = ilist->getItem(item_i);
+ 		if (item == NULL)
+ 			return;
+ 
+ 		// Track changes super-crappily
+ 		u16 oldhp = player->health;
+@@ -2276,29 +2276,29 @@
+ 		// Left click, pick object up (usually)
+ 		if (button == 0) {
+ 			content_t wield_item = CONTENT_IGNORE;
+ 			ToolItem *titem = NULL;
+ 
+-			InventoryList *mlist = player->inventory.getList("main");
++			InventoryList* const mlist = player->inventory.getList("main");
+ 			if (mlist != NULL) {
+-				InventoryItem *item = mlist->getItem(item_i);
++				InventoryItem* const item = mlist->getItem(item_i);
+ 				if (item) {
+ 					wield_item = item->getContent();
+ 					if ((wield_item&CONTENT_TOOLITEM_MASK) == CONTENT_TOOLITEM_MASK)
+ 						titem = (ToolItem*)item;
+ 				}
+ 			}
+ 			/*
+ 				Try creating inventory item
+ 			*/
+-			InventoryItem *item = obj->createPickedUpItem(wield_item);
++			InventoryItem* item = obj->createPickedUpItem(wield_item);
+ 
+ 			if (item) {
+-				InventoryList *ilist = player->inventory.getList("main");
++				InventoryList* const ilist = player->inventory.getList("main");
+ 				if (ilist != NULL) {
+-					actionstream<<player->getName()<<" picked up "
+-							<<item->getName()<<std::endl;
++					actionstream << player->getName() << " picked up "
++							<< item->getName() << std::endl;
+ 					if (!config_get_bool("world.player.inventory.creative")) {
+ 						// Skip if inventory has no free space
+ 						if (ilist->roomForItem(item) == false) {
+ 							infostream<<"Player inventory has no free space"<<std::endl;
+ 							return;
+@@ -2335,11 +2335,11 @@
+ 						&& obj->getType() == ACTIVEOBJECT_TYPE_MOB
+ 					) {
+ 						InventoryList *mlist = player->inventory.getList("main");
+ 						if (mlist != NULL) {
+ 							for (u32 i=0; i<(8*4); i++) {
+-								InventoryItem *item = mlist->getItem(i);
++								InventoryItem* const item = mlist->getItem(i);
+ 								if (item && item->getContent() == CONTENT_TOOLITEM_MOB_SPAWNER && item->getData() == 0) {
+ 									MobSAO *mob = (MobSAO*)obj;
+ 									item->setData(mob->getContent());
+ 									obj->m_removed = true;
+ 									if (config_get_bool("world.player.tool.wear")) {
+@@ -2360,14 +2360,14 @@
+ 
+ 				u16 wear = obj->punch(wield_item, dir, player->getName());
+ 				item = obj->createPickedUpItem(wield_item);
+ 				/* killing something might have caused a drop */
+ 				if (item) {
+-					InventoryList *ilist = player->inventory.getList("main");
++					InventoryList* const ilist = player->inventory.getList("main");
+ 					if (ilist != NULL) {
+ 						actionstream<<player->getName()<<" picked up "
+-								<<item->getName()<<std::endl;
++								<< item->getName() << std::endl;
+ 						if (!config_get_bool("world.player.inventory.creative")) {
+ 							// Skip if inventory has no free space
+ 							if (ilist->roomForItem(item) == false) {
+ 								infostream<<"Player inventory has no free space"<<std::endl;
+ 								return;
+@@ -2471,14 +2471,12 @@
  				if (pp.getDistanceFrom(spf) <= sg)
  					return;
  			}
  		}
  
 -		InventoryItem *wielditem = (InventoryItem*)player->getWieldItem();
-+		InventoryItem* const wielditem = (InventoryItem*)player->getWieldItem();
- 		content_t wieldcontent = CONTENT_IGNORE;
- 		if (wielditem)
- 			wieldcontent = wielditem->getContent();
+-		content_t wieldcontent = CONTENT_IGNORE;
+-		if (wielditem)
+-			wieldcontent = wielditem->getContent();
++		InventoryItem* const wielditem = (InventoryItem*) player->getWieldItem();
++		const content_t wieldcontent = wielditem ? wielditem->getContent() : CONTENT_IGNORE;
  		ToolItemFeatures wielded_tool_features = content_toolitem_features(wieldcontent);
  		CraftItemFeatures *wielded_craft_features = content_craftitem_features(wieldcontent);
-@@ -3715,16 +3715,16 @@
+ 		ContentFeatures &wielded_material_features = content_features(wieldcontent);
+ 
+ 		bool selected_node_exists = false;
+@@ -2554,18 +2552,18 @@
+ 					}
+ 					selected_node.setContent(c);
+ 					// send the node
+ 					sendAddNode(p_under, selected_node, 0, &far_players, 30);
+ 					// wear out the key - admin's key doesn't wear
+-					ToolItem *titem = (ToolItem*)wielditem;
++					ToolItem* const titem = (ToolItem*)wielditem;
+ 					if (
+ 						!wielded_tool_features.has_super_unlock_effect
+ 						&& (getPlayerPrivs(player) & PRIV_SERVER) == 0
+ 						&& config_get_bool("world.player.tool.wear")
+ 					) {
+ 						bool weared_out = titem->addWear(1);
+-						InventoryList *mlist = player->inventory.getList("main");
++						InventoryList* const mlist = player->inventory.getList("main");
+ 						if (weared_out) {
+ 							mlist->deleteItem(item_i);
+ 						}else{
+ 							mlist->addDiff(item_i,titem);
+ 						}
+@@ -2612,11 +2610,11 @@
+ 				if (inv) {
+ 					InventoryList *list = inv->getList("main");
+ 					if (list) {
+ 						u16 max = list->getSize();
+ 						for (u16 i=0; i<max; i++) {
+-							InventoryItem *itm = list->changeItem(i,NULL);
++							InventoryItem* const itm = list->changeItem(i,NULL);
+ 							if (!itm)
+ 								continue;
+ 							player->inventory.addItem("main", itm);
+ 						}
+ 						// Send inventory
+@@ -2748,11 +2746,11 @@
+ 						if (client == NULL)
+ 							continue;
+ 						client->SetBlocksNotSent(modified_blocks);
+ 					}
+ 				}
+-				ToolItem *titem = (ToolItem*)wielditem;
++				ToolItem* const titem = (ToolItem*)wielditem;
+ 				if (config_get_bool("world.player.tool.wear")) {
+ 					bool weared_out = titem->addWear(1);
+ 					InventoryList *mlist = player->inventory.getList("main");
+ 					if (weared_out) {
+ 						mlist->deleteItem(item_i);
+@@ -2768,11 +2766,11 @@
+ 					meta = m_env.getMap().getNodeMetadata(p_under);
+ 					if (meta && !meta->getEnergy()) {
+ 						v3s16 pp = floatToInt(player->getPosition(),BS);
+ 						meta->energise(ENERGY_MAX,pp,pp,p_under);
+ 					}
+-					ToolItem *titem = (ToolItem*)wielditem;
++					ToolItem* const titem = (ToolItem*) wielditem;
+ 					if (config_get_bool("world.player.tool.wear")) {
+ 						bool weared_out = titem->addWear(1);
+ 						InventoryList *mlist = player->inventory.getList("main");
+ 						if (weared_out) {
+ 							mlist->deleteItem(item_i);
+@@ -2798,11 +2796,11 @@
+ 			) {
+ 				BarrelNodeMetadata *bmeta = (BarrelNodeMetadata*)m_env.getMap().getNodeMetadata(p_under);
+ 				if (!bmeta)
+ 					return;
+ 				if (wielded_tool_features.type == TT_BUCKET) {
+-					content_t c = wielditem->getData();
++					const content_t c = wielditem->getData();
+ 					if (!c) {
+ 						if (bmeta->m_water_level < 4)
+ 							return;
+ 						wielditem->setData(CONTENT_WATERSOURCE);
+ 						InventoryList *mlist = player->inventory.getList("main");
+@@ -2935,11 +2933,11 @@
+ 			}else if (selected_content == CONTENT_CAULDRON) {
+ 				CauldronNodeMetadata *cmeta = (CauldronNodeMetadata*)m_env.getMap().getNodeMetadata(p_under);
+ 				if (!cmeta)
+ 					return;
+ 				if (wielded_tool_features.type == TT_BUCKET) {
+-					content_t c = wielditem->getData();
++					const content_t c = wielditem->getData();
+ 					if (!c) {
+ 						if (cmeta->m_water_level != 4)
+ 							return;
+ 						wielditem->setData(CONTENT_WATERSOURCE);
+ 						InventoryList *mlist = player->inventory.getList("main");
+@@ -2977,13 +2975,13 @@
+ 						client->SetBlocksNotSent(modified_blocks);
+ 						client->SetBlockNotSent(blockpos);
+ 					}
+ 				}else if (wieldcontent == CONTENT_CRAFTITEM_IRON_BOTTLE) {
+ 					if (cmeta->m_water_level && cmeta->m_water_hot && wielditem->getCount() == 1) {
+-						InventoryItem *itm = InventoryItem::create(CONTENT_CRAFTITEM_IRON_BOTTLE_WATER,1,0);
+-						InventoryList *mlist = player->inventory.getList("main");
+-						InventoryItem *old = mlist->changeItem(item_i,itm);
++						InventoryItem* const itm = InventoryItem::create(CONTENT_CRAFTITEM_IRON_BOTTLE_WATER,1,0);
++						InventoryList* const mlist = player->inventory.getList("main");
++						InventoryItem* const old = mlist->changeItem(item_i,itm);
+ 						if (old)
+ 							delete old;
+ 						cmeta->m_water_level--;
+ 						SendInventory(player->peer_id);
+ 						v3s16 blockpos = getNodeBlockPos(p_under);
+@@ -3003,19 +3001,19 @@
+ 							client->SetBlockNotSent(blockpos);
+ 						}
+ 					}
+ 				}else if (wieldcontent == CONTENT_CRAFTITEM_GLASS_BOTTLE) {
+ 					if (cmeta->m_water_level && cmeta->m_water_heated && !cmeta->m_water_hot && wielditem->getCount() == 1) {
+-						InventoryItem *itm = InventoryItem::create(CONTENT_CRAFTITEM_GLASS_BOTTLE_WATER,1,0);
+-						InventoryList *mlist = player->inventory.getList("main");
+-						InventoryItem *old = mlist->changeItem(item_i,itm);
++						InventoryItem* const itm = InventoryItem::create(CONTENT_CRAFTITEM_GLASS_BOTTLE_WATER,1,0);
++						InventoryList* const mlist = player->inventory.getList("main");
++						InventoryItem* const old = mlist->changeItem(item_i,itm);
+ 						if (old)
+ 							delete old;
+ 						cmeta->m_water_level--;
+ 						SendInventory(player->peer_id);
+ 						v3s16 blockpos = getNodeBlockPos(p_under);
+-						MapBlock *block = m_env.getMap().getBlockNoCreateNoEx(blockpos);
++						MapBlock* const block = m_env.getMap().getBlockNoCreateNoEx(blockpos);
+ 						if (!block)
+ 							return;
+ 						block->setChangedFlag();
+ 						core::map<v3s16, MapBlock*> modified_blocks;
+ 						modified_blocks.insert(block->getPos(),block);
+@@ -3037,11 +3035,11 @@
+ 				InventoryList *ilist = meta->getInventory()->getList("fuel");
+ 				InventoryList *plist = player->inventory.getList("main");
+ 				if (plist == NULL || ilist == NULL)
+ 					return;
+ 				if (((IncineratorNodeMetadata*)meta)->m_fuel_totaltime <= ((IncineratorNodeMetadata*)meta)->m_fuel_time) {
+-					InventoryItem *fitem = ilist->getItem(0);
++					InventoryItem* const fitem = ilist->getItem(0);
+ 					if (!fitem || !fitem->getCount() || !fitem->isFuel())
+ 						return;
+ 					((IncineratorNodeMetadata*)meta)->m_should_fire = true;
+ 				}
+ 				plist->deleteItem(item_i);
+@@ -3101,11 +3099,11 @@
+ 					// send the node
+ 					core::list<u16> far_players;
+ 					core::map<v3s16, MapBlock*> modified_blocks;
+ 					sendAddNode(p_under, selected_node, 0, &far_players, 30);
+ 					// wear out the crowbar
+-					ToolItem *titem = (ToolItem*)wielditem;
++					ToolItem* const titem = (ToolItem*)wielditem;
+ 					if (config_get_bool("world.player.tool.wear")) {
+ 						bool weared_out = titem->addWear(1);
+ 						InventoryList *mlist = player->inventory.getList("main");
+ 						if (weared_out) {
+ 							mlist->deleteItem(item_i);
+@@ -3148,11 +3146,11 @@
+ 				core::map<v3s16, MapBlock*> modified_blocks;
+ 				sendAddNode(p_under, selected_node, 0, &far_players, 30);
+ 				/*
+ 					Handle inventory
+ 				*/
+-				InventoryList *ilist = player->inventory.getList("main");
++				InventoryList* const ilist = player->inventory.getList("main");
+ 				if (!config_get_bool("world.player.inventory.creative") && ilist) {
+ 					// Remove from inventory and send inventory
+ 					if (wielditem->getCount() == 1) {
+ 						ilist->deleteItem(item_i);
+ 					}else{
+@@ -3169,11 +3167,11 @@
+ 
+ 					std::string p_name = std::string(player->getName());
+ 					m_env.getMap().addNodeAndUpdate(p_under, selected_node, modified_blocks, p_name);
+ 				}
+ 				v3s16 blockpos = getNodeBlockPos(p_under);
+-				MapBlock *block = m_env.getMap().getBlockNoCreateNoEx(blockpos);
++				MapBlock* const block = m_env.getMap().getBlockNoCreateNoEx(blockpos);
+ 				if (block)
+ 					block->setChangedFlag();
+ 
+ 				for(core::map<u16, RemoteClient*>::Iterator
+ 					i = m_clients.getIterator();
+@@ -3455,13 +3453,13 @@
+ 				/*
+ 					Wear out tool
+ 				*/
+ 				InventoryList *mlist = player->inventory.getList("main");
+ 				if (mlist != NULL && config_get_bool("world.player.tool.wear")) {
+-					InventoryItem *item = mlist->getItem(item_i);
++					InventoryItem* const item = mlist->getItem(item_i);
+ 					if (item && (item->getContent()&CONTENT_TOOLITEM_MASK) == CONTENT_TOOLITEM_MASK) {
+-						ToolItem *titem = (ToolItem*)item;
++						ToolItem* const titem = (ToolItem*) item;
+ 						// Get digging properties for material and tool
+ 						tooluse_t usage;
+ 						if (get_tool_use(&usage,selected_content,mineral,titem->getContent(),titem->getData())) {
+ 							infostream<<"Server: WARNING: Player digged"
+ 								<<" with impossible material + tool"
+@@ -3495,11 +3493,11 @@
+ 						Inventory *inv = meta->getInventory();
+ 						if (inv) {
+ 							InventoryList *l = inv->getList("0");
+ 							if (l) {
+ 								for (u32 i=0; i<32; i++) {
+-									InventoryItem *itm = l->changeItem(i,NULL);
++									InventoryItem* const itm = l->changeItem(i,NULL);
+ 									if (!itm)
+ 										continue;
+ 									player->inventory.addItem("main", itm);
+ 								}
+ 								// Send inventory
+@@ -3531,14 +3529,16 @@
+ 							SendInventory(player->peer_id);
+ 						}
+ 					}
+ 				}else if (selected_node_features.liquid_type == LIQUID_NONE) {
+ 					std::string &dug_s = selected_node_features.dug_item;
+-					if (wielded_tool_features.type != TT_NONE && enchantment_have(wielditem->getData(),ENCHANTMENT_DONTBREAK)) {
++					if (wielded_tool_features.type != TT_NONE
++							&& enchantment_have(wielditem->getData(),ENCHANTMENT_DONTBREAK)) {
+ 						u16 data = 0;
+-						if (selected_node_features.param_type == CPT_MINERAL || selected_node_features.param_type == CPT_BLOCKDATA)
+-							data = selected_node.param1;
++						if (selected_node_features.param_type == CPT_MINERAL
++								|| selected_node_features.param_type == CPT_BLOCKDATA)
++						    data = selected_node.param1;
+ 						item = InventoryItem::create(selected_content,1,0,data);
+ 					}else if (
+ 						wielded_tool_features.type != TT_NONE
+ 						&& enchantment_have(wielditem->getData(),ENCHANTMENT_FLAME)
+ 						&& selected_node_features.cook_result != ""
+@@ -3562,16 +3562,16 @@
+ 							}
+ 							if (extra == CONTENT_IGNORE) {
+ 								if ((selected_node.param1&0x20) == 0x20)
+ 									mineral = MINERAL_SALT;
+ 							}else if (myrand_range(0,5) == 0) {
+-								InventoryItem *eitem = InventoryItem::create(extra,1,0);
++								InventoryItem* const eitem = InventoryItem::create(extra,1,0);
+ 								player->inventory.addItem("main", eitem);
+ 							}
+ 						}
+ 						if (item && selected_node_features.item_param_type == CPT_METADATA) {
+-							NodeMetadata *meta = m_env.getMap().getNodeMetadata(p_under);
++							NodeMetadata* const meta = m_env.getMap().getNodeMetadata(p_under);
+ 							if (meta) {
+ 								uint16_t v = meta->getData();
+ 								item->setData(v);
+ 							}
+ 						}
+@@ -3584,13 +3584,11 @@
+ 								if (selected_node_features.plantgrowth_small_dug_node != CONTENT_IGNORE) {
+ 									u16 count = 1;
+ 									if (p2 > 3)
+ 										count = 2;
+ 									item = InventoryItem::create(
+-										selected_node_features.plantgrowth_small_dug_node,
+-										count
+-									);
++										selected_node_features.plantgrowth_small_dug_node,count);
+ 								}
+ 							}else{
+ 								if (selected_node_features.plantgrowth_large_gives_small) {
+ 									item = InventoryItem::create(
+ 										selected_node_features.plantgrowth_small_dug_node,
+@@ -3607,13 +3605,11 @@
+ 									}
+ 								}
+ 								if (!count)
+ 									count = 1;
+ 								item = InventoryItem::create(
+-									selected_node_features.plantgrowth_large_dug_node,
+-									count
+-								);
++									selected_node_features.plantgrowth_large_dug_node,count);
+ 							}
+ 						}else if (selected_node_features.draw_type == CDT_MELONLIKE) {
+ 							if (p2) {
+ 								if (p2 > 4) {
+ 									u16 count = 1;
+@@ -3625,25 +3621,20 @@
+ 									item = InventoryItem::create(CONTENT_CRAFTITEM_MUSH,count,0);
+ 									player->inventory.addItem("main", item);
+ 								}
+ 								if (selected_node_features.plantgrowth_small_dug_node != CONTENT_IGNORE)
+ 									item = InventoryItem::create(
+-										selected_node_features.plantgrowth_small_dug_node,
+-										1
+-									);
++										selected_node_features.plantgrowth_small_dug_node,1);
+ 							}else{
+ 								if (selected_node_features.plantgrowth_large_gives_small) {
+ 									item = InventoryItem::create(
+-										selected_node_features.plantgrowth_small_dug_node,
+-										1
+-									);
++										selected_node_features.plantgrowth_small_dug_node,1);
+ 									player->inventory.addItem("main", item);
+ 								}
+ 								item = InventoryItem::create(
+ 									selected_node_features.plantgrowth_large_dug_node,
+-									selected_node_features.plantgrowth_large_count
+-								);
++									selected_node_features.plantgrowth_large_count);
+ 							}
+ 						}
+ 					}
+ 				}
+ 
+@@ -3715,16 +3706,16 @@
  			1: place block
  		*/
  		else if(action == 1)
@@ -3984,7 +4459,7 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  			if (item == NULL)
  				return;
  
-@@ -3988,14 +3988,14 @@
+@@ -3988,14 +3979,14 @@
  				uint16_t idata = item->getData();
  
  				/*
@@ -4001,26 +4476,36 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  						}else{
  							wielditem->setData(0);
  							ilist->addDiff(item_i,wielditem);
-@@ -4085,16 +4085,16 @@
+@@ -4085,16 +4076,13 @@
  				}
  
  				if (!config_get_bool("world.player.inventory.creative")) {
  					if (wielded_tool_features.onplace_replace_item != CONTENT_IGNORE) {
  						u16 wear = ((ToolItem*)wielditem)->getWear();
 -						InventoryItem *item = InventoryItem::create(
-+						InventoryItem* const item = InventoryItem::create(
- 							wielded_tool_features.onplace_replace_item,
- 							1,
- 							wear
- 						);
+-							wielded_tool_features.onplace_replace_item,
+-							1,
+-							wear
+-						);
 -						InventoryItem *citem = ilist->changeItem(item_i,item);
++						InventoryItem* const item = InventoryItem::create(
++							wielded_tool_features.onplace_replace_item,1,wear);
 +						InventoryItem* const citem = ilist->changeItem(item_i,item);
  						if (citem)
  							delete citem;
  					}else{
  						ilist->deleteItem(item_i);
  					}
-@@ -4147,11 +4147,11 @@
+@@ -4139,19 +4127,19 @@
+ 					infostream<<"Not allowing player to drop item: "
+ 							"no build privs"<<std::endl;
+ 					return;
+ 				}
+ 				MapNode n = m_env.getMap().getNodeNoEx(p_over);
+-				if (n.getContent() != CONTENT_AIR)
++				if (n.getContent() != CONTENT_AIR || !item)
+ 					return;
+ 				n.setContent(content_craftitem_features(item->getContent())->drop_item);
  				core::list<u16> far_players;
  				sendAddNode(p_over, n, 0, &far_players, 30);
  				if (!config_get_bool("world.player.inventory.creative")) {
@@ -4033,59 +4518,7 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  						if (item->getCount() < dropcount)
  							infostream<<"WARNING: Server: dropped more items"
  								<<" than the slot contains"<<std::endl;
-@@ -4210,11 +4210,11 @@
- 							"block not found"<<std::endl;
- 					return;
- 				}
- 
- 				if (!config_get_bool("world.player.inventory.droppable")) {
--					InventoryList *mlist = player->inventory.getList("main");
-+					InventoryList* const mlist = player->inventory.getList("main");
- 					mlist->deleteItem(item_i);
- 				}else if ((getPlayerPrivs(player) & PRIV_BUILD) == 0) {
- 					infostream<<"Not allowing player to drop item: no build privs"<<std::endl;
- 					return;
- 				}
-@@ -4234,11 +4234,11 @@
- 
- 				if (obj == NULL) {
- 					InventoryItem *nitem;
- 					if (!config_get_bool("world.player.inventory.creative")) {
- 						// Delete the right amount of items from the slot
--						InventoryList *ilist = player->inventory.getList("main");
-+						InventoryList* const ilist = player->inventory.getList("main");
- 						nitem = ilist->changeItem(item_i,NULL);
- 						// Send inventory
- 						UpdateCrafting(peer_id);
- 						SendInventory(peer_id);
- 					}else{
-@@ -4254,11 +4254,11 @@
- 
- 					infostream<<"Placed object"<<std::endl;
- 
- 					if (!config_get_bool("world.player.inventory.creative")) {
- 						// Delete the right amount of items from the slot
--						InventoryList *ilist = player->inventory.getList("main");
-+						InventoryList* const ilist = player->inventory.getList("main");
- 
- 						wielditem->setData(0);
- 						ilist->addDiff(item_i,wielditem);
- 
- 						// Send inventory
-@@ -4278,11 +4278,11 @@
- 					return;
- 				}
- 				if (!config_get_bool("world.player.inventory.creative")) {
- 					// Delete the right amount of items from the slot
- 					u16 dropcount = item->getDropCount();
--					InventoryList *ilist = player->inventory.getList("main");
-+					InventoryList* const ilist = player->inventory.getList("main");
- 
- 					// Delete item if all gone
- 					if (item->getCount() <= dropcount) {
- 						if (item->getCount() < dropcount)
- 							infostream<<"WARNING: Server: dropped more items"
-@@ -4314,11 +4314,11 @@
+@@ -4202,19 +4190,19 @@
  
  				/*
  					Check that the block is loaded so that the item
@@ -4098,7 +4531,75 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  							"block not found"<<std::endl;
  					return;
  				}
-@@ -4342,34 +4342,36 @@
+ 
+ 				if (!config_get_bool("world.player.inventory.droppable")) {
+-					InventoryList *mlist = player->inventory.getList("main");
++					InventoryList* const mlist = player->inventory.getList("main");
+ 					mlist->deleteItem(item_i);
+ 				}else if ((getPlayerPrivs(player) & PRIV_BUILD) == 0) {
+ 					infostream<<"Not allowing player to drop item: no build privs"<<std::endl;
+ 					return;
+ 				}
+@@ -4228,17 +4216,17 @@
+ 				pos.Z += BS*0.2*(float)myrand_range(-1000,1000)/1000.0;
+ 
+ 				/*
+ 					Create the object
+ 				*/
+-				ServerActiveObject *obj = wielditem->createSAO(&m_env, 0, pos);
++				ServerActiveObject* const obj = wielditem->createSAO(&m_env, 0, pos);
+ 
+ 				if (obj == NULL) {
+ 					InventoryItem *nitem;
+ 					if (!config_get_bool("world.player.inventory.creative")) {
+ 						// Delete the right amount of items from the slot
+-						InventoryList *ilist = player->inventory.getList("main");
++						InventoryList* const ilist = player->inventory.getList("main");
+ 						nitem = ilist->changeItem(item_i,NULL);
+ 						// Send inventory
+ 						UpdateCrafting(peer_id);
+ 						SendInventory(peer_id);
+ 					}else{
+@@ -4254,11 +4242,11 @@
+ 
+ 					infostream<<"Placed object"<<std::endl;
+ 
+ 					if (!config_get_bool("world.player.inventory.creative")) {
+ 						// Delete the right amount of items from the slot
+-						InventoryList *ilist = player->inventory.getList("main");
++						InventoryList* const ilist = player->inventory.getList("main");
+ 
+ 						wielditem->setData(0);
+ 						ilist->addDiff(item_i,wielditem);
+ 
+ 						// Send inventory
+@@ -4278,11 +4266,11 @@
+ 					return;
+ 				}
+ 				if (!config_get_bool("world.player.inventory.creative")) {
+ 					// Delete the right amount of items from the slot
+ 					u16 dropcount = item->getDropCount();
+-					InventoryList *ilist = player->inventory.getList("main");
++					InventoryList* const ilist = player->inventory.getList("main");
+ 
+ 					// Delete item if all gone
+ 					if (item->getCount() <= dropcount) {
+ 						if (item->getCount() < dropcount)
+ 							infostream<<"WARNING: Server: dropped more items"
+@@ -4314,11 +4302,11 @@
+ 
+ 				/*
+ 					Check that the block is loaded so that the item
+ 					can properly be added to the static list too
+ 				*/
+-				MapBlock *block = m_env.getMap().getBlockNoCreateNoEx(blockpos);
++				MapBlock* const block = m_env.getMap().getBlockNoCreateNoEx(blockpos);
+ 				if (block==NULL) {
+ 					infostream<<"Error while placing object: "
+ 							"block not found"<<std::endl;
+ 					return;
+ 				}
+@@ -4342,34 +4330,40 @@
  				/*
  					Create the object
  				*/
@@ -4135,10 +4636,12 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  						// Send inventory
  						UpdateCrafting(peer_id);
  						SendInventory(peer_id);
--					}else{
--						nitem = wielditem->clone();
-+					    /*}else{
-+					      nitem = wielditem->clone();*/
+ 					}else{
++					/* BUG PB : Get again, it can have disapperead. */
++					    InventoryItem* const wielditem = (InventoryItem*) player->getWieldItem();
++
++					    if(wielditem)
+ 						nitem = wielditem->clone();
  					}
 -					m_env.dropToParcel(p_over,nitem);
 +					if(nitem)
@@ -4148,7 +4651,7 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  							<<" at "<<PP(p_over)<<std::endl;
  
  					// Add the object to the environment
-@@ -4378,11 +4380,11 @@
+@@ -4378,11 +4372,11 @@
  					infostream<<"Placed object"<<std::endl;
  
  					if (!config_get_bool("world.player.inventory.creative")) {
@@ -4161,7 +4664,21 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  						if (item->getCount() <= dropcount) {
  							if(item->getCount() < dropcount)
  								infostream<<"WARNING: Server: dropped more items"
-@@ -4661,12 +4663,12 @@
+@@ -4409,12 +4403,11 @@
+ 
+ 		/*
+ 			Catch invalid actions
+ 		*/
+ 		else{
+-			infostream<<"WARNING: Server: Invalid action "
+-					<<action<<std::endl;
++			infostream<<"WARNING: Server: Invalid action " << action << std::endl;
+ 		}
+ 	}
+ 	break;
+ 	case TOSERVER_PLAYERDAMAGE:
+ 	{
+@@ -4661,12 +4654,12 @@
  					if (
  						ma->to_inv == "current_player"
  						&& ma->from_inv == "current_player"
@@ -4176,7 +4693,59 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  								v3f pos = player->getPosition();
  								pos.Y += BS;
  								v3f dir = v3f(0,0,BS);
-@@ -5950,11 +5952,11 @@
+@@ -5321,22 +5314,22 @@
+ 		player = (Player*)array_get_ptr(players,i);
+ 		if (!player)
+ 			continue;
+ 
+ 		writeU16(os, player->peer_id);
+-		InventoryItem *item = (InventoryItem*)player->getWieldItem();
++		InventoryItem* const item = (InventoryItem*)player->getWieldItem();
+ 		if (item == NULL) {
+ 			writeU16(os,CONTENT_IGNORE);
+ 		}else{
+ 			writeU16(os,item->getContent());
+ 		}
+ 		const char* list[7] = {"hat","shirt","pants","boots","decorative","jacket","belt"};
+ 		for (int j=0; j<7; j++) {
+-			InventoryList *l = player->inventory.getList(list[j]);
++			InventoryList* const l = player->inventory.getList(list[j]);
+ 			if (l == NULL)
+ 				continue;
+-			InventoryItem *itm = l->getItem(0);
++			InventoryItem* const itm = l->getItem(0);
+ 			if (itm == NULL) {
+ 				writeU16(os,CONTENT_IGNORE);
+ 				continue;
+ 			}
+ 			writeU16(os,itm->getContent());
+@@ -5360,22 +5353,22 @@
+ 
+ 	writeU16(os, TOCLIENT_PLAYERITEMS);
+ 	writeU16(os, 1);
+ 	writeU16(os, 8);
+ 	writeU16(os, player->peer_id);
+-	InventoryItem *item = (InventoryItem*)player->getWieldItem();
++	InventoryItem* const item = (InventoryItem*)player->getWieldItem();
+ 	if (item == NULL) {
+ 		writeU16(os,CONTENT_IGNORE);
+ 	}else{
+ 		writeU16(os,item->getContent());
+ 	}
+ 	const char* list[7] = {"hat","shirt","pants","boots","decorative","jacket","belt"};
+ 	for (int j=0; j<7; j++) {
+-		InventoryList *l = player->inventory.getList(list[j]);
++		InventoryList* const l = player->inventory.getList(list[j]);
+ 		if (l == NULL)
+ 			continue;
+-		InventoryItem *itm = l->getItem(0);
++		InventoryItem* const itm = l->getItem(0);
+ 		if (itm == NULL) {
+ 			writeU16(os,CONTENT_IGNORE);
+ 			continue;
+ 		}
+ 		writeU16(os,itm->getContent());
+@@ -5950,11 +5943,11 @@
  			name = narrow_to_wide(player->getName());
  		// Add name to information string
  		os<<name<<L",";
@@ -4189,7 +4758,7 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  	return os.str();
  }
  
-@@ -6048,13 +6050,11 @@
+@@ -6048,13 +6041,11 @@
  	/*
  		Create a new player
  	*/
@@ -4204,7 +4773,7 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  			privs = auth_str2privs(priv);
  
  		player = new ServerRemotePlayer();
-@@ -6238,17 +6238,16 @@
+@@ -6238,17 +6229,16 @@
  	auth_save();
  }
  
