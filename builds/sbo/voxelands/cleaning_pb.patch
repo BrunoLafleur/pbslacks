@@ -1,6 +1,6 @@
-diff -rU5 voxelands-v1709.00old/src/activeobject.h voxelands-v1709.00/src/activeobject.h
+diff -rU5 voxelands-v1709.00old/src/activeobject.h voxelands-v1709.00good/src/activeobject.h
 --- voxelands-v1709.00old/src/activeobject.h	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00/src/activeobject.h	2024-05-29 16:20:54.606933466 +0200
++++ voxelands-v1709.00good/src/activeobject.h	2024-06-09 13:17:14.655157790 +0200
 @@ -55,10 +55,12 @@
  	ActiveObject(u16 id):
  		m_id(id)
@@ -14,9 +14,9 @@ diff -rU5 voxelands-v1709.00old/src/activeobject.h voxelands-v1709.00/src/active
  		return m_id;
  	}
  
-diff -rU5 voxelands-v1709.00old/src/array.c voxelands-v1709.00/src/array.c
+diff -rU5 voxelands-v1709.00old/src/array.c voxelands-v1709.00good/src/array.c
 --- voxelands-v1709.00old/src/array.c	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00/src/array.c	2024-05-30 15:15:51.273343131 +0200
++++ voxelands-v1709.00good/src/array.c	2024-06-09 13:17:14.655157790 +0200
 @@ -59,11 +59,11 @@
  array_t *array_copy(array_t *a)
  {
@@ -427,9 +427,9 @@ diff -rU5 voxelands-v1709.00old/src/array.c voxelands-v1709.00/src/array.c
  	}
  
  	return str;
-diff -rU5 voxelands-v1709.00old/src/auth.c voxelands-v1709.00/src/auth.c
+diff -rU5 voxelands-v1709.00old/src/auth.c voxelands-v1709.00good/src/auth.c
 --- voxelands-v1709.00old/src/auth.c	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00/src/auth.c	2024-04-14 18:16:55.975419326 +0200
++++ voxelands-v1709.00good/src/auth.c	2024-06-09 13:17:14.655157790 +0200
 @@ -82,11 +82,11 @@
  
  	return r;
@@ -456,9 +456,9 @@ diff -rU5 voxelands-v1709.00old/src/auth.c voxelands-v1709.00/src/auth.c
  	if (!auth.mutex) {
  		auth.mutex = mutex_create();
  		if (!auth.mutex)
-diff -rU5 voxelands-v1709.00old/src/auth.h voxelands-v1709.00/src/auth.h
+diff -rU5 voxelands-v1709.00old/src/auth.h voxelands-v1709.00good/src/auth.h
 --- voxelands-v1709.00old/src/auth.h	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00/src/auth.h	2024-04-14 18:17:03.177393087 +0200
++++ voxelands-v1709.00good/src/auth.h	2024-06-09 13:17:14.655157790 +0200
 @@ -31,12 +31,12 @@
  } authdata_t;
  #endif
@@ -474,9 +474,9 @@ diff -rU5 voxelands-v1709.00old/src/auth.h voxelands-v1709.00/src/auth.h
  void auth_save(void);
  int auth_exists(char* name);
  void auth_set(char* name, authdata_t data);
-diff -rU5 voxelands-v1709.00old/src/ban.c voxelands-v1709.00/src/ban.c
+diff -rU5 voxelands-v1709.00old/src/ban.c voxelands-v1709.00good/src/ban.c
 --- voxelands-v1709.00old/src/ban.c	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00/src/ban.c	2024-04-14 14:06:16.606795346 +0200
++++ voxelands-v1709.00good/src/ban.c	2024-06-09 13:17:14.655157790 +0200
 @@ -41,11 +41,11 @@
  	NULL,
  	0
@@ -490,9 +490,9 @@ diff -rU5 voxelands-v1709.00old/src/ban.c voxelands-v1709.00/src/ban.c
  	if (!ban.mutex) {
  		ban.mutex = mutex_create();
  		if (!ban.mutex)
-diff -rU5 voxelands-v1709.00old/src/ban.h voxelands-v1709.00/src/ban.h
+diff -rU5 voxelands-v1709.00old/src/ban.h voxelands-v1709.00good/src/ban.h
 --- voxelands-v1709.00old/src/ban.h	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00/src/ban.h	2024-04-14 14:06:27.598758401 +0200
++++ voxelands-v1709.00good/src/ban.h	2024-06-09 13:17:14.655157790 +0200
 @@ -4,11 +4,11 @@
  #ifdef __cplusplus
  extern "C" {
@@ -506,9 +506,9 @@ diff -rU5 voxelands-v1709.00old/src/ban.h voxelands-v1709.00/src/ban.h
  void ban_save(void);
  int ban_ipbanned(char* ip);
  int ban_description(char* ip_or_name, char* buff, int size);
-diff -rU5 voxelands-v1709.00old/src/bridge_temp.cpp voxelands-v1709.00/src/bridge_temp.cpp
+diff -rU5 voxelands-v1709.00old/src/bridge_temp.cpp voxelands-v1709.00good/src/bridge_temp.cpp
 --- voxelands-v1709.00old/src/bridge_temp.cpp	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00/src/bridge_temp.cpp	2024-04-14 18:00:43.840035061 +0200
++++ voxelands-v1709.00good/src/bridge_temp.cpp	2024-06-09 13:17:14.656158083 +0200
 @@ -248,13 +248,13 @@
  	SHA1 sha1;
  	sha1.addBytes(str, l);
@@ -525,9 +525,9 @@ diff -rU5 voxelands-v1709.00old/src/bridge_temp.cpp voxelands-v1709.00/src/bridg
  
  	return std::string(v);
  }
-diff -rU5 voxelands-v1709.00old/src/character_creator.cpp voxelands-v1709.00/src/character_creator.cpp
+diff -rU5 voxelands-v1709.00old/src/character_creator.cpp voxelands-v1709.00good/src/character_creator.cpp
 --- voxelands-v1709.00old/src/character_creator.cpp	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00/src/character_creator.cpp	2024-06-01 19:17:59.422224761 +0200
++++ voxelands-v1709.00good/src/character_creator.cpp	2024-06-09 13:17:14.656158083 +0200
 @@ -118,11 +118,11 @@
  	m_cameranode->setPosition(v3f(20,0,0));
  	// *100.0 helps in large map coordinates
@@ -554,14 +554,61 @@ diff -rU5 voxelands-v1709.00old/src/character_creator.cpp voxelands-v1709.00/src
  	if (v)
  		chardef = v;
  	Strfnd f(chardef);
-diff -rU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00/src/client.cpp
+diff -rU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/client.cpp
 --- voxelands-v1709.00old/src/client.cpp	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00/src/client.cpp	2024-04-14 20:09:08.900031076 +0200
-@@ -252,11 +252,11 @@
++++ voxelands-v1709.00good/src/client.cpp	2024-06-09 14:20:16.601760931 +0200
+@@ -151,39 +151,39 @@
+ 	DSTACK(__FUNCTION_NAME);
+ 
+ 	BEGIN_DEBUG_EXCEPTION_HANDLER
+ 
+ 	while (getRun()) {
+-		QueuedMeshUpdate *q = m_queue_in.pop();
++		QueuedMeshUpdate* const q = m_queue_in.pop();
+ 		if (q == NULL) {
+ 			sleep_ms(3);
+ 			continue;
+ 		}
+ 
+ 		ScopeProfiler sp(g_profiler, "Client: Mesh making");
+ 
+ 		if (q->data && q->data->m_refresh_only) {
+-			MapBlock *block = m_env->getMap().getBlockNoCreateNoEx(q->p);
++			MapBlock* const block = m_env->getMap().getBlockNoCreateNoEx(q->p);
+ 			if (block && block->mesh) {
+ 				{
+ 					JMutexAutoLock lock(block->mesh_mutex);
+ 					block->mesh->refresh(q->data->m_daynight_ratio);
+ 				}
+ 			}
+ 		}else{
+-			MapBlock *block = m_env->getMap().getBlockNoCreateNoEx(q->p);
++			MapBlock* const block = m_env->getMap().getBlockNoCreateNoEx(q->p);
+ 			if (block && block->mesh) {
+ 				block->mesh->generate(q->data, m_camera_offset, &block->mesh_mutex);
+ 				if (q->ack_block_to_server) {
+ 					MeshUpdateResult r;
+ 					r.p = q->p;
+ 					r.mesh = NULL;
+ 					r.ack_block_to_server = true;
+ 					m_queue_out.push_back(r);
+ 				}
+ 			}else if (block) {
+-				MapBlockMesh *mesh_new = new MapBlockMesh(q->data, m_camera_offset);
++				MapBlockMesh* const mesh_new = new MapBlockMesh(q->data, m_camera_offset);
+ 				MeshUpdateResult r;
+ 				r.p = q->p;
+ 				r.mesh = mesh_new;
+ 				r.ack_block_to_server = q->ack_block_to_server;
+ 
+@@ -250,13 +250,13 @@
+ 		Add local player
+ 	*/
  	{
  		//JMutexAutoLock envlock(m_env_mutex); //bulk comment-out
  
- 		Player *player = new LocalPlayer();
+-		Player *player = new LocalPlayer();
++		Player* const player = new LocalPlayer();
  
 -		char* v = config_get("client.name");
 +		const char* v = config_get("client.name");
@@ -570,6 +617,58 @@ diff -rU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00/src/client.cpp
  		}else{
  			player->updateName(porting::getUser().c_str());
  		}
+@@ -371,11 +371,11 @@
+ 		if (counter <= 0.0) {
+ 			counter = 2.0;
+ 
+ 			//JMutexAutoLock envlock(m_env_mutex); //bulk comment-out
+ 
+-			Player *myplayer = m_env.getLocalPlayer();
++			Player* const myplayer = m_env.getLocalPlayer();
+ 			assert(myplayer != NULL);
+ 
+ 			// Send TOSERVER_INIT
+ 			// [0] u16 TOSERVER_INIT
+ 			// [2] u8 SER_FMT_VER_HIGHEST
+@@ -473,11 +473,11 @@
+ 	{
+ 		// 0ms
+ 		//JMutexAutoLock lock(m_env_mutex); //bulk comment-out
+ 
+ 		// Control local player (0ms)
+-		LocalPlayer *player = m_env.getLocalPlayer();
++		LocalPlayer* const player = m_env.getLocalPlayer();
+ 		assert(player != NULL);
+ 		player->applyControl(dtime);
+ 
+ 		//TimeTaker envtimer("env step", m_device);
+ 		// Step environment
+@@ -581,11 +581,11 @@
+ 				<<m_mesh_update_thread.m_queue_out.size()
+ 				<<std::endl;*/
+ 
+ 		while (m_mesh_update_thread.m_queue_out.size() > 0) {
+ 			MeshUpdateResult r = m_mesh_update_thread.m_queue_out.pop_front();
+-			MapBlock *block = m_env.getMap().getBlockNoCreateNoEx(r.p);
++			MapBlock* const block = m_env.getMap().getBlockNoCreateNoEx(r.p);
+ 			if (block) {
+ 				if (r.mesh != NULL) {
+ 					JMutexAutoLock lock(block->mesh_mutex);
+ 
+ 					MapBlockMesh *mesh_old = block->mesh;
+@@ -732,11 +732,11 @@
+ 
+ 		{ //envlock
+ 			//JMutexAutoLock envlock(m_env_mutex); //bulk comment-out
+ 
+ 			// Set player position
+-			Player *player = m_env.getLocalPlayer();
++			Player* const player = m_env.getLocalPlayer();
+ 			assert(player != NULL);
+ 			player->setPosition(playerpos_f);
+ 		}
+ 
+ 		if (datasize >= 2+1+6+8) {
 @@ -752,11 +752,11 @@
  			infostream<<"Client: received map type: "<<m_map_type<<std::endl;
  		}
@@ -583,9 +682,422 @@ diff -rU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00/src/client.cpp
  			if (v)
  				chardef = v;
  
-diff -rU5 voxelands-v1709.00old/src/common.h voxelands-v1709.00/src/common.h
+@@ -947,11 +947,11 @@
+ 
+ 				// Don't update the info of the local player
+ 				if (peer_id == our_peer_id)
+ 					continue;
+ 
+-				Player *player = m_env.getPlayer(peer_id);
++				Player* player = m_env.getPlayer(peer_id);
+ 
+ 				// Create a player if it doesn't exist
+ 				if (player == NULL) {
+ 					player = new RemotePlayer(
+ 						m_device->getSceneManager()->getRootSceneNode(),
+@@ -969,11 +969,11 @@
+ 
+ 			/*
+ 				Remove those players from the environment that
+ 				weren't listed by the server.
+ 			*/
+-			array_t *players = m_env.getPlayers();
++			array_t* const players = m_env.getPlayers();
+ 			Player *player;
+ 			uint32_t i;
+ 			for (i=0; i<players->length; i++) {
+ 				player = (Player*)array_get_ptr(players,i);
+ 				if (!player)
+@@ -996,11 +996,11 @@
+ 	break;
+ 	case TOCLIENT_PLAYERSTATE:
+ 	{
+ 		std::string datastring((char*)&data[2], datasize-2);
+ 		std::istringstream is(datastring, std::ios_base::binary);
+-		LocalPlayer *player = m_env.getLocalPlayer();
++		LocalPlayer* const player = m_env.getLocalPlayer();
+ 		assert(player != NULL);
+ 		u8 hp = readU8(is);
+ 		u8 air = readU8(is);
+ 		u8 hunger = readU8(is);
+ 		player->dirt = readU8(is);
+@@ -1027,11 +1027,11 @@
+ 			return;
+ 		{
+ 			std::string datastring((char*)&data[2], datasize-2);
+ 			std::istringstream is(datastring, std::ios_base::binary);
+ 
+-			Player *player = m_env.getLocalPlayer();
++			Player* const player = m_env.getLocalPlayer();
+ 			assert(player != NULL);
+ 
+ 			player->inventory.deSerialize(is);
+ 
+ 			m_inventory_updated = true;
+@@ -1044,11 +1044,11 @@
+ 			return;
+ 		{
+ 			std::string datastring((char*)&data[2], datasize-2);
+ 			std::istringstream is(datastring, std::ios_base::binary);
+ 
+-			Player *player = m_env.getLocalPlayer();
++			Player* const player = m_env.getLocalPlayer();
+ 			assert(player != NULL);
+ 
+ 			u16 list_count = readU16(is);
+ 			for (int i=0; i<list_count; i++) {
+ 				std::string name = deSerializeString(is);
+@@ -1088,11 +1088,11 @@
+ 			f32 pitch = readF1000(is);
+ 			f32 yaw = readF1000(is);
+ 			u8 anim_id = readU8(is);
+ 			content_t pointed = readU16(is);
+ 
+-			Player *player = m_env.getPlayer(peer_id);
++			Player* const player = m_env.getPlayer(peer_id);
+ 
+ 			// Skip if player doesn't exist
+ 			if (player == NULL)
+ 				continue;
+ 
+@@ -1134,11 +1134,11 @@
+ 			is.read((char*)buf, 4);
+ 			s32 pitch_i = readS32(buf);
+ 			is.read((char*)buf, 4);
+ 			s32 yaw_i = readS32(buf);
+ 
+-			Player *player = m_env.getPlayer(peer_id);
++			Player* const player = m_env.getPlayer(peer_id);
+ 
+ 			// Skip if player doesn't exist
+ 			if (player == NULL)
+ 				continue;
+ 
+@@ -1327,11 +1327,11 @@
+ 	break;
+ 	case TOCLIENT_MOVE_PLAYER:
+ 	{
+ 		std::string datastring((char*)&data[2], datasize-2);
+ 		std::istringstream is(datastring, std::ios_base::binary);
+-		Player *player = m_env.getLocalPlayer();
++		Player* const player = m_env.getLocalPlayer();
+ 		assert(player != NULL);
+ 		v3f pos = readV3F1000(is);
+ 		f32 pitch = readF1000(is);
+ 		f32 yaw = readF1000(is);
+ 		player->setPosition(pos);
+@@ -1370,11 +1370,11 @@
+ 		u16 icount = readU16(is);
+ 		u16 itm;
+ 
+ 		for (u16 i = 0; i < count; ++i) {
+ 			u16 peer_id = readU16(is);
+-			Player *player = m_env.getPlayer(peer_id);
++			Player* const player = m_env.getPlayer(peer_id);
+ 
+ 			if (player == NULL) {
+ 				for (int j=0; j<icount; j++) {
+ 					itm = readU16(is);
+ 				}
+@@ -1430,35 +1430,35 @@
+ 					}
+ 				}
+ 				// for 1409 servers, this stops players appearing naked
+ 				if (icount == 5) {
+ 					{
+-						InventoryList *inv = player->inventory.getList("shirt");
++						InventoryList* const inv = player->inventory.getList("shirt");
+ 						if (!inv->getItem(0)) {
+-							InventoryItem *item = inv->changeItem(
++							InventoryItem* const item = inv->changeItem(
+ 								0,
+ 								InventoryItem::create(CONTENT_CLOTHESITEM_COTTON_TSHIRT_GREEN,1)
+ 							);
+ 							if (item)
+ 								delete item;
+ 						}
+ 					}
+ 					{
+-						InventoryList *inv = player->inventory.getList("pants");
++						InventoryList* const inv = player->inventory.getList("pants");
+ 						if (!inv->getItem(0)) {
+-							InventoryItem *item = inv->changeItem(
++							InventoryItem* const item = inv->changeItem(
+ 								0,
+ 								InventoryItem::create(CONTENT_CLOTHESITEM_CANVAS_PANTS_BLUE,1)
+ 							);
+ 							if (item)
+ 								delete item;
+ 						}
+ 					}
+ 					{
+-						InventoryList *inv = player->inventory.getList("boots");
++						InventoryList* const inv = player->inventory.getList("boots");
+ 						if (!inv->getItem(0)) {
+-							InventoryItem *item = inv->changeItem(
++							InventoryItem* const item = inv->changeItem(
+ 								0,
+ 								InventoryItem::create(CONTENT_CLOTHESITEM_LEATHER_SHOES,1)
+ 							);
+ 							if (item)
+ 								delete item;
+@@ -1582,11 +1582,11 @@
+ void Client::throwItem(v3f dir, u16 item)
+ {
+ 	std::ostringstream os(std::ios_base::binary);
+ 	u8 buf[15];
+ 
+-	LocalPlayer* player = m_env.getLocalPlayer();
++	LocalPlayer* const player = m_env.getLocalPlayer();
+ 
+ 	// Write command
+ 	writeU16(buf, TOSERVER_THROWITEM);
+ 	os.write((char*)buf, 2);
+ 
+@@ -1622,11 +1622,11 @@
+ 	// Send as reliable
+ 	Send(0, data, true);
+ 
+ #if USE_AUDIO == 1
+ 	{
+-		InventoryItem *item = (InventoryItem*)m_env.getLocalPlayer()->getWieldItem();
++		InventoryItem* const item = (InventoryItem*)m_env.getLocalPlayer()->getWieldItem();
+ 		if (!item)
+ 			return;
+ 		std::string snd("");
+ 		content_t w = item->getContent();
+ 		if ((w&CONTENT_CRAFTITEM_MASK) == CONTENT_CRAFTITEM_MASK)
+@@ -1644,20 +1644,20 @@
+ 				"cancelled (not connected)"
+ 				<<std::endl;
+ 		return;
+ 	}
+ 
+-	Player *player = m_env.getLocalPlayer();
++	Player* const player = m_env.getLocalPlayer();
+ 	if (player == NULL)
+ 		return;
+ 
+-	ClientActiveObject *obj = m_env.getActiveObject(id);
++	ClientActiveObject* const obj = m_env.getActiveObject(id);
+ 	if (obj) {
+ 		if (button == 0) {
+ 			content_t punch_item = CONTENT_IGNORE;
+ 
+-			InventoryList *mlist = player->inventory.getList("main");
++			InventoryList* const mlist = player->inventory.getList("main");
+ 			if (mlist != NULL) {
+ 				InventoryItem *item = mlist->getItem(item_i);
+ 				if (item)
+ 					punch_item = item->getContent();
+ 			}
+@@ -1763,11 +1763,11 @@
+ }
+ 
+ void Client::sendChangePassword(const std::wstring oldpassword,
+ 		const std::wstring newpassword)
+ {
+-	Player *player = m_env.getLocalPlayer();
++	Player* const player = m_env.getLocalPlayer();
+ 	if(player == NULL)
+ 		return;
+ 
+ 	std::string playername = player->getName();
+ 	std::string oldpwd = translatePassword(playername, oldpassword);
+@@ -1844,11 +1844,11 @@
+ 	Send(0, data, true);
+ }
+ 
+ void Client::sendPlayerPos()
+ {
+-	LocalPlayer *myplayer = m_env.getLocalPlayer();
++	LocalPlayer* const myplayer = m_env.getLocalPlayer();
+ 	if (myplayer == NULL)
+ 		return;
+ 
+ 	// Save bandwidth by only updating position when something changed
+ 	if (
+@@ -1899,11 +1899,11 @@
+ 	Send(0, data, false);
+ }
+ 
+ void Client::sendPlayerItem(u16 item)
+ {
+-	Player *myplayer = m_env.getLocalPlayer();
++	Player* const myplayer = m_env.getLocalPlayer();
+ 	if(myplayer == NULL)
+ 		return;
+ 
+ 	u16 our_peer_id = m_con.GetPeerID();
+ 
+@@ -2009,18 +2009,18 @@
+ }
+ 
+ void Client::setPlayerControl(PlayerControl &control)
+ {
+ 	//JMutexAutoLock envlock(m_env_mutex); //bulk comment-out
+-	LocalPlayer *player = m_env.getLocalPlayer();
++	LocalPlayer* const player = m_env.getLocalPlayer();
+ 	assert(player != NULL);
+ 	player->control = control;
+ }
+ 
+ void Client::selectPlayerItem(u16 item)
+ {
+-	LocalPlayer *player = m_env.getLocalPlayer();
++	LocalPlayer* const player = m_env.getLocalPlayer();
+ 	assert(player != NULL);
+ 
+ 	player->wieldItem(item);
+ 
+ 	sendPlayerItem(item);
+@@ -2039,11 +2039,11 @@
+ 
+ // Copies the inventory of the local player to parameter
+ void Client::getLocalInventory(Inventory &dst)
+ {
+ 	//JMutexAutoLock envlock(m_env_mutex); //bulk comment-out
+-	Player *player = m_env.getLocalPlayer();
++	Player* const player = m_env.getLocalPlayer();
+ 	assert(player != NULL);
+ 	dst = player->inventory;
+ }
+ 
+ InventoryContext *Client::getInventoryContext()
+@@ -2086,26 +2086,26 @@
+ 	case InventoryLocation::UNDEFINED:
+ 	{}
+ 	break;
+ 	case InventoryLocation::CURRENT_PLAYER:
+ 	{
+-		Player *player = m_env.getLocalPlayer();
++		Player* const player = m_env.getLocalPlayer();
+ 		assert(player != NULL);
+ 		return &player->inventory;
+ 	}
+ 	break;
+ 	case InventoryLocation::PLAYER:
+ 	{
+-		Player *player = m_env.getPlayer(loc->name.c_str());
++		Player* const player = m_env.getPlayer(loc->name.c_str());
+ 		if(!player)
+ 			return NULL;
+ 		return &player->inventory;
+ 	}
+ 	break;
+ 	case InventoryLocation::NODEMETA:
+ 	{
+-		NodeMetadata *meta = m_env.getMap().getNodeMetadata(loc->p);
++		NodeMetadata* const meta = m_env.getMap().getNodeMetadata(loc->p);
+ 		if(!meta)
+ 			return NULL;
+ 		return meta->getInventory();
+ 	}
+ 	break;
+@@ -2158,35 +2158,35 @@
+ {
+ }
+ 
+ u16 Client::getHP()
+ {
+-	Player *player = m_env.getLocalPlayer();
++	Player* const player = m_env.getLocalPlayer();
+ 	if (!player)
+ 		return 0;
+ 	return player->health;
+ }
+ 
+ u16 Client::getAir()
+ {
+-	Player *player = m_env.getLocalPlayer();
++	Player* const player = m_env.getLocalPlayer();
+ 	if (!player)
+ 		return 0;
+ 	return player->air;
+ }
+ 
+ u16 Client::getHunger()
+ {
+-	Player *player = m_env.getLocalPlayer();
++	Player* const player = m_env.getLocalPlayer();
+ 	if (!player)
+ 		return 0;
+ 	return player->hunger;
+ }
+ 
+ float Client::getEnergy()
+ {
+-	LocalPlayer *player = m_env.getLocalPlayer();
++	LocalPlayer* const player = m_env.getLocalPlayer();
+ 	if (!player)
+ 		return 0.0;
+ 	return player->getEnergy();
+ }
+ 
+@@ -2285,11 +2285,13 @@
+ }
+ 
+ // foot: 0 = left, 1 = right
+ void Client::playStepSound(int foot)
+ {
++#if USE_AUDIO == 1
+ 	sound_play_step(&m_env.getMap(),m_env.getLocalPlayer()->getPosition(),foot,1.0);
++#endif
+ }
+ 
+ void Client::playDigSound(content_t c)
+ {
+ 	if (c == CONTENT_IGNORE) {
+@@ -2297,19 +2299,22 @@
+ 		if ((c&CONTENT_MOB_MASK) != 0)
+ 			return;
+ 	}
+ 	if (c == CONTENT_IGNORE)
+ 		c = CONTENT_AIR;
+-
++	
++#if USE_AUDIO == 1
+ 	sound_play_dig(c,m_env.getLocalPlayer()->getPosition());
++#endif
+ }
+ 
+ void Client::playPlaceSound(content_t c)
+ {
+ 	if (c == CONTENT_IGNORE)
+ 		c = getPointedContent();
+ 
++#if USE_AUDIO == 1
+ 	ContentFeatures *f = &content_features(c);
+ 	if (f->sound_place != "") {
+ 		sound_play_effect((char*)f->sound_place.c_str(),1.0,0,NULL);
+ 		return;
+ 	}
+@@ -2318,17 +2323,22 @@
+ 		sound_play_effect("liquid-place",1.0,0,NULL);
+ 		break;
+ 	default:
+ 		sound_play_effect("place",1.0,0,NULL);
+ 	}
++#endif
+ }
+ 
+ void Client::playSound(std::string &name, bool loop)
+ {
++#if USE_AUDIO == 1
+ 	sound_play_effect((char*)name.c_str(),1.0,loop,NULL);
++#endif
+ }
+ 
+ void Client::playSoundAt(std::string &name, v3f pos, bool loop)
+ {
++#if USE_AUDIO == 1
+ 	v3_t p = {pos.X,pos.Y,pos.Z};
+ 	sound_play_effect((char*)name.c_str(),1.0,loop,&p);
++#endif
+ }
+diff -rU5 voxelands-v1709.00old/src/common.h voxelands-v1709.00good/src/common.h
 --- voxelands-v1709.00old/src/common.h	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00/src/common.h	2024-04-14 18:12:39.135354753 +0200
++++ voxelands-v1709.00good/src/common.h	2024-06-09 13:17:14.656158083 +0200
 @@ -98,54 +98,54 @@
  #define SEND_NO_PREFIX (1<<2)
  
@@ -700,9 +1212,9 @@ diff -rU5 voxelands-v1709.00old/src/common.h voxelands-v1709.00/src/common.h
  /* bridge stuff TODO: remove */
  #ifdef __cplusplus
  #define EXTERNC extern "C"
-diff -rU5 voxelands-v1709.00old/src/config.c voxelands-v1709.00/src/config.c
+diff -rU5 voxelands-v1709.00old/src/config.c voxelands-v1709.00good/src/config.c
 --- voxelands-v1709.00old/src/config.c	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00/src/config.c	2024-04-14 18:00:09.162169570 +0200
++++ voxelands-v1709.00good/src/config.c	2024-06-09 13:17:14.656158083 +0200
 @@ -38,15 +38,15 @@
  	0
  };
@@ -888,10 +1400,39 @@ diff -rU5 voxelands-v1709.00old/src/config.c voxelands-v1709.00/src/config.c
  	int l;
  
  	/* don't clear everything, only sections */
-diff -rU5 voxelands-v1709.00old/src/config_default.c voxelands-v1709.00/src/config_default.c
+diff -rU5 voxelands-v1709.00old/src/config_default.c voxelands-v1709.00good/src/config_default.c
 --- voxelands-v1709.00old/src/config_default.c	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00/src/config_default.c	2024-04-14 14:28:33.344352050 +0200
-@@ -228,11 +228,11 @@
++++ voxelands-v1709.00good/src/config_default.c	2024-06-09 14:22:20.628257907 +0200
+@@ -53,17 +53,27 @@
+ 	config_set_default("client.video.vsync","false",NULL);
+ 	config_set_default("client.video.size.width","1024",NULL);
+ 	config_set_default("client.video.size.height","600",NULL);
+ 	config_set_default("client.video.driver","opengl",NULL);
+ 	config_set_default("client.video.hpfpu","true",NULL);
+-
++	
++#if USE_AUDIO == 1
+ 	config_set_default("client.sound.volume","50",sound_master_setter);
+ 	config_set_default("client.sound.volume.effects","50",sound_effects_setter);
+ 	config_set_default("client.sound.volume.music","50",sound_music_setter);
++#else
++	config_set_default("client.sound.volume","50",NULL);
++	config_set_default("client.sound.volume.effects","50",NULL);
++	config_set_default("client.sound.volume.music","50",NULL);
++#endif
+ 	config_set_default("client.sound.mumble","true",NULL);
+ #if USE_MUMBLE == 0
++# if USE_AUDIO == 1
+ 	config_set_default("client.name",NULL,sound_mumble_set_ident);
++# else
++	config_set_default("client.name",NULL,NULL);
++# endif
+ #endif
+ 
+ 	config_set_default("client.graphics.mesh.lod","3",NULL);
+ 	config_set_default("client.graphics.texture.animations","false",NULL);
+ 	config_set_default("client.graphics.texture.atlas","true",NULL);
+@@ -228,11 +238,11 @@
  	config_set_default("world.player.hunger","true",NULL);
  
  	config_set_default("world.game.mob.spawn.level","destructive",NULL);
@@ -904,9 +1445,38 @@ diff -rU5 voxelands-v1709.00old/src/config_default.c voxelands-v1709.00/src/conf
  		config_default_creative();
  	}else{
  		config_default_survival();
-diff -rU5 voxelands-v1709.00old/src/content_cao.cpp voxelands-v1709.00/src/content_cao.cpp
+diff -rU5 voxelands-v1709.00old/src/connection.cpp voxelands-v1709.00good/src/connection.cpp
+--- voxelands-v1709.00old/src/connection.cpp	2017-09-24 06:59:00.000000000 +0200
++++ voxelands-v1709.00good/src/connection.cpp	2024-06-09 15:21:50.343540842 +0200
+@@ -518,11 +518,12 @@
+ 	m_bc_peerhandler(NULL),
+ 	m_bc_receive_timeout(0),
+ 	m_indentation(0)
+ {
+ 	m_socket.setTimeoutMs(5);
+-
++	m_peers_mutex.Init();
++	
+ 	Start();
+ }
+ 
+ Connection::Connection(u32 protocol_id, u32 max_packet_size, float timeout,
+ 		PeerHandler *peerhandler):
+@@ -533,10 +534,11 @@
+ 	m_bc_peerhandler(peerhandler),
+ 	m_bc_receive_timeout(0),
+ 	m_indentation(0)
+ {
+ 	m_socket.setTimeoutMs(5);
++	m_peers_mutex.Init();
+ 
+ 	Start();
+ }
+ 
+ 
+diff -rU5 voxelands-v1709.00old/src/content_cao.cpp voxelands-v1709.00good/src/content_cao.cpp
 --- voxelands-v1709.00old/src/content_cao.cpp	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00/src/content_cao.cpp	2024-06-01 19:18:49.538110262 +0200
++++ voxelands-v1709.00good/src/content_cao.cpp	2024-06-09 14:17:57.623794190 +0200
 @@ -74,24 +74,25 @@
  {
  	if (m_node != NULL)
@@ -963,7 +1533,21 @@ diff -rU5 voxelands-v1709.00old/src/content_cao.cpp voxelands-v1709.00/src/conte
  
  	updateNodePos();
  
-@@ -357,11 +359,11 @@
+@@ -270,11 +272,13 @@
+ 	if (!m.moves_silently && m_walking && m_draw_type == MDT_MODEL) {
+ 		m_last_step += dtime;
+ 		/* roughly sort of when a step sound should probably be heard, maybe */
+ 		if (m_last_step > 0.5) {
+ 			m_last_step -= 0.5;
++#if USE_AUDIO == 1
+ 			sound_play_step(&env->getMap(),m_position,m_next_foot, 0.3);
++#endif
+ 			m_next_foot = !m_next_foot;
+ 		}
+ 	}
+ }
+ void MobCAO::processMessage(const std::string &data)
+@@ -357,11 +361,11 @@
  
  	updateNodePos();
  }
@@ -976,9 +1560,9 @@ diff -rU5 voxelands-v1709.00old/src/content_cao.cpp voxelands-v1709.00/src/conte
  
  	ToolItemFeatures f = content_toolitem_features(punch_item);
  	if (m.special_dropped_item != CONTENT_IGNORE && (m.special_punch_item == TT_NONE || f.type == m.special_punch_item))
-diff -rU5 voxelands-v1709.00old/src/content_mob.cpp voxelands-v1709.00/src/content_mob.cpp
+diff -rU5 voxelands-v1709.00old/src/content_mob.cpp voxelands-v1709.00good/src/content_mob.cpp
 --- voxelands-v1709.00old/src/content_mob.cpp	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00/src/content_mob.cpp	2024-05-29 19:28:40.044186271 +0200
++++ voxelands-v1709.00good/src/content_mob.cpp	2024-06-09 13:17:14.657158375 +0200
 @@ -31,17 +31,18 @@
  #include "profiler.h"
  #include "intl.h"
@@ -1405,9 +1989,9 @@ diff -rU5 voxelands-v1709.00old/src/content_mob.cpp voxelands-v1709.00/src/conte
  	f->level = MOB_AGGRESSIVE;
  	f->hp = 30;
  	f->model = "kitty.b3d";
-diff -rU5 voxelands-v1709.00old/src/content_mob.h voxelands-v1709.00/src/content_mob.h
+diff -rU5 voxelands-v1709.00old/src/content_mob.h voxelands-v1709.00good/src/content_mob.h
 --- voxelands-v1709.00old/src/content_mob.h	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00/src/content_mob.h	2024-05-29 19:20:16.437142665 +0200
++++ voxelands-v1709.00good/src/content_mob.h	2024-06-09 13:17:14.657158375 +0200
 @@ -86,13 +86,14 @@
  };
  
@@ -1594,9 +2178,9 @@ diff -rU5 voxelands-v1709.00old/src/content_mob.h voxelands-v1709.00/src/content
 +#define CONTENT_MOB_COUNT 20
  
  #endif
-diff -rU5 voxelands-v1709.00old/src/content_sao.cpp voxelands-v1709.00/src/content_sao.cpp
+diff -rU5 voxelands-v1709.00old/src/content_sao.cpp voxelands-v1709.00good/src/content_sao.cpp
 --- voxelands-v1709.00old/src/content_sao.cpp	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00/src/content_sao.cpp	2024-05-29 18:27:43.054418029 +0200
++++ voxelands-v1709.00good/src/content_sao.cpp	2024-06-09 13:17:14.657158375 +0200
 @@ -94,10 +94,11 @@
  	m_hp(10),
  	m_angry(false),
@@ -1755,9 +2339,9 @@ diff -rU5 voxelands-v1709.00old/src/content_sao.cpp voxelands-v1709.00/src/conte
  	// get the wielded item
  	u16 item_i = player->getSelectedItem();
  	InventoryList *ilist = player->inventory.getList("main");
-diff -rU5 voxelands-v1709.00old/src/crypto_base64.c voxelands-v1709.00/src/crypto_base64.c
+diff -rU5 voxelands-v1709.00old/src/crypto_base64.c voxelands-v1709.00good/src/crypto_base64.c
 --- voxelands-v1709.00old/src/crypto_base64.c	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00/src/crypto_base64.c	2024-05-30 14:46:05.754151667 +0200
++++ voxelands-v1709.00good/src/crypto_base64.c	2024-06-09 13:17:14.657158375 +0200
 @@ -184,11 +184,11 @@
  
  		/* convert the characters */
@@ -1771,9 +2355,9 @@ diff -rU5 voxelands-v1709.00old/src/crypto_base64.c voxelands-v1709.00/src/crypt
  		}
  
  		/* put the partial result in the result buffer */
-diff -rU5 voxelands-v1709.00old/src/environment.cpp voxelands-v1709.00/src/environment.cpp
+diff -rU5 voxelands-v1709.00old/src/environment.cpp voxelands-v1709.00good/src/environment.cpp
 --- voxelands-v1709.00old/src/environment.cpp	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00/src/environment.cpp	2024-05-29 12:16:50.198759039 +0200
++++ voxelands-v1709.00good/src/environment.cpp	2024-06-09 13:17:14.658158668 +0200
 @@ -397,11 +397,13 @@
  			player->serialize(os);
  			nvp_set(&saved_players, (char*)player->getName(), (char*)player->getName(), player);
@@ -1835,9 +2419,9 @@ diff -rU5 voxelands-v1709.00old/src/environment.cpp voxelands-v1709.00/src/envir
  
  		dest.push_back(dso);
  	}
-diff -rU5 voxelands-v1709.00old/src/environment.h voxelands-v1709.00/src/environment.h
+diff -rU5 voxelands-v1709.00old/src/environment.h voxelands-v1709.00good/src/environment.h
 --- voxelands-v1709.00old/src/environment.h	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00/src/environment.h	2024-04-14 18:01:43.457803977 +0200
++++ voxelands-v1709.00good/src/environment.h	2024-06-09 13:17:14.658158668 +0200
 @@ -198,11 +198,11 @@
  		m_time = t;
  	}
@@ -1851,9 +2435,9 @@ diff -rU5 voxelands-v1709.00old/src/environment.h voxelands-v1709.00/src/environ
  				return ENV_SEASON_SUMMER;
  			if (!strcmp(s,"autumn") || !strcmp(s,"fall"))
  				return ENV_SEASON_AUTUMN;
-diff -rU5 voxelands-v1709.00old/src/file.c voxelands-v1709.00/src/file.c
+diff -rU5 voxelands-v1709.00old/src/file.c voxelands-v1709.00good/src/file.c
 --- voxelands-v1709.00old/src/file.c	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00/src/file.c	2024-06-02 13:30:10.600181816 +0200
++++ voxelands-v1709.00good/src/file.c	2024-06-09 13:17:14.658158668 +0200
 @@ -48,15 +48,15 @@
  
  	return inc;
@@ -1941,9 +2525,9 @@ diff -rU5 voxelands-v1709.00old/src/file.c voxelands-v1709.00/src/file.c
  	int l;
  	int s;
  	if (!file)
-diff -rU5 voxelands-v1709.00old/src/file.h voxelands-v1709.00/src/file.h
+diff -rU5 voxelands-v1709.00old/src/file.h voxelands-v1709.00good/src/file.h
 --- voxelands-v1709.00old/src/file.h	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00/src/file.h	2024-04-14 14:01:24.689771730 +0200
++++ voxelands-v1709.00good/src/file.h	2024-06-09 13:17:14.658158668 +0200
 @@ -22,12 +22,12 @@
  	int modified;
  } file_t;
@@ -1974,9 +2558,9 @@ diff -rU5 voxelands-v1709.00old/src/file.h voxelands-v1709.00/src/file.h
  }
  #endif
  
-diff -rU5 voxelands-v1709.00old/src/game.cpp voxelands-v1709.00/src/game.cpp
+diff -rU5 voxelands-v1709.00old/src/game.cpp voxelands-v1709.00good/src/game.cpp
 --- voxelands-v1709.00old/src/game.cpp	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00/src/game.cpp	2024-06-01 19:16:14.117466251 +0200
++++ voxelands-v1709.00good/src/game.cpp	2024-06-09 13:17:14.659158961 +0200
 @@ -749,11 +749,11 @@
  		Create server.
  		SharedPtr will delete it when it goes out of scope.
@@ -2088,9 +2672,9 @@ diff -rU5 voxelands-v1709.00old/src/game.cpp voxelands-v1709.00/src/game.cpp
  									menu->drop();
  									{
  										std::string sound = content_features(nn.getContent()).sound_access;
-diff -rU5 voxelands-v1709.00old/src/game.h voxelands-v1709.00/src/game.h
+diff -rU5 voxelands-v1709.00old/src/game.h voxelands-v1709.00good/src/game.h
 --- voxelands-v1709.00old/src/game.h	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00/src/game.h	2024-05-29 16:42:41.652237101 +0200
++++ voxelands-v1709.00good/src/game.h	2024-06-09 13:17:14.659158961 +0200
 @@ -37,11 +37,11 @@
  class KeyList : protected core::list<KeyPress>
  {
@@ -2117,9 +2701,9 @@ diff -rU5 voxelands-v1709.00old/src/game.h voxelands-v1709.00/src/game.h
  	void set(const KeyPress &key)
  	{
  		if (find(key) == end())
-diff -rU5 voxelands-v1709.00old/src/guiMainMenu.cpp voxelands-v1709.00/src/guiMainMenu.cpp
+diff -rU5 voxelands-v1709.00old/src/guiMainMenu.cpp voxelands-v1709.00good/src/guiMainMenu.cpp
 --- voxelands-v1709.00old/src/guiMainMenu.cpp	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00/src/guiMainMenu.cpp	2024-06-01 19:23:20.722495642 +0200
++++ voxelands-v1709.00good/src/guiMainMenu.cpp	2024-06-09 13:17:14.659158961 +0200
 @@ -157,11 +157,11 @@
  	*/
  
@@ -2186,9 +2770,9 @@ diff -rU5 voxelands-v1709.00old/src/guiMainMenu.cpp voxelands-v1709.00/src/guiMa
  			}
  			case GUI_ID_TAB_CREDITS:
  				if (m_data->selected_tab == TAB_SETTINGS)
-diff -rU5 voxelands-v1709.00old/src/guiPauseMenu.h voxelands-v1709.00/src/guiPauseMenu.h
+diff -rU5 voxelands-v1709.00old/src/guiPauseMenu.h voxelands-v1709.00good/src/guiPauseMenu.h
 --- voxelands-v1709.00old/src/guiPauseMenu.h	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00/src/guiPauseMenu.h	2024-05-29 16:26:05.246506744 +0200
++++ voxelands-v1709.00good/src/guiPauseMenu.h	2024-06-09 13:17:14.659158961 +0200
 @@ -30,10 +30,11 @@
  #include "modalMenu.h"
  
@@ -2201,9 +2785,9 @@ diff -rU5 voxelands-v1709.00old/src/guiPauseMenu.h voxelands-v1709.00/src/guiPau
  	virtual void changePassword() = 0;
  	virtual void startGame() = 0;
  };
-diff -rU5 voxelands-v1709.00old/src/guiSingleplayerMenu.cpp voxelands-v1709.00/src/guiSingleplayerMenu.cpp
+diff -rU5 voxelands-v1709.00old/src/guiSingleplayerMenu.cpp voxelands-v1709.00good/src/guiSingleplayerMenu.cpp
 --- voxelands-v1709.00old/src/guiSingleplayerMenu.cpp	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00/src/guiSingleplayerMenu.cpp	2024-04-14 20:07:32.112327895 +0200
++++ voxelands-v1709.00good/src/guiSingleplayerMenu.cpp	2024-06-09 13:17:14.659158961 +0200
 @@ -531,11 +531,11 @@
  
  	world_unload();
@@ -2217,9 +2801,9 @@ diff -rU5 voxelands-v1709.00old/src/guiSingleplayerMenu.cpp voxelands-v1709.00/s
  	survival_mode = true;
  	random_seed = true;
  	flat_map = false;
-diff -rU5 voxelands-v1709.00old/src/http.cpp voxelands-v1709.00/src/http.cpp
+diff -rU5 voxelands-v1709.00old/src/http.cpp voxelands-v1709.00good/src/http.cpp
 --- voxelands-v1709.00old/src/http.cpp	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00/src/http.cpp	2024-04-14 18:20:21.670669782 +0200
++++ voxelands-v1709.00good/src/http.cpp	2024-06-09 13:17:14.659158961 +0200
 @@ -291,11 +291,11 @@
  }
  
@@ -2298,9 +2882,9 @@ diff -rU5 voxelands-v1709.00old/src/http.cpp voxelands-v1709.00/src/http.cpp
  	TCPSocket *sock;
  	HTTPResponseHeaders headers;
  	int s;
-diff -rU5 voxelands-v1709.00old/src/http.h voxelands-v1709.00/src/http.h
+diff -rU5 voxelands-v1709.00old/src/http.h voxelands-v1709.00good/src/http.h
 --- voxelands-v1709.00old/src/http.h	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00/src/http.h	2024-05-29 16:24:46.623871019 +0200
++++ voxelands-v1709.00good/src/http.h	2024-06-09 13:17:14.659158961 +0200
 @@ -53,11 +53,11 @@
  public:
  	HTTPHeaders()
@@ -2360,9 +2944,9 @@ diff -rU5 voxelands-v1709.00old/src/http.h voxelands-v1709.00/src/http.h
  std::string http_url_encode(std::string &str);
  
  #endif
-diff -rU5 voxelands-v1709.00old/src/inventory.cpp voxelands-v1709.00/src/inventory.cpp
+diff -rU5 voxelands-v1709.00old/src/inventory.cpp voxelands-v1709.00good/src/inventory.cpp
 --- voxelands-v1709.00old/src/inventory.cpp	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00/src/inventory.cpp	2024-05-30 16:24:05.827538463 +0200
++++ voxelands-v1709.00good/src/inventory.cpp	2024-06-09 13:17:14.659158961 +0200
 @@ -803,14 +803,14 @@
  
  /*
@@ -2432,9 +3016,9 @@ diff -rU5 voxelands-v1709.00old/src/inventory.cpp voxelands-v1709.00/src/invento
  		if (m_lists[i]->getName() == name)
  			return i;
  	}
-diff -rU5 voxelands-v1709.00old/src/inventory.h voxelands-v1709.00/src/inventory.h
+diff -rU5 voxelands-v1709.00old/src/inventory.h voxelands-v1709.00good/src/inventory.h
 --- voxelands-v1709.00old/src/inventory.h	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00/src/inventory.h	2024-05-30 22:01:42.830343745 +0200
++++ voxelands-v1709.00good/src/inventory.h	2024-06-09 13:17:14.660159253 +0200
 @@ -330,13 +330,12 @@
  
  class ToolItem : public InventoryItem
@@ -2463,9 +3047,9 @@ diff -rU5 voxelands-v1709.00old/src/inventory.h voxelands-v1709.00/src/inventory
  	InventoryDiff m_diff;
  };
  
-diff -rU5 voxelands-v1709.00old/src/jthread/jthread.h voxelands-v1709.00/src/jthread/jthread.h
+diff -rU5 voxelands-v1709.00old/src/jthread/jthread.h voxelands-v1709.00good/src/jthread/jthread.h
 --- voxelands-v1709.00old/src/jthread/jthread.h	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00/src/jthread/jthread.h	2024-05-30 14:52:25.811196505 +0200
++++ voxelands-v1709.00good/src/jthread/jthread.h	2024-06-09 13:17:14.660159253 +0200
 @@ -43,28 +43,32 @@
  
  class JTHREAD_IMPORTEXPORT JThread
@@ -2502,9 +3086,9 @@ diff -rU5 voxelands-v1709.00old/src/jthread/jthread.h voxelands-v1709.00/src/jth
  	static void *TheThread(void *param);
  	
  	pthread_t threadid;
-diff -rU5 voxelands-v1709.00old/src/jthread/pthread/jmutex.cpp voxelands-v1709.00/src/jthread/pthread/jmutex.cpp
+diff -rU5 voxelands-v1709.00old/src/jthread/pthread/jmutex.cpp voxelands-v1709.00good/src/jthread/pthread/jmutex.cpp
 --- voxelands-v1709.00old/src/jthread/pthread/jmutex.cpp	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00/src/jthread/pthread/jmutex.cpp	2024-05-29 15:51:33.365819509 +0200
++++ voxelands-v1709.00good/src/jthread/pthread/jmutex.cpp	2024-06-09 13:17:14.660159253 +0200
 @@ -28,46 +28,45 @@
  #include "jmutex.h"
  
@@ -2582,9 +3166,9 @@ diff -rU5 voxelands-v1709.00old/src/jthread/pthread/jmutex.cpp voxelands-v1709.0
  
  } // end namespace
  
-diff -rU5 voxelands-v1709.00old/src/jthread/pthread/jthread.cpp voxelands-v1709.00/src/jthread/pthread/jthread.cpp
+diff -rU5 voxelands-v1709.00old/src/jthread/pthread/jthread.cpp voxelands-v1709.00good/src/jthread/pthread/jthread.cpp
 --- voxelands-v1709.00old/src/jthread/pthread/jthread.cpp	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00/src/jthread/pthread/jthread.cpp	2024-05-30 14:50:47.241444825 +0200
++++ voxelands-v1709.00good/src/jthread/pthread/jthread.cpp	2024-06-09 13:17:14.660159253 +0200
 @@ -31,155 +31,173 @@
  #include <stdlib.h>
  
@@ -2870,9 +3454,9 @@ diff -rU5 voxelands-v1709.00old/src/jthread/pthread/jthread.cpp voxelands-v1709.
  
  } // end namespace
  
-diff -rU5 voxelands-v1709.00old/src/keycode.cpp voxelands-v1709.00/src/keycode.cpp
+diff -rU5 voxelands-v1709.00old/src/keycode.cpp voxelands-v1709.00good/src/keycode.cpp
 --- voxelands-v1709.00old/src/keycode.cpp	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00/src/keycode.cpp	2024-04-14 14:47:18.985665998 +0200
++++ voxelands-v1709.00good/src/keycode.cpp	2024-06-09 13:17:14.660159253 +0200
 @@ -500,11 +500,11 @@
  KeyPress *g_key_setting_cache[256];
  static bool key_setting_cache_init = false;
@@ -2886,9 +3470,9 @@ diff -rU5 voxelands-v1709.00old/src/keycode.cpp voxelands-v1709.00/src/keycode.c
  	if (g_key_setting_cache[code])
  		return *g_key_setting_cache[code];
  
-diff -rU5 voxelands-v1709.00old/src/log.c voxelands-v1709.00/src/log.c
+diff -rU5 voxelands-v1709.00old/src/log.c voxelands-v1709.00good/src/log.c
 --- voxelands-v1709.00old/src/log.c	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00/src/log.c	2024-04-14 14:24:08.649244680 +0200
++++ voxelands-v1709.00good/src/log.c	2024-06-09 13:17:14.660159253 +0200
 @@ -43,11 +43,11 @@
  	5,
  	NULL,
@@ -2977,9 +3561,9 @@ diff -rU5 voxelands-v1709.00old/src/log.c voxelands-v1709.00/src/log.c
  	va_list ap;
  
  	if (!fmt)
-diff -rU5 voxelands-v1709.00old/src/log.h voxelands-v1709.00/src/log.h
+diff -rU5 voxelands-v1709.00old/src/log.h voxelands-v1709.00good/src/log.h
 --- voxelands-v1709.00old/src/log.h	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00/src/log.h	2024-05-29 16:19:32.683256608 +0200
++++ voxelands-v1709.00good/src/log.h	2024-06-09 13:17:14.660159253 +0200
 @@ -43,10 +43,12 @@
  };
  
@@ -2993,9 +3577,9 @@ diff -rU5 voxelands-v1709.00old/src/log.h voxelands-v1709.00/src/log.h
  	/* line: Only actual printed text */
  	virtual void printLog(enum LogMessageLevel lev, const std::string &line){};
  };
-diff -rU5 voxelands-v1709.00old/src/main.cpp voxelands-v1709.00/src/main.cpp
+diff -rU5 voxelands-v1709.00old/src/main.cpp voxelands-v1709.00good/src/main.cpp
 --- voxelands-v1709.00old/src/main.cpp	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00/src/main.cpp	2024-06-01 19:29:16.855700061 +0200
++++ voxelands-v1709.00good/src/main.cpp	2024-06-09 13:17:14.660159253 +0200
 @@ -132,10 +132,11 @@
  
  // A small helper class
@@ -3148,10 +3732,146 @@ diff -rU5 voxelands-v1709.00old/src/main.cpp voxelands-v1709.00/src/main.cpp
  						the_game(
  							kill,
  							input,
-diff -rU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00/src/map.cpp
+diff -rU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
 --- voxelands-v1709.00old/src/map.cpp	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00/src/map.cpp	2024-05-30 22:48:01.912347076 +0200
-@@ -2351,11 +2351,11 @@
++++ voxelands-v1709.00good/src/map.cpp	2024-06-09 19:41:32.843628118 +0200
+@@ -70,21 +70,28 @@
+ 	Map
+ */
+ 
+ Map::Map(std::ostream &dout):
+ 	m_dout(dout),
+-	m_sector_cache(NULL)
++	m_event_receivers(),
++	m_sectors(),
++	m_sectors_mutex(),
++	m_sector_cache(NULL),
++	m_sector_cache_p(),
++	m_transforming_liquid()
+ {
+-	/*m_sector_mutex.Init();
+-	assert(m_sector_mutex.IsInitialized());*/
++	m_sectors_mutex.Init();
++	assert(m_sectors_mutex.IsInitialized());
+ }
+ 
+ Map::~Map()
+ {
+ 	/*
+ 		Free all MapSectors
+ 	*/
++	JMutexAutoLock lock(m_sectors_mutex);
++	
+ 	core::map<v2s16, MapSector*>::Iterator i = m_sectors.getIterator();
+ 	for(; i.atEnd() == false; i++)
+ 	{
+ 		MapSector *sector = i.getNode()->getValue();
+ 		delete sector;
+@@ -114,10 +121,12 @@
+ 	}
+ }
+ 
+ MapSector * Map::getSectorNoGenerateNoExNoLock(v2s16 p)
+ {
++	JMutexAutoLock lock(m_sectors_mutex);
++
+ 	if(m_sector_cache != NULL && p == m_sector_cache_p){
+ 		MapSector * sector = m_sector_cache;
+ 		return sector;
+ 	}
+ 
+@@ -1231,14 +1240,15 @@
+ 
+ 	core::list<v2s16> sector_deletion_queue;
+ 	u32 deleted_blocks_count = 0;
+ 	u32 saved_blocks_count = 0;
+ 
+-	core::map<v2s16, MapSector*>::Iterator si;
+-
+ 	beginSave();
+-	si = m_sectors.getIterator();
++	m_sectors_mutex.Lock();
++	
++	core::map<v2s16, MapSector*>::Iterator si = m_sectors.getIterator();
++	
+ 	for(; si.atEnd() == false; si++)
+ 	{
+ 		MapSector *sector = si.getNode()->getValue();
+ 
+ 		bool all_blocks_deleted = true;
+@@ -1282,10 +1292,11 @@
+ 		if(all_blocks_deleted)
+ 		{
+ 			sector_deletion_queue.push_back(si.getNode()->getKey());
+ 		}
+ 	}
++	m_sectors_mutex.Unlock();
+ 	endSave();
+ 
+ 	// Finally delete the empty sectors
+ 	deleteSectors(sector_deletion_queue);
+ 
+@@ -1301,13 +1312,15 @@
+ }
+ 
+ void Map::deleteSectors(core::list<v2s16> &list)
+ {
+ 	core::list<v2s16>::Iterator j;
++	JMutexAutoLock lock(m_sectors_mutex);
++
+ 	for(j=list.begin(); j!=list.end(); j++)
+ 	{
+-		MapSector *sector = m_sectors[*j];
++		MapSector* const sector = m_sectors[*j];
+ 		// If sector is in sector cache, remove it from there
+ 		if(m_sector_cache == sector)
+ 			m_sector_cache = NULL;
+ 		// Remove from map and delete
+ 		m_sectors.remove(*j);
+@@ -1659,12 +1672,14 @@
+ 		blocks are loaded when this is run. (They might get unloaded)
+ 		NOTE: ^- Actually, that might not be so. In a quick test it
+ 		reloaded a block with a furnace when I walked back to it from
+ 		a distance.
+ 	*/
+-	core::map<v2s16, MapSector*>::Iterator si;
+-	si = m_sectors.getIterator();
++	JMutexAutoLock lock(m_sectors_mutex);
++
++	core::map<v2s16, MapSector*>::Iterator si = m_sectors.getIterator();
++	
+ 	for(; si.atEnd() == false; si++)
+ 	{
+ 		MapSector *sector = si.getNode()->getValue();
+ 		core::list< MapBlock * > sectorblocks;
+ 		sector->getBlocks(sectorblocks);
+@@ -1999,11 +2014,13 @@
+ 	sector = new ServerMapSector(this, p2d);
+ 
+ 	/*
+ 		Insert to container
+ 	*/
++	m_sectors_mutex.Lock();
+ 	m_sectors.insert(p2d, sector);
++	m_sectors_mutex.Unlock();
+ 
+ 	return sector;
+ }
+ 
+ /*
+@@ -2258,10 +2275,11 @@
+ 	u32 block_count = 0;
+ 	u32 block_count_all = 0; // Number of blocks in memory
+ 
+ 	// Don't do anything with sqlite unless something is really saved
+ 	bool save_started = false;
++	JMutexAutoLock lock(m_sectors_mutex);
+ 
+ 	for (core::map<v2s16, MapSector*>::Iterator i = m_sectors.getIterator(); i.atEnd() == false; i++) {
+ 		ServerMapSector *sector = (ServerMapSector*)i.getNode()->getValue();
+ 		assert(sector->getId() == MAPSECTOR_SERVER);
+ 		core::list<MapBlock*> blocks;
+@@ -2351,11 +2369,11 @@
  	}else{
  		m_seed = config_get_int64("world.seed");
  	}
@@ -3164,7 +3884,89 @@ diff -rU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00/src/map.cpp
  		}else{
  			config_set("world.map.type","default");
  		}
-@@ -2746,12 +2746,15 @@
+@@ -2547,24 +2565,23 @@
+ 		s32 id
+ ):
+ 	Map(dout_client),
+ 	scene::ISceneNode(parent, mgr, id),
+ 	m_client(client),
++	m_box(-BS*1000000,-BS*1000000,-BS*1000000,
++			BS*1000000,BS*1000000,BS*1000000),
+ 	m_control(control),
+ 	m_camera_position(0,0,0),
+ 	m_camera_direction(0,0,1),
+-	m_camera_fov(PI)
++	m_camera_fov(PI),
++	m_render_trilinear(config_get_bool("client.video.trilinear")),
++	m_render_bilinear(config_get_bool("client.video.bilinear")),
++	m_render_anisotropic(config_get_bool("client.video.anisotropic")),
++	m_last_drawn_sectors()
+ {
+ 	m_camera_mutex.Init();
+ 	assert(m_camera_mutex.IsInitialized());
+-
+-	m_box = core::aabbox3d<f32>(-BS*1000000,-BS*1000000,-BS*1000000,
+-			BS*1000000,BS*1000000,BS*1000000);
+-
+-	m_render_trilinear = config_get_bool("client.video.trilinear");
+-	m_render_bilinear = config_get_bool("client.video.bilinear");
+-	m_render_anisotropic = config_get_bool("client.video.anisotropic");
+ }
+ 
+ ClientMap::~ClientMap()
+ {
+ }
+@@ -2582,11 +2599,11 @@
+ 
+ 	// Create a sector
+ 	ClientMapSector *sector = new ClientMapSector(this, p2d);
+ 
+ 	{
+-		//JMutexAutoLock lock(m_sector_mutex); // Bulk comment-out
++		JMutexAutoLock lock(m_sectors_mutex);
+ 		m_sectors.insert(p2d, sector);
+ 	}
+ 
+ 	return sector;
+ }
+@@ -2659,10 +2676,11 @@
+ 	int time1 = time(0);
+ 
+ 	m_camera_mutex.Lock();
+ 	v3f camera_position = m_camera_position;
+ 	v3f camera_direction = m_camera_direction;
++	v3s16 camera_offset = m_camera_offset;
+ 	f32 camera_fov = m_camera_fov;
+ 	m_camera_mutex.Unlock();
+ 
+ 	/*
+ 		Get all blocks and draw all visible ones
+@@ -2722,10 +2740,12 @@
+ 
+ 	for(core::map<v2s16, MapSector*>::Iterator
+ 			si = m_sectors.getIterator();
+ 			si.atEnd() == false; si++)
+ 	{
++	    	m_sectors_mutex.Lock();
++
+ 		MapSector *sector = si.getNode()->getValue();
+ 		v2s16 sp = sector->getPos();
+ 
+ 		if(m_control.range_all == false)
+ 		{
+@@ -2736,29 +2756,34 @@
+ 				continue;
+ 		}
+ 
+ 		core::list< MapBlock * > sectorblocks;
+ 		sector->getBlocks(sectorblocks);
++		
++		m_sectors_mutex.Unlock();
+ 
+ 		/*
+ 			Loop through blocks in sector
+ 		*/
+ 
  		u32 sector_blocks_drawn = 0;
  
  		core::list< MapBlock * >::Iterator i;
@@ -3181,9 +3983,120 @@ diff -rU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00/src/map.cpp
  				if not seen on display
  			*/
  
-diff -rU5 voxelands-v1709.00old/src/map.h voxelands-v1709.00/src/map.h
+ 			if (block->mesh != NULL)
+-				block->mesh->updateCameraOffset(m_camera_offset);
++				block->mesh->updateCameraOffset(camera_offset);
+ 
+ 			float range = 100000 * BS;
+ 			if(m_control.range_all == false)
+ 				range = m_control.wanted_range * BS;
+ 
+@@ -2872,11 +2897,11 @@
+ 				Ignore if mesh doesn't exist
+ 			*/
+ 			{
+ 				JMutexAutoLock lock(block->mesh_mutex);
+ 
+-				MapBlockMesh *mesh = block->mesh;
++				MapBlockMesh* const mesh = block->mesh;
+ 
+ 				if (mesh == NULL) {
+ 					blocks_in_range_without_mesh++;
+ 					continue;
+ 				}
+@@ -2940,11 +2965,11 @@
+ 			Draw the faces of the block
+ 		*/
+ 		{
+ 			JMutexAutoLock lock(block->mesh_mutex);
+ 
+-			MapBlockMesh *mesh = block->mesh;
++			MapBlockMesh* const mesh = block->mesh;
+ 			if (!mesh || !mesh->getMesh())
+ 				continue;
+ 			scene::SMesh *m = NULL;
+ 			if (mesh->isfar) {
+ 				m = mesh->getFarMesh();
+@@ -3141,29 +3166,34 @@
+ 
+ 	int sunlight_seen_count = 0;
+ 	float sunlight_min_d = max_d*0.8;
+ 	if (sunlight_min_d > 35*BS)
+ 		sunlight_min_d = 35*BS;
+-
++	
++	m_camera_mutex.Lock();
++	v3f camera_position = m_camera_position;
++	v3f camera_direction = m_camera_direction;
++	m_camera_mutex.Unlock();
++	
+ 	core::array<int> values;
+ 
+ 	for (u32 i=0; i<sizeof(z_directions)/sizeof(*z_directions); i++) {
+ 		v3f z_dir = z_directions[i];
+ 		z_dir.normalize();
+ 		core::CMatrix4<f32> a;
+ 		a.buildRotateFromTo(v3f(0,1,0), z_dir);
+-		v3f dir = m_camera_direction;
++		v3f dir = camera_direction;
+ 		a.rotateVect(dir);
+ 		int br = 0;
+ 		float step = BS*1.5;
+ 		if (max_d > 35*BS)
+ 			step = max_d / 35 * 1.5;
+ 		float off = step * z_offsets[i];
+ 		bool sunlight_seen_now = false;
+ 		bool ok = getVisibleBrightness(
+ 			this,
+-			m_camera_position,
++			camera_position,
+ 			dir,
+ 			step,
+ 			1.0,
+ 			max_d*0.6+off,
+ 			max_d,
+@@ -3198,11 +3228,11 @@
+ 		brightness_count++;
+ 	}
+ 
+ 	int ret = 0;
+ 	if (brightness_count == 0) {
+-		MapNode n = getNodeNoEx(floatToInt(m_camera_position, BS));
++		MapNode n = getNodeNoEx(floatToInt(camera_position, BS));
+ 		if (content_features(n).param_type == CPT_LIGHT) {
+ 			ret = decode_light(n.getLightBlend(daylight_factor));
+ 		}else{
+ 			ret = oldvalue;
+ 		}
+@@ -3279,18 +3309,22 @@
+ }
+ 
+ void ClientMap::expireMeshes(bool only_daynight_diffed)
+ {
+ 	TimeTaker timer("expireMeshes()");
+-
+-	core::map<v2s16, MapSector*>::Iterator si;
+-	si = m_sectors.getIterator();
++	
++	core::map<v2s16, MapSector*>::Iterator si = m_sectors.getIterator();
++	
+ 	for (; si.atEnd() == false; si++) {
++	    	m_sectors_mutex.Lock();
++
+ 		MapSector *sector = si.getNode()->getValue();
+ 
+ 		core::list< MapBlock * > sectorblocks;
+ 		sector->getBlocks(sectorblocks);
++		
++		m_sectors_mutex.Unlock();
+ 
+ 		core::list< MapBlock * >::Iterator i;
+ 		for (i=sectorblocks.begin(); i!=sectorblocks.end(); i++) {
+ 			MapBlock *block = *i;
+ 
+diff -rU5 voxelands-v1709.00old/src/map.h voxelands-v1709.00good/src/map.h
 --- voxelands-v1709.00old/src/map.h	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00/src/map.h	2024-05-29 16:22:34.437492056 +0200
++++ voxelands-v1709.00good/src/map.h	2024-06-09 17:00:56.209264806 +0200
 @@ -121,10 +121,12 @@
  };
  
@@ -3197,7 +4110,19 @@ diff -rU5 voxelands-v1709.00old/src/map.h voxelands-v1709.00/src/map.h
  };
  
  class Map /*: public NodeContainer*/
-@@ -481,11 +483,11 @@
+@@ -319,10 +321,11 @@
+ 	std::ostream &m_dout;
+ 
+ 	core::map<MapEventReceiver*, bool> m_event_receivers;
+ 
+ 	core::map<v2s16, MapSector*> m_sectors;
++	JMutex m_sectors_mutex;
+ 
+ 	// Be sure to set this to NULL when the cached sector is deleted
+ 	MapSector *m_sector_cache;
+ 	v2s16 m_sector_cache_p;
+ 
+@@ -481,11 +484,11 @@
  			scene::ISceneNode* parent,
  			scene::ISceneManager* mgr,
  			s32 id
@@ -3210,9 +4135,39 @@ diff -rU5 voxelands-v1709.00old/src/map.h voxelands-v1709.00/src/map.h
  	{
  		return MAPTYPE_CLIENT;
  	}
-diff -rU5 voxelands-v1709.00old/src/mapblock_mesh.cpp voxelands-v1709.00/src/mapblock_mesh.cpp
+@@ -547,11 +550,11 @@
+ 	}
+ 
+ private:
+ 	Client *m_client;
+ 
+-	core::aabbox3d<f32> m_box;
++	const core::aabbox3d<f32> m_box;
+ 
+ 	// This is the master heightmap mesh
+ 	//scene::SMesh *mesh;
+ 	//JMutex mesh_mutex;
+ 
+@@ -561,13 +564,13 @@
+ 	v3f m_camera_direction;
+ 	f32 m_camera_fov;
+ 	v3s16 m_camera_offset;
+ 	JMutex m_camera_mutex;
+ 
+-	bool m_render_trilinear;
+-	bool m_render_bilinear;
+-	bool m_render_anisotropic;
++	const bool m_render_trilinear;
++	const bool m_render_bilinear;
++	const bool m_render_anisotropic;
+ 
+ 	core::map<v2s16, bool> m_last_drawn_sectors;
+ };
+ 
+ #endif
+diff -rU5 voxelands-v1709.00old/src/mapblock_mesh.cpp voxelands-v1709.00good/src/mapblock_mesh.cpp
 --- voxelands-v1709.00old/src/mapblock_mesh.cpp	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00/src/mapblock_mesh.cpp	2024-06-01 19:38:58.738259469 +0200
++++ voxelands-v1709.00good/src/mapblock_mesh.cpp	2024-06-09 18:56:50.890980184 +0200
 @@ -414,24 +414,24 @@
  	if (corner.Y == 1)
  		p.Y += 1;
@@ -3264,7 +4219,22 @@ diff -rU5 voxelands-v1709.00old/src/mapblock_mesh.cpp voxelands-v1709.00/src/map
  }
  
  void MapBlockMesh::animate(float time)
-@@ -699,48 +700,54 @@
+@@ -684,10 +685,14 @@
+ 		}
+ 	}
+ 
+ 	scene::SMesh *mesh = new scene::SMesh();
+ 	scene::SMesh *fmesh = new scene::SMesh();
++	
++	if (mutex != NULL)
++		mutex->Lock();
++
+ 	for (u32 i=0; i<data->m_meshdata.size(); i++) {
+ 		MeshData &d = data->m_meshdata[i];
+ 
+ 		// - Texture animation
+ 		if (d.tile.material_flags & MATERIAL_FLAG_ANIMATION_VERTICAL_FRAMES) {
+@@ -699,48 +704,57 @@
  		}
  
  		// Create meshbuffer
@@ -3312,6 +4282,9 @@ diff -rU5 voxelands-v1709.00old/src/mapblock_mesh.cpp voxelands-v1709.00/src/map
 +		}
  	}
  
++	if (mutex != NULL)
++		mutex->Unlock();
++
  	translateMesh(mesh, intToFloat(data->m_blockpos * MAP_BLOCKSIZE - camera_offset, BS));
  	translateMesh(fmesh, intToFloat(data->m_blockpos * MAP_BLOCKSIZE - camera_offset, BS));
  
@@ -3332,9 +4305,9 @@ diff -rU5 voxelands-v1709.00old/src/mapblock_mesh.cpp voxelands-v1709.00/src/map
  	refresh(data->m_daynight_ratio);
  	m_mesh->recalculateBoundingBox();
  
-diff -rU5 voxelands-v1709.00old/src/mapnode.h voxelands-v1709.00/src/mapnode.h
+diff -rU5 voxelands-v1709.00old/src/mapnode.h voxelands-v1709.00good/src/mapnode.h
 --- voxelands-v1709.00old/src/mapnode.h	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00/src/mapnode.h	2024-05-30 14:31:48.394272356 +0200
++++ voxelands-v1709.00good/src/mapnode.h	2024-06-09 13:17:14.661159546 +0200
 @@ -277,17 +277,16 @@
  };
  
@@ -3446,9 +4419,9 @@ diff -rU5 voxelands-v1709.00old/src/mapnode.h voxelands-v1709.00/src/mapnode.h
  /*
  	Gets lighting value at face of node
  
-diff -rU5 voxelands-v1709.00old/src/mesh.cpp voxelands-v1709.00/src/mesh.cpp
+diff -rU5 voxelands-v1709.00old/src/mesh.cpp voxelands-v1709.00good/src/mesh.cpp
 --- voxelands-v1709.00old/src/mesh.cpp	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00/src/mesh.cpp	2024-06-01 19:41:33.380759710 +0200
++++ voxelands-v1709.00good/src/mesh.cpp	2024-06-09 13:17:14.661159546 +0200
 @@ -120,11 +120,12 @@
  			}
  		}
@@ -3551,9 +4524,9 @@ diff -rU5 voxelands-v1709.00old/src/mesh.cpp voxelands-v1709.00/src/mesh.cpp
  	meshnode->setMaterialFlag(video::EMF_BILINEAR_FILTER, true);
  
  	scene::ICameraSceneNode* camera = smgr->addCameraSceneNode(0,
-diff -rU5 voxelands-v1709.00old/src/modalMenu.h voxelands-v1709.00/src/modalMenu.h
+diff -rU5 voxelands-v1709.00old/src/modalMenu.h voxelands-v1709.00good/src/modalMenu.h
 --- voxelands-v1709.00old/src/modalMenu.h	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00/src/modalMenu.h	2024-05-29 16:25:25.015692681 +0200
++++ voxelands-v1709.00good/src/modalMenu.h	2024-06-09 13:17:14.661159546 +0200
 @@ -32,10 +32,11 @@
  
  class IMenuManager
@@ -3566,9 +4539,9 @@ diff -rU5 voxelands-v1709.00old/src/modalMenu.h voxelands-v1709.00/src/modalMenu
  };
  
  /*
-diff -rU5 voxelands-v1709.00old/src/nvp.c voxelands-v1709.00/src/nvp.c
+diff -rU5 voxelands-v1709.00old/src/nvp.c voxelands-v1709.00good/src/nvp.c
 --- voxelands-v1709.00old/src/nvp.c	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00/src/nvp.c	2024-04-14 13:55:56.786863549 +0200
++++ voxelands-v1709.00good/src/nvp.c	2024-06-09 13:17:14.662159838 +0200
 @@ -55,11 +55,11 @@
  			free(n->data);
  	}
@@ -3685,9 +4658,9 @@ diff -rU5 voxelands-v1709.00old/src/nvp.c voxelands-v1709.00/src/nvp.c
  	char value[512];
  	uint8_t is_str = 0;
  	uint8_t is_value = 0;
-diff -rU5 voxelands-v1709.00old/src/nvp.h voxelands-v1709.00/src/nvp.h
+diff -rU5 voxelands-v1709.00old/src/nvp.h voxelands-v1709.00good/src/nvp.h
 --- voxelands-v1709.00old/src/nvp.h	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00/src/nvp.h	2024-04-14 13:55:14.830001988 +0200
++++ voxelands-v1709.00good/src/nvp.h	2024-06-09 13:17:14.662159838 +0200
 @@ -21,21 +21,21 @@
  } nvp_t;
  #endif
@@ -3721,9 +4694,9 @@ diff -rU5 voxelands-v1709.00old/src/nvp.h voxelands-v1709.00/src/nvp.h
  #ifdef __cplusplus
  }
  #endif
-diff -rU5 voxelands-v1709.00old/src/path.c voxelands-v1709.00/src/path.c
+diff -rU5 voxelands-v1709.00old/src/path.c voxelands-v1709.00good/src/path.c
 --- voxelands-v1709.00old/src/path.c	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00/src/path.c	2024-04-14 14:27:11.524628943 +0200
++++ voxelands-v1709.00good/src/path.c	2024-06-09 13:17:14.662159838 +0200
 @@ -59,11 +59,11 @@
  	NULL,
  	NULL,
@@ -3815,9 +4788,9 @@ diff -rU5 voxelands-v1709.00old/src/path.c voxelands-v1709.00/src/path.c
  	}else{
  		strcpy(rel_path,file);
  	}
-diff -rU5 voxelands-v1709.00old/src/path.h voxelands-v1709.00/src/path.h
+diff -rU5 voxelands-v1709.00old/src/path.h voxelands-v1709.00good/src/path.h
 --- voxelands-v1709.00old/src/path.h	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00/src/path.h	2024-04-14 14:26:59.194670598 +0200
++++ voxelands-v1709.00good/src/path.h	2024-06-09 13:17:14.662159838 +0200
 @@ -16,14 +16,14 @@
  #endif
  
@@ -3837,9 +4810,9 @@ diff -rU5 voxelands-v1709.00old/src/path.h voxelands-v1709.00/src/path.h
  int path_remove(char* type, char* path);
  dirlist_t *path_dirlist(char* type, char* path);
  void path_dirlist_free(dirlist_t *l);
-diff -rU5 voxelands-v1709.00old/src/player.cpp voxelands-v1709.00/src/player.cpp
+diff -rU5 voxelands-v1709.00old/src/player.cpp voxelands-v1709.00good/src/player.cpp
 --- voxelands-v1709.00old/src/player.cpp	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00/src/player.cpp	2024-06-02 14:51:08.206236148 +0200
++++ voxelands-v1709.00good/src/player.cpp	2024-06-09 14:16:59.265264200 +0200
 @@ -213,11 +213,11 @@
  }
  
@@ -3895,7 +4868,29 @@ diff -rU5 voxelands-v1709.00old/src/player.cpp voxelands-v1709.00/src/player.cpp
  		return;
  	}
  	bool haveWield = false;
-@@ -859,11 +859,11 @@
+@@ -764,17 +764,21 @@
+ 	m_showpos = m_oldpos + movevector * moveratio;
+ 
+ 	int frame = m_node->getFrameNr();
+ 	/* roughly sort of when a step sound should probably be heard, maybe */
+ 	if (frame == 218 || frame == 186 || frame == 209 || frame == 177) {
++#if USE_AUDIO == 1
+ 		sound_play_step(&map,m_showpos,m_next_foot,1.0);
++#endif
+ 		m_next_foot = !m_next_foot;
+ 	}
+ 	/* roughly sort of when a dig sound should probably be heard, maybe */
++#if USE_AUDIO == 1
+ 	if (frame == 214 || frame == 205 || frame == 193) {
+ 		sound_play_dig(m_pointed,m_showpos);
+ 	}
++#endif
+ 
+ 	if (m_anim_id == PLAYERANIM_DIE) {
+ 		if (m_node->getEndFrame() != 167)
+ 			m_node->setFrameLoop(162,167);
+ 	}else{
+@@ -859,11 +863,11 @@
  	m_sneak_node_exists(false),
  	m_can_use_energy(true),
  	m_ignore_energy(false),
@@ -3908,9 +4903,21 @@ diff -rU5 voxelands-v1709.00old/src/player.cpp voxelands-v1709.00/src/player.cpp
  	v = config_get("client.character");
  	if (!v)
  		v = PLAYER_DEFAULT_CHARDEF;
-diff -rU5 voxelands-v1709.00old/src/player.h voxelands-v1709.00/src/player.h
+@@ -1237,11 +1241,10 @@
+ 				m_character = std::string(PLAYER_DEFAULT_CHARDEF);
+ 			Strfnd f(m_character);
+ 			std::string gender = f.next(":");
+ 			std::string snd("low-energy-");
+ 			snd += gender;
+-
+ 			m_low_energy_effect = sound_play_effect((char*)snd.c_str(),1.0,1,NULL);
+ 		}
+ #endif
+ 	}else if (m_energy > 9.8) {
+ 		m_can_use_energy = true;
+diff -rU5 voxelands-v1709.00old/src/player.h voxelands-v1709.00good/src/player.h
 --- voxelands-v1709.00old/src/player.h	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00/src/player.h	2024-06-02 14:50:31.296522568 +0200
++++ voxelands-v1709.00good/src/player.h	2024-06-09 13:17:14.662159838 +0200
 @@ -187,11 +187,11 @@
  	}
  
@@ -3924,9 +4931,9 @@ diff -rU5 voxelands-v1709.00old/src/player.h voxelands-v1709.00/src/player.h
  		return NULL;
  	}
  	virtual u16 getSelectedItem() {return m_selected_item;}
-diff -rU5 voxelands-v1709.00old/src/selection_mesh.cpp voxelands-v1709.00/src/selection_mesh.cpp
+diff -rU5 voxelands-v1709.00old/src/selection_mesh.cpp voxelands-v1709.00good/src/selection_mesh.cpp
 --- voxelands-v1709.00old/src/selection_mesh.cpp	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00/src/selection_mesh.cpp	2024-06-01 19:43:50.853319840 +0200
++++ voxelands-v1709.00good/src/selection_mesh.cpp	2024-06-09 13:17:14.662159838 +0200
 @@ -318,18 +318,18 @@
  		}
  
@@ -3948,10 +4955,50 @@ diff -rU5 voxelands-v1709.00old/src/selection_mesh.cpp voxelands-v1709.00/src/se
  
  	translateMesh(mesh, intToFloat(data->m_blockpos_nodes - o_camera_offset, BS));
  
-diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
+diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00good/src/server.cpp
 --- voxelands-v1709.00old/src/server.cpp	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00/src/server.cpp	2024-06-03 22:14:44.873010531 +0200
-@@ -1442,10 +1442,12 @@
++++ voxelands-v1709.00good/src/server.cpp	2024-06-09 13:17:14.663160131 +0200
+@@ -192,11 +192,12 @@
+ 
+ 			}
+ 		}
+ 
+ 		//vlprintf(CN_DEBUG,"EmergeThread: p=(%d,%d,%d) only_from_disk = %d",p.X,p.Y,p.Z,only_from_disk);
+-
++		
++		JMutexAutoLock envlock(m_server->m_env_mutex);
+ 		ServerMap &map = ((ServerMap&)m_server->m_env.getMap());
+ 
+ 		//core::map<v3s16, MapBlock*> changed_blocks;
+ 		//core::map<v3s16, MapBlock*> lighting_invalidated_blocks;
+ 
+@@ -206,12 +207,10 @@
+ 
+ 		/*
+ 			Fetch block from map or generate a single block
+ 		*/
+ 		{
+-			JMutexAutoLock envlock(m_server->m_env_mutex);
+-
+ 			// Load sector if it isn't loaded
+ 			map.getSectorNoGenerateNoEx(p2d);
+ 
+ 			block = map.getBlockNoCreateNoEx(p);
+ 			if (!block || block->isDummy() || !block->isGenerated()) {
+@@ -348,10 +347,12 @@
+ void RemoteClient::GetNextBlocks(Server *server, float dtime,
+ 		core::array<PrioritySortedBlockTransfer> &dest)
+ {
+ 	DSTACK(__FUNCTION_NAME);
+ 
++    // Protected by mutexs in the caller.
++	
+ 	/*u32 timer_result;
+ 	TimeTaker timer("RemoteClient::GetNextBlocks", &timer_result);*/
+ 
+ 	// Increment timers
+ 	m_nothing_to_send_pause_timer -= dtime;
+@@ -1442,10 +1443,12 @@
  		Send queued-for-sending map edit events.
  	*/
  	{
@@ -3964,7 +5011,7 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  		bool disable_single_change_sending = false;
  		if(m_unsent_map_edit_queue.size() >= 4)
  			disable_single_change_sending = true;
-@@ -1561,17 +1563,13 @@
+@@ -1561,17 +1564,13 @@
  	*/
  	{
  		float &counter = m_objectdata_timer;
@@ -3982,7 +5029,7 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  	}
  
  	/*
-@@ -1819,11 +1817,11 @@
+@@ -1819,11 +1818,11 @@
  		char checkpwd[64];
  		if (auth_exists(playername)) {
  			if (auth_getpwd(playername,checkpwd))
@@ -3995,7 +5042,7 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  				strcpy(checkpwd,defaultpwd.c_str());
  			}else{
  				strcpy(checkpwd,password);
-@@ -1843,11 +1841,11 @@
+@@ -1843,11 +1842,11 @@
  
  		// Add player to auth manager
  		if (!auth_exists(playername)) {
@@ -4008,7 +5055,7 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  
  			auth_add(playername);
  			auth_setpwd(playername,checkpwd);
-@@ -1855,11 +1853,11 @@
+@@ -1855,11 +1854,11 @@
  			auth_save();
  		}
  
@@ -4021,7 +5068,7 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  			&& (auth_getprivs(playername) & (PRIV_SERVER|PRIV_BAN|PRIV_PRIVS)) == 0
  			&& (!admin_name || strcmp(admin_name,playername))
  		) {
-@@ -2037,11 +2035,11 @@
+@@ -2037,11 +2036,11 @@
  
  		if ((getPlayerPrivs(player) & PRIV_BUILD) == 0)
  			return;
@@ -4034,7 +5081,7 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  
  		// Get item
  		InventoryItem *item = ilist->getItem(item_i);
-@@ -2088,11 +2086,11 @@
+@@ -2088,11 +2087,11 @@
  		}
  
  		v3f pf((f32)ps.X/100., (f32)ps.Y/100., (f32)ps.Z/100.);
@@ -4047,7 +5094,7 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  			infostream<<"WARNING: item resulted in NULL object, "
  							<<"not throwing into map"
  							<<std::endl;
-@@ -2109,11 +2107,11 @@
+@@ -2109,11 +2108,11 @@
  			if (item->getCount() <= 1) {
  				if (item->getCount() < 1)
  					infostream<<"WARNING: Server: dropped more items"
@@ -4060,7 +5107,7 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  					ilist->deleteItem(item_i);
  			}else{
  				item->remove(1);
-@@ -2125,18 +2123,18 @@
+@@ -2125,18 +2124,18 @@
  		}
  	}
  	break;
@@ -4082,7 +5129,7 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  
  		// Track changes super-crappily
  		u16 oldhp = player->health;
-@@ -2276,29 +2274,29 @@
+@@ -2276,29 +2275,29 @@
  		// Left click, pick object up (usually)
  		if (button == 0) {
  			content_t wield_item = CONTENT_IGNORE;
@@ -4118,7 +5165,7 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  						if (ilist->roomForItem(item) == false) {
  							infostream<<"Player inventory has no free space"<<std::endl;
  							return;
-@@ -2335,11 +2333,11 @@
+@@ -2335,11 +2334,11 @@
  						&& obj->getType() == ACTIVEOBJECT_TYPE_MOB
  					) {
  						InventoryList *mlist = player->inventory.getList("main");
@@ -4131,7 +5178,7 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  									item->setData(mob->getContent());
  									obj->m_removed = true;
  									if (config_get_bool("world.player.tool.wear")) {
-@@ -2360,14 +2358,14 @@
+@@ -2360,14 +2359,14 @@
  
  				u16 wear = obj->punch(wield_item, dir, player->getName());
  				item = obj->createPickedUpItem(wield_item);
@@ -4148,7 +5195,7 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  							if (ilist->roomForItem(item) == false) {
  								infostream<<"Player inventory has no free space"<<std::endl;
  								return;
-@@ -2471,14 +2469,12 @@
+@@ -2471,14 +2470,12 @@
  				if (pp.getDistanceFrom(spf) <= sg)
  					return;
  			}
@@ -4165,7 +5212,7 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  		ContentFeatures &wielded_material_features = content_features(wieldcontent);
  
  		bool selected_node_exists = false;
-@@ -2554,18 +2550,18 @@
+@@ -2554,18 +2551,18 @@
  					}
  					selected_node.setContent(c);
  					// send the node
@@ -4186,7 +5233,7 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  						}else{
  							mlist->addDiff(item_i,titem);
  						}
-@@ -2612,11 +2608,11 @@
+@@ -2612,11 +2609,11 @@
  				if (inv) {
  					InventoryList *list = inv->getList("main");
  					if (list) {
@@ -4199,7 +5246,7 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  							player->inventory.addItem("main", itm);
  						}
  						// Send inventory
-@@ -2748,11 +2744,11 @@
+@@ -2748,11 +2745,11 @@
  						if (client == NULL)
  							continue;
  						client->SetBlocksNotSent(modified_blocks);
@@ -4212,7 +5259,7 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  					InventoryList *mlist = player->inventory.getList("main");
  					if (weared_out) {
  						mlist->deleteItem(item_i);
-@@ -2768,11 +2764,11 @@
+@@ -2768,11 +2765,11 @@
  					meta = m_env.getMap().getNodeMetadata(p_under);
  					if (meta && !meta->getEnergy()) {
  						v3s16 pp = floatToInt(player->getPosition(),BS);
@@ -4225,7 +5272,7 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  						InventoryList *mlist = player->inventory.getList("main");
  						if (weared_out) {
  							mlist->deleteItem(item_i);
-@@ -2798,11 +2794,11 @@
+@@ -2798,11 +2795,11 @@
  			) {
  				BarrelNodeMetadata *bmeta = (BarrelNodeMetadata*)m_env.getMap().getNodeMetadata(p_under);
  				if (!bmeta)
@@ -4238,7 +5285,7 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  							return;
  						wielditem->setData(CONTENT_WATERSOURCE);
  						InventoryList *mlist = player->inventory.getList("main");
-@@ -2935,11 +2931,11 @@
+@@ -2935,11 +2932,11 @@
  			}else if (selected_content == CONTENT_CAULDRON) {
  				CauldronNodeMetadata *cmeta = (CauldronNodeMetadata*)m_env.getMap().getNodeMetadata(p_under);
  				if (!cmeta)
@@ -4251,7 +5298,7 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  							return;
  						wielditem->setData(CONTENT_WATERSOURCE);
  						InventoryList *mlist = player->inventory.getList("main");
-@@ -2977,13 +2973,13 @@
+@@ -2977,13 +2974,13 @@
  						client->SetBlocksNotSent(modified_blocks);
  						client->SetBlockNotSent(blockpos);
  					}
@@ -4268,7 +5315,7 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  						cmeta->m_water_level--;
  						SendInventory(player->peer_id);
  						v3s16 blockpos = getNodeBlockPos(p_under);
-@@ -3003,19 +2999,19 @@
+@@ -3003,19 +3000,19 @@
  							client->SetBlockNotSent(blockpos);
  						}
  					}
@@ -4292,7 +5339,7 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  						block->setChangedFlag();
  						core::map<v3s16, MapBlock*> modified_blocks;
  						modified_blocks.insert(block->getPos(),block);
-@@ -3037,11 +3033,11 @@
+@@ -3037,11 +3034,11 @@
  				InventoryList *ilist = meta->getInventory()->getList("fuel");
  				InventoryList *plist = player->inventory.getList("main");
  				if (plist == NULL || ilist == NULL)
@@ -4305,7 +5352,7 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  					((IncineratorNodeMetadata*)meta)->m_should_fire = true;
  				}
  				plist->deleteItem(item_i);
-@@ -3101,11 +3097,11 @@
+@@ -3101,11 +3098,11 @@
  					// send the node
  					core::list<u16> far_players;
  					core::map<v3s16, MapBlock*> modified_blocks;
@@ -4318,7 +5365,7 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  						InventoryList *mlist = player->inventory.getList("main");
  						if (weared_out) {
  							mlist->deleteItem(item_i);
-@@ -3148,11 +3144,11 @@
+@@ -3148,11 +3145,11 @@
  				core::map<v3s16, MapBlock*> modified_blocks;
  				sendAddNode(p_under, selected_node, 0, &far_players, 30);
  				/*
@@ -4331,7 +5378,7 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  					if (wielditem->getCount() == 1) {
  						ilist->deleteItem(item_i);
  					}else{
-@@ -3169,11 +3165,11 @@
+@@ -3169,11 +3166,11 @@
  
  					std::string p_name = std::string(player->getName());
  					m_env.getMap().addNodeAndUpdate(p_under, selected_node, modified_blocks, p_name);
@@ -4344,7 +5391,7 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  
  				for(core::map<u16, RemoteClient*>::Iterator
  					i = m_clients.getIterator();
-@@ -3455,13 +3451,13 @@
+@@ -3455,13 +3452,13 @@
  				/*
  					Wear out tool
  				*/
@@ -4360,7 +5407,7 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  						if (get_tool_use(&usage,selected_content,mineral,titem->getContent(),titem->getData())) {
  							infostream<<"Server: WARNING: Player digged"
  								<<" with impossible material + tool"
-@@ -3495,11 +3491,11 @@
+@@ -3495,11 +3492,11 @@
  						Inventory *inv = meta->getInventory();
  						if (inv) {
  							InventoryList *l = inv->getList("0");
@@ -4373,7 +5420,7 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  									player->inventory.addItem("main", itm);
  								}
  								// Send inventory
-@@ -3531,14 +3527,16 @@
+@@ -3531,14 +3528,16 @@
  							SendInventory(player->peer_id);
  						}
  					}
@@ -4393,7 +5440,7 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  						wielded_tool_features.type != TT_NONE
  						&& enchantment_have(wielditem->getData(),ENCHANTMENT_FLAME)
  						&& selected_node_features.cook_result != ""
-@@ -3562,16 +3560,16 @@
+@@ -3562,16 +3561,16 @@
  							}
  							if (extra == CONTENT_IGNORE) {
  								if ((selected_node.param1&0x20) == 0x20)
@@ -4412,7 +5459,7 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  								item->setData(v);
  							}
  						}
-@@ -3584,13 +3582,11 @@
+@@ -3584,13 +3583,11 @@
  								if (selected_node_features.plantgrowth_small_dug_node != CONTENT_IGNORE) {
  									u16 count = 1;
  									if (p2 > 3)
@@ -4427,7 +5474,7 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  								if (selected_node_features.plantgrowth_large_gives_small) {
  									item = InventoryItem::create(
  										selected_node_features.plantgrowth_small_dug_node,
-@@ -3607,13 +3603,11 @@
+@@ -3607,13 +3604,11 @@
  									}
  								}
  								if (!count)
@@ -4442,7 +5489,7 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  							if (p2) {
  								if (p2 > 4) {
  									u16 count = 1;
-@@ -3625,25 +3619,20 @@
+@@ -3625,25 +3620,20 @@
  									item = InventoryItem::create(CONTENT_CRAFTITEM_MUSH,count,0);
  									player->inventory.addItem("main", item);
  								}
@@ -4471,7 +5518,7 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  					}
  				}
  
-@@ -3715,16 +3704,16 @@
+@@ -3715,16 +3705,16 @@
  			1: place block
  		*/
  		else if(action == 1)
@@ -4490,7 +5537,7 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  			if (item == NULL)
  				return;
  
-@@ -3988,14 +3977,14 @@
+@@ -3988,14 +3978,14 @@
  				uint16_t idata = item->getData();
  
  				/*
@@ -4507,7 +5554,7 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  						}else{
  							wielditem->setData(0);
  							ilist->addDiff(item_i,wielditem);
-@@ -4085,16 +4074,13 @@
+@@ -4085,16 +4075,13 @@
  				}
  
  				if (!config_get_bool("world.player.inventory.creative")) {
@@ -4527,7 +5574,7 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  					}else{
  						ilist->deleteItem(item_i);
  					}
-@@ -4139,19 +4125,19 @@
+@@ -4139,19 +4126,19 @@
  					infostream<<"Not allowing player to drop item: "
  							"no build privs"<<std::endl;
  					return;
@@ -4549,7 +5596,7 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  						if (item->getCount() < dropcount)
  							infostream<<"WARNING: Server: dropped more items"
  								<<" than the slot contains"<<std::endl;
-@@ -4202,19 +4188,19 @@
+@@ -4202,19 +4189,19 @@
  
  				/*
  					Check that the block is loaded so that the item
@@ -4571,7 +5618,7 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  					infostream<<"Not allowing player to drop item: no build privs"<<std::endl;
  					return;
  				}
-@@ -4228,17 +4214,17 @@
+@@ -4228,17 +4215,17 @@
  				pos.Z += BS*0.2*(float)myrand_range(-1000,1000)/1000.0;
  
  				/*
@@ -4591,7 +5638,7 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  						UpdateCrafting(peer_id);
  						SendInventory(peer_id);
  					}else{
-@@ -4254,11 +4240,11 @@
+@@ -4254,11 +4241,11 @@
  
  					infostream<<"Placed object"<<std::endl;
  
@@ -4604,7 +5651,7 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  						ilist->addDiff(item_i,wielditem);
  
  						// Send inventory
-@@ -4278,11 +4264,11 @@
+@@ -4278,11 +4265,11 @@
  					return;
  				}
  				if (!config_get_bool("world.player.inventory.creative")) {
@@ -4617,7 +5664,7 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  					if (item->getCount() <= dropcount) {
  						if (item->getCount() < dropcount)
  							infostream<<"WARNING: Server: dropped more items"
-@@ -4314,11 +4300,11 @@
+@@ -4314,11 +4301,11 @@
  
  				/*
  					Check that the block is loaded so that the item
@@ -4630,7 +5677,7 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  							"block not found"<<std::endl;
  					return;
  				}
-@@ -4342,34 +4328,40 @@
+@@ -4342,34 +4329,40 @@
  				/*
  					Create the object
  				*/
@@ -4682,7 +5729,7 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  							<<" at "<<PP(p_over)<<std::endl;
  
  					// Add the object to the environment
-@@ -4378,11 +4370,11 @@
+@@ -4378,11 +4371,11 @@
  					infostream<<"Placed object"<<std::endl;
  
  					if (!config_get_bool("world.player.inventory.creative")) {
@@ -4695,7 +5742,7 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  						if (item->getCount() <= dropcount) {
  							if(item->getCount() < dropcount)
  								infostream<<"WARNING: Server: dropped more items"
-@@ -4409,12 +4401,11 @@
+@@ -4409,12 +4402,11 @@
  
  		/*
  			Catch invalid actions
@@ -4709,7 +5756,7 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  	break;
  	case TOSERVER_PLAYERDAMAGE:
  	{
-@@ -4661,12 +4652,12 @@
+@@ -4661,12 +4653,12 @@
  					if (
  						ma->to_inv == "current_player"
  						&& ma->from_inv == "current_player"
@@ -4724,7 +5771,7 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  								v3f pos = player->getPosition();
  								pos.Y += BS;
  								v3f dir = v3f(0,0,BS);
-@@ -5164,10 +5155,13 @@
+@@ -5164,10 +5156,13 @@
  
  void Server::SendPlayerInfo(float dtime)
  {
@@ -4738,7 +5785,7 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  
  	// Write command
  	writeU16(buf, TOCLIENT_PLAYERINFO);
-@@ -5321,22 +5315,22 @@
+@@ -5321,22 +5316,22 @@
  		player = (Player*)array_get_ptr(players,i);
  		if (!player)
  			continue;
@@ -4764,7 +5811,7 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  				continue;
  			}
  			writeU16(os,itm->getContent());
-@@ -5360,22 +5354,22 @@
+@@ -5360,22 +5355,22 @@
  
  	writeU16(os, TOCLIENT_PLAYERITEMS);
  	writeU16(os, 1);
@@ -4790,7 +5837,7 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  			continue;
  		}
  		writeU16(os,itm->getContent());
-@@ -5950,11 +5944,11 @@
+@@ -5950,11 +5945,11 @@
  			name = narrow_to_wide(player->getName());
  		// Add name to information string
  		os<<name<<L",";
@@ -4803,7 +5850,7 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  	return os.str();
  }
  
-@@ -6048,13 +6042,11 @@
+@@ -6048,13 +6043,11 @@
  	/*
  		Create a new player
  	*/
@@ -4818,7 +5865,7 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  			privs = auth_str2privs(priv);
  
  		player = new ServerRemotePlayer();
-@@ -6238,17 +6230,16 @@
+@@ -6238,17 +6231,16 @@
  	auth_save();
  }
  
@@ -4839,9 +5886,9 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00/src/server.cpp
  		return PRIV_ALL;
  
  	return getPlayerAuthPrivs(playername);
-diff -rU5 voxelands-v1709.00old/src/sound.c voxelands-v1709.00/src/sound.c
+diff -rU5 voxelands-v1709.00old/src/sound.c voxelands-v1709.00good/src/sound.c
 --- voxelands-v1709.00old/src/sound.c	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00/src/sound.c	2024-04-14 14:46:35.907810666 +0200
++++ voxelands-v1709.00good/src/sound.c	2024-06-09 13:17:14.663160131 +0200
 @@ -466,11 +466,11 @@
  	free(e->token);
  	free(e);
@@ -4905,9 +5952,9 @@ diff -rU5 voxelands-v1709.00old/src/sound.c voxelands-v1709.00/src/sound.c
  	if (v < 0)
  		v = 0;
  	if (v > 100)
-diff -rU5 voxelands-v1709.00old/src/sound.h voxelands-v1709.00/src/sound.h
+diff -rU5 voxelands-v1709.00old/src/sound.h voxelands-v1709.00good/src/sound.h
 --- voxelands-v1709.00old/src/sound.h	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00/src/sound.h	2024-04-14 14:46:54.804747234 +0200
++++ voxelands-v1709.00good/src/sound.h	2024-06-09 13:17:14.663160131 +0200
 @@ -38,20 +38,20 @@
  void sound_step(float dtime, v3_t *pos, v3_t *at, v3_t *up);
  int sound_load_effect(char* file, char* token);
@@ -4934,9 +5981,9 @@ diff -rU5 voxelands-v1709.00old/src/sound.h voxelands-v1709.00/src/sound.h
  /* defined in sound.c */
  void sound_process(float dtime);
  float sound_volume_master(float v);
-diff -rU5 voxelands-v1709.00old/src/string.c voxelands-v1709.00/src/string.c
+diff -rU5 voxelands-v1709.00old/src/string.c voxelands-v1709.00good/src/string.c
 --- voxelands-v1709.00old/src/string.c	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00/src/string.c	2024-04-14 18:08:20.075297697 +0200
++++ voxelands-v1709.00good/src/string.c	2024-06-09 13:17:14.663160131 +0200
 @@ -81,11 +81,11 @@
  
  	return l;
@@ -4976,9 +6023,9 @@ diff -rU5 voxelands-v1709.00old/src/string.c voxelands-v1709.00/src/string.c
  	char* b;
  	char* s1;
  	char* s2;
-diff -rU5 voxelands-v1709.00old/src/tile.cpp voxelands-v1709.00/src/tile.cpp
+diff -rU5 voxelands-v1709.00old/src/tile.cpp voxelands-v1709.00good/src/tile.cpp
 --- voxelands-v1709.00old/src/tile.cpp	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00/src/tile.cpp	2024-06-01 19:49:13.506302889 +0200
++++ voxelands-v1709.00good/src/tile.cpp	2024-06-09 13:17:14.664160423 +0200
 @@ -549,11 +549,11 @@
  				driver->createImage(video::ECF_A8R8G8B8, dim);
  		img->copyTo(img2);
@@ -5193,9 +6240,9 @@ diff -rU5 voxelands-v1709.00old/src/tile.cpp voxelands-v1709.00/src/tile.cpp
  					errorstream << "generateImagePart(): baseimg == NULL "
  							<< "for part_of_name=\"" << part_of_name
  							<< "\", cancelling." << std::endl;
-diff -rU5 voxelands-v1709.00old/src/utility.h voxelands-v1709.00/src/utility.h
+diff -rU5 voxelands-v1709.00old/src/utility.h voxelands-v1709.00good/src/utility.h
 --- voxelands-v1709.00old/src/utility.h	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00/src/utility.h	2024-05-31 21:52:02.491754630 +0200
++++ voxelands-v1709.00good/src/utility.h	2024-06-09 13:17:14.664160423 +0200
 @@ -41,10 +41,59 @@
  #include "debug.h"
  #include "strfnd.h"
@@ -5482,9 +6529,9 @@ diff -rU5 voxelands-v1709.00old/src/utility.h voxelands-v1709.00/src/utility.h
  inline SharedBuffer<u8> SharedBufferFromString(const char *string)
  {
  	SharedBuffer<u8> b((u8*)string, strlen(string)+1);
-diff -rU5 voxelands-v1709.00old/src/world.c voxelands-v1709.00/src/world.c
+diff -rU5 voxelands-v1709.00old/src/world.c voxelands-v1709.00good/src/world.c
 --- voxelands-v1709.00old/src/world.c	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00/src/world.c	2024-04-14 18:11:48.084540615 +0200
++++ voxelands-v1709.00good/src/world.c	2024-06-09 13:17:14.664160423 +0200
 @@ -21,11 +21,11 @@
  #include "path.h"
  #include "list.h"
