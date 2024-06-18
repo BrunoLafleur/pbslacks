@@ -77,7 +77,7 @@ rm -rf $PRGNAM-$VERSION
 unzip $CWD/$PRGNAM-$VERSION.zip
 cd $PRGNAM-$VERSION
 
-cat $CWD/atomicdrop.patch | patch -p1
+cat $CWD/irrcleaning_pb.patch | patch -p1
 
 chown -R root:root .
 find -L . \

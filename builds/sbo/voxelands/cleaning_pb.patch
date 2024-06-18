@@ -1118,6 +1118,22 @@ diff -rU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/client
  	sound_play_effect((char*)name.c_str(),1.0,loop,&p);
 +#endif
  }
+diff -rU5 voxelands-v1709.00old/src/collision.h voxelands-v1709.00good/src/collision.h
+--- voxelands-v1709.00old/src/collision.h	2017-09-24 06:59:00.000000000 +0200
++++ voxelands-v1709.00good/src/collision.h	2024-06-18 14:59:37.581688089 +0200
+@@ -44,11 +44,11 @@
+ 	v3s16 node_p; // COLLISION_NODE
+ 	v3f old_speed;
+ 	v3f new_speed;
+ 
+ 	CollisionInfo():
+-		t(COLLISION_NODE),
++		t(COLLISION_NODE),speed(0),
+ 		node_p(-32768,-32768,-32768),
+ 		old_speed(0,0,0),
+ 		new_speed(0,0,0)
+ 	{}
+ };
 diff -rU5 voxelands-v1709.00old/src/common.h voxelands-v1709.00good/src/common.h
 --- voxelands-v1709.00old/src/common.h	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/common.h	2024-06-09 13:17:14.656158083 +0200
@@ -3578,6 +3594,35 @@ diff -rU5 voxelands-v1709.00old/src/http.h voxelands-v1709.00good/src/http.h
  std::string http_url_encode(std::string &str);
  
  #endif
+diff -rU5 voxelands-v1709.00old/src/intl.c voxelands-v1709.00good/src/intl.c
+--- voxelands-v1709.00old/src/intl.c	2017-09-24 06:59:00.000000000 +0200
++++ voxelands-v1709.00good/src/intl.c	2024-06-18 14:57:13.475050681 +0200
+@@ -565,11 +565,11 @@
+ }
+ 
+ /* initialise an intl_t by loading in an mo file */
+ int intl_load(intl_t *intl, char* file)
+ {
+-	char fbuff[2048];
++	char fbuff[2049];
+ 	char lbuff[128];
+ 	file_t *f;
+ 	uint32_t magic;
+ 	char* head;
+ 	char* p;
+@@ -647,11 +647,11 @@
+ 	head = p;
+ 	e = strchr(head,'\n');
+ 	if (e)
+ 		*e = 0;
+ 
+-	strncpy(fbuff,head+13,2048);
++	strncpy(fbuff,head+13,2048);fbuff[2048] = '\0';
+ 	if (e)
+ 		*e = '\n';
+ 	head = fbuff;
+ 
+ 	p = strstr(head,"nplurals=");
 diff -rU5 voxelands-v1709.00old/src/inventory.cpp voxelands-v1709.00good/src/inventory.cpp
 --- voxelands-v1709.00old/src/inventory.cpp	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/inventory.cpp	2024-06-09 13:17:14.659158961 +0200
@@ -4197,7 +4242,7 @@ diff -rU5 voxelands-v1709.00old/src/log.c voxelands-v1709.00good/src/log.c
  	if (!fmt)
 diff -rU5 voxelands-v1709.00old/src/log.cpp voxelands-v1709.00good/src/log.cpp
 --- voxelands-v1709.00old/src/log.cpp	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00good/src/log.cpp	2024-06-15 15:40:06.802918057 +0200
++++ voxelands-v1709.00good/src/log.cpp	2024-06-16 15:42:44.029853231 +0200
 @@ -29,10 +29,12 @@
  #include <list>
  #include <sstream>
@@ -4211,9 +4256,14 @@ diff -rU5 voxelands-v1709.00old/src/log.cpp voxelands-v1709.00good/src/log.cpp
  std::map<threadid_t, std::string> log_threadnames;
  
  void log_add_output(ILogOutput *out, enum LogMessageLevel lev)
-@@ -77,13 +79,17 @@
+@@ -73,17 +75,21 @@
+ 		break;
+ 	}
+ 	return "(unknown level)";
+ }
  
- void log_printline(enum LogMessageLevel lev, const std::string &text)
+-void log_printline(enum LogMessageLevel lev, const std::string &text)
++static void log_printline(enum LogMessageLevel lev, const std::string &text)
  {
  	std::string threadname = "(unknown thread)";
  	std::map<threadid_t, std::string>::const_iterator i;
@@ -4283,7 +4333,7 @@ diff -rU5 voxelands-v1709.00old/src/log.cpp voxelands-v1709.00good/src/log.cpp
  std::ostream errorstream(&errorbuf);
 diff -rU5 voxelands-v1709.00old/src/log.h voxelands-v1709.00good/src/log.h
 --- voxelands-v1709.00old/src/log.h	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00good/src/log.h	2024-06-15 15:39:40.413025776 +0200
++++ voxelands-v1709.00good/src/log.h	2024-06-16 15:15:52.735809913 +0200
 @@ -25,10 +25,11 @@
  
  #ifndef LOG_HEADER
@@ -4309,8 +4359,21 @@ diff -rU5 voxelands-v1709.00old/src/log.h voxelands-v1709.00good/src/log.h
  	/* line: Only actual printed text */
  	virtual void printLog(enum LogMessageLevel lev, const std::string &line){};
  };
-@@ -68,8 +71,9 @@
+@@ -55,21 +58,13 @@
+ void log_add_output_maxlev(ILogOutput *out, enum LogMessageLevel lev);
+ void log_add_output_all_levs(ILogOutput *out);
  
+ void log_register_thread(const std::string &name);
+ 
+-void log_printline(enum LogMessageLevel lev, const std::string &text);
+-
+-#define LOGLINEF(lev, ...)\
+-{\
+-	char buf[10000];\
+-	snprintf(buf, 10000, __VA_ARGS__);\
+-	log_printline(lev, buf);\
+-}
+-
  extern std::ostream errorstream;
  extern std::ostream actionstream;
  extern std::ostream infostream;
@@ -6866,7 +6929,7 @@ diff -rU5 voxelands-v1709.00old/src/sound.h voxelands-v1709.00good/src/sound.h
  float sound_volume_master(float v);
 diff -rU5 voxelands-v1709.00old/src/string.c voxelands-v1709.00good/src/string.c
 --- voxelands-v1709.00old/src/string.c	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00good/src/string.c	2024-06-09 13:17:14.663160131 +0200
++++ voxelands-v1709.00good/src/string.c	2024-06-18 14:55:24.113327062 +0200
 @@ -81,11 +81,11 @@
  
  	return l;
@@ -6893,7 +6956,7 @@ diff -rU5 voxelands-v1709.00old/src/string.c voxelands-v1709.00good/src/string.c
  		if (!strcmp(str,"true"))
  			return 1;
  		if (!strcmp(str,"yes"))
-@@ -126,11 +126,11 @@
+@@ -126,22 +126,22 @@
  
  	return 0;
  }
@@ -6902,10 +6965,23 @@ diff -rU5 voxelands-v1709.00old/src/string.c voxelands-v1709.00good/src/string.c
 -int str_tov3t(char* str, v3_t *v)
 +int str_tov3t(const char* str, v3_t *v)
  {
- 	char buff[256];
+-	char buff[256];
++	char buff[257];
  	char* b;
  	char* s1;
  	char* s2;
+ 	char *e;
+ 
+ 	if (!str)
+ 		return 1;
+ 
+-	strncpy(buff,str,256);
++	strncpy(buff,str,256);buff[256] = '\0';
+ 
+ 	b = strchr(buff,'(');
+ 	if (!b)
+ 		return 1;
+ 	b++;
 diff -rU5 voxelands-v1709.00old/src/tile.cpp voxelands-v1709.00good/src/tile.cpp
 --- voxelands-v1709.00old/src/tile.cpp	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/tile.cpp	2024-06-09 13:17:14.664160423 +0200

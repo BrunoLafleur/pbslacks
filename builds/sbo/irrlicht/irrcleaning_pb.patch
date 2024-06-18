@@ -132,3 +132,66 @@ diff -rU5 irrlicht-1.8.5old/include/irrMap.h irrlicht-1.8.5/include/irrMap.h
  		{
  			reset();
  		}
+diff -rU5 irrlicht-1.8.5old/source/Irrlicht/CAttributeImpl.h irrlicht-1.8.5/source/Irrlicht/CAttributeImpl.h
+--- irrlicht-1.8.5old/source/Irrlicht/CAttributeImpl.h	2016-07-07 17:10:36.000000000 +0200
++++ irrlicht-1.8.5/source/Irrlicht/CAttributeImpl.h	2024-06-18 15:22:41.000000000 +0200
+@@ -2032,12 +2032,12 @@
+ 		return core::stringw(buf);
+ 	}
+ 
+ 	virtual void setString(const char* text)
+ 	{
+-		u32 tmp;
+-		sscanf(text, "0x%x", &tmp);
++		unsigned long tmp;
++		sscanf(text, "0x%lx", &tmp);
+ 		Value = (void *) tmp;
+ 	}
+ 
+ 	virtual E_ATTRIBUTE_TYPE getType() const
+ 	{
+diff -rU5 irrlicht-1.8.5old/source/Irrlicht/CSoftwareDriver2.cpp irrlicht-1.8.5/source/Irrlicht/CSoftwareDriver2.cpp
+--- irrlicht-1.8.5old/source/Irrlicht/CSoftwareDriver2.cpp	2013-08-25 17:11:20.000000000 +0200
++++ irrlicht-1.8.5/source/Irrlicht/CSoftwareDriver2.cpp	2024-06-18 14:40:19.000000000 +0200
+@@ -1507,11 +1507,11 @@
+ 
+ 		// get the next unique vertices cache line
+ 		u32 fillIndex = 0;
+ 		u32 dIndex;
+ 		u32 i;
+-		u32 sourceIndex;
++		u32 sourceIndex = VertexCache.indicesIndex;
+ 
+ 		while ( VertexCache.indicesIndex < VertexCache.indexCount &&
+ 				fillIndex < VERTEXCACHE_ELEMENT
+ 				)
+ 		{
+diff -rU5 irrlicht-1.8.5old/source/Irrlicht/S4DVertex.h irrlicht-1.8.5/source/Irrlicht/S4DVertex.h
+--- irrlicht-1.8.5old/source/Irrlicht/S4DVertex.h	2012-11-03 18:08:16.000000000 +0100
++++ irrlicht-1.8.5/source/Irrlicht/S4DVertex.h	2024-06-18 14:22:20.000000000 +0200
+@@ -115,11 +115,11 @@
+ //		struct { sVec2 xy, zw; };	// sorry, this does not compile with gcc
+ 	};
+ 
+ 
+ 
+-	sVec4 () {}
++	sVec4 () : x(0), y(0), z(0), w(0) {}
+ 
+ 	sVec4 ( f32 s) : x ( s ), y ( s ), z ( s ), w ( s ) {}
+ 
+ 	sVec4 ( f32 _x, f32 _y, f32 _z, f32 _w )
+ 		: x ( _x ), y ( _y ), z( _z ), w ( _w ){}
+@@ -275,11 +275,11 @@
+ 		struct { f32 r, g, b; };
+ 		struct { f32 x, y, z; };
+ 	};
+ 
+ 
+-	sVec3 () {}
++	sVec3 () : r(0), g(0), b(0) {}
+ 	sVec3 ( f32 _x, f32 _y, f32 _z )
+ 		: r ( _x ), g ( _y ), b( _z ) {}
+ 
+ 	sVec3 ( const sVec4 &v )
+ 		: r ( v.x ), g ( v.y ), b( v.z ) {}
