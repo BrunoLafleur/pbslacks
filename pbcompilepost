@@ -184,10 +184,11 @@ fi
 
 if [ $ISOPENSHOT -eq 1 ] ;then
     # python2-* for openshot 1.4, openshot_qt => openshot 2.5
-    for i in python2-mlt python2-libcaca python2-libwebp python-pillow6 \
-			zeromq protobuf libopenshot-audio libopenshot \
-			openshot_qt lxml inkscape pybind11 openimageio \
-			opencolorio numpy3 tbb OpenSubdiv Blender openshot ;do
+    for i in double-conversion dos2unix python2-mlt python2-libcaca \
+			       python2-libwebp python-pillow6 zeromq protobuf \
+			       libopenshot-audio libopenshot openshot_qt lxml \
+			       inkscape pybind11 openimageio opencolorio numpy3 \
+			       tbb OpenSubdiv Blender openshot ;do
 	xmakepac packages/openshot $i
     done
     xhookopenshot

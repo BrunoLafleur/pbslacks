@@ -37,9 +37,9 @@ fi
     [ ! -d openshot ] && mkdir openshot
     (
 	cd openshot
-	for i in zeromq protobuf libopenshot-audio libopenshot openshot_qt lxml \
-			inkscape opencolorio pybind11 openimageio numpy3 tbb \
-			OpenSubdiv Blender ;do
+	for i in double-conversion dos2unix zeromq protobuf libopenshot-audio \
+			  libopenshot openshot_qt lxml inkscape opencolorio \
+			  pybind11 openimageio numpy3 tbb OpenSubdiv Blender ;do
 	    xgetsbosrc "$i"
 	done
 	xgetsrc python2-mlt "$PATHMLT"

@@ -47,7 +47,7 @@ fi
     [ ! -d openshot ] && mkdir openshot
     (
 	cd openshot
-	for i in dos2unix double-conversion potrace gdl graphicsmagick ;do
+	for i in potrace gdl graphicsmagick ;do
 	    xgetpac "$i" "$SLACKCF/$i" 3
 	done
 	for i in libvdpau-va-gl ;do
