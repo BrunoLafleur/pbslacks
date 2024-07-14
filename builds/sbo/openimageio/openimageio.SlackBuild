@@ -69,21 +69,29 @@ cd $SRCNAM-$VERSION
 patch -p1 < $CWD/oiio-include-cstdio.diff
 chown -R root:root .
 find -L . \
- \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
-  -o -perm 511 \) -exec chmod 755 {} \; -o \
- \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
-  -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
+     \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
+     -o -perm 511 \) -exec chmod 755 {} \; -o \
+     \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
+     -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
 # save this for GCC 7.0
 #sed -i "s|std=c++11|std=c++11 -Wno-error=maybe-uninitialized -Wno-error=format-truncation -Wno-error=noexcept-type -faligned-new|" CMakeLists.txt
+
+if [ -d /usr/include/openjpeg-2.5 ] ;then
+    OPENJPEGINC=/usr/include/openjpeg-2.5
+    OPENJPEGLIB=/usr/lib${LIBDIRSUFFIX}/libopenjp2.so
+elif [ -d /usr/include/openmj2-2.1 ] ;then
+    OPENJPEGINC=/usr/include/openmj2-2.1
+    OPENJPEGLIB=/usr/lib${LIBDIRSUFFIX}/libopenmj2.so
+fi
 
 mkdir -p build
 cd build
   cmake ../ \
     -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \
     -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS -std=c++11" \
-    -DOPENJPEG_INCLUDE_DIR="/usr/include/openmj2-2.1" \
-    -DOPENJPEG_OPENJPEG_LIBRARY_RELEASE="/usr/lib${LIBDIRSUFFIX}/libopenmj2.so" \
+    -DOPENJPEG_INCLUDE_DIR="$OPENJPEGINC" \
+    -DOPENJPEG_OPENJPEG_LIBRARY_RELEASE="$OPENJPEGLIB" \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DPYLIB_INCLUDE_SONAME:BOOL=TRUE \
@@ -99,11 +107,12 @@ cd build
   make install DESTDIR=$PKG
 cd ..
 
-find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
-  | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
+find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | \
+    grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-cp -a CONTRIBUTING.md CREDITS.md INSTALL.md README.md $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a CONTRIBUTING.md CREDITS.md INSTALL.md README.md \
+   $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
