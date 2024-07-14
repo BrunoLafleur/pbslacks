@@ -41,7 +41,7 @@ fi
 				   libvdpau-va-glGraphicsMagic libopenshot-audio \
 				   libopenshot openshot_qt lxml inkscape \
 				   opencolorio pybind11 openimageio numpy3 tbb \
-				   OpenSubdiv Blender ;do
+				   OpenSubdiv Blender tesseract4 ;do
 	    xgetsbosrc "$i"
 	done
 	xgetsrc python2-mlt "$PATHMLT"
