@@ -24,7 +24,7 @@ fi
 
 ############################################
 # Download new versions of binary packages.
-# Conrad and Slonly packages.
+# Conrad and Slackel packages.
 ############################################
 if [ ! -f  gpgkeys/GPG-KEY-x64-conraid ] ;then
     xgeturl "$SLACKCF/GPG-KEY"
@@ -44,16 +44,6 @@ fi
     for i in gimp-script-fu x265 skypeforlinux-bin podofo scribus ;do
 	xgetpac "$i" "$SLACKCF/$i" 3
     done
-    [ ! -d openshot ] && mkdir openshot
-    (
-	cd openshot
-	for i in potrace gdl graphicsmagick ;do
-	    xgetpac "$i" "$SLACKCF/$i" 3
-	done
-	for i in libvdpau-va-gl ;do
-	    xgetpac "$i" "$SLACKDJ" 5
-	done
-    )
     (
 	cd 32
 	xgetpac python2 "$SLACKMIR/slackware-${SLACKVER}/slackware/d" 7
