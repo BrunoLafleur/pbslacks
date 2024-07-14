@@ -28,7 +28,7 @@ PRGNAM=fltk
 VERSION=${VERSION:-1.3.5}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_PB}
-PKGTYPE=${PKGTYPE:-tgz}
+PKGTYPE=${PKGTYPE:-txz}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in

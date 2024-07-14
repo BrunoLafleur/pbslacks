@@ -28,7 +28,7 @@ PRGNAM=libsbsms
 VERSION=${VERSION:-20220812_e6c9c3b}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_PB}
-PKGTYPE=${PKGTYPE:-tgz}
+PKGTYPE=${PKGTYPE:-txz}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in

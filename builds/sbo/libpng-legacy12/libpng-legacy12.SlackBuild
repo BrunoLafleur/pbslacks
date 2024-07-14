@@ -66,11 +66,14 @@ find $PKG | xargs file | grep -e "executable" -e "shared object" \
 
 rm -rf $PKG/usr/lib${LIBDIRSUFFIX}/lib*.la
 rm -rf $PKG/usr/lib${LIBDIRSUFFIX}/lib*.a
-rm -rf $PKG/usr/lib${LIBDIRSUFFIX}/lib*.so.3.*
+rm -rf $PKG/usr/lib${LIBDIRSUFFIX}/lib*.so.3*
 
 # We keep libs only.
 rm -rf $PKG/usr/man $PKG/usr/bin
 rm -rf $PKG/usr/lib$LIBDIRSUFFIX/pkgconfig
+
+# Suppress this link to not interfere with latest png libs.
+rm -f $PKG/usr/lib$LIBDIRSUFFIX/libpng.so
 
 mkdir -p $PKG/usr/doc/$PKGNAM-$VERSION
 cp -a ANNOUNCE CHANGES INSTALL KNOWNBUG LICENSE README TODO Y2KINFO \

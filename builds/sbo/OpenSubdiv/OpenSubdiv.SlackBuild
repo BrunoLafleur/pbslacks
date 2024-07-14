@@ -93,7 +93,7 @@ cmake \
     -DCUDA_HOST_COMPILER=$CUDA_TOOLKIT_ROOT_DIR/bin/gcc \
     -DCMAKE_BUILD_TYPE=Release ..
 
-make
+make -i;make
 make install DESTDIR=$PKG
 cd ..
 
@@ -111,4 +111,4 @@ mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 
 cd $PKG
-/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
+/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-txz}

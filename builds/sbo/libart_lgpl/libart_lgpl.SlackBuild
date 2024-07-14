@@ -92,5 +92,5 @@ mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 
 cd $PKG
-/sbin/makepkg -l y -c n $OUTPUT/libart_lgpl-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
+/sbin/makepkg -l y -c n $OUTPUT/libart_lgpl-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-txz}
 

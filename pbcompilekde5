@@ -88,7 +88,7 @@ if [ $ISKDE5 -eq 1 ] ;then
 	    [ -d /tmp/kde_build/applications ] && \
 		cp /tmp/kde_build/applications/*.t?z .
 	    cp /tmp/kde_build/*.t?z .
-	    chown ${MYUSER}.$MYGROUP *.t?z
+	    chown ${MYUSER}:$MYGROUP *.t?z
 	    xpurgesrc 't?z'
 	    rm -rf /tmp/kde_build
 	)

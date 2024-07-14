@@ -19,7 +19,7 @@ xhookopenshot () {
     rm -f packages/openshot/libvdpau-va-gl-0.4.2-x86_64-1dj.*
     removepkg frei0r-plugins
     removepkg python3-certifi
-    removdepkg graphicsmagick
+    removepkg graphicsmagick
     upgradepkg --reinstall slackware64/l/python-certifi-*.t?z
 }
 

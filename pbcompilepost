@@ -265,7 +265,7 @@ if [ $ISFRAMEW -eq 1 ] ;then
 	    [ -d /tmp/kde_build/frameworks ] && \
 		cp /tmp/kde_build/frameworks/*.t?z .
 	    cp /tmp/kde_build/*.t?z .
-	    chown ${MYUSER}.$MYGROUP *.t?z
+	    chown ${MYUSER}:$MYGROUP *.t?z
 	    xpurgesrc 't?z'
 	    mv plasma-wayland-protocols-*.t?z ../plasma-extra
 	    rm -f ../plasma-extra/plasma-wayland-protocols-1.1.1-*.t?z*

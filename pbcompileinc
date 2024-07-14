@@ -20,7 +20,7 @@ xcleanpac() {
     pac="$1"
     dest="$2"
     cp "/tmp/${pac}-"[0-9m]*.t?z* "$dest"
-    chown ${MYUSER}.$MYGROUP "$dest/${pac}"-[0-9m]*.t?z*
+    chown ${MYUSER}:$MYGROUP "$dest/${pac}"-[0-9m]*.t?z*
     xpurgetmp "$pac"
     xpurgepac "$dest/$pac-[0-9]" t?z
     xpurgepac "$dest/$pac-master" t?z
@@ -43,10 +43,10 @@ xmakealienpac () {
 	    LLPATCH="$(pwd)/pbslacks/builds/alien/${pac}.patch"
 	    cd "${XDIR}/$pac"
 	    [ -f "$LLPATCH" ] && cat "$LLPATCH"|patch -f -p0
-	    chown -R ${MYUSER}.$MYGROUP *
+	    chown -R ${MYUSER}:$MYGROUP *
 	    # build
 	    sh "./${pac}.SlackBuild"
-	    ERR=$?;chown -R ${MYUSER}.$MYGROUP *
+	    ERR=$?;chown -R ${MYUSER}:$MYGROUP *
 	    if [ $ERR -ne 0 ] ;then
 		mygt 'Correct this error and relaunch this script. Press a key to end.'
 		read c;exit 1
@@ -54,7 +54,7 @@ xmakealienpac () {
 	)
 	[ $? -ne 0 ] && exit 1
 	xcleanpac "$pac" "$dest"
-	chown -R ${MYUSER}.$MYGROUP "$dest/$pac"
+	chown -R ${MYUSER}:$MYGROUP "$dest/$pac"
 	# Upgrade packages.
         upgradepkg --install-new --reinstall "$dest/${pac}"-[0-9m]*.t?z
     fi
@@ -88,7 +88,7 @@ xmakepac () {
 	    if [ $RECOMP -eq 1 ] ;then
 		(unset TAG;unset ARCH
 		 convertpkg-compat32 -i "$pac-"'*.t?z' -d ../compat32
-		 chown ${MYUSER}.$MYGROUP ../compat32/${pac}-compat32-*.t?z
+		 chown ${MYUSER}:$MYGROUP ../compat32/${pac}-compat32-*.t?z
 		)
 	    fi
 	    xpurgetmp ${pac}-compat32

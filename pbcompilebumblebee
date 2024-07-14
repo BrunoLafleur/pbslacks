@@ -60,7 +60,7 @@ rm -rf $HOMEBUMBLE
 	git pull origin
     fi
     ./git_in
-    chown -R ${MYUSER}.$MYGROUP .
+    chown -R ${MYUSER}:$MYGROUP .
 )
 
 
@@ -82,7 +82,7 @@ for i in libbsd primus primus_vk bbswitch nvidia-bumblebee bumblebee \
     rm -f "/tmp/${i}-"*.t?z
     xpurgepac "${i}-" t?z
 done
-chown ${MYUSER}.$MYGROUP *.t?z
+chown ${MYUSER}:$MYGROUP *.t?z
 rm -rf /tmp/bbsb
 
 # Not sufficient. Should force rmmod nouveau driver.

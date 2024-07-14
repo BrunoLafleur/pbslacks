@@ -30,7 +30,7 @@ PRGNAM=portsmf
 VERSION=${VERSION:-234} # audacity needs this specific version!
 BUILD=${BUILD:-1}
 TAG=${TAG:-_PB}
-PKGTYPE=${PKGTYPE:-tgz}
+PKGTYPE=${PKGTYPE:-txz}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in

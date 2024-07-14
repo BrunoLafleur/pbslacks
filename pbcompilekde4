@@ -81,15 +81,15 @@ xmakekdedep () {
 		sh ./${XPAC}.SlackBuild
 		if [ $? -ne 0 ] ;then
 		    mygt 'Correct this error and relaunch this script. Press a key to end.'
-		    cd ..;chown -R ${MYUSER}.$MYGROUP $XPAC
+		    cd ..;chown -R ${MYUSER}:$MYGROUP $XPAC
 		    read c;exit 1
 		fi
 	    )
 	    [ $? -ne 0 ] && exit 1
-	    cd kde4;mkdir -p $XCAT;chown ${MYUSER}.$MYGROUP $XCAT;cd $XCAT
+	    cd kde4;mkdir -p $XCAT;chown ${MYUSER}:$MYGROUP $XCAT;cd $XCAT
 	    cp /tmp/${XPAC}-[0-9m]*-x86_64-*.txz .
 	    upgradepkg --install-new --reinstall ${XPAC}-[0-9m]*-x86_64-*.txz
-	    chown ${MYUSER}.$MYGROUP ${XPAC}-[0-9m]*-x86_64-*.t?z
+	    chown ${MYUSER}:$MYGROUP ${XPAC}-[0-9m]*-x86_64-*.t?z
 	    xpurgetmp "$XSRC";xpurgetmp "$XPAC"
 	)
 	[ $? -ne 0 ] && exit 1
@@ -177,7 +177,7 @@ if [ $ISKDE4 -eq 1 ] ;then
 	    [ -d "/tmp/kde_build/$i" ] && cp "/tmp/kde_build/$i/"*.t?z .
 	done
 	cp /tmp/kde_build/*.t?z .
-	chown ${MYUSER}.$MYGROUP *.t?z
+	chown ${MYUSER}:$MYGROUP *.t?z
 	xpurgesrc 't?z'
     )
     if [ -d /usr/include/ConsoleKit.save ] ;then
@@ -200,7 +200,7 @@ if [ $ISKDE4I -eq 1 ] ;then
 	cd ../../../kde
 	cp /tmp/kde_build/*.t?z .
 	upgradepkg --install-new --reinstall calligra-l10n-*.txz
-	chown ${MYUSER}.$MYGROUP calligra-l10n-*.t?z
+	chown ${MYUSER}:$MYGROUP calligra-l10n-*.t?z
 	exit $?
     )
     ERR=$?
@@ -213,7 +213,7 @@ if [ $ISKDE4I -eq 1 ] ;then
 	    cd ../../../kde
 	    cp /tmp/kde_build/*.t?z .
 	    upgradepkg --install-new --reinstall kde-l10n-*.txz
-	    chown ${MYUSER}.$MYGROUP kde-l10n-*.t?z
+	    chown ${MYUSER}:$MYGROUP kde-l10n-*.t?z
 	    exit $?
 	)
 	ERR=$?

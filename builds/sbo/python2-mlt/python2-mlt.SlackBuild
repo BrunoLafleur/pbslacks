@@ -115,6 +115,7 @@ PYTHON=python2 \
   --build=$TARGET
 
 export CXXFLAGS="$SLKCFLAGS -Wl,-rpath=/usr/lib${LIBDIRSUFFIX}/$PKGNAM"
+export PYTHON=python2
 make || exit 1
 make install DESTDIR=$PKG || exit 1
 
