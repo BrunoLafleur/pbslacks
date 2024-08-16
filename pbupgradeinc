@@ -58,12 +58,12 @@ xhookpac2 () {
     rm -f packages2/valgrind-3.18.1-x86_64-1cf.*
     rm -f packages2/jq-1.6-x86_64-2cf.*
     rm -f packages2/lua53-5.3.6-x86_64-1cf.*
-    rm -f package2/lua-5.4.3-x86_64-1cf.*
-    rm -f package2/oniguruma-6.9.2-x86_64-1cf.*
-    rm -f package2/guile1.8-1.8.8-x86_64-1dj.*
-    rm -f package2/gnome-desktop-3.36.6-x86_64-1dl.*
-    rm -f package2/webkitgtk-2.28.4-x86_64-1dl.*
-    rm -f package2/libseccomp-2.4.2-x86_64-1dl.*
+    rm -f packages2/lua-5.4.3-x86_64-1cf.*
+    rm -f packages2/oniguruma-6.9.2-x86_64-1cf.*
+    rm -f packages2/guile1.8-1.8.8-x86_64-1dj.*
+    rm -f packages2/gnome-desktop-3.36.6-x86_64-1dl.*
+    rm -f packages2/webkitgtk-2.28.4-x86_64-1dl.*
+    rm -f packages2/libseccomp-2.4.2-x86_64-1dl.*
 }
 
 xhookpac3 () {

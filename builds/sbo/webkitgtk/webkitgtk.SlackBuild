@@ -96,7 +96,7 @@ make install DESTDIR=$PKG
 cd ..
   
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-cp -a ChangeLog $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a NEWS $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
