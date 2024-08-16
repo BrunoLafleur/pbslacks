@@ -97,7 +97,7 @@ fi
     for i in jq lua53 lua guile1.8 gnome-desktop gnome-icon-theme evince libsmf \
 		fontforge texi2html lilypond roccat-tools PyYAML lutris lsdvd \
 		visual-studio-code sqlitebrowser libx86emu hwinfo \
-		irrlicht voxelands valgrind ;do
+		irrlicht voxelands valgrind webkitgtk libseccomp ;do
 	xgetsbosrc "$i"
     done
     

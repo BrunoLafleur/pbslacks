@@ -216,9 +216,9 @@ if [ $ISPAC2 -eq 1 ] ;then
     removepkg fontforge
     for i in jq lua53 lua guile1.8 gnome-desktop gnome-icon-theme evince libsmf \
 		fontforge texi2html lilypond roccat-tools MPlayer2020 kmplayer \
-		denemo guile2.2 discord PyYAML lutris lsdvd visual-studio-code \
-		sqlitebrowser libx86emu hwinfo irrlicht voxelands \
-		valgrind ;do
+		denemo guile2.2 discord PyYAML webkitgtk libseccomp lutris lsdvd \
+		visual-studio-code sqlitebrowser libx86emu hwinfo irrlicht \
+		voxelands valgrind ;do
 	xmakepac packages2 $i
     done
     xhookpac2
