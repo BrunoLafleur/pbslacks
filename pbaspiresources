@@ -94,10 +94,10 @@ fi
 ############################################
 (
     cd packages2    
-    for i in gnome-icon-theme evince libsmf fontforge texi2html lilypond \
-			      roccat-tools PyYAML lutris lsdvd \
-			      visual-studio-code sqlitebrowser libx86emu hwinfo \
-			      irrlicht voxelands valgrind ;do
+    for i in jq lua53 lua guile1.8 gnome-icon-theme evince libsmf fontforge \
+		texi2html lilypond roccat-tools PyYAML lutris lsdvd \
+		visual-studio-code sqlitebrowser libx86emu hwinfo \
+		irrlicht voxelands valgrind ;do
 	xgetsbosrc "$i"
     done
     

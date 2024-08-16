@@ -50,11 +50,17 @@ xhookpac1 () {
 
 xhookpac2 () {
     # Post actions for packages2
+    upgradepkg --reinstall slackware64/l/oniguruma-*.t?z
     cp packages2/youtube.lua $XLIBDIR/vlc/lua/playlist
     rm -f $XLIBDIR/vlc/lua/playlist/youtube.luac
     rm -f packages2/discord-*.tar.gz
     rm -f packages2/*_slonly.*
     rm -f packages2/valgrind-3.18.1-x86_64-1cf.*
+    rm -f packages2/jq-1.6-x86_64-2cf.*
+    rm -f packages2/lua53-5.3.6-x86_64-1cf.*
+    rm -f package2/lua-5.4.3-x86_64-1cf.*
+    rm -f package2/oniguruma-6.9.2-x86_64-1cf.*
+    rm -f package2/guile1.8-1.8.8-x86_64-1dj.*
 }
 
 xhookpac3 () {
