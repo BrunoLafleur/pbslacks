@@ -55,7 +55,7 @@ xpurgeindex packages
 (
     cd packages2
     # For Lutris (game manager)
-    for i in gnome-desktop webkitgtk libseccomp ;do
+    for i in webkitgtk libseccomp ;do
 	xgetpac "$i" "$SLACKDL" 4
     done
 )
