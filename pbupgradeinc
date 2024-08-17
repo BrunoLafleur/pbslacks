@@ -112,6 +112,10 @@ xhookpac4 () {
 	[ -d $XLIBDIR/opera-beta ] && \
 	    ln -sf $XLIBDIR/chromium/libwidevinecdm.so $XLIBDIR/opera-beta
     fi
+
+    rm -f packages4/exiftool-12.38-x86_64-1cf.*
+    rm -f packages4/unrar-6.1.3-x86_64-1cf.*
+    rm -f packages4/xcftools-1.0.7-x86_64-1dj.*
 }
 
 xhooktess () {

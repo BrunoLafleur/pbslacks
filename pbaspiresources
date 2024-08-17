@@ -140,15 +140,17 @@ fi
     xgetsrc opencv "$PATHOPENCV"
     xgetsrc opencv "$PATHOPENCVBIS"
     
-    for i in kaffeine gradle audiveris vokoscreen ;do
+    for i in exiftool unrar xcftools kaffeine gradle audiveris vokoscreen ;do
 	xgetsbosrc "$i"
     done
     
+    # Repackaging of binary versions.
     for i in opera signal-desktop zoom-linux telegram-bin vivaldi \
 		   brave-browser google-chrome-the-latest ;do
 	xgetsbosrc "$i" $RARCH
     done
-     
+
+    # LMMS
     [ ! -d lmms ] && mkdir lmms
     (
 	cd lmms
@@ -156,7 +158,8 @@ fi
 	    xgetsbosrc "$i"
 	done
     )
-    
+
+    # Audacity
     [ ! -d audacity ] && mkdir audacity
     (
 	cd audacity
@@ -164,7 +167,8 @@ fi
 	    xgetsbosrc "$i"
 	done
     )
-    
+
+    # Epiphany
     [ ! -d epiphany ] && mkdir epiphany
     (
 	cd epiphany

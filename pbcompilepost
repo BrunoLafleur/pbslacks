@@ -202,10 +202,10 @@ fi
 
 if [ $ISPITIVI -eq 1 ] ;then
     for i in blas lapack scipy3 python3-dateutil python3-cycler \
-			      python3-kiwisolver python3-pyparsing \
-			      python3-tornado pytz python3-matplotlib \
-			      gstreamer-editing-services gst-python3 gsound \
-			      libpeas pitivi ;do
+		  python3-kiwisolver python3-pyparsing \
+		  python3-tornado pytz python3-matplotlib \
+		  gstreamer-editing-services gst-python3 gsound \
+		  libpeas pitivi ;do
 	xmakepac packages/pitivi $i
     done
     xhookpitivi
@@ -289,9 +289,14 @@ if [ $ISPAC4 -eq 1 ] ;then
 	xmakepac packages4 vbam
     )
     [ $? -ne 0 ] && exit 1
-    for i in xrdp xorgxrdp SFML fbida kaffeine eigen3 opencv gradle \
-		  signal-desktop vokoscreen audiveris zoom-linux opera vivaldi \
-		  brave-browser google-chrome-the-latest telegram-bin ;do
+    for i in exiftool unrar xcftools xrdp xorgxrdp SFML fbida kaffeine eigen3 \
+		      opencv gradle vokoscreen audiveris ;do
+	xmakepac packages4 $i
+    done
+    
+    # Repackaging of binary versions.
+    for i in signal-desktop zoom-linux opera vivaldi brave-browser \
+			    google-chrome-the-latest telegram-bin ;do
 	xmakepac packages4 $i
     done
     xhookpac4

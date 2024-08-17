@@ -54,12 +54,6 @@ xpurgeindex packages
 ############################################
 (
     cd packages4
-    for i in exiftool unrar ;do
-	xgetpac "$i" "$SLACKCF/$i" 3
-    done
-    for i in xcftools ;do
-	xgetpac "$i" "$SLACKDJ" 5
-    done
     [ ! -d tesseract4 ] && mkdir tesseract4
     (
 	cd tesseract4

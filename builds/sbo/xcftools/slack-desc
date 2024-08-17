@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.
+# Line up the first '|' above the ':' following the base package name, and
+# the '|' on the right side marks the last column you can put a character in.
+# You must make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':' except on otherwise blank lines.
+
+     |-----handy-ruler------------------------------------------------------|
+xcftools: xcftools (CLI tools around Gimp's XCF format)
+xcftools:
+xcftools: Xcftools is a set of fast commandline tools for extracting information
+xcftools: from the Gimp's native file format XCF. The tools are designed to
+xcftools: allow efficient use of layered XCF files as sources in a build system
+xcftools: that use 'make' and similar tools to manage automatic processing of
+xcftools: the graphics. These tools work independently of the Gimp engine and do
+xcftools: not require the Gimp to even be installed.
+xcftools: tools: xcf2pnm, xcf2png, xcfinfo and xcfview
+xcftools:
+xcftools: 
