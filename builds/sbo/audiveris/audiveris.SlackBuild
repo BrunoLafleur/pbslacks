@@ -54,6 +54,7 @@ cd $TMP
 rm -rf ${PRGNAM}-$VERSION
 unzip $CWD/${PRGNAM}-$VERSION.zip
 cd ${PRGNAM}-$VERSION
+
 chown -R root:root .
 git init
 git config --global user.email "Vous@exemple.com"
@@ -61,6 +62,8 @@ git config --global user.name "Votre Nom"
 git add .
 git add -u
 git commit -m 'my commit'
+
+./gradlew wrapper --gradle-version=8.10
 ./gradlew build
 
 AUDIVERIS_INSTALL=$(ls build/distributions/Audiveris*.zip)

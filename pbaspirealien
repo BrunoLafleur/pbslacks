@@ -34,7 +34,8 @@ fi
 (
     cd packages
     xgetpac p7zip "$SLACKALIEN3/p7zip" 10
-    for i in cabextract jack2 musescore openjdk11 boost-compat vkd3d \
+    # openjdk11 remplace par openjdk17
+    for i in cabextract jack2 musescore openjdk17 boost-compat vkd3d \
 			FAudio wine jamulus qjackctl pulseaudio-jack ;do
 	xgetpac "$i" "$SLACKALIEN/$i/pkg64/${SLACKVER}" 10
     done

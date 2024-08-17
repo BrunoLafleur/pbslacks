@@ -96,8 +96,9 @@ fi
     cd packages2    
     for i in jq lua53 lua guile1.8 gnome-desktop gnome-icon-theme evince libsmf \
 		fontforge texi2html lilypond roccat-tools PyYAML lutris lsdvd \
-		visual-studio-code sqlitebrowser libx86emu hwinfo \
-		irrlicht voxelands valgrind webkitgtk libseccomp ;do
+		visual-studio-code sqlitebrowser libx86emu hwinfo irrlicht \
+		voxelands valgrind webkitgtk libseccomp libwpe wpebackend-fdo \
+		bubblewrap xdg-dbus-proxy ;do
 	xgetsbosrc "$i"
     done
     
@@ -172,9 +173,8 @@ fi
     [ ! -d epiphany ] && mkdir epiphany
     (
 	cd epiphany
-	for i in appstream-glib bubblewrap epiphany gcab geoclue2 libdazzle \
-				libhandy libportal libsoup3 libwpe unifdef \
-				webkit2gtk4.1 wpebackend-fdo xdg-dbus-proxy ;do
+	for i in appstream-glib epiphany gcab geoclue2 libdazzle libhandy \
+				libportal libsoup3 unifdef webkit2gtk4.1 ;do
 	    xgetsbosrc "$i"
 	done
     )

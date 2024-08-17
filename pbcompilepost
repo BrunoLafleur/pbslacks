@@ -216,7 +216,8 @@ if [ $ISPAC2 -eq 1 ] ;then
     removepkg fontforge
     for i in jq lua53 lua guile1.8 gnome-desktop gnome-icon-theme evince libsmf \
 		fontforge texi2html lilypond roccat-tools MPlayer2020 kmplayer \
-		denemo guile2.2 discord PyYAML webkitgtk libseccomp lutris lsdvd \
+		denemo guile2.2 discord PyYAML libwpe wpebackend-fdo bubblewrap \
+		xdg-dbus-proxy libseccomp webkitgtk lutris lsdvd \
 		visual-studio-code sqlitebrowser libx86emu hwinfo irrlicht \
 		voxelands valgrind ;do
 	xmakepac packages2 $i
@@ -334,9 +335,8 @@ if [ $ISLMMS -eq 1 ] ;then
 fi
 
 if [ $ISEPIPHANY -eq 1 ] ;then
-    for i in bubblewrap appstream-glib gcab geoclue2 libdazzle libhandy \
-			libwpe unifdef wpebackend-fdo xdg-dbus-proxy libsoup3 \
-			libportal webkit2gtk4.1 epiphany ;do
+    for i in appstream-glib gcab geoclue2 libdazzle libhandy unifdef libsoup3 \
+			    libportal webkit2gtk4.1 epiphany ;do
 	echo "------------------- $i ----------"
 	xmakepac packages4/epiphany $i
     done
