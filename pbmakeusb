@@ -85,19 +85,19 @@ if [ $ISASK -eq 1 ] ;then
 	xcur=$(mygt 'current directory')
 	dialog --colors --backtitle 'pbmakeusb' --title "$xtit" --defaultno \
 	    --menu "$xtext" 15 80 5 none "$xcur" \
-	    $(ls -1 "$REPISO/Slackware-x64-"*.iso 2> /dev/null|\
-	    sed 's@^\(.*Slackware-x64-\)\(.*\)\.iso$@\2 \1\2.iso@') \
+	    $(ls -1 "$REPISO/Slackware-${PBARCH}-"*.iso 2> /dev/null|\
+	    sed "s@^\(.*Slackware-${PBARCH}-\)\(.*\)\.iso$@\2 \1\2.iso@") \
 	    2> $XTEMPOUT
 	res=$(cat $XTEMPOUT)
 	c=;[ "$res" != 'none' -a "$res" != '' ] && \
-	    c="$REPISO/Slackware-x64-${res}.iso"
+	    c="$REPISO/Slackware-${PBARCH}-${res}.iso"
 	rm -f $XTEMPOUT
     else
 	echo "$xtext"|sed 's@\\n@\n@g'
-	ls -1 "$REPISO/Slackware-x64-"*.iso 2> /dev/null|\
-	    sed 's@^\(.*Slackware-x64-\)\(.*\)\.iso$@name=\2 => \1\2.iso@'
+	ls -1 "$REPISO/Slackware-${PBARCH}-"*.iso 2> /dev/null|\
+	    sed "s@^\(.*Slackware-${PBARCH}-\)\(.*\)\.iso$@name=\2 => \1\2.iso@"
 	read c
-	[ "$c" != '' ] && c="$REPISO/Slackware-x64-${c}.iso"
+	[ "$c" != '' ] && c="$REPISO/Slackware-${PBARCH}-${c}.iso"
     fi
     if [ "$c" != '' ] ;then
 	IMGISO="$(cd $(dirname $c); pwd)/$(basename $c)";cd "$MYPWD"
