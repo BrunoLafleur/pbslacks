@@ -192,6 +192,7 @@ if [ $ISOPENSHOT -eq 1 ] ;then
     # python2-* for openshot 1.4, openshot_qt => openshot 2.5
     # libopenshot pour openshot_qt utilise opencv 4 qui vient avec tesseract 4.
     # Sinon upgrader opencv avec tesseract.
+    # Tesseract 4 aussi pour audiveris (marche peut etre aussi avec 5).
     # Tester tesseract 5.
     [ $(ls /var/log/packages/tesseract-4.*[0-9]* 2> /dev/null|wc -l) -lt 1 ] && \
 	xmakepac packages/openshot tesseract4
