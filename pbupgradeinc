@@ -152,7 +152,7 @@ xhookpac4 () {
 }
 
 xhooktess () {
-    cp packages4/tesseract4/xsane2tess* /usr/bin
+    cp packages4/tesseract/xsane2tess* /usr/bin
 }
 
 # Some config I always use.

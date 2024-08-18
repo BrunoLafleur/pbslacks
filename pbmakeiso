@@ -42,7 +42,7 @@ SRC2=
 #SRC2='-m source'
 
 XTEMPLIST=$(mktemp -p /tmp -t pbmakeisolist.XXXXXX)
-find -L . -type d | grep "\./packages" | egrep -v 'package[^/]*($|/(ardour|audacity|compat32|openshot|pitivi|Mozilla|Httpfs|frameworks|audiveris|tesseract4|Steam)$)'|sed 's/^\./../g' > $XTEMPLIST
+find -L . -type d | grep "\./packages" | egrep -v 'package[^/]*($|/(ardour|audacity|compat32|openshot|pitivi|Mozilla|Httpfs|frameworks|audiveris|tesseract|Steam)$)'|sed 's/^\./../g' > $XTEMPLIST
 find -L . -type d | grep "\./kde5" | egrep -v 'kde5($|/(frameworks|deps|plasma-extra)$)'|sed 's/^\./../g' >> $XTEMPLIST
 find -L . -type d | grep "\./kde4" | egrep -v 'kde4($|/(kde|deps|other|kdeother'"$SRC1"')$)'|sed 's/^\./../g' >> $XTEMPLIST
 

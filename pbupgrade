@@ -125,7 +125,7 @@ xmaster () {
 	ardour "$(mygt 'Install/Upgrade the Ardour software')" $xsel12 ardour \
 	lmms "$(mygt 'Install/Upgrade the LMMS software')" $xslmms lmms \
 	epiphany "$(mygt 'Install/Upgrade the Epiphany software')" $xepip epiphany \
-	tesseract4 "$(mygt 'Install/Upgrade the Tesseract version 4 software')" $xsel13 tesseract4 \
+	tesseract "$(mygt 'Install/Upgrade the Tesseract software')" $xsel13 tesseract \
 	bumblebee "$(mygt 'Install/Upgrade the Bumblebee support of your second NVIDIA graphic card')" $xsel14 bumblebee \
     	bootload "$(mygt 'Upgrade boot loader.')" $xsel24 bootload
 }
@@ -170,7 +170,7 @@ while [ $bclaide -eq 1 ] ;do
 	xsel=
 	for i in system systemnet compat32 mozilla packages packages2 packages3 \
 			packages4 debian frameworks gdm openshot pitivi audacity \
-			ardour lmms epiphany tesseract4 bumblebee bootload ;do
+			ardour lmms epiphany tesseract bumblebee bootload ;do
 	  if [ $(grep "^$i$" "$XTEMPOUT"|wc -l) -eq 1 ] ;then
 	      xsel="$xsel on"
 	  else
@@ -211,8 +211,8 @@ while [ $bclaide -eq 1 ] ;do
 	    xpacaide packages4/lmms
 	elif [ "$xitem" = epiphany ] ;then
 	    xpacaide packages4/epiphany
-	elif [ "$xitem" = tesseract4 ] ;then
-	    xpacaide packages4/tesseract4
+	elif [ "$xitem" = tesseract ] ;then
+	    xpacaide packages4/tesseract
 	elif [ "$xitem" = bumblebee ] ;then
 	    pacaide=$(mygt 'Upgrade your Bumblebee packages if they are in sync with the upgraded Slackware.\nDone on another machine for exemple.')
 	elif [ "$xitem" = bootload ] ;then
@@ -242,7 +242,7 @@ ISAUDACITY="$(cat $XTEMPOUT|grep '^audacity$'|wc -l)"
 ISARDOUR="$(cat $XTEMPOUT|grep '^ardour$'|wc -l)"
 ISLMMS="$(cat $XTEMPOUT|grep '^lmms$'|wc -l)"
 ISEPIPHANY="$(cat $XTEMPOUT|grep '^epiphany$'|wc -l)"
-ISTESS="$(cat $XTEMPOUT|grep '^tesseract4$'|wc -l)"
+ISTESS="$(cat $XTEMPOUT|grep '^tesseract$'|wc -l)"
 ISBUMBLE="$(cat $XTEMPOUT|grep '^bumblebee$'|wc -l)"
 
 ISBOOTLOAD="$(cat $XTEMPOUT|grep '^bootload$'|wc -l)"
@@ -372,10 +372,10 @@ if [ $XEND -eq 0 ] ;then
     fi
     if [ $ISTESS -eq 1 ] ;then
 	if [ $XTEST -ne 1 ] ;then
-	    upgradedir packages4/tesseract4
+	    upgradedir packages4/tesseract
 	    xhooktess
 	fi
-	mygt "Upgrade tesseract4 done." >> $XTEMPMES
+	mygt "Upgrade tesseract done." >> $XTEMPMES
     fi
     if [ $ISBUMBLE -eq 1 ] ;then
 	if [ $XTEST -ne 1 ] ;then

@@ -54,13 +54,14 @@ xpurgeindex packages
 ############################################
 (
     cd packages4
-    [ ! -d tesseract4 ] && mkdir tesseract4
+    [ ! -d tesseract ] && mkdir tesseract
+    rm -rf tesseract4
     (
-	cd tesseract4
+	cd tesseract
 	for i in leptonica tesseract ;do
 	    xgetpac "$i" "$SLACKCF/$i" 3
 	done
     )
 )
-cp pbslacks/builds/tesseract4/* packages4/tesseract4
+cp pbslacks/builds/tesseract/* packages4/tesseract
 xpurgeindex packages4
