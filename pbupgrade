@@ -9,7 +9,7 @@
 . "$(dirname $0)/pbupgradesys"
 
 # For systemnet upgrade. Change mirror if you want.
-SLACKURL='http://nephtys.lip6.fr/pub/linux/distributions/slackware/slackware64-${SLACKVER}/'
+SLACKURL="http://nephtys.lip6.fr/pub/linux/distributions/slackware/${SLACKREPO}/"
 
 xhelp () {
     mygt 'Launch this script in the directory including alreadey cloned slackware64 or slackware64-current.\nIt can be on the bootable slackware install USB stick.\npbslacks should also be there.'|sed 's@\\n@\n@g'
@@ -60,13 +60,8 @@ if [ ! -d /boot ] ;then
 fi
 
 if [ $XTEST -ne 1 ] ;then
-    if [ -d slackware64-${SLACKVER} ] ;then
-	cd slackware64-${SLACKVER}
-    elif [ -d slackwarearm-${SLACKVER} ] ;then
-	cd slackwarearm-${SLACKVER}
-    fi
-    if [ '(' ! -d slackware64 -a ! -d slackware ')' \
-	     -o '(' ! -h pbslacks -a ! -d pbslacks ')' ] ;then
+    [ -d "$SLACKREPO" ] && cd "$SLACKREPO"
+    if [ ! -d "$SLACKSUBDIR" -o '(' ! -h pbslacks -a ! -d pbslacks ')' ] ;then
 	mygt 'slackware64 or pbslacks not found.'> $XTEMPMES
 	xhelp >> $XTEMPMES
     fi
@@ -262,6 +257,7 @@ fi
 if [ $XEND -eq 0 ] ;then
     if [ $ISCOMPAT -eq 1 ] ;then
 	if [ $XTEST -ne 1 ] ;then
+	    # Multilib.
 	    if [ $(ls ${SLACKVER}/aaa_glibc-solibs-*.t?z 2> /dev/null|wc -l) -gt 0 ]
 	    then
 		rm -f ${SLACKVER}/glibc-solibs-*
@@ -280,6 +276,7 @@ if [ $XEND -eq 0 ] ;then
     fi
     if [ $ISPACK -eq 1 ] ;then
 	if [ $XTEST -ne 1 ] ;then
+	    xprepac1
 	    upgradedir packages
 	    upgradedir packages/compat32
 	    xhookpac1
@@ -288,6 +285,7 @@ if [ $XEND -eq 0 ] ;then
     fi
     if [ $ISPACK2 -eq 1 ] ;then
 	if [ $XTEST -ne 1 ] ;then
+	    xprepac2
 	    upgradedir packages2
 	    xhookpac2
 	fi

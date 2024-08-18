@@ -34,25 +34,20 @@ fi
 (
     cd packages
     xgetpac p7zip "$SLACKALIEN3/p7zip" 10
-    # openjdk11 remplace par openjdk17
     for i in cabextract jack2 musescore openjdk17 boost-compat vkd3d \
 			FAudio wine jamulus qjackctl pulseaudio-jack ;do
 	xgetpac "$i" "$SLACKALIEN/$i/pkg64/${SLACKVER}" 10
     done
+    # openjdk => openjdk11 => openjdk17
+    # Source version.
+    for i in openjdk17 ;do
+    	xgetsrcpac0 "$i" "$SLACKALIEN/$i/build" 9
+    done
+    
     rm -f libxkbcommon-*
     rm -f qt5-*
-
-    # MLT pour openshot.
-    # On recompile pour dependances jackrack, rubberband, swfdec.
-    #i=mlt
-    #xgetsrcpac "$i" "$SLACKALIENSRC2/$i/" 9
     rm -f mlt-*;rm -rf mlt
     
-    # For reenabling --enable-obsolete-nsl and --enable-obsolete-rpc which
-    # I need. Recompile the multilib version.
-    #i=glibc
-    #xgetsrcpac "$i" "$SLACKMULTI_SRC/$i/" 9
-
     for i in steamclient ;do
 	xgetpac "$i" "$SLACKALIEN/$i/pkg/${SLACKVER}" 10
     done
@@ -60,6 +55,7 @@ fi
 			 libreoffice-sdkdoc ;do
 	xgetpac "$i" "$SLACKALIEN/libreoffice/pkg64/${SLACKVER}" 10
     done
+    
     (
 	cd 32
 	for i in cabextract ;do

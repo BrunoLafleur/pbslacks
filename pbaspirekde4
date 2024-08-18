@@ -154,9 +154,9 @@ export HOMESLACK="$MYPWD"
     )
     echo '------------------------------------'
 )
-if [ -d slackware64-${SLACKVER} ] ;then
+if [ -d "$SLACKREPO" ] ;then
     (
-	cd slackware64-${SLACKVER}
+	cd "$SLACKREPO"
 	ln -sf ../kde4 .
     )
 fi

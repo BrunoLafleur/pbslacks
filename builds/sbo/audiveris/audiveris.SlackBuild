@@ -32,6 +32,7 @@ ARCH=noarch
 BUILD=${BUILD:-1}
 TAG=${TAG:-_PB}
 
+GRADLEVER=8.10
 AUDIVERIS_HOME=/usr/share/audiveris
 TESS3_HOME=/usr/share/tesseract-ocr/tessdata
 URL_TRAINEDDATA='https://github.com/tesseract-ocr/tessdata/raw/3.04.00/'
@@ -63,7 +64,7 @@ git add .
 git add -u
 git commit -m 'my commit'
 
-./gradlew wrapper --gradle-version=8.10
+./gradlew wrapper --gradle-version=$GRADLEVER
 ./gradlew build
 
 AUDIVERIS_INSTALL=$(ls build/distributions/Audiveris*.zip)

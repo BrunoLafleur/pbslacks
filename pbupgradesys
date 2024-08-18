@@ -11,7 +11,7 @@ xupmainpac () {
     repo="$3"
     grp="$4"
     [ $(ls /var/log/packages/${pac}*-[0-9]$repo 2> /dev/null|wc -l) -eq 1 ] &&\
-	upgradepkg slackware64/$grp/${pac}*$suf
+	upgradepkg ${SLACKSUBDIR}/$grp/${pac}*$suf
 }
 
 # Upgradepkg with reinstall if the package date is newer than the installed
@@ -55,7 +55,7 @@ setconfslackpkg () {
 }
 
 upgradeglibc () {
-    XCURDIRA=slackware64/a
+    XCURDIRA=${SLACKSUBDIR}/a
     if [ $(ls $XCURDIRA/aaa_glibc-solibs-*.t?z 2> /dev/null|wc -l) -gt 0 ] ;then
 	(
 	    cd $XCURDIRA

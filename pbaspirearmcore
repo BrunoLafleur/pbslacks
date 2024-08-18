@@ -62,19 +62,18 @@ export HOMESLACK="$MYPWD"
 
 # Can be the USB stick.
 CDIR=$(basename $MYPWD)
-ISSTICK=0;[ -d ${SLACKVER} -a "$CDIR" = slackwarearm-${SLACKVER} ] && ISSTICK=1
+ISSTICK=0;[ -d ${SLACKVER} -a "$CDIR" = "$SLACKREPO" ] && ISSTICK=1
 
 # The official current Slackware.
 if [ $ISCORE -eq 1 -o $ISPURGE -eq 1 ] ;then
     [ $ISSTICK -eq 1 ] && cd ..
-    [ $ISCORE -eq 1 ] && myrget 4 "$SLACKARM/slackwarearm-${SLACKVER}" \
-				slackwarearm-${SLACKVER}
+    [ $ISCORE -eq 1 ] && myrget 4 "$SLACKARM/$SLACKREPO" $SLACKREPO
 
 # Nettoyage des doublons
     echo '------------------------------------'
-    if [ -d slackwarearm-${SLACKVER} ] ;then
+    if [ -d "$SLACKREPO" ] ;then
 	(
-	    cd slackwarearm-${SLACKVER}
+	    cd "$SLACKREPO"
 	    find . -name '*.t?z'|grep -v '^./source/'|\
 		while read i;test "$i" != "" ;do
 		    pack=$(echo $i|sed 's@-[0-9\.][^-]*-[^-]*-[^-]*$@@')
@@ -96,13 +95,13 @@ if [ $ISCORE -eq 1 -o $ISPURGE -eq 1 ] ;then
     else
 	mygt "Slackware current not copied."
     fi
-    [ $ISSTICK -eq 1 ] && cd slackwarearm-${SLACKVER}
+    [ $ISSTICK -eq 1 ] && cd "$SLACKREPO"
     echo '------------------------------------'
 fi
 [ $ISSTICK -eq 1 ] && cd ..
-if [ -d slackwarearm-${SLACKVER} ] ;then
+if [ -d "$SLACKREPO" ] ;then
     (
-	cd slackwarearm-${SLACKVER}
+	cd "$SLACKREPO"
 	ln -sf ../perso .
 	ln -sf ../pbslacks .
 	ln -sf ../packages* .
@@ -110,7 +109,7 @@ if [ -d slackwarearm-${SLACKVER} ] ;then
 	ln -sf ../gpgkeys .
     )
 fi
-[ $ISSTICK -eq 1 ] && cd slackwarearm-${SLACKVER}
+[ $ISSTICK -eq 1 ] && cd "$SLACKREPO"
 
 # Apps KDE5
 if [ $ISKDE5 -eq 1 ] ;then
@@ -133,9 +132,9 @@ if [ $ISKDE5 -eq 1 ] ;then
 	mygt "KDE5 applications sources copied."
 	echo '------------------------------------'
     )
-    if [ -d slackware64-${SLACKVER} ] ;then
+    if [ -d "$SLACKFREPO" ] ;then
 	(
-	    cd slackware64-${SLACKVER}
+	    cd "$SLACKFREPO"
 	    ln -sf ../kde5 .
 	)
     fi
@@ -144,14 +143,14 @@ fi
 if [ $ISCHECK -eq 1 ] ;then
     [ $ISSTICK -eq 1 ] && cd ..
     # Get GPG Keys from the original Slackware web site.
-    if [ -d slackwarearm-${SLACKVER} ] ;then
+    if [ -d "$SLACKFREPO" ] ;then
 	(
-	    cd slackwarearm-${SLACKVER}
+	    cd "$SLACKFREPO"
 	    [ ! -f GPG-KEY ] && xgeturl "$SLACKKEYS/slackwarearm-${SLACKVER}/GPG-KEY"
 	    ln -sf ../gpgkeys .
 	)
     fi
-    [ $ISSTICK -eq 1 ] && cd slackwarearm-${SLACKVER}
+    [ $ISSTICK -eq 1 ] && cd "$SLACKFREPO"
 
     # Check with GPG signatures
     # From :

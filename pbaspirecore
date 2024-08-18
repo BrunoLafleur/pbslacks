@@ -71,19 +71,18 @@ export HOMESLACK="$MYPWD"
 
 # Can be the USB stick.
 CDIR=$(basename $MYPWD)
-ISSTICK=0;[ -d ${SLACKVER} -a "$CDIR" = slackware64-${SLACKVER} ] && ISSTICK=1
+ISSTICK=0;[ -d ${SLACKVER} -a "$CDIR" = "$SLACKREPO" ] && ISSTICK=1
 
 # The official current Slackware.
 if [ $ISCORE -eq 1 -o $ISPURGE -eq 1 ] ;then
     [ $ISSTICK -eq 1 ] && cd ..
-    [ $ISCORE -eq 1 ] && myrget 4 "$SLACKMIR/slackware64-${SLACKVER}" \
-				slackware64-${SLACKVER}
+    [ $ISCORE -eq 1 ] && myrget 4 "$SLACKMIR/$SLACKREPO" "$SLACKREPO"
 
 # Nettoyage des doublons
     echo '------------------------------------'
-    if [ -d slackware64-${SLACKVER} ] ;then
+    if [ -d "$SLACKREPO" ] ;then
 	(
-	    cd slackware64-${SLACKVER}
+	    cd "$SLACKREPO"
 	    find . -name '*.t?z'|grep -v '^./source/'|\
 		while read i;test "$i" != "" ;do
 		    pack=$(echo $i|sed 's@-[0-9\.][^-]*-[^-]*-[^-]*$@@')
@@ -105,13 +104,13 @@ if [ $ISCORE -eq 1 -o $ISPURGE -eq 1 ] ;then
     else
 	mygt "Slackware current not copied."
     fi
-    [ $ISSTICK -eq 1 ] && cd slackware64-${SLACKVER}
+    [ $ISSTICK -eq 1 ] && cd "$SLACKREPO"
     echo '------------------------------------'
 fi
 [ $ISSTICK -eq 1 ] && cd ..
-if [ -d slackware64-${SLACKVER} ] ;then
+if [ -d "$SLACKREPO" ] ;then
     (
-	cd slackware64-${SLACKVER}
+	cd "$SLACKREPO"
 	ln -sf ../${SLACKVER} .
 	ln -sf ../perso .
 	ln -sf ../pbslacks .
@@ -122,7 +121,7 @@ if [ -d slackware64-${SLACKVER} ] ;then
 	ln -sf ../gpgkeys .
     )
 fi
-[ $ISSTICK -eq 1 ] && cd slackware64-${SLACKVER}
+[ $ISSTICK -eq 1 ] && cd "$SLACKREPO"
 
 # Multilib Alien Bob.
 if [ $ISMULTI -eq 1 -o $ISPURGE -eq 1 ] ;then
@@ -149,9 +148,9 @@ if [ $ISMULTI -eq 1 -o $ISPURGE -eq 1 ] ;then
     else
 	mygt "Slackware multilib not copied."
     fi
-    if [ -d slackware64-${SLACKVER} ] ;then
+    if [ -d "$SLACKREPO" ] ;then
 	(
-	    cd slackware64-${SLACKVER}
+	    cd "$SLACKREPO"
 	    ln -sf ../${SLACKVER} .
 	)
     fi
@@ -185,9 +184,9 @@ if [ $ISFRAMEW -eq 1 ] ;then
 	mygt "KDE5 frameworks sources copied."
 	echo '------------------------------------'
     )
-    if [ -d slackware64-${SLACKVER} ] ;then
+    if [ -d "$SLACKREPO" ] ;then
 	(
-	    cd slackware64-${SLACKVER}
+	    cd "$SLACKREPO"
 	    ln -sf ../kde5 .
 	)
     fi
@@ -196,14 +195,14 @@ fi
 if [ $ISCHECK -eq 1 ] ;then
     [ $ISSTICK -eq 1 ] && cd ..
     # Get GPG Keys from the original Slackware web site.
-    if [ -d slackware64-${SLACKVER} ] ;then
+    if [ -d "$SLACKREPO" ] ;then
 	(
-	    cd slackware64-${SLACKVER}
-	    [ ! -f GPG-KEY ] && xgeturl "$SLACKKEYS/slackware64-${SLACKVER}/GPG-KEY"
+	    cd "$SLACKREPO"
+	    [ ! -f GPG-KEY ] && xgeturl "$SLACKKEYS/$SLACKREPO/GPG-KEY"
 	    ln -sf ../gpgkeys .
 	)
     fi
-    [ $ISSTICK -eq 1 ] && cd slackware64-${SLACKVER}
+    [ $ISSTICK -eq 1 ] && cd "$SLACKREPO"
 
     # Check with GPG signatures
     # From :

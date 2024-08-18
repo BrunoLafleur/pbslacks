@@ -38,7 +38,7 @@ XFIREFOXXPI='https://ftp.mozilla.org/pub/firefox/releases/78.10.1esr/linux-x86_6
 
 # Links for binary packages from Conraid and Slackel.
 
-SLACKCF="http://slack.conraid.net/repository/slackware64-${SLACKVER}"
+SLACKCF="http://slack.conraid.net/repository/"
 SLACKDJ="http://www.slackel.gr/repo/x86_64/${SLACKVER}/slackel/extra"
 SLACKDJ32="http://www.slackel.gr/repo/i486/${SLACKVER}/slackel/extra"
 SLACKDJPAR="http://www.slackel.gr/repo/x86_64/${SLACKVER}"
@@ -49,8 +49,8 @@ SLACKDL="http://www.droplinegnome.org/files/3.36/x86_64/testing"
 
 # Links for binary packages from Ponce.
 
-SLACKPONCE="http://ponce.cc/slackware/slackware64-${SLACKVER}/packages"
-SLACKPONCE32="http://ponce.cc/slackware/slackware-${SLACKVER}/packages"
+SLACKPONCE="http://ponce.cc/slackware/$SLACKREPO/packages"
+SLACKPONCE32="http://ponce.cc/slackware/$SLACKREPO/packages"
 
 # Links for binary packages from Slonly.
 

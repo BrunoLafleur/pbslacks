@@ -52,14 +52,19 @@ PBMYPROG="pbslacks/$MYPROG"
 MYPWD=$(pwd)
 PBDIRPROG="$(cd $(dirname $0); pwd)";cd "$MYPWD"
 PBARCH=x64
+SLACKSUBDIR=slackware64
 
 if [ -d slackware64-current ] ;then
     SLACKVER=current
 elif [ -d slackwarearm-current ] ;then
     SLACKVER=current
+elif [ -d slackware-current ] ;then
+    SLACKVER=current
 elif [ -d slackware64-15.0 ] ;then
     SLACKVER=15.0
 elif [ -d slackwarearm-15.0 ] ;then
+    SLACKVER=15.0
+elif [ -d slackware-15.0 ] ;then
     SLACKVER=15.0
 else
     SLACKVER=15.0
@@ -68,13 +73,29 @@ fi
 if [ ! -d slackware64-${SLACKVER} ] ;then
     if [ -d slackwarearm-${SLACKVER} ] ;then
 	PBARCH=arm
+	SLACKSUBDIR=slackwarearm
+    elif [ -d slackware-${SLACKVER} ] ;then
+	PBARCH=x32
+	SLACKSUBDIR=slackware
     elif [ "$(basename "$(pwd)"|cut -d '-' -f1|cut -c1-9)" = 'slackware' ] ;then
 	TARCH="$(basename "$(pwd)"|cut -d '-' -f1|cut -c10-)"
-	[ "$TARCH" = 'arm' ] && PBARCH=arm
-    elif [ "$(grep ARM CURRENT.WARNING|grep Welcome|wc -l)" -eq 1 ] ;then
+	if [ "$TARCH" = 'arm' ] ; then
+	    PBARCH=arm
+	    SLACKSUBDIR=slackwarearm
+	elif [ "$TARCH" = '' ] ; then
+	    PBARCH=x32
+	    SLACKSUBDIR=slackware
+	fi
+    elif [ "$(grep '/a/aaa_base\-' FILELIST.TXT|grep '\-arm\-'|wc -l)" -gt 0 ] ;then
 	PBARCH=arm
+	SLACKSUBDIR=slackwarearm
+    elif [ "$(grep '/a/aaa_base\-' FILELIST.TXT|grep '\-i.86\-'|wc -l)" -gt 0 ] ;then
+	PBARCH=x32
+	SLACKSUBDIR=slackware
     fi
 fi
+
+SLACKREPO=${SLACKSUBDIR}-${SLACKVER}
 
 SLACKPRE15=$(ls slackware*-${SLACKVER}/ANNOUNCE.14_2 2> /dev/null | wc -l)
 

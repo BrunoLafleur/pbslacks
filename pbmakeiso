@@ -12,7 +12,7 @@ xhelp () {
     echo '> ../pbslacks/$MYPROG'
 }
 
-if [ ! -d slackware64-${SLACKVER} -o \
+if [ ! -d "$SLACKREPO" -o \
        \( "$0" != "../pbslacks/$MYPROG" -a "$0" != "pbslacks/$MYPROG" \) ] ;then
     xhelp
     exit 1
@@ -34,7 +34,7 @@ echo '-------------------------------------------------'
 emygt "If not too big for your recorder which should use double layer media,\nthe iso created can be put on a DVD with :\n> growisofs -speed=2 -dvd-compat -Z /dev/dvd \$FNAMEISO\n\n  Or your favorite DVD recorder.\n\n  Or on an USB stick (sdX below is the name of the USB device) :\n> dd if=\$FNAMEISO of=/dev/sdX bs=1M ;sync\n\n  Or launch :\n> pbmakeiso2usb \$FNAMEISO\n\n  Or lauch :\n> pbmakeusb"|sed 's@\\n@\n@g'
 echo '-------------------------------------------------'
 
-cd slackware64-${SLACKVER}
+cd "$SLACKREPO"
 # Pour enlevez les sources changez les 2 variables suivantes.
 SRC1='|source/?.*'
 SRC2=

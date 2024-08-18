@@ -19,10 +19,8 @@ xhelp () {
     echo '  > pbslacks/pbupgradebumblebee'
 }
 
-if [ -d slackware64-current ] ;then
-    cd slackware64-current
-fi
-if [ ! -d slackware64 -o '(' ! -h pbslacks -a ! -d pbslacks ')' ] ;then
+[ -d "$SLACKREPO" ] && cd "$SLACKREPO"
+if [ ! -d "$SLACKSUBDIR" -o '(' ! -h pbslacks -a ! -d pbslacks ')' ] ;then
     xhelp
     exit 1
 fi

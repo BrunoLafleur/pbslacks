@@ -53,13 +53,10 @@ if [ ! -d /boot ] ;then
 fi
 
 if [ $XTEST -ne 1 ] ;then
-    if [ -d slackware64-${SLACKVER} ] ;then
-	cd slackware64-${SLACKVER}
-    elif [ -d slackwarearm-${SLACKVER} ] ;then
-	cd slackwarearm-${SLACKVER}
+    if [ -d "$SLACKREPO" ] ;then
+	cd "$SLACKREPO"
     fi
-    if [ '(' ! -d slackware64 -a ! -d slackware ')' \
-	     -o '(' ! -h pbslacks -a ! -d pbslacks ')' ] ;then
+    if [ ! -d "$SLACKSUBDIR" -o '(' ! -h pbslacks -a ! -d pbslacks ')' ] ;then
 	mygt 'slackware64 or pbslacks not found.'> $XTEMPMES
 	xhelp >> $XTEMPMES
     fi
