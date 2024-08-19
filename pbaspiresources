@@ -151,6 +151,16 @@ fi
 	xgetsbosrc "$i" $RARCH
     done
 
+    # Tesseract
+    [ ! -d tesseract ] && mkdir tesseract
+    rm -rf tesseract4
+    (
+	cd tesseract
+	for i in leptonica tesseract ;do
+	    xgetsbosrc "$i"
+	done
+    )
+    
     # LMMS
     [ ! -d lmms ] && mkdir lmms
     (

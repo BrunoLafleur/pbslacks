@@ -144,7 +144,6 @@ if [ $ISPAC1 -eq 1 ] ;then
     )
 
     # 32 bits packages
-    # A faire ajoute gstreamer0
     if [ $PBARCH = x64 ] ;then
 	rm -f packages/compat32/wxPython-compat32-[0-9]*djcompat32.*	
 	for i in cabextract libdvdcss icoutils GConf openal-soft libtxc_dxtn \
@@ -196,6 +195,7 @@ if [ $ISOPENSHOT -eq 1 ] ;then
     # Tester tesseract 5.
     [ $(ls /var/log/packages/tesseract-4.*[0-9]* 2> /dev/null|wc -l) -lt 1 ] && \
 	xmakepac packages/openshot tesseract4
+    
     for i in double-conversion dos2unix potrace gdl libvdpau-va-gl python2-mlt \
 			       python2-libcaca python2-libwebp python-pillow6 \
 			       zeromq protobuf GraphicsMagick libopenshot-audio \
@@ -301,11 +301,18 @@ if [ $ISPAC4 -eq 1 ] ;then
 	xmakepac packages4 vbam
     )
     [ $? -ne 0 ] && exit 1
+    
     for i in exiftool unrar xcftools xrdp xorgxrdp SFML fbida kaffeine eigen3 \
 		      opencv gradle vokoscreen audiveris ;do
 	xmakepac packages4 $i
     done
-    
+
+    # Tesseract
+    for i in leptonica tesseract ;do
+	xmakepac packages4/tesseract $i
+    done
+    xhooktess
+
     # Repackaging of binary versions.
     for i in signal-desktop zoom-linux opera vivaldi brave-browser \
 			    google-chrome-the-latest telegram-bin ;do

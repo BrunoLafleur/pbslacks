@@ -152,7 +152,14 @@ xhookpac4 () {
 }
 
 xhooktess () {
-    cp packages4/tesseract/xsane2tess* /usr/bin
+    # Post actions for tesseract
+    (
+	cd packages4/tesseract
+	rm -f tesseract-*cf.*
+	rm -f leptonica-*cf.*
+	rm -f xsane2tess*.pl
+	rm -f XSANE2TESS.txt
+    )
 }
 
 # Some config I always use.
