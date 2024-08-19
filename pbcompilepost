@@ -127,7 +127,10 @@ if [ $ISPAC1 -eq 1 ] ;then
 			     dawconfig hplip-plugin wxPython refind ;do
 	xmakepac packages $i
     done
-	
+    [ $(ls /var/log/packages/openal-soft-[1-9]*-[1-9] 2> /dev/null|wc -l) \
+	  -lt 1 ] && \
+	xmakepac packages openal-soft
+  
     # We recreate openjdk17
     (
 	export BOOTSTRAP=yes
