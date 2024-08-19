@@ -159,6 +159,7 @@ xhooktess () {
 	rm -f leptonica-*cf.*
 	rm -f xsane2tess*.pl
 	rm -f XSANE2TESS.txt
+	rm -f osd.traineddata
     )
 }
 
