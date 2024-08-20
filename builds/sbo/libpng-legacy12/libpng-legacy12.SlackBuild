@@ -64,6 +64,11 @@ make install prefix=/usr LIBPATH=/usr/lib${LIBDIRSUFFIX} \
 find $PKG | xargs file | grep -e "executable" -e "shared object" \
     | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
 
+# Suppress link.
+rm -f $PKG/usr/include/png.h
+rm -f $PKG/usr/include/pngconf.h
+rm -f $PKG/usr/include/pnglibconf.h
+
 rm -rf $PKG/usr/lib${LIBDIRSUFFIX}/lib*.la
 rm -rf $PKG/usr/lib${LIBDIRSUFFIX}/lib*.a
 rm -rf $PKG/usr/lib${LIBDIRSUFFIX}/lib*.so.3*
