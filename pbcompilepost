@@ -125,7 +125,8 @@ if [ $ISPAC1 -eq 1 ] ;then
 			     gstreamer0 gst-plugins-base0 libtxc_dxtn \
 			     libgaminggear acpibrightness gst-plugins-bad \
 			     dawconfig hplip-plugin wxPython refind \
-			     gimp-script-fu skypeforlinux-bin x265 ;do
+			     gimp-script-fu skypeforlinux-bin x265 podofo \
+			     scribus ;do
 	xmakepac packages $i
     done
     [ $(ls /var/log/packages/openal-soft-[1-9]*-[1-9] 2> /dev/null|wc -l) \

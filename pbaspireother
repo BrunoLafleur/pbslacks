@@ -42,9 +42,6 @@ fi
 
 (
     cd packages
-    for i in podofo scribus ;do
-	xgetpac "$i" "$SLACKCF/$i" 3
-    done
     # Pour multilib python2
     if [ $PBARCH = x64 ] ;then
 	(

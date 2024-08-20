@@ -71,6 +71,8 @@ xhookpac1 () {
 	rm -f gimp-script-fu-51-noarch-1cf.*
 	rm -f skypeforlinux-bin-*-x86_64-1cf.*
 	rm -f x265-*-x86_64-1cf.*
+	rm -f podofo-*-x86_64-1cf.*
+	rm -f scribus-*-x86_64-*cf.*
     )
 }
 
