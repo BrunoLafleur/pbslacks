@@ -38,7 +38,7 @@ XFIREFOXXPI='https://ftp.mozilla.org/pub/firefox/releases/78.10.1esr/linux-x86_6
 
 # Links for binary packages from Conraid and Slackel.
 
-SLACKCF="http://slack.conraid.net/repository/"
+SLACKCF="https://slackers.it/repository/slackware64-current/"
 SLACKDJ="http://www.slackel.gr/repo/x86_64/${SLACKVER}/slackel/extra"
 SLACKDJ32="http://www.slackel.gr/repo/i486/${SLACKVER}/slackel/extra"
 SLACKDJPAR="http://www.slackel.gr/repo/x86_64/${SLACKVER}"

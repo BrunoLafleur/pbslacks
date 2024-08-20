@@ -42,7 +42,7 @@ fi
 
 (
     cd packages
-    for i in gimp-script-fu x265 skypeforlinux-bin podofo scribus ;do
+    for i in x265 podofo scribus ;do
 	xgetpac "$i" "$SLACKCF/$i" 3
     done
     # Pour multilib python2

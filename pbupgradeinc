@@ -68,6 +68,8 @@ xhookpac1 () {
 	rm -f openal-soft-1.*_SBo.tgz
 	rm -f *_slonly.*
 	rm -f 32/wxPython-2.8.12.1-i486-3dj.*
+	rm -f gimp-script-fu-51-noarch-1cf.*
+	rm -f skypeforlinux-bin-*-x86_64-1cf.*
     )
 }
 
