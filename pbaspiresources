@@ -70,7 +70,8 @@ fi
 
     for i in libpng-legacy12 goocanvas pygoocanvas portaudio icoutils portmidi \
 			     portmidi2 gst-plugins-bad hplip-plugin GConf \
-			     wxPython refind gimp-script-fu skypeforlinux-bin ;do
+			     wxPython refind gimp-script-fu skypeforlinux-bin \
+			     x265 ;do
 	xgetsbosrc "$i"
     done
 

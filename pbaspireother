@@ -42,7 +42,7 @@ fi
 
 (
     cd packages
-    for i in x265 podofo scribus ;do
+    for i in podofo scribus ;do
 	xgetpac "$i" "$SLACKCF/$i" 3
     done
     # Pour multilib python2

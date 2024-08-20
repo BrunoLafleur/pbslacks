@@ -1,0 +1,1 @@
+Enlevez les /usr/lib64/*.la fichiers. Ils peuvent gÃ©ner libtool s'il en reste car ils n'ont plus les dÃpendances.

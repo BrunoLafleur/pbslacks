@@ -70,6 +70,7 @@ xhookpac1 () {
 	rm -f 32/wxPython-2.8.12.1-i486-3dj.*
 	rm -f gimp-script-fu-51-noarch-1cf.*
 	rm -f skypeforlinux-bin-*-x86_64-1cf.*
+	rm -f x265-*-x86_64-1cf.*
     )
 }
 
