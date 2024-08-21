@@ -38,10 +38,11 @@ fi
     (
 	cd openshot
 	for i in double-conversion dos2unix potrace gdl zeromq protobuf \
-				   libvdpau-va-glGraphicsMagic libopenshot-audio \
-				   libopenshot openshot_qt lxml inkscape \
-				   opencolorio pybind11 openimageio numpy3 tbb \
-				   OpenSubdiv Blender tesseract4 ;do
+				   libvdpau-va-gl GraphicsMagick \
+				   libopenshot-audio libopenshot openshot_qt \
+				   lxml inkscape opencolorio pybind11 \
+				   openimageio numpy3 tbb OpenSubdiv Blender \
+				   tesseract4 ;do
 	    xgetsbosrc "$i"
 	done
 	xgetsrc python2-mlt "$PATHMLT"
@@ -79,6 +80,8 @@ fi
     if [ "$SLACKPRE15" -ne 1 ] ;then
 	rm -rf portmidi
 	mv portmidi2 portmidi
+	mv portmidi/portmidi2.SlackBuild portmidi/portmidi.SlackBuild
+	mv portmidi/portmidi2.info portmidi/portmidi.info
     else
 	rm -rf portmidi2
     fi

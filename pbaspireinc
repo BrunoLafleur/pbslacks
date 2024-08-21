@@ -84,7 +84,13 @@ xgeturl () {
     echo '-------------------'
     echo "Getting $path :"
     wget -N -nv --content-disposition --no-check-certificate "$path"
-    [ $? -ne 0 ] && wget -nv --content-disposition --no-check-certificate "$path"
+    if [ $? -ne 0 ] ;then
+	wget -N -nv --user-agent="" --content-disposition \
+	     --no-check-certificate "$path"
+    fi
+    if [ $? -ne 0 ] ;then
+	wget -nv --content-disposition --no-check-certificate "$path"
+    fi
 }
 
 # Get the original source tarball.
@@ -111,15 +117,26 @@ xgetsrc () {
 xgetsbosrc () {
     name="$1"
     cib="$2";[ "$cib" != '' ] && cib="_$cib"
+    echo '==============================='
     info="$name/${name}.info"
     [ ! -d "$name" ] && mkdir "$name"
     cp -au "$PBDIRPROG/builds/sbo/$info" "$name"
     rm -f "$name/${name}.tar.gz"
+    
     # Get all links in DOWNLOAD= and DOWNLOAD_...=
     # Works with multi-lines ending with '\'
     path=$(cat $info| tr '\n' '\f'|sed 's/ \\\f/ /g'|tr '\f' '\n' | \
 	       fgrep "DOWNLOAD$cib"|grep -i -v unsupported|\
 	       cut -d '=' -f2|cut -d '"' -f2|tr '\n' ' ')
+    
+    # If there is $REVISION inside path.
+    rev=$(cat $info|fgrep REVISION=)
+    if [ "$rev" != '' ] ;then
+	eval REVISION=$(echo $rev|cut -d= -f2-|sed 's/^"\(.*\)"$/\1/')
+	path=$(echo $path|sed "s/\$REVISION/$REVISION/")
+	echo $path
+    fi
+    
     rm -f $info
     for ii in $path ; do
 	xgetsrc $name "$ii"
