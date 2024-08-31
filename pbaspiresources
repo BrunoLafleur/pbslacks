@@ -102,7 +102,7 @@ fi
 		fontforge texi2html lilypond roccat-tools PyYAML lutris lsdvd \
 		visual-studio-code sqlitebrowser libx86emu hwinfo irrlicht \
 		voxelands valgrind webkitgtk libseccomp libwpe wpebackend-fdo \
-		bubblewrap xdg-dbus-proxy ;do
+		bubblewrap xdg-dbus-proxy electric-fence ;do
 	xgetsbosrc "$i"
     done
     

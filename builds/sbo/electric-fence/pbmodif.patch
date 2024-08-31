@@ -1,0 +1,45 @@
+diff -rU5 electric-fence-2.2.7old/Makefile electric-fence-2.2.7/Makefile
+--- electric-fence-2.2.7old/Makefile	2024-08-20 17:52:57.000000000 +0200
++++ electric-fence-2.2.7/Makefile	2024-08-24 14:00:34.000000000 +0200
+@@ -1,9 +1,9 @@
+ ifneq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
+-       CFLAGS=-O0 -fno-builtin-malloc -g -Wall -DUSE_SEMAPHORE -fPIC
++       CFLAGS=-O0 -fno-builtin-malloc -g -Wall -DUSE_SEMAPHORE -fPIC $$MYFLAGS
+ else
+-       CFLAGS=-O2 -fno-builtin-malloc -g -Wall -DUSE_SEMAPHORE -fPIC
++       CFLAGS=-O2 -fno-builtin-malloc -g -Wall -DUSE_SEMAPHORE -fPIC $$MYFLAGS
+ endif
+ 
+ LIBS= -lpthread
+ 
+ prefix=$(DESTDIR)/usr
+diff -rU5 electric-fence-2.2.7old/page.c electric-fence-2.2.7/page.c
+--- electric-fence-2.2.7old/page.c	2024-08-20 17:52:57.000000000 +0200
++++ electric-fence-2.2.7/page.c	2024-08-24 13:52:04.000000000 +0200
+@@ -32,20 +32,24 @@
+ #if ( !defined(sgi) && !defined(_AIX) )
+ extern int	sys_nerr;
+ /*extern char *	sys_errlist[];*/
+ #endif
+ 
++static char err_message[128] = {0};
++
+ static const char *
+ stringErrorReport(void)
+ {
+-  char err_message[128];
+ #if ( defined(sgi) )
+ 	return strerror(oserror());
+ #elif ( defined(_AIX) )
+ 	return strerror(errno);
++#elif (_POSIX_C_SOURCE >= 200112L) && ! _GNU_SOURCE
++	strerror_r(errno,err_message,128);
++	return err_message;
+ #else
+-	return (const char *) strerror_r(errno,(char *)err_message,128);
++	return (const char *) strerror_r(errno,err_message,128);
+ #endif
+ }
+ 
+ /*
+  * Create memory.
