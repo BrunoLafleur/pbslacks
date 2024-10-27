@@ -569,7 +569,7 @@ diff -rNU5 voxelands-v1709.00old/src/character_creator.cpp voxelands-v1709.00goo
  	Strfnd f(chardef);
 diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/client.cpp
 --- voxelands-v1709.00old/src/client.cpp	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00good/src/client.cpp	2024-10-27 20:20:27.463745179 +0100
++++ voxelands-v1709.00good/src/client.cpp	2024-10-27 21:29:32.185216650 +0100
 @@ -66,23 +66,23 @@
  
  /*
@@ -772,8 +772,22 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  		}else{
  			player->updateName(porting::getUser().c_str());
  		}
-@@ -371,11 +389,11 @@
- 		if (counter <= 0.0) {
+@@ -363,19 +381,22 @@
+ 	}
+ 
+ 	// Get connection status
+ 	bool connected = connectedAndInitialized();
+ 
+-	if (connected == false) {
+-		float &counter = m_connection_reinit_timer;
++	if (connected == false)
++	{
++		float& counter = m_connection_reinit_timer;
+ 		counter -= dtime;
+-		if (counter <= 0.0) {
++		
++		if (counter <= 0.0)
++		{
  			counter = 2.0;
  
  			//JMutexAutoLock envlock(m_env_mutex); //bulk comment-out
@@ -785,7 +799,50 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  			// Send TOSERVER_INIT
  			// [0] u16 TOSERVER_INIT
  			// [2] u8 SER_FMT_VER_HIGHEST
-@@ -473,38 +491,43 @@
+@@ -412,18 +433,18 @@
+ 
+ 	/*
+ 		Run Map's timers and unload unused data
+ 	*/
+ 	const float map_timer_and_unload_dtime = 5.25;
+-	if (m_map_timer_and_unload_interval.step(dtime, map_timer_and_unload_dtime)) {
++	if (m_map_timer_and_unload_interval.step(dtime,
++					map_timer_and_unload_dtime))
++	{
+ 		ScopeProfiler sp(g_profiler, "Client: map timer and unload");
+ 		core::list<v3s16> deleted_blocks;
+-		m_env.getMap().timerUpdate(
+-			map_timer_and_unload_dtime,
+-			config_get_float("client.chunk.timeout"),
+-			&deleted_blocks
+-		);
++		m_env.getMap().timerUpdate(map_timer_and_unload_dtime,
++				config_get_float("client.chunk.timeout"),
++				&deleted_blocks);
+ 
+ 		/*if(deleted_blocks.size() > 0)
+ 			infostream<<"Client: Unloaded "<<deleted_blocks.size()
+ 					<<" unused blocks"<<std::endl;*/
+ 
+@@ -432,12 +453,15 @@
+ 			NOTE: This loop is intentionally iterated the way it is.
+ 		*/
+ 
+ 		core::list<v3s16>::Iterator i = deleted_blocks.begin();
+ 		core::list<v3s16> sendlist;
+-		for (;;) {
+-			if (sendlist.size() == 255 || i == deleted_blocks.end()) {
++		
++		for (;;)
++		{
++			if (sendlist.size() == 255 || i == deleted_blocks.end())
++			{
+ 				if (sendlist.size() == 0)
+ 					break;
+ 				/*
+ 					[0] u16 command
+ 					[2] u8 count
+@@ -473,38 +497,43 @@
  	{
  		// 0ms
  		//JMutexAutoLock lock(m_env_mutex); //bulk comment-out
@@ -835,7 +892,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  
  					// Add to ClientEvent queue
  					ClientEvent event;
-@@ -516,12 +539,15 @@
+@@ -516,12 +545,15 @@
  						player->addDamage(PLAYER_HEAD,DAMAGE_AIR,damage);
  					}
  					event.player_damage.amount = damage;
@@ -853,7 +910,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  
  					// Add to ClientEvent queue
  					ClientEvent event;
-@@ -533,23 +559,24 @@
+@@ -533,23 +565,24 @@
  						player->addDamage(PLAYER_TORSO,DAMAGE_HUNGER,damage);
  					}
  					event.player_damage.amount = damage;
@@ -882,7 +939,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  			// connectedAndInitialized() is true, peer exists.
  			float avg_rtt = m_con.GetPeerAvgRTT(PEER_ID_SERVER);
  			infostream<<"Client: avg_rtt="<<avg_rtt<<std::endl;
-@@ -558,13 +585,14 @@
+@@ -558,13 +591,14 @@
  
  	/*
  		Send player position to server
@@ -899,7 +956,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  		}
  	}
  
-@@ -579,63 +607,71 @@
+@@ -579,63 +613,71 @@
  
  		/*infostream<<"Mesh update result queue size is "
  				<<m_mesh_update_thread.m_queue_out.size()
@@ -964,7 +1021,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
 +			block->setMeshExpired(false);
 +		    
 +		    block->ResetCurrent();
-+		}
+ 		}
 +		
 +		if (r.ack_block_to_server)
 +		{
@@ -988,7 +1045,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
 +		    writeV3S16(&reply[3], r.p);
 +		// Send as reliable
 +		    m_con.Send(PEER_ID_SERVER, 1, reply, true);
- 		}
++		}
 +	    }
  	}
  }
@@ -1013,7 +1070,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  void Client::ReceiveAll()
  {
  	DSTACK(__FUNCTION_NAME);
-@@ -648,13 +684,13 @@
+@@ -648,13 +690,13 @@
  		{
  			break;
  		}
@@ -1029,7 +1086,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  }
  
  void Client::Receive()
-@@ -732,11 +768,11 @@
+@@ -732,11 +774,11 @@
  
  		{ //envlock
  			//JMutexAutoLock envlock(m_env_mutex); //bulk comment-out
@@ -1042,7 +1099,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  		}
  
  		if (datasize >= 2+1+6+8) {
-@@ -752,11 +788,11 @@
+@@ -752,11 +794,11 @@
  			infostream<<"Client: received map type: "<<m_map_type<<std::endl;
  		}
  
@@ -1055,7 +1112,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  			if (v)
  				chardef = v;
  
-@@ -852,38 +888,35 @@
+@@ -852,38 +894,35 @@
  				<<p.X<<","<<p.Y<<","<<p.Z<<")"<<std::endl;*/
  
  		std::string datastring((char*)&data[8], datasize-8);
@@ -1113,7 +1170,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  		/*
  			Update Mesh of this block and blocks at x-, y- and z-.
  			Environment should not be locked as it interlocks with the
-@@ -892,10 +925,12 @@
+@@ -892,10 +931,12 @@
  
  		/*
  			Add it to mesh update queue and set it to be acknowledged after update.
@@ -1126,7 +1183,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  	case TOCLIENT_SERVERSETTINGS:
  	{
  		std::string datastring((char*)&data[2], datasize-2);
-@@ -914,11 +949,12 @@
+@@ -914,11 +955,12 @@
  	case TOCLIENT_PLAYERDATA:
  	{
  		u16 our_peer_id = m_con.GetPeerID();
@@ -1140,7 +1197,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  		}
  
  		{
-@@ -931,30 +967,31 @@
+@@ -931,30 +973,31 @@
  			u16 field_count = readU16(is);
  
  			// peer_ids
@@ -1177,7 +1234,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  						m_device,
  						-1
  					);
-@@ -969,14 +1006,15 @@
+@@ -969,14 +1012,15 @@
  
  			/*
  				Remove those players from the environment that
@@ -1195,7 +1252,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  					continue;
  				// Ignore local player
  				if (player->isLocal())
-@@ -996,11 +1034,11 @@
+@@ -996,11 +1040,11 @@
  	break;
  	case TOCLIENT_PLAYERSTATE:
  	{
@@ -1208,7 +1265,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  		u8 air = readU8(is);
  		u8 hunger = readU8(is);
  		player->dirt = readU8(is);
-@@ -1008,11 +1046,12 @@
+@@ -1008,11 +1052,12 @@
  		player->blood = readU8(is);
  		u16 energy_effect = readU16(is);
  		if (energy_effect > player->energy_effectf)
@@ -1222,7 +1279,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  			player->health = hp;
  		}
  		if (m_server_suffocation)
-@@ -1027,11 +1066,11 @@
+@@ -1027,11 +1072,11 @@
  			return;
  		{
  			std::string datastring((char*)&data[2], datasize-2);
@@ -1235,7 +1292,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  			player->inventory.deSerialize(is);
  
  			m_inventory_updated = true;
-@@ -1044,21 +1083,23 @@
+@@ -1044,21 +1089,23 @@
  			return;
  		{
  			std::string datastring((char*)&data[2], datasize-2);
@@ -1262,7 +1319,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  					u16 count = readU16(is);
  					u16 data = readU16(is);
  					l->updateItem(index,type,count,data);
-@@ -1079,20 +1120,21 @@
+@@ -1079,20 +1126,21 @@
  			Read players
  		*/
  
@@ -1286,7 +1343,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  			if (player == NULL)
  				continue;
  
-@@ -1122,11 +1164,12 @@
+@@ -1122,11 +1170,12 @@
  		*/
  
  		is.read((char*)buf, 2);
@@ -1300,7 +1357,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  			is.read((char*)buf, 12);
  			v3s32 p_i = readV3S32(buf);
  			is.read((char*)buf, 12);
-@@ -1134,11 +1177,11 @@
+@@ -1134,11 +1183,11 @@
  			is.read((char*)buf, 4);
  			s32 pitch_i = readS32(buf);
  			is.read((char*)buf, 4);
@@ -1313,7 +1370,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  			if (player == NULL)
  				continue;
  
-@@ -1161,12 +1204,13 @@
+@@ -1161,12 +1210,13 @@
  			Read block objects
  			NOTE: Deprecated stuff
  		*/
@@ -1329,7 +1386,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  		}
  	}
  	break;
-@@ -1177,26 +1221,30 @@
+@@ -1177,26 +1227,30 @@
  
  		u32 time = 0;
  		u16 time_of_day = readU16(&data[2]);
@@ -1366,7 +1423,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  				<<time_speed<<" tod_diff_f="<<tod_diff_f
  				<<" time_diff="<<time_diff<<std::endl;
  			}
-@@ -1227,11 +1275,12 @@
+@@ -1227,11 +1281,12 @@
  		// Read stuff
  		is.read((char*)buf, 2);
  		u16 len = readU16(buf);
@@ -1380,7 +1437,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  		}
  
  		/* because I can't remember which random stream prints to stdout */
-@@ -1266,21 +1315,23 @@
+@@ -1266,21 +1321,23 @@
  		// Read stuff
  
  		// Read removed objects
@@ -1406,7 +1463,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  			is.read(buf, 1);
  			u8 type = readU8((u8*)buf);
  			std::string data = deSerializeLongString(is);
-@@ -1304,21 +1355,23 @@
+@@ -1304,21 +1361,23 @@
  		// Get all data except the command number
  		std::string datastring((char*)&data[2], datasize-2);
  		// Throw them in an istringstream
@@ -1432,7 +1489,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  			}
  			// Pass on to the environment
  			m_env.processActiveObjectMessage(id, message);
-@@ -1327,11 +1380,11 @@
+@@ -1327,11 +1386,11 @@
  	break;
  	case TOCLIENT_MOVE_PLAYER:
  	{
@@ -1445,7 +1502,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  		f32 pitch = readF1000(is);
  		f32 yaw = readF1000(is);
  		player->setPosition(pos);
-@@ -1368,31 +1421,36 @@
+@@ -1368,31 +1427,36 @@
  
  		u16 count = readU16(is);
  		u16 icount = readU16(is);
@@ -1492,7 +1549,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  					switch (j) {
  					case 0:
  						inv = player->inventory.getList("main");
-@@ -1422,43 +1480,47 @@
+@@ -1422,43 +1486,47 @@
  					if (inv == NULL)
  						continue;
  					if (itm == CONTENT_IGNORE) {
@@ -1551,7 +1608,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  							);
  							if (item)
  								delete item;
-@@ -1502,30 +1564,30 @@
+@@ -1502,30 +1570,30 @@
  
  		u8 type = readU8(is);
  		v3f pos = readV3F1000(is);
@@ -1589,7 +1646,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  	}
  	break;
  	default:
-@@ -1543,11 +1605,12 @@
+@@ -1543,11 +1611,12 @@
  }
  
  void Client::groundAction(u8 action, v3s16 nodepos_undersurface,
@@ -1603,7 +1660,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  				<<std::endl;
  		return;
  	}
-@@ -1571,22 +1634,24 @@
+@@ -1571,22 +1640,24 @@
  	writeU8(&data[2], action);
  	writeV3S16(&data[3], nodepos_undersurface);
  	writeV3S16(&data[9], nodepos_oversurface);
@@ -1631,7 +1688,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  	writeU16(buf, TOSERVER_THROWITEM);
  	os.write((char*)buf, 2);
  
-@@ -1622,11 +1687,11 @@
+@@ -1622,11 +1693,11 @@
  	// Send as reliable
  	Send(0, data, true);
  
@@ -1644,7 +1701,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  		std::string snd("");
  		content_t w = item->getContent();
  		if ((w&CONTENT_CRAFTITEM_MASK) == CONTENT_CRAFTITEM_MASK)
-@@ -1644,20 +1709,22 @@
+@@ -1644,20 +1715,22 @@
  				"cancelled (not connected)"
  				<<std::endl;
  		return;
@@ -1672,7 +1729,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  				if (item)
  					punch_item = item->getContent();
  			}
-@@ -1763,11 +1830,11 @@
+@@ -1763,11 +1836,11 @@
  }
  
  void Client::sendChangePassword(const std::wstring oldpassword,
@@ -1685,7 +1742,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  
  	std::string playername = player->getName();
  	std::string oldpwd = translatePassword(playername, oldpassword);
-@@ -1844,11 +1911,11 @@
+@@ -1844,11 +1917,11 @@
  	Send(0, data, true);
  }
  
@@ -1698,7 +1755,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  
  	// Save bandwidth by only updating position when something changed
  	if (
-@@ -1899,11 +1966,11 @@
+@@ -1899,11 +1972,11 @@
  	Send(0, data, false);
  }
  
@@ -1711,7 +1768,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  
  	u16 our_peer_id = m_con.GetPeerID();
  
-@@ -2009,18 +2076,18 @@
+@@ -2009,18 +2082,18 @@
  }
  
  void Client::setPlayerControl(PlayerControl &control)
@@ -1732,7 +1789,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  	player->wieldItem(item);
  
  	sendPlayerItem(item);
-@@ -2039,11 +2106,11 @@
+@@ -2039,11 +2112,11 @@
  
  // Copies the inventory of the local player to parameter
  void Client::getLocalInventory(Inventory &dst)
@@ -1745,7 +1802,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  }
  
  InventoryContext *Client::getInventoryContext()
-@@ -2086,26 +2153,26 @@
+@@ -2086,26 +2159,26 @@
  	case InventoryLocation::UNDEFINED:
  	{}
  	break;
@@ -1775,7 +1832,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  		return meta->getInventory();
  	}
  	break;
-@@ -2158,72 +2225,73 @@
+@@ -2158,72 +2231,73 @@
  {
  }
  
@@ -1864,7 +1921,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  void Client::addUpdateMeshTaskWithEdge(v3s16 blockpos, bool ack_to_server)
  {
  	try{
-@@ -2285,11 +2353,13 @@
+@@ -2285,11 +2359,13 @@
  }
  
  // foot: 0 = left, 1 = right
@@ -1878,7 +1935,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  void Client::playDigSound(content_t c)
  {
  	if (c == CONTENT_IGNORE) {
-@@ -2297,19 +2367,22 @@
+@@ -2297,19 +2373,22 @@
  		if ((c&CONTENT_MOB_MASK) != 0)
  			return;
  	}
@@ -1902,7 +1959,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  		sound_play_effect((char*)f->sound_place.c_str(),1.0,0,NULL);
  		return;
  	}
-@@ -2318,17 +2391,22 @@
+@@ -2318,17 +2397,22 @@
  		sound_play_effect("liquid-place",1.0,0,NULL);
  		break;
  	default:
@@ -6516,7 +6573,7 @@ diff -rNU5 voxelands-v1709.00old/src/main.cpp voxelands-v1709.00good/src/main.cp
  							input,
 diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
 --- voxelands-v1709.00old/src/map.cpp	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00good/src/map.cpp	2024-10-27 20:29:30.178327127 +0100
++++ voxelands-v1709.00good/src/map.cpp	2024-10-27 21:57:54.147366339 +0100
 @@ -68,27 +68,33 @@
  
  /*
@@ -6967,15 +7024,15 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
 -				blockpos_last = blockpos;
 +			if(block == NULL || blockpos != blockpos_last)
 +			{
- 
--				block_checked_in_modified = false;
--				blockchangecount++;
++
 +			    if(block)
 +				block->ResetCurrent();
 +	
 +			    block = getBlockNoCreate(blockpos);
 +			    blockpos_last = blockpos;
-+
+ 
+-				block_checked_in_modified = false;
+-				blockchangecount++;
 +			    block_checked_in_modified = false;
 +			    blockchangecount++;
  			}
@@ -7761,10 +7818,14 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  	catch(InvalidPositionException &e){}
  
  	return false;
-@@ -1226,66 +1395,69 @@
+@@ -1223,97 +1392,101 @@
+ 
+ /*
+ 	Updates usage timers
  */
  void Map::timerUpdate(float dtime, float unload_timeout,
- 		core::list<v3s16> *unloaded_blocks)
+-		core::list<v3s16> *unloaded_blocks)
++		core::list<v3s16>* unloaded_blocks)
  {
  	bool save_before_unloading = (mapType() == MAPTYPE_SERVER);
 -
@@ -7783,32 +7844,32 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  	for(; si.atEnd() == false; si++)
  	{
 -		MapSector *sector = si.getNode()->getValue();
+-
+-		bool all_blocks_deleted = true;
 +	    MapSector* const sector = si.getNode()->getValue();
 +	    bool all_blocks_deleted = true;
  
--		bool all_blocks_deleted = true;
+-		core::list<MapBlock*> blocks;
+-		sector->getBlocks(blocks);
 +	    core::list<MapBlock*> blocks;
 +	    sector->getBlocks(blocks);
  
--		core::list<MapBlock*> blocks;
--		sector->getBlocks(blocks);
--
 -		for(core::list<MapBlock*>::Iterator i = blocks.begin();
 -				i != blocks.end(); i++)
 -		{
 -			MapBlock *block = (*i);
--
--			block->incrementUsageTimer(dtime);
 +	    for(core::list<MapBlock*>::Iterator i = blocks.begin();
 +		i != blocks.end(); i++)
 +	    {
 +		MapBlock* const block = (*i);
  
+-			block->incrementUsageTimer(dtime);
++		block->incrementUsageTimer(dtime);
+ 
 -			if(block->getUsageTimer() > unload_timeout)
 -			{
 -				v3s16 p = block->getPos();
-+		block->incrementUsageTimer(dtime);
- 
+-
 -				// Save if modified
 -				if(block->getModified() != MOD_STATE_CLEAN
 -						&& save_before_unloading)
@@ -7872,7 +7933,20 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  	// Finally delete the empty sectors
  	deleteSectors(sector_deletion_queue);
  
-@@ -1301,19 +1473,21 @@
+ 	if(deleted_blocks_count != 0)
+ 	{
+-		PrintInfo(infostream); // ServerMap/ClientMap:
+-		infostream<<"Unloaded "<<deleted_blocks_count
+-				<<" blocks from memory";
+-		if(save_before_unloading)
+-			infostream<<", of which "<<saved_blocks_count<<" were written";
+-		infostream<<"."<<std::endl;
++	    PrintInfo(infostream); // ServerMap/ClientMap:
++	    infostream<<"Unloaded "<<deleted_blocks_count <<" blocks from memory";
++	    if(save_before_unloading)
++		infostream<<", of which "<<saved_blocks_count<<" were written";
++	    infostream<<"."<<std::endl;
+ 	}
  }
  
  void Map::deleteSectors(core::list<v2s16> &list)
@@ -7901,7 +7975,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  
  void Map::PrintInfo(std::ostream &out)
  {
-@@ -1325,10 +1499,11 @@
+@@ -1325,10 +1498,11 @@
  enum NeighborType {
  	NEIGHBOR_UPPER,
  	NEIGHBOR_SAME_LEVEL,
@@ -7913,7 +7987,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  	NeighborType t;
  	v3s16 p;
  };
-@@ -1359,29 +1534,30 @@
+@@ -1359,35 +1533,36 @@
  
  		/*
  			Get a queued transforming liquid node
@@ -7930,83 +8004,349 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  		LiquidType liquid_type = content_features(n0.getContent()).liquid_type;
 -		switch (liquid_type) {
 -		case LIQUID_SOURCE:
+-			liquid_level = LIQUID_LEVEL_SOURCE;
+-			liquid_kind = content_features(n0.getContent()).liquid_alternative_flowing;
+-			break;
+-		case LIQUID_FLOWING:
+-			liquid_level = (n0.param2 & LIQUID_LEVEL_MASK);
+-			liquid_kind = n0.getContent();
+-			break;
+-		case LIQUID_NONE:
+-			// if this is an air node, it *could* be transformed into a liquid. otherwise,
+-			// continue with the next node.
+-			if (n0.getContent() != CONTENT_AIR)
+-				continue;
+-			liquid_kind = CONTENT_AIR;
+-			break;
 +		
 +		switch (liquid_type)
 +		{
 +		  case LIQUID_SOURCE:
- 			liquid_level = LIQUID_LEVEL_SOURCE;
- 			liquid_kind = content_features(n0.getContent()).liquid_alternative_flowing;
- 			break;
--		case LIQUID_FLOWING:
++		    liquid_level = LIQUID_LEVEL_SOURCE;
++		    liquid_kind = content_features(n0.getContent()).liquid_alternative_flowing;
++		    break;
 +		  case LIQUID_FLOWING:
- 			liquid_level = (n0.param2 & LIQUID_LEVEL_MASK);
- 			liquid_kind = n0.getContent();
- 			break;
--		case LIQUID_NONE:
++		    liquid_level = (n0.param2 & LIQUID_LEVEL_MASK);
++		    liquid_kind = n0.getContent();
++		    break;
 +		  case LIQUID_NONE:
- 			// if this is an air node, it *could* be transformed into a liquid. otherwise,
- 			// continue with the next node.
- 			if (n0.getContent() != CONTENT_AIR)
- 				continue;
- 			liquid_kind = CONTENT_AIR;
-@@ -1399,22 +1575,27 @@
++		// if this is an air node, it *could* be transformed into a liquid. otherwise,
++		// continue with the next node.
++		    if (n0.getContent() != CONTENT_AIR)
++			continue;
++		    liquid_kind = CONTENT_AIR;
++		    break;
+ 		}
+ 
+ 		/*
+ 			Collect information about the environment
+ 		 */
+@@ -1399,298 +1574,345 @@
  		NodeNeighbor airs[6]; // surrounding air
  		int num_airs = 0;
  		NodeNeighbor neutrals[6]; // nodes that are solid or another kind of liquid
  		int num_neutrals = 0;
  		bool flowing_down = false;
 -		for (u16 i = 0; i < 6; i++) {
+-			NeighborType nt = NEIGHBOR_SAME_LEVEL;
+-			switch (i) {
+-				case 1:
+-					nt = NEIGHBOR_UPPER;
+-					break;
+-				case 4:
+-					nt = NEIGHBOR_LOWER;
+-					break;
 +		
 +		for (u16 i = 0; i < 6; i++)
 +		{
- 			NeighborType nt = NEIGHBOR_SAME_LEVEL;
--			switch (i) {
-+			switch (i)
++		    NeighborType nt = NEIGHBOR_SAME_LEVEL;
++		    switch (i)
++		    {
++		      case 1:
++			nt = NEIGHBOR_UPPER;
++			break;
++		      case 4:
++			nt = NEIGHBOR_LOWER;
++			break;
++		    }
++			
++		    const v3s16 npos = p0 + dirs[i];
++		    const NodeNeighbor nb = {getNodeNoEx(npos), nt, npos};
++			
++		    switch (content_features(nb.n.getContent()).liquid_type)
++		    {
++		      case LIQUID_NONE:
++			if (nb.n.getContent() == CONTENT_AIR)
 +			{
- 				case 1:
- 					nt = NEIGHBOR_UPPER;
- 					break;
- 				case 4:
- 					nt = NEIGHBOR_LOWER;
- 					break;
++			    airs[num_airs++] = nb;
++			// if the current node is a water source the neighbor
++			// should be enqueded for transformation regardless of whether the
++			// current node changes or not.
++			    if (nb.t != NEIGHBOR_UPPER && liquid_type != LIQUID_NONE)
++				m_transforming_liquid.push_back(npos);
++			// if the current node happens to be a flowing node, it will start to flow down here.
++			    if (nb.t == NEIGHBOR_LOWER)
++				flowing_down = true;
  			}
 -			v3s16 npos = p0 + dirs[i];
 -			NodeNeighbor nb = {getNodeNoEx(npos), nt, npos};
-+			
-+			const v3s16 npos = p0 + dirs[i];
-+			const NodeNeighbor nb = {getNodeNoEx(npos), nt, npos};
-+			
- 			switch (content_features(nb.n.getContent()).liquid_type) {
- 				case LIQUID_NONE:
- 					if (nb.n.getContent() == CONTENT_AIR) {
- 						airs[num_airs++] = nb;
- 						// if the current node is a water source the neighbor
-@@ -1542,38 +1723,45 @@
- 			// set the liquid level and flow bit to 0
- 			n0.param2 = ~(LIQUID_LEVEL_MASK | LIQUID_FLOW_DOWN_MASK);
- 		}
- 		n0.setContent(new_node_content);
- 		setNode(p0, n0);
-+
-+	    // PB a traiter.
- 		v3s16 blockpos = getNodeBlockPos(p0);
--		MapBlock *block = getBlockNoCreateNoEx(blockpos);
--		if(block != NULL) {
-+		MapBlock* const block = getBlockNoCreateNoEx(blockpos);
-+		
-+		if(block)
-+		{
- 			modified_blocks.insert(blockpos, block);
- 			// If node emits light, MapBlock requires lighting update
- 			if(content_features(n0).light_source != 0)
- 				lighting_modified_blocks[block->getPos()] = block;
-+			
-+			block->ResetCurrent();
+-			switch (content_features(nb.n.getContent()).liquid_type) {
+-				case LIQUID_NONE:
+-					if (nb.n.getContent() == CONTENT_AIR) {
+-						airs[num_airs++] = nb;
+-						// if the current node is a water source the neighbor
+-						// should be enqueded for transformation regardless of whether the
+-						// current node changes or not.
+-						if (nb.t != NEIGHBOR_UPPER && liquid_type != LIQUID_NONE)
+-							m_transforming_liquid.push_back(npos);
+-						// if the current node happens to be a flowing node, it will start to flow down here.
+-						if (nb.t == NEIGHBOR_LOWER) {
+-							flowing_down = true;
+-						}
+-					}else if (nb.t == NEIGHBOR_LOWER && nb.n.getContent() == CONTENT_IGNORE) {
+-						flowing_down = true;
+-						neutrals[num_neutrals++] = nb;
+-					} else {
+-						neutrals[num_neutrals++] = nb;
+-					}
+-					break;
+-				case LIQUID_SOURCE:
+-					// if this node is not (yet) of a liquid type, choose the first liquid type we encounter
+-					if (liquid_kind == CONTENT_AIR)
+-						liquid_kind = content_features(nb.n.getContent()).liquid_alternative_flowing;
+-					if (content_features(nb.n.getContent()).liquid_alternative_flowing !=liquid_kind) {
+-						neutrals[num_neutrals++] = nb;
+-					} else {
+-						// Do not count bottom source, it will screw things up
+-						if (dirs[i].Y != -1)
+-							sources[num_sources++] = nb;
+-					}
+-					break;
+-				case LIQUID_FLOWING:
+-					// if this node is not (yet) of a liquid type, choose the first liquid type we encounter
+-					if (liquid_kind == CONTENT_AIR)
+-						liquid_kind = content_features(nb.n.getContent()).liquid_alternative_flowing;
+-					if (content_features(nb.n.getContent()).liquid_alternative_flowing != liquid_kind) {
+-						neutrals[num_neutrals++] = nb;
+-					} else {
+-						flows[num_flows++] = nb;
+-						if (nb.t == NEIGHBOR_LOWER)
+-							flowing_down = true;
+-					}
+-					break;
++			else if (nb.t == NEIGHBOR_LOWER && nb.n.getContent() == CONTENT_IGNORE)
++			{
++			    flowing_down = true;
++			    neutrals[num_neutrals++] = nb;
++			}
++			else
++			    neutrals[num_neutrals++] = nb;
++			break;
++		      case LIQUID_SOURCE:
++		    // if this node is not (yet) of a liquid type, choose the first liquid type we encounter
++			if (liquid_kind == CONTENT_AIR)
++			    liquid_kind = content_features(nb.n.getContent()).liquid_alternative_flowing;
++			if (content_features(nb.n.getContent()).liquid_alternative_flowing !=liquid_kind)
++			    neutrals[num_neutrals++] = nb;
++			else
++			{
++			// Do not count bottom source, it will screw things up
++			    if (dirs[i].Y != -1)
++				sources[num_sources++] = nb;
+ 			}
++			break;
++		      case LIQUID_FLOWING:
++		    // if this node is not (yet) of a liquid type, choose the first liquid type we encounter
++			if (liquid_kind == CONTENT_AIR)
++			    liquid_kind = content_features(nb.n.getContent()).liquid_alternative_flowing;
++			if (content_features(nb.n.getContent()).liquid_alternative_flowing != liquid_kind)
++			    neutrals[num_neutrals++] = nb;
++			else
++			{
++			    flows[num_flows++] = nb;
++			    if (nb.t == NEIGHBOR_LOWER)
++				flowing_down = true;
++			}
++			break;
++		    }
  		}
  
  		/*
- 			enqueue neighbors for update if neccessary
+-			decide on the type (and possibly level) of the current node
++		  decide on the type (and possibly level) of the current node
  		 */
+ 		content_t new_node_content;
+ 		s8 new_node_level = -1;
+ 		s8 max_node_level = -1;
+-		if (num_sources >= 2 || liquid_type == LIQUID_SOURCE) {
+-			// liquid_kind will be set to either the flowing alternative of the node (if it's a liquid)
+-			// or the flowing alternative of the first of the surrounding sources (if it's air), so
+-			// it's perfectly safe to use liquid_kind here to determine the new node content.
+-			new_node_content = content_features(liquid_kind).liquid_alternative_source;
+-		} else if (num_sources == 1 && sources[0].t != NEIGHBOR_LOWER) {
+-			// liquid_kind is set properly, see above
+-			new_node_content = liquid_kind;
+-			max_node_level = new_node_level = LIQUID_LEVEL_MAX;
+-		} else {
+-			// no surrounding sources, so get the maximum level that can flow into this node
+-			for (u16 i = 0; i < num_flows; i++) {
+-				u8 nb_liquid_level = (flows[i].n.param2 & LIQUID_LEVEL_MASK);
+-				switch (flows[i].t) {
+-					case NEIGHBOR_UPPER:
+-						if (nb_liquid_level + WATER_DROP_BOOST > max_node_level) {
+-							max_node_level = LIQUID_LEVEL_MAX;
+-							if (nb_liquid_level + WATER_DROP_BOOST < LIQUID_LEVEL_MAX)
+-								max_node_level = nb_liquid_level + WATER_DROP_BOOST;
+-						} else if (nb_liquid_level > max_node_level)
+-							max_node_level = nb_liquid_level;
+-						break;
+-					case NEIGHBOR_LOWER:
+-						break;
+-					case NEIGHBOR_SAME_LEVEL:
+-						if ((flows[i].n.param2 & LIQUID_FLOW_DOWN_MASK) != LIQUID_FLOW_DOWN_MASK &&
+-							nb_liquid_level > 0 && nb_liquid_level - 1 > max_node_level) {
+-							max_node_level = nb_liquid_level - 1;
+-						}
+-						break;
+-				}
+-			}
+-
+-			u8 viscosity = content_features(liquid_kind).liquid_viscosity;
+-			if (viscosity > 1 && max_node_level != liquid_level) {
+-				// amount to gain, limited by viscosity
+-				// must be at least 1 in absolute value
+-				s8 level_inc = max_node_level - liquid_level;
+-				if (level_inc < -viscosity || level_inc > viscosity)
+-					new_node_level = liquid_level + level_inc/viscosity;
+-				else if (level_inc < 0)
+-					new_node_level = liquid_level - 1;
+-				else if (level_inc > 0)
+-					new_node_level = liquid_level + 1;
+-				if (new_node_level != max_node_level)
+-					must_reflow.push_back(p0);
+-			} else
+-				new_node_level = max_node_level;
++		
++		if (num_sources >= 2 || liquid_type == LIQUID_SOURCE)
++		// liquid_kind will be set to either the flowing alternative of the node (if it's a liquid)
++		// or the flowing alternative of the first of the surrounding sources (if it's air), so
++		// it's perfectly safe to use liquid_kind here to determine the new node content.
++		    new_node_content = content_features(liquid_kind).liquid_alternative_source;
++		else if (num_sources == 1 && sources[0].t != NEIGHBOR_LOWER)
++		{
++		// liquid_kind is set properly, see above
++		    new_node_content = liquid_kind;
++		    max_node_level = new_node_level = LIQUID_LEVEL_MAX;
++		}
++		else
++		{
++		// no surrounding sources, so get the maximum level that can flow into this node
++		    for (u16 i = 0; i < num_flows; i++)
++		    {
++			u8 nb_liquid_level = (flows[i].n.param2 & LIQUID_LEVEL_MASK);
++			switch (flows[i].t)
++			{
++			  case NEIGHBOR_UPPER:
++			    if (nb_liquid_level + WATER_DROP_BOOST > max_node_level)
++			    {
++				max_node_level = LIQUID_LEVEL_MAX;
++				if (nb_liquid_level + WATER_DROP_BOOST < LIQUID_LEVEL_MAX)
++				    max_node_level = nb_liquid_level + WATER_DROP_BOOST;
++			    } else if (nb_liquid_level > max_node_level)
++				max_node_level = nb_liquid_level;
++			    break;
++			  case NEIGHBOR_LOWER:
++			    break;
++			  case NEIGHBOR_SAME_LEVEL:
++			    if ((flows[i].n.param2 & LIQUID_FLOW_DOWN_MASK) != LIQUID_FLOW_DOWN_MASK &&
++					    nb_liquid_level > 0 && nb_liquid_level - 1 > max_node_level)
++				max_node_level = nb_liquid_level - 1;
++			    break;
++			}
++		    }
++
++		    u8 viscosity = content_features(liquid_kind).liquid_viscosity;
++		    if (viscosity > 1 && max_node_level != liquid_level)
++		    {
++		    // amount to gain, limited by viscosity
++		    // must be at least 1 in absolute value
++			s8 level_inc = max_node_level - liquid_level;
++			if (level_inc < -viscosity || level_inc > viscosity)
++			    new_node_level = liquid_level + level_inc/viscosity;
++			else if (level_inc < 0)
++			    new_node_level = liquid_level - 1;
++			else if (level_inc > 0)
++			    new_node_level = liquid_level + 1;
++			if (new_node_level != max_node_level)
++			    must_reflow.push_back(p0);
++		    }
++		    else
++			new_node_level = max_node_level;
+ 
+-			if (new_node_level >= 0)
+-				new_node_content = liquid_kind;
+-			else
+-				new_node_content = CONTENT_AIR;
++		    if (new_node_level >= 0)
++			new_node_content = liquid_kind;
++		    else
++			new_node_content = CONTENT_AIR;
+ 
+ 		}
+ 
+ 		/*
+-			check if anything has changed. if not, just continue with the next node.
+-		 */
+-		if (new_node_content == n0.getContent() && (content_features(n0.getContent()).liquid_type != LIQUID_FLOWING ||
+-										 ((n0.param2 & LIQUID_LEVEL_MASK) == (u8)new_node_level &&
+-										 ((n0.param2 & LIQUID_FLOW_DOWN_MASK) == LIQUID_FLOW_DOWN_MASK)
+-										 == flowing_down)))
+-			continue;
+-
++		  check if anything has changed. if not, just continue with the next node.
++		*/
++		if (new_node_content == n0.getContent() &&
++				(content_features(n0.getContent()).liquid_type != LIQUID_FLOWING ||
++						((n0.param2 & LIQUID_LEVEL_MASK) == (u8)new_node_level &&
++								((n0.param2 & LIQUID_FLOW_DOWN_MASK) == LIQUID_FLOW_DOWN_MASK)
++								== flowing_down)))
++		    continue;
++
++
++	    /*
++	      update the current node
++	    */
++		if (content_features(new_node_content).liquid_type == LIQUID_FLOWING)
++		// set level to last 3 bits, flowing down bit to 4th bit
++		    n0.param2 = (flowing_down ? LIQUID_FLOW_DOWN_MASK : 0x00) | (new_node_level & LIQUID_LEVEL_MASK);
++		else
++		// set the liquid level and flow bit to 0
++		    n0.param2 = ~(LIQUID_LEVEL_MASK | LIQUID_FLOW_DOWN_MASK);
+ 
+-		/*
+-			update the current node
+-		 */
+-		if (content_features(new_node_content).liquid_type == LIQUID_FLOWING) {
+-			// set level to last 3 bits, flowing down bit to 4th bit
+-			n0.param2 = (flowing_down ? LIQUID_FLOW_DOWN_MASK : 0x00) | (new_node_level & LIQUID_LEVEL_MASK);
+-		} else {
+-			// set the liquid level and flow bit to 0
+-			n0.param2 = ~(LIQUID_LEVEL_MASK | LIQUID_FLOW_DOWN_MASK);
+-		}
+ 		n0.setContent(new_node_content);
+ 		setNode(p0, n0);
+-		v3s16 blockpos = getNodeBlockPos(p0);
+-		MapBlock *block = getBlockNoCreateNoEx(blockpos);
+-		if(block != NULL) {
+-			modified_blocks.insert(blockpos, block);
+-			// If node emits light, MapBlock requires lighting update
+-			if(content_features(n0).light_source != 0)
+-				lighting_modified_blocks[block->getPos()] = block;
+-		}
+ 
+-		/*
+-			enqueue neighbors for update if neccessary
+-		 */
 -		switch (content_features(n0.getContent()).liquid_type) {
 -			case LIQUID_SOURCE:
 -			case LIQUID_FLOWING:
@@ -8023,6 +8363,23 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
 -				for (u16 i = 0; i < num_flows; i++)
 -					m_transforming_liquid.push_back(flows[i].p);
 -				break;
++	    // PB a traiter.
++		v3s16 blockpos = getNodeBlockPos(p0);
++		MapBlock* const block = getBlockNoCreateNoEx(blockpos);
++		
++		if(block)
++		{
++		    modified_blocks.insert(blockpos, block);
++		// If node emits light, MapBlock requires lighting update
++		    if(content_features(n0).light_source != 0)
++			lighting_modified_blocks[block->getPos()] = block;
++		    
++		    block->ResetCurrent();
++		}
++
++	    /*
++	      enqueue neighbors for update if neccessary
++	    */
 +		switch (content_features(n0.getContent()).liquid_type)
 +		{
 +		  case LIQUID_SOURCE:
@@ -8044,8 +8401,10 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  	}
  	//infostream<<"Map::transformLiquids(): loopcount="<<loopcount<<std::endl;
  	while (must_reflow.size() > 0)
- 		m_transforming_liquid.push_back(must_reflow.pop_front());
-@@ -1582,115 +1770,138 @@
+-		m_transforming_liquid.push_back(must_reflow.pop_front());
++	    m_transforming_liquid.push_back(must_reflow.pop_front());
+ 	updateLighting(lighting_modified_blocks, modified_blocks);
+ }
  
  NodeMetadata* Map::getNodeMetadata(v3s16 p)
  {
@@ -8053,22 +8412,30 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  	v3s16 p_rel = p - blockpos*MAP_BLOCKSIZE;
 -	MapBlock *block = getBlockNoCreateNoEx(blockpos);
 -	if (!block) {
+-		infostream<<"Map::getNodeMetadata(): Need to emerge "
+-				<<PP(blockpos)<<std::endl;
+-		block = emergeBlock(blockpos, false);
+-	}
+-	if (!block) {
+-		infostream<<"WARNING: Map::getNodeMetadata(): Block not found"
+-				<<std::endl;
+-		return NULL;
+-	}
+-	NodeMetadata *meta = block->m_node_metadata.get(p_rel);
 +	MapBlock* block = getBlockNoCreateNoEx(blockpos);
 +	if (!block)
 +	{
- 		infostream<<"Map::getNodeMetadata(): Need to emerge "
- 				<<PP(blockpos)<<std::endl;
- 		block = emergeBlock(blockpos, false);
- 	}
--	if (!block) {
++	    infostream<<"Map::getNodeMetadata(): Need to emerge "
++		      <<PP(blockpos)<<std::endl;
++	    block = emergeBlock(blockpos, false);
++	}
 +	
 +	if (!block)
 +	{
- 		infostream<<"WARNING: Map::getNodeMetadata(): Block not found"
- 				<<std::endl;
- 		return NULL;
- 	}
--	NodeMetadata *meta = block->m_node_metadata.get(p_rel);
++	    infostream<<"WARNING: Map::getNodeMetadata(): Block not found"
++		      <<std::endl;
++	    return NULL;
++	}
 +	NodeMetadata* const meta = block->m_node_metadata.get(p_rel);
 +	
 +	block->ResetCurrent();
@@ -8082,20 +8449,26 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  	v3s16 p_rel = p - blockpos*MAP_BLOCKSIZE;
 -	MapBlock *block = getBlockNoCreateNoEx(blockpos);
 -	if (!block) {
+-		infostream<<"Map::getNodeMetadata(): Need to emerge "
+-				<<PP(blockpos)<<std::endl;
+-		block = emergeBlock(blockpos, false);
 +	MapBlock* block = getBlockNoCreateNoEx(blockpos);
 +	if (!block)
 +	{
- 		infostream<<"Map::getNodeMetadata(): Need to emerge "
- 				<<PP(blockpos)<<std::endl;
- 		block = emergeBlock(blockpos, false);
++	    infostream<<"Map::getNodeMetadata(): Need to emerge "
++		      <<PP(blockpos)<<std::endl;
++	    block = emergeBlock(blockpos, false);
  	}
 -	if (!block) {
+-		infostream<<"WARNING: Map::getNodeMetadata(): Block not found"
+-				<<std::endl;
+-		return NULL;
 +	
 +	if (!block)
 +	{
- 		infostream<<"WARNING: Map::getNodeMetadata(): Block not found"
- 				<<std::endl;
- 		return NULL;
++	    infostream<<"WARNING: Map::getNodeMetadata(): Block not found"
++		      <<std::endl;
++	    return NULL;
  	}
 -	NodeMetadata *meta = block->m_node_metadata.getClone(p_rel);
 +	NodeMetadata* const meta = block->m_node_metadata.getClone(p_rel);
@@ -8110,24 +8483,29 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  	v3s16 p_rel = p - blockpos*MAP_BLOCKSIZE;
 -	MapBlock *block = getBlockNoCreateNoEx(blockpos);
 -	if(!block){
+-		infostream<<"Map::setNodeMetadata(): Need to emerge "
+-				<<PP(blockpos)<<std::endl;
+-		block = emergeBlock(blockpos, false);
 +	MapBlock* block = getBlockNoCreateNoEx(blockpos);
 +	if(!block)
 +	{
- 		infostream<<"Map::setNodeMetadata(): Need to emerge "
- 				<<PP(blockpos)<<std::endl;
- 		block = emergeBlock(blockpos, false);
++	    infostream<<"Map::setNodeMetadata(): Need to emerge "
++		      <<PP(blockpos)<<std::endl;
++	    block = emergeBlock(blockpos, false);
  	}
 +	
  	if(!block)
  	{
- 		infostream<<"WARNING: Map::setNodeMetadata(): Block not found"
- 				<<std::endl;
- 		return;
+-		infostream<<"WARNING: Map::setNodeMetadata(): Block not found"
+-				<<std::endl;
+-		return;
++	    infostream<<"WARNING: Map::setNodeMetadata(): Block not found"
++		      <<std::endl;
++	    return;
  	}
 +	
  	block->m_node_metadata.set(p_rel, meta);
 +	block->ResetCurrent();
-+	
  }
  
  void Map::removeNodeMetadata(v3s16 p)
@@ -8135,12 +8513,16 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  	v3s16 blockpos = getNodeBlockPos(p);
  	v3s16 p_rel = p - blockpos*MAP_BLOCKSIZE;
 -	MapBlock *block = getBlockNoCreateNoEx(blockpos);
+-	if(block == NULL)
 +	MapBlock* const block = getBlockNoCreateNoEx(blockpos);
- 	if(block == NULL)
++	if(!block)
  	{
- 		infostream<<"WARNING: Map::removeNodeMetadata(): Block not found"
- 				<<std::endl;
- 		return;
+-		infostream<<"WARNING: Map::removeNodeMetadata(): Block not found"
+-				<<std::endl;
+-		return;
++	    infostream<<"WARNING: Map::removeNodeMetadata(): Block not found"
++		      <<std::endl;
++	    return;
  	}
 +	
  	block->m_node_metadata.remove(p_rel);
@@ -8148,8 +8530,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  }
  
 -void Map::nodeMetadataStep(float dtime, core::map<v3s16, MapBlock*> &changed_blocks, ServerEnvironment *env)
-+void Map::nodeMetadataStep(float dtime,
-+		core::map<v3s16,MapBlock*> &changed_blocks,
++void Map::nodeMetadataStep(float dtime,core::map<v3s16,MapBlock*> &changed_blocks,
 +		ServerEnvironment *env)
  {
  	/*
@@ -8169,23 +8550,29 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  	{
 -		MapSector *sector = si.getNode()->getValue();
 -		core::list< MapBlock * > sectorblocks;
-+		MapSector* const sector = si.getNode()->getValue();
-+		core::list<MapBlock*> sectorblocks;
-+		
- 		sector->getBlocks(sectorblocks);
+-		sector->getBlocks(sectorblocks);
 -		core::list< MapBlock * >::Iterator i;
-+		
-+		core::list<MapBlock*>::Iterator i;
- 		for(i=sectorblocks.begin(); i!=sectorblocks.end(); i++)
- 		{
+-		for(i=sectorblocks.begin(); i!=sectorblocks.end(); i++)
+-		{
 -			MapBlock *block = *i;
 -			bool changed = block->m_node_metadata.step(dtime,block->getPosRelative(),env);
-+			MapBlock* const block = *i;
-+			const bool changed = block->m_node_metadata.step(dtime,
-+					block->getPosRelative(),env);
- 			if(changed)
- 				changed_blocks[block->getPos()] = block;
- 		}
+-			if(changed)
+-				changed_blocks[block->getPos()] = block;
+-		}
++	    MapSector* const sector = si.getNode()->getValue();
++	    core::list<MapBlock*> sectorblocks;
++		
++	    sector->getBlocks(sectorblocks);
++		
++	    core::list<MapBlock*>::Iterator i;
++	    for(i=sectorblocks.begin(); i!=sectorblocks.end(); i++)
++	    {
++		MapBlock* const block = *i;
++		const bool changed = block->m_node_metadata.step(dtime,
++				block->getPosRelative(),env);
++		if(changed)
++		    changed_blocks[block->getPos()] = block;
++	    }
  	}
  }
  
@@ -8209,42 +8596,165 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  	infostream<<__FUNCTION_NAME<<std::endl;
  
  	config_load("world","world.cfg");
-@@ -1766,17 +1977,19 @@
- 			v2s16 sectorpos(blockpos.X+x, blockpos.Z+z);
- 			// Sector metadata is loaded from disk if not already loaded.
- 			ServerMapSector *sector = createSector(sectorpos);
- 			assert(sector);
+@@ -1716,104 +1938,106 @@
+ ServerMap::~ServerMap()
+ {
+ 	infostream<<__FUNCTION_NAME<<std::endl;
  
--			for (s16 y=-1; y<=1; y++) {
-+			for (s16 y=-1; y<=1; y++)
-+			{
- 				v3s16 p(blockpos.X+x, blockpos.Y+y, blockpos.Z+z);
- 				//MapBlock *block = createBlock(p);
- 				// 1) get from memory, 2) load from disk
--				MapBlock *block = emergeBlock(p, false);
-+				MapBlock* block = emergeBlock(p, false);
- 				// 3) create a blank one
--				if (block == NULL) {
-+				if (!block)
-+				{
- 					block = createBlock(p);
- 
- 					/*
- 						Block gets sunlight if this is true.
- 
-@@ -1786,10 +1999,11 @@
- 					block->setIsUnderground(ug);
- 				}
- 
- 				// Lighting will not be valid after make_chunk is called
- 				block->setLightingExpired(true);
-+				block->ResetCurrent();
- 			}
- 		}
+ 	try{
+-		save(true);
+-		infostream<<"Server: saved map"<<std::endl;
++	    save(true);
++	    infostream<<"Server: saved map"<<std::endl;
+ 	}
+ 	catch(std::exception &e)
+ 	{
+-		infostream<<"Server: Failed to save map, exception: "<<e.what()<<std::endl;
++	    infostream<<"Server: Failed to save map, exception: "<<e.what()<<std::endl;
  	}
  
  	/*
-@@ -1831,128 +2045,142 @@
+ 		Close database if it was opened
+ 	*/
+ 	if(m_database_read)
+-		sqlite3_finalize(m_database_read);
++	    sqlite3_finalize(m_database_read);
+ 	if(m_database_write)
+-		sqlite3_finalize(m_database_write);
++	    sqlite3_finalize(m_database_write);
+ 	if(m_database_list)
+-		sqlite3_finalize(m_database_list);
++	    sqlite3_finalize(m_database_list);
+ 	if(m_database)
+-		sqlite3_close(m_database);
++	    sqlite3_close(m_database);
+ }
+ 
+ void ServerMap::initBlockMake(mapgen::BlockMakeData *data, v3s16 blockpos)
+ {
+ 	// Do nothing if not inside limits (+-1 because of neighbors)
+-	if (
+-		blockpos_over_limit(blockpos - v3s16(1,1,1))
+-		|| blockpos_over_limit(blockpos + v3s16(1,1,1))
+-	) {
+-		data->no_op = true;
+-		return;
++	if (blockpos_over_limit(blockpos - v3s16(1,1,1))
++			|| blockpos_over_limit(blockpos + v3s16(1,1,1)))
++	{
++	    data->no_op = true;
++	    return;
+ 	}
+ 
+ 	data->no_op = false;
+ 	data->seed = m_seed;
+ 	data->type = m_type;
+ 	data->blockpos = blockpos;
+ 
+-	/*
+-		Create the whole area of this and the neighboring blocks
+-	*/
++    /*
++      Create the whole area of this and the neighboring blocks
++    */
+ 	{
+-		//TimeTaker timer("initBlockMake() create area");
++	//TimeTaker timer("initBlockMake() create area");
+ 
+-		for (s16 x=-1; x<=1; x++)
++	    for (s16 x=-1; x<=1; x++)
+ 		for (s16 z=-1; z<=1; z++) {
+-			v2s16 sectorpos(blockpos.X+x, blockpos.Z+z);
+-			// Sector metadata is loaded from disk if not already loaded.
+-			ServerMapSector *sector = createSector(sectorpos);
+-			assert(sector);
+-
+-			for (s16 y=-1; y<=1; y++) {
+-				v3s16 p(blockpos.X+x, blockpos.Y+y, blockpos.Z+z);
+-				//MapBlock *block = createBlock(p);
+-				// 1) get from memory, 2) load from disk
+-				MapBlock *block = emergeBlock(p, false);
+-				// 3) create a blank one
+-				if (block == NULL) {
+-					block = createBlock(p);
+-
+-					/*
+-						Block gets sunlight if this is true.
++		    v2s16 sectorpos(blockpos.X+x, blockpos.Z+z);
++		// Sector metadata is loaded from disk if not already loaded.
++		    ServerMapSector* const sector = createSector(sectorpos);
++		    assert(sector);
++
++		    for (s16 y=-1; y<=1; y++)
++		    {
++			v3s16 p(blockpos.X+x, blockpos.Y+y, blockpos.Z+z);
++		    //MapBlock *block = createBlock(p);
++		    // 1) get from memory, 2) load from disk
++			MapBlock* block = emergeBlock(p, false);
++		    // 3) create a blank one
++			if (!block)
++			{
++			    block = createBlock(p);
+ 
+-						Refer to the map generator heuristics.
+-					*/
+-					bool ug = mapgen::block_is_underground(data, p);
+-					block->setIsUnderground(ug);
+-				}
++			/*
++			  Block gets sunlight if this is true.
+ 
+-				// Lighting will not be valid after make_chunk is called
+-				block->setLightingExpired(true);
++			  Refer to the map generator heuristics.
++			*/
++			    bool ug = mapgen::block_is_underground(data, p);
++			    block->setIsUnderground(ug);
+ 			}
++
++		    // Lighting will not be valid after make_chunk is called
++			block->setLightingExpired(true);
++			block->ResetCurrent();
++		    }
+ 		}
+ 	}
+ 
+-	/*
+-		Now we have a big empty area.
++    /*
++      Now we have a big empty area.
+ 
+-		Make a ManualMapVoxelManipulator that contains this and the
+-		neighboring blocks
+-	*/
++      Make a ManualMapVoxelManipulator that contains this and the
++      neighboring blocks
++    */
+ 
+-	// The area that contains this block and it's neighbors
++    // The area that contains this block and it's neighbors
+ 	v3s16 bigarea_blocks_min = blockpos - v3s16(1,1,1);
+ 	v3s16 bigarea_blocks_max = blockpos + v3s16(1,1,1);
+ 
+ 	data->vmanip = new ManualMapVoxelManipulator(this);
+ 
+-	// Add the area
++    // Add the area
+ 	{
+-		//TimeTaker timer("initBlockMake() initialEmerge");
+-		data->vmanip->initialEmerge(bigarea_blocks_min, bigarea_blocks_max);
++	//TimeTaker timer("initBlockMake() initialEmerge");
++	    data->vmanip->initialEmerge(bigarea_blocks_min, bigarea_blocks_max);
+ 	}
+ 
+-	// Data is ready now.
++    // Data is ready now.
+ }
+ 
+ MapBlock* ServerMap::finishBlockMake(mapgen::BlockMakeData *data,
+ 		core::map<v3s16, MapBlock*> &changed_blocks)
+ {
+@@ -1831,128 +2055,142 @@
  	}
  
  	/*
@@ -8471,7 +8981,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  			Update day/night difference cache of the MapBlocks
  		*/
  		block->updateDayNightDiff();
-@@ -1964,66 +2192,69 @@
+@@ -1964,68 +2202,71 @@
  
  	/*
  		Set central block as generated
@@ -8546,14 +9056,18 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  		Do not generate over-limit
  	*/
 -	if (blockpos_over_limit(p)) {
+-		infostream<<__FUNCTION_NAME<<": Block position over limit"<<std::endl;
+-		throw InvalidPositionException("generateBlock(): pos. over limit");
 +	if (blockpos_over_limit(p))
 +	{
- 		infostream<<__FUNCTION_NAME<<": Block position over limit"<<std::endl;
- 		throw InvalidPositionException("generateBlock(): pos. over limit");
++	    infostream<<__FUNCTION_NAME<<": Block position over limit"<<std::endl;
++	    throw InvalidPositionException("generateBlock(): pos. over limit");
  	}
  
  	/*
-@@ -2043,16 +2274,16 @@
+ 		Create block make data
+ 	*/
+@@ -2043,49 +2284,50 @@
  	finishBlockMake(&data, modified_blocks);
  
  	/*
@@ -8572,34 +9086,63 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  			__FUNCTION_NAME, p.X, p.Y, p.Z);
  
  	/*
-@@ -2064,22 +2295,22 @@
- 	|| p.Y > MAP_GENERATION_LIMIT / MAP_BLOCKSIZE
- 	|| p.Z < -MAP_GENERATION_LIMIT / MAP_BLOCKSIZE
- 	|| p.Z > MAP_GENERATION_LIMIT / MAP_BLOCKSIZE)
- 		throw InvalidPositionException("createBlock(): pos. over limit");
- 
+ 		Do not create over-limit
+ 	*/
+ 	if(p.X < -MAP_GENERATION_LIMIT / MAP_BLOCKSIZE
+-	|| p.X > MAP_GENERATION_LIMIT / MAP_BLOCKSIZE
+-	|| p.Y < -MAP_GENERATION_LIMIT / MAP_BLOCKSIZE
+-	|| p.Y > MAP_GENERATION_LIMIT / MAP_BLOCKSIZE
+-	|| p.Z < -MAP_GENERATION_LIMIT / MAP_BLOCKSIZE
+-	|| p.Z > MAP_GENERATION_LIMIT / MAP_BLOCKSIZE)
+-		throw InvalidPositionException("createBlock(): pos. over limit");
+-
 -	v2s16 p2d(p.X, p.Z);
 -	s16 block_y = p.Y;
+-	/*
+-		This will create or load a sector if not found in memory.
+-		If block exists on disk, it will be loaded.
+-
+-		NOTE: On old save formats, this will be slow, as it generates
+-		      lighting on blocks for them.
+-	*/
+-	ServerMapSector *sector;
+-	try{
+-		sector = (ServerMapSector*)createSector(p2d);
+-		assert(sector->getId() == MAPSECTOR_SERVER);
++			|| p.X > MAP_GENERATION_LIMIT / MAP_BLOCKSIZE
++			|| p.Y < -MAP_GENERATION_LIMIT / MAP_BLOCKSIZE
++			|| p.Y > MAP_GENERATION_LIMIT / MAP_BLOCKSIZE
++			|| p.Z < -MAP_GENERATION_LIMIT / MAP_BLOCKSIZE
++			|| p.Z > MAP_GENERATION_LIMIT / MAP_BLOCKSIZE)
++	    throw InvalidPositionException("createBlock(): pos. over limit");
++
 +	const v2s16 p2d(p.X, p.Z);
 +	const s16 block_y = p.Y;
- 	/*
- 		This will create or load a sector if not found in memory.
- 		If block exists on disk, it will be loaded.
- 
- 		NOTE: On old save formats, this will be slow, as it generates
- 		      lighting on blocks for them.
- 	*/
--	ServerMapSector *sector;
++    /*
++      This will create or load a sector if not found in memory.
++      If block exists on disk, it will be loaded.
++
++      NOTE: On old save formats, this will be slow, as it generates
++      lighting on blocks for them.
++    */
 +	ServerMapSector* sector;
- 	try{
--		sector = (ServerMapSector*)createSector(p2d);
-+		sector = (ServerMapSector*) createSector(p2d);
- 		assert(sector->getId() == MAPSECTOR_SERVER);
++	try
++	{
++	    sector = (ServerMapSector*) createSector(p2d);
++	    assert(sector->getId() == MAPSECTOR_SERVER);
  	}
  	catch(InvalidPositionException &e)
  	{
- 		infostream<<"createBlock: createSector() failed"<<std::endl;
-@@ -2099,46 +2330,49 @@
+-		infostream<<"createBlock: createSector() failed"<<std::endl;
+-		throw e;
++	    infostream<<"createBlock: createSector() failed"<<std::endl;
++	    throw e;
+ 	}
+ 	/*
+ 		NOTE: This should not be done, or at least the exception
+ 		should not be passed on as std::exception, because it
+ 		won't be catched at all.
+@@ -2099,67 +2341,69 @@
  
  	/*
  		Try to get a block from the sector
@@ -8609,9 +9152,12 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
 +	MapBlock* const block = sector->getBlockNoCreateNoEx(block_y);
  	if(block)
  	{
- 		if(block->isDummy())
- 			block->unDummify();
- 		return block;
+-		if(block->isDummy())
+-			block->unDummify();
+-		return block;
++	    if(block->isDummy())
++		block->unDummify();
++	    return block;
  	}
 +	
  	// Create blank
@@ -8630,33 +9176,77 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  			__FUNCTION_NAME,
  			p.X, p.Y, p.Z, allow_generate);
  	if (was_generated)
- 		*was_generated = false;
+-		*was_generated = false;
++	    *was_generated = false;
  
  	{
 -		MapBlock *block = getBlockNoCreateNoEx(p);
-+		MapBlock* const block = getBlockNoCreateNoEx(p);
- 		if(block && block->isDummy() == false)
- 			return block;
+-		if(block && block->isDummy() == false)
+-			return block;
++	    MapBlock* const block = getBlockNoCreateNoEx(p);
++	    if(block && block->isDummy() == false)
++		return block;
  	}
  
  	{
 -		MapBlock *block = loadBlock(p);
-+		MapBlock* const block = loadBlock(p);
- 		if(block)
- 			return block;
+-		if(block)
+-			return block;
++	    MapBlock* const block = loadBlock(p);
++	    if(block)
++		return block;
  	}
  
  	if(allow_generate)
  	{
- 		core::map<v3s16, MapBlock*> modified_blocks;
+-		core::map<v3s16, MapBlock*> modified_blocks;
 -		MapBlock *block = generateBlock(p, modified_blocks);
-+		MapBlock* const block = generateBlock(p, modified_blocks);
- 		if(block)
- 		{
- 			MapEditEvent event;
- 			event.type = MEET_OTHER;
- 			event.p = p;
-@@ -2168,30 +2402,31 @@
+-		if(block)
+-		{
+-			MapEditEvent event;
+-			event.type = MEET_OTHER;
+-			event.p = p;
++	    core::map<v3s16, MapBlock*> modified_blocks;
++	    MapBlock* const block = generateBlock(p, modified_blocks);
++	    if(block)
++	    {
++		MapEditEvent event;
++		event.type = MEET_OTHER;
++		event.p = p;
+ 
+-			// Copy modified_blocks to event
+-			for(core::map<v3s16, MapBlock*>::Iterator
+-					i = modified_blocks.getIterator();
+-					i.atEnd()==false; i++)
+-			{
+-				event.modified_blocks.insert(i.getNode()->getKey(), false);
+-			}
++	    // Copy modified_blocks to event
++		for(core::map<v3s16, MapBlock*>::Iterator
++			i = modified_blocks.getIterator();i.atEnd()==false; i++)
++		{
++		    event.modified_blocks.insert(i.getNode()->getKey(), false);
++		}
+ 
+-			// Queue event
+-			dispatchEvent(&event);
++	    // Queue event
++		dispatchEvent(&event);
+ 
+-			if (was_generated)
+-				*was_generated = true;
+-			return block;
+-		}
++		if (was_generated)
++		    *was_generated = true;
++		return block;
++	    }
+ 	}
+ 
+ 	return NULL;
+ }
+ 
+@@ -2168,83 +2412,91 @@
  	/* determine from map generator noise functions */
  	mapgen::BlockMakeData d;
  	d.type = m_type;
@@ -8683,49 +9273,107 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
 +			");"
 +			, NULL, NULL, NULL);
  	if(e == SQLITE_ABORT)
- 		throw FileNotGoodException("Could not create database structure");
+-		throw FileNotGoodException("Could not create database structure");
++	    throw FileNotGoodException("Could not create database structure");
  	else
- 		infostream<<"Server: Database structure was created";
+-		infostream<<"Server: Database structure was created";
++	    infostream<<"Server: Database structure was created";
  }
  
 -void ServerMap::verifyDatabase() {
 +void ServerMap::verifyDatabase()
 +{
  	if(m_database)
- 		return;
+-		return;
++	    return;
  
  	{
- 		char buff[1024];
-@@ -2219,32 +2454,36 @@
+-		char buff[1024];
+-		bool needs_create = false;
+-		int d;
++	    char buff[1024];
++	    bool needs_create = false;
++	    int d;
  
- 		if(needs_create)
- 			createDatabase();
+-		/*
+-			Open the database connection
+-		*/
++	/*
++	  Open the database connection
++	*/
  
- 		d = sqlite3_prepare(m_database, "SELECT `data` FROM `blocks` WHERE `pos`=? LIMIT 1", -1, &m_database_read, NULL);
+-		if (!path_get((char*)"world",(char*)"map.sqlite",0,buff,1024))
+-			throw FileNotGoodException("map.sqlite: Cannot find database file path");
++	    if (!path_get((char*)"world",(char*)"map.sqlite",0,buff,1024))
++		throw FileNotGoodException("map.sqlite: Cannot find database file path");
+ 
+-		if (path_create((char*)"world",NULL))
+-			throw FileNotGoodException("map.sqlite: Cannot create database file path");
++	    if (path_create((char*)"world",NULL))
++		throw FileNotGoodException("map.sqlite: Cannot create database file path");
+ 
+-		if (!path_exists(buff))
+-			needs_create = true;
++	    if (!path_exists(buff))
++		needs_create = true;
+ 
+-		d = sqlite3_open_v2(buff, &m_database, SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE, NULL);
 -		if(d != SQLITE_OK) {
-+		if(d != SQLITE_OK)
-+		{
- 			infostream<<"WARNING: Database read statment failed to prepare: "<<sqlite3_errmsg(m_database)<<std::endl;
- 			throw FileNotGoodException("map.sqlite: Cannot prepare read statement");
- 		}
+-			infostream<<"WARNING: Database failed to open: "<<sqlite3_errmsg(m_database)<<std::endl;
+-			throw FileNotGoodException("map.sqlite: Cannot open database file");
+-		}
++	    d = sqlite3_open_v2(buff, &m_database, SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE, NULL);
++	    
++	    if(d != SQLITE_OK)
++	    {
++		infostream<<"WARNING: Database failed to open: "<<sqlite3_errmsg(m_database)<<std::endl;
++		throw FileNotGoodException("map.sqlite: Cannot open database file");
++	    }
  
- 		d = sqlite3_prepare(m_database, "REPLACE INTO `blocks` VALUES(?, ?)", -1, &m_database_write, NULL);
+-		if(needs_create)
+-			createDatabase();
++	    if(needs_create)
++		createDatabase();
+ 
+-		d = sqlite3_prepare(m_database, "SELECT `data` FROM `blocks` WHERE `pos`=? LIMIT 1", -1, &m_database_read, NULL);
 -		if(d != SQLITE_OK) {
-+		if(d != SQLITE_OK)
-+		{
- 			infostream<<"WARNING: Database write statment failed to prepare: "<<sqlite3_errmsg(m_database)<<std::endl;
- 			throw FileNotGoodException("map.sqlite: Cannot prepare write statement");
- 		}
+-			infostream<<"WARNING: Database read statment failed to prepare: "<<sqlite3_errmsg(m_database)<<std::endl;
+-			throw FileNotGoodException("map.sqlite: Cannot prepare read statement");
+-		}
++	    d = sqlite3_prepare(m_database, "SELECT `data` FROM `blocks` WHERE `pos`=? LIMIT 1", -1, &m_database_read, NULL);
++	    
++	    if(d != SQLITE_OK)
++	    {
++		infostream<<"WARNING: Database read statment failed to prepare: "<<sqlite3_errmsg(m_database)<<std::endl;
++		throw FileNotGoodException("map.sqlite: Cannot prepare read statement");
++	    }
  
- 		d = sqlite3_prepare(m_database, "SELECT `pos` FROM `blocks`", -1, &m_database_list, NULL);
+-		d = sqlite3_prepare(m_database, "REPLACE INTO `blocks` VALUES(?, ?)", -1, &m_database_write, NULL);
 -		if(d != SQLITE_OK) {
-+		if(d != SQLITE_OK)
-+		{
- 			infostream<<"WARNING: Database list statment failed to prepare: "<<sqlite3_errmsg(m_database)<<std::endl;
- 			throw FileNotGoodException("map.sqlite: Cannot prepare read statement");
- 		}
+-			infostream<<"WARNING: Database write statment failed to prepare: "<<sqlite3_errmsg(m_database)<<std::endl;
+-			throw FileNotGoodException("map.sqlite: Cannot prepare write statement");
+-		}
++	    d = sqlite3_prepare(m_database, "REPLACE INTO `blocks` VALUES(?, ?)", -1, &m_database_write, NULL);
++	    if(d != SQLITE_OK)
++	    {
++		infostream<<"WARNING: Database write statment failed to prepare: "<<sqlite3_errmsg(m_database)<<std::endl;
++		throw FileNotGoodException("map.sqlite: Cannot prepare write statement");
++	    }
  
- 		infostream<<"Server: Database opened"<<std::endl;
+-		d = sqlite3_prepare(m_database, "SELECT `pos` FROM `blocks`", -1, &m_database_list, NULL);
+-		if(d != SQLITE_OK) {
+-			infostream<<"WARNING: Database list statment failed to prepare: "<<sqlite3_errmsg(m_database)<<std::endl;
+-			throw FileNotGoodException("map.sqlite: Cannot prepare read statement");
+-		}
++	    d = sqlite3_prepare(m_database, "SELECT `pos` FROM `blocks`", -1, &m_database_list, NULL);
++	    if(d != SQLITE_OK)
++	    {
++		infostream<<"WARNING: Database list statment failed to prepare: "<<sqlite3_errmsg(m_database)<<std::endl;
++		throw FileNotGoodException("map.sqlite: Cannot prepare read statement");
++	    }
+ 
+-		infostream<<"Server: Database opened"<<std::endl;
++	    infostream<<"Server: Database opened"<<std::endl;
  	}
  }
  
@@ -8737,54 +9385,77 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  }
  
  void ServerMap::save(bool only_changed)
-@@ -2258,29 +2497,36 @@
+@@ -2256,47 +2508,55 @@
+ 				<<std::endl;
+ 
  	u32 block_count = 0;
  	u32 block_count_all = 0; // Number of blocks in memory
  
- 	// Don't do anything with sqlite unless something is really saved
+-	// Don't do anything with sqlite unless something is really saved
++    // Don't do anything with sqlite unless something is really saved
  	bool save_started = false;
 +	JMutexAutoLock lock(m_sectors_mutex);
  
 -	for (core::map<v2s16, MapSector*>::Iterator i = m_sectors.getIterator(); i.atEnd() == false; i++) {
 -		ServerMapSector *sector = (ServerMapSector*)i.getNode()->getValue();
-+	for (core::map<v2s16, MapSector*>::Iterator i = m_sectors.getIterator();
-+	     i.atEnd() == false; i++)
-+	{
-+		ServerMapSector* const sector =
-+		    (ServerMapSector*)i.getNode()->getValue();
- 		assert(sector->getId() == MAPSECTOR_SERVER);
-+		
- 		core::list<MapBlock*> blocks;
- 		sector->getBlocks(blocks);
-+		
- 		core::list<MapBlock*>::Iterator j;
- 
+-		assert(sector->getId() == MAPSECTOR_SERVER);
+-		core::list<MapBlock*> blocks;
+-		sector->getBlocks(blocks);
+-		core::list<MapBlock*>::Iterator j;
+-
 -		for (j=blocks.begin(); j!=blocks.end(); j++) {
 -			MapBlock *block = *j;
-+		for (j=blocks.begin(); j!=blocks.end(); j++)
-+		{
-+			MapBlock* const block = *j;
- 
- 			block_count_all++;
- 
+-
+-			block_count_all++;
+-
 -			if (
 -				block->getModified() >= MOD_STATE_WRITE_NEEDED
 -				|| only_changed == false
 -			) {
-+			if (block->getModified() >= MOD_STATE_WRITE_NEEDED
-+					|| only_changed == false)
-+			{
- 				// Lazy beginSave()
+-				// Lazy beginSave()
 -				if (!save_started) {
-+				if (!save_started)
-+				{
- 					beginSave();
- 					save_started = true;
- 				}
+-					beginSave();
+-					save_started = true;
+-				}
++	for (core::map<v2s16, MapSector*>::Iterator i = m_sectors.getIterator();
++	     i.atEnd() == false; i++)
++	{
++	    ServerMapSector* const sector =
++		(ServerMapSector*)i.getNode()->getValue();
++	    assert(sector->getId() == MAPSECTOR_SERVER);
++		
++	    core::list<MapBlock*> blocks;
++	    sector->getBlocks(blocks);
++		
++	    core::list<MapBlock*>::Iterator j;
++
++	    for (j=blocks.begin(); j!=blocks.end(); j++)
++	    {
++		MapBlock* const block = *j;
++
++		block_count_all++;
++
++		if (block->getModified() >= MOD_STATE_WRITE_NEEDED
++				|| only_changed == false)
++		{
++		// Lazy beginSave()
++		    if (!save_started)
++		    {
++			beginSave();
++			save_started = true;
++		    }
  
- 				saveBlock(block);
-@@ -2292,11 +2538,12 @@
- 		endSave();
+-				saveBlock(block);
+-				block_count++;
+-			}
++		    saveBlock(block);
++		    block_count++;
+ 		}
++	    }
+ 	}
+ 	if (save_started)
+-		endSave();
++	    endSave();
  
  	/*
  		Only print if something happened or saved whole map
@@ -8797,7 +9468,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  				<<", "<<block_count_all<<" blocks in memory."
  				<<std::endl;
  	}
-@@ -2317,68 +2564,73 @@
+@@ -2317,68 +2577,71 @@
  	return mod - ((-i) % mod);
  }
  
@@ -8830,39 +9501,45 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  void ServerMap::loadMapMeta()
  {
 -	if (!config_get("world.seed")) {
-+	if (!config_get("world.seed"))
-+	{
- 		m_seed = (
- 			((uint64_t)(myrand()%0xffff)<<0)
- 			+ ((uint64_t)(myrand()%0xffff)<<16)
- 			+ ((uint64_t)(myrand()%0xffff)<<32)
- 			+ ((uint64_t)(myrand()%0xffff)<<48)
- 		);
- 		config_set_int64("world.seed",m_seed);
+-		m_seed = (
+-			((uint64_t)(myrand()%0xffff)<<0)
+-			+ ((uint64_t)(myrand()%0xffff)<<16)
+-			+ ((uint64_t)(myrand()%0xffff)<<32)
+-			+ ((uint64_t)(myrand()%0xffff)<<48)
+-		);
+-		config_set_int64("world.seed",m_seed);
 -	}else{
 -		m_seed = config_get_int64("world.seed");
++	if (!config_get("world.seed"))
++	{
++	    m_seed = (((uint64_t)(myrand()%0xffff)<<0)
++			    + ((uint64_t)(myrand()%0xffff)<<16)
++			    + ((uint64_t)(myrand()%0xffff)<<32)
++			    + ((uint64_t)(myrand()%0xffff)<<48));
++	    config_set_int64("world.seed",m_seed);
  	}
 +	else
-+		m_seed = config_get_int64("world.seed");
++	    m_seed = config_get_int64("world.seed");
  	m_type = MGT_DEFAULT;
 -	if (config_get("world.map.type")) {
 -		char* type = config_get("world.map.type");
 -		if (!strcmp(type,"flat")) {
+-			m_type = MGT_FLAT;
+-		}else{
+-			config_set("world.map.type","default");
+-		}
+-	}else{
 +	
 +	if (config_get("world.map.type"))
 +	{
-+		const char* type = config_get("world.map.type");
-+		if (!strcmp(type,"flat"))
- 			m_type = MGT_FLAT;
--		}else{
-+		else
- 			config_set("world.map.type","default");
--		}
--	}else{
--		config_set("world.map.type","default");
++	    const char* type = config_get("world.map.type");
++	    if (!strcmp(type,"flat"))
++		m_type = MGT_FLAT;
++	    else
+ 		config_set("world.map.type","default");
  	}
 +	else
-+		config_set("world.map.type","default");
++	    config_set("world.map.type","default");
  }
  
 -void ServerMap::beginSave() {
@@ -8870,7 +9547,8 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
 +{
  	verifyDatabase();
  	if(sqlite3_exec(m_database, "BEGIN;", NULL, NULL, NULL) != SQLITE_OK)
- 		infostream<<"WARNING: beginSave() failed, saving might be slow.";
+-		infostream<<"WARNING: beginSave() failed, saving might be slow.";
++	    infostream<<"WARNING: beginSave() failed, saving might be slow.";
  }
  
 -void ServerMap::endSave() {
@@ -8878,7 +9556,8 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
 +{
  	verifyDatabase();
  	if(sqlite3_exec(m_database, "COMMIT;", NULL, NULL, NULL) != SQLITE_OK)
- 		infostream<<"WARNING: endSave() failed, map might not have saved.";
+-		infostream<<"WARNING: endSave() failed, map might not have saved.";
++	    infostream<<"WARNING: endSave() failed, map might not have saved.";
  }
  
 -void ServerMap::saveBlock(MapBlock *block)
@@ -8888,94 +9567,202 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  	/*
  		Dummy blocks are not written
  	*/
-@@ -2430,15 +2682,17 @@
+@@ -2415,80 +2678,90 @@
+ 	// Write block to database
+ 
+ 	std::string tmp = o.str();
+ 	const char *bytes = tmp.c_str();
+ 
+-	if(sqlite3_bind_int64(m_database_write, 1, getBlockAsInteger(p3d)) != SQLITE_OK)
+-		infostream<<"WARNING: Block position failed to bind: "<<sqlite3_errmsg(m_database)<<std::endl;
+-	if(sqlite3_bind_blob(m_database_write, 2, (void *)bytes, o.tellp(), NULL) != SQLITE_OK) // TODO this mught not be the right length
+-		infostream<<"WARNING: Block data failed to bind: "<<sqlite3_errmsg(m_database)<<std::endl;
++	if(sqlite3_bind_int64(m_database_write, 1,
++					getBlockAsInteger(p3d)) != SQLITE_OK)
++	    infostream<<"WARNING: Block position failed to bind: "
++		      <<sqlite3_errmsg(m_database)<<std::endl;
++	if(sqlite3_bind_blob(m_database_write, 2,(void *)bytes, o.tellp(),
++					NULL) != SQLITE_OK) // TODO this mught not be the right length
++		infostream<<"WARNING: Block data failed to bind: "
++			  <<sqlite3_errmsg(m_database)<<std::endl;
+ 	int written = sqlite3_step(m_database_write);
+ 	if(written != SQLITE_DONE)
+-		infostream<<"WARNING: Block failed to save ("<<p3d.X<<", "<<p3d.Y<<", "<<p3d.Z<<") "
++		infostream<<"WARNING: Block failed to save ("<<p3d.X
++			  <<", "<<p3d.Y<<", "<<p3d.Z<<") "
+ 		<<sqlite3_errmsg(m_database)<<std::endl;
+ 	// Make ready for later reuse
+ 	sqlite3_reset(m_database_write);
  
  	// We just wrote it to the disk so clear modified flag
  	block->resetModified();
  }
  
 -void ServerMap::loadBlock(std::string *blob, v3s16 p3d, MapSector *sector, bool save_after_load)
-+void ServerMap::loadBlock(std::string *blob, v3s16 p3d, MapSector *sector,
++void ServerMap::loadBlock(std::string *blob, v3s16 p3d, MapSector* sector,
 +		bool save_after_load)
  {
  	DSTACK(__FUNCTION_NAME);
  
 -	try {
+-		std::istringstream is(*blob, std::ios_base::binary);
+-
+-		u8 version = SER_FMT_VER_INVALID;
+-		is.read((char*)&version, 1);
 +	try
 +	{
- 		std::istringstream is(*blob, std::ios_base::binary);
++	    std::istringstream is(*blob, std::ios_base::binary);
  
- 		u8 version = SER_FMT_VER_INVALID;
- 		is.read((char*)&version, 1);
+-		if (is.fail())
+-			throw SerializationError("ServerMap::loadBlock(): Failed"
+-					" to read MapBlock version");
++	    u8 version = SER_FMT_VER_INVALID;
++	    is.read((char*)&version, 1);
  
-@@ -2451,14 +2705,15 @@
- 		is.read((char*)*data, block_size);*/
+-		/*u32 block_size = MapBlock::serializedLength(version);
+-		SharedBuffer<u8> data(block_size);
+-		is.read((char*)*data, block_size);*/
++	    if (is.fail())
++		throw SerializationError("ServerMap::loadBlock(): Failed"
++				" to read MapBlock version");
  
- 		// This will always return a sector because we're the server
- 		//MapSector *sector = emergeSector(p2d);
+-		// This will always return a sector because we're the server
+-		//MapSector *sector = emergeSector(p2d);
++	/*u32 block_size = MapBlock::serializedLength(version);
++	  SharedBuffer<u8> data(block_size);
++	  is.read((char*)*data, block_size);*/
  
 -		MapBlock *block = NULL;
- 		bool created_new = false;
+-		bool created_new = false;
 -		block = sector->getBlockNoCreateNoEx(p3d.Y);
 -		if (block == NULL) {
-+		MapBlock* block = sector->getBlockNoCreateNoEx(p3d.Y);
+-			block = sector->createBlankBlockNoInsert(p3d.Y);
+-			created_new = true;
+-		}
++	// This will always return a sector because we're the server
++	//MapSector *sector = emergeSector(p2d);
+ 
+-		// Read basic data
+-		block->deSerialize(is, version);
++	    bool created_new = false;
++	    MapBlock* block = sector->getBlockNoCreateNoEx(p3d.Y);
 +		
-+		if (!block)
-+		{
- 			block = sector->createBlankBlockNoInsert(p3d.Y);
- 			created_new = true;
- 		}
++	    if (!block)
++	    {
++		block = sector->createBlankBlockNoInsert(p3d.Y);
++		created_new = true;
++	    }
  
- 		// Read basic data
-@@ -2478,12 +2733,14 @@
- 		if (version < SER_FMT_VER_HIGHEST || save_after_load)
- 			saveBlock(block);
+-		// Read extra data stored on disk
+-		block->deSerializeDiskExtra(is, version);
++	// Read basic data
++	    block->deSerialize(is, version);
  
- 		// We just loaded it from, so it's up-to-date.
- 		block->resetModified();
--
+-		// If it's a new block, insert it to the map
+-		if (created_new)
+-			sector->insertBlock(block);
++	// Read extra data stored on disk
++	    block->deSerializeDiskExtra(is, version);
+ 
+-		/*
+-			Save blocks loaded in old format in new format
+-		*/
++	// If it's a new block, insert it to the map
++	    if (created_new)
++		sector->insertBlock(block);
+ 
+-		if (version < SER_FMT_VER_HIGHEST || save_after_load)
+-			saveBlock(block);
++	/*
++	  Save blocks loaded in old format in new format
++	*/
+ 
+-		// We just loaded it from, so it's up-to-date.
+-		block->resetModified();
++	    if (version < SER_FMT_VER_HIGHEST || save_after_load)
++		saveBlock(block);
+ 
 -	} catch(SerializationError &e) {
-+		block->ResetCurrent();
+-		infostream<<"WARNING: Invalid block data in database "
+-				<<" (SerializationError). "
+-				<<"what()="<<e.what()
+-				<<std::endl;
+-				//" Ignoring. A new one will be generated.
++	// We just loaded it from, so it's up-to-date.
++	    block->resetModified();
++	    block->ResetCurrent();
 +	}
 +	catch(SerializationError &e)
 +	{
- 		infostream<<"WARNING: Invalid block data in database "
- 				<<" (SerializationError). "
- 				<<"what()="<<e.what()
- 				<<std::endl;
- 				//" Ignoring. A new one will be generated.
-@@ -2496,23 +2753,26 @@
++	    infostream<<"WARNING: Invalid block data in database "
++		      <<" (SerializationError). "
++		      <<"what()="<<e.what()
++		      <<std::endl;
++	//" Ignoring. A new one will be generated.
+ 	}
+ }
+ 
+ MapBlock* ServerMap::loadBlock(v3s16 blockpos)
+ {
+@@ -2496,34 +2769,38 @@
  
  	v2s16 p2d(blockpos.X, blockpos.Z);
  
  	verifyDatabase();
  
 -	if (sqlite3_bind_int64(m_database_read, 1, getBlockAsInteger(blockpos)) != SQLITE_OK)
+-		infostream<<"WARNING: Could not bind block position for load: "
+-			<<sqlite3_errmsg(m_database)<<std::endl;
+-	if (sqlite3_step(m_database_read) == SQLITE_ROW) {
+-		/*
+-			Make sure sector is loaded
+-		*/
+-		MapSector *sector = createSector(p2d);
 +	if (sqlite3_bind_int64(m_database_read, 1,
 +					getBlockAsInteger(blockpos)) != SQLITE_OK)
- 		infostream<<"WARNING: Could not bind block position for load: "
- 			<<sqlite3_errmsg(m_database)<<std::endl;
--	if (sqlite3_step(m_database_read) == SQLITE_ROW) {
++	    infostream<<"WARNING: Could not bind block position for load: "
++		      <<sqlite3_errmsg(m_database)<<std::endl;
++	
 +	if (sqlite3_step(m_database_read) == SQLITE_ROW)
 +	{
- 		/*
- 			Make sure sector is loaded
- 		*/
--		MapSector *sector = createSector(p2d);
-+		MapSector* sector = createSector(p2d);
++	/*
++	  Make sure sector is loaded
++	*/
++	    MapSector* sector = createSector(p2d);
  
- 		/*
- 			Load block
- 		*/
+-		/*
+-			Load block
+-		*/
 -		const char * data = (const char *)sqlite3_column_blob(m_database_read, 0);
-+		const char* data =
-+		    (const char*) sqlite3_column_blob(m_database_read, 0);
- 		size_t len = sqlite3_column_bytes(m_database_read, 0);
+-		size_t len = sqlite3_column_bytes(m_database_read, 0);
++	/*
++	  Load block
++	*/
++	    const char* data =
++		(const char*) sqlite3_column_blob(m_database_read, 0);
++	    size_t len = sqlite3_column_bytes(m_database_read, 0);
  
- 		std::string datastr(data, len);
+-		std::string datastr(data, len);
++	    std::string datastr(data, len);
  
- 		loadBlock(&datastr, blockpos, sector, false);
-@@ -2537,41 +2797,37 @@
+-		loadBlock(&datastr, blockpos, sector, false);
++	    loadBlock(&datastr, blockpos, sector, false);
+ 
+-		sqlite3_step(m_database_read);
+-		// We should never get more than 1 row, so ok to reset
+-		sqlite3_reset(m_database_read);
++	    sqlite3_step(m_database_read);
++	// We should never get more than 1 row, so ok to reset
++	    sqlite3_reset(m_database_read);
+ 
+-		return getBlockNoCreateNoEx(blockpos);
++	    return getBlockNoCreateNoEx(blockpos);
+ 	}
+ 	sqlite3_reset(m_database_read);
+ 
+ 	return getBlockNoCreateNoEx(blockpos);
+ }
+@@ -2537,68 +2814,64 @@
  
  /*
  	ClientMap
@@ -9029,8 +9816,9 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  	DSTACK(__FUNCTION_NAME);
  	// Check that it doesn't exist already
  	try{
- 		return getSectorNoGenerate(p2d);
-@@ -2579,14 +2835,14 @@
+-		return getSectorNoGenerate(p2d);
++	    return getSectorNoGenerate(p2d);
+ 	}
  	catch(InvalidPositionException &e)
  	{
  	}
@@ -9041,13 +9829,28 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  
  	{
 -		//JMutexAutoLock lock(m_sector_mutex); // Bulk comment-out
-+		JMutexAutoLock lock(m_sectors_mutex);
- 		m_sectors.insert(p2d, sector);
+-		m_sectors.insert(p2d, sector);
++	    JMutexAutoLock lock(m_sectors_mutex);
++	    m_sectors.insert(p2d, sector);
  	}
  
  	return sector;
  }
-@@ -2609,20 +2865,22 @@
+ 
+ void ClientMap::OnRegisterSceneNode()
+ {
+ 	if(IsVisible)
+ 	{
+-		SceneManager->registerNodeForRendering(this, scene::ESNRP_SOLID);
+-		SceneManager->registerNodeForRendering(this, scene::ESNRP_TRANSPARENT);
++	    SceneManager->registerNodeForRendering(this, scene::ESNRP_SOLID);
++	    SceneManager->registerNodeForRendering(this, scene::ESNRP_TRANSPARENT);
+ 	}
+ 
+ 	ISceneNode::OnRegisterSceneNode();
+ }
+ 
+@@ -2609,20 +2882,22 @@
  	v3s16 u0 = p1 - p0;
  	v3f uf = v3f(u0.X, u0.Y, u0.Z) * BS;
  	uf.normalize();
@@ -9080,25 +9883,33 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  				return true;
  		}
  		step *= stepfac;
-@@ -2636,15 +2894,14 @@
+@@ -2636,34 +2911,36 @@
  	DSTACK(__FUNCTION_NAME);
  
  	bool is_transparent_pass = pass == scene::ESNRP_TRANSPARENT;
  
  	std::string prefix;
 -	if (pass == scene::ESNRP_SOLID) {
-+	if (pass == scene::ESNRP_SOLID)
- 		prefix = "CM: solid: ";
+-		prefix = "CM: solid: ";
 -	}else{
-+	else
- 		prefix = "CM: transparent: ";
+-		prefix = "CM: transparent: ";
 -	}
++	if (pass == scene::ESNRP_SOLID)
++	    prefix = "CM: solid: ";
++	else
++	    prefix = "CM: transparent: ";
  
  	/*
  		This is called two times per frame, reset on the non-transparent one
  	*/
  	if (pass == scene::ESNRP_SOLID)
-@@ -2657,13 +2914,16 @@
+-		m_last_drawn_sectors.clear();
++	    m_last_drawn_sectors.clear();
+ 
+ 	/*
+ 		Get time for measuring timeout.
+ 
+ 		Measuring time is very useful for long delays when the
  		machine is swapping a lot.
  	*/
  	int time1 = time(0);
@@ -9115,7 +9926,26 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  	/*
  		Get all blocks and draw all visible ones
  	*/
-@@ -2718,59 +2978,72 @@
+@@ -2675,16 +2952,14 @@
+ 	v3s16 p_nodes_min = cam_pos_nodes - box_nodes_d;
+ 	v3s16 p_nodes_max = cam_pos_nodes + box_nodes_d;
+ 
+ 	// Take a fair amount as we will be dropping more out later
+ 	// Umm... these additions are a bit strange but they are needed.
+-	v3s16 p_blocks_min(
+-			p_nodes_min.X / MAP_BLOCKSIZE - 3,
++	v3s16 p_blocks_min(p_nodes_min.X / MAP_BLOCKSIZE - 3,
+ 			p_nodes_min.Y / MAP_BLOCKSIZE - 3,
+ 			p_nodes_min.Z / MAP_BLOCKSIZE - 3);
+-	v3s16 p_blocks_max(
+-			p_nodes_max.X / MAP_BLOCKSIZE + 1,
++	v3s16 p_blocks_max(p_nodes_max.X / MAP_BLOCKSIZE + 1,
+ 			p_nodes_max.Y / MAP_BLOCKSIZE + 1,
+ 			p_nodes_max.Z / MAP_BLOCKSIZE + 1);
+ 
+ 	u32 vertex_count = 0;
+ 	u32 meshbuffer_count = 0;
+@@ -2718,594 +2993,625 @@
  	core::map<v3s16, MapBlock*> drawset;
  
  	{
@@ -9123,109 +9953,169 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  
 -	for(core::map<v2s16, MapSector*>::Iterator
 -			si = m_sectors.getIterator();
+-			si.atEnd() == false; si++)
 +	for(core::map<v2s16, MapSector*>::Iterator si = m_sectors.getIterator();
- 			si.atEnd() == false; si++)
++	    si.atEnd() == false; si++)
  	{
 -		MapSector *sector = si.getNode()->getValue();
-+	    	m_sectors_mutex.Lock();
-+
-+		MapSector* const sector = si.getNode()->getValue();
-+
-+		if(!sector)
-+		{
-+		    m_sectors_mutex.Unlock();
-+		    continue;
-+		}
-+		
- 		v2s16 sp = sector->getPos();
+-		v2s16 sp = sector->getPos();
++	    m_sectors_mutex.Lock();
  
- 		if(m_control.range_all == false)
- 		{
+-		if(m_control.range_all == false)
+-		{
 -			if(sp.X < p_blocks_min.X
 -			|| sp.X > p_blocks_max.X
 -			|| sp.Y < p_blocks_min.Z
 -			|| sp.Y > p_blocks_max.Z)
 -				continue;
-+		    if(sp.X < p_blocks_min.X || sp.X > p_blocks_max.X
-+				    || sp.Y < p_blocks_min.Z
-+				    || sp.Y > p_blocks_max.Z)
-+			    continue;
- 		}
+-		}
++	    MapSector* const sector = si.getNode()->getValue();
  
 -		core::list< MapBlock * > sectorblocks;
-+		core::list<MapBlock*> sectorblocks;
-+		
- 		sector->getBlocks(sectorblocks);
+-		sector->getBlocks(sectorblocks);
++	    if(!sector)
++	    {
 +		m_sectors_mutex.Unlock();
++		continue;
++	    }
++		
++	    v2s16 sp = sector->getPos();
  
- 		/*
- 			Loop through blocks in sector
- 		*/
+-		/*
+-			Loop through blocks in sector
+-		*/
++	    if(m_control.range_all == false)
++	    {
++		if(sp.X < p_blocks_min.X || sp.X > p_blocks_max.X
++				|| sp.Y < p_blocks_min.Z
++				|| sp.Y > p_blocks_max.Z)
++		    continue;
++	    }
  
- 		u32 sector_blocks_drawn = 0;
--
+-		u32 sector_blocks_drawn = 0;
++	    core::list<MapBlock*> sectorblocks;
++		
++	    sector->getBlocks(sectorblocks);
++	    m_sectors_mutex.Unlock();
+ 
 -		core::list< MapBlock * >::Iterator i;
-+		core::list<MapBlock*>::Iterator i;
- 		for(i=sectorblocks.begin(); i!=sectorblocks.end(); i++)
- 		{
+-		for(i=sectorblocks.begin(); i!=sectorblocks.end(); i++)
+-		{
 -			MapBlock *block = *i;
-+			MapBlock* const block = *i;
++	/*
++	  Loop through blocks in sector
++	*/
  
-+			if(!block)
-+			    continue;
-+			
- 			/*
- 				Compare block position to camera position, skip
- 				if not seen on display
- 			*/
+-			/*
+-				Compare block position to camera position, skip
+-				if not seen on display
+-			*/
++	    u32 sector_blocks_drawn = 0;
++	    core::list<MapBlock*>::Iterator i;
++	    
++	    for(i=sectorblocks.begin(); i!=sectorblocks.end(); i++)
++	    {
++		MapBlock* const block = *i;
  
 -			if (block->mesh != NULL)
 -				block->mesh->updateCameraOffset(m_camera_offset);
-+			{
-+			    JMutexAutoLock lock(block->mesh_mutex);
- 
-+			    if (block->mesh != NULL)
-+				block->mesh->updateCameraOffset(camera_offset);
-+			}
++		if(!block)
++		    continue;
 +			
- 			float range = 100000 * BS;
- 			if(m_control.range_all == false)
- 				range = m_control.wanted_range * BS;
++	    /*
++	      Compare block position to camera position, skip
++	      if not seen on display
++	    */
  
- 			float d = 0.0;
- 			if(isBlockInSight(block->getPos(), camera_position,
- 					camera_direction, camera_fov,
- 					range, &d) == false)
+-			float range = 100000 * BS;
+-			if(m_control.range_all == false)
+-				range = m_control.wanted_range * BS;
+-
+-			float d = 0.0;
+-			if(isBlockInSight(block->getPos(), camera_position,
+-					camera_direction, camera_fov,
+-					range, &d) == false)
 -			{
- 				continue;
+-				continue;
 -			}
++		{
++		    JMutexAutoLock lock(block->mesh_mutex);
++
++		    if (block->mesh != NULL)
++			block->mesh->updateCameraOffset(camera_offset);
++		}
++			
++		float range = 100000 * BS;
++		if(m_control.range_all == false)
++		    range = m_control.wanted_range * BS;
  
- 			// This is ugly (spherical distance limit?)
- 			/*if(m_control.range_all == false &&
- 					d - 0.5*BS*MAP_BLOCKSIZE > range)
- 				continue;*/
-@@ -2792,37 +3065,37 @@
+-			// This is ugly (spherical distance limit?)
+-			/*if(m_control.range_all == false &&
+-					d - 0.5*BS*MAP_BLOCKSIZE > range)
+-				continue;*/
++		float d = 0.0;
++		if(isBlockInSight(block->getPos(), camera_position,
++						camera_direction, camera_fov,
++						range, &d) == false)
++		    continue;
++
++	    // This is ugly (spherical distance limit?)
++	    /*if(m_control.range_all == false &&
++	      d - 0.5*BS*MAP_BLOCKSIZE > range)
++	      continue;*/
  
- 				mesh_expired = block->getMeshExpired();
+-			blocks_in_range++;
++		blocks_in_range++;
  
- 				// Mesh has not been expired and there is no mesh:
- 				// block has no content
+ #if 1
+-			/*
+-				Update expired mesh (used for day/night change)
++	    /*
++	      Update expired mesh (used for day/night change)
+ 
+-				It doesn't work exactly like it should now with the
+-				tasked mesh update but whatever.
+-			*/
++	      It doesn't work exactly like it should now with the
++	      tasked mesh update but whatever.
++	    */
+ 
+-			bool mesh_expired = false;
++		bool mesh_expired = false;
+ 
+-			{
+-				JMutexAutoLock lock(block->mesh_mutex);
++		{
++		    JMutexAutoLock lock(block->mesh_mutex);
+ 
+-				mesh_expired = block->getMeshExpired();
++		    mesh_expired = block->getMeshExpired();
+ 
+-				// Mesh has not been expired and there is no mesh:
+-				// block has no content
 -				if(block->mesh == NULL && mesh_expired == false){
-+				if(block->mesh == NULL && mesh_expired == false)
-+				{
- 					blocks_in_range_without_mesh++;
- 					continue;
- 				}
- 			}
+-					blocks_in_range_without_mesh++;
+-					continue;
+-				}
+-			}
++		// Mesh has not been expired and there is no mesh:
++		// block has no content
++		    if(block->mesh == NULL && mesh_expired == false)
++		    {
++			blocks_in_range_without_mesh++;
++			continue;
++		    }
++		}
  
 -			f32 faraway = BS*100;
-+			const f32 faraway = BS*100;
- 			//f32 faraway = m_control.wanted_range * BS;
+-			//f32 faraway = m_control.wanted_range * BS;
++		const f32 faraway = BS*100;
++	    //f32 faraway = m_control.wanted_range * BS;
  
- 			/*
- 				This has to be done with the mesh_mutex unlocked
- 			*/
- 			// Pretty random but this should work somewhat nicely
+-			/*
+-				This has to be done with the mesh_mutex unlocked
+-			*/
+-			// Pretty random but this should work somewhat nicely
 -			if (
 -				mesh_expired
 -				&& (
@@ -9234,131 +10124,195 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
 -					|| (m_control.range_all && mesh_update_count < 100)
 -				)
 -			) {
-+			if (mesh_expired && (d < faraway || mesh_update_count < 20
-+							|| (m_control.range_all && mesh_update_count < 100)))
-+			{
- 				mesh_update_count++;
- 
-+				JMutexAutoLock lock(block->mesh_mutex);
-+
- 				// Mesh has been expired: generate new mesh
+-				mesh_update_count++;
+-
+-				// Mesh has been expired: generate new mesh
 -				if (block->mesh) {
 -					m_client->addUpdateMeshTask(block->getPos(),false,true);
 -					block->setMeshExpired(false);
-+				if (block->mesh)
-+				{
-+				    m_client->addUpdateMeshTask(block->getPos(),
-+						    false,true);
-+				    block->setMeshExpired(false);
- 				}
+-				}
++	    /*
++	      This has to be done with the mesh_mutex unlocked
++	    */
++	    // Pretty random but this should work somewhat nicely
++		if (mesh_expired && (d < faraway || mesh_update_count < 20
++						|| (m_control.range_all && mesh_update_count < 100)))
++		{
++		    mesh_update_count++;
  
- 				mesh_expired = false;
- 			}
- #endif
-@@ -2831,37 +3104,37 @@
- 				Occlusion culling
- 			*/
+-				mesh_expired = false;
+-			}
+-#endif
++		    JMutexAutoLock lock(block->mesh_mutex);
  
- 			v3s16 cpn = block->getPos() * MAP_BLOCKSIZE;
- 			cpn += v3s16(MAP_BLOCKSIZE/2, MAP_BLOCKSIZE/2, MAP_BLOCKSIZE/2);
-+			
- 			float step = BS*1;
- 			float stepfac = 1.1;
- 			float startoff = BS*1;
- 			float endoff = -BS*MAP_BLOCKSIZE*1.42*1.42;
- 			v3s16 spn = cam_pos_nodes + v3s16(0,0,0);
- 			s16 bs2 = MAP_BLOCKSIZE/2 + 1;
- 			u32 needed_count = 1;
+-			/*
+-				Occlusion culling
+-			*/
++		// Mesh has been expired: generate new mesh
++		    if (block->mesh)
++		    {
++			m_client->addUpdateMeshTask(block->getPos(),
++					false,true);
++			block->setMeshExpired(false);
++		    }
+ 
+-			v3s16 cpn = block->getPos() * MAP_BLOCKSIZE;
+-			cpn += v3s16(MAP_BLOCKSIZE/2, MAP_BLOCKSIZE/2, MAP_BLOCKSIZE/2);
+-			float step = BS*1;
+-			float stepfac = 1.1;
+-			float startoff = BS*1;
+-			float endoff = -BS*MAP_BLOCKSIZE*1.42*1.42;
+-			v3s16 spn = cam_pos_nodes + v3s16(0,0,0);
+-			s16 bs2 = MAP_BLOCKSIZE/2 + 1;
+-			u32 needed_count = 1;
 -			if(
 -				isOccluded(this, spn, cpn + v3s16(0,0,0),
 -						step, stepfac, startoff, endoff, needed_count) &&
--				isOccluded(this, spn, cpn + v3s16(bs2,bs2,bs2),
++		    mesh_expired = false;
++		}
++#endif
++
++	    /*
++	      Occlusion culling
++	    */
++
++		v3s16 cpn = block->getPos() * MAP_BLOCKSIZE;
++		cpn += v3s16(MAP_BLOCKSIZE/2, MAP_BLOCKSIZE/2, MAP_BLOCKSIZE/2);
++			
++		float step = BS*1;
++		float stepfac = 1.1;
++		float startoff = BS*1;
++		float endoff = -BS*MAP_BLOCKSIZE*1.42*1.42;
++		v3s16 spn = cam_pos_nodes + v3s16(0,0,0);
++		s16 bs2 = MAP_BLOCKSIZE/2 + 1;
++		u32 needed_count = 1;
++			
++		if(isOccluded(this, spn, cpn + v3s16(0,0,0),
++						step, stepfac, startoff, endoff,
++						needed_count) &&
+ 				isOccluded(this, spn, cpn + v3s16(bs2,bs2,bs2),
 -						step, stepfac, startoff, endoff, needed_count) &&
--				isOccluded(this, spn, cpn + v3s16(bs2,bs2,-bs2),
++						step, stepfac, startoff, endoff,
++						needed_count) &&
+ 				isOccluded(this, spn, cpn + v3s16(bs2,bs2,-bs2),
 -						step, stepfac, startoff, endoff, needed_count) &&
--				isOccluded(this, spn, cpn + v3s16(bs2,-bs2,bs2),
++						step, stepfac, startoff,
++						endoff, needed_count) &&
+ 				isOccluded(this, spn, cpn + v3s16(bs2,-bs2,bs2),
 -						step, stepfac, startoff, endoff, needed_count) &&
--				isOccluded(this, spn, cpn + v3s16(bs2,-bs2,-bs2),
++						step, stepfac, startoff, endoff,
++						needed_count) &&
+ 				isOccluded(this, spn, cpn + v3s16(bs2,-bs2,-bs2),
 -						step, stepfac, startoff, endoff, needed_count) &&
--				isOccluded(this, spn, cpn + v3s16(-bs2,bs2,bs2),
++						step, stepfac, startoff, endoff,
++						needed_count) &&
+ 				isOccluded(this, spn, cpn + v3s16(-bs2,bs2,bs2),
 -						step, stepfac, startoff, endoff, needed_count) &&
--				isOccluded(this, spn, cpn + v3s16(-bs2,bs2,-bs2),
++						step, stepfac, startoff, endoff,
++						needed_count) &&
+ 				isOccluded(this, spn, cpn + v3s16(-bs2,bs2,-bs2),
 -						step, stepfac, startoff, endoff, needed_count) &&
--				isOccluded(this, spn, cpn + v3s16(-bs2,-bs2,bs2),
++						step, stepfac, startoff, endoff,
++						needed_count) &&
+ 				isOccluded(this, spn, cpn + v3s16(-bs2,-bs2,bs2),
 -						step, stepfac, startoff, endoff, needed_count) &&
--				isOccluded(this, spn, cpn + v3s16(-bs2,-bs2,-bs2),
++						step, stepfac, startoff, endoff,
++						needed_count) &&
+ 				isOccluded(this, spn, cpn + v3s16(-bs2,-bs2,-bs2),
 -						step, stepfac, startoff, endoff, needed_count)
 -			)
-+			
-+			if(isOccluded(this, spn, cpn + v3s16(0,0,0),
-+							step, stepfac, startoff, endoff, needed_count) &&
-+					isOccluded(this, spn, cpn + v3s16(bs2,bs2,bs2),
-+							step, stepfac, startoff, endoff, needed_count) &&
-+					isOccluded(this, spn, cpn + v3s16(bs2,bs2,-bs2),
-+							step, stepfac, startoff, endoff, needed_count) &&
-+					isOccluded(this, spn, cpn + v3s16(bs2,-bs2,bs2),
-+							step, stepfac, startoff, endoff, needed_count) &&
-+					isOccluded(this, spn, cpn + v3s16(bs2,-bs2,-bs2),
-+							step, stepfac, startoff, endoff, needed_count) &&
-+					isOccluded(this, spn, cpn + v3s16(-bs2,bs2,bs2),
-+							step, stepfac, startoff, endoff, needed_count) &&
-+					isOccluded(this, spn, cpn + v3s16(-bs2,bs2,-bs2),
-+							step, stepfac, startoff, endoff, needed_count) &&
-+					isOccluded(this, spn, cpn + v3s16(-bs2,-bs2,bs2),
-+							step, stepfac, startoff, endoff, needed_count) &&
-+					isOccluded(this, spn, cpn + v3s16(-bs2,-bs2,-bs2),
-+							step, stepfac, startoff, endoff, needed_count))
- 			{
- 				blocks_occlusion_culled++;
- 				continue;
- 			}
+-			{
+-				blocks_occlusion_culled++;
+-				continue;
+-			}
+-
+-			// This block is in range. Reset usage timer.
+-			block->resetUsageTimer();
++						step, stepfac, startoff, endoff,
++						needed_count))
++		{
++		    blocks_occlusion_culled++;
++		    continue;
++		}
  
-@@ -2871,33 +3144,34 @@
- 			/*
- 				Ignore if mesh doesn't exist
- 			*/
- 			{
- 				JMutexAutoLock lock(block->mesh_mutex);
-+				MapBlockMesh* const mesh = block->mesh;
+-			/*
+-				Ignore if mesh doesn't exist
+-			*/
+-			{
+-				JMutexAutoLock lock(block->mesh_mutex);
++	    // This block is in range. Reset usage timer.
++		block->resetUsageTimer();
  
 -				MapBlockMesh *mesh = block->mesh;
--
++	    /*
++	      Ignore if mesh doesn't exist
++	    */
++		{
++		    JMutexAutoLock lock(block->mesh_mutex);
++		    MapBlockMesh* const mesh = block->mesh;
+ 
 -				if (mesh == NULL) {
-+				if (mesh == NULL)
-+				{
- 					blocks_in_range_without_mesh++;
- 					continue;
- 				}
+-					blocks_in_range_without_mesh++;
+-					continue;
+-				}
++		    if (mesh == NULL)
++		    {
++			blocks_in_range_without_mesh++;
++			continue;
++		    }
  
 -				block->mesh->isfar = (d > faraway);
-+				mesh->isfar = d > faraway;
- 			}
+-			}
++		    mesh->isfar = d > faraway;
++		}
  
- 			// Limit block count in case of a sudden increase
- 			blocks_would_have_drawn++;
+-			// Limit block count in case of a sudden increase
+-			blocks_would_have_drawn++;
 -			if (
 -				blocks_drawn >= m_control.wanted_max_blocks
-+			if (blocks_drawn >= m_control.wanted_max_blocks
++	    // Limit block count in case of a sudden increase
++		blocks_would_have_drawn++;
++		if (blocks_drawn >= m_control.wanted_max_blocks
  				&& m_control.range_all == false
 -				&& d > m_control.wanted_min_range * BS
 -			)
-+					&& d > m_control.wanted_min_range * BS)
- 				continue;
+-				continue;
++				&& d > m_control.wanted_min_range * BS)
++		    continue;
  
- 			// Animate textures in block mesh
+-			// Animate textures in block mesh
 -			if (anim_textures && block->mesh->isAnimated()) {
 -				//JMutexAutoLock lock(block->mesh_mutex); //needed?
-+			if (anim_textures)
-+			{
-+			    JMutexAutoLock lock(block->mesh_mutex);
-+
-+			    if(block->mesh->isAnimated())
- 				block->mesh->animate(anim_time);
- 			}
+-				block->mesh->animate(anim_time);
+-			}
++	    // Animate textures in block mesh
++		if (anim_textures)
++		{
++		    JMutexAutoLock lock(block->mesh_mutex);
  
- 			// Add to set
- 			drawset[block->getPos()] = block;
-@@ -2914,52 +3188,55 @@
+-			// Add to set
+-			drawset[block->getPos()] = block;
++		    if(block->mesh->isAnimated())
++			block->mesh->animate(anim_time);
++		}
++
++	    // Add to set
++		drawset[block->getPos()] = block;
+ 
+-			sector_blocks_drawn++;
+-			blocks_drawn++;
+-		} // foreach sectorblocks
++		sector_blocks_drawn++;
++		blocks_drawn++;
++	    } // foreach sectorblocks
+ 
+-		if (sector_blocks_drawn != 0)
+-			m_last_drawn_sectors[sp] = true;
++	    if (sector_blocks_drawn != 0)
++		m_last_drawn_sectors[sp] = true;
+ 	}
+ 	} // ScopeProfiler
+ 
  	/*
  		Draw the selected MapBlocks
  	*/
@@ -9369,7 +10323,48 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
 +	const ScopeProfiler sp(g_profiler, prefix+"drawing blocks", SPT_AVG);
  	int timecheck_counter = 0;
 -	for (core::map<v3s16, MapBlock*>::Iterator i = drawset.getIterator(); i.atEnd() == false; i++) {
--		{
++	
++	for (core::map<v3s16, MapBlock*>::Iterator i = drawset.getIterator();
++	     i.atEnd() == false; i++)
++	{
++	    timecheck_counter++;
++	    if (timecheck_counter > 50)
++	    {
++		timecheck_counter = 0;
++		int time2 = time(0);
++		if (time2 > time1 + 4)
++		{
++		    infostream<<"ClientMap::renderMap(): Rendering takes ages, returning."
++			      <<std::endl;
++		    return;
++		}
++	    }
++
++	    MapBlock* const block = i.getNode()->getValue();
++
++	/*
++	  Draw the faces of the block
++	*/
++	    {
++		JMutexAutoLock lock(block->mesh_mutex);
++		MapBlockMesh* const mesh = block->mesh;
++			
++		if (!mesh || !mesh->getMesh())
++		    continue;
++			
++		scene::SMesh* m = NULL;
++		if (mesh->isfar)
++		    m = mesh->getFarMesh();
++		else
++		    m = mesh->getMesh();
++		if (!m)
++		    continue;
++
++		const u32 c = m->getMeshBufferCount();
++		bool stuff_actually_drawn = false;
++			
++		for (u32 i=0; i<c; i++)
+ 		{
 -			timecheck_counter++;
 -			if (timecheck_counter > 50) {
 -				timecheck_counter = 0;
@@ -9381,118 +10376,146 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
 -					return;
 -				}
 -			}
-+	
-+	for (core::map<v3s16, MapBlock*>::Iterator i = drawset.getIterator();
-+	     i.atEnd() == false; i++)
-+	{
-+	        timecheck_counter++;
-+		if (timecheck_counter > 50)
-+		{
-+		    timecheck_counter = 0;
-+		    int time2 = time(0);
-+		    if (time2 > time1 + 4)
-+		    {
-+			infostream<<"ClientMap::renderMap(): Rendering takes ages, returning."
-+				  <<std::endl;
-+			return;
-+		    }
- 		}
- 
+-		}
+-
 -		MapBlock *block = i.getNode()->getValue();
-+		MapBlock* const block = i.getNode()->getValue();
- 
- 		/*
- 			Draw the faces of the block
- 		*/
- 		{
- 			JMutexAutoLock lock(block->mesh_mutex);
+-
+-		/*
+-			Draw the faces of the block
+-		*/
+-		{
+-			JMutexAutoLock lock(block->mesh_mutex);
 -
 -			MapBlockMesh *mesh = block->mesh;
-+			MapBlockMesh* const mesh = block->mesh;
-+			
- 			if (!mesh || !mesh->getMesh())
- 				continue;
+-			if (!mesh || !mesh->getMesh())
+-				continue;
 -			scene::SMesh *m = NULL;
 -			if (mesh->isfar) {
-+			
-+			scene::SMesh* m = NULL;
-+			if (mesh->isfar)
- 				m = mesh->getFarMesh();
+-				m = mesh->getFarMesh();
 -			}else{
-+			else
- 				m = mesh->getMesh();
+-				m = mesh->getMesh();
 -			}
- 			if (!m)
- 				continue;
+-			if (!m)
+-				continue;
++		    scene::IMeshBuffer* const buf = m->getMeshBuffer(i);
++		    if (buf == NULL)
++			continue;
  
 -			u32 c = m->getMeshBufferCount();
-+			const u32 c = m->getMeshBufferCount();
- 			bool stuff_actually_drawn = false;
+-			bool stuff_actually_drawn = false;
 -			for (u32 i=0; i<c; i++) {
 -				scene::IMeshBuffer *buf = m->getMeshBuffer(i);
-+			
-+			for (u32 i=0; i<c; i++)
-+			{
-+				scene::IMeshBuffer* const buf = m->getMeshBuffer(i);
- 				if (buf == NULL)
- 					continue;
- 
- 				buf->getMaterial().setFlag(video::EMF_TRILINEAR_FILTER, m_render_trilinear);
- 				buf->getMaterial().setFlag(video::EMF_BILINEAR_FILTER, m_render_bilinear);
-@@ -2968,11 +3245,12 @@
- 				const video::SMaterial& material = buf->getMaterial();
- 				video::IMaterialRenderer* rnd =
- 						driver->getMaterialRenderer(material.MaterialType);
- 				bool transparent = (rnd && rnd->isTransparent());
- 				// Render transparent on transparent pass and likewise.
+-				if (buf == NULL)
+-					continue;
+-
+-				buf->getMaterial().setFlag(video::EMF_TRILINEAR_FILTER, m_render_trilinear);
+-				buf->getMaterial().setFlag(video::EMF_BILINEAR_FILTER, m_render_bilinear);
+-				buf->getMaterial().setFlag(video::EMF_ANISOTROPIC_FILTER, m_render_anisotropic);
+-
+-				const video::SMaterial& material = buf->getMaterial();
+-				video::IMaterialRenderer* rnd =
+-						driver->getMaterialRenderer(material.MaterialType);
+-				bool transparent = (rnd && rnd->isTransparent());
+-				// Render transparent on transparent pass and likewise.
 -				if (transparent == is_transparent_pass) {
-+				if (transparent == is_transparent_pass)
-+				{
- 					if (buf->getVertexCount() == 0)
- 						errorstream<<"Block ["<<analyze_block(block)
- 								<<"] contains an empty meshbuf"<<std::endl;
- 					/*
- 						This *shouldn't* hurt too much because Irrlicht
-@@ -2984,30 +3262,31 @@
- 					vertex_count += buf->getVertexCount();
- 					meshbuffer_count++;
- 					stuff_actually_drawn = true;
- 				}
- 			}
--			if (stuff_actually_drawn) {
-+			if (stuff_actually_drawn)
- 				blocks_had_pass_meshbuf++;
--			}else{
-+			else
- 				blocks_without_stuff++;
+-					if (buf->getVertexCount() == 0)
+-						errorstream<<"Block ["<<analyze_block(block)
+-								<<"] contains an empty meshbuf"<<std::endl;
+-					/*
+-						This *shouldn't* hurt too much because Irrlicht
+-						doesn't change opengl textures if the old
+-						material has the same texture.
+-					*/
+-					driver->setMaterial(buf->getMaterial());
+-					driver->drawMeshBuffer(buf);
+-					vertex_count += buf->getVertexCount();
+-					meshbuffer_count++;
+-					stuff_actually_drawn = true;
+-				}
 -			}
- 		}
+-			if (stuff_actually_drawn) {
+-				blocks_had_pass_meshbuf++;
+-			}else{
+-				blocks_without_stuff++;
+-			}
+-		}
++		    buf->getMaterial().setFlag(video::EMF_TRILINEAR_FILTER,
++				    m_render_trilinear);
++		    buf->getMaterial().setFlag(video::EMF_BILINEAR_FILTER,
++				    m_render_bilinear);
++		    buf->getMaterial().setFlag(video::EMF_ANISOTROPIC_FILTER,
++				    m_render_anisotropic);
++
++		    const video::SMaterial& material = buf->getMaterial();
++		    video::IMaterialRenderer* rnd =
++			driver->getMaterialRenderer(material.MaterialType);
++		    bool transparent = (rnd && rnd->isTransparent());
++		// Render transparent on transparent pass and likewise.
++		    if (transparent == is_transparent_pass)
++		    {
++			if (buf->getVertexCount() == 0)
++			    errorstream<<"Block ["<<analyze_block(block)
++				       <<"] contains an empty meshbuf"<<std::endl;
++		    /*
++		      This *shouldn't* hurt too much because Irrlicht
++		      doesn't change opengl textures if the old
++		      material has the same texture.
++		    */
++			driver->setMaterial(buf->getMaterial());
++			driver->drawMeshBuffer(buf);
++			vertex_count += buf->getVertexCount();
++			meshbuffer_count++;
++			stuff_actually_drawn = true;
++		    }
++		}
++		if (stuff_actually_drawn)
++		    blocks_had_pass_meshbuf++;
++		else
++		    blocks_without_stuff++;
++	    }
  	}
  	} // ScopeProfiler
  
- 	// Log only on solid pass because values are the same
+-	// Log only on solid pass because values are the same
 -	if(pass == scene::ESNRP_SOLID){
+-		g_profiler->avg("CM: blocks in range", blocks_in_range);
+-		g_profiler->avg("CM: blocks occlusion culled", blocks_occlusion_culled);
+-		if(blocks_in_range != 0)
+-			g_profiler->avg("CM: blocks in range without mesh (frac)",
+-					(float)blocks_in_range_without_mesh/blocks_in_range);
+-		g_profiler->avg("CM: blocks drawn", blocks_drawn);
++    // Log only on solid pass because values are the same
 +	if(pass == scene::ESNRP_SOLID)
 +	{
- 		g_profiler->avg("CM: blocks in range", blocks_in_range);
- 		g_profiler->avg("CM: blocks occlusion culled", blocks_occlusion_culled);
- 		if(blocks_in_range != 0)
- 			g_profiler->avg("CM: blocks in range without mesh (frac)",
- 					(float)blocks_in_range_without_mesh/blocks_in_range);
- 		g_profiler->avg("CM: blocks drawn", blocks_drawn);
++	    g_profiler->avg("CM: blocks in range", blocks_in_range);
++	    g_profiler->avg("CM: blocks occlusion culled",
++			    blocks_occlusion_culled);
++	    if(blocks_in_range != 0)
++		g_profiler->avg("CM: blocks in range without mesh (frac)",
++				(float)blocks_in_range_without_mesh/blocks_in_range);
++	    g_profiler->avg("CM: blocks drawn", blocks_drawn);
  	}
  
  	g_profiler->avg(prefix+"vertices drawn", vertex_count);
 +	
  	if(blocks_had_pass_meshbuf != 0)
- 		g_profiler->avg(prefix+"meshbuffers per block",
- 				(float)meshbuffer_count / (float)blocks_had_pass_meshbuf);
+-		g_profiler->avg(prefix+"meshbuffers per block",
+-				(float)meshbuffer_count / (float)blocks_had_pass_meshbuf);
++	    g_profiler->avg(prefix+"meshbuffers per block",
++			    (float)meshbuffer_count / (float)blocks_had_pass_meshbuf);
  	if(blocks_drawn != 0)
- 		g_profiler->avg(prefix+"empty blocks (frac)",
-@@ -3018,90 +3297,85 @@
+-		g_profiler->avg(prefix+"empty blocks (frac)",
+-				(float)blocks_without_stuff / blocks_drawn);
++	    g_profiler->avg(prefix+"empty blocks (frac)",
++			    (float)blocks_without_stuff / blocks_drawn);
  
- 	/*infostream<<"renderMap(): is_transparent_pass="<<is_transparent_pass
- 			<<", rendered "<<vertex_count<<" vertices."<<std::endl;*/
+ 	m_control.blocks_drawn = blocks_drawn;
+ 	m_control.blocks_would_have_drawn = blocks_would_have_drawn;
+ 
+-	/*infostream<<"renderMap(): is_transparent_pass="<<is_transparent_pass
+-			<<", rendered "<<vertex_count<<" vertices."<<std::endl;*/
++    /*infostream<<"renderMap(): is_transparent_pass="<<is_transparent_pass
++      <<", rendered "<<vertex_count<<" vertices."<<std::endl;*/
  }
  
 -static bool getVisibleBrightness(
@@ -9527,42 +10550,30 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  	bool allow_allowing_non_sunlight_propagates = false;
  	bool allow_non_sunlight_propagates = false;
  
- 	// Check content nearly at camera position
+-	// Check content nearly at camera position
++    // Check content nearly at camera position
  	{
 -		v3s16 p = floatToInt(p0 /*+ dir * 3*BS*/, BS);
 -		MapNode n = map->getNodeNoEx(p);
 -		ContentFeatures &nf = content_features(n.getContent());
-+		const v3s16 p = floatToInt(p0 /*+ dir * 3*BS*/, BS);
-+		const MapNode n = map->getNodeNoEx(p);
-+		const ContentFeatures& nf = content_features(n.getContent());
-+		
- 		if (nf.param_type == CPT_LIGHT && !nf.sunlight_propagates)
- 			allow_allowing_non_sunlight_propagates = true;
- 	}
- 	// If would start at CONTENT_IGNORE, start closer
- 	{
+-		if (nf.param_type == CPT_LIGHT && !nf.sunlight_propagates)
+-			allow_allowing_non_sunlight_propagates = true;
+-	}
+-	// If would start at CONTENT_IGNORE, start closer
+-	{
 -		v3s16 p = floatToInt(pf, BS);
 -		MapNode n = map->getNodeNoEx(p);
 -		if (n.getContent() == CONTENT_IGNORE) {
 -			float newd = 2*BS;
-+		const v3s16 p = floatToInt(pf, BS);
-+		const MapNode n = map->getNodeNoEx(p);
-+		
-+		if (n.getContent() == CONTENT_IGNORE)
-+		{
-+			const float newd = 2*BS;
-+			
- 			pf = p0 + dir * 2*newd;
- 			distance = newd;
- 		}
- 	}
- 
+-			pf = p0 + dir * 2*newd;
+-			distance = newd;
+-		}
+-	}
+-
 -	for (int i=0; distance < end_distance; i++) {
-+	for (int i=0; distance < end_distance; i++)
-+	{
- 		pf += dir * step;
- 		distance += step;
- 		step *= step_multiplier;
+-		pf += dir * step;
+-		distance += step;
+-		step *= step_multiplier;
 -		v3s16 p = floatToInt(pf, BS);
 -		MapNode n = map->getNodeNoEx(p);
 -		ContentFeatures &nf = content_features(n.getContent());
@@ -9572,18 +10583,9 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
 -			&& nf.param_type == CPT_LIGHT
 -			&& !nf.sunlight_propagates
 -		) {
-+		
-+		const v3s16 p = floatToInt(pf, BS);
-+		const MapNode n = map->getNodeNoEx(p);
-+		const ContentFeatures& nf = content_features(n.getContent());
-+		
-+		if (allow_allowing_non_sunlight_propagates
-+				&& i == 0
-+				&& nf.param_type == CPT_LIGHT
-+				&& !nf.sunlight_propagates)
- 			allow_non_sunlight_propagates = true;
+-			allow_non_sunlight_propagates = true;
 -		}
- 
+-
 -		if (
 -			nf.param_type != CPT_LIGHT
 -			|| (
@@ -9591,36 +10593,86 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
 -				&& !allow_non_sunlight_propagates
 -			)
 -		) {
-+		if (nf.param_type != CPT_LIGHT
-+				|| (!nf.sunlight_propagates
-+						&& !allow_non_sunlight_propagates))
-+		{
- 			nonlight_seen = true;
- 			noncount++;
- 			if (noncount >= 4)
- 				break;
- 			continue;
- 		}
+-			nonlight_seen = true;
+-			noncount++;
+-			if (noncount >= 4)
+-				break;
+-			continue;
+-		}
 -		if (
 -			distance >= sunlight_min_d
 -			&& *sunlight_seen == false
 -			&& nonlight_seen == false
 -			&& n.getLight(LIGHTBANK_DAY) == LIGHT_SUN
 -		)
+-			*sunlight_seen = true;
+-		noncount = 0;
+-		brightness_sum += decode_light(n.getLightBlend(daylight_factor));
+-		brightness_count++;
++	    const v3s16 p = floatToInt(p0 /*+ dir * 3*BS*/, BS);
++	    const MapNode n = map->getNodeNoEx(p);
++	    const ContentFeatures& nf = content_features(n.getContent());
 +		
-+		if (distance >= sunlight_min_d
-+				&& *sunlight_seen == false
-+				&& nonlight_seen == false
-+				&& n.getLight(LIGHTBANK_DAY) == LIGHT_SUN)
- 			*sunlight_seen = true;
++	    if (nf.param_type == CPT_LIGHT && !nf.sunlight_propagates)
++		allow_allowing_non_sunlight_propagates = true;
++	}
++    // If would start at CONTENT_IGNORE, start closer
++	{
++	    const v3s16 p = floatToInt(pf, BS);
++	    const MapNode n = map->getNodeNoEx(p);
 +		
- 		noncount = 0;
- 		brightness_sum += decode_light(n.getLightBlend(daylight_factor));
- 		brightness_count++;
++	    if (n.getContent() == CONTENT_IGNORE)
++	    {
++		const float newd = 2*BS;
++			
++		pf = p0 + dir * 2*newd;
++		distance = newd;
++	    }
++	}
++
++	for (int i=0; distance < end_distance; i++)
++	{
++	    pf += dir * step;
++	    distance += step;
++	    step *= step_multiplier;
++		
++	    const v3s16 p = floatToInt(pf, BS);
++	    const MapNode n = map->getNodeNoEx(p);
++	    const ContentFeatures& nf = content_features(n.getContent());
++		
++	    if (allow_allowing_non_sunlight_propagates
++			    && i == 0
++			    && nf.param_type == CPT_LIGHT
++			    && !nf.sunlight_propagates)
++		allow_non_sunlight_propagates = true;
++
++	    if (nf.param_type != CPT_LIGHT
++			    || (!nf.sunlight_propagates
++					    && !allow_non_sunlight_propagates))
++	    {
++		nonlight_seen = true;
++		noncount++;
++		if (noncount >= 4)
++		    break;
++		continue;
++	    }
++		
++	    if (distance >= sunlight_min_d
++			    && *sunlight_seen == false
++			    && nonlight_seen == false
++			    && n.getLight(LIGHTBANK_DAY) == LIGHT_SUN)
++		*sunlight_seen = true;
++		
++	    noncount = 0;
++	    brightness_sum += decode_light(n.getLightBlend(daylight_factor));
++	    brightness_count++;
  	}
  
-@@ -3111,25 +3385,24 @@
- 		return false;
+ 	*result = 0;
+ 
+ 	if (brightness_count == 0)
+-		return false;
++	    return false;
  	*result = brightness_sum / brightness_count;
  	return true;
  }
@@ -9635,24 +10687,31 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
 +	int oldvalue,bool *sunlight_seen_result)
  {
  	static v3f z_directions[50] = {
- 		v3f(-100, 0, 0)
+-		v3f(-100, 0, 0)
++	    v3f(-100, 0, 0)
  	};
  	static f32 z_offsets[sizeof(z_directions)/sizeof(*z_directions)] = {
- 		-1000,
+-		-1000,
++	    -1000,
  	};
 -	if (z_directions[0].X < -99) {
 -		for (u32 i=0; i<sizeof(z_directions)/sizeof(*z_directions); i++) {
+-			z_directions[i] = v3f(
+-				0.01 * myrand_range(-80, 80),
 +	
 +	if (z_directions[0].X < -99)
 +	{
-+		for (u32 i=0; i<sizeof(z_directions)/sizeof(*z_directions); i++)
-+		{
- 			z_directions[i] = v3f(
- 				0.01 * myrand_range(-80, 80),
++	    for (u32 i=0; i<sizeof(z_directions)/sizeof(*z_directions); i++)
++	    {
++		z_directions[i] = v3f(0.01 * myrand_range(-80, 80),
  				1.0,
- 				0.01 * myrand_range(-80, 80)
- 			);
-@@ -3138,32 +3411,38 @@
+-				0.01 * myrand_range(-80, 80)
+-			);
+-			z_offsets[i] = 0.01 * myrand_range(0,100);
+-		}
++				0.01 * myrand_range(-80, 80));
++		z_offsets[i] = 0.01 * myrand_range(0,100);
++	    }
  	}
  
  	//std::cerr<<"In goes "<<PP(m_camera_direction)<<", out comes ";
@@ -9672,32 +10731,64 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  	core::array<int> values;
  
 -	for (u32 i=0; i<sizeof(z_directions)/sizeof(*z_directions); i++) {
+-		v3f z_dir = z_directions[i];
+-		z_dir.normalize();
+-		core::CMatrix4<f32> a;
+-		a.buildRotateFromTo(v3f(0,1,0), z_dir);
+-		v3f dir = m_camera_direction;
+-		a.rotateVect(dir);
+-		int br = 0;
+-		float step = BS*1.5;
+-		if (max_d > 35*BS)
+-			step = max_d / 35 * 1.5;
+-		float off = step * z_offsets[i];
+-		bool sunlight_seen_now = false;
+-		bool ok = getVisibleBrightness(
+-			this,
+-			m_camera_position,
+-			dir,
+-			step,
+-			1.0,
+-			max_d*0.6+off,
+-			max_d,
+-			daylight_factor,
+-			sunlight_min_d,
+-			&br,
+-			&sunlight_seen_now
+-		);
+-		if (sunlight_seen_now)
+-			sunlight_seen_count++;
+-		if (!ok)
+-			continue;
+-		values.push_back(br);
+-		// Don't try too much if being in the sun is clear
+-		if (sunlight_seen_count >= 20)
+-			break;
 +	for (u32 i=0; i<sizeof(z_directions)/sizeof(*z_directions); i++)
 +	{
- 		v3f z_dir = z_directions[i];
- 		z_dir.normalize();
- 		core::CMatrix4<f32> a;
- 		a.buildRotateFromTo(v3f(0,1,0), z_dir);
--		v3f dir = m_camera_direction;
-+		v3f dir = camera_direction;
- 		a.rotateVect(dir);
- 		int br = 0;
- 		float step = BS*1.5;
- 		if (max_d > 35*BS)
- 			step = max_d / 35 * 1.5;
- 		float off = step * z_offsets[i];
- 		bool sunlight_seen_now = false;
- 		bool ok = getVisibleBrightness(
- 			this,
--			m_camera_position,
-+			camera_position,
- 			dir,
- 			step,
- 			1.0,
- 			max_d*0.6+off,
- 			max_d,
-@@ -3182,130 +3461,140 @@
- 			break;
++	    v3f z_dir = z_directions[i];
++	    z_dir.normalize();
++	    core::CMatrix4<f32> a;
++	    a.buildRotateFromTo(v3f(0,1,0), z_dir);
++	    v3f dir = camera_direction;
++	    a.rotateVect(dir);
++	    int br = 0;
++	    float step = BS*1.5;
++	    if (max_d > 35*BS)
++		step = max_d / 35 * 1.5;
++	    float off = step * z_offsets[i];
++	    bool sunlight_seen_now = false;
++	    bool ok = getVisibleBrightness(this,camera_position,dir,
++			    step,1.0,max_d*0.6+off,max_d,daylight_factor,
++			    sunlight_min_d,&br,&sunlight_seen_now);
++	    if (sunlight_seen_now)
++		sunlight_seen_count++;
++	    if (!ok)
++		continue;
++	    values.push_back(br);
++	// Don't try too much if being in the sun is clear
++	    if (sunlight_seen_count >= 20)
++		break;
  	}
  
  	int brightness_sum = 0;
@@ -9707,41 +10798,47 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
 +	
  	u32 num_values_to_use = values.size();
 -	if (num_values_to_use >= 10) {
+-		num_values_to_use -= num_values_to_use/2;
+-	}else if (num_values_to_use >= 7) {
+-		num_values_to_use -= num_values_to_use/3;
+-	}
 +	
 +	if (num_values_to_use >= 10)
- 		num_values_to_use -= num_values_to_use/2;
--	}else if (num_values_to_use >= 7) {
++	    num_values_to_use -= num_values_to_use/2;
 +	else if (num_values_to_use >= 7)
- 		num_values_to_use -= num_values_to_use/3;
--	}
++	    num_values_to_use -= num_values_to_use/3;
  
  	u32 first_value_i = (values.size() - num_values_to_use) / 2;
 -	for (u32 i=first_value_i; i < first_value_i+num_values_to_use; i++) {
+-		brightness_sum += values[i];
+-		brightness_count++;
 +	for (u32 i=first_value_i; i < first_value_i+num_values_to_use; i++)
 +	{
- 		brightness_sum += values[i];
- 		brightness_count++;
++	    brightness_sum += values[i];
++	    brightness_count++;
  	}
  
  	int ret = 0;
 -	if (brightness_count == 0) {
 -		MapNode n = getNodeNoEx(floatToInt(m_camera_position, BS));
 -		if (content_features(n).param_type == CPT_LIGHT) {
-+	if (brightness_count == 0)
-+	{
-+		const MapNode n = getNodeNoEx(floatToInt(camera_position, BS));
-+		
-+		if (content_features(n).param_type == CPT_LIGHT)
- 			ret = decode_light(n.getLightBlend(daylight_factor));
+-			ret = decode_light(n.getLightBlend(daylight_factor));
 -		}else{
-+		else
- 			ret = oldvalue;
+-			ret = oldvalue;
 -		}
 -	}else{
 -		ret = brightness_sum / brightness_count;
++	if (brightness_count == 0)
++	{
++	    const MapNode n = getNodeNoEx(floatToInt(camera_position, BS));
++		
++	    if (content_features(n).param_type == CPT_LIGHT)
++		ret = decode_light(n.getLightBlend(daylight_factor));
++	    else
++		ret = oldvalue;
  	}
 +	else
-+		ret = brightness_sum / brightness_count;
++	    ret = brightness_sum / brightness_count;
  
  	*sunlight_seen_result = (sunlight_seen_count > 0);
  	return ret;
@@ -9878,6 +10975,10 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
 -
 -		core::list< MapBlock * > sectorblocks;
 -		sector->getBlocks(sectorblocks);
+-
+-		core::list< MapBlock * >::Iterator i;
+-		for (i=sectorblocks.begin(); i!=sectorblocks.end(); i++) {
+-			MapBlock *block = *i;
 +	for (; si.atEnd() == false; si++)
 +	{
 +	    MapSector* const sector = si.getNode()->getValue();
@@ -9885,25 +10986,22 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
 +		
 +	    sector->getBlocks(sectorblocks);
  
--		core::list< MapBlock * >::Iterator i;
--		for (i=sectorblocks.begin(); i!=sectorblocks.end(); i++) {
--			MapBlock *block = *i;
+-			if (only_daynight_diffed && block->dayNightDiffed() == false)
+-				continue;
 +	    core::list<MapBlock*>::Iterator i;
 +	    for (i=sectorblocks.begin(); i!=sectorblocks.end(); i++)
 +	    {
 +		MapBlock* const block = *i;
- 
--			if (only_daynight_diffed && block->dayNightDiffed() == false)
--				continue;
-+		if (only_daynight_diffed
-+				&& block->dayNightDiffed() == false)
-+		    continue;
  
 -			{
 -				JMutexAutoLock lock(block->mesh_mutex);
 -				if (block->mesh != NULL)
 -					block->setMeshExpired(true);
 -			}
++		if (only_daynight_diffed
++				&& block->dayNightDiffed() == false)
++		    continue;
++
 +		{
 +		    JMutexAutoLock lock(block->mesh_mutex);
 +		    if (block->mesh != NULL)
@@ -9918,7 +11016,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  void ClientMap::PrintInfo(std::ostream &out)
  {
  	out<<"ClientMap: ";
-@@ -3331,25 +3620,23 @@
+@@ -3331,63 +3637,63 @@
  void MapVoxelManipulator::emerge(VoxelArea a, s32 caller_id)
  {
  	TimeTaker timer1("emerge", &emerge_time);
@@ -9943,49 +11041,90 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
 -		v3s16 p(x,y,z);
 -		core::map<v3s16, bool>::Node *n;
 -		n = m_loaded_blocks.find(p);
-+		const v3s16 p(x,y,z);
-+		core::map<v3s16, bool>::Node* const n = m_loaded_blocks.find(p);
- 		if(n != NULL)
- 			continue;
- 
- 		bool block_data_inexistent = false;
- 		try
-@@ -3360,29 +3647,31 @@
- 					<<" ("<<p.X<<","<<p.Y<<","<<p.Z<<")"
- 					<<" wanted area: ";
- 			a.print(infostream);
- 			infostream<<std::endl;*/
- 
+-		if(n != NULL)
+-			continue;
+-
+-		bool block_data_inexistent = false;
+-		try
+-		{
+-			TimeTaker timer1("emerge load", &emerge_load_time);
+-
+-			/*infostream<<"Loading block (caller_id="<<caller_id<<")"
+-					<<" ("<<p.X<<","<<p.Y<<","<<p.Z<<")"
+-					<<" wanted area: ";
+-			a.print(infostream);
+-			infostream<<std::endl;*/
+-
 -			MapBlock *block = m_map->getBlockNoCreate(p);
-+			MapBlock* const block = m_map->getBlockNoCreate(p);
- 			if(block->isDummy())
- 				block_data_inexistent = true;
- 			else
- 				block->copyTo(*this);
-+			block->ResetCurrent();
- 		}
- 		catch(InvalidPositionException &e)
- 		{
- 			block_data_inexistent = true;
- 		}
+-			if(block->isDummy())
+-				block_data_inexistent = true;
+-			else
+-				block->copyTo(*this);
+-		}
+-		catch(InvalidPositionException &e)
+-		{
+-			block_data_inexistent = true;
+-		}
++	    const v3s16 p(x,y,z);
++	    core::map<v3s16, bool>::Node* const n = m_loaded_blocks.find(p);
++	    if(n != NULL)
++		continue;
++
++	    bool block_data_inexistent = false;
++	    try
++	    {
++		TimeTaker timer1("emerge load", &emerge_load_time);
++
++	    /*infostream<<"Loading block (caller_id="<<caller_id<<")"
++	      <<" ("<<p.X<<","<<p.Y<<","<<p.Z<<")"
++	      <<" wanted area: ";
++	      a.print(infostream);
++	      infostream<<std::endl;*/
  
- 		if(block_data_inexistent)
- 		{
+-		if(block_data_inexistent)
+-		{
 -			VoxelArea a(p*MAP_BLOCKSIZE, (p+1)*MAP_BLOCKSIZE-v3s16(1,1,1));
-+			const VoxelArea a(p*MAP_BLOCKSIZE, (p+1)*MAP_BLOCKSIZE-v3s16(1,1,1));
-+			
- 			// Fill with VOXELFLAG_INEXISTENT
- 			for(s32 z=a.MinEdge.Z; z<=a.MaxEdge.Z; z++)
- 			for(s32 y=a.MinEdge.Y; y<=a.MaxEdge.Y; y++)
- 			{
+-			// Fill with VOXELFLAG_INEXISTENT
+-			for(s32 z=a.MinEdge.Z; z<=a.MaxEdge.Z; z++)
+-			for(s32 y=a.MinEdge.Y; y<=a.MaxEdge.Y; y++)
+-			{
 -				s32 i = m_area.index(a.MinEdge.X,y,z);
-+				const s32 i = m_area.index(a.MinEdge.X,y,z);
- 				memset(&m_flags[i], VOXELFLAG_INEXISTENT, MAP_BLOCKSIZE);
- 			}
- 		}
+-				memset(&m_flags[i], VOXELFLAG_INEXISTENT, MAP_BLOCKSIZE);
+-			}
+-		}
++		MapBlock* const block = m_map->getBlockNoCreate(p);
++		if(block->isDummy())
++		    block_data_inexistent = true;
++		else
++		    block->copyTo(*this);
++		block->ResetCurrent();
++	    }
++	    catch(InvalidPositionException &e)
++	    {
++		block_data_inexistent = true;
++	    }
++
++	    if(block_data_inexistent)
++	    {
++		const VoxelArea a(p*MAP_BLOCKSIZE, (p+1)*MAP_BLOCKSIZE-v3s16(1,1,1));
++			
++	    // Fill with VOXELFLAG_INEXISTENT
++		for(s32 z=a.MinEdge.Z; z<=a.MaxEdge.Z; z++)
++		    for(s32 y=a.MinEdge.Y; y<=a.MaxEdge.Y; y++)
++		    {
++			const s32 i = m_area.index(a.MinEdge.X,y,z);
++			memset(&m_flags[i], VOXELFLAG_INEXISTENT, MAP_BLOCKSIZE);
++		    }
++	    }
  
- 		m_loaded_blocks.insert(p, !block_data_inexistent);
-@@ -3408,51 +3697,60 @@
+-		m_loaded_blocks.insert(p, !block_data_inexistent);
++	    m_loaded_blocks.insert(p, !block_data_inexistent);
+ 	}
+ 
+ 	//infostream<<"emerge done"<<std::endl;
+ }
+ 
+@@ -3408,51 +3714,60 @@
  
  	/*
  		Initialize block cache
@@ -9999,57 +11138,77 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  	for (s32 y=m_area.MinEdge.Y; y<=m_area.MaxEdge.Y; y++)
 -	for (s32 x=m_area.MinEdge.X; x<=m_area.MaxEdge.X; x++) {
 -		v3s16 p(x,y,z);
-+	for (s32 x=m_area.MinEdge.X; x<=m_area.MaxEdge.X; x++)
-+	{
-+		const v3s16 p(x,y,z);
- 
- 		u8 f = m_flags[m_area.index(p)];
- 		if (f & (VOXELFLAG_NOT_LOADED|VOXELFLAG_INEXISTENT))
- 			continue;
- 
+-
+-		u8 f = m_flags[m_area.index(p)];
+-		if (f & (VOXELFLAG_NOT_LOADED|VOXELFLAG_INEXISTENT))
+-			continue;
+-
 -		MapNode &n = m_data[m_area.index(p)];
 -
 -		v3s16 blockpos = getNodeBlockPos(p);
-+		MapNode& n = m_data[m_area.index(p)];
-+		const v3s16 blockpos = getNodeBlockPos(p);
- 
+-
 -		if (block == NULL || blockpos != blockpos_last) {
 -			block = m_map->getBlockNoCreate(blockpos);
 -			blockpos_last = blockpos;
 -			block_checked_in_modified = false;
-+		if (block == NULL || blockpos != blockpos_last)
-+		{
-+		    
-+		    if(block)
-+			block->ResetCurrent();
-+		    block = m_map->getBlockNoCreate(blockpos);
-+		    blockpos_last = blockpos;
-+		    block_checked_in_modified = false;
- 		}
- 
- 		// Calculate relative position in block
+-		}
+-
+-		// Calculate relative position in block
 -		v3s16 relpos = p - blockpos * MAP_BLOCKSIZE;
-+		const v3s16 relpos = p - blockpos * MAP_BLOCKSIZE;
++	for (s32 x=m_area.MinEdge.X; x<=m_area.MaxEdge.X; x++)
++	{
++	    const v3s16 p(x,y,z);
  
- 		// Don't continue if nothing has changed here
- 		bool is_valid_position;
+-		// Don't continue if nothing has changed here
+-		bool is_valid_position;
 -		if (block->getNode(relpos,&is_valid_position) == n || !is_valid_position)
-+		if (block->getNode(relpos,&is_valid_position) == n
-+				|| !is_valid_position)
- 			continue;
+-			continue;
++	    u8 f = m_flags[m_area.index(p)];
++	    if (f & (VOXELFLAG_NOT_LOADED|VOXELFLAG_INEXISTENT))
++		continue;
  
- 		//m_map->setNode(m_area.MinEdge + p, n);
- 		block->setNode(relpos, n);
+-		//m_map->setNode(m_area.MinEdge + p, n);
+-		block->setNode(relpos, n);
++	    MapNode& n = m_data[m_area.index(p)];
++	    const v3s16 blockpos = getNodeBlockPos(p);
  
- 		/*
- 			Make sure block is in modified_blocks
- 		*/
+-		/*
+-			Make sure block is in modified_blocks
+-		*/
 -		if (block_checked_in_modified == false) {
-+		if (block_checked_in_modified == false)
-+		{
- 			modified_blocks[blockpos] = block;
- 			block_checked_in_modified = true;
- 		}
+-			modified_blocks[blockpos] = block;
+-			block_checked_in_modified = true;
+-		}
++	    if (block == NULL || blockpos != blockpos_last)
++	    {
++		    
++		if(block)
++		    block->ResetCurrent();
++		block = m_map->getBlockNoCreate(blockpos);
++		blockpos_last = blockpos;
++		block_checked_in_modified = false;
++	    }
++
++	// Calculate relative position in block
++	    const v3s16 relpos = p - blockpos * MAP_BLOCKSIZE;
++
++	// Don't continue if nothing has changed here
++	    bool is_valid_position;
++	    if (block->getNode(relpos,&is_valid_position) == n
++			    || !is_valid_position)
++		continue;
++
++	//m_map->setNode(m_area.MinEdge + p, n);
++	    block->setNode(relpos, n);
++
++	/*
++	  Make sure block is in modified_blocks
++	*/
++	    if (block_checked_in_modified == false)
++	    {
++		modified_blocks[blockpos] = block;
++		block_checked_in_modified = true;
++	    }
  	}
 +	
 +	if(block)
@@ -10059,7 +11218,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  ManualMapVoxelManipulator::ManualMapVoxelManipulator(Map *map):
  		MapVoxelManipulator(map),
  		m_create_area(false)
-@@ -3473,17 +3771,17 @@
+@@ -3473,17 +3788,17 @@
  		v3s16 blockpos_min, v3s16 blockpos_max)
  {
  	TimeTaker timer1("initialEmerge", &emerge_time);
@@ -10084,7 +11243,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  		infostream<<"initialEmerge: area: ";
  		block_area_nodes.print(infostream);
  		infostream<<" ("<<size_MB<<"MB)";
-@@ -3494,26 +3792,25 @@
+@@ -3494,142 +3809,163 @@
  
  	for(s32 z=p_min.Z; z<=p_max.Z; z++)
  	for(s32 y=p_min.Y; y<=p_max.Y; y++)
@@ -10093,139 +11252,217 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
 -		v3s16 p(x,y,z);
 -		core::map<v3s16, bool>::Node *n;
 -		n = m_loaded_blocks.find(p);
-+		const v3s16 p(x,y,z);
-+		core::map<v3s16, bool>::Node* const n = m_loaded_blocks.find(p);
- 		if(n != NULL)
- 			continue;
- 
- 		bool block_data_inexistent = false;
- 		try
- 		{
- 			TimeTaker timer1("emerge load", &emerge_load_time);
+-		if(n != NULL)
+-			continue;
+-
+-		bool block_data_inexistent = false;
+-		try
+-		{
+-			TimeTaker timer1("emerge load", &emerge_load_time);
 -
 -			MapBlock *block = m_map->getBlockNoCreate(p);
-+			MapBlock* const block = m_map->getBlockNoCreate(p);
- 			if(block->isDummy())
- 				block_data_inexistent = true;
- 			else
- 				block->copyTo(*this);
-+			block->ResetCurrent();
- 		}
- 		catch(InvalidPositionException &e)
- 		{
- 			block_data_inexistent = true;
- 		}
-@@ -3521,11 +3818,12 @@
- 		if(block_data_inexistent)
- 		{
- 			/*
- 				Mark area inexistent
- 			*/
+-			if(block->isDummy())
+-				block_data_inexistent = true;
+-			else
+-				block->copyTo(*this);
+-		}
+-		catch(InvalidPositionException &e)
+-		{
+-			block_data_inexistent = true;
+-		}
+-
+-		if(block_data_inexistent)
+-		{
+-			/*
+-				Mark area inexistent
+-			*/
 -			VoxelArea a(p*MAP_BLOCKSIZE, (p+1)*MAP_BLOCKSIZE-v3s16(1,1,1));
-+			const VoxelArea a(p*MAP_BLOCKSIZE,
-+					(p+1)*MAP_BLOCKSIZE-v3s16(1,1,1));
- 			// Fill with VOXELFLAG_INEXISTENT
- 			for(s32 z=a.MinEdge.Z; z<=a.MaxEdge.Z; z++)
- 			for(s32 y=a.MinEdge.Y; y<=a.MaxEdge.Y; y++)
- 			{
- 				s32 i = m_area.index(a.MinEdge.X,y,z);
-@@ -3544,22 +3842,28 @@
- 		return;
+-			// Fill with VOXELFLAG_INEXISTENT
+-			for(s32 z=a.MinEdge.Z; z<=a.MaxEdge.Z; z++)
+-			for(s32 y=a.MinEdge.Y; y<=a.MaxEdge.Y; y++)
+-			{
+-				s32 i = m_area.index(a.MinEdge.X,y,z);
+-				memset(&m_flags[i], VOXELFLAG_INEXISTENT, MAP_BLOCKSIZE);
+-			}
+-		}
++	    const v3s16 p(x,y,z);
++	    core::map<v3s16, bool>::Node* const n = m_loaded_blocks.find(p);
++	    if(n != NULL)
++		continue;
++
++	    bool block_data_inexistent = false;
++	    try
++	    {
++		TimeTaker timer1("emerge load", &emerge_load_time);
++		MapBlock* const block = m_map->getBlockNoCreate(p);
++		if(block->isDummy())
++		    block_data_inexistent = true;
++		else
++		    block->copyTo(*this);
++		block->ResetCurrent();
++	    }
++	    catch(InvalidPositionException &e)
++	    {
++		block_data_inexistent = true;
++	    }
++
++	    if(block_data_inexistent)
++	    {
++	    /*
++	      Mark area inexistent
++	    */
++		const VoxelArea a(p*MAP_BLOCKSIZE,
++				(p+1)*MAP_BLOCKSIZE-v3s16(1,1,1));
++	    // Fill with VOXELFLAG_INEXISTENT
++		for(s32 z=a.MinEdge.Z; z<=a.MaxEdge.Z; z++)
++		    for(s32 y=a.MinEdge.Y; y<=a.MaxEdge.Y; y++)
++		    {
++			s32 i = m_area.index(a.MinEdge.X,y,z);
++			memset(&m_flags[i], VOXELFLAG_INEXISTENT, MAP_BLOCKSIZE);
++		    }
++	    }
  
- 	/*
- 		Copy data of all blocks
- 	*/
+-		m_loaded_blocks.insert(p, !block_data_inexistent);
++	    m_loaded_blocks.insert(p, !block_data_inexistent);
+ 	}
+ }
+ 
+ void ManualMapVoxelManipulator::blitBackAll(
+ 		core::map<v3s16, MapBlock*> * modified_blocks)
+ {
+ 	if (m_area.getExtent() == v3s16(0,0,0))
+-		return;
++	    return;
+ 
+-	/*
+-		Copy data of all blocks
+-	*/
 -	for (core::map<v3s16, bool>::Iterator i = m_loaded_blocks.getIterator(); i.atEnd() == false; i++) {
 -		v3s16 p = i.getNode()->getKey();
 -		bool existed = i.getNode()->getValue();
 -		if (existed == false) {
-+	for (core::map<v3s16, bool>::Iterator i = m_loaded_blocks.getIterator();
-+	     i.atEnd() == false; i++)
-+	{
-+		const v3s16 p = i.getNode()->getKey();
-+		const bool existed = i.getNode()->getValue();
-+		
-+		if (existed == false)
-+		{
- 			// The Great Bug was found using this
+-			// The Great Bug was found using this
 -			/*infostream<<"ManualMapVoxelManipulator::blitBackAll: "
 -					<<"Inexistent ("<<p.X<<","<<p.Y<<","<<p.Z<<")"
 -					<<std::endl;*/
-+			/*infostream << "ManualMapVoxelManipulator::blitBackAll: "
-+					<< "Inexistent (" << p.X << "," << p.Y << "," << p.Z<<")"
-+					<< std::endl;*/
- 			continue;
- 		}
+-			continue;
+-		}
 -		MapBlock *block = m_map->getBlockNoCreateNoEx(p);
 -		if (block == NULL) {
+-			infostream<<"WARNING: "<<__FUNCTION_NAME
+-					<<": got NULL block "
+-					<<"("<<p.X<<","<<p.Y<<","<<p.Z<<")"
+-					<<std::endl;
+-			continue;
+-		}
+-
+-		block->copyFrom(*this);
+-
+-		if (modified_blocks)
+-			modified_blocks->insert(p, block);
++    /*
++      Copy data of all blocks
++    */
++	for (core::map<v3s16, bool>::Iterator i = m_loaded_blocks.getIterator();
++	     i.atEnd() == false; i++)
++	{
++	    const v3s16 p = i.getNode()->getKey();
++	    const bool existed = i.getNode()->getValue();
 +		
-+		MapBlock* const block = m_map->getBlockNoCreateNoEx(p);
-+		if (!block)
-+		{
- 			infostream<<"WARNING: "<<__FUNCTION_NAME
- 					<<": got NULL block "
- 					<<"("<<p.X<<","<<p.Y<<","<<p.Z<<")"
- 					<<std::endl;
- 			continue;
-@@ -3567,10 +3871,11 @@
- 
- 		block->copyFrom(*this);
- 
- 		if (modified_blocks)
- 			modified_blocks->insert(p, block);
-+		block->ResetCurrent();
++	    if (existed == false)
++	    {
++	    // The Great Bug was found using this
++	    /*infostream << "ManualMapVoxelManipulator::blitBackAll: "
++	      << "Inexistent (" << p.X << "," << p.Y << "," << p.Z<<")"
++	      << std::endl;*/
++		continue;
++	    }
++		
++	    MapBlock* const block = m_map->getBlockNoCreateNoEx(p);
++	    if (!block)
++	    {
++		infostream<<"WARNING: "<<__FUNCTION_NAME
++			  <<": got NULL block "
++			  <<"("<<p.X<<","<<p.Y<<","<<p.Z<<")"
++			  <<std::endl;
++		continue;
++	    }
++
++	    block->copyFrom(*this);
++
++	    if (modified_blocks)
++		modified_blocks->insert(p, block);
++	    block->ResetCurrent();
  	}
  }
  
  void ManualMapVoxelManipulator::blitBackAllWithMeta(
  		core::map<v3s16, MapBlock*> * modified_blocks)
-@@ -3579,22 +3884,28 @@
+ {
+ 	if (m_area.getExtent() == v3s16(0,0,0))
  		return;
  
  	/*
- 		Copy data of all blocks
+-		Copy data of all blocks
++	  Copy data of all blocks
  	*/
 -	for (core::map<v3s16, bool>::Iterator i = m_loaded_blocks.getIterator(); i.atEnd() == false; i++) {
 -		v3s16 p = i.getNode()->getKey();
 -		bool existed = i.getNode()->getValue();
 -		if (existed == false) {
+-			// The Great Bug was found using this
+-			/*infostream<<"ManualMapVoxelManipulator::blitBackAll: "
+-					<<"Inexistent ("<<p.X<<","<<p.Y<<","<<p.Z<<")"
+-					<<std::endl;*/
+-			continue;
+-		}
+-		MapBlock *block = m_map->getBlockNoCreateNoEx(p);
+-		if (block == NULL) {
+-			infostream<<"WARNING: "<<__FUNCTION_NAME
+-					<<": got NULL block "
+-					<<"("<<p.X<<","<<p.Y<<","<<p.Z<<")"
+-					<<std::endl;
+-			continue;
+-		}
+-
+-		block->copyFrom(*this);
+-
+-		if (modified_blocks)
+-			modified_blocks->insert(p, block);
 +	for (core::map<v3s16, bool>::Iterator i = m_loaded_blocks.getIterator();
 +	     i.atEnd() == false; i++)
 +	{
-+		const v3s16 p = i.getNode()->getKey();
-+		const bool existed = i.getNode()->getValue();
++	    const v3s16 p = i.getNode()->getKey();
++	    const bool existed = i.getNode()->getValue();
 +		
-+		if (existed == false)
-+		{
- 			// The Great Bug was found using this
- 			/*infostream<<"ManualMapVoxelManipulator::blitBackAll: "
--					<<"Inexistent ("<<p.X<<","<<p.Y<<","<<p.Z<<")"
--					<<std::endl;*/
-+			  <<"Inexistent ("<<p.X<<","<<p.Y<<","<<p.Z<<")"
-+			  <<std::endl;*/
- 			continue;
- 		}
--		MapBlock *block = m_map->getBlockNoCreateNoEx(p);
--		if (block == NULL) {
++	    if (existed == false)
++	    {
++	    // The Great Bug was found using this
++	    /*infostream<<"ManualMapVoxelManipulator::blitBackAll: "
++	      <<"Inexistent ("<<p.X<<","<<p.Y<<","<<p.Z<<")"
++	      <<std::endl;*/
++		continue;
++	    }
 +		
-+		MapBlock* const block = m_map->getBlockNoCreateNoEx(p);
-+		if (!block)
-+		{
- 			infostream<<"WARNING: "<<__FUNCTION_NAME
- 					<<": got NULL block "
- 					<<"("<<p.X<<","<<p.Y<<","<<p.Z<<")"
- 					<<std::endl;
- 			continue;
-@@ -3602,34 +3913,42 @@
- 
- 		block->copyFrom(*this);
- 
- 		if (modified_blocks)
- 			modified_blocks->insert(p, block);
-+		block->ResetCurrent();
++	    MapBlock* const block = m_map->getBlockNoCreateNoEx(p);
++	    if (!block)
++	    {
++		infostream<<"WARNING: "<<__FUNCTION_NAME
++			  <<": got NULL block "
++			  <<"("<<p.X<<","<<p.Y<<","<<p.Z<<")"
++			  <<std::endl;
++		continue;
++	    }
++
++	    block->copyFrom(*this);
++
++	    if (modified_blocks)
++		modified_blocks->insert(p, block);
++	    block->ResetCurrent();
  	}
  	if (!modified_blocks)
- 		return;
+-		return;
++	    return;
 +	
  	// iterate over the modified blocks search for
  	// nodes that have metadata that shouldn't
@@ -10233,16 +11470,11 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  	// nodes that have the wrong metadata
 -	for (core::map<v3s16, MapBlock*>::Iterator i = modified_blocks->getIterator(); i.atEnd() == false; i++) {
 -		MapBlock *block = i.getNode()->getValue();
-+	for (core::map<v3s16,MapBlock*>::Iterator i = modified_blocks->getIterator(); i.atEnd() == false; i++)
-+	{
-+		MapBlock* const block = i.getNode()->getValue();
- 		if (block == NULL)
+-		if (block == NULL)
 -			continue;
-+		    continue;
-+		
- 		v3s16 p0;
- 		for(p0.X=0; p0.X<MAP_BLOCKSIZE; p0.X++)
- 		for(p0.Y=0; p0.Y<MAP_BLOCKSIZE; p0.Y++)
+-		v3s16 p0;
+-		for(p0.X=0; p0.X<MAP_BLOCKSIZE; p0.X++)
+-		for(p0.Y=0; p0.Y<MAP_BLOCKSIZE; p0.Y++)
 -		for(p0.Z=0; p0.Z<MAP_BLOCKSIZE; p0.Z++) {
 -			MapNode n = block->getNodeNoEx(p0);
 -			if (content_features(n).initial_metadata != NULL) {
@@ -10253,21 +11485,31 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
 -			}else if (block->m_node_metadata.get(p0) != NULL) {
 -				block->m_node_metadata.remove(p0);
 -			}
-+		for(p0.Z=0; p0.Z<MAP_BLOCKSIZE; p0.Z++)
-+		{
-+		    const MapNode n = block->getNodeNoEx(p0);
+-		}
++	for (core::map<v3s16,MapBlock*>::Iterator i = modified_blocks->getIterator(); i.atEnd() == false; i++)
++	{
++	    MapBlock* const block = i.getNode()->getValue();
++	    if (block == NULL)
++		continue;
++		
++	    v3s16 p0;
++	    for(p0.X=0; p0.X<MAP_BLOCKSIZE; p0.X++)
++	    for(p0.Y=0; p0.Y<MAP_BLOCKSIZE; p0.Y++)
++	    for(p0.Z=0; p0.Z<MAP_BLOCKSIZE; p0.Z++)
++	    {
++		const MapNode n = block->getNodeNoEx(p0);
 +			
-+		    if (content_features(n).initial_metadata != NULL)
-+		    {
-+			NodeMetadata* const f =
-+			    content_features(n).initial_metadata;
-+			NodeMetadata* const a = block->m_node_metadata.get(p0);
-+			if (!a || f->typeId() != a->typeId())
-+			    block->m_node_metadata.set(p0,f->clone());
-+		    }
-+		    else if (block->m_node_metadata.get(p0) != NULL)
-+			block->m_node_metadata.remove(p0);
- 		}
++		if (content_features(n).initial_metadata != NULL)
++		{
++		    NodeMetadata* const f =
++			content_features(n).initial_metadata;
++		    NodeMetadata* const a = block->m_node_metadata.get(p0);
++		    if (!a || f->typeId() != a->typeId())
++			block->m_node_metadata.set(p0,f->clone());
++		}
++		else if (block->m_node_metadata.get(p0) != NULL)
++		    block->m_node_metadata.remove(p0);
++	    }
  	}
  }
  
