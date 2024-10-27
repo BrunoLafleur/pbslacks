@@ -569,7 +569,7 @@ diff -rNU5 voxelands-v1709.00old/src/character_creator.cpp voxelands-v1709.00goo
  	Strfnd f(chardef);
 diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/client.cpp
 --- voxelands-v1709.00old/src/client.cpp	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00good/src/client.cpp	2024-10-27 17:09:08.475283733 +0100
++++ voxelands-v1709.00good/src/client.cpp	2024-10-27 20:20:27.463745179 +0100
 @@ -66,23 +66,23 @@
  
  /*
@@ -1113,7 +1113,20 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  		/*
  			Update Mesh of this block and blocks at x-, y- and z-.
  			Environment should not be locked as it interlocks with the
-@@ -914,11 +947,12 @@
+@@ -892,10 +925,12 @@
+ 
+ 		/*
+ 			Add it to mesh update queue and set it to be acknowledged after update.
+ 		*/
+ 		addUpdateMeshTaskWithEdge(p, true);
++		if(block)
++		    block->ResetCurrent();
+ 	}
+ 	break;
+ 	case TOCLIENT_SERVERSETTINGS:
+ 	{
+ 		std::string datastring((char*)&data[2], datasize-2);
+@@ -914,11 +949,12 @@
  	case TOCLIENT_PLAYERDATA:
  	{
  		u16 our_peer_id = m_con.GetPeerID();
@@ -1127,7 +1140,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  		}
  
  		{
-@@ -931,30 +965,31 @@
+@@ -931,30 +967,31 @@
  			u16 field_count = readU16(is);
  
  			// peer_ids
@@ -1164,7 +1177,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  						m_device,
  						-1
  					);
-@@ -969,14 +1004,15 @@
+@@ -969,14 +1006,15 @@
  
  			/*
  				Remove those players from the environment that
@@ -1182,7 +1195,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  					continue;
  				// Ignore local player
  				if (player->isLocal())
-@@ -996,11 +1032,11 @@
+@@ -996,11 +1034,11 @@
  	break;
  	case TOCLIENT_PLAYERSTATE:
  	{
@@ -1195,7 +1208,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  		u8 air = readU8(is);
  		u8 hunger = readU8(is);
  		player->dirt = readU8(is);
-@@ -1008,11 +1044,12 @@
+@@ -1008,11 +1046,12 @@
  		player->blood = readU8(is);
  		u16 energy_effect = readU16(is);
  		if (energy_effect > player->energy_effectf)
@@ -1209,7 +1222,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  			player->health = hp;
  		}
  		if (m_server_suffocation)
-@@ -1027,11 +1064,11 @@
+@@ -1027,11 +1066,11 @@
  			return;
  		{
  			std::string datastring((char*)&data[2], datasize-2);
@@ -1222,7 +1235,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  			player->inventory.deSerialize(is);
  
  			m_inventory_updated = true;
-@@ -1044,21 +1081,23 @@
+@@ -1044,21 +1083,23 @@
  			return;
  		{
  			std::string datastring((char*)&data[2], datasize-2);
@@ -1249,7 +1262,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  					u16 count = readU16(is);
  					u16 data = readU16(is);
  					l->updateItem(index,type,count,data);
-@@ -1079,20 +1118,21 @@
+@@ -1079,20 +1120,21 @@
  			Read players
  		*/
  
@@ -1273,7 +1286,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  			if (player == NULL)
  				continue;
  
-@@ -1122,11 +1162,12 @@
+@@ -1122,11 +1164,12 @@
  		*/
  
  		is.read((char*)buf, 2);
@@ -1287,7 +1300,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  			is.read((char*)buf, 12);
  			v3s32 p_i = readV3S32(buf);
  			is.read((char*)buf, 12);
-@@ -1134,11 +1175,11 @@
+@@ -1134,11 +1177,11 @@
  			is.read((char*)buf, 4);
  			s32 pitch_i = readS32(buf);
  			is.read((char*)buf, 4);
@@ -1300,7 +1313,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  			if (player == NULL)
  				continue;
  
-@@ -1161,12 +1202,13 @@
+@@ -1161,12 +1204,13 @@
  			Read block objects
  			NOTE: Deprecated stuff
  		*/
@@ -1316,7 +1329,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  		}
  	}
  	break;
-@@ -1177,26 +1219,30 @@
+@@ -1177,26 +1221,30 @@
  
  		u32 time = 0;
  		u16 time_of_day = readU16(&data[2]);
@@ -1353,7 +1366,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  				<<time_speed<<" tod_diff_f="<<tod_diff_f
  				<<" time_diff="<<time_diff<<std::endl;
  			}
-@@ -1227,11 +1273,12 @@
+@@ -1227,11 +1275,12 @@
  		// Read stuff
  		is.read((char*)buf, 2);
  		u16 len = readU16(buf);
@@ -1367,7 +1380,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  		}
  
  		/* because I can't remember which random stream prints to stdout */
-@@ -1266,21 +1313,23 @@
+@@ -1266,21 +1315,23 @@
  		// Read stuff
  
  		// Read removed objects
@@ -1393,7 +1406,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  			is.read(buf, 1);
  			u8 type = readU8((u8*)buf);
  			std::string data = deSerializeLongString(is);
-@@ -1304,21 +1353,23 @@
+@@ -1304,21 +1355,23 @@
  		// Get all data except the command number
  		std::string datastring((char*)&data[2], datasize-2);
  		// Throw them in an istringstream
@@ -1419,7 +1432,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  			}
  			// Pass on to the environment
  			m_env.processActiveObjectMessage(id, message);
-@@ -1327,11 +1378,11 @@
+@@ -1327,11 +1380,11 @@
  	break;
  	case TOCLIENT_MOVE_PLAYER:
  	{
@@ -1432,7 +1445,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  		f32 pitch = readF1000(is);
  		f32 yaw = readF1000(is);
  		player->setPosition(pos);
-@@ -1368,31 +1419,36 @@
+@@ -1368,31 +1421,36 @@
  
  		u16 count = readU16(is);
  		u16 icount = readU16(is);
@@ -1479,7 +1492,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  					switch (j) {
  					case 0:
  						inv = player->inventory.getList("main");
-@@ -1422,43 +1478,47 @@
+@@ -1422,43 +1480,47 @@
  					if (inv == NULL)
  						continue;
  					if (itm == CONTENT_IGNORE) {
@@ -1538,7 +1551,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  							);
  							if (item)
  								delete item;
-@@ -1502,30 +1562,30 @@
+@@ -1502,30 +1564,30 @@
  
  		u8 type = readU8(is);
  		v3f pos = readV3F1000(is);
@@ -1576,7 +1589,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  	}
  	break;
  	default:
-@@ -1543,11 +1603,12 @@
+@@ -1543,11 +1605,12 @@
  }
  
  void Client::groundAction(u8 action, v3s16 nodepos_undersurface,
@@ -1590,7 +1603,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  				<<std::endl;
  		return;
  	}
-@@ -1571,22 +1632,24 @@
+@@ -1571,22 +1634,24 @@
  	writeU8(&data[2], action);
  	writeV3S16(&data[3], nodepos_undersurface);
  	writeV3S16(&data[9], nodepos_oversurface);
@@ -1618,7 +1631,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  	writeU16(buf, TOSERVER_THROWITEM);
  	os.write((char*)buf, 2);
  
-@@ -1622,11 +1685,11 @@
+@@ -1622,11 +1687,11 @@
  	// Send as reliable
  	Send(0, data, true);
  
@@ -1631,7 +1644,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  		std::string snd("");
  		content_t w = item->getContent();
  		if ((w&CONTENT_CRAFTITEM_MASK) == CONTENT_CRAFTITEM_MASK)
-@@ -1644,20 +1707,22 @@
+@@ -1644,20 +1709,22 @@
  				"cancelled (not connected)"
  				<<std::endl;
  		return;
@@ -1659,7 +1672,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  				if (item)
  					punch_item = item->getContent();
  			}
-@@ -1763,11 +1828,11 @@
+@@ -1763,11 +1830,11 @@
  }
  
  void Client::sendChangePassword(const std::wstring oldpassword,
@@ -1672,7 +1685,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  
  	std::string playername = player->getName();
  	std::string oldpwd = translatePassword(playername, oldpassword);
-@@ -1844,11 +1909,11 @@
+@@ -1844,11 +1911,11 @@
  	Send(0, data, true);
  }
  
@@ -1685,7 +1698,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  
  	// Save bandwidth by only updating position when something changed
  	if (
-@@ -1899,11 +1964,11 @@
+@@ -1899,11 +1966,11 @@
  	Send(0, data, false);
  }
  
@@ -1698,7 +1711,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  
  	u16 our_peer_id = m_con.GetPeerID();
  
-@@ -2009,18 +2074,18 @@
+@@ -2009,18 +2076,18 @@
  }
  
  void Client::setPlayerControl(PlayerControl &control)
@@ -1719,7 +1732,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  	player->wieldItem(item);
  
  	sendPlayerItem(item);
-@@ -2039,11 +2104,11 @@
+@@ -2039,11 +2106,11 @@
  
  // Copies the inventory of the local player to parameter
  void Client::getLocalInventory(Inventory &dst)
@@ -1732,7 +1745,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  }
  
  InventoryContext *Client::getInventoryContext()
-@@ -2086,26 +2151,26 @@
+@@ -2086,26 +2153,26 @@
  	case InventoryLocation::UNDEFINED:
  	{}
  	break;
@@ -1762,7 +1775,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  		return meta->getInventory();
  	}
  	break;
-@@ -2158,72 +2223,73 @@
+@@ -2158,72 +2225,73 @@
  {
  }
  
@@ -1851,7 +1864,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  void Client::addUpdateMeshTaskWithEdge(v3s16 blockpos, bool ack_to_server)
  {
  	try{
-@@ -2285,11 +2351,13 @@
+@@ -2285,11 +2353,13 @@
  }
  
  // foot: 0 = left, 1 = right
@@ -1865,7 +1878,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  void Client::playDigSound(content_t c)
  {
  	if (c == CONTENT_IGNORE) {
-@@ -2297,19 +2365,22 @@
+@@ -2297,19 +2367,22 @@
  		if ((c&CONTENT_MOB_MASK) != 0)
  			return;
  	}
@@ -1889,7 +1902,7 @@ diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/clien
  		sound_play_effect((char*)f->sound_place.c_str(),1.0,0,NULL);
  		return;
  	}
-@@ -2318,17 +2389,22 @@
+@@ -2318,17 +2391,22 @@
  		sound_play_effect("liquid-place",1.0,0,NULL);
  		break;
  	default:
@@ -6503,7 +6516,7 @@ diff -rNU5 voxelands-v1709.00old/src/main.cpp voxelands-v1709.00good/src/main.cp
  							input,
 diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
 --- voxelands-v1709.00old/src/map.cpp	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00good/src/map.cpp	2024-10-27 18:00:49.329292131 +0100
++++ voxelands-v1709.00good/src/map.cpp	2024-10-27 20:29:30.178327127 +0100
 @@ -68,27 +68,33 @@
  
  /*
@@ -6544,7 +6557,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  }
  
  void Map::addEventReceiver(MapEventReceiver *event_receiver)
-@@ -112,122 +118,151 @@
+@@ -112,123 +118,160 @@
  		MapEventReceiver* event_receiver = i.getNode()->getKey();
  		event_receiver->onMapEditEvent(event);
  	}
@@ -6605,7 +6618,8 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  	if(sector == NULL)
  		return NULL;
 -	MapBlock *block = sector->getBlockNoCreateNoEx(p3d.Y);
-+	
++
++    // Set mesh_current.
 +	MapBlock* const block = sector->getBlockNoCreateNoEx(p3d.Y);
  	return block;
  }
@@ -6617,8 +6631,6 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
 +	JMutexAutoLock lock(m_sectors_mutex);
 +	MapBlock* const block = getBlockNoCreateNoExNoLock(p3d);
 +
-+	if(block)
-+	    block->SetCurrent();
 +	return block;
 +}
 +
@@ -6659,8 +6671,10 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
 +	const v3s16 blockpos = getNodeBlockPos(p);
 +	JMutexAutoLock lock(m_sectors_mutex);
 +	MapBlock* const block = getBlockNoCreateNoExNoLock(blockpos);
-+	if(block == NULL)
++	if(!block)
 +		throw InvalidPositionException();
++	else
++	    block->ResetCurrent();
 +	return block != NULL;
  }
  
@@ -6674,7 +6688,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
 +	const v3s16 blockpos = getNodeBlockPos(p);
 +	JMutexAutoLock lock(m_sectors_mutex);
 +	MapBlock* const block = getBlockNoCreateNoExNoLock(blockpos);
-+	if (block == NULL)
++	if (!block)
 +	{
  		if (is_valid_position)
  			*is_valid_position = false;
@@ -6685,8 +6699,11 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
 +	const v3s16 relpos = p - blockpos*MAP_BLOCKSIZE;
  	bool is_valid_p;
  	MapNode node = block->getNodeNoCheck(relpos, &is_valid_p);
++
++	block->ResetCurrent();
  	if (is_valid_position != NULL)
  		*is_valid_position = is_valid_p;
++
  	return node;
  }
  
@@ -6695,18 +6712,22 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  {
 -	v3s16 blockpos = getNodeBlockPos(p);
 -	MapBlock *block = getBlockNoCreateNoEx(blockpos);
+-	if (block == NULL)
 +	const v3s16 blockpos = getNodeBlockPos(p);
 +	JMutexAutoLock lock(m_sectors_mutex);
 +	MapBlock* const block = getBlockNoCreateNoExNoLock(blockpos);
- 	if (block == NULL)
++	if (!block)
  		throw InvalidPositionException();
 -	v3s16 relpos = p - blockpos*MAP_BLOCKSIZE;
 +	
 +	const v3s16 relpos = p - blockpos*MAP_BLOCKSIZE;
  	bool is_valid_position;
  	MapNode node = block->getNodeNoCheck(relpos, &is_valid_position);
++
++	block->ResetCurrent();
  	if (!is_valid_position)
  		throw InvalidPositionException();
++
  	return node;
  }
  
@@ -6719,16 +6740,18 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
 +	const v3s16 blockpos = getNodeBlockPos(p);
 +	JMutexAutoLock lock(m_sectors_mutex);
 +	MapBlock* const block = getBlockNoCreateNoExNoLock(blockpos);
-+	if (block == NULL)
++	if (!block)
 +		throw InvalidPositionException();
 +	
 +	const v3s16 relpos = p - blockpos*MAP_BLOCKSIZE;
  	block->setNodeNoCheck(relpos, n);
++	block->ResetCurrent();
  }
  
  
  /*
-@@ -250,11 +285,11 @@
+ 	Goes recursively through the neighbours of the node.
+@@ -250,11 +293,11 @@
  void Map::unspreadLight(enum LightBank bank,
  		core::map<v3s16, u8> & from_nodes,
  		core::map<v3s16, bool> & light_sources,
@@ -6741,7 +6764,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  		v3s16(1,0,0), // right
  		v3s16(0,0,-1), // front
  		v3s16(0,-1,0), // bottom
-@@ -263,71 +298,79 @@
+@@ -263,71 +306,83 @@
  
  	if(from_nodes.size() == 0)
  		return;
@@ -6817,15 +6840,23 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  			// Only fetch a new block if the block position has changed
 -			try{
 -				if (block == NULL || blockpos != blockpos_last) {
+-					block = getBlockNoCreate(blockpos);
+-					blockpos_last = blockpos;
 +			try
 +			{
 +				if (block == NULL || blockpos != blockpos_last)
 +				{
- 					block = getBlockNoCreate(blockpos);
- 					blockpos_last = blockpos;
++				    
++				    if(block)
++					block->ResetCurrent();
++	
++				    block = getBlockNoCreate(blockpos);
++				    blockpos_last = blockpos;
  
- 					block_checked_in_modified = false;
- 					blockchangecount++;
+-					block_checked_in_modified = false;
+-					blockchangecount++;
++				    block_checked_in_modified = false;
++				    blockchangecount++;
  				}
 -			}catch(InvalidPositionException &e) {
 +			}
@@ -6842,7 +6873,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  			MapNode n2 = block->getNode(relpos, &is_valid_position);
  			if (!is_valid_position)
  				continue;
-@@ -338,29 +381,31 @@
+@@ -338,29 +393,31 @@
  
  			/*
  				If the neighbor is dimmer than what was specified
@@ -6881,7 +6912,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  					{
  						infostream<<"Removed from light_sources"<<std::endl;
  						light_sources.remove(n2pos);
-@@ -368,24 +413,27 @@
+@@ -368,24 +425,27 @@
  				}
  
  				/*// DEBUG
@@ -6912,7 +6943,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  			<<" for "<<from_nodes.size()<<" nodes"
  			<<std::endl;*/
  
-@@ -435,11 +483,11 @@
+@@ -435,11 +495,11 @@
  
  	/*
  		Initialize block cache
@@ -6925,7 +6956,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  
  	for(; j.atEnd() == false; j++)
  	//for(; j != from_nodes.end(); j++)
-@@ -449,16 +497,21 @@
+@@ -449,16 +509,21 @@
  		//infostream<<"pos=("<<pos.X<<","<<pos.Y<<","<<pos.Z<<")"<<std::endl;
  		v3s16 blockpos = getNodeBlockPos(pos);
  
@@ -6952,7 +6983,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  		catch(InvalidPositionException &e)
  		{
  			continue;
-@@ -476,71 +529,80 @@
+@@ -476,71 +541,84 @@
  
  		u8 oldlight = n.getLight(bank);
  		u8 newlight = diminish_light(oldlight);
@@ -6972,15 +7003,23 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  			// Only fetch a new block if the block position has changed
 -			try{
 -				if (block == NULL || blockpos != blockpos_last) {
+-					block = getBlockNoCreate(blockpos);
+-					blockpos_last = blockpos;
 +			try
 +			{
 +				if (block == NULL || blockpos != blockpos_last)
 +				{
- 					block = getBlockNoCreate(blockpos);
- 					blockpos_last = blockpos;
++				    
++				    if(block)
++					block->ResetCurrent();
++	
++				    block = getBlockNoCreate(blockpos);
++				    blockpos_last = blockpos;
  
- 					block_checked_in_modified = false;
- 					blockchangecount++;
+-					block_checked_in_modified = false;
+-					blockchangecount++;
++				    block_checked_in_modified = false;
++				    blockchangecount++;
  				}
 -			}catch(InvalidPositionException &e) {
 +			}
@@ -7046,7 +7085,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  			<<" for "<<from_nodes.size()<<" nodes"
  			<<std::endl;*/
  
-@@ -574,18 +636,21 @@
+@@ -574,18 +652,21 @@
  	u8 brightest_light = 0;
  	v3s16 brightest_pos(0,0,0);
  	bool found_something = false;
@@ -7070,7 +7109,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  			found_something = true;
  		}
  	}
-@@ -606,18 +671,22 @@
+@@ -606,18 +687,22 @@
  */
  s16 Map::propagateSunlight(v3s16 start,
  		core::map<v3s16, MapBlock*> & modified_blocks)
@@ -7097,7 +7136,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  
  		v3s16 relpos = pos - blockpos*MAP_BLOCKSIZE;
  		bool is_valid_position;
-@@ -631,10 +700,13 @@
+@@ -631,10 +716,13 @@
  
  		n.setLight(LIGHTBANK_DAY, LIGHT_SUN);
  		block->setNode(relpos, n);
@@ -7111,7 +7150,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  }
  
  void Map::updateLighting(enum LightBank bank,
-@@ -650,16 +722,18 @@
+@@ -650,16 +738,18 @@
  
  	core::map<v3s16, bool> light_sources;
  
@@ -7135,7 +7174,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  				break;
  
  			v3s16 pos = block->getPos();
-@@ -670,69 +744,81 @@
+@@ -670,69 +760,81 @@
  			/*
  				Clear all light from block
  			*/
@@ -7194,17 +7233,19 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  
  			pos.Y--;
 -			try{
+-				block = getBlockNoCreate(pos);
+-			}catch(InvalidPositionException &e) {
+-				assert(0);
 +			try
 +			{				
-+				if(block)
-+				    block->ResetCurrent();
++			    if(block)
++				block->ResetCurrent();
 +				
- 				block = getBlockNoCreate(pos);
--			}catch(InvalidPositionException &e) {
++			    block = getBlockNoCreate(pos);
 +			}
 +			catch(InvalidPositionException &e)
 +			{
- 				assert(0);
++			    assert(0);
  			}
  
  		}
@@ -7232,7 +7273,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  
  			// Add all surrounding blocks
  			vmanip.initialEmerge(p - v3s16(1,1,1), p + v3s16(1,1,1));
-@@ -777,11 +863,12 @@
+@@ -777,11 +879,12 @@
  }
  
  /*
@@ -7246,7 +7287,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  	m_dout<<DTIME<<"Map::addNodeAndUpdate(): p=("
  			<<p.X<<","<<p.Y<<","<<p.Z<<")"<<std::endl;*/
  
-@@ -790,12 +877,11 @@
+@@ -790,12 +893,11 @@
  		If lighting is sunlight (1.0), unlight neighbours and
  		set lighting to 0.
  		Else discontinue.
@@ -7260,7 +7301,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  
  	/*
  		If there is a node at top and it doesn't have sunlight,
-@@ -818,19 +904,20 @@
+@@ -818,19 +920,20 @@
  	enum LightBank banks[] =
  	{
  		LIGHTBANK_DAY,
@@ -7282,7 +7323,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  
  		assert(isValidPosition(p));
  
-@@ -838,12 +925,12 @@
+@@ -838,12 +941,12 @@
  		// This means setting light of all consequent dimmer nodes
  		// to 0.
  		// This also collects the nodes at the border which will spread
@@ -7296,7 +7337,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  	/*
  		If node lets sunlight through and is under sunlight, it has
  		sunlight too.
-@@ -859,11 +946,11 @@
+@@ -859,11 +962,11 @@
  
  	/*
  		Add intial metadata
@@ -7309,7 +7350,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  		meta->setOwner(player_name);
  		setNodeMetadata(p, meta);
  	}
-@@ -873,22 +960,25 @@
+@@ -873,22 +976,25 @@
  		take all sunlighted nodes under it and clear light from them
  		and from where the light has been spread.
  		TODO: This could be optimized by mass-unlighting instead
@@ -7338,7 +7379,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  						light_sources, modified_blocks);
  				n2.setLight(LIGHTBANK_DAY, 0);
  				setNode(n2pos, n2);
-@@ -896,11 +986,12 @@
+@@ -896,11 +1002,12 @@
  			else
  				break;
  		}
@@ -7352,7 +7393,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  		/*
  			Spread light from all nodes that might be capable of doing so
  		*/
-@@ -920,25 +1011,29 @@
+@@ -920,25 +1027,29 @@
  
  	/*
  		Add neighboring liquid nodes and the node itself if it is
@@ -7389,7 +7430,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  
  /*
  */
-@@ -948,12 +1043,11 @@
+@@ -948,12 +1059,11 @@
  	/*PrintInfo(m_dout);
  	m_dout<<DTIME<<"Map::removeNodeAndUpdate(): p=("
  			<<p.X<<","<<p.Y<<","<<p.Z<<")"<<std::endl;*/
@@ -7403,7 +7444,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  	content_t replace_material = CONTENT_AIR;
  
  	/*
-@@ -972,11 +1066,13 @@
+@@ -972,11 +1082,13 @@
  
  	enum LightBank banks[] = {
  		LIGHTBANK_DAY,
@@ -7418,7 +7459,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  		/*
  			Unlight neighbors (in case the node is a light source)
  		*/
-@@ -998,55 +1094,62 @@
+@@ -998,55 +1110,62 @@
  
  	MapNode n;
  	n.setContent(replace_material);
@@ -7488,7 +7529,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  		// Get the brightest neighbour node and propagate light from it
  		v3s16 n2p = getBrightestNeighbour(bank, p);
  		bool pos_ok = isValidPosition(n2p);
-@@ -1067,39 +1170,45 @@
+@@ -1067,39 +1186,45 @@
  
  	/*
  		Add neighboring liquid nodes and this node to transform queue.
@@ -7544,7 +7585,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  		addNodeAndUpdate(p, n, modified_blocks, st);
  
  		// Copy modified_blocks to event
-@@ -1108,11 +1217,12 @@
+@@ -1108,11 +1233,12 @@
  				i.atEnd()==false; i++)
  		{
  			event.modified_blocks.insert(i.getNode()->getKey(), false);
@@ -7558,7 +7599,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  
  	dispatchEvent(&event);
  
-@@ -1124,11 +1234,12 @@
+@@ -1124,11 +1250,12 @@
  	MapEditEvent event;
  	event.type = MEET_REMOVENODE;
  	event.p = p;
@@ -7572,7 +7613,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  
  		// Copy modified_blocks to event
  		for(core::map<v3s16, MapBlock*>::Iterator
-@@ -1136,11 +1247,12 @@
+@@ -1136,11 +1263,12 @@
  				i.atEnd()==false; i++)
  		{
  			event.modified_blocks.insert(i.getNode()->getKey(), false);
@@ -7586,7 +7627,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  
  	dispatchEvent(&event);
  
-@@ -1152,11 +1264,11 @@
+@@ -1152,11 +1280,11 @@
  	MapEditEvent event;
  	event.type = MEET_ADDNODE;
  	event.p = p;
@@ -7599,7 +7640,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  
  	setNode(p, n);
  	dispatchEvent(&event);
-@@ -1164,58 +1276,99 @@
+@@ -1164,58 +1292,99 @@
  	return true;
  }
  
@@ -7720,7 +7761,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  	catch(InvalidPositionException &e){}
  
  	return false;
-@@ -1226,66 +1379,69 @@
+@@ -1226,66 +1395,69 @@
  */
  void Map::timerUpdate(float dtime, float unload_timeout,
  		core::list<v3s16> *unloaded_blocks)
@@ -7751,22 +7792,23 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  
 -		core::list<MapBlock*> blocks;
 -		sector->getBlocks(blocks);
-+	    for(core::list<MapBlock*>::Iterator i = blocks.begin();
-+		i != blocks.end(); i++)
-+	    {
-+		MapBlock* const block = (*i);
- 
+-
 -		for(core::list<MapBlock*>::Iterator i = blocks.begin();
 -				i != blocks.end(); i++)
 -		{
 -			MapBlock *block = (*i);
 -
 -			block->incrementUsageTimer(dtime);
--
++	    for(core::list<MapBlock*>::Iterator i = blocks.begin();
++		i != blocks.end(); i++)
++	    {
++		MapBlock* const block = (*i);
+ 
 -			if(block->getUsageTimer() > unload_timeout)
 -			{
 -				v3s16 p = block->getPos();
--
++		block->incrementUsageTimer(dtime);
+ 
 -				// Save if modified
 -				if(block->getModified() != MOD_STATE_CLEAN
 -						&& save_before_unloading)
@@ -7774,8 +7816,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
 -					saveBlock(block);
 -					saved_blocks_count++;
 -				}
-+		block->incrementUsageTimer(dtime);
- 
+-
 -				// Delete from memory
 -				sector->deleteBlock(block);
 +		if(block->getUsageTimer() > unload_timeout)
@@ -7831,7 +7872,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  	// Finally delete the empty sectors
  	deleteSectors(sector_deletion_queue);
  
-@@ -1301,19 +1457,21 @@
+@@ -1301,19 +1473,21 @@
  }
  
  void Map::deleteSectors(core::list<v2s16> &list)
@@ -7860,7 +7901,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  
  void Map::PrintInfo(std::ostream &out)
  {
-@@ -1325,10 +1483,11 @@
+@@ -1325,10 +1499,11 @@
  enum NeighborType {
  	NEIGHBOR_UPPER,
  	NEIGHBOR_SAME_LEVEL,
@@ -7872,7 +7913,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  	NeighborType t;
  	v3s16 p;
  };
-@@ -1359,29 +1518,30 @@
+@@ -1359,29 +1534,30 @@
  
  		/*
  			Get a queued transforming liquid node
@@ -7908,7 +7949,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  			if (n0.getContent() != CONTENT_AIR)
  				continue;
  			liquid_kind = CONTENT_AIR;
-@@ -1399,22 +1559,27 @@
+@@ -1399,22 +1575,27 @@
  		NodeNeighbor airs[6]; // surrounding air
  		int num_airs = 0;
  		NodeNeighbor neutrals[6]; // nodes that are solid or another kind of liquid
@@ -7940,7 +7981,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  					if (nb.n.getContent() == CONTENT_AIR) {
  						airs[num_airs++] = nb;
  						// if the current node is a water source the neighbor
-@@ -1542,38 +1707,44 @@
+@@ -1542,38 +1723,45 @@
  			// set the liquid level and flow bit to 0
  			n0.param2 = ~(LIQUID_LEVEL_MASK | LIQUID_FLOW_DOWN_MASK);
  		}
@@ -7952,7 +7993,8 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
 -		MapBlock *block = getBlockNoCreateNoEx(blockpos);
 -		if(block != NULL) {
 +		MapBlock* const block = getBlockNoCreateNoEx(blockpos);
-+		if(block != NULL)
++		
++		if(block)
 +		{
  			modified_blocks.insert(blockpos, block);
  			// If node emits light, MapBlock requires lighting update
@@ -8003,7 +8045,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  	//infostream<<"Map::transformLiquids(): loopcount="<<loopcount<<std::endl;
  	while (must_reflow.size() > 0)
  		m_transforming_liquid.push_back(must_reflow.pop_front());
-@@ -1582,115 +1753,138 @@
+@@ -1582,115 +1770,138 @@
  
  NodeMetadata* Map::getNodeMetadata(v3s16 p)
  {
@@ -8167,7 +8209,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  	infostream<<__FUNCTION_NAME<<std::endl;
  
  	config_load("world","world.cfg");
-@@ -1766,17 +1960,19 @@
+@@ -1766,17 +1977,19 @@
  			v2s16 sectorpos(blockpos.X+x, blockpos.Z+z);
  			// Sector metadata is loaded from disk if not already loaded.
  			ServerMapSector *sector = createSector(sectorpos);
@@ -8190,7 +8232,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  					/*
  						Block gets sunlight if this is true.
  
-@@ -1786,10 +1982,11 @@
+@@ -1786,10 +1999,11 @@
  					block->setIsUnderground(ug);
  				}
  
@@ -8202,7 +8244,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  	}
  
  	/*
-@@ -1831,128 +2028,142 @@
+@@ -1831,128 +2045,142 @@
  	}
  
  	/*
@@ -8429,7 +8471,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  			Update day/night difference cache of the MapBlocks
  		*/
  		block->updateDayNightDiff();
-@@ -1964,66 +2175,69 @@
+@@ -1964,66 +2192,69 @@
  
  	/*
  		Set central block as generated
@@ -8511,7 +8553,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  	}
  
  	/*
-@@ -2043,16 +2257,16 @@
+@@ -2043,16 +2274,16 @@
  	finishBlockMake(&data, modified_blocks);
  
  	/*
@@ -8530,7 +8572,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  			__FUNCTION_NAME, p.X, p.Y, p.Z);
  
  	/*
-@@ -2064,12 +2278,12 @@
+@@ -2064,22 +2295,22 @@
  	|| p.Y > MAP_GENERATION_LIMIT / MAP_BLOCKSIZE
  	|| p.Z < -MAP_GENERATION_LIMIT / MAP_BLOCKSIZE
  	|| p.Z > MAP_GENERATION_LIMIT / MAP_BLOCKSIZE)
@@ -8545,7 +8587,19 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  		If block exists on disk, it will be loaded.
  
  		NOTE: On old save formats, this will be slow, as it generates
-@@ -2099,46 +2313,49 @@
+ 		      lighting on blocks for them.
+ 	*/
+-	ServerMapSector *sector;
++	ServerMapSector* sector;
+ 	try{
+-		sector = (ServerMapSector*)createSector(p2d);
++		sector = (ServerMapSector*) createSector(p2d);
+ 		assert(sector->getId() == MAPSECTOR_SERVER);
+ 	}
+ 	catch(InvalidPositionException &e)
+ 	{
+ 		infostream<<"createBlock: createSector() failed"<<std::endl;
+@@ -2099,46 +2330,49 @@
  
  	/*
  		Try to get a block from the sector
@@ -8602,7 +8656,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  			MapEditEvent event;
  			event.type = MEET_OTHER;
  			event.p = p;
-@@ -2168,30 +2385,31 @@
+@@ -2168,30 +2402,31 @@
  	/* determine from map generator noise functions */
  	mapgen::BlockMakeData d;
  	d.type = m_type;
@@ -8642,7 +8696,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  
  	{
  		char buff[1024];
-@@ -2219,32 +2437,36 @@
+@@ -2219,32 +2454,36 @@
  
  		if(needs_create)
  			createDatabase();
@@ -8683,7 +8737,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  }
  
  void ServerMap::save(bool only_changed)
-@@ -2258,29 +2480,36 @@
+@@ -2258,29 +2497,36 @@
  	u32 block_count = 0;
  	u32 block_count_all = 0; // Number of blocks in memory
  
@@ -8729,7 +8783,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  				}
  
  				saveBlock(block);
-@@ -2292,11 +2521,12 @@
+@@ -2292,11 +2538,12 @@
  		endSave();
  
  	/*
@@ -8743,7 +8797,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  				<<", "<<block_count_all<<" blocks in memory."
  				<<std::endl;
  	}
-@@ -2317,68 +2547,73 @@
+@@ -2317,68 +2564,73 @@
  	return mod - ((-i) % mod);
  }
  
@@ -8834,9 +8888,15 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  	/*
  		Dummy blocks are not written
  	*/
-@@ -2434,11 +2669,12 @@
+@@ -2430,15 +2682,17 @@
  
- void ServerMap::loadBlock(std::string *blob, v3s16 p3d, MapSector *sector, bool save_after_load)
+ 	// We just wrote it to the disk so clear modified flag
+ 	block->resetModified();
+ }
+ 
+-void ServerMap::loadBlock(std::string *blob, v3s16 p3d, MapSector *sector, bool save_after_load)
++void ServerMap::loadBlock(std::string *blob, v3s16 p3d, MapSector *sector,
++		bool save_after_load)
  {
  	DSTACK(__FUNCTION_NAME);
  
@@ -8848,15 +8908,34 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  		u8 version = SER_FMT_VER_INVALID;
  		is.read((char*)&version, 1);
  
-@@ -2478,12 +2714,15 @@
+@@ -2451,14 +2705,15 @@
+ 		is.read((char*)*data, block_size);*/
+ 
+ 		// This will always return a sector because we're the server
+ 		//MapSector *sector = emergeSector(p2d);
+ 
+-		MapBlock *block = NULL;
+ 		bool created_new = false;
+-		block = sector->getBlockNoCreateNoEx(p3d.Y);
+-		if (block == NULL) {
++		MapBlock* block = sector->getBlockNoCreateNoEx(p3d.Y);
++		
++		if (!block)
++		{
+ 			block = sector->createBlankBlockNoInsert(p3d.Y);
+ 			created_new = true;
+ 		}
+ 
+ 		// Read basic data
+@@ -2478,12 +2733,14 @@
  		if (version < SER_FMT_VER_HIGHEST || save_after_load)
  			saveBlock(block);
  
  		// We just loaded it from, so it's up-to-date.
  		block->resetModified();
-+		block->ResetCurrent();
- 
+-
 -	} catch(SerializationError &e) {
++		block->ResetCurrent();
 +	}
 +	catch(SerializationError &e)
 +	{
@@ -8865,10 +8944,15 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  				<<"what()="<<e.what()
  				<<std::endl;
  				//" Ignoring. A new one will be generated.
-@@ -2499,11 +2738,12 @@
+@@ -2496,23 +2753,26 @@
+ 
+ 	v2s16 p2d(blockpos.X, blockpos.Z);
+ 
  	verifyDatabase();
  
- 	if (sqlite3_bind_int64(m_database_read, 1, getBlockAsInteger(blockpos)) != SQLITE_OK)
+-	if (sqlite3_bind_int64(m_database_read, 1, getBlockAsInteger(blockpos)) != SQLITE_OK)
++	if (sqlite3_bind_int64(m_database_read, 1,
++					getBlockAsInteger(blockpos)) != SQLITE_OK)
  		infostream<<"WARNING: Could not bind block position for load: "
  			<<sqlite3_errmsg(m_database)<<std::endl;
 -	if (sqlite3_step(m_database_read) == SQLITE_ROW) {
@@ -8877,9 +8961,21 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  		/*
  			Make sure sector is loaded
  		*/
- 		MapSector *sector = createSector(p2d);
+-		MapSector *sector = createSector(p2d);
++		MapSector* sector = createSector(p2d);
  
-@@ -2537,41 +2777,37 @@
+ 		/*
+ 			Load block
+ 		*/
+-		const char * data = (const char *)sqlite3_column_blob(m_database_read, 0);
++		const char* data =
++		    (const char*) sqlite3_column_blob(m_database_read, 0);
+ 		size_t len = sqlite3_column_bytes(m_database_read, 0);
+ 
+ 		std::string datastr(data, len);
+ 
+ 		loadBlock(&datastr, blockpos, sector, false);
+@@ -2537,41 +2797,37 @@
  
  /*
  	ClientMap
@@ -8934,7 +9030,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  	// Check that it doesn't exist already
  	try{
  		return getSectorNoGenerate(p2d);
-@@ -2579,14 +2815,14 @@
+@@ -2579,14 +2835,14 @@
  	catch(InvalidPositionException &e)
  	{
  	}
@@ -8951,7 +9047,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  
  	return sector;
  }
-@@ -2609,20 +2845,22 @@
+@@ -2609,20 +2865,22 @@
  	v3s16 u0 = p1 - p0;
  	v3f uf = v3f(u0.X, u0.Y, u0.Z) * BS;
  	uf.normalize();
@@ -8984,7 +9080,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  				return true;
  		}
  		step *= stepfac;
-@@ -2636,15 +2874,14 @@
+@@ -2636,15 +2894,14 @@
  	DSTACK(__FUNCTION_NAME);
  
  	bool is_transparent_pass = pass == scene::ESNRP_TRANSPARENT;
@@ -9002,7 +9098,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  		This is called two times per frame, reset on the non-transparent one
  	*/
  	if (pass == scene::ESNRP_SOLID)
-@@ -2657,13 +2894,16 @@
+@@ -2657,13 +2914,16 @@
  		machine is swapping a lot.
  	*/
  	int time1 = time(0);
@@ -9019,7 +9115,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  	/*
  		Get all blocks and draw all visible ones
  	*/
-@@ -2718,59 +2958,72 @@
+@@ -2718,59 +2978,72 @@
  	core::map<v3s16, MapBlock*> drawset;
  
  	{
@@ -9108,7 +9204,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  			/*if(m_control.range_all == false &&
  					d - 0.5*BS*MAP_BLOCKSIZE > range)
  				continue;*/
-@@ -2792,37 +3045,37 @@
+@@ -2792,37 +3065,37 @@
  
  				mesh_expired = block->getMeshExpired();
  
@@ -9159,7 +9255,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  				mesh_expired = false;
  			}
  #endif
-@@ -2831,37 +3084,37 @@
+@@ -2831,37 +3104,37 @@
  				Occlusion culling
  			*/
  
@@ -9217,7 +9313,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  				continue;
  			}
  
-@@ -2871,33 +3124,34 @@
+@@ -2871,33 +3144,34 @@
  			/*
  				Ignore if mesh doesn't exist
  			*/
@@ -9262,7 +9358,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  
  			// Add to set
  			drawset[block->getPos()] = block;
-@@ -2914,52 +3168,55 @@
+@@ -2914,52 +3188,55 @@
  	/*
  		Draw the selected MapBlocks
  	*/
@@ -9343,7 +9439,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  
  				buf->getMaterial().setFlag(video::EMF_TRILINEAR_FILTER, m_render_trilinear);
  				buf->getMaterial().setFlag(video::EMF_BILINEAR_FILTER, m_render_bilinear);
-@@ -2968,11 +3225,12 @@
+@@ -2968,11 +3245,12 @@
  				const video::SMaterial& material = buf->getMaterial();
  				video::IMaterialRenderer* rnd =
  						driver->getMaterialRenderer(material.MaterialType);
@@ -9357,7 +9453,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  								<<"] contains an empty meshbuf"<<std::endl;
  					/*
  						This *shouldn't* hurt too much because Irrlicht
-@@ -2984,30 +3242,31 @@
+@@ -2984,30 +3262,31 @@
  					vertex_count += buf->getVertexCount();
  					meshbuffer_count++;
  					stuff_actually_drawn = true;
@@ -9393,7 +9489,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  				(float)meshbuffer_count / (float)blocks_had_pass_meshbuf);
  	if(blocks_drawn != 0)
  		g_profiler->avg(prefix+"empty blocks (frac)",
-@@ -3018,90 +3277,85 @@
+@@ -3018,90 +3297,85 @@
  
  	/*infostream<<"renderMap(): is_transparent_pass="<<is_transparent_pass
  			<<", rendered "<<vertex_count<<" vertices."<<std::endl;*/
@@ -9523,7 +9619,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  		brightness_count++;
  	}
  
-@@ -3111,25 +3365,24 @@
+@@ -3111,25 +3385,24 @@
  		return false;
  	*result = brightness_sum / brightness_count;
  	return true;
@@ -9556,7 +9652,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  				1.0,
  				0.01 * myrand_range(-80, 80)
  			);
-@@ -3138,32 +3391,38 @@
+@@ -3138,32 +3411,38 @@
  	}
  
  	//std::cerr<<"In goes "<<PP(m_camera_direction)<<", out comes ";
@@ -9600,7 +9696,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  			1.0,
  			max_d*0.6+off,
  			max_d,
-@@ -3182,130 +3441,140 @@
+@@ -3182,130 +3461,140 @@
  			break;
  	}
  
@@ -9779,6 +9875,9 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
 -	si = m_sectors.getIterator();
 -	for (; si.atEnd() == false; si++) {
 -		MapSector *sector = si.getNode()->getValue();
+-
+-		core::list< MapBlock * > sectorblocks;
+-		sector->getBlocks(sectorblocks);
 +	for (; si.atEnd() == false; si++)
 +	{
 +	    MapSector* const sector = si.getNode()->getValue();
@@ -9786,23 +9885,20 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
 +		
 +	    sector->getBlocks(sectorblocks);
  
--		core::list< MapBlock * > sectorblocks;
--		sector->getBlocks(sectorblocks);
+-		core::list< MapBlock * >::Iterator i;
+-		for (i=sectorblocks.begin(); i!=sectorblocks.end(); i++) {
+-			MapBlock *block = *i;
 +	    core::list<MapBlock*>::Iterator i;
 +	    for (i=sectorblocks.begin(); i!=sectorblocks.end(); i++)
 +	    {
 +		MapBlock* const block = *i;
  
--		core::list< MapBlock * >::Iterator i;
--		for (i=sectorblocks.begin(); i!=sectorblocks.end(); i++) {
--			MapBlock *block = *i;
+-			if (only_daynight_diffed && block->dayNightDiffed() == false)
+-				continue;
 +		if (only_daynight_diffed
 +				&& block->dayNightDiffed() == false)
 +		    continue;
  
--			if (only_daynight_diffed && block->dayNightDiffed() == false)
--				continue;
--
 -			{
 -				JMutexAutoLock lock(block->mesh_mutex);
 -				if (block->mesh != NULL)
@@ -9822,7 +9918,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  void ClientMap::PrintInfo(std::ostream &out)
  {
  	out<<"ClientMap: ";
-@@ -3331,25 +3600,23 @@
+@@ -3331,25 +3620,23 @@
  void MapVoxelManipulator::emerge(VoxelArea a, s32 caller_id)
  {
  	TimeTaker timer1("emerge", &emerge_time);
@@ -9854,7 +9950,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  
  		bool block_data_inexistent = false;
  		try
-@@ -3360,29 +3627,31 @@
+@@ -3360,29 +3647,31 @@
  					<<" ("<<p.X<<","<<p.Y<<","<<p.Z<<")"
  					<<" wanted area: ";
  			a.print(infostream);
@@ -9889,7 +9985,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  		}
  
  		m_loaded_blocks.insert(p, !block_data_inexistent);
-@@ -3408,47 +3677,52 @@
+@@ -3408,51 +3697,60 @@
  
  	/*
  		Initialize block cache
@@ -9918,13 +10014,17 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
 +		const v3s16 blockpos = getNodeBlockPos(p);
  
 -		if (block == NULL || blockpos != blockpos_last) {
+-			block = m_map->getBlockNoCreate(blockpos);
+-			blockpos_last = blockpos;
+-			block_checked_in_modified = false;
 +		if (block == NULL || blockpos != blockpos_last)
 +		{
- 			block = m_map->getBlockNoCreate(blockpos);
- 			blockpos_last = blockpos;
- 			block_checked_in_modified = false;
-+			if(block)
-+			    block->ResetCurrent();
++		    
++		    if(block)
++			block->ResetCurrent();
++		    block = m_map->getBlockNoCreate(blockpos);
++		    blockpos_last = blockpos;
++		    block_checked_in_modified = false;
  		}
  
  		// Calculate relative position in block
@@ -9951,8 +10051,15 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  			block_checked_in_modified = true;
  		}
  	}
++	
++	if(block)
++	    block->ResetCurrent();
  }
-@@ -3473,17 +3747,17 @@
+ 
+ ManualMapVoxelManipulator::ManualMapVoxelManipulator(Map *map):
+ 		MapVoxelManipulator(map),
+ 		m_create_area(false)
+@@ -3473,17 +3771,17 @@
  		v3s16 blockpos_min, v3s16 blockpos_max)
  {
  	TimeTaker timer1("initialEmerge", &emerge_time);
@@ -9977,7 +10084,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  		infostream<<"initialEmerge: area: ";
  		block_area_nodes.print(infostream);
  		infostream<<" ("<<size_MB<<"MB)";
-@@ -3494,26 +3768,25 @@
+@@ -3494,26 +3792,25 @@
  
  	for(s32 z=p_min.Z; z<=p_max.Z; z++)
  	for(s32 y=p_min.Y; y<=p_max.Y; y++)
@@ -10008,7 +10115,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  		{
  			block_data_inexistent = true;
  		}
-@@ -3521,11 +3794,12 @@
+@@ -3521,11 +3818,12 @@
  		if(block_data_inexistent)
  		{
  			/*
@@ -10022,7 +10129,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  			for(s32 y=a.MinEdge.Y; y<=a.MaxEdge.Y; y++)
  			{
  				s32 i = m_area.index(a.MinEdge.X,y,z);
-@@ -3544,22 +3818,28 @@
+@@ -3544,22 +3842,28 @@
  		return;
  
  	/*
@@ -10053,14 +10160,14 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
 -		if (block == NULL) {
 +		
 +		MapBlock* const block = m_map->getBlockNoCreateNoEx(p);
-+		if (block == NULL)
++		if (!block)
 +		{
  			infostream<<"WARNING: "<<__FUNCTION_NAME
  					<<": got NULL block "
  					<<"("<<p.X<<","<<p.Y<<","<<p.Z<<")"
  					<<std::endl;
  			continue;
-@@ -3567,10 +3847,11 @@
+@@ -3567,10 +3871,11 @@
  
  		block->copyFrom(*this);
  
@@ -10072,7 +10179,7 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  
  void ManualMapVoxelManipulator::blitBackAllWithMeta(
  		core::map<v3s16, MapBlock*> * modified_blocks)
-@@ -3579,22 +3860,28 @@
+@@ -3579,22 +3884,28 @@
  		return;
  
  	/*
@@ -10102,14 +10209,14 @@ diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
 -		if (block == NULL) {
 +		
 +		MapBlock* const block = m_map->getBlockNoCreateNoEx(p);
-+		if (block == NULL)
++		if (!block)
 +		{
  			infostream<<"WARNING: "<<__FUNCTION_NAME
  					<<": got NULL block "
  					<<"("<<p.X<<","<<p.Y<<","<<p.Z<<")"
  					<<std::endl;
  			continue;
-@@ -3602,34 +3889,42 @@
+@@ -3602,34 +3913,42 @@
  
  		block->copyFrom(*this);
  
@@ -12923,7 +13030,7 @@ diff -rNU5 voxelands-v1709.00old/src/mapnode.h voxelands-v1709.00good/src/mapnod
  
 diff -rNU5 voxelands-v1709.00old/src/mapsector.cpp voxelands-v1709.00good/src/mapsector.cpp
 --- voxelands-v1709.00old/src/mapsector.cpp	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00good/src/mapsector.cpp	2024-09-22 18:41:01.712655805 +0200
++++ voxelands-v1709.00good/src/mapsector.cpp	2024-10-27 20:37:26.176316238 +0100
 @@ -27,14 +27,16 @@
  #include "jmutexautolock.h"
  #include "client.h"
@@ -12943,7 +13050,7 @@ diff -rNU5 voxelands-v1709.00old/src/mapsector.cpp voxelands-v1709.00good/src/ma
  
  MapSector::~MapSector()
  {
-@@ -46,13 +48,12 @@
+@@ -46,81 +48,83 @@
  	// Clear cache
  	m_block_cache = NULL;
  
@@ -12958,9 +13065,43 @@ diff -rNU5 voxelands-v1709.00old/src/mapsector.cpp voxelands-v1709.00good/src/ma
  	m_blocks.clear();
  }
  
-@@ -83,44 +84,43 @@
+-MapBlock * MapSector::getBlockBuffered(s16 y)
++MapBlock* MapSector::getBlockBuffered(s16 y)
+ {
+-	MapBlock *block = NULL;
++	MapBlock* block = NULL;
  
- MapBlock * MapSector::createBlankBlockNoInsert(s16 y)
+ 	if (m_block_cache != NULL && y == m_block_cache_y)
+ 		return m_block_cache;
+ 
+ 	// If block doesn't exist, return NULL
+-	core::map<s16, MapBlock*>::Node *n = m_blocks.find(y);
++	core::map<s16, MapBlock*>::Node* const n = m_blocks.find(y);
+ 	// If block exists, return it
+-	if (n != NULL)
++	if (n)
+ 		block = n->getValue();
+ 
+ 	// Cache the last result
+ 	m_block_cache_y = y;
+ 	m_block_cache = block;
+ 
+ 	return block;
+ }
+ 
+-MapBlock * MapSector::getBlockNoCreateNoEx(s16 y)
++MapBlock* MapSector::getBlockNoCreateNoEx(s16 y)
+ {
+-	return getBlockBuffered(y);
++	MapBlock* const block = getBlockBuffered(y);
++
++	if(block)
++	    block->SetCurrent();
++	return block;
+ }
+ 
+-MapBlock * MapSector::createBlankBlockNoInsert(s16 y)
++MapBlock* MapSector::createBlankBlockNoInsert(s16 y)
  {
  	assert(getBlockBuffered(y) == NULL);
  
@@ -12973,7 +13114,8 @@ diff -rNU5 voxelands-v1709.00old/src/mapsector.cpp voxelands-v1709.00good/src/ma
  	return block;
  }
  
- MapBlock * MapSector::createBlankBlock(s16 y)
+-MapBlock * MapSector::createBlankBlock(s16 y)
++MapBlock* MapSector::createBlankBlock(s16 y)
  {
 -	MapBlock *block = createBlankBlockNoInsert(y);
 +	MapBlock* const block = createBlankBlockNoInsert(y);
@@ -13010,7 +13152,7 @@ diff -rNU5 voxelands-v1709.00old/src/mapsector.cpp voxelands-v1709.00good/src/ma
  	m_block_cache = NULL;
  
  	// Remove from container
-@@ -131,25 +131,24 @@
+@@ -131,25 +135,24 @@
  }
  
  void MapSector::getBlocks(core::list<MapBlock*> &dest)
@@ -13042,7 +13184,7 @@ diff -rNU5 voxelands-v1709.00old/src/mapsector.cpp voxelands-v1709.00good/src/ma
  }
  
  ServerMapSector::~ServerMapSector()
-@@ -208,12 +207,11 @@
+@@ -208,12 +211,11 @@
  	/*
  		Get or create sector
  	*/
@@ -13058,7 +13200,7 @@ diff -rNU5 voxelands-v1709.00old/src/mapsector.cpp voxelands-v1709.00good/src/ma
  				<<std::endl;
 diff -rNU5 voxelands-v1709.00old/src/mapsector.h voxelands-v1709.00good/src/mapsector.h
 --- voxelands-v1709.00old/src/mapsector.h	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00good/src/mapsector.h	2024-09-22 18:41:01.712655805 +0200
++++ voxelands-v1709.00good/src/mapsector.h	2024-10-27 20:21:28.831583118 +0100
 @@ -41,11 +41,11 @@
  #define MAPSECTOR_SERVER 0
  #define MAPSECTOR_CLIENT 1
@@ -13072,7 +13214,20 @@ diff -rNU5 voxelands-v1709.00old/src/mapsector.h voxelands-v1709.00good/src/maps
  	virtual ~MapSector();
  
  	virtual u32 getId() const = 0;
-@@ -65,11 +65,11 @@
+@@ -55,21 +55,21 @@
+ 	v2s16 getPos()
+ 	{
+ 		return m_pos;
+ 	}
+ 
+-	MapBlock * getBlockNoCreateNoEx(s16 y);
+-	MapBlock * createBlankBlockNoInsert(s16 y);
+-	MapBlock * createBlankBlock(s16 y);
++	MapBlock* getBlockNoCreateNoEx(s16 y);
++	MapBlock* createBlankBlockNoInsert(s16 y);
++	MapBlock* createBlankBlock(s16 y);
+ 
+ 	void insertBlock(MapBlock *block);
  
  	void deleteBlock(MapBlock *block);
  
@@ -15770,6 +15925,22 @@ diff -rNU5 voxelands-v1709.00old/src/string.c voxelands-v1709.00good/src/string.
  	if (!b)
  		return 1;
  	b++;
+diff -rNU5 voxelands-v1709.00old/src/test.cpp voxelands-v1709.00good/src/test.cpp
+--- voxelands-v1709.00old/src/test.cpp	2017-09-24 06:59:00.000000000 +0200
++++ voxelands-v1709.00good/src/test.cpp	2024-10-27 20:32:18.166946620 +0100
+@@ -656,11 +656,11 @@
+ 		ServerMapSector sector(&parent, v2s16(1,1));
+ 
+ 		assert(sector.getBlockNoCreateNoEx(0) == 0);
+ 		assert(sector.getBlockNoCreateNoEx(1) == 0);
+ 
+-		MapBlock * bref = sector.createBlankBlock(-2);
++		MapBlock* const bref = sector.createBlankBlock(-2);
+ 
+ 		assert(sector.getBlockNoCreateNoEx(0) == 0);
+ 		assert(sector.getBlockNoCreateNoEx(-2) == bref);
+ 
+ 		//TODO: Check for AlreadyExistsException
 diff -rNU5 voxelands-v1709.00old/src/tile.cpp voxelands-v1709.00good/src/tile.cpp
 --- voxelands-v1709.00old/src/tile.cpp	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/tile.cpp	2024-09-22 18:41:01.715655809 +0200
