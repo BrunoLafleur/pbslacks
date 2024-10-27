@@ -1,0 +1,65 @@
+#!/bin/bash
+
+# Author : w1k0 from linuxquestions.org
+# Senior Member, Registered: May 2008, Location: Poland
+# Date : 10/09/2024
+
+# 1GB: tests SSD drive writing 1 GB of data
+
+if [ "$1" == "-h" ]
+then
+    cat<<EOF
+
+Samsung SSD 860 EVO 250GB       Samsung, 250 GB, 2018, 5 years, 150 TBW
+SSDPR-CL100-240-G3              goodram, 240 GB, 2021, 3 years, 170 TBW
+SSDPR-PX500-01T-80-G2           goodram,   1 TB, 2023, 3 years, 660 TBW
+
+EOF
+    echo 'This script must be done as root. Exit.'
+    exit 0
+fi
+
+if [ ! $UID = 0 ]; then
+    echo 'This script must be done as root. Exit.'
+    exit 1
+fi
+
+DEVICE="$1"
+
+DIRECTORY="$2"
+DIRECTORY="${DIRECTORY%/}"
+
+if [ "$DIRECTORY" != "" ]
+then
+    DIRECTORY="${DIRECTORY}/"
+fi
+
+COUNT="$0"
+COUNT="${COUNT##*/}"
+COUNT="${COUNT/GB/}"
+
+if [ "$1" == "" ]
+then
+    cat<<EOF
+
+${COUNT}GB: tests SSD drive writing ${COUNT}GB of data
+
+${COUNT}GB [device] [path]
+
+tip: use a symbolic link like 2GB or 8GB to create output of the given size
+
+EOF
+    exit 0
+fi
+
+if [ -e "$DEVICE" ]
+then
+    /usr/sbin/smartctl -s on -i $DEVICE | egrep "Model Number:|Device Model:"
+    sync
+    /usr/sbin/smartctl -s on -a $DEVICE | grep -i "written"
+    dd if=/dev/zero of=${DIRECTORY}${COUNT}GB-file count=$COUNT bs=1GB
+    sync ; sync
+    /usr/sbin/smartctl -s on -a $DEVICE | grep -i "written"
+else
+    echo "${COUNT}GB: there is no $DEVICE device."
+fi
