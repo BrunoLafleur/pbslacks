@@ -1,4 +1,4 @@
-diff -rU5 voxelands-v1709.00old/src/activeobject.h voxelands-v1709.00good/src/activeobject.h
+diff -rNU5 voxelands-v1709.00old/src/activeobject.h voxelands-v1709.00good/src/activeobject.h
 --- voxelands-v1709.00old/src/activeobject.h	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/activeobject.h	2024-09-22 18:41:01.677655749 +0200
 @@ -55,10 +55,12 @@
@@ -14,7 +14,7 @@ diff -rU5 voxelands-v1709.00old/src/activeobject.h voxelands-v1709.00good/src/ac
  		return m_id;
  	}
  
-diff -rU5 voxelands-v1709.00old/src/array.c voxelands-v1709.00good/src/array.c
+diff -rNU5 voxelands-v1709.00old/src/array.c voxelands-v1709.00good/src/array.c
 --- voxelands-v1709.00old/src/array.c	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/array.c	2024-09-22 18:41:01.677655749 +0200
 @@ -59,11 +59,11 @@
@@ -427,7 +427,7 @@ diff -rU5 voxelands-v1709.00old/src/array.c voxelands-v1709.00good/src/array.c
  	}
  
  	return str;
-diff -rU5 voxelands-v1709.00old/src/auth.c voxelands-v1709.00good/src/auth.c
+diff -rNU5 voxelands-v1709.00old/src/auth.c voxelands-v1709.00good/src/auth.c
 --- voxelands-v1709.00old/src/auth.c	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/auth.c	2024-09-22 18:41:01.677655749 +0200
 @@ -82,11 +82,11 @@
@@ -456,7 +456,7 @@ diff -rU5 voxelands-v1709.00old/src/auth.c voxelands-v1709.00good/src/auth.c
  	if (!auth.mutex) {
  		auth.mutex = mutex_create();
  		if (!auth.mutex)
-diff -rU5 voxelands-v1709.00old/src/auth.h voxelands-v1709.00good/src/auth.h
+diff -rNU5 voxelands-v1709.00old/src/auth.h voxelands-v1709.00good/src/auth.h
 --- voxelands-v1709.00old/src/auth.h	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/auth.h	2024-09-22 18:41:01.677655749 +0200
 @@ -31,12 +31,12 @@
@@ -474,7 +474,7 @@ diff -rU5 voxelands-v1709.00old/src/auth.h voxelands-v1709.00good/src/auth.h
  void auth_save(void);
  int auth_exists(char* name);
  void auth_set(char* name, authdata_t data);
-diff -rU5 voxelands-v1709.00old/src/ban.c voxelands-v1709.00good/src/ban.c
+diff -rNU5 voxelands-v1709.00old/src/ban.c voxelands-v1709.00good/src/ban.c
 --- voxelands-v1709.00old/src/ban.c	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/ban.c	2024-09-22 18:41:01.677655749 +0200
 @@ -41,11 +41,11 @@
@@ -490,7 +490,7 @@ diff -rU5 voxelands-v1709.00old/src/ban.c voxelands-v1709.00good/src/ban.c
  	if (!ban.mutex) {
  		ban.mutex = mutex_create();
  		if (!ban.mutex)
-diff -rU5 voxelands-v1709.00old/src/ban.h voxelands-v1709.00good/src/ban.h
+diff -rNU5 voxelands-v1709.00old/src/ban.h voxelands-v1709.00good/src/ban.h
 --- voxelands-v1709.00old/src/ban.h	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/ban.h	2024-09-22 18:41:01.678655751 +0200
 @@ -4,11 +4,11 @@
@@ -506,7 +506,7 @@ diff -rU5 voxelands-v1709.00old/src/ban.h voxelands-v1709.00good/src/ban.h
  void ban_save(void);
  int ban_ipbanned(char* ip);
  int ban_description(char* ip_or_name, char* buff, int size);
-diff -rU5 voxelands-v1709.00old/src/bridge_temp.cpp voxelands-v1709.00good/src/bridge_temp.cpp
+diff -rNU5 voxelands-v1709.00old/src/bridge_temp.cpp voxelands-v1709.00good/src/bridge_temp.cpp
 --- voxelands-v1709.00old/src/bridge_temp.cpp	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/bridge_temp.cpp	2024-09-22 18:41:01.678655751 +0200
 @@ -124,11 +124,11 @@
@@ -538,7 +538,7 @@ diff -rU5 voxelands-v1709.00old/src/bridge_temp.cpp voxelands-v1709.00good/src/b
  
  	return std::string(v);
  }
-diff -rU5 voxelands-v1709.00old/src/character_creator.cpp voxelands-v1709.00good/src/character_creator.cpp
+diff -rNU5 voxelands-v1709.00old/src/character_creator.cpp voxelands-v1709.00good/src/character_creator.cpp
 --- voxelands-v1709.00old/src/character_creator.cpp	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/character_creator.cpp	2024-09-22 18:41:01.678655751 +0200
 @@ -118,11 +118,11 @@
@@ -567,7 +567,7 @@ diff -rU5 voxelands-v1709.00old/src/character_creator.cpp voxelands-v1709.00good
  	if (v)
  		chardef = v;
  	Strfnd f(chardef);
-diff -rU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/client.cpp
+diff -rNU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/client.cpp
 --- voxelands-v1709.00old/src/client.cpp	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/client.cpp	2024-10-27 17:09:08.475283733 +0100
 @@ -66,23 +66,23 @@
@@ -1912,7 +1912,7 @@ diff -rU5 voxelands-v1709.00old/src/client.cpp voxelands-v1709.00good/src/client
  	sound_play_effect((char*)name.c_str(),1.0,loop,&p);
 +#endif
  }
-diff -rU5 voxelands-v1709.00old/src/client.h voxelands-v1709.00good/src/client.h
+diff -rNU5 voxelands-v1709.00old/src/client.h voxelands-v1709.00good/src/client.h
 --- voxelands-v1709.00old/src/client.h	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/client.h	2024-09-22 18:41:01.689655768 +0200
 @@ -160,20 +160,18 @@
@@ -1940,7 +1940,7 @@ diff -rU5 voxelands-v1709.00old/src/client.h voxelands-v1709.00good/src/client.h
  	/*
  		The name of the local player should already be set when
  		calling this, as it is sent in the initialization.
-diff -rU5 voxelands-v1709.00old/src/collision.h voxelands-v1709.00good/src/collision.h
+diff -rNU5 voxelands-v1709.00old/src/collision.h voxelands-v1709.00good/src/collision.h
 --- voxelands-v1709.00old/src/collision.h	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/collision.h	2024-09-22 18:41:01.689655768 +0200
 @@ -44,11 +44,11 @@
@@ -1956,7 +1956,7 @@ diff -rU5 voxelands-v1709.00old/src/collision.h voxelands-v1709.00good/src/colli
  		new_speed(0,0,0)
  	{}
  };
-diff -rU5 voxelands-v1709.00old/src/common.h voxelands-v1709.00good/src/common.h
+diff -rNU5 voxelands-v1709.00old/src/common.h voxelands-v1709.00good/src/common.h
 --- voxelands-v1709.00old/src/common.h	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/common.h	2024-09-22 18:41:01.689655768 +0200
 @@ -98,54 +98,54 @@
@@ -2073,7 +2073,7 @@ diff -rU5 voxelands-v1709.00old/src/common.h voxelands-v1709.00good/src/common.h
  /* bridge stuff TODO: remove */
  #ifdef __cplusplus
  #define EXTERNC extern "C"
-diff -rU5 voxelands-v1709.00old/src/config.c voxelands-v1709.00good/src/config.c
+diff -rNU5 voxelands-v1709.00old/src/config.c voxelands-v1709.00good/src/config.c
 --- voxelands-v1709.00old/src/config.c	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/config.c	2024-09-22 18:41:01.689655768 +0200
 @@ -38,15 +38,15 @@
@@ -2261,7 +2261,7 @@ diff -rU5 voxelands-v1709.00old/src/config.c voxelands-v1709.00good/src/config.c
  	int l;
  
  	/* don't clear everything, only sections */
-diff -rU5 voxelands-v1709.00old/src/config_default.c voxelands-v1709.00good/src/config_default.c
+diff -rNU5 voxelands-v1709.00old/src/config_default.c voxelands-v1709.00good/src/config_default.c
 --- voxelands-v1709.00old/src/config_default.c	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/config_default.c	2024-09-22 18:41:01.689655768 +0200
 @@ -53,17 +53,27 @@
@@ -2306,7 +2306,7 @@ diff -rU5 voxelands-v1709.00old/src/config_default.c voxelands-v1709.00good/src/
  		config_default_creative();
  	}else{
  		config_default_survival();
-diff -rU5 voxelands-v1709.00old/src/connection.cpp voxelands-v1709.00good/src/connection.cpp
+diff -rNU5 voxelands-v1709.00old/src/connection.cpp voxelands-v1709.00good/src/connection.cpp
 --- voxelands-v1709.00old/src/connection.cpp	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/connection.cpp	2024-09-22 18:41:01.705655793 +0200
 @@ -168,11 +168,11 @@
@@ -2931,7 +2931,7 @@ diff -rU5 voxelands-v1709.00old/src/connection.cpp voxelands-v1709.00good/src/co
  			throw NoIncomingDataException("No incoming data");
  		case CONNEVENT_DATA_RECEIVED:
  			peer_id = e.peer_id;
-diff -rU5 voxelands-v1709.00old/src/constants.h voxelands-v1709.00good/src/constants.h
+diff -rNU5 voxelands-v1709.00old/src/constants.h voxelands-v1709.00good/src/constants.h
 --- voxelands-v1709.00old/src/constants.h	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/constants.h	2024-09-22 18:41:01.705655793 +0200
 @@ -57,10 +57,13 @@
@@ -2948,7 +2948,7 @@ diff -rU5 voxelands-v1709.00old/src/constants.h voxelands-v1709.00good/src/const
  	the main loop (related to day/night)
  */
  //#define MAP_BLOCKSIZE 32
-diff -rU5 voxelands-v1709.00old/src/content_cao.cpp voxelands-v1709.00good/src/content_cao.cpp
+diff -rNU5 voxelands-v1709.00old/src/content_cao.cpp voxelands-v1709.00good/src/content_cao.cpp
 --- voxelands-v1709.00old/src/content_cao.cpp	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/content_cao.cpp	2024-09-22 18:41:01.706655795 +0200
 @@ -74,24 +74,25 @@
@@ -3034,7 +3034,7 @@ diff -rU5 voxelands-v1709.00old/src/content_cao.cpp voxelands-v1709.00good/src/c
  
  	ToolItemFeatures f = content_toolitem_features(punch_item);
  	if (m.special_dropped_item != CONTENT_IGNORE && (m.special_punch_item == TT_NONE || f.type == m.special_punch_item))
-diff -rU5 voxelands-v1709.00old/src/content_mob.cpp voxelands-v1709.00good/src/content_mob.cpp
+diff -rNU5 voxelands-v1709.00old/src/content_mob.cpp voxelands-v1709.00good/src/content_mob.cpp
 --- voxelands-v1709.00old/src/content_mob.cpp	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/content_mob.cpp	2024-09-22 18:41:01.706655795 +0200
 @@ -31,17 +31,18 @@
@@ -3463,7 +3463,7 @@ diff -rU5 voxelands-v1709.00old/src/content_mob.cpp voxelands-v1709.00good/src/c
  	f->level = MOB_AGGRESSIVE;
  	f->hp = 30;
  	f->model = "kitty.b3d";
-diff -rU5 voxelands-v1709.00old/src/content_mob.h voxelands-v1709.00good/src/content_mob.h
+diff -rNU5 voxelands-v1709.00old/src/content_mob.h voxelands-v1709.00good/src/content_mob.h
 --- voxelands-v1709.00old/src/content_mob.h	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/content_mob.h	2024-09-22 18:41:01.706655795 +0200
 @@ -86,13 +86,14 @@
@@ -3652,7 +3652,7 @@ diff -rU5 voxelands-v1709.00old/src/content_mob.h voxelands-v1709.00good/src/con
 +#define CONTENT_MOB_COUNT 20
  
  #endif
-diff -rU5 voxelands-v1709.00old/src/content_sao.cpp voxelands-v1709.00good/src/content_sao.cpp
+diff -rNU5 voxelands-v1709.00old/src/content_sao.cpp voxelands-v1709.00good/src/content_sao.cpp
 --- voxelands-v1709.00old/src/content_sao.cpp	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/content_sao.cpp	2024-09-22 18:41:01.706655795 +0200
 @@ -94,10 +94,11 @@
@@ -3813,7 +3813,7 @@ diff -rU5 voxelands-v1709.00old/src/content_sao.cpp voxelands-v1709.00good/src/c
  	// get the wielded item
  	u16 item_i = player->getSelectedItem();
  	InventoryList *ilist = player->inventory.getList("main");
-diff -rU5 voxelands-v1709.00old/src/crypto_base64.c voxelands-v1709.00good/src/crypto_base64.c
+diff -rNU5 voxelands-v1709.00old/src/crypto_base64.c voxelands-v1709.00good/src/crypto_base64.c
 --- voxelands-v1709.00old/src/crypto_base64.c	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/crypto_base64.c	2024-09-22 18:41:01.706655795 +0200
 @@ -184,11 +184,11 @@
@@ -3829,7 +3829,7 @@ diff -rU5 voxelands-v1709.00old/src/crypto_base64.c voxelands-v1709.00good/src/c
  		}
  
  		/* put the partial result in the result buffer */
-diff -rU5 voxelands-v1709.00old/src/environment.cpp voxelands-v1709.00good/src/environment.cpp
+diff -rNU5 voxelands-v1709.00old/src/environment.cpp voxelands-v1709.00good/src/environment.cpp
 --- voxelands-v1709.00old/src/environment.cpp	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/environment.cpp	2024-10-27 17:40:31.935982467 +0100
 @@ -397,11 +397,13 @@
@@ -4895,7 +4895,7 @@ diff -rU5 voxelands-v1709.00old/src/environment.cpp voxelands-v1709.00good/src/e
  			continue;
  		if (!player->isLocal())
  			((RemotePlayer*)player)->updateCameraOffset(camera_offset);
-diff -rU5 voxelands-v1709.00old/src/environment.h voxelands-v1709.00good/src/environment.h
+diff -rNU5 voxelands-v1709.00old/src/environment.h voxelands-v1709.00good/src/environment.h
 --- voxelands-v1709.00old/src/environment.h	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/environment.h	2024-10-27 17:26:32.073895083 +0100
 @@ -123,11 +123,11 @@
@@ -4951,7 +4951,7 @@ diff -rU5 voxelands-v1709.00old/src/environment.h voxelands-v1709.00good/src/env
  	u32 m_time;
  	// Time of day in milli-hours (0-23999); determines day and night
  	u32 m_time_of_day;
-diff -rU5 voxelands-v1709.00old/src/file.c voxelands-v1709.00good/src/file.c
+diff -rNU5 voxelands-v1709.00old/src/file.c voxelands-v1709.00good/src/file.c
 --- voxelands-v1709.00old/src/file.c	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/file.c	2024-09-22 18:41:01.707655797 +0200
 @@ -48,15 +48,15 @@
@@ -5041,7 +5041,7 @@ diff -rU5 voxelands-v1709.00old/src/file.c voxelands-v1709.00good/src/file.c
  	int l;
  	int s;
  	if (!file)
-diff -rU5 voxelands-v1709.00old/src/file.h voxelands-v1709.00good/src/file.h
+diff -rNU5 voxelands-v1709.00old/src/file.h voxelands-v1709.00good/src/file.h
 --- voxelands-v1709.00old/src/file.h	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/file.h	2024-09-22 18:41:01.707655797 +0200
 @@ -22,12 +22,12 @@
@@ -5074,7 +5074,7 @@ diff -rU5 voxelands-v1709.00old/src/file.h voxelands-v1709.00good/src/file.h
  }
  #endif
  
-diff -rU5 voxelands-v1709.00old/src/game.cpp voxelands-v1709.00good/src/game.cpp
+diff -rNU5 voxelands-v1709.00old/src/game.cpp voxelands-v1709.00good/src/game.cpp
 --- voxelands-v1709.00old/src/game.cpp	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/game.cpp	2024-10-27 17:10:07.606152569 +0100
 @@ -749,11 +749,11 @@
@@ -5240,7 +5240,7 @@ diff -rU5 voxelands-v1709.00old/src/game.cpp voxelands-v1709.00good/src/game.cpp
  				LocalPlayer *p = client.getLocalPlayer();
  
  				hud_draw(
-diff -rU5 voxelands-v1709.00old/src/game.h voxelands-v1709.00good/src/game.h
+diff -rNU5 voxelands-v1709.00old/src/game.h voxelands-v1709.00good/src/game.h
 --- voxelands-v1709.00old/src/game.h	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/game.h	2024-09-22 18:41:01.708655798 +0200
 @@ -37,11 +37,11 @@
@@ -5269,7 +5269,7 @@ diff -rU5 voxelands-v1709.00old/src/game.h voxelands-v1709.00good/src/game.h
  	void set(const KeyPress &key)
  	{
  		if (find(key) == end())
-diff -rU5 voxelands-v1709.00old/src/guiMainMenu.cpp voxelands-v1709.00good/src/guiMainMenu.cpp
+diff -rNU5 voxelands-v1709.00old/src/guiMainMenu.cpp voxelands-v1709.00good/src/guiMainMenu.cpp
 --- voxelands-v1709.00old/src/guiMainMenu.cpp	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/guiMainMenu.cpp	2024-09-22 18:41:01.708655798 +0200
 @@ -157,11 +157,11 @@
@@ -5338,7 +5338,7 @@ diff -rU5 voxelands-v1709.00old/src/guiMainMenu.cpp voxelands-v1709.00good/src/g
  			}
  			case GUI_ID_TAB_CREDITS:
  				if (m_data->selected_tab == TAB_SETTINGS)
-diff -rU5 voxelands-v1709.00old/src/guiPauseMenu.h voxelands-v1709.00good/src/guiPauseMenu.h
+diff -rNU5 voxelands-v1709.00old/src/guiPauseMenu.h voxelands-v1709.00good/src/guiPauseMenu.h
 --- voxelands-v1709.00old/src/guiPauseMenu.h	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/guiPauseMenu.h	2024-09-22 18:41:01.708655798 +0200
 @@ -30,10 +30,11 @@
@@ -5353,7 +5353,7 @@ diff -rU5 voxelands-v1709.00old/src/guiPauseMenu.h voxelands-v1709.00good/src/gu
  	virtual void changePassword() = 0;
  	virtual void startGame() = 0;
  };
-diff -rU5 voxelands-v1709.00old/src/guiSingleplayerMenu.cpp voxelands-v1709.00good/src/guiSingleplayerMenu.cpp
+diff -rNU5 voxelands-v1709.00old/src/guiSingleplayerMenu.cpp voxelands-v1709.00good/src/guiSingleplayerMenu.cpp
 --- voxelands-v1709.00old/src/guiSingleplayerMenu.cpp	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/guiSingleplayerMenu.cpp	2024-09-22 18:41:01.708655798 +0200
 @@ -531,11 +531,11 @@
@@ -5369,7 +5369,7 @@ diff -rU5 voxelands-v1709.00old/src/guiSingleplayerMenu.cpp voxelands-v1709.00go
  	survival_mode = true;
  	random_seed = true;
  	flat_map = false;
-diff -rU5 voxelands-v1709.00old/src/http.cpp voxelands-v1709.00good/src/http.cpp
+diff -rNU5 voxelands-v1709.00old/src/http.cpp voxelands-v1709.00good/src/http.cpp
 --- voxelands-v1709.00old/src/http.cpp	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/http.cpp	2024-09-22 18:41:01.708655798 +0200
 @@ -68,12 +68,13 @@
@@ -5465,7 +5465,7 @@ diff -rU5 voxelands-v1709.00old/src/http.cpp voxelands-v1709.00good/src/http.cpp
  	TCPSocket *sock;
  	HTTPResponseHeaders headers;
  	int s;
-diff -rU5 voxelands-v1709.00old/src/http.h voxelands-v1709.00good/src/http.h
+diff -rNU5 voxelands-v1709.00old/src/http.h voxelands-v1709.00good/src/http.h
 --- voxelands-v1709.00old/src/http.h	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/http.h	2024-09-22 18:41:01.708655798 +0200
 @@ -53,11 +53,11 @@
@@ -5527,7 +5527,7 @@ diff -rU5 voxelands-v1709.00old/src/http.h voxelands-v1709.00good/src/http.h
  std::string http_url_encode(std::string &str);
  
  #endif
-diff -rU5 voxelands-v1709.00old/src/intl.c voxelands-v1709.00good/src/intl.c
+diff -rNU5 voxelands-v1709.00old/src/intl.c voxelands-v1709.00good/src/intl.c
 --- voxelands-v1709.00old/src/intl.c	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/intl.c	2024-09-22 18:41:01.708655798 +0200
 @@ -565,11 +565,11 @@
@@ -5556,7 +5556,7 @@ diff -rU5 voxelands-v1709.00old/src/intl.c voxelands-v1709.00good/src/intl.c
  	head = fbuff;
  
  	p = strstr(head,"nplurals=");
-diff -rU5 voxelands-v1709.00old/src/inventory.cpp voxelands-v1709.00good/src/inventory.cpp
+diff -rNU5 voxelands-v1709.00old/src/inventory.cpp voxelands-v1709.00good/src/inventory.cpp
 --- voxelands-v1709.00old/src/inventory.cpp	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/inventory.cpp	2024-09-22 18:41:01.709655800 +0200
 @@ -803,14 +803,14 @@
@@ -5628,7 +5628,7 @@ diff -rU5 voxelands-v1709.00old/src/inventory.cpp voxelands-v1709.00good/src/inv
  		if (m_lists[i]->getName() == name)
  			return i;
  	}
-diff -rU5 voxelands-v1709.00old/src/inventory.h voxelands-v1709.00good/src/inventory.h
+diff -rNU5 voxelands-v1709.00old/src/inventory.h voxelands-v1709.00good/src/inventory.h
 --- voxelands-v1709.00old/src/inventory.h	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/inventory.h	2024-09-22 18:41:01.709655800 +0200
 @@ -330,13 +330,12 @@
@@ -5659,7 +5659,7 @@ diff -rU5 voxelands-v1709.00old/src/inventory.h voxelands-v1709.00good/src/inven
  	InventoryDiff m_diff;
  };
  
-diff -rU5 voxelands-v1709.00old/src/jthread/jthread.h voxelands-v1709.00good/src/jthread/jthread.h
+diff -rNU5 voxelands-v1709.00old/src/jthread/jthread.h voxelands-v1709.00good/src/jthread/jthread.h
 --- voxelands-v1709.00old/src/jthread/jthread.h	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/jthread/jthread.h	2024-09-22 18:41:01.709655800 +0200
 @@ -43,28 +43,32 @@
@@ -5698,7 +5698,7 @@ diff -rU5 voxelands-v1709.00old/src/jthread/jthread.h voxelands-v1709.00good/src
  	static void *TheThread(void *param);
  	
  	pthread_t threadid;
-diff -rU5 voxelands-v1709.00old/src/jthread/pthread/jmutex.cpp voxelands-v1709.00good/src/jthread/pthread/jmutex.cpp
+diff -rNU5 voxelands-v1709.00old/src/jthread/pthread/jmutex.cpp voxelands-v1709.00good/src/jthread/pthread/jmutex.cpp
 --- voxelands-v1709.00old/src/jthread/pthread/jmutex.cpp	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/jthread/pthread/jmutex.cpp	2024-09-22 18:41:01.709655800 +0200
 @@ -28,46 +28,45 @@
@@ -5778,7 +5778,7 @@ diff -rU5 voxelands-v1709.00old/src/jthread/pthread/jmutex.cpp voxelands-v1709.0
  
  } // end namespace
  
-diff -rU5 voxelands-v1709.00old/src/jthread/pthread/jthread.cpp voxelands-v1709.00good/src/jthread/pthread/jthread.cpp
+diff -rNU5 voxelands-v1709.00old/src/jthread/pthread/jthread.cpp voxelands-v1709.00good/src/jthread/pthread/jthread.cpp
 --- voxelands-v1709.00old/src/jthread/pthread/jthread.cpp	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/jthread/pthread/jthread.cpp	2024-09-22 18:41:01.709655800 +0200
 @@ -31,155 +31,173 @@
@@ -6066,7 +6066,7 @@ diff -rU5 voxelands-v1709.00old/src/jthread/pthread/jthread.cpp voxelands-v1709.
  
  } // end namespace
  
-diff -rU5 voxelands-v1709.00old/src/keycode.cpp voxelands-v1709.00good/src/keycode.cpp
+diff -rNU5 voxelands-v1709.00old/src/keycode.cpp voxelands-v1709.00good/src/keycode.cpp
 --- voxelands-v1709.00old/src/keycode.cpp	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/keycode.cpp	2024-09-22 18:41:01.709655800 +0200
 @@ -500,11 +500,11 @@
@@ -6082,7 +6082,7 @@ diff -rU5 voxelands-v1709.00old/src/keycode.cpp voxelands-v1709.00good/src/keyco
  	if (g_key_setting_cache[code])
  		return *g_key_setting_cache[code];
  
-diff -rU5 voxelands-v1709.00old/src/log.c voxelands-v1709.00good/src/log.c
+diff -rNU5 voxelands-v1709.00old/src/log.c voxelands-v1709.00good/src/log.c
 --- voxelands-v1709.00old/src/log.c	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/log.c	2024-09-22 18:41:01.709655800 +0200
 @@ -43,11 +43,11 @@
@@ -6173,7 +6173,7 @@ diff -rU5 voxelands-v1709.00old/src/log.c voxelands-v1709.00good/src/log.c
  	va_list ap;
  
  	if (!fmt)
-diff -rU5 voxelands-v1709.00old/src/log.cpp voxelands-v1709.00good/src/log.cpp
+diff -rNU5 voxelands-v1709.00old/src/log.cpp voxelands-v1709.00good/src/log.cpp
 --- voxelands-v1709.00old/src/log.cpp	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/log.cpp	2024-09-22 18:41:01.709655800 +0200
 @@ -29,10 +29,12 @@
@@ -6264,7 +6264,7 @@ diff -rU5 voxelands-v1709.00old/src/log.cpp voxelands-v1709.00good/src/log.cpp
  Logbuf infobuf(LMT_INFO);
  Logbuf verbosebuf(LMT_VERBOSE);
  std::ostream errorstream(&errorbuf);
-diff -rU5 voxelands-v1709.00old/src/log.h voxelands-v1709.00good/src/log.h
+diff -rNU5 voxelands-v1709.00old/src/log.h voxelands-v1709.00good/src/log.h
 --- voxelands-v1709.00old/src/log.h	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/log.h	2024-09-22 18:41:01.709655800 +0200
 @@ -25,10 +25,11 @@
@@ -6315,7 +6315,7 @@ diff -rU5 voxelands-v1709.00old/src/log.h voxelands-v1709.00good/src/log.h
  
  #endif
  
-diff -rU5 voxelands-v1709.00old/src/main.cpp voxelands-v1709.00good/src/main.cpp
+diff -rNU5 voxelands-v1709.00old/src/main.cpp voxelands-v1709.00good/src/main.cpp
 --- voxelands-v1709.00old/src/main.cpp	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/main.cpp	2024-09-22 18:41:01.710655801 +0200
 @@ -132,10 +132,11 @@
@@ -6499,7 +6499,7 @@ diff -rU5 voxelands-v1709.00old/src/main.cpp voxelands-v1709.00good/src/main.cpp
  						the_game(
  							kill,
  							input,
-diff -rU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
+diff -rNU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
 --- voxelands-v1709.00old/src/map.cpp	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/map.cpp	2024-10-27 18:00:49.329292131 +0100
 @@ -68,27 +68,33 @@
@@ -10163,7 +10163,7 @@ diff -rU5 voxelands-v1709.00old/src/map.cpp voxelands-v1709.00good/src/map.cpp
  }
  
  //END
-diff -rU5 voxelands-v1709.00old/src/map.h voxelands-v1709.00good/src/map.h
+diff -rNU5 voxelands-v1709.00old/src/map.h voxelands-v1709.00good/src/map.h
 --- voxelands-v1709.00old/src/map.h	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/map.h	2024-10-27 15:35:49.792238926 +0100
 @@ -102,11 +102,11 @@
@@ -10404,7 +10404,7 @@ diff -rU5 voxelands-v1709.00old/src/map.h voxelands-v1709.00good/src/map.h
  };
  
  #endif
-diff -rU5 voxelands-v1709.00old/src/mapblock.cpp voxelands-v1709.00good/src/mapblock.cpp
+diff -rNU5 voxelands-v1709.00old/src/mapblock.cpp voxelands-v1709.00good/src/mapblock.cpp
 --- voxelands-v1709.00old/src/mapblock.cpp	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/mapblock.cpp	2024-10-27 17:14:58.467515259 +0100
 @@ -29,96 +29,123 @@
@@ -10900,7 +10900,7 @@ diff -rU5 voxelands-v1709.00old/src/mapblock.cpp voxelands-v1709.00good/src/mapb
  		for(s16 x0=0; x0<MAP_BLOCKSIZE; x0++)
  		{
  			v3s16 p(x0,y0,z0);
-diff -rU5 voxelands-v1709.00old/src/mapblock.h voxelands-v1709.00good/src/mapblock.h
+diff -rNU5 voxelands-v1709.00old/src/mapblock.h voxelands-v1709.00good/src/mapblock.h
 --- voxelands-v1709.00old/src/mapblock.h	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/mapblock.h	2024-10-27 17:13:30.285707200 +0100
 @@ -37,12 +37,13 @@
@@ -11205,7 +11205,7 @@ diff -rU5 voxelands-v1709.00old/src/mapblock.h voxelands-v1709.00good/src/mapblo
  /*
  	Returns the position of the block where the node is located
  */
-diff -rU5 voxelands-v1709.00old/src/mapblock_mesh.cpp voxelands-v1709.00good/src/mapblock_mesh.cpp
+diff -rNU5 voxelands-v1709.00old/src/mapblock_mesh.cpp voxelands-v1709.00good/src/mapblock_mesh.cpp
 --- voxelands-v1709.00old/src/mapblock_mesh.cpp	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/mapblock_mesh.cpp	2024-10-27 17:10:49.091060891 +0100
 @@ -37,20 +37,23 @@
@@ -11959,7 +11959,7 @@ diff -rU5 voxelands-v1709.00old/src/mapblock_mesh.cpp voxelands-v1709.00good/src
 +	    m_camera_offset = camera_offset;
  	}
  }
-diff -rU5 voxelands-v1709.00old/src/mapblock_mesh.h voxelands-v1709.00good/src/mapblock_mesh.h
+diff -rNU5 voxelands-v1709.00old/src/mapblock_mesh.h voxelands-v1709.00good/src/mapblock_mesh.h
 --- voxelands-v1709.00old/src/mapblock_mesh.h	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/mapblock_mesh.h	2024-09-22 18:41:01.711655803 +0200
 @@ -94,11 +94,11 @@
@@ -12032,7 +12032,7 @@ diff -rU5 voxelands-v1709.00old/src/mapblock_mesh.h voxelands-v1709.00good/src/m
  	std::vector<MeshData> m_fardata;
  
  	std::map<u32, AnimationData> m_animation_data;
-diff -rU5 voxelands-v1709.00old/src/mapnode.cpp voxelands-v1709.00good/src/mapnode.cpp
+diff -rNU5 voxelands-v1709.00old/src/mapnode.cpp voxelands-v1709.00good/src/mapnode.cpp
 --- voxelands-v1709.00old/src/mapnode.cpp	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/mapnode.cpp	2024-09-22 18:41:01.712655805 +0200
 @@ -44,40 +44,48 @@
@@ -12704,7 +12704,7 @@ diff -rU5 voxelands-v1709.00old/src/mapnode.cpp voxelands-v1709.00good/src/mapno
 -	return (ln<<4)|ld;
 +	return (ln<<4) | ld;
  }
-diff -rU5 voxelands-v1709.00old/src/mapnode.h voxelands-v1709.00good/src/mapnode.h
+diff -rNU5 voxelands-v1709.00old/src/mapnode.h voxelands-v1709.00good/src/mapnode.h
 --- voxelands-v1709.00old/src/mapnode.h	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/mapnode.h	2024-09-22 18:41:01.712655805 +0200
 @@ -277,17 +277,16 @@
@@ -12919,7 +12919,7 @@ diff -rU5 voxelands-v1709.00old/src/mapnode.h voxelands-v1709.00good/src/mapnode
  /*
  	Gets lighting value at face of node
  
-diff -rU5 voxelands-v1709.00old/src/mapsector.cpp voxelands-v1709.00good/src/mapsector.cpp
+diff -rNU5 voxelands-v1709.00old/src/mapsector.cpp voxelands-v1709.00good/src/mapsector.cpp
 --- voxelands-v1709.00old/src/mapsector.cpp	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/mapsector.cpp	2024-09-22 18:41:01.712655805 +0200
 @@ -27,14 +27,16 @@
@@ -13054,7 +13054,7 @@ diff -rU5 voxelands-v1709.00old/src/mapsector.cpp voxelands-v1709.00good/src/map
  		dstream<<"WARNING: deSerializing existent sectors not supported "
  				"at the moment, because code hasn't been tested."
  				<<std::endl;
-diff -rU5 voxelands-v1709.00old/src/mapsector.h voxelands-v1709.00good/src/mapsector.h
+diff -rNU5 voxelands-v1709.00old/src/mapsector.h voxelands-v1709.00good/src/mapsector.h
 --- voxelands-v1709.00old/src/mapsector.h	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/mapsector.h	2024-09-22 18:41:01.712655805 +0200
 @@ -41,11 +41,11 @@
@@ -13119,7 +13119,7 @@ diff -rU5 voxelands-v1709.00old/src/mapsector.h voxelands-v1709.00good/src/mapse
  
  #endif
  
-diff -rU5 voxelands-v1709.00old/src/mesh.cpp voxelands-v1709.00good/src/mesh.cpp
+diff -rNU5 voxelands-v1709.00old/src/mesh.cpp voxelands-v1709.00good/src/mesh.cpp
 --- voxelands-v1709.00old/src/mesh.cpp	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/mesh.cpp	2024-09-22 21:30:36.987072124 +0200
 @@ -120,11 +120,12 @@
@@ -13358,7 +13358,7 @@ diff -rU5 voxelands-v1709.00old/src/mesh.cpp voxelands-v1709.00good/src/mesh.cpp
  	meshnode->setMaterialFlag(video::EMF_BILINEAR_FILTER, true);
  
  	scene::ICameraSceneNode* camera = smgr->addCameraSceneNode(0,
-diff -rU5 voxelands-v1709.00old/src/mesh.h voxelands-v1709.00good/src/mesh.h
+diff -rNU5 voxelands-v1709.00old/src/mesh.h voxelands-v1709.00good/src/mesh.h
 --- voxelands-v1709.00old/src/mesh.h	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/mesh.h	2024-09-22 18:41:01.712655805 +0200
 @@ -72,11 +72,11 @@
@@ -13401,7 +13401,7 @@ diff -rU5 voxelands-v1709.00old/src/mesh.h voxelands-v1709.00good/src/mesh.h
  	scene::IMesh* m_cubemesh;
  	bool m_is_cube;
  	u8 m_light;
-diff -rU5 voxelands-v1709.00old/src/modalMenu.h voxelands-v1709.00good/src/modalMenu.h
+diff -rNU5 voxelands-v1709.00old/src/modalMenu.h voxelands-v1709.00good/src/modalMenu.h
 --- voxelands-v1709.00old/src/modalMenu.h	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/modalMenu.h	2024-09-22 18:41:01.712655805 +0200
 @@ -32,10 +32,11 @@
@@ -13416,7 +13416,7 @@ diff -rU5 voxelands-v1709.00old/src/modalMenu.h voxelands-v1709.00good/src/modal
  };
  
  /*
-diff -rU5 voxelands-v1709.00old/src/nvp.c voxelands-v1709.00good/src/nvp.c
+diff -rNU5 voxelands-v1709.00old/src/nvp.c voxelands-v1709.00good/src/nvp.c
 --- voxelands-v1709.00old/src/nvp.c	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/nvp.c	2024-09-22 18:41:01.713655806 +0200
 @@ -55,11 +55,11 @@
@@ -13535,7 +13535,7 @@ diff -rU5 voxelands-v1709.00old/src/nvp.c voxelands-v1709.00good/src/nvp.c
  	char value[512];
  	uint8_t is_str = 0;
  	uint8_t is_value = 0;
-diff -rU5 voxelands-v1709.00old/src/nvp.h voxelands-v1709.00good/src/nvp.h
+diff -rNU5 voxelands-v1709.00old/src/nvp.h voxelands-v1709.00good/src/nvp.h
 --- voxelands-v1709.00old/src/nvp.h	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/nvp.h	2024-09-22 18:41:01.713655806 +0200
 @@ -21,21 +21,21 @@
@@ -13571,7 +13571,7 @@ diff -rU5 voxelands-v1709.00old/src/nvp.h voxelands-v1709.00good/src/nvp.h
  #ifdef __cplusplus
  }
  #endif
-diff -rU5 voxelands-v1709.00old/src/path.c voxelands-v1709.00good/src/path.c
+diff -rNU5 voxelands-v1709.00old/src/path.c voxelands-v1709.00good/src/path.c
 --- voxelands-v1709.00old/src/path.c	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/path.c	2024-09-22 18:41:01.713655806 +0200
 @@ -59,11 +59,11 @@
@@ -13665,7 +13665,7 @@ diff -rU5 voxelands-v1709.00old/src/path.c voxelands-v1709.00good/src/path.c
  	}else{
  		strcpy(rel_path,file);
  	}
-diff -rU5 voxelands-v1709.00old/src/path.h voxelands-v1709.00good/src/path.h
+diff -rNU5 voxelands-v1709.00old/src/path.h voxelands-v1709.00good/src/path.h
 --- voxelands-v1709.00old/src/path.h	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/path.h	2024-09-22 18:41:01.713655806 +0200
 @@ -16,14 +16,14 @@
@@ -13687,7 +13687,7 @@ diff -rU5 voxelands-v1709.00old/src/path.h voxelands-v1709.00good/src/path.h
  int path_remove(char* type, char* path);
  dirlist_t *path_dirlist(char* type, char* path);
  void path_dirlist_free(dirlist_t *l);
-diff -rU5 voxelands-v1709.00old/src/player.cpp voxelands-v1709.00good/src/player.cpp
+diff -rNU5 voxelands-v1709.00old/src/player.cpp voxelands-v1709.00good/src/player.cpp
 --- voxelands-v1709.00old/src/player.cpp	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/player.cpp	2024-09-22 18:41:01.713655806 +0200
 @@ -213,11 +213,11 @@
@@ -13792,7 +13792,7 @@ diff -rU5 voxelands-v1709.00old/src/player.cpp voxelands-v1709.00good/src/player
  #endif
  	}else if (m_energy > 9.8) {
  		m_can_use_energy = true;
-diff -rU5 voxelands-v1709.00old/src/player.h voxelands-v1709.00good/src/player.h
+diff -rNU5 voxelands-v1709.00old/src/player.h voxelands-v1709.00good/src/player.h
 --- voxelands-v1709.00old/src/player.h	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/player.h	2024-09-22 18:41:01.713655806 +0200
 @@ -187,11 +187,11 @@
@@ -13808,7 +13808,7 @@ diff -rU5 voxelands-v1709.00old/src/player.h voxelands-v1709.00good/src/player.h
  		return NULL;
  	}
  	virtual u16 getSelectedItem() {return m_selected_item;}
-diff -rU5 voxelands-v1709.00old/src/profiler.h voxelands-v1709.00good/src/profiler.h
+diff -rNU5 voxelands-v1709.00old/src/profiler.h voxelands-v1709.00good/src/profiler.h
 --- voxelands-v1709.00old/src/profiler.h	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/profiler.h	2024-09-22 18:41:01.713655806 +0200
 @@ -37,11 +37,11 @@
@@ -13824,7 +13824,7 @@ diff -rU5 voxelands-v1709.00old/src/profiler.h voxelands-v1709.00good/src/profil
  	}
  
  	void add(const std::string &name, float value)
-diff -rU5 voxelands-v1709.00old/src/selection_mesh.cpp voxelands-v1709.00good/src/selection_mesh.cpp
+diff -rNU5 voxelands-v1709.00old/src/selection_mesh.cpp voxelands-v1709.00good/src/selection_mesh.cpp
 --- voxelands-v1709.00old/src/selection_mesh.cpp	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/selection_mesh.cpp	2024-10-27 17:11:13.147007855 +0100
 @@ -62,16 +62,18 @@
@@ -13899,7 +13899,7 @@ diff -rU5 voxelands-v1709.00old/src/selection_mesh.cpp voxelands-v1709.00good/sr
  
  	translateMesh(mesh, intToFloat(data->m_blockpos_nodes - o_camera_offset, BS));
  
-diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00good/src/server.cpp
+diff -rNU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00good/src/server.cpp
 --- voxelands-v1709.00old/src/server.cpp	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/server.cpp	2024-10-27 17:58:19.217620913 +0100
 @@ -82,15 +82,16 @@
@@ -15570,7 +15570,7 @@ diff -rU5 voxelands-v1709.00old/src/server.cpp voxelands-v1709.00good/src/server
  		return PRIV_ALL;
  
  	return getPlayerAuthPrivs(playername);
-diff -rU5 voxelands-v1709.00old/src/server.h voxelands-v1709.00good/src/server.h
+diff -rNU5 voxelands-v1709.00old/src/server.h voxelands-v1709.00good/src/server.h
 --- voxelands-v1709.00old/src/server.h	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/server.h	2024-09-22 18:41:01.714655808 +0200
 @@ -57,11 +57,11 @@
@@ -15586,7 +15586,7 @@ diff -rU5 voxelands-v1709.00old/src/server.h voxelands-v1709.00good/src/server.h
  	}
  
  	~BlockEmergeQueue()
-diff -rU5 voxelands-v1709.00old/src/servermain.cpp voxelands-v1709.00good/src/servermain.cpp
+diff -rNU5 voxelands-v1709.00old/src/servermain.cpp voxelands-v1709.00good/src/servermain.cpp
 --- voxelands-v1709.00old/src/servermain.cpp	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/servermain.cpp	2024-09-22 18:41:01.714655808 +0200
 @@ -47,11 +47,11 @@
@@ -15618,7 +15618,7 @@ diff -rU5 voxelands-v1709.00old/src/servermain.cpp voxelands-v1709.00good/src/se
  	// Set locale. This is for forcing '.' as the decimal point.
  	std::locale::global(std::locale("C"));
  	// This enables printing all characters in bitmap font
-diff -rU5 voxelands-v1709.00old/src/sound.c voxelands-v1709.00good/src/sound.c
+diff -rNU5 voxelands-v1709.00old/src/sound.c voxelands-v1709.00good/src/sound.c
 --- voxelands-v1709.00old/src/sound.c	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/sound.c	2024-09-22 18:41:01.715655809 +0200
 @@ -466,11 +466,11 @@
@@ -15684,7 +15684,7 @@ diff -rU5 voxelands-v1709.00old/src/sound.c voxelands-v1709.00good/src/sound.c
  	if (v < 0)
  		v = 0;
  	if (v > 100)
-diff -rU5 voxelands-v1709.00old/src/sound.h voxelands-v1709.00good/src/sound.h
+diff -rNU5 voxelands-v1709.00old/src/sound.h voxelands-v1709.00good/src/sound.h
 --- voxelands-v1709.00old/src/sound.h	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/sound.h	2024-09-22 18:41:01.715655809 +0200
 @@ -38,20 +38,20 @@
@@ -15713,7 +15713,7 @@ diff -rU5 voxelands-v1709.00old/src/sound.h voxelands-v1709.00good/src/sound.h
  /* defined in sound.c */
  void sound_process(float dtime);
  float sound_volume_master(float v);
-diff -rU5 voxelands-v1709.00old/src/string.c voxelands-v1709.00good/src/string.c
+diff -rNU5 voxelands-v1709.00old/src/string.c voxelands-v1709.00good/src/string.c
 --- voxelands-v1709.00old/src/string.c	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/string.c	2024-09-22 18:41:01.715655809 +0200
 @@ -81,11 +81,11 @@
@@ -15768,7 +15768,7 @@ diff -rU5 voxelands-v1709.00old/src/string.c voxelands-v1709.00good/src/string.c
  	if (!b)
  		return 1;
  	b++;
-diff -rU5 voxelands-v1709.00old/src/tile.cpp voxelands-v1709.00good/src/tile.cpp
+diff -rNU5 voxelands-v1709.00old/src/tile.cpp voxelands-v1709.00good/src/tile.cpp
 --- voxelands-v1709.00old/src/tile.cpp	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/tile.cpp	2024-09-22 18:41:01.715655809 +0200
 @@ -549,11 +549,11 @@
@@ -15985,7 +15985,7 @@ diff -rU5 voxelands-v1709.00old/src/tile.cpp voxelands-v1709.00good/src/tile.cpp
  					errorstream << "generateImagePart(): baseimg == NULL "
  							<< "for part_of_name=\"" << part_of_name
  							<< "\", cancelling." << std::endl;
-diff -rU5 voxelands-v1709.00old/src/utility.cpp voxelands-v1709.00good/src/utility.cpp
+diff -rNU5 voxelands-v1709.00old/src/utility.cpp voxelands-v1709.00good/src/utility.cpp
 --- voxelands-v1709.00old/src/utility.cpp	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/utility.cpp	2024-09-22 18:58:31.625345819 +0200
 @@ -143,11 +143,11 @@
@@ -16001,7 +16001,7 @@ diff -rU5 voxelands-v1709.00old/src/utility.cpp voxelands-v1709.00good/src/utili
  int myrand(void)
  {
  	next = next * 1103515245 + 12345;
-diff -rU5 voxelands-v1709.00old/src/utility.h voxelands-v1709.00good/src/utility.h
+diff -rNU5 voxelands-v1709.00old/src/utility.h voxelands-v1709.00good/src/utility.h
 --- voxelands-v1709.00old/src/utility.h	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/utility.h	2024-09-23 20:34:09.812338834 +0200
 @@ -40,10 +40,11 @@
@@ -16532,7 +16532,7 @@ diff -rU5 voxelands-v1709.00old/src/utility.h voxelands-v1709.00good/src/utility
  
  /*
  	Splits a list into "pages". For example, the list [1,2,3,4,5] split
-diff -rU5 voxelands-v1709.00old/src/voxel.cpp voxelands-v1709.00good/src/voxel.cpp
+diff -rNU5 voxelands-v1709.00old/src/voxel.cpp voxelands-v1709.00good/src/voxel.cpp
 --- voxelands-v1709.00old/src/voxel.cpp	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/voxel.cpp	2024-09-22 18:41:01.716655811 +0200
 @@ -27,55 +27,48 @@
@@ -17044,7 +17044,7 @@ diff -rU5 voxelands-v1709.00old/src/voxel.cpp voxelands-v1709.00good/src/voxel.c
  #endif
 -
 -//END
-diff -rU5 voxelands-v1709.00old/src/voxel.h voxelands-v1709.00good/src/voxel.h
+diff -rNU5 voxelands-v1709.00old/src/voxel.h voxelands-v1709.00good/src/voxel.h
 --- voxelands-v1709.00old/src/voxel.h	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/voxel.h	2024-09-22 18:41:01.716655811 +0200
 @@ -77,11 +77,11 @@
@@ -17170,7 +17170,7 @@ diff -rU5 voxelands-v1709.00old/src/voxel.h voxelands-v1709.00good/src/voxel.h
  
  #endif
  
-diff -rU5 voxelands-v1709.00old/src/world.c voxelands-v1709.00good/src/world.c
+diff -rNU5 voxelands-v1709.00old/src/world.c voxelands-v1709.00good/src/world.c
 --- voxelands-v1709.00old/src/world.c	2017-09-24 06:59:00.000000000 +0200
 +++ voxelands-v1709.00good/src/world.c	2024-09-22 18:41:01.716655811 +0200
 @@ -21,11 +21,11 @@
@@ -17300,4 +17300,132 @@ diff -rU5 voxelands-v1709.00old/src/world.c voxelands-v1709.00good/src/world.c
  
  	if (!d)
  		return NULL;
-Seulement dans voxelands-v1709.00good/src: xsync.h
+diff -rNU5 voxelands-v1709.00old/src/xsync.h voxelands-v1709.00good/src/xsync.h
+--- voxelands-v1709.00old/src/xsync.h	1970-01-01 01:00:00.000000000 +0100
++++ voxelands-v1709.00good/src/xsync.h	2024-09-23 20:42:50.583361426 +0200
+@@ -0,0 +1,125 @@
++/************************************************************************
++*
++* xsync.h
++* voxelands - 3d voxel world sandbox game
++* Author : Pierre Brochard (pierre.brochard.1982@m4x.org)
++*
++* This program is free software: you can redistribute it and/or modify
++* it under the terms of the GNU General Public License as published by
++* the Free Software Foundation, either version 3 of the License, or
++* (at your option) any later version.
++*
++* This program is distributed in the hope that it will be useful, but
++* WITHOUT ANY WARRANTY; without even the implied warranty of
++* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
++* See the GNU General Public License for more details.
++*
++* You should have received a copy of the GNU General Public License
++* along with this program.  If not, see <http://www.gnu.org/licenses/>
++*
++* License updated from GPLv2 or later to GPLv3 or later by Lisa Milne
++* for Voxelands.
++************************************************************************/
++
++#ifndef XSYNC_HEADER
++#define XSYNC_HEADER
++
++#if defined(__GNUC__) || defined(__clang__)
++#  define XINLINE inline
++#  define XFINLINE inline __attribute__ ((always_inline))
++#elif defined(__BORLANDC__) || defined(_MSC_VER) || defined(__LCC__)
++#  define XINLINE __inline
++#  define XFINLINE __forceinline
++#elif defined(__DMC__) || defined(__POCC__) || defined(__WATCOMC__) || \
++	defined(__SUNPRO_C)
++#  define XINLINE inline
++#  define XFINLINE inline
++#else
++#  define XINLINE inline
++#  define XFINLINE inline
++#endif
++
++#ifndef __I_IREFERENCE_COUNTED_H_INCLUDED__
++# ifdef __GNUC__
++    XFINLINE static int X1SyncGet(volatile int* const pval)
++    {
++	    return __sync_add_and_fetch(pval,0);
++    }
++
++    XFINLINE static int X1SyncInc(volatile int* const pval)
++    {
++	    return __sync_fetch_and_add(pval,1);
++    }
++
++    XFINLINE static int X1SyncDec(volatile int* const pval)
++    {
++	    return __sync_fetch_and_sub(pval,1);
++    }
++# else
++    XFINLINE static int X1SyncGet(volatile int* const pval)
++    {
++	    return *pval;
++    }
++
++    XFINLINE static int X1SyncInc(volatile int* const pval)
++    {
++	    return (*pval)++;
++    }
++
++    XFINLINE static int X1SyncDec(volatile int* const pval)
++    {
++	    return (*pval)--;
++    }
++# endif
++#endif
++
++#ifdef __GNUC__
++    XFINLINE static int X1SyncBReset(volatile int* const pval)
++    {
++	    return __sync_bool_compare_and_swap(pval,1,0);
++    }
++
++    XFINLINE static int X1SyncBSet(volatile int* const pval)
++    {
++	    return __sync_bool_compare_and_swap(pval,0,1);
++    }
++
++    XFINLINE static int X1SyncSet(volatile int* const pval,const int newval)
++    {
++	    int oldval = X1SyncGet(pval);
++	    int oldval2;
++
++	    do {
++		oldval2 = oldval;
++	    } while((oldval = __sync_val_compare_and_swap(pval,oldval,newval)) !=
++			    oldval2);
++	    return oldval;
++    }
++#else
++    XFINLINE static int X1SyncBReset(volatile int* const pval)
++    {
++	    const int old = *pval;
++
++	    *pval = 0;
++	    return old;
++    }
++
++    XFINLINE static int X1SyncBSet(volatile int* const pval)
++    {
++	    const int old = *pval;
++
++	    *pval = 1;
++	    return !old;
++    }
++
++    XFINLINE static int X1SyncSet(volatile int* const pval,const int newval)
++    {
++	    const int oldval = *pval;
++
++	    *pval = newval;
++	    return oldval;
++    }
++#endif
++
++#endif
++
