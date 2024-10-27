@@ -5076,7 +5076,7 @@ diff -rNU5 voxelands-v1709.00old/src/file.h voxelands-v1709.00good/src/file.h
  
 diff -rNU5 voxelands-v1709.00old/src/game.cpp voxelands-v1709.00good/src/game.cpp
 --- voxelands-v1709.00old/src/game.cpp	2017-09-24 06:59:00.000000000 +0200
-+++ voxelands-v1709.00good/src/game.cpp	2024-10-27 17:10:07.606152569 +0100
++++ voxelands-v1709.00good/src/game.cpp	2024-10-27 18:52:51.784084909 +0100
 @@ -749,11 +749,11 @@
  		Create server.
  		SharedPtr will delete it when it goes out of scope.
@@ -5159,19 +5159,21 @@ diff -rNU5 voxelands-v1709.00old/src/game.cpp voxelands-v1709.00good/src/game.cp
  					menu->drop();
  
  					/* Handle visualization */
-@@ -1517,11 +1517,10 @@
+@@ -1517,11 +1517,13 @@
  		camera.step(dtime);
  
  		v3f player_position = player->getPosition();
  		v3f camera_position = camera.getPosition();
  		v3f camera_direction = camera.getDirection();
--		v3f camera_up = camera.getCameraNode()->getUpVector();
++#if USE_AUDIO == 1
+ 		v3f camera_up = camera.getCameraNode()->getUpVector();
++#endif
  		f32 camera_fov = camera.getFovMax();
  		v3s16 camera_offset = camera.getOffset();
  
  #if USE_AUDIO == 1
  		{
-@@ -1756,11 +1755,12 @@
+@@ -1756,11 +1758,12 @@
  							InventoryLocation inventoryloc;
  							inventoryloc.setNodeMeta(nodepos);
  
@@ -5185,7 +5187,7 @@ diff -rNU5 voxelands-v1709.00old/src/game.cpp voxelands-v1709.00good/src/game.cp
  							menu->drop();
  							{
  								std::string sound = content_features(client.getEnv().getMap().getNodeNoEx(nodepos).getContent()).sound_access;
-@@ -1781,11 +1781,13 @@
+@@ -1781,11 +1784,13 @@
  									InventoryLocation inventoryloc;
  									inventoryloc.setNodeMeta(nodepos);
  
@@ -5200,7 +5202,7 @@ diff -rNU5 voxelands-v1709.00old/src/game.cpp voxelands-v1709.00good/src/game.cp
  									menu->drop();
  									{
  										std::string sound = content_features(nn.getContent()).sound_access;
-@@ -1850,13 +1852,16 @@
+@@ -1850,13 +1855,16 @@
  		bool sunlight_seen = false;
  		uint8_t biome = BIOME_UNKNOWN;
  		{
@@ -5219,7 +5221,7 @@ diff -rNU5 voxelands-v1709.00old/src/game.cpp voxelands-v1709.00good/src/game.cp
  			direct_brightness = time_brightness;
  			sunlight_seen = true;
  		}else{
-@@ -2264,14 +2269,18 @@
+@@ -2264,14 +2272,18 @@
  						spos = selected_node_pos;
  					}else{
  						v3f pp = client.getLocalPlayer()->getPosition();
