@@ -8,8 +8,8 @@ It does this by parsing the web-page at
 https://...
 and comparing with the brave version currently installed.
 
-Brave is downloaded directly from Google and converted to txz
-using the standard rpm2txz command.
+Brave is downloaded directly from Brave github.com download area and converted
+to txz using the standard rpm2txz command.
 
 You can run this script manually or automatically with the
 provided cron.hourly script.
@@ -19,7 +19,7 @@ otherwise you can force the variable to USERNAME=’your username’
 In order to avoid excessive hits on whatismybrowser.com actual
 checks are limited to "once a day", but you can bypass this with the
 arguments "install" or "upgrade". These allow the user to force a
-download from Google and perforam an install or an upgrade,
+download from github.com and perforam an install or an upgrade,
 if one is required.
 Normally it is asked if you want to install the new version, but
 providing the argument "silent" will just update with no
@@ -30,7 +30,7 @@ If you don't have yet Brave installed you can do so by
 simply by running:
 /opt/brave-browser-the-latest/brave-browser-the-latest.py install
 
-At any time you can force a download from Google site and upgrade
+At any time you can force a download from Brave github site and upgrade
 without any pop-up window with:
 /opt/brave-browser-the-latest/brave-browser-the-latest.py silent upgrade
 
