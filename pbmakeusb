@@ -265,7 +265,7 @@ else
 fi
 
 sleep 3
-MYTDEVNAME=$(/sbin/fdisk -l 2> /dev/null| tail -12 | grep ' /dev/[a-z]'|\
+MYTDEVNAME=$(/sbin/fdisk -l 2> /dev/null| grep ' /dev/[a-z]' | tail -1 |\
 	sed 's@^.*\(/dev/[a-z]*\).*$@\1@')
 MYDEVNAME=
 for i in $MYTDEVNAME ;do
