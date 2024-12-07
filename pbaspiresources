@@ -151,12 +151,10 @@ fi
     
     # Repackaging of binary versions.
     for i in opera signal-desktop zoom-linux telegram-bin vivaldi \
-		   brave-browser ;do
+		   brave-browser google-chrome-the-latest \
+		   brave-brower-the-latest ;do
 	xgetsbosrc "$i" $RARCH
     done
-
-    xlocalsrcpac google-chrome-the-latest ""
-    xlocalsrcpac brave-brower-the-latest ""
 
     # Tesseract
     [ ! -d tesseract ] && mkdir tesseract
