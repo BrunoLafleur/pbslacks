@@ -320,7 +320,8 @@ if [ $ISPAC4 -eq 1 ] ;then
 
     # Repackaging of binary versions.
     for i in signal-desktop zoom-linux opera vivaldi brave-browser \
-			    google-chrome-the-latest telegram-bin ;do
+			    google-chrome-the-latest brave-browser-the-latest \
+			    telegram-bin ;do
 	xmakepac packages4 $i
     done
     xhookpac4
