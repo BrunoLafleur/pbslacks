@@ -145,7 +145,8 @@ fi
     xgetsrc opencv "$PATHOPENCV"
     xgetsrc opencv "$PATHOPENCVBIS"
     
-    for i in exiftool unrar xcftools kaffeine gradle audiveris vokoscreen ;do
+    for i in exiftool unrar xcftools kaffeine gradle audiveris vokoscreen \
+		      rox-filer ;do
 	xgetsbosrc "$i"
     done
     

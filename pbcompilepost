@@ -308,7 +308,7 @@ if [ $ISPAC4 -eq 1 ] ;then
     [ $? -ne 0 ] && exit 1
     
     for i in exiftool unrar xcftools xrdp xorgxrdp SFML fbida kaffeine eigen3 \
-		      opencv gradle vokoscreen audiveris ;do
+		      opencv gradle vokoscreen audiveris rox-filer ;do
 	xmakepac packages4 $i
     done
 
