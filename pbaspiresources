@@ -153,7 +153,8 @@ fi
     # Repackaging of binary versions.
     for i in opera signal-desktop zoom-linux telegram-bin vivaldi \
 		   brave-browser google-chrome-the-latest \
-		   brave-brower-the-latest ;do
+		   brave-brower-the-latest firefox-esr-the-latest \
+		   firefox-standard-the-latest ;do
 	xgetsbosrc "$i" $RARCH
     done
 
