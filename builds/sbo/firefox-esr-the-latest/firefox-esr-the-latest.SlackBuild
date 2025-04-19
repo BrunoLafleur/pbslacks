@@ -83,9 +83,6 @@ mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 cp README LICENSE INSTALL $PKG/usr/doc/$PRGNAM-$VERSION
 
-mkdir -p $PKG/usr/bin
-cp $CWD/firefox $PKG/usr/bin
-
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 cat $CWD/doinst.sh > $PKG/install/doinst.sh
