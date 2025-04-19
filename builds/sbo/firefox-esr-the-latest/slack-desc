@@ -1,0 +1,11 @@
+mozilla-firefox-esr: mozilla-firefox-esr (Mozilla Firefox Web browser Esr)
+mozilla-firefox-esr:
+mozilla-firefox-esr: Firefox is a free and open-source web browser developed by the Mozilla
+mozilla-firefox-esr: Foundation and its subsidiary, the Mozilla Corporation. It has lots of
+mozilla-firefox-esr: great features including popup blocking, tabbed browsing, integrated
+mozilla-firefox-esr: search, improved privacy features (such as enhanced tracking
+mozilla-firefox-esr: protection), and more.
+mozilla-firefox-esr:
+mozilla-firefox-esr: Homepage: https://www.mozilla.org/firefox
+mozilla-firefox-esr: This package contains the Esr Release version of firefox
+mozilla-firefox-esr:
