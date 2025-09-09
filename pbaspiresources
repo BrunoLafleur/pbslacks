@@ -125,7 +125,7 @@ fi
     xgetsrc db53 "$PATHDB53"
     xgetsrc db53 "$PATHDB53BIS"
     
-    for i in pyicu goocanvas2 msgpack-python cffi pycparser ;do
+    for i in pyicu goocanvas2 msgpack-python cffi pycparser rclone ;do
 	xgetsbosrc "$i"
     done
 
