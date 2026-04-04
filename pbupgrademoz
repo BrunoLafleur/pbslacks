@@ -29,8 +29,11 @@ MYPWD=$(pwd)
 HOMESLACK="$MYPWD"
 HOMEMOZ="$XLIBDIR"
 
-FFVERSION=$(ls "$HOMESLACK/packages/Mozilla/firefox-"*"esr.tar.bz2" 2> /dev/null)
-THVERSION=$(ls "$HOMESLACK/packages/Mozilla/thunderbird-"*".tar.bz2" 2> /dev/null)
+FFVERSION=$(ls "$HOMESLACK/packages/Mozilla/firefox-"*"esr.tar."* 2> /dev/null|tail -1)
+THVERSION=$(ls "$HOMESLACK/packages/Mozilla/thunderbird-"*".tar."* 2> /dev/null|tail -1)
+
+echo "Version Firefox = $FFVERSION"
+echo "Version Thunderbird = $THVERSION"
 
 installmoz () {
     PROD="$1"
@@ -39,7 +42,7 @@ installmoz () {
 	rm -rf $HOMEMOZ/${PROD}.en
 	mv $HOMEMOZ/$PROD $HOMEMOZ/${PROD}.en
 	cd $HOMEMOZ
-	tar xfj "$VERSION"
+	tar xf "$VERSION"
     fi
 }
 

@@ -50,8 +50,10 @@ done
 	cd packages/Mozilla
 	xgeturl "$XFIREFOX"
 	xpurgepac 'firefox-' tar.bz2
+	xpurgepac 'firefox-' tar.xz
 
 	xgeturl "$XTHUNDERBIRD"
 	xpurgepac 'thunderbird-' tar.bz2
+	xpurgepac 'thunderbird-' tar.xz
     fi
 )

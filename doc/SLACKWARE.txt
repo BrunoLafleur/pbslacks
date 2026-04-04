@@ -54,14 +54,26 @@ Troisième étape2019-07-05T14:19:32Zadmin
 
 Il faut ensuite préparer Windows pour pouvoir changer RAID en AHCI dans le BIOS de la machine. Ensuite il faut :
 
+    Attention sous Windows 11, par defaut seul le code est actif.
+    Dans le panneau de configuration de Windows autoriser aussi le mot de passe
+      avant de redemarrer en mode sans echec.
+
     Revenir dans une console en mode administrateur.
-    Taper : bcdedit /set {current} safeboot minimal
+    Taper pour le mode sans echec au prochain demarrage :
+      bcdedit /set {current} safeboot minimal
+    
     Redémarrer l'ordinateur et entrer dans le BIOS (en tapant F12 au tout début).
     Chercher le menu SATA et changer Raid en AHCI.
-    Sauvegarder et sortir du BIOS (Window redémarre en mode sans échec et demande le mot de passe au lieu du code obtenu lors de l'installation de Windows).
-    Recherche à nouveau une console en mode administrateur (si le champ recherche du menu démarrer ne marche pas, prendre celui du gestionnaire du fichier)
+    Sauvegarder et sortir du BIOS (Window redémarre en mode sans échec et
+      demande le mot de passe au lieu du code obtenu lors de l'installation de
+      Windows).
+    
+    Recherche à nouveau une console en mode administrateur (si le champ
+      recherche du menu démarrer ne marche pas, prendre celui du gestionnaire
+      du fichier)
     Tapez : bcdedit /deletevalue {current} safeboot
     Rédémarrer sous Windows et il devrait fonctionner en AHCI.
+    
     Pour être sur de ne pas être en mode hibernation en arrêtant Windows (qui ne relira pas les nouvelles partitions du ou des disques durs ou SSD si on les modifie avec un partitionneur Linux et les abimera - ci-dessus on a utilisé le partitionneur Windows pour faire de la place ce qui évite aussi ce problème), recherchez à nouveau une console en mode administrateur et tapez :
     powercfg /h off
     Arrêtez la machine

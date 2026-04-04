@@ -12,6 +12,10 @@ echo car non necessaire en mode SATA RAID.
 echo Vous aurez besoin du mot de passe apres redemarrage en mode sans echec.
 echo Le code a 4 chiffres propose par Microsoft lors de l'installation de Windows
 echo ne sera pas actif. Verifiez que vous avez ce mot de passe avant de redemarrer.
+echo =================== Attention ================================
+echo Sous Windows 11, par defaut seul le code est actif.
+echo Dans le panneau de configuration de Windows autoriser aussi le mot de passe
+echo avant de redemarrer en mode sans echec.
 echo -------------------------------------------------------------------------
 
 bcdedit /set {current} safeboot minimal
